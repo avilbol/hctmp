@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"  
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="../../facelets/templates/portalLayout.xhtml">
+
+    <ui:param name="showBanner" value="#{false}"/>
+    <ui:param name="submenu" value="#{false}"/>
+
+    <!-- Property Details -->
+    <ui:define name="portalSection">
+        <div class="property-details spaceRight">
+            <h3>#{propertyDetailsBean.property.title}</h3>
+
+            <p:galleria styleClass="galleria" value="#{propertyDetailsBean.property.imageList}" var="image" showCaption="true" 
+                        panelHeight="270">
+                <p:graphicImage value="#{constants.imagesPath}/property/#{image.file.fileName}.#{image.file.extension}"
+                                title="#{image.file.originalFileName}" width="100% !important" height="270px"/>
+            </p:galleria>
+        </div>
+
+        <div class="property-details spaceLeft">
+            <h3>#{labelBundle['Property.contacts']}</h3>
+
+            <br/>
+
+            <p:panelGrid columns="4">
+                <p:outputLabel value="#{labelBundle['Property.name']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.user.firstName} 
+                               #{propertyDetailsBean.propertyEnvirontment.user.middleName} 
+                               #{propertyDetailsBean.propertyEnvirontment.user.lastName}" />
+
+                <p:outputLabel value="#{labelBundle['Property.company']}" styleClass="lblTitle" />
+                <p:outputLabel value="Pendiente empresa"  />
+
+                <p:outputLabel value="#{labelBundle['Property.languages']}" styleClass="lblTitle" />
+                <p:outputLabel value="Pendiente idiomas"  />
+
+                <p:outputLabel value="#{labelBundle['Property.email']}" styleClass="lblTitle" />
+                <p:outputLabel value="Pendiente correo electrónico"  />
+
+                <p:outputLabel value="#{labelBundle['Property.phone']}" styleClass="lblTitle" />
+                <p:outputLabel value="Pendiente teléfono"  />
+            </p:panelGrid>
+        </div>
+
+        <div class="property-details spaceRight">
+            <h2>#{labelBundle['Property.property']}</h2>
+            <h3>#{labelBundle['Property.description']}</h3>
+            <p:outputLabel value="#{propertyDetailsBean.property.title}" />
+
+            <br/>
+
+            <p:panelGrid columns="4">
+                <p:outputLabel value="#{labelBundle['Property.price']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.price}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.rent-buy']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.serviceType.name}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.m2house']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.squareMetersLiving}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.m2plot']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.squareMetersProperty}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.room']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.roomsCount}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.forniture']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.fornitureType.name}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.property']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.propertyType.name}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.parking']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.parkingSpotsCount}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.bathrooms']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.bathrooms}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.floors']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.floorsCount}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.ages']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.yearOfConstruction}"  />
+
+                <p:outputLabel value="#{labelBundle['Property.montlyFees']}" styleClass="lblTitle" />
+                <p:outputLabel value="#{propertyDetailsBean.property.montlyFees}"  />
+            </p:panelGrid>
+        </div>
+
+        <div class="property-details spaceLeft environtment">
+            <p:accordionPanel>
+                <p:tab title="#{labelBundle['Property.environment']}">
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="#{labelBundle['Property.topography']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyTopography}"  />
+
+                        <p:outputLabel value="#{labelBundle['Property.daytimeTemperature']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.temperature3.name}° - 
+                                       #{propertyDetailsBean.propertyEnvirontment.temperature1.name}°"
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.rainPeriod']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.rainPeriod.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.nightimeTemperature']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.temperature2.name}° - 
+                                       #{propertyDetailsBean.propertyEnvirontment.temperature.name}°"
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.humidity']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.humidity.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.rainIntensity']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.rainIntensity.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.seaLevel']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.seaLevel.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.soil']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.soilType.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.animalAmount']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.animalAmmount.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.fruticulture']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.fructiculture.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.agriculture']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.agriculture.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.flowersAmount']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.flowersAmmount.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.populationDensity']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.populationDensity.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.industry']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.industry.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.averageAge']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.averageAge.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.publicTransport']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.publicTransport}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.location']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.property.location.name}" />
+
+                    </p:panelGrid>
+                </p:tab>
+
+                <p:tab title="#{labelBundle['Property.freeTime']}">
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="Parroquias Pendiente" styleClass="lblTitle" />
+                        <p:outputLabel value="10 - 20"  />
+
+                        <p:outputLabel value="#{labelBundle['Property.restaurants']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.restaurants}"
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.sportsClubs']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange7.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.cinemas']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange6.name}"
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.musicClubs']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange13.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.shopping']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.shopping}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.sport']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.sports}" 
+                                       />
+                    </p:panelGrid>
+                </p:tab>
+
+                <p:tab title="#{labelBundle['Property.health']}">
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="#{labelBundle['Property.hospitals']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange5.name}"  />
+
+                        <p:outputLabel value="#{labelBundle['Property.pharmacies']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange1.name}"
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.doctors']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange4.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.drugstores']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange.name}"
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.specialists']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange3.name}" 
+                                       />
+                    </p:panelGrid>
+                </p:tab>
+
+                <p:tab title="#{labelBundle['Property.family']}">
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="#{labelBundle['Property.playgrounds']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange8.name}"  />
+
+                        <p:outputLabel value="#{labelBundle['Property.neighborCommunity']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.neighborCommunity.name}"
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.kindergartens']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange9.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.schools']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange10.name}"
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.universities']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange11.name}" 
+                                       />
+                    </p:panelGrid>
+                </p:tab>
+
+                <p:tab title="#{labelBundle['Property.security']}">
+                    <p:panelGrid columns="4">
+                        <p:outputLabel value="#{labelBundle['Property.policeStations']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange12.name}"  />
+
+                        <p:outputLabel value="#{labelBundle['Property.theft']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.theftFrequency.name}"
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.military']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.militaryFrequency.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.murders']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.interestPlaceRange2.name}"
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.paramilitaries']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.paramilitaryFrequency.name}" 
+                                       />
+
+                        <p:outputLabel value="#{labelBundle['Property.guerrilla']}" styleClass="lblTitle" />
+                        <p:outputLabel value="#{propertyDetailsBean.propertyEnvirontment.guerrillaFrequency.name}"
+                                       />
+                    </p:panelGrid>
+                </p:tab>
+
+            </p:accordionPanel>
+        </div>
+
+        <div class="property-details environtment">
+            <p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:400px;" />
+        </div>
+
+        <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript" />
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,166 @@
+/* styles for country page and its modules*/
+
+#buy-process-content.container{
+    max-width: 940px;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+#buy-process-content h2{
+    font-size: 34px;
+    text-align: center;
+}
+
+#buy-process-menu-container{
+    width: 360px;
+    display: inline-block;
+    font-size: 12px; 
+    vertical-align: top;
+    position: absolute;
+    margin-top: 30px;
+}
+#buy-process-menu-container .gray-btn{
+    font-size: 16px;
+}
+#buy-process-menu-container .gray-btn:active,
+#buy-process-menu-container .gray-btn:focus{
+    background-color: #FBE644;
+}
+#buy-process-menu-container .buy-process-item{
+    margin-top: 5px;
+}
+#buy-process-menu-container .buy-process-item .ui-commandlink{
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+}
+
+#buy-process-menu-container .buy-process-item7,
+#buy-process-menu-container .buy-process-item8,
+#buy-process-menu-container .buy-process-item9,
+#buy-process-menu-container .buy-process-item10
+{
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+}
+#buy-process-menu-container .buy-process-item7 a,
+#buy-process-menu-container .buy-process-item8 a,
+#buy-process-menu-container .buy-process-item9 a,
+#buy-process-menu-container .buy-process-item10 a
+{
+    height:6em;
+}
+#buy-process-menu-container .buy-process-item8:after{
+    content: " ";
+    display: block;
+    width: 1px;
+    height: 1px;
+}
+
+
+#buy-process-menu-container .in-menu-article{
+    padding: 10px;
+}
+#buying-process-summary p,
+#buy-process-menu-container .in-menu-article p{
+    color: black;
+    font-size: 14px;    
+    text-align: justify;
+    font-weight: normal;
+}
+#article-content{
+    display: inline-block; 
+    margin-top: 30px;
+    width: 100%; 
+    padding-left: 400px;
+    font-size: 16px;
+    vertical-align: top;
+    min-height:  900px;
+}
+
+#buying-process-summary p,
+#article-content p,
+#article-content ul,
+#article-content li{
+    font-size: 16px;
+    color: #27292C;
+    text-align: justify;
+    font-weight: normal;
+    list-style: disc;
+}
+#next-button-section{
+    text-align: center;
+    margin-top: 40px;
+}
+
+#buying-process-detail .buy-process-article h2{
+    font-size: 20px;
+    font-weight: bolder;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+#buying-process-detail .buy-process-article article{
+    margin-bottom: 50px;
+}
+#article-content{
+    margin-bottom: 30px;
+}
+.transfer-money-options-container{
+    display: table;
+    border-spacing: 3px !important;
+}
+.fromAbroad-btn,
+.flyCol-btn{
+    width: 45%;
+    
+    display: table-cell;
+    height: 4em;
+    float: none;
+    white-space: normal;
+    vertical-align: top;
+}
+
+
+
+@media screen and (max-width:1440px){
+
+}
+@media screen and (max-width:1215px) {
+
+}
+@media screen and (max-width:1200px) {
+
+}
+@media screen and (max-width:991px) {
+
+}
+@media screen and (max-width:800px) {
+    #buy-process-menu-container{
+        width: 40%;
+    }
+    #article-content{
+        padding-left: 50%;
+    }
+
+}
+@media screen and (max-width:700px) {
+    #buy-process-menu-container{
+        width: 95%;
+        display: block;
+        position: static;
+    }
+    #buy-process-menu-container a{
+        font-size: 10px;
+    }
+    #article-content{
+        width: 93%;
+        display: block;
+        padding-left: 0px;
+    }
+}
+@media screen and (max-width:635px) {
+
+}
+@media screen and (max-width:450px) {
+
+}
