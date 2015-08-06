@@ -5,17 +5,20 @@
  */
 package com.hallocasa.viewmodel.managed.pages.downloads;
 
+import com.hallocasa.business.dataentities.BlogArticle;
+import com.hallocasa.business.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
+import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
-import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.bean.ManagedBean;
@@ -54,6 +57,11 @@ public class DownloadsPage extends BaseManagedBean {
     private TreeNode root;
     private FileFilter fileFilter;
     private DirectoryFilter directoryFilter;
+    private BlogArticle downloadIntroArticle;
+    
+     /* Dependencies */
+    @EJB
+    private BlogArticleServicesLocal blogArticleServices;
 
     /**
      * Initialize
@@ -69,6 +77,10 @@ public class DownloadsPage extends BaseManagedBean {
                 + WebSession.getCurrentInstance().getCurrentLanguage().name());
         root = new DefaultTreeNode("root", null);
         loadFolderFiles(fileRoot, root);
+        
+        // load downloads introduction article
+        downloadIntroArticle = blogArticleServices
+                .findBlogArticle(BlogArticle.COLOMBIA_BUY_PROCESS_DOWNLOADS_INTRO);
 
     }
 
@@ -137,4 +149,14 @@ public class DownloadsPage extends BaseManagedBean {
         //TODO: file names with special character are not well shown in linux
         return name;
     }
+
+    /**
+     * Getter for downloadIntroArticle
+     *
+     * @return
+     */
+    public BlogArticle getDownloadIntroArticle() {
+        return downloadIntroArticle;
+    }
+
 }

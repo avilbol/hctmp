@@ -24,6 +24,7 @@
 #buy-process-menu-container .gray-btn:active,
 #buy-process-menu-container .gray-btn:focus{
     background-color: #FBE644;
+    color: black;
 }
 #buy-process-menu-container .buy-process-item{
     margin-top: 5px;

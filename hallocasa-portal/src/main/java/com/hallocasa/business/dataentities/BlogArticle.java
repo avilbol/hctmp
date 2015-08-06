@@ -46,6 +46,7 @@ public class BlogArticle implements Serializable {
     public static final int COLOMBIA_BUY_PROCESS_YOU_BUY_FROM_ABROAD = 10;
     public static final int COLOMBIA_BUY_PROCESS_YOU_SIGN = 11;
     public static final int COLOMBIA_BUY_PROCESS_ENTERED_LAND_REGISTRY = 12;
+    public static final int COLOMBIA_BUY_PROCESS_DOWNLOADS_INTRO = 13;
     public static final int COLOMBIA_BUY_PROCESS_SUMMARY = 15;
     public static final int COLOMBIA_BUY_PROCESS_FAQ = 16;
     public static final int COLOMBIA_BUY_PROCESS_DETAIL_INTRO = 17;
