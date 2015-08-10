@@ -1,2 +1,4 @@
-/hallocasa-portal/target/*
+/hallocasa-web/target/*
 /mailchimp-api/target/*
+/hallocasa-ejb/target/*
+/hallocasa-ear/target/*
