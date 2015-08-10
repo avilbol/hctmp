@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <f:view id="view" locale="#{webSession.currentLanguage.locale}">
+        <h:head>
+            <!--Page Title-->
+            <title>#{generalLayout_title eq null ? 'Hallocasa' : generalLayout_title}</title>
+            <!--Meta Tags-->
+            
+            <meta charset="UTF-8"/>
+            <meta name="author" content="HalloCasa"/>
+            <meta name="keywords" content="Real State"/>
+            <meta name="description" content="#{generalLayout_description}"/>
+            <!-- Set Viewport-->
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+            
+            
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/bootstrap.min.css" type="text/css"/>
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/bootstrap-theme.min.css" type="text/css"/>
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/font-awesome.min.css"/>
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/flexslider.css"/>
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/flipboard-icon-styles.css"/>
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/select-theme-default.css"/>
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/owl.carousel.css"/>
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/owl.theme.css"/>
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/style.css" type="text/css"/>
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/theme.css" type="text/css"/>
+            <link rel="icon" type="image/ico" href="#{constants.resourcesPath}/images/icons/favicon.ico"/>
+            <!--[if IE]>
+                            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+                    <![endif]-->
+            <ui:insert name="headSection"/>
+        </h:head>
+        <h:body id='top'>
+            <header>
+                <div id="top-strip">
+                    <div class="container">
+                        <ui:remove>
+                            <ul class="pull-left social-icons" style="display: none;">
+                                <li><a href="https://plus.google.com/b/103558939869378559574/103558939869378559574/about/p/pub" class="fa fa-google-plus"></a></li>
+                                <li><a href="https://twitter.com/hallocasam" class="fa fa-twitter"></a></li>
+                                <li><a href="http://www.pinterest.com/hallocasa/" class="fa fa-pinterest"></a></li>
+                                <li><a href="https://www.linkedin.com/company/hallocasa?trk=company_logo" class="fa fa-linkedin"></a></li>
+                                <li><a href="https://www.facebook.com/hallo.csa?ref=tn_tnmn" class="fa fa-facebook"></a></li>
+                                <ui:remove>
+                                <li><a href="http://hallocasa.wordpress.com/" class="fa fa-wordpress"></a></li>
+                                </ui:remove>
+                                <li><a href="https://www.youtube.com/channel/UC1fgrcMyNZvxRcht7K-W07w?guided_help_flow=3" class="fa fa-youtube"></a></li>
+                            </ul>
+                        </ui:remove>
+                        <div id="login-box" class='pull-right'>
+                            <ui:insert name="menuItemsSection"/>
+                            <ui:remove>
+                                <a href="#" class='fa fa-user'><span>Login</span></a>
+                            </ui:remove>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page content -->
+            <ui:insert name="contentSection"></ui:insert>
+
+            <!-- Footer !-->
+            <ui:insert name="footerSection">
+                <ui:include src="../sections/commons/footer.xhtml"/>
+            </ui:insert>
+
+
+            <!-- Javascript -->
+            <ui:remove>
+                <script type="text/javascript" src="#{constants.resourcesPath}/js/jquery-2.1.0.min.js"></script>
+            </ui:remove>
+            <script type="text/javascript" src="#{constants.resourcesPath}/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="#{constants.resourcesPath}/js/jquery.flexslider-min.js"></script>
+            <script type="text/javascript" src="#{constants.resourcesPath}/js/select.min.js"></script>
+            <script type="text/javascript" src="#{constants.resourcesPath}/js/owl.carousel.min.js"></script>
+            <script type="text/javascript" src="#{constants.resourcesPath}/js/script.js"></script>
+            <script type="text/javascript" src="#{constants.resourcesPath}/js/utils.js"></script>
+            
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-64747832-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+        </h:body>
+    </f:view>
+</html>
+

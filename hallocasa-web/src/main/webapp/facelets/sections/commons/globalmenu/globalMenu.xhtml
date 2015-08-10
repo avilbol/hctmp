@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    
+    <ui:remove>
+    <a href="#" class="fa"><span>#{viewBundle['Label.Agent']}</span></a>
+    <a href="#{constants.contextName}/pages/properties/browse.xhtml"
+       class="fa"><span>#{viewBundle['Label.Property']}</span></a>
+    <a href="#{constants.contextName}/pages/country/country.xhtml?country=colombia"
+       class="fa"><span>#{viewBundle['Label.Colombia']}</span></a>
+    <a href="#{constants.getAbsolutePageUrl('BLOG_INDEX')}"
+       class="fa" style="padding: 5px; padding-left: 0px;">
+        <span>#{viewBundle['Common.Label.Blog']}</span>
+    </a>
+    </ui:remove>
+    
+    
+    
+    <a href="https://qtrial2014az1.az1.qualtrics.com/SE/?SID=SV_ebnBo4onZ6fv8pL"
+       class="fa" style="padding: 5px; padding-left: 0px;"
+       target="_blank">
+        <span>#{viewBundle['Common.Label.GiveFeedback']}</span>
+    </a>
+    <a href="#{constants.getAbsolutePageUrl('BLOG_INDEX')}"
+       class="fa" style="padding: 5px; padding-left: 0px;">
+        <span>#{viewBundle['Common.Label.Blog']}</span>
+    </a>
+    <a href="#{constants.getAbsolutePageUrl('LINKS')}"
+       class="fa" style="padding: 5px; padding-left: 0px;">
+        <span>#{viewBundle['Common.Label.Links']}</span>
+    </a>
+    <a href="#{constants.getAbsolutePageUrl('BUYING_PROCESS')}"
+       class="fa" style="padding: 5px; padding-left: 0px;">
+        <span>#{viewBundle['Common.Label.BuyingProcess']}</span>
+    </a>
+    <h:form class="language-form">
+        <p:commandLink  type="button" id="languageMenuTrigger"
+                        styleClass="fa" class="language-link">
+            <span>#{webSession.currentLanguage.languageName}</span>
+        </p:commandLink>
+
+        <p:menu overlay="true" my="left top" trigger="languageMenuTrigger"
+                widgetVar="languageMenuWv" at="left bottom" styleClass="language-menu" >
+            <p:submenu label="Language Selection">
+                <p:menuitem value="English"
+                            immediate="true"
+                            onclick="window.location.href = updateQueryStringParameter(window.location.href, 'lang', 'en');"/>
+                <p:menuitem value="Español"
+                            immediate="true"
+                            onclick="window.location.href = updateQueryStringParameter(window.location.href, 'lang', 'es');"/>
+                <p:menuitem value="Deutsch"
+                            immediate="true"
+                            onclick="window.location.href = updateQueryStringParameter(window.location.href, 'lang', 'de');"/>
+            </p:submenu>
+        </p:menu>
+    </h:form>
+    <a href="#" onclick="PF('publishPropertyRegister').show(); PF('publishPropertyRegister').initPosition();"
+       class="yellow-btn publish-btn">
+        <span>#{viewBundle['Register.Label.Publish']}</span>
+    </a>
+
+</ui:composition>
+
