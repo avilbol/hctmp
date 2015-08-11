@@ -2,3 +2,4 @@
 /mailchimp-api/target/*
 /hallocasa-ejb/target/*
 /hallocasa-ear/target/*
+*/nb-configuration.xml

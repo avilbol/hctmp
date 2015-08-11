@@ -37,7 +37,7 @@
                     </modules>
                     <earSourceDirectory>EarContent</earSourceDirectory>
                     <displayName>Hallocasa</displayName>
-                    <generateApplicationXml>false</generateApplicationXml>
+                    <generateApplicationXml>true</generateApplicationXml>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                 </configuration>
             </plugin>
