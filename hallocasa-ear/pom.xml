@@ -28,6 +28,11 @@
                             <artifactId>hallocasa-ejb</artifactId>
                             <bundleFileName>HallocasaEjb.jar</bundleFileName>
                         </ejbModule>
+                        <jarModule>
+                            <groupId>com.hallocasa</groupId>
+                            <artifactId>hallocasa-commons</artifactId>
+                            <bundleFileName>hallocasa-commons.jar</bundleFileName>
+                        </jarModule>
                         <webModule>
                             <groupId>com.hallocasa</groupId>
                             <artifactId>hallocasa-web</artifactId>
@@ -62,6 +67,12 @@
         <dependency>
             <groupId>com.hallocasa</groupId>
             <artifactId>hallocasa-web</artifactId>
+            <version>${hallocasa.portal.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>com.hallocasa</groupId>
+            <artifactId>hallocasa-commons</artifactId>
             <version>${hallocasa.portal.version}</version>
             <type>war</type>
         </dependency>

@@ -1,9 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>hallocasa-ejb</artifactId>
-    <name>Hallocasa Ejb Project</name>
-    <packaging>ejb</packaging>
+    <artifactId>hallocasa-commons</artifactId>
 
     <build>
         <resources>
@@ -18,26 +16,13 @@
                 <filtering>true</filtering>
             </testResource>
         </testResources>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin}</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-ejb-plugin</artifactId>
-                <version>${maven.ejb.plugin}</version>
-                <configuration>
-                    <ejbVersion>${ejb.version}</ejbVersion>
-                    <generateClient>false</generateClient>
-                    <!-- <clientIncludes> <clientInclude>com/mobiera/social/services/remote/**</clientInclude> 
-                    </clientIncludes> -->
                 </configuration>
             </plugin>
             <plugin>
@@ -52,19 +37,15 @@
     </build>
 
     <dependencies>
-        <!-- EL -->
+
+        <!-- Java EE -->
         <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>el-impl</artifactId>
-            <version>${el.version}</version>
-            <scope>test</scope>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.validation.version}</version>
+            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.hallocasa</groupId>
-            <artifactId>hallocasa-commons</artifactId>
-            <version>${hallocasa.portal.version}</version>
-            <type>jar</type>
-        </dependency>
+
     </dependencies>
 
     <parent>
