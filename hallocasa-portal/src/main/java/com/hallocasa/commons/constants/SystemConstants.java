@@ -18,6 +18,7 @@ public class SystemConstants {
     public static final String MAIL_CHIMP_API_KEY = "6ee4908f232f1f3f7b2d8d8319a8cb90-us10";
     public static final String MAIL_CHIMP_TEST1_LIST_ID = "645de5e37b"; // test1 list;
     public static final String DOWNLOADS_PATH = "/home/hallocasa/webcontent/downloads/";
+    public static final String WEBCONTENT_IMAGES_PATH = "/home/hallocasa/webcontent/images/";
     public static final String IMAGES_PATH = APP_CONTEXT + "/resources/images";
     public static final String RESOURCES_PATH = APP_CONTEXT + "/resources";
     
