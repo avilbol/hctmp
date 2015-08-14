@@ -1,5 +1,6 @@
 package com.hallocasa.services.messaging.impl;
 
+import com.hallocasa.services.ServicesBase;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.services.messaging.local.MailServicesLocal;
 import com.mobiera.hallocasa.commons.validation.StandardPropertyValidator;
@@ -31,12 +32,13 @@ public class MailServices extends ServicesBase implements MailServicesLocal {
             .getName());
 
     /* dependencies */
-    @Resource(name = "java:jboss/mail/Social")
+    @Resource(name = "mail/HallocasaSession")
     private Session mailSession;
 
     /* instance variables */
 
     /* constructors */
+    
     /**
      * Default Constructor
      */
@@ -114,7 +116,7 @@ public class MailServices extends ServicesBase implements MailServicesLocal {
         try {
             Message message = new MimeMessage(mailSession);
             message.setRecipients(Message.RecipientType.TO, InternetAddress
-                    .parse(addresses.toString()));
+                    .parse(addresses));
             message.setSubject(subject);
             message.setContent(body, "text/html");
 

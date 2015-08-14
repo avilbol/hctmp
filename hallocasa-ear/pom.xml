@@ -74,7 +74,7 @@
             <groupId>com.hallocasa</groupId>
             <artifactId>hallocasa-commons</artifactId>
             <version>${hallocasa.portal.version}</version>
-            <type>war</type>
+            <type>jar</type>
         </dependency>
     </dependencies>
 	

@@ -34,11 +34,10 @@ import javax.persistence.criteria.CriteriaQuery;
 @Stateless
 public class PersistenceServices implements PersistenceServicesLocal {
 
-    @PersistenceContext(unitName = "SocialPersistenceUnit")
+    @PersistenceContext(unitName = "RealStateDatabasePU")
     private EntityManager em;
     @SuppressWarnings("unused")
     private static final Logger LOG = Logger.getLogger(PersistenceServices.class.getName());
-    private long currentModifierAccountId;
 
     /* Constructor */
     /**

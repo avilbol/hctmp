@@ -21,19 +21,19 @@ public interface MailServicesLocal {
      * Key of the password recovery email content in the properties resource
      * file
      */
-    public static final String PASSWORD_RECOVERY_KEY = "com.mobiera.social.mail.templates.PasswordRecovery";
+    public static final String PASSWORD_RECOVERY_KEY = "com.hallocasa.mail.templates.PasswordRecovery";
     /**
      * Key of the user activation mail content in the properties resource
      */
-    public static final String USER_ACTIVATION_KEY = "com.mobiera.social.mail.templates.UserActivation";
+    public static final String USER_ACTIVATION_KEY = "com.hallocasa.mail.templates.UserActivation";
     /**
      * Key of the restoration password mail content in the properties resource
      */
-    public static final String RESET_PASSWORD_KEY = "com.mobiera.social.mail.templates.ResetPassword";
+    public static final String RESET_PASSWORD_KEY = "com.hallocasa.mail.templates.ResetPassword";
     /**
      * Key of the assignment password mail content in the properties resource
      */
-    public static final String ASSIGN_PASSWORD_KEY = "com.mobiera.social.mail.templates.AssignPassword";
+    public static final String ASSIGN_PASSWORD_KEY = "com.hallocasa.mail.templates.AssignPassword";
 
     /**
      *
