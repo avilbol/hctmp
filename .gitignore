@@ -2,5 +2,5 @@
 /mailchimp-api/target/*
 /hallocasa-ejb/target/*
 /hallocasa-ear/target/*
-/rem-hallocasa-commons/target/*
+/hallocasa-commons/target/*
 */nb-configuration.xml
