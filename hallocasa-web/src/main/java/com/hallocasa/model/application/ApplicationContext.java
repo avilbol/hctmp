@@ -11,9 +11,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import com.hallocasa.business.services.interfaces.FileServicesInterface;
-import com.hallocasa.business.services.interfaces.ImageServicesInterface;
-import com.hallocasa.business.services.interfaces.PersistenceServicesInterface;
+import com.hallocasa.services.interfaces.FileServicesInterface;
+import com.hallocasa.services.interfaces.ImageServicesInterface;
+import com.hallocasa.services.interfaces.PersistenceServicesInterface;
 
 /**
  *

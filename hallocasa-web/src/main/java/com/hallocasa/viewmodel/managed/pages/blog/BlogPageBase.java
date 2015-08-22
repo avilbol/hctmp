@@ -4,8 +4,8 @@
  */
 package com.hallocasa.viewmodel.managed.pages.blog;
 
-import com.hallocasa.business.dataentities.BlogArticle;
-import com.hallocasa.business.services.interfaces.BlogArticleServicesLocal;
+import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.viewmodel.viewfacade.Page;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;

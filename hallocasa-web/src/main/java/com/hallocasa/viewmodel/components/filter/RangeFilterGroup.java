@@ -1,6 +1,6 @@
 package com.hallocasa.viewmodel.components.filter;
 
-import com.hallocasa.business.services.filter.FilterCondition;
+import com.hallocasa.services.filter.FilterCondition;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.validator.ValidatorException;
 
-import com.hallocasa.business.services.filter.FilterGroup;
+import com.hallocasa.services.filter.FilterGroup;
 import com.hallocasa.view.utils.JSFUtils;
 import com.hallocasa.view.components.general.filtermenu.FilterMenuItem;
 import com.hallocasa.view.components.general.filtermenu.FilterMenuItemCondition;

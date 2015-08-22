@@ -14,16 +14,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import com.hallocasa.business.dataentities.EnvirontmentPublicTransport;
-import com.hallocasa.business.dataentities.Property;
-import com.hallocasa.business.dataentities.PropertyEnvirontment;
-import com.hallocasa.business.dataentities.PropertyTopography;
-import com.hallocasa.business.dataentities.RestaurantType;
-import com.hallocasa.business.dataentities.ShoppingWay;
-import com.hallocasa.business.dataentities.SportPossibility;
-import com.hallocasa.business.services.interfaces.PropertyServicesInterface;
-import com.hallocasa.business.services.interfaces.PublicTransportServicesInterface;
-import com.hallocasa.business.services.interfaces.SportServicesInterface;
+import com.hallocasa.dataentities.EnvirontmentPublicTransport;
+import com.hallocasa.dataentities.Property;
+import com.hallocasa.dataentities.PropertyEnvirontment;
+import com.hallocasa.dataentities.PropertyTopography;
+import com.hallocasa.dataentities.RestaurantType;
+import com.hallocasa.dataentities.ShoppingWay;
+import com.hallocasa.dataentities.SportPossibility;
+import com.hallocasa.services.interfaces.PropertyServicesInterface;
+import com.hallocasa.services.interfaces.PublicTransportServicesInterface;
+import com.hallocasa.services.interfaces.SportServicesInterface;
 
 /**
  *

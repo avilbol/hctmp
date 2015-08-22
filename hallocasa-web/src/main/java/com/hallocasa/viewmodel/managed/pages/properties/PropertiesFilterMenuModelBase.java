@@ -11,9 +11,9 @@ import java.util.List;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 
-import com.hallocasa.business.dataentities.interfaces.TypeInterface;
-import com.hallocasa.business.services.TypeServices;
-import com.hallocasa.business.services.filter.FilterGroup;
+import com.hallocasa.dataentities.interfaces.TypeInterface;
+import com.hallocasa.services.TypeServices;
+import com.hallocasa.services.filter.FilterGroup;
 import com.hallocasa.commons.Language;
 import com.hallocasa.view.utils.JSFUtils;
 import com.hallocasa.model.session.WebSession;

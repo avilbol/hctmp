@@ -4,9 +4,9 @@
  */
 package com.hallocasa.viewmodel.managed.pages.blog;
 
-import com.hallocasa.business.dataentities.BlogArticle;
-import com.hallocasa.business.dataentities.Translation;
-import com.hallocasa.business.services.interfaces.BlogArticleServicesLocal;
+import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.dataentities.Translation;
+import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;

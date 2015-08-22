@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hallocasa.business.dataentities.InterestPlaceRange;
-import com.hallocasa.business.dataentities.MedicalFacility;
-import com.hallocasa.business.services.TypeServices;
-import com.hallocasa.business.services.filter.FilterCondition.FilterOperation;
+import com.hallocasa.dataentities.InterestPlaceRange;
+import com.hallocasa.dataentities.MedicalFacility;
+import com.hallocasa.services.TypeServices;
+import com.hallocasa.services.filter.FilterCondition.FilterOperation;
 import com.hallocasa.viewmodel.components.filter.FilterSelectItem;
 
 /**

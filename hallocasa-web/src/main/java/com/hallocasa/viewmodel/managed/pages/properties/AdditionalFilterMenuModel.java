@@ -6,15 +6,15 @@ import java.util.List;
 
 import javax.faces.convert.BooleanConverter;
 
-import com.hallocasa.business.dataentities.EnergyType;
-import com.hallocasa.business.dataentities.HeatingType;
-import com.hallocasa.business.dataentities.PriceDevelopment;
-import com.hallocasa.business.dataentities.PropertyCondition;
-import com.hallocasa.business.dataentities.PropertyUse;
-import com.hallocasa.business.dataentities.Security;
-import com.hallocasa.business.dataentities.SewageWater;
-import com.hallocasa.business.services.TypeServices;
-import com.hallocasa.business.services.filter.FilterCondition.FilterOperation;
+import com.hallocasa.dataentities.EnergyType;
+import com.hallocasa.dataentities.HeatingType;
+import com.hallocasa.dataentities.PriceDevelopment;
+import com.hallocasa.dataentities.PropertyCondition;
+import com.hallocasa.dataentities.PropertyUse;
+import com.hallocasa.dataentities.Security;
+import com.hallocasa.dataentities.SewageWater;
+import com.hallocasa.services.TypeServices;
+import com.hallocasa.services.filter.FilterCondition.FilterOperation;
 import com.hallocasa.view.converters.IntegerConverter;
 import com.hallocasa.viewmodel.components.filter.FilterSelectItem;
 

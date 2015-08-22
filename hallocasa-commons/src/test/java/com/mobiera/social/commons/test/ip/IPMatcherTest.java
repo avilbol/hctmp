@@ -3,7 +3,7 @@ package com.mobiera.social.commons.test.ip;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.mobiera.hallocasa.commons.ip.IPMatcher;
+import com.hallocasa.commons.ip.IPMatcher;
 
 public class IPMatcherTest {
 

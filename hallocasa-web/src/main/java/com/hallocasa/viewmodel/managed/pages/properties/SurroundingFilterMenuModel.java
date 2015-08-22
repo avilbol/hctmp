@@ -2,21 +2,21 @@ package com.hallocasa.viewmodel.managed.pages.properties;
 
 import java.io.Serializable;
 
-import com.hallocasa.business.dataentities.Agriculture;
-import com.hallocasa.business.dataentities.AnimalAmmount;
-import com.hallocasa.business.dataentities.AverageAge;
-import com.hallocasa.business.dataentities.FlowersAmmount;
-import com.hallocasa.business.dataentities.Fructiculture;
-import com.hallocasa.business.dataentities.Humidity;
-import com.hallocasa.business.dataentities.IndsutrialDriver;
-import com.hallocasa.business.dataentities.Industry;
-import com.hallocasa.business.dataentities.PopulationDensity;
-import com.hallocasa.business.dataentities.RainIntensity;
-import com.hallocasa.business.dataentities.RainPeriod;
-import com.hallocasa.business.dataentities.RegionGrowthRate;
-import com.hallocasa.business.dataentities.SeaLevel;
-import com.hallocasa.business.dataentities.SoilType;
-import com.hallocasa.business.services.TypeServices;
+import com.hallocasa.dataentities.Agriculture;
+import com.hallocasa.dataentities.AnimalAmmount;
+import com.hallocasa.dataentities.AverageAge;
+import com.hallocasa.dataentities.FlowersAmmount;
+import com.hallocasa.dataentities.Fructiculture;
+import com.hallocasa.dataentities.Humidity;
+import com.hallocasa.dataentities.IndsutrialDriver;
+import com.hallocasa.dataentities.Industry;
+import com.hallocasa.dataentities.PopulationDensity;
+import com.hallocasa.dataentities.RainIntensity;
+import com.hallocasa.dataentities.RainPeriod;
+import com.hallocasa.dataentities.RegionGrowthRate;
+import com.hallocasa.dataentities.SeaLevel;
+import com.hallocasa.dataentities.SoilType;
+import com.hallocasa.services.TypeServices;
 
 /**
  * This class represents the presentation model of the filter menu to controls

@@ -9,11 +9,11 @@ import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 
-import com.hallocasa.business.dataentities.GeoDelimitation;
-import com.hallocasa.business.dataentities.interfaces.TypeInterface;
-import com.hallocasa.business.services.filter.FilterCondition;
-import com.hallocasa.business.services.filter.FilterCondition.FilterOperation;
-import com.hallocasa.business.services.filter.FilterGroup;
+import com.hallocasa.dataentities.GeoDelimitation;
+import com.hallocasa.dataentities.interfaces.TypeInterface;
+import com.hallocasa.services.filter.FilterCondition;
+import com.hallocasa.services.filter.FilterCondition.FilterOperation;
+import com.hallocasa.services.filter.FilterGroup;
 import com.hallocasa.commons.Language;
 import com.hallocasa.view.components.general.filtermenu.FilterMenuItem;
 import com.hallocasa.view.components.general.filtermenu.FilterMenuItemCondition;

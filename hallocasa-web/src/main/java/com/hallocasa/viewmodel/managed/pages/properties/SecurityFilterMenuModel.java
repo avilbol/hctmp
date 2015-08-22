@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hallocasa.business.dataentities.GuerrillaFrequency;
-import com.hallocasa.business.dataentities.InterestPlaceRange;
-import com.hallocasa.business.dataentities.MilitaryFrequency;
-import com.hallocasa.business.dataentities.ParamilitaryFrequency;
-import com.hallocasa.business.dataentities.TheftFrequency;
-import com.hallocasa.business.services.TypeServices;
-import com.hallocasa.business.services.filter.FilterCondition.FilterOperation;
+import com.hallocasa.dataentities.GuerrillaFrequency;
+import com.hallocasa.dataentities.InterestPlaceRange;
+import com.hallocasa.dataentities.MilitaryFrequency;
+import com.hallocasa.dataentities.ParamilitaryFrequency;
+import com.hallocasa.dataentities.TheftFrequency;
+import com.hallocasa.services.TypeServices;
+import com.hallocasa.services.filter.FilterCondition.FilterOperation;
 import com.hallocasa.viewmodel.components.filter.FilterSelectItem;
 
 /**

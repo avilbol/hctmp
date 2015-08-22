@@ -5,7 +5,7 @@
  */
 package com.hallocasa.view.components.general.filtermenu;
 
-import com.hallocasa.business.services.filter.FilterCondition.FilterOperation;
+import com.hallocasa.services.filter.FilterCondition.FilterOperation;
 
 /**
  *

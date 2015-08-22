@@ -1,6 +1,6 @@
 package com.hallocasa.viewmodel.managed.pages.buyprocess;
 
-import com.hallocasa.business.dataentities.BlogArticle;
+import com.hallocasa.dataentities.BlogArticle;
 
 public class LinkedBlogArticle {
 

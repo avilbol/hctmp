@@ -5,8 +5,8 @@
 package com.hallocasa.view.images;
 
 import com.hallocasa.model.application.ApplicationContext;
-import com.hallocasa.business.dataentities.Image;
-import com.hallocasa.business.exceptions.EntityNotFoundException;
+import com.hallocasa.dataentities.Image;
+import com.hallocasa.exceptions.EntityNotFoundException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

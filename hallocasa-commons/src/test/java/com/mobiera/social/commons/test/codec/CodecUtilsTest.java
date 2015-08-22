@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.mobiera.hallocasa.commons.codec.CodecUtils;
+import com.hallocasa.commons.codec.CodecUtils;
 
 public class CodecUtilsTest {
 

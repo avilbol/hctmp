@@ -4,7 +4,7 @@
  */
 package com.hallocasa.viewmodel.managed.pages.blog;
 
-import com.hallocasa.business.dataentities.BlogArticle;
+import com.hallocasa.dataentities.BlogArticle;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
 import java.util.HashMap;

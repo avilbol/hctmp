@@ -5,7 +5,7 @@
  */
 package com.hallocasa.viewmodel.components.filter;
 
-import com.hallocasa.business.services.filter.FilterCondition;
+import com.hallocasa.services.filter.FilterCondition;
 import com.hallocasa.view.components.general.filtermenu.FilterMenuItem;
 import com.hallocasa.view.components.general.filtermenu.FilterMenuItemCondition;
 

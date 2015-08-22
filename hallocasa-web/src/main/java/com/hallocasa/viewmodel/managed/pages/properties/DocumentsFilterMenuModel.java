@@ -2,7 +2,7 @@ package com.hallocasa.viewmodel.managed.pages.properties;
 
 import java.io.Serializable;
 
-import com.hallocasa.business.services.TypeServices;
+import com.hallocasa.services.TypeServices;
 
 /**
  * This class represents the presentation model of the filter menu to controls

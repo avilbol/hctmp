@@ -14,10 +14,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import com.hallocasa.business.dataentities.TemporalPublisherUser;
-import com.hallocasa.business.exceptions.ServiceException;
-import com.hallocasa.business.services.interfaces.UserServicesInterface;
+import com.hallocasa.dataentities.TemporalPublisherUser;
+import com.hallocasa.services.interfaces.UserServicesInterface;
 import com.hallocasa.commons.constants.ViewBundle;
+import com.hallocasa.commons.exceptions.services.ServiceException;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 import com.hallocasa.viewmodel.managed.modules.NewsletterSubscription;

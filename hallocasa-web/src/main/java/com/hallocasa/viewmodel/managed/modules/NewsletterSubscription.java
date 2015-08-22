@@ -15,10 +15,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import com.hallocasa.business.dataentities.NewsletterReceiver;
-import com.hallocasa.business.exceptions.ServiceException;
-import com.hallocasa.business.services.interfaces.NewsletterServicesInterface;
+import com.hallocasa.dataentities.NewsletterReceiver;
+import com.hallocasa.services.interfaces.NewsletterServicesInterface;
 import com.hallocasa.commons.constants.ViewBundle;
+import com.hallocasa.commons.exceptions.services.ServiceException;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 

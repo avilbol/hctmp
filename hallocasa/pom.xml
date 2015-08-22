@@ -36,6 +36,7 @@
         <xadisk.version>1.2.2</xadisk.version>
         <el.version>2.2</el.version>
         <messagebox.version>2.0.7</messagebox.version>
+        <scripts.location>${project.basedir}/../database/scripts</scripts.location>
     </properties>
 
     <modules>

@@ -8,11 +8,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.hallocasa.business.exceptions.MailChimpException;
-import com.hallocasa.business.services.MailChimpServices;
-import com.hallocasa.business.services.interfaces.MailChimpServicesLocal;
-import com.hallocasa.business.vo.MailChimpList;
-import com.hallocasa.business.vo.MailChimpMergeVars.TypeEnum;
+import com.hallocasa.exceptions.MailChimpException;
+import com.hallocasa.services.interfaces.MailChimpServicesLocal;
+import com.hallocasa.vo.MailChimpList;
+import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
 import com.hallocasa.commons.Language;
 
 public class MailChimpServicesTest {

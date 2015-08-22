@@ -9,8 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
-import com.hallocasa.business.dataentities.BlogArticle;
-import com.hallocasa.business.services.interfaces.BlogArticleServicesLocal;
+import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.model.application.ConstantsProvider;
 import com.hallocasa.model.session.WebSession;

@@ -2,11 +2,11 @@ package com.hallocasa.viewmodel.managed.pages.properties;
 
 import java.io.Serializable;
 
-import com.hallocasa.business.dataentities.InterestPlaceRange;
-import com.hallocasa.business.dataentities.RestaurantType;
-import com.hallocasa.business.dataentities.ShoppingWay;
-import com.hallocasa.business.dataentities.Sport;
-import com.hallocasa.business.services.TypeServices;
+import com.hallocasa.dataentities.InterestPlaceRange;
+import com.hallocasa.dataentities.RestaurantType;
+import com.hallocasa.dataentities.ShoppingWay;
+import com.hallocasa.dataentities.Sport;
+import com.hallocasa.services.TypeServices;
 
 /**
  * This class represents the presentation model of the filter menu to controls

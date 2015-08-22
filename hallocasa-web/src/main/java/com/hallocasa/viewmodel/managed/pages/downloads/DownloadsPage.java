@@ -5,8 +5,8 @@
  */
 package com.hallocasa.viewmodel.managed.pages.downloads;
 
-import com.hallocasa.business.dataentities.BlogArticle;
-import com.hallocasa.business.services.interfaces.BlogArticleServicesLocal;
+import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;

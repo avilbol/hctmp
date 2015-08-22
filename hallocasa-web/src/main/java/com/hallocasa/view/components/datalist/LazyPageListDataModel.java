@@ -6,8 +6,8 @@
 package com.hallocasa.view.components.datalist;
 
 import com.hallocasa.commons.beans.Identificable;
-import com.hallocasa.business.services.pagination.PageIndexInfo;
-import com.hallocasa.business.services.pagination.PageList;
+import com.hallocasa.services.pagination.PageIndexInfo;
+import com.hallocasa.services.pagination.PageList;
 
 import java.io.Serializable;
 import java.util.ArrayList;

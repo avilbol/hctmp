@@ -4,10 +4,10 @@
  */
 package com.hallocasa.view.images;
 
+import com.hallocasa.commons.exceptions.services.ServiceException;
 import com.hallocasa.model.application.ApplicationContext;
-import com.hallocasa.business.dataentities.File;
-import com.hallocasa.business.dataentities.Image;
-import com.hallocasa.business.exceptions.ServiceException;
+import com.hallocasa.dataentities.File;
+import com.hallocasa.dataentities.Image;
 
 import java.io.IOException;
 import java.io.InputStream;

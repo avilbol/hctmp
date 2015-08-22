@@ -7,7 +7,7 @@ package com.hallocasa.viewmodel.components.filter;
 
 import javax.faces.model.SelectItem;
 
-import com.hallocasa.business.services.filter.FilterCondition;
+import com.hallocasa.services.filter.FilterCondition;
 
 /**
  * SelectItem for filter items

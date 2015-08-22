@@ -1,13 +1,13 @@
 package com.hallocasa.services;
 
 import com.hallocasa.services.persistence.local.PersistenceServicesLocal;
-import com.mobiera.hallocasa.commons.exceptions.services.ValidationException;
-import com.mobiera.hallocasa.commons.validation.BeanValidator;
-import com.mobiera.hallocasa.commons.vo.QueryResult;
-import com.mobiera.hallocasa.commons.vo.criteria.QueryCriteria;
-import com.mobiera.hallocasa.commons.vo.helpers.GenericVOParser;
-import com.mobiera.hallocasa.commons.vo.interfaces.SocialEntity;
-import com.mobiera.hallocasa.commons.vo.interfaces.ValueObject;
+import com.hallocasa.commons.exceptions.services.ValidationException;
+import com.hallocasa.commons.validation.BeanValidator;
+import com.hallocasa.commons.vo.QueryResult;
+import com.hallocasa.commons.vo.criteria.QueryCriteria;
+import com.hallocasa.commons.vo.helpers.GenericVOParser;
+import com.hallocasa.commons.vo.interfaces.SocialEntity;
+import com.hallocasa.commons.vo.interfaces.ValueObject;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
