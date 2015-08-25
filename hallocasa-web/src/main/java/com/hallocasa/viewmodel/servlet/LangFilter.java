@@ -6,7 +6,7 @@
 package com.hallocasa.viewmodel.servlet;
 
 import com.hallocasa.commons.Language;
-import com.hallocasa.model.session.WebSession;
+import com.hallocasa.model.session.WebSessionImpl;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,7 +57,7 @@ public class LangFilter implements Filter {
         // session
         if (lang != null) {
             HttpSession session = httpServletRequest.getSession();
-            WebSession webSession = (WebSession) session.getAttribute("webSession");
+            WebSessionImpl webSession = (WebSessionImpl) session.getAttribute("webSession");
             if (webSession != null) {
                 Language language;
                 try {
@@ -89,7 +89,7 @@ public class LangFilter implements Filter {
      */
     private String appendLangQueryString(ServletRequest request) {
         HttpSession session = ((HttpServletRequest) request).getSession();
-        WebSession webSession = (WebSession) session.getAttribute("webSession");
+        WebSessionImpl webSession = (WebSessionImpl) session.getAttribute("webSession");
         String strLang;
 
         // get the current language

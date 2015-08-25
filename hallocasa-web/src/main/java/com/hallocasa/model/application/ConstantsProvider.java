@@ -6,8 +6,7 @@
 package com.hallocasa.model.application;
 
 import com.hallocasa.commons.constants.SystemConstants;
-import com.hallocasa.view.ViewEnum;
-import java.awt.SystemColor;
+import com.hallocasa.model.controlaccess.HallocasaViewEnum;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
@@ -41,7 +40,7 @@ public class ConstantsProvider implements Serializable {
      * @param viewEnum
      * @return 
      */
-    public String getPageUrl(ViewEnum viewEnum ){
+    public String getPageUrl(HallocasaViewEnum viewEnum ){
         return viewEnum.getUrl();
     }
     
@@ -50,7 +49,7 @@ public class ConstantsProvider implements Serializable {
      * @param viewEnum
      * @return 
      */
-    public String getAbsolutePageUrl(ViewEnum viewEnum ){
+    public String getAbsolutePageUrl(HallocasaViewEnum viewEnum ){
         return SystemConstants.APP_CONTEXT + viewEnum.getUrl();
     }
 }

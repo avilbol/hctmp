@@ -13,7 +13,7 @@ import com.hallocasa.dataentities.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.model.application.ConstantsProvider;
-import com.hallocasa.model.session.WebSession;
+import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.view.ViewEnum;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
@@ -57,7 +57,7 @@ public class BuyProcessPage extends BaseManagedBean {
     @EJB
     private BlogArticleServicesLocal blogArticleServices;
     private AbstractViewFacade viewFacade;
-    private WebSession webSession;
+    private WebSessionImpl webSession;
 
     /* Instance variables */
     private MenuOption activeMenuOption;
@@ -86,7 +86,7 @@ public class BuyProcessPage extends BaseManagedBean {
     public void initialize() {
         buyProcessArticles = new ArrayList<>();
         viewFacade = AbstractViewFacade.getCurrentInstance();
-        webSession = WebSession.getCurrentInstance();
+        webSession = WebSessionImpl.getCurrentInstance();
 
         // initialize urls
         faqUrl = BuyProcessPage.buildPageUrl(MenuOption.FAQ);

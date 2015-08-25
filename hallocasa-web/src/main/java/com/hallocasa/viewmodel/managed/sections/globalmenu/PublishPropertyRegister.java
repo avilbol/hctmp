@@ -15,10 +15,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import com.hallocasa.dataentities.TemporalPublisherUser;
-import com.hallocasa.services.interfaces.UserServicesInterface;
+import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.commons.constants.ViewBundle;
 import com.hallocasa.commons.exceptions.services.ServiceException;
-import com.hallocasa.model.session.WebSession;
+import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 import com.hallocasa.viewmodel.managed.modules.NewsletterSubscription;
 
@@ -36,7 +36,7 @@ public class PublishPropertyRegister extends BaseManagedBean {
     /* Dependences */
     private TemporalPublisherUser publisherUser;
     @EJB
-    private UserServicesInterface userServices;
+    private UserServices userServices;
 
     /**
      * Postconstruct
@@ -53,7 +53,7 @@ public class PublishPropertyRegister extends BaseManagedBean {
     public void submit() {
         // Save the email
         try {
-            publisherUser.setLanguage(WebSession.getCurrentInstance()
+            publisherUser.setLanguage(WebSessionImpl.getCurrentInstance()
                     .getCurrentLanguage());
             userServices.savePropertyPublisher(publisherUser);
             publisherUser = new TemporalPublisherUser();
@@ -61,7 +61,7 @@ public class PublishPropertyRegister extends BaseManagedBean {
             Logger.getLogger(NewsletterSubscription.class.getName()).log(
                     Level.SEVERE, null, ex);
             addFacesMessage(null, FacesMessage.SEVERITY_ERROR,
-                    ex.getLocalizedMessage(WebSession.getCurrentInstance()
+                    ex.getLocalizedMessage(WebSessionImpl.getCurrentInstance()
                             .getCurrentLanguage()), "");
             return;
         }

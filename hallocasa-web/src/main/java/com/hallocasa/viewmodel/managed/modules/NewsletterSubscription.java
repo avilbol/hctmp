@@ -19,7 +19,7 @@ import com.hallocasa.dataentities.NewsletterReceiver;
 import com.hallocasa.services.interfaces.NewsletterServicesInterface;
 import com.hallocasa.commons.constants.ViewBundle;
 import com.hallocasa.commons.exceptions.services.ServiceException;
-import com.hallocasa.model.session.WebSession;
+import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 
 /**
@@ -54,7 +54,7 @@ public class NewsletterSubscription extends BaseManagedBean implements
 
     public void submit() {
         try {
-            newsletterReceiver.setLanguage(WebSession.getCurrentInstance()
+            newsletterReceiver.setLanguage(WebSessionImpl.getCurrentInstance()
                     .getCurrentLanguage());
             newsletterServices.saveNewsletterReceiver(newsletterReceiver);
             newsletterReceiver = new NewsletterReceiver();
@@ -63,7 +63,7 @@ public class NewsletterSubscription extends BaseManagedBean implements
             Logger.getLogger(NewsletterSubscription.class.getName()).log(
                     Level.SEVERE, null, ex);
             addFacesMessage(null, FacesMessage.SEVERITY_ERROR,
-                    ex.getLocalizedMessage(WebSession.getCurrentInstance()
+                    ex.getLocalizedMessage(WebSessionImpl.getCurrentInstance()
                             .getCurrentLanguage()), "");
             return;
         }

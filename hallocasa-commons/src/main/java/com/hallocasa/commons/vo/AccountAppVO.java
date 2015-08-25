@@ -23,7 +23,7 @@ public class AccountAppVO implements ValueObject {
 	public final static String supervisedOperations_ = "supervisedOperations";
 
 	@NotNull
-	private AccountVO account;
+	private UserVO account;
 	
 	@NotNull
 	private Long partnerId;
@@ -39,14 +39,14 @@ public class AccountAppVO implements ValueObject {
 	/**
 	 * @return
 	 */
-	public AccountVO getAccount() {
+	public UserVO getAccount() {
 		return account;
 	}
 
 	/**
 	 * @param account
 	 */
-	public void setAccount(AccountVO account) {
+	public void setAccount(UserVO account) {
 		this.account = account;
 	}
 

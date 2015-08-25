@@ -5,6 +5,8 @@
  */
 package com.hallocasa.services;
 
+import com.hallocasa.commons.exceptions.services.InvalidEmailException;
+import com.hallocasa.commons.exceptions.services.InvalidPasswordLoginException;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
@@ -22,8 +24,10 @@ import com.hallocasa.dataentities.TemporalPublisherUser;
 import com.hallocasa.services.base.ServicesBase;
 import com.hallocasa.services.constants.ServiceErrorMessage;
 import com.hallocasa.services.interfaces.MailChimpServicesLocal;
-import com.hallocasa.services.interfaces.UserServicesInterface;
+import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.commons.exceptions.services.ServiceException;
+import com.hallocasa.commons.vo.AuthInfoVO;
+import com.hallocasa.commons.vo.CredentialVO;
 import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
 
 /**
@@ -32,7 +36,7 @@ import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
  */
 @Stateless
 @TransactionManagement(TransactionManagementType.BEAN)
-public class UserServices extends ServicesBase implements UserServicesInterface {
+public class UserServicesImpl extends ServicesBase implements UserServices {
 
     /* Dependences */
     @PersistenceContext(unitName = "RealStateDatabasePU")
@@ -43,9 +47,8 @@ public class UserServices extends ServicesBase implements UserServicesInterface 
     private MailChimpServicesLocal mailChimpServices;
 
     /* Methods */
-
     /**
-     * 
+     *
      * @throws ServiceException
      */
     @Override
@@ -82,5 +85,11 @@ public class UserServices extends ServicesBase implements UserServicesInterface 
             throw new ServiceException("Unexpected Error",
                     ServiceErrorMessage.COMMON_UNEXPECTED_ERROR, e);
         }
+    }
+
+    @Override
+    public AuthInfoVO authenticate(CredentialVO credentials) throws 
+            InvalidEmailException, InvalidPasswordLoginException {
+        throw new InvalidEmailException("Not yet implemented");
     }
 }

@@ -8,7 +8,7 @@ package com.hallocasa.viewmodel.managed.pages.downloads;
 import com.hallocasa.dataentities.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.commons.constants.SystemConstants;
-import com.hallocasa.model.session.WebSession;
+import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
 import java.io.File;
@@ -74,7 +74,7 @@ public class DownloadsPage extends BaseManagedBean {
         directoryFilter = new DirectoryFilter();
 
         File fileRoot = new File(SystemConstants.DOWNLOADS_PATH + "/"
-                + WebSession.getCurrentInstance().getCurrentLanguage().name());
+                + WebSessionImpl.getCurrentInstance().getCurrentLanguage().name());
         root = new DefaultTreeNode("root", null);
         loadFolderFiles(fileRoot, root);
         

@@ -21,6 +21,7 @@ public class SystemConstants {
     public static final String WEBCONTENT_IMAGES_PATH = "/home/hallocasa/webcontent/images/";
     public static final String IMAGES_PATH = APP_CONTEXT + "/resources/images";
     public static final String RESOURCES_PATH = APP_CONTEXT + "/resources";
+    public static final Long PUBLIC_PROFILE_ID = 1L;
     
     //public static final String MAIL_CHIMP_NEWSLETTER_LIST_ID = "c2730bb54f"; // Newsletter list
 

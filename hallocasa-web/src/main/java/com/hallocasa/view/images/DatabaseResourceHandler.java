@@ -4,7 +4,7 @@
  */
 package com.hallocasa.view.images;
 
-import com.hallocasa.model.application.ApplicationContext;
+import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.dataentities.Image;
 import com.hallocasa.exceptions.EntityNotFoundException;
 
@@ -52,7 +52,7 @@ public class DatabaseResourceHandler extends ResourceHandlerWrapper {
         if (libraryName.equals("dbimages")) {
 
             // Get the image from the database
-            ApplicationContext applicationContext = ApplicationContext.getInstance();
+            HallocasaApplicationImpl applicationContext = HallocasaApplicationImpl.getInstance();
             Long id = new Long(resourceName);
             Image dbImage = null;
             try {

@@ -5,7 +5,7 @@
 package com.hallocasa.viewmodel.managed.pages.blog;
 
 import com.hallocasa.dataentities.BlogArticle;
-import com.hallocasa.model.session.WebSession;
+import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,7 +60,7 @@ public class BlogArticlePage extends BlogPageBase {
         }
 
         // creates and articleDescription
-        articleDescription = article.getPreviewText(WebSession.getCurrentInstance().getCurrentLanguage());
+        articleDescription = article.getPreviewText(WebSessionImpl.getCurrentInstance().getCurrentLanguage());
         articleDescription = articleDescription.replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " ");
         articleDescription = articleDescription.substring(0, Math.min(150, articleDescription.length()));
         articleDescription = articleDescription.concat("...");

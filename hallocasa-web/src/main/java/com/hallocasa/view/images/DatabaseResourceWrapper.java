@@ -5,7 +5,7 @@
 package com.hallocasa.view.images;
 
 import com.hallocasa.commons.exceptions.services.ServiceException;
-import com.hallocasa.model.application.ApplicationContext;
+import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.dataentities.File;
 import com.hallocasa.dataentities.Image;
 
@@ -77,7 +77,7 @@ public class DatabaseResourceWrapper extends ResourceWrapper {
     public InputStream getContent() {
         if (content == null) {
             try {
-                content = ApplicationContext.getInstance().getFileServices().getFileInputStream(afh);
+                content = HallocasaApplicationImpl.getInstance().getFileServices().getFileInputStream(afh);
             } catch (ServiceException ex) {
                 Logger.getLogger(DatabaseResourceWrapper.class.getName()).log(Level.SEVERE, null, ex);
             }

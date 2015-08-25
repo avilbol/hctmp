@@ -26,7 +26,7 @@ public class AuthInfoVO implements ValueObject{
 	private static final long serialVersionUID = -1370266485971582595L;
 	
 	/* static fields */
-	private AccountVO account;
+	private UserVO account;
 	private List<AppVO> apps;
 	private PartnerVO partner;
 
@@ -49,7 +49,7 @@ public class AuthInfoVO implements ValueObject{
 	 * 
 	 * @return the account
 	 */
-	public AccountVO getAccount() {
+	public UserVO getAccount() {
 		return account;
 	}
 
@@ -58,7 +58,7 @@ public class AuthInfoVO implements ValueObject{
 	 * 
 	 * @param account the account to set
 	 */
-	public void setAccount(AccountVO account) {
+	public void setAccount(UserVO account) {
 		this.account = account;
 	}
 

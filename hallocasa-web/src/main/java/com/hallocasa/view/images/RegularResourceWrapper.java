@@ -4,7 +4,7 @@
  */
 package com.hallocasa.view.images;
 
-import com.hallocasa.model.application.ApplicationContext;
+import com.hallocasa.model.application.HallocasaApplicationImpl;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceWrapper;
 
@@ -31,7 +31,7 @@ public class RegularResourceWrapper extends ResourceWrapper {
             String requestPath = resource.getRequestPath();
 
             // get current revision
-            String revision = ApplicationContext.getInstance().getVersion();
+            String revision = HallocasaApplicationImpl.getInstance().getVersion();
 
             if (requestPath.contains("?")) {
                 requestPath = requestPath + "&rv=" + revision;

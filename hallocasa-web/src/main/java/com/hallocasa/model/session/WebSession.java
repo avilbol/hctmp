@@ -6,72 +6,48 @@
 package com.hallocasa.model.session;
 
 import com.hallocasa.commons.Language;
-import java.io.Serializable;
-
-
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import com.hallocasa.commons.vo.CredentialVO;
 
 /**
+ * Web session
  *
  * @author David Mantilla
  */
-@ManagedBean(name = "webSession")
-@SessionScoped
-public class WebSession implements Serializable {
-
-    private Language currentLanguage;
-
-    //private OneForSession oneForSession;
-    /**
-     * Post construct
-     */
-    @PostConstruct
-    public void initialize() {
-        getCurrentLanguage();
-    }
-
-    /**
-     * Returns the current language
-     *
-     * @return
-     */
-    public Language getCurrentLanguage() {
-        if (currentLanguage == null) {
-            try {
-                String langParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("lang");
-                if (langParameter != null) {
-                    currentLanguage = Language.valueOf(langParameter);
-                } else {
-                    currentLanguage = Language.valueOf(FacesContext.getCurrentInstance()
-                            .getViewRoot().getLocale().getLanguage());
-                }
-            } catch (IllegalArgumentException e) {
-                changeLanguage(Language.en);
-                return Language.en;
-            }
-        }
-        return currentLanguage;
-    }
+public interface WebSession {
 
     /**
      * Change language
      *
      * @param language
      */
-    public void changeLanguage(Language language) {
-        currentLanguage = language;
-    }
+    public void changeLanguage(Language language);
 
     /**
-     * Return the current instance of the webSession
+     * Returns the current language
      *
      * @return
      */
-    public static WebSession getCurrentInstance() {
-        return FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(
-                FacesContext.getCurrentInstance(), "#{webSession}", WebSession.class);
-    }
+    public Language getCurrentLanguage();
+
+    /**
+     * Login into the session.
+     *
+     * @param credentialVO
+     * @throws LoginFailedException when the login process fail for credentials
+     * or any other business logic reason
+     */
+    public void login(CredentialVO credentialVO) throws LoginFailedException;
+
+    /**
+     * Logout
+     */
+    public void logout();
+
+    /**
+     * Return true if the user is already logged into this session
+     *
+     * @return
+     */
+    public boolean isLogged();
+
 }

@@ -7,7 +7,7 @@ package com.hallocasa.view.components.blog;
 
 import com.hallocasa.dataentities.BlogArticle;
 import com.hallocasa.commons.constants.SystemConstants;
-import com.hallocasa.model.session.WebSession;
+import com.hallocasa.model.session.WebSessionImpl;
 import java.util.HashMap;
 
 import javax.faces.component.FacesComponent;
@@ -56,7 +56,7 @@ public class ArticleComponent extends BaseComponent {
             return null;
         }
         String currentLanguageContent
-                = blogArticle.getBodyTransalation().getText(WebSession.getCurrentInstance().getCurrentLanguage());
+                = blogArticle.getBodyTransalation().getText(WebSessionImpl.getCurrentInstance().getCurrentLanguage());
         return replaceArticleParams(currentLanguageContent);
     }
 

@@ -16,7 +16,7 @@ import com.hallocasa.services.TypeServices;
 import com.hallocasa.services.filter.FilterGroup;
 import com.hallocasa.commons.Language;
 import com.hallocasa.view.utils.JSFUtils;
-import com.hallocasa.model.session.WebSession;
+import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.view.components.general.filtermenu.DefaultFilterMenuModel;
 import com.hallocasa.view.components.general.filtermenu.FilterMenuItem;
 import com.hallocasa.view.converters.IdentificableConverter;
@@ -37,7 +37,7 @@ public abstract class PropertiesFilterMenuModelBase extends DefaultFilterMenuMod
 
     public PropertiesFilterMenuModelBase(TypeServices typeServices, int index) {
         this.typeServices = typeServices;
-        this.language = WebSession.getCurrentInstance().getCurrentLanguage();
+        this.language = WebSessionImpl.getCurrentInstance().getCurrentLanguage();
         this.index = index;
     }
 
