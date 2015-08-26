@@ -1,6 +1,6 @@
 package com.hallocasa.services;
 
-import com.hallocasa.services.persistence.local.PersistenceServicesLocal;
+import com.hallocasa.services.persistence.local.PersistenceServices;
 import com.hallocasa.commons.exceptions.services.ValidationException;
 import com.hallocasa.commons.validation.BeanValidator;
 import com.hallocasa.commons.vo.QueryResult;
@@ -169,7 +169,7 @@ public class ServicesBase {
             CriteriaQuery<T> dataCriteria, CriteriaQuery<Long> countCriteria,
             QueryCriteria queryCriteria, Class<T> entityClass, Class<U> voClass,
             GenericVOParser<T, U> voParser,
-            PersistenceServicesLocal persistenceServices) {
+            PersistenceServices persistenceServices) {
 
         // executes data query
         List<T> dataResult = persistenceServices.executeCriteriaQuery(
@@ -206,7 +206,7 @@ public class ServicesBase {
      * @return Found entity
      */
     protected <T> T findAndValidateEntity(Class<T> entityClass, Object id,
-            PersistenceServicesLocal persistenceServices) {
+            PersistenceServices persistenceServices) {
         if (id == null) {
             throw new ValidationException(entityClass.getSimpleName()
                     + " with id null doesn't exist");

@@ -5,7 +5,7 @@
  */
 package com.hallocasa.services.persistence.impl;
 
-import com.hallocasa.services.persistence.local.PersistenceServicesLocal;
+import com.hallocasa.services.persistence.local.PersistenceServices;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,12 +32,12 @@ import javax.persistence.criteria.CriteriaQuery;
  *
  */
 @Stateless
-public class PersistenceServices implements PersistenceServicesLocal {
+public class PersistenceServicesImpl implements PersistenceServices {
 
     @PersistenceContext(unitName = "RealStateDatabasePU")
     private EntityManager em;
     @SuppressWarnings("unused")
-    private static final Logger LOG = Logger.getLogger(PersistenceServices.class.getName());
+    private static final Logger LOG = Logger.getLogger(PersistenceServicesImpl.class.getName());
 
     /* Constructor */
     /**
@@ -45,7 +45,7 @@ public class PersistenceServices implements PersistenceServicesLocal {
      *
      * @param em
      */
-    protected PersistenceServices(EntityManager em) {
+    protected PersistenceServicesImpl(EntityManager em) {
         this.em = em;
         initialize();
     }
@@ -53,7 +53,7 @@ public class PersistenceServices implements PersistenceServicesLocal {
     /**
      * Default Constructor
      */
-    public PersistenceServices() {
+    public PersistenceServicesImpl() {
     }
 
     /**
@@ -85,7 +85,7 @@ public class PersistenceServices implements PersistenceServicesLocal {
      * (java.lang.Object)
      */
     @Override
-    public <T> T persistEntity(T entity, long accountId)
+    public <T> T persistEntity(T entity )
             throws PersistenceException {
         em.persist(entity);
         return entity;
@@ -99,7 +99,7 @@ public class PersistenceServices implements PersistenceServicesLocal {
      * (java.lang.Object)
      */
     @Override
-    public <T> void removeEntity(T entity, long accountId)
+    public <T> void removeEntity(T entity )
             throws PersistenceException {
         em.remove(entity);
     }
@@ -112,7 +112,7 @@ public class PersistenceServices implements PersistenceServicesLocal {
      * (java.lang.Object)
      */
     @Override
-    public <T> T mergeEntity(T entity, long accountId)
+    public <T> T mergeEntity(T entity)
             throws PersistenceException {
         em.merge(entity);
         return entity;
@@ -149,7 +149,7 @@ public class PersistenceServices implements PersistenceServicesLocal {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public <T> List<T> executeNamedQuery(String sentence,
+    public List<?> executeNamedQuery(String sentence,
             HashMap<String, Object> params) {
 
         Query query = em.createNamedQuery(sentence);
@@ -353,8 +353,7 @@ public class PersistenceServices implements PersistenceServicesLocal {
      * (java.lang.String, java.util.HashMap)
      */
     @Override
-    public int executeUpdate(String sentence, HashMap<String, Object> params,
-            long updaterAccountId) {
+    public int executeUpdate(String sentence, HashMap<String, Object> params ) {
 
         Query query = em.createQuery(sentence);
 
@@ -382,7 +381,7 @@ public class PersistenceServices implements PersistenceServicesLocal {
      * (java.lang.String, java.lang.Object[])
      */
     @Override
-    public int executeUpdate(String sentence, Object[] params, long accountId) {
+    public int executeUpdate(String sentence, Object[] params) {
         Query query = em.createQuery(sentence);
 
         int i = 1;
@@ -403,8 +402,7 @@ public class PersistenceServices implements PersistenceServicesLocal {
      * executeNativeUpdate(java.lang.String, java.lang.Object[])
      */
     @Override
-    public int executeNativeUpdate(String sentence, Object[] params,
-            long accountId) {
+    public int executeNativeUpdate(String sentence, Object[] params ) {
         Query query = em.createNativeQuery(sentence);
 
         int i = 1;

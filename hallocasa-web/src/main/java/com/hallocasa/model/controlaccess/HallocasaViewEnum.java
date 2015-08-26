@@ -143,10 +143,10 @@ public enum HallocasaViewEnum {
         StringBuilder str = new StringBuilder();
         str.append(SystemConstants.SERVER_URL);
         str.append(SystemConstants.APP_CONTEXT);
-        str.append("?");
-        str.append(viewName);
+        str.append(url);
 
         if (params != null) {
+            str.append("?");
             for (String key : params.keySet()) {
                 str.append("&").append(key).append("=").append(params.get(key));
             }

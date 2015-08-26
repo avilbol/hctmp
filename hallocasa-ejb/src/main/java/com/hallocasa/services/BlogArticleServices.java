@@ -3,7 +3,7 @@ package com.hallocasa.services;
 import javax.ejb.Stateless;
 import com.hallocasa.dataentities.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
-import com.hallocasa.services.interfaces.PersistenceServices;
+import com.hallocasa.services.persistence.local.PersistenceServices;
 import java.util.List;
 import javax.ejb.EJB;
 

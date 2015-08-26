@@ -15,16 +15,15 @@ import javax.persistence.criteria.CriteriaQuery;
  *
  * @author david
  */
-public interface PersistenceServicesLocal {
+public interface PersistenceServices {
 
     /**
      * @param <T> Entity Type
      * @param entity Entity to persist
-     * @param accountId Id of the account who is executing action
      * @return the merged entity
      * @throws PersistenceException when merging fails
      */
-    public <T> T mergeEntity(T entity, long accountId)
+    public <T> T mergeEntity(T entity)
             throws PersistenceException;
 
     /**
@@ -32,20 +31,18 @@ public interface PersistenceServicesLocal {
      *
      * @param <T>
      * @param entity
-     * @param accountId Id of the account who is executing action
      * @throws PersistenceException
      */
-    public <T> void removeEntity(T entity, long accountId)
+    public <T> void removeEntity(T entity)
             throws PersistenceException;
 
     /**
      * @param <T> Entity Type
      * @param entity Entity to persist
-     * @param accountId Id of the account who is executing action
      * @return the persisted entity
      * @throws PersistenceException when persisting fails
      */
-    public <T> T persistEntity(T entity, long accountId)
+    public <T> T persistEntity(T entity)
             throws PersistenceException;
 
     /**
@@ -72,10 +69,9 @@ public interface PersistenceServicesLocal {
     /**
      * @param queryName
      * @param params
-     * @param expectedClass
      * @return the query result
      */
-    public <T> List<T> executeNamedQuery(String queryName,
+    public List<?> executeNamedQuery(String queryName,
             HashMap<String, Object> params);
 
     /**
@@ -152,21 +148,18 @@ public interface PersistenceServicesLocal {
     /**
      * @param sentence
      * @param params
-     * @param accountId Id of the account who is executing action
      * @return the update process result
      */
-    public int executeUpdate(String sentence, HashMap<String, Object> params,
-            long accountId);
+    public int executeUpdate(String sentence, HashMap<String, Object> params);
 
     /**
      * Execute an updates query with enumerated parameters
      *
      * @param sentence
      * @param params
-     * @param accountId Id of the account who is executing action
      * @return the update process result
      */
-    public int executeUpdate(String sentence, Object[] params, long accountId);
+    public int executeUpdate(String sentence, Object[] params);
 
     /**
      * @return Entity Manager
@@ -178,9 +171,7 @@ public interface PersistenceServicesLocal {
      *
      * @param sentence
      * @param params
-     * @param accountId Id of the account who is executing action
      * @return query execution result
      */
-    public int executeNativeUpdate(String sentence, Object[] params,
-            long accountId);
+    public int executeNativeUpdate(String sentence, Object[] params);
 }

@@ -9,12 +9,12 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 import com.hallocasa.services.interfaces.FileServicesInterface;
 import com.hallocasa.services.interfaces.ImageServicesInterface;
-import com.hallocasa.services.interfaces.PersistenceServices;
+import com.hallocasa.services.persistence.local.PersistenceServices;
 import java.io.Serializable;
+import javax.ejb.EJB;
 
 /**
  *
@@ -25,11 +25,11 @@ import java.io.Serializable;
 public class HallocasaApplicationImpl implements HallocasaApplication, 
         Serializable {
 
-    @Inject
+    @EJB
     private PersistenceServices persistenceServices;
-    @Inject
+    @EJB
     private ImageServicesInterface imageServices;
-    @Inject
+    @EJB
     private FileServicesInterface fileServices;
 
     /**
