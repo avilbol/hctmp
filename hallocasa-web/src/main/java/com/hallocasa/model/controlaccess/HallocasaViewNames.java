@@ -1,4 +1,4 @@
-package com.mobiera.social.model.controlaccess;
+package com.hallocasa.model.controlaccess;
 
 /**
  * 
@@ -7,7 +7,12 @@ package com.mobiera.social.model.controlaccess;
  */
 public interface HallocasaViewNames {
 
-	public static final String LOGIN = "login";
+	public static final String BUY_PROCESS = "buyProcessPage";
+        public static final String BLOG_INDEX = "blogIndexPage";
+        public static final String LINKS = "links";
+    
+        // TODO: check this list
+        public static final String LOGIN = "login";
 	public static final String REGISTER = "register";
 	public static final String HOME = "home";
 	public static final String FORBIDDEN = "forbidden";

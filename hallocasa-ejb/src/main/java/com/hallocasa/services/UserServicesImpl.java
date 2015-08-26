@@ -26,9 +26,12 @@ import com.hallocasa.services.constants.ServiceErrorMessage;
 import com.hallocasa.services.interfaces.MailChimpServicesLocal;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.commons.exceptions.services.ServiceException;
+import com.hallocasa.commons.vo.AppAccessInfoVO;
 import com.hallocasa.commons.vo.AuthInfoVO;
 import com.hallocasa.commons.vo.CredentialVO;
 import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -38,6 +41,9 @@ import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
 @TransactionManagement(TransactionManagementType.BEAN)
 public class UserServicesImpl extends ServicesBase implements UserServices {
 
+    /* constances */
+    private Logger LOG = Logger.getLogger( UserServicesImpl.class.getName() );
+    
     /* Dependences */
     @PersistenceContext(unitName = "RealStateDatabasePU")
     private EntityManager em;
@@ -47,6 +53,9 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
     private MailChimpServicesLocal mailChimpServices;
 
     /* Methods */
+    
+    
+    
     /**
      *
      * @throws ServiceException
@@ -92,4 +101,14 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
             InvalidEmailException, InvalidPasswordLoginException {
         throw new InvalidEmailException("Not yet implemented");
     }
+
+    @Override
+    public AppAccessInfoVO getAppAccessInfo(long userId) {
+        // TODO:
+        LOG.log( Level.WARNING, "Not yet done");
+        AppAccessInfoVO appAccessInfoVO = new AppAccessInfoVO();
+        return appAccessInfoVO;
+    }
+    
+    
 }

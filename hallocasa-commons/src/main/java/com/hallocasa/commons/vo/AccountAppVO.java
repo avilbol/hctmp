@@ -13,124 +13,94 @@ import com.hallocasa.commons.vo.interfaces.ValueObject;
  */
 public class AccountAppVO implements ValueObject {
 
-	private static final long serialVersionUID = 1L;
-	public final static String account_ = "account";
-	public final static String partner_ = "partnerId";
-	public final static String app_ = "appId";
-	public final static String profiles_ = "profiles";
-	public final static String operations_ = "operations";
-	public final static String infoGroups_ = "informationGroups";
-	public final static String supervisedOperations_ = "supervisedOperations";
+    private static final long serialVersionUID = 1L;
+    public final static String account_ = "account";
+    public final static String partner_ = "partnerId";
+    public final static String app_ = "appId";
+    public final static String profiles_ = "profiles";
+    public final static String operations_ = "operations";
+    public final static String infoGroups_ = "informationGroups";
+    public final static String supervisedOperations_ = "supervisedOperations";
 
-	@NotNull
-	private UserVO account;
-	
-	@NotNull
-	private Long partnerId;
-	
-	@NotNull
-	private Long appId;
-	
-	private List<ProfileVO> profiles;
-	private List<OperationVO> operations;
-	private List<InformationGroupVO> informationGroups;
-	private List<OperationVO> supervisedOperations;
+    @NotNull
+    private UserVO account;
 
-	/**
-	 * @return
-	 */
-	public UserVO getAccount() {
-		return account;
-	}
+    @NotNull
+    private Long partnerId;
 
-	/**
-	 * @param account
-	 */
-	public void setAccount(UserVO account) {
-		this.account = account;
-	}
+    @NotNull
+    private Long appId;
 
-	/**
-	 * @return
-	 */
-	public List<OperationVO> getSupervisedOperations() {
-		return supervisedOperations;
-	}
+    private List<ProfileVO> profiles;
+    private List<InformationGroupVO> informationGroups;
 
-	/**
-	 * @param supervisedOperations
-	 */
-	public void setSupervisedOperations(List<OperationVO> supervisedOperations) {
-		this.supervisedOperations = supervisedOperations;
-	}
+    /**
+     * @return
+     */
+    public UserVO getAccount() {
+        return account;
+    }
 
-	/**
-	 * @return
-	 */
-	public Long getPartnerId() {
-		return partnerId;
-	}
+    /**
+     * @param account
+     */
+    public void setAccount(UserVO account) {
+        this.account = account;
+    }
 
-	/**
-	 * @param partnerId
-	 */
-	public void setPartnerId(Long partnerId) {
-		this.partnerId = partnerId;
-	}
+    /**
+     * @return
+     */
+    public Long getPartnerId() {
+        return partnerId;
+    }
 
-	/**
-	 * @return
-	 */
-	public Long getAppId() {
-		return appId;
-	}
+    /**
+     * @param partnerId
+     */
+    public void setPartnerId(Long partnerId) {
+        this.partnerId = partnerId;
+    }
 
-	/**
-	 * @param appId
-	 */
-	public void setAppId(Long appId) {
-		this.appId = appId;
-	}
+    /**
+     * @return
+     */
+    public Long getAppId() {
+        return appId;
+    }
 
-	/**
-	 * @return
-	 */
-	public List<ProfileVO> getProfiles() {
-		return profiles;
-	}
+    /**
+     * @param appId
+     */
+    public void setAppId(Long appId) {
+        this.appId = appId;
+    }
 
-	/**
-	 * @param profiles
-	 */
-	public void setProfiles(List<ProfileVO> profiles) {
-		this.profiles = profiles;
-	}
+    /**
+     * @return
+     */
+    public List<ProfileVO> getProfiles() {
+        return profiles;
+    }
 
-	/**
-	 * @return
-	 */
-	public List<OperationVO> getOperations() {
-		return operations;
-	}
+    /**
+     * @param profiles
+     */
+    public void setProfiles(List<ProfileVO> profiles) {
+        this.profiles = profiles;
+    }
 
-	/**
-	 * @param operations
-	 */
-	public void setOperations(List<OperationVO> operations) {
-		this.operations = operations;
-	}
+    /**
+     * @return
+     */
+    public List<InformationGroupVO> getInformationGroups() {
+        return informationGroups;
+    }
 
-	/**
-	 * @return
-	 */
-	public List<InformationGroupVO> getInformationGroups() {
-		return informationGroups;
-	}
-
-	/**
-	 * @param informationGroups
-	 */
-	public void setInformationGroups(List<InformationGroupVO> informationGroups) {
-		this.informationGroups = informationGroups;
-	}
+    /**
+     * @param informationGroups
+     */
+    public void setInformationGroups(List<InformationGroupVO> informationGroups) {
+        this.informationGroups = informationGroups;
+    }
 }

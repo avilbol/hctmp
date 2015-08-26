@@ -7,6 +7,7 @@ package com.hallocasa.viewmodel.managed.pages.blog;
 import com.hallocasa.dataentities.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.commons.conversion.ConversionUtils;
+import com.hallocasa.model.controlaccess.HallocasaViewNames;
 import com.hallocasa.viewmodel.exceptions.ForbiddenException;
 import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import javax.faces.bean.ViewScoped;
  *
  * @author David Mantilla
  */
-@ManagedBean(name = "blogIndexPage")
+@ManagedBean(name = HallocasaViewNames.BLOG_INDEX )
 @ViewScoped
 public class BlogIndexPage extends BlogPageBase {
 

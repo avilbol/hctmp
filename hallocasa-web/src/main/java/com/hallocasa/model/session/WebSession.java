@@ -7,6 +7,7 @@ package com.hallocasa.model.session;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.vo.CredentialVO;
+import com.hallocasa.commons.vo.UserVO;
 
 /**
  * Web session
@@ -49,5 +50,12 @@ public interface WebSession {
      * @return
      */
     public boolean isLogged();
+
+    /**
+     * Getter for current user
+     *
+     * @return current user
+     */
+    public UserVO getCurrentUser();
 
 }

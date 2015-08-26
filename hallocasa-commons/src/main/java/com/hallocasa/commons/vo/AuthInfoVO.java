@@ -11,99 +11,81 @@ import com.hallocasa.commons.vo.interfaces.ValueObject;
 
 /**
  * Value Object for Authentication information
- * 
+ *
  * @author David Mantilla
  * @since 1.7
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AuthInfo", propOrder = {
-		"account",
-		"apps",
-		"partner"
+    "account",
+    "apps",
+    "partner"
 })
-public class AuthInfoVO implements ValueObject{
+public class AuthInfoVO implements ValueObject {
 
-	private static final long serialVersionUID = -1370266485971582595L;
-	
-	/* static fields */
-	private UserVO account;
-	private List<AppVO> apps;
-	private PartnerVO partner;
+    private static final long serialVersionUID = -1370266485971582595L;
 
-	/* instance variables */
+    /* static fields */
+    private UserVO account;
+    private List<AppVO> apps;
 
-	/* constructors */
-	/**
-	 * Default Constructor
-	 */
-	public AuthInfoVO() {
-		this.apps = new ArrayList<AppVO>();
-	}
+    /* instance variables */
 
-	/* Methods */
+    /* constructors */
+    /**
+     * Default Constructor
+     */
+    public AuthInfoVO() {
+        this.apps = new ArrayList<>();
+    }
 
-	/* Getters & Setters */
+    /* Methods */
 
-	/**
-	 * Getter for account
-	 * 
-	 * @return the account
-	 */
-	public UserVO getAccount() {
-		return account;
-	}
+    /* Getters & Setters */
+    /**
+     * Getter for account
+     *
+     * @return the account
+     */
+    public UserVO getAccount() {
+        return account;
+    }
 
-	/**
-	 * Setter for account
-	 * 
-	 * @param account the account to set
-	 */
-	public void setAccount(UserVO account) {
-		this.account = account;
-	}
+    /**
+     * Setter for account
+     *
+     * @param account the account to set
+     */
+    public void setAccount(UserVO account) {
+        this.account = account;
+    }
 
-	/**
-	 * Constructor
-	 * 
-	 * @param apps
-	 */
-	public AuthInfoVO(List<AppVO> apps) {
-		super();
-		this.apps = apps;
-	}
+    /**
+     * Constructor
+     *
+     * @param apps
+     */
+    public AuthInfoVO(List<AppVO> apps) {
+        super();
+        this.apps = apps;
+    }
 
-	/**
-	 * Getter for apps
-	 * 
-	 * @return the apps
-	 */
-	public List<AppVO> getApps() {
-		return apps;
-	}
+    /**
+     * Getter for apps
+     *
+     * @return the apps
+     */
+    public List<AppVO> getApps() {
+        return apps;
+    }
 
-	/**
-	 * Setter for apps
-	 * 
-	 * @param apps the apps to set
-	 */
-	public void setApps(List<AppVO> apps) {
-		this.apps = apps;
-	}
-
-	/**
-	 * Getter for partner
-	 * @return the partner
-	 */
-	public PartnerVO getPartner() {
-		return partner;
-	}
-
-	/**
-	 * Setter for partner
-	 * @param partner the partner to set
-	 */
-	public void setPartner(PartnerVO partner) {
-		this.partner = partner;
-	}
+    /**
+     * Setter for apps
+     *
+     * @param apps the apps to set
+     */
+    public void setApps(List<AppVO> apps) {
+        this.apps = apps;
+    }
 
 }

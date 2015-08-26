@@ -1,5 +1,9 @@
 package com.hallocasa.model.controlaccess;
 
+import com.hallocasa.commons.constants.SystemConstants;
+import com.hallocasa.viewmodel.managed.pages.blog.BlogIndexPage;
+import com.hallocasa.viewmodel.managed.pages.buyprocess.BuyProcessPage;
+import com.hallocasa.viewmodel.managed.pages.links.LinksPage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,41 +23,56 @@ public enum HallocasaViewEnum {
      * Page that is shown every time user is not allowed to enter the page is
      * trying to get into
      */
-    FORBIDDEN(HallocasaViewNames.FORBIDDEN, "/pages/commons/forbidden.xhml", 
-        null, false),
+    FORBIDDEN(HallocasaViewNames.FORBIDDEN, "/pages/commons/forbidden.xhml",
+            null, false),
     // access controlled pages
     /**
      * Page to log in
      */
-    LOGIN(HallocasaViewNames.LOGIN, "/pages/login/index.xhtml",null, false),
+    LOGIN(HallocasaViewNames.LOGIN, "/pages/login/index.xhtml", null, false),
     /**
      * Page to registering new partner
      */
-    REGISTER(HallocasaViewNames.REGISTER, null, false),
+    REGISTER(HallocasaViewNames.REGISTER, "", null, false),
     /**
      * Default page when the user is logged
      */
-    HOME(HallocasaViewNames.HOME, null, true),
+    HOME(HallocasaViewNames.HOME, "", null, true),
     /**
      * Page for user ask the password to be recovery by asking an email
      */
     PASSWORD_RECOVERY_REQUEST(HallocasaViewNames.PASSWORD_RECOVERY_REQUEST,
-            null, false),
+            "", null, false),
     /**
      * Page for account information
      */
-    MY_ACCOUNT(HallocasaViewNames.MY_ACCOUNT, null, true,
+    MY_ACCOUNT(HallocasaViewNames.MY_ACCOUNT, "", null, true,
             UseCaseEnum.SEE_EDIT_MY_ACCOUNT),
     /**
      * Page for user recover password writing a new one
      */
-    PASSWORD_RECOVERY(HallocasaViewNames.PASSWORD_RECOVERY,
+    PASSWORD_RECOVERY(HallocasaViewNames.PASSWORD_RECOVERY, "",
             null, false),
     /**
      * Page for user activation after a registering process
      */
-    USER_ACTIVATION(HallocasaViewNames.USER_ACTIVATION,
-            null, false);
+    USER_ACTIVATION(HallocasaViewNames.USER_ACTIVATION, "",
+            null, false),
+    /**
+     * Page for buying process
+     */
+    BUYING_PROCESS(HallocasaViewNames.BUY_PROCESS, "/pages/buyprocess/index.xhtml",
+            BuyProcessPage.class, false),
+    /**
+     * Blog index page
+     */
+    BLOG_INDEX(HallocasaViewNames.BLOG_INDEX, "/pages/blog/index.xhtml",
+            BlogIndexPage.class, false),
+    /**
+     * Links list page
+     */
+    LINKS(HallocasaViewNames.LINKS, "/pages/links/index.xhtml", LinksPage.class,
+            false);
 
     /* Static */
 
@@ -110,31 +129,26 @@ public enum HallocasaViewEnum {
     }
 
     /**
-     * @param serverBaseUrl
-     * @param appServerContext
      * @return
      */
-    public String getAbsolutePath(String serverBaseUrl, String appServerContext) {
-        return getAbsolutePath(null, serverBaseUrl, appServerContext);
+    public String getAbsolutePath() {
+        return getAbsolutePath(null);
     }
 
     /**
      * @param params
-     * @param serverBaseUrl
-     * @param appServerContext
      * @return
      */
-    public String getAbsolutePath(Map<String, String> params,
-            String serverBaseUrl, String appServerContext) {
+    public String getAbsolutePath(Map<String, String> params) {
         StringBuilder str = new StringBuilder();
-        str.append(serverBaseUrl);
-        str.append(appServerContext);
-        str.append("/#!");
+        str.append(SystemConstants.SERVER_URL);
+        str.append(SystemConstants.APP_CONTEXT);
+        str.append("?");
         str.append(viewName);
 
         if (params != null) {
             for (String key : params.keySet()) {
-                str.append("/").append(key).append("/").append(params.get(key));
+                str.append("&").append(key).append("=").append(params.get(key));
             }
         }
         return str.toString();
@@ -184,8 +198,8 @@ public enum HallocasaViewEnum {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getUrl() {
         return url;

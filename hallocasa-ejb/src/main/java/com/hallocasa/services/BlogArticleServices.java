@@ -1,12 +1,11 @@
 package com.hallocasa.services;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import com.hallocasa.dataentities.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
+import com.hallocasa.services.interfaces.PersistenceServices;
 import java.util.List;
-import javax.persistence.Query;
+import javax.ejb.EJB;
 
 /**
  * Blog Article services implementation
@@ -16,8 +15,8 @@ import javax.persistence.Query;
 @Stateless
 public class BlogArticleServices implements BlogArticleServicesLocal {
 
-    @PersistenceContext(unitName = "RealStateDatabasePU")
-    private EntityManager em;
+    @EJB
+    private PersistenceServices persistenceServices;
 
     /**
      * Search an article by its id
@@ -27,18 +26,18 @@ public class BlogArticleServices implements BlogArticleServicesLocal {
      */
     @Override
     public BlogArticle findBlogArticle(Integer id) {
-        return em.find(BlogArticle.class, id);
+        return persistenceServices.findEntity(BlogArticle.class, id);
     }
 
     /**
-     * Carga la lista de articulos
+     * Load articles list
      *
      * @return
      */
     @Override
     public List<BlogArticle> loadFeaturedArticles() {
-        Query q = em.createNamedQuery(BlogArticle.QUERY_NAME_FIND_FEATURED);
-        List<BlogArticle> list = q.getResultList();
+        List<BlogArticle> list = persistenceServices.executeNamedQuery(
+                BlogArticle.QUERY_NAME_FIND_FEATURED, null, BlogArticle.class);
         return list;
     }
 
@@ -50,24 +49,30 @@ public class BlogArticleServices implements BlogArticleServicesLocal {
      */
     @Override
     public List<BlogArticle> loadArticlesFromCategory(int articlecategoryId) {
-        BlogArticle blogArticle = em.find(BlogArticle.class, articlecategoryId);
-        Query q = em.createNamedQuery(BlogArticle.QUERY_NAME_FIND_BY_CATEGORY);
-        q.setParameter(1, blogArticle);
-        List<BlogArticle> list = q.getResultList();
-        return list;
+        BlogArticle blogArticle = persistenceServices.findEntity(
+                BlogArticle.class, articlecategoryId);
+        return persistenceServices.executeNamedQuery(BlogArticle.QUERY_NAME_FIND_BY_CATEGORY,
+                new Object[]{blogArticle}, BlogArticle.class);
     }
 
     @Override
     public void updateArticle(BlogArticle editedArticle) {
-        BlogArticle blogArticle = em.find(BlogArticle.class, editedArticle.getBlogArticleId());
-        blogArticle.getTitleTransalation().setTextDe(editedArticle.getTitleTransalation().getTextDe());
-        blogArticle.getTitleTransalation().setTextEn(editedArticle.getTitleTransalation().getTextEn());
-        blogArticle.getTitleTransalation().setTextEs(editedArticle.getTitleTransalation().getTextEs());
+        BlogArticle blogArticle = persistenceServices.findEntity(BlogArticle.class, 
+                editedArticle.getBlogArticleId());
+        blogArticle.getTitleTransalation().setTextDe(
+                editedArticle.getTitleTransalation().getTextDe());
+        blogArticle.getTitleTransalation().setTextEn(
+                editedArticle.getTitleTransalation().getTextEn());
+        blogArticle.getTitleTransalation().setTextEs(
+                editedArticle.getTitleTransalation().getTextEs());
 
-        blogArticle.getBodyTransalation().setTextDe(editedArticle.getBodyTransalation().getTextDe());
-        blogArticle.getBodyTransalation().setTextEn(editedArticle.getBodyTransalation().getTextEn());
-        blogArticle.getBodyTransalation().setTextEs(editedArticle.getBodyTransalation().getTextEs());
+        blogArticle.getBodyTransalation().setTextDe(
+                editedArticle.getBodyTransalation().getTextDe());
+        blogArticle.getBodyTransalation().setTextEn(
+                editedArticle.getBodyTransalation().getTextEn());
+        blogArticle.getBodyTransalation().setTextEs(
+                editedArticle.getBodyTransalation().getTextEs());
 
-        em.merge(editedArticle);
+        persistenceServices.mergeEntity(editedArticle);
     }
 }

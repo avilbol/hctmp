@@ -1,8 +1,8 @@
-package com.mobiera.social.model.controlaccess;
+package com.hallocasa.model.controlaccess;
 
+import com.hallocasa.commons.vo.AppAccessInfoVO;
+import com.hallocasa.commons.vo.UseCaseVO;
 import com.hallocasa.model.application.HallocasaApplication;
-import com.hallocasa.model.controlaccess.AccessValidator;
-import com.hallocasa.model.controlaccess.HallocasaViewEnum;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.UserServices;
 import java.io.Serializable;
@@ -102,17 +102,10 @@ public class AccessValidatorImpl implements AccessValidator, Serializable {
      */
     @Override
     public boolean validateAccessToUseCase(UseCaseEnum useCaseEnum) {
-        if (webSession.getSupervisedOperation() == null) {
-            if (useCasesSet == null) {
-                loadAppAccessInformation();
-            }
-            return containsUseCase(useCasesSet, useCaseEnum);
-        } else {
-            if (supervisionUseCasesSet == null) {
-                loadSupervisionAccessInformation();
-            }
-            return containsUseCase(supervisionUseCasesSet, useCaseEnum);
+        if (useCasesSet == null) {
+            loadAppAccessInformation();
         }
+        return containsUseCase(useCasesSet, useCaseEnum);
     }
 
     /**
@@ -145,7 +138,6 @@ public class AccessValidatorImpl implements AccessValidator, Serializable {
     @Override
     public void clear() {
         useCasesSet = null;
-        supervisionUseCasesSet = null;
     }
 
     /**
@@ -153,101 +145,25 @@ public class AccessValidatorImpl implements AccessValidator, Serializable {
      */
     private void loadAppAccessInformation() {
 
-        useCasesSet = new ArrayList<UseCaseEnum>();
-        operations = new ArrayList<OperationVO>();
-        supervisionOperations = new ArrayList<>();
-        accessToApp = false;
+        useCasesSet = new ArrayList<>();
 
         AppAccessInfoVO accessInfoVO;
-        try {
-            if (webSession.isLogged()) {
-                accessInfoVO = userServices.getAppAccessInfo(webSession
-                        .getCurrentAccount().getId(), socialApplication
-                        .getSocialAppConfigVO().getSocialAppId());
-                // access to application
-                accessToApp = true;
-
-                // allowed use-cases
-                for (UseCaseVO useCaseVO : accessInfoVO.getUseCases()) {
-                    UseCaseEnum u = UseCaseEnum.findByName(useCaseVO
-                            .getUseCaseName());
-                    if (u == null) {
-                        LOG.warning("Use case " + useCaseVO.getUseCaseName()
-                                + " is not in the Enumeration. It will be ignored");
-                    } else {
-                        useCasesSet.add(u);
-                    }
-                }
-                // allowed operations
-                operations.addAll(accessInfoVO.getOperations());
-
-                // allowed supervised operations
-                supervisionOperations.addAll(accessInfoVO
-                        .getSupervisedOperations());
-            }
-        } catch (NoAppAccessException e) {
-            LOG.log(Level.FINE, "No access to application", e);
-        }
-    }
-
-    /**
-     * Load supervision access information
-     */
-    private void loadSupervisionAccessInformation() {
-        AppAccessInfoVO accessInfoVO = null;
-        supervisionUseCasesSet = new ArrayList<UseCaseEnum>();
-
-        try {
+        if (webSession.isLogged()) {
             accessInfoVO = userServices.getAppAccessInfo(webSession
-                    .getDataPartner().getCreatorAccountId(), socialApplication
-                    .getSocialAppConfigVO().getSocialAppId());
-        } catch (NoAppAccessException e) {
-			// if the supervised operation has not a user with access to social
-            // the any use cases is loaded
-            // This shouldn't happen
-            LOG.log(Level.WARNING, "Unexpected behavior", e);
-            return;
-        }
+                    .getCurrentUser().getId());
 
-        // allowed use-cases
-        for (UseCaseVO useCaseVO : accessInfoVO.getUseCases()) {
-            UseCaseEnum u = UseCaseEnum.findByName(useCaseVO.getUseCaseName());
-            if (u == null) {
-                LOG.warning("Use case " + useCaseVO.getUseCaseName()
-                        + " is not in the Enumeration. It will be ignored");
-            } else {
-                supervisionUseCasesSet.add(u);
+            // allowed use-cases
+            for (UseCaseVO useCaseVO : accessInfoVO.getUseCases()) {
+                UseCaseEnum u = UseCaseEnum.findByName(useCaseVO
+                        .getUseCaseName());
+                if (u == null) {
+                    LOG.log(Level.WARNING, "Use case {0} is not in the Enumeration. It will be ignored",
+                            useCaseVO.getUseCaseName());
+                } else {
+                    useCasesSet.add(u);
+                }
             }
         }
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.mobiera.social.model.controlaccess.AccessValidator#validateAccessToSocial
-     * ()
-     */
-    @Override
-    public boolean validateAccessToSocial() {
-        if (accessToApp == null) {
-            loadAppAccessInformation();
-        }
-        return accessToApp;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.mobiera.social.model.controlaccess.AccessValidator#
-     * getSupervisionOperations()
-     */
-    @Override
-    public OperationVO[] getSupervisionOperations() {
-        if (supervisionOperations == null) {
-            loadAppAccessInformation();
-        }
-        return supervisionOperations.toArray(new OperationVO[0]);
     }
 
     /*

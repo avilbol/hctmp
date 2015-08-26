@@ -13,7 +13,8 @@ import javax.inject.Inject;
 
 import com.hallocasa.services.interfaces.FileServicesInterface;
 import com.hallocasa.services.interfaces.ImageServicesInterface;
-import com.hallocasa.services.interfaces.PersistenceServicesInterface;
+import com.hallocasa.services.interfaces.PersistenceServices;
+import java.io.Serializable;
 
 /**
  *
@@ -21,10 +22,11 @@ import com.hallocasa.services.interfaces.PersistenceServicesInterface;
  */
 @ManagedBean(name = "applicationContext", eager = true)
 @ApplicationScoped
-public class HallocasaApplicationImpl implements HallocasaApplication {
+public class HallocasaApplicationImpl implements HallocasaApplication, 
+        Serializable {
 
     @Inject
-    private PersistenceServicesInterface persistenceServices;
+    private PersistenceServices persistenceServices;
     @Inject
     private ImageServicesInterface imageServices;
     @Inject
@@ -58,7 +60,7 @@ public class HallocasaApplicationImpl implements HallocasaApplication {
     /**
      * @return the databaseServices
      */
-    public PersistenceServicesInterface getPersistenceServices() {
+    public PersistenceServices getPersistenceServices() {
         return persistenceServices;
     }
 

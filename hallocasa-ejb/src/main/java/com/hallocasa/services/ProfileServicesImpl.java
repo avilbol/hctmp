@@ -8,20 +8,24 @@ package com.hallocasa.services;
 import com.hallocasa.commons.vo.ProfileVO;
 import com.hallocasa.services.interfaces.ProfileServices;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 /**
  * Implements ProfileService
  *
  * @author david
  */
-public class ProfileServicesImplementation implements ProfileServices {
+@Stateless
+public class ProfileServicesImpl implements ProfileServices {
 
     @EJB
-    private PersistenceServices persistenceServices;
+    private PersistenceServicesImpl persistenceServices;
 
     @Override
     public ProfileVO find(long id) {
-        throw new UnsupportedOperationException("Not yet");
+        ProfileVO profileVO = new ProfileVO();
+        return profileVO;
+        // throw new UnsupportedOperationException("Not yet");
         // return persistenceServices.findEntity( Profile.class, id);
     }
 

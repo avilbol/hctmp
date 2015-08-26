@@ -85,8 +85,6 @@ public class UserVO implements ValueObject {
     @NotNull
     private LanguageVO language;
 
-    private PartnerVO partner;
-
     private Date lastLogin;
 
 
@@ -114,7 +112,6 @@ public class UserVO implements ValueObject {
         this.skype = account.getSkype();
         this.country = account.getCountry();
         this.language = account.getLanguage();
-        this.partner = account.getPartner();
         this.lastLogin = account.getLastLogin();
     }
 
@@ -407,23 +404,6 @@ public class UserVO implements ValueObject {
         this.postalCode = postalCode;
     }
 
-    /**
-     * Getter for partner
-     *
-     * @return partner
-     */
-    public PartnerVO getPartner() {
-        return partner;
-    }
-
-    /**
-     * Setter for partner
-     *
-     * @param partner
-     */
-    public void setPartner(PartnerVO partner) {
-        this.partner = partner;
-    }
 
     /**
      * @return lastLogin

@@ -9,7 +9,6 @@ import com.hallocasa.commons.Language;
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.commons.exceptions.services.InactiveUserException;
 import com.hallocasa.commons.exceptions.services.InvalidEmailException;
-import com.hallocasa.commons.exceptions.services.InvalidIpLoginException;
 import com.hallocasa.commons.exceptions.services.InvalidPasswordLoginException;
 import com.hallocasa.commons.vo.AuthInfoVO;
 import com.hallocasa.commons.vo.CredentialVO;
@@ -19,10 +18,12 @@ import com.hallocasa.model.controlaccess.AccessValidator;
 import com.hallocasa.services.interfaces.ProfileServices;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.view.i18n.Messages;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -38,7 +39,8 @@ import javax.inject.Named;
  */
 @Named("webSession")
 @SessionScoped
-public class WebSessionImpl implements WebSession {
+public class WebSessionImpl extends Observable implements WebSession,
+        Serializable {
 
     /* Instance variables */
     private Language currentLanguage;
@@ -52,7 +54,7 @@ public class WebSessionImpl implements WebSession {
     private ProfileServices profileServices;
     @Inject
     private AccessValidator accessValidator;
-    
+
     /* instance variables */
     private AuthInfoVO authInfoVO;
     private List<ProfileVO> currentProfiles;
@@ -152,7 +154,7 @@ public class WebSessionImpl implements WebSession {
      */
     private void initVariables() {
         this.authInfoVO = null;
-        this.attributesMap = new HashMap<String, Object>();
+        this.attributesMap = new HashMap<>();
     }
 
     /**
@@ -173,9 +175,18 @@ public class WebSessionImpl implements WebSession {
      *
      * @return The current social session
      */
-    public final static WebSession getCurrent() {
+    public static WebSession getCurrent() {
         return CDI.current().select(WebSession.class).get();
     }
 
- 
+    /**
+     * Getter for current user
+     *
+     * @return current user
+     */
+    @Override
+    public UserVO getCurrentUser() {
+        return currentUser;
+    }
+
 }

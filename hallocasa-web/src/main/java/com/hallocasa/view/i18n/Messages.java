@@ -42,7 +42,7 @@ public class Messages {
     private static final String KEY_ARG_ZERO = "{0}";
 
     static {
-        resourceBundleMap = new HashMap<Locale, ResourceBundle>();
+        resourceBundleMap = new HashMap<>();
     }
 
     /**
@@ -69,10 +69,10 @@ public class Messages {
      */
     public static String getString(String key) {
         try {
-			// LOG.warning("Getting message with key " + key + " in locale "
+            // LOG.warning("Getting message with key " + key + " in locale "
             // + SocialSessionImpl.getCurrent().getLocale().toString());
-            return getResourceBundle(WebSessionImpl.getCurrent().getLocale())
-                    .getString(key);
+            return getResourceBundle(WebSessionImpl.getCurrent()
+                    .getCurrentLanguage().getLocale()).getString(key);
 
         } catch (MissingResourceException e) {
             return "???" + key + "???";
@@ -135,9 +135,9 @@ public class Messages {
      * @return
      */
     synchronized private static ResourceBundle loadResourceBundle(Locale locale) {
-        ResourceBundle resourceBundle = null;
+        ResourceBundle resourceBundle;
         try {
-            LOG.warning("Getting bundle " + locale.toString());
+            LOG.log(Level.WARNING, "Getting bundle {0}", locale.toString());
             resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, locale);
 
         } catch (MissingResourceException e) {

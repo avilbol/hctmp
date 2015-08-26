@@ -11,10 +11,9 @@ import javax.faces.event.ActionEvent;
 
 import com.hallocasa.dataentities.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
-import com.hallocasa.commons.constants.SystemConstants;
-import com.hallocasa.model.application.ConstantsProvider;
+import com.hallocasa.model.controlaccess.HallocasaViewEnum;
+import com.hallocasa.model.controlaccess.HallocasaViewNames;
 import com.hallocasa.model.session.WebSessionImpl;
-import com.hallocasa.view.ViewEnum;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
 
@@ -23,7 +22,7 @@ import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
  *
  * @author david
  */
-@ManagedBean(name = "buyProcessPage")
+@ManagedBean(name = HallocasaViewNames.BUY_PROCESS)
 @ViewScoped
 public class BuyProcessPage extends BaseManagedBean {
 
@@ -409,7 +408,8 @@ public class BuyProcessPage extends BaseManagedBean {
      * @return
      */
     private static String buildPageUrl(MenuOption menuOption) {
-        StringBuilder str = new StringBuilder(ViewEnum.BUYING_PROCESS.getAbsoulteUrl());
+        StringBuilder str = new StringBuilder(HallocasaViewEnum.BUYING_PROCESS
+                .getAbsolutePath());
         str.append("?").append(QUERY_STRING_OPTION).append("=").append(
                 menuOption.name().toLowerCase());
         return str.toString();

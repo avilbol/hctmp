@@ -22,15 +22,17 @@
                           pool-resize-quantity="2" res-type="javax.sql.DataSource" 
                           statement-timeout-in-seconds="-1" steady-pool-size="8" 
                           validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
-        <description>HalloCasaPool</description>
+        <description>HalloCasaPool1</description>
         <property name="URL" value="jdbc:mysql://localhost:3306/hallocasadb"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/hallocasadb"/>
         <property name="User" value="root"/>
+        <property name="Servername" value="localhost"/>
         <property name="Password" value="masterkey"/>
     </jdbc-connection-pool>
     <jdbc-resource 
         enabled="true" 
-        jndi-name="jdbc/halloCasaDatasource" 
+        jndi-name="jdbc/halloCasaDatasource1" 
         object-type="user" 
-        pool-name="halloCasaPool">
+        pool-name="halloCasaPool1">
     </jdbc-resource>
 </resources>

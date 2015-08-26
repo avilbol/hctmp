@@ -8,13 +8,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import com.hallocasa.dataentities.Link;
 import com.hallocasa.dataentities.LinkType;
+import com.hallocasa.model.controlaccess.HallocasaViewNames;
 import com.hallocasa.services.interfaces.RelatedLinkServicesInterface;
-import com.hallocasa.view.facade.ViewFacadeImpl;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
-import javax.inject.Inject;
 
-@ManagedBean(name = "linksPage")
+@ManagedBean(name = HallocasaViewNames.LINKS )
 @ViewScoped
 public class LinksPage extends BaseManagedBean {
 

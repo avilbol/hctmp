@@ -9,6 +9,7 @@ import com.hallocasa.commons.exceptions.services.InactiveUserException;
 import com.hallocasa.commons.exceptions.services.InvalidEmailException;
 import com.hallocasa.commons.exceptions.services.InvalidPasswordLoginException;
 import com.hallocasa.commons.exceptions.services.ServiceException;
+import com.hallocasa.commons.vo.AppAccessInfoVO;
 import com.hallocasa.commons.vo.AuthInfoVO;
 import com.hallocasa.commons.vo.CredentialVO;
 import com.hallocasa.dataentities.TemporalPublisherUser;
@@ -37,7 +38,15 @@ public interface UserServices {
      * user
      * @throws com.hallocasa.commons.exceptions.services.InactiveUserException
      */
-    public AuthInfoVO authenticate(CredentialVO credentials) throws 
+    public AuthInfoVO authenticate(CredentialVO credentials) throws
             InvalidEmailException, InvalidPasswordLoginException,
             InactiveUserException;
+
+    /**
+     * Return access information to the application
+     *
+     * @param userId Id of the user to read access from
+     * @return
+     */
+    public AppAccessInfoVO getAppAccessInfo(long userId);
 }
