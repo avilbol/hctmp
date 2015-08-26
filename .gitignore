@@ -3,4 +3,5 @@
 /hallocasa-ejb/target/*
 /hallocasa-ear/target/*
 /hallocasa-commons/target/*
+*.zargo~
 */nb-configuration.xml
