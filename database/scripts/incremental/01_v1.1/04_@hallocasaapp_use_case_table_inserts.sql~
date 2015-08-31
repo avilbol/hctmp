@@ -1,0 +1,2 @@
+INSERT INTO `hallocasaapp`.`use_case` (`use_case_name`) VALUES ('/hallocasa/user/my-profile');
+
