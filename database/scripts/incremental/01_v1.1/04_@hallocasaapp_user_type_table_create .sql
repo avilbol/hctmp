@@ -1,45 +1,46 @@
-CREATE TABLE `hallocasaapp`.`profile` (
-  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
-  `profile_name` VARCHAR(80) NOT NULL COMMENT '',
-  PRIMARY KEY (`id`)  COMMENT '',
-  UNIQUE INDEX `profile_name_UNIQUE` (`profile_name` ASC)  COMMENT '');
+CREATE TABLE `hallocasaapp`.`translation` (
+  `id` INT NOT NULL COMMENT '',
+  `text_en` TEXT COMMENT '',
+  `text_es` TEXT COMMENT '',
+  `text_de` TEXT COMMENT ''
+  PRIMARY KEY (`id`)  COMMENT '';
 
-CREATE TABLE `hallocasaapp`.`use_case` (
+CREATE TABLE `hallocasaapp`.`user_type` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
-  `use_case_name` VARCHAR(120) NOT NULL COMMENT '',
+  `user_type_name` VARCHAR(45) NOT NULL COMMENT '',
+  `translation_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '',
-  UNIQUE INDEX `use_case_name_UNIQUE` (`use_case_name` ASC)  COMMENT '');
+  CONSTRAINT `fk__user_type__translation`
+    FOREIGN KEY (`translation_id`)
+    REFERENCES `hallocasaapp`.`translation` (`id`);
 
-CREATE TABLE `hallocasaapp`.`profile_use_case` (
-  `profile_id` INT NOT NULL COMMENT '',
-  `use_case_id` VARCHAR(45) NOT NULL COMMENT '',
-  PRIMARY KEY (`profile_id`, `use_case_id`)  COMMENT '',
-  CONSTRAINT `fk__profile_use_case__profile`
+CREATE TABLE `hallocasaapp`.`user_type_profiles` (
+  `user_type_id` INT NOT NULL '',
+  `profile_id` INT NOT NULL '',
+  PRIMARY KEY (`user_type_id`, `profile_id`)  COMMENT '',
+  CONSTRAINT `fk__user_type_profiles__user_type`
+    FOREIGN KEY (`user_type_id`)
+    REFERENCES `hallocasaapp`.`user_type` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk__user_type_profiles__profile`
     FOREIGN KEY (`profile_id`)
     REFERENCES `hallocasaapp`.`profile` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk__profile_use_case__use_case`
-    FOREIGN KEY (`use_case_id`)
-    REFERENCES `hallocasaapp`.`use_case` (`id`)
-    ON DELETE CASCADE
     ON UPDATE CASCADE);
 
-CREATE TABLE `hallocasaapp`.`user_profile` (
-  `user_id` INT NOT NULL COMMENT '',
-  `profile_id` INT NOT NULL COMMENT '',
-  PRIMARY KEY (`user_id`, `profile_id`)  COMMENT '',
-  INDEX `fk__user_profile__profile_idx` (`profile_id` ASC)  COMMENT '',
-  CONSTRAINT `fk__user_profile__user`
+CREATE TABLE `hallocasaapp`.`user_user_type` (
+  `user_id` INT NOT NULL '',
+  `user_type_id` INT NOT NULL '',
+  PRIMARY KEY (`user`, `user_type_id`)  COMMENT '',
+  CONSTRAINT `fk__user_user_type__user`
     FOREIGN KEY (`user_id`)
     REFERENCES `hallocasaapp`.`user` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk__user_profile__profile`
-    FOREIGN KEY (`profile_id`)
-    REFERENCES `hallocasaapp`.`profile` (`id`)
+  CONSTRAINT `fk__user_user_type__user_type`
+    FOREIGN KEY (`user_type_id`)
+    REFERENCES `hallocasaapp`.`user_type` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE);
-
-
 
