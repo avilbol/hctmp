@@ -14,8 +14,9 @@ import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.model.controlaccess.HallocasaViewEnum;
 import com.hallocasa.model.controlaccess.HallocasaViewNames;
 import com.hallocasa.model.session.WebSessionImpl;
+import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
-import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
+import javax.inject.Inject;
 
 /**
  * Backing bean for buy-process index page
@@ -34,11 +35,7 @@ public class BuyProcessPage extends BaseManagedBean {
     private static final String SECTION_FAQ = "faq.xhtml";
     private static final String QUERY_STRING_OPTION = "option";
 
-    /* Instance variables */
-    private String contentUrl;
-    private String faqUrl;
-    private String downloadUrl;
-
+    /* Inner types */
     public enum MenuOption {
 
         CONTENT(SECTION_PURCHASE),
@@ -52,10 +49,16 @@ public class BuyProcessPage extends BaseManagedBean {
         }
     }
 
+    /* Instance variables */
+    private String contentUrl;
+    private String faqUrl;
+    private String downloadUrl;
+
     /* Dependencies */
     @EJB
     private BlogArticleServicesLocal blogArticleServices;
-    private AbstractViewFacade viewFacade;
+    @Inject
+    private NavigationHandler navigationHandler;
     private WebSessionImpl webSession;
 
     /* Instance variables */
@@ -84,7 +87,6 @@ public class BuyProcessPage extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         buyProcessArticles = new ArrayList<>();
-        viewFacade = AbstractViewFacade.getCurrentInstance();
         webSession = WebSessionImpl.getCurrentInstance();
 
         // initialize urls
@@ -156,7 +158,7 @@ public class BuyProcessPage extends BaseManagedBean {
 
         // select section
         String requestedOptionStr
-                = viewFacade.getViewParams().get(QUERY_STRING_OPTION);
+                = navigationHandler.getPageParams().get(QUERY_STRING_OPTION);
         requestedOptionStr = requestedOptionStr == null
                 ? MenuOption.CONTENT.name() : requestedOptionStr.toUpperCase();
 

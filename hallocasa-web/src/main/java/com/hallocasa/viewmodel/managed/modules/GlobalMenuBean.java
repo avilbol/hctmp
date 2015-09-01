@@ -5,12 +5,12 @@
  */
 package com.hallocasa.viewmodel.managed.modules;
 
+import com.hallocasa.model.controlaccess.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
-import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
-import com.hallocasa.viewmodel.viewfacade.Page;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 
 /**
  *
@@ -19,27 +19,10 @@ import javax.faces.event.ActionEvent;
 @ManagedBean(name = "globalMenuBean")
 @ViewScoped
 public class GlobalMenuBean {
+    
+    @Inject
+    private NavigationHandler navigationHandler;
 
-    /**
-     * ************************************************************************
-     * Constanst
-     * **************************************************************************
-     */
-    /**
-     * *************************************************************************
-     * Instance variable
-     * **************************************************************************
-     */
-    /**
-     * *************************************************************************
-     * Constructor
-     * **************************************************************************
-     */
-    /**
-     * *************************************************************************
-     * Methods
-     * *************************************************************************
-     */
     
     /**
      * Listener for item click
@@ -47,13 +30,8 @@ public class GlobalMenuBean {
      * @param event
      */
     public void onMenuItemClick(ActionEvent event) {
-        Page pageTo = Page.valueOf((String) event.getComponent().getAttributes().get("page"));
-        AbstractViewFacade.getCurrentInstance().navigate(pageTo, null);
+        HallocasaViewEnum pageTo = HallocasaViewEnum.valueOf((String) event.getComponent().getAttributes().get("page"));
+        navigationHandler.redirectToPage(pageTo, null);
     }
 
-    /**
-     * *************************************************************************
-     * Getters y Setters
-     * *************************************************************************
-     */
 }

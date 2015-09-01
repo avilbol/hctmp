@@ -5,11 +5,12 @@
  */
 package com.hallocasa.view.facelets.commons;
 
-import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
-import com.hallocasa.viewmodel.viewfacade.Page;
+import com.hallocasa.model.controlaccess.HallocasaViewEnum;
+import com.hallocasa.view.navigation.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 
 /**
  *
@@ -18,6 +19,9 @@ import javax.faces.event.ActionEvent;
 @ManagedBean(name = "logoBean")
 @RequestScoped
 public class LogoBean {
+    
+    @Inject
+    private NavigationHandler navigationHandler;
 
     /**
      * Listener for the click on the logo
@@ -25,7 +29,7 @@ public class LogoBean {
      * @param event
      */
     public void onLogoClick(ActionEvent event) {
-        AbstractViewFacade.getCurrentInstance().navigate(Page.HOME, null);
+        navigationHandler.redirectToPage(HallocasaViewEnum.HOME, null);
     }
 
 }

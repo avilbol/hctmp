@@ -5,20 +5,22 @@
 package com.hallocasa.viewmodel.managed.pages.blog;
 
 import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.model.controlaccess.HallocasaViewNames;
 import com.hallocasa.model.session.WebSessionImpl;
-import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
+import com.hallocasa.view.navigation.NavigationHandler;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 import org.apache.commons.lang.StringEscapeUtils;
 
 /**
  *
  * @author David Mantilla
  */
-@ManagedBean(name = "blogArticlePage")
+@ManagedBean(name = HallocasaViewNames.BLOG_ARTICLE)
 @ViewScoped
 public class BlogArticlePage extends BlogPageBase {
 
@@ -28,13 +30,13 @@ public class BlogArticlePage extends BlogPageBase {
 
 
     /* dependencies */
-    private final AbstractViewFacade abstractViewFacade;
+    @Inject
+    private NavigationHandler navigationHandler;
 
     /**
      * Default constructor
      */
     public BlogArticlePage() {
-        abstractViewFacade = AbstractViewFacade.getCurrentInstance();
     }
 
     /**
@@ -43,7 +45,7 @@ public class BlogArticlePage extends BlogPageBase {
     @PostConstruct
     public void initialize() {
         // loads article from view paramters
-        String articleIdStr = abstractViewFacade.getViewParams().
+        String articleIdStr = navigationHandler.getPageParams().
                 get(QUERY_PARAM_ARTICLE_ID);
         Integer articleId = null;
         try {

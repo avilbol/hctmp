@@ -7,11 +7,12 @@ package com.hallocasa.viewmodel.managed.pages.blog;
 import com.hallocasa.dataentities.BlogArticle;
 import com.hallocasa.dataentities.Translation;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
-import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
+import com.hallocasa.view.navigation.NavigationHandler;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 
 /**
  *
@@ -26,19 +27,17 @@ public class BlogArticleEditionPage extends BlogPageBase {
     private BlogArticle editedArticle;
     private String articleBody;
     private String articleTitle;
+    private String editionLanguage;
 
     /* dependencies */
     @EJB
     private BlogArticleServicesLocal blogArticleServices;
-    private final AbstractViewFacade viewFacade;
-    private String editionLanguage;
+    @Inject
+    private NavigationHandler navigationHandler;
+    
+    
+    
 
-    /**
-     * Default constructor
-     */
-    public BlogArticleEditionPage() {
-        this.viewFacade = AbstractViewFacade.getCurrentInstance();
-    }
 
     /**
      * Initialize managed bean
@@ -52,9 +51,9 @@ public class BlogArticleEditionPage extends BlogPageBase {
      * Loads edited article
      */
     private void loadArticle() {
-        String articleIdStr = viewFacade.getViewParams().get(QUERY_STRING_ARTICLE_ID);
+        String articleIdStr = navigationHandler.getPageParams().get(QUERY_STRING_ARTICLE_ID);
         editedArticle = blogArticleServices.findBlogArticle(Integer.valueOf(articleIdStr));
-        editionLanguage = viewFacade.getViewParams().get(QUERY_STRING_LANGUAGE);
+        editionLanguage = navigationHandler.getPageParams().get(QUERY_STRING_LANGUAGE);
 
         Translation titleTranslation = editedArticle.getTitleTransalation();
         Translation bodyTranslation = editedArticle.getBodyTransalation();

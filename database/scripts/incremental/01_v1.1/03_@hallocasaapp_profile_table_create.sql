@@ -12,7 +12,7 @@ CREATE TABLE `hallocasaapp`.`use_case` (
 
 CREATE TABLE `hallocasaapp`.`profile_use_case` (
   `profile_id` INT NOT NULL COMMENT '',
-  `use_case_id` VARCHAR(45) NOT NULL COMMENT '',
+  `use_case_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`profile_id`, `use_case_id`)  COMMENT '',
   CONSTRAINT `fk__profile_use_case__profile`
     FOREIGN KEY (`profile_id`)

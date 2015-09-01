@@ -9,6 +9,7 @@ public interface HallocasaViewNames {
 
 	public static final String BUY_PROCESS = "buyProcessPage";
         public static final String BLOG_INDEX = "blogIndexPage";
+        public static final String BLOG_ARTICLE = "blogArticlePage";
         public static final String LINKS = "links";
     
         // TODO: check this list

@@ -10,7 +10,6 @@ import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
-import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

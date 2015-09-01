@@ -10,8 +10,9 @@ import com.hallocasa.dataentities.Link;
 import com.hallocasa.dataentities.LinkType;
 import com.hallocasa.model.controlaccess.HallocasaViewNames;
 import com.hallocasa.services.interfaces.RelatedLinkServicesInterface;
+import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
-import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
+import javax.inject.Inject;
 
 @ManagedBean(name = HallocasaViewNames.LINKS )
 @ViewScoped
@@ -45,7 +46,8 @@ public class LinksPage extends BaseManagedBean {
     /* Dependencies */
     @EJB
     private RelatedLinkServicesInterface relatedLinkServices;
-    private AbstractViewFacade abstractViewFacade;
+    @Inject
+    private NavigationHandler navigationHandler;
 
     /* Instance variables */
     private String activeSection;
@@ -58,12 +60,10 @@ public class LinksPage extends BaseManagedBean {
      */
     @PostConstruct
     public void initialize() {
-        // TODO: replace by CDI injection
-        abstractViewFacade = AbstractViewFacade.getCurrentInstance();
 
         // select section
         String requestedOptionStr
-                = abstractViewFacade.getViewParams().get(QUERY_STRING_OPTION);
+                = navigationHandler.getPageParams().get(QUERY_STRING_OPTION);
         requestedOptionStr = requestedOptionStr == null
                 ? MenuOption.BLOGS.name() : requestedOptionStr.toUpperCase();
 

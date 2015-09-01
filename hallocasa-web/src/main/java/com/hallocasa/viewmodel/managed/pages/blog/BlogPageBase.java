@@ -5,14 +5,15 @@
 package com.hallocasa.viewmodel.managed.pages.blog;
 
 import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.model.controlaccess.HallocasaViewEnum;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
-import com.hallocasa.viewmodel.viewfacade.Page;
+import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
-import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
 import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 
 /**
  *
@@ -25,6 +26,8 @@ public abstract class BlogPageBase extends BaseManagedBean {
     /* dependencies */
     @EJB
     private BlogArticleServicesLocal blogArticleServices;
+    @Inject
+    private NavigationHandler navigationHandler;
     
     /**
      * Default constructor
@@ -43,7 +46,7 @@ public abstract class BlogPageBase extends BaseManagedBean {
         if (articleId == null) {
             throw new IllegalArgumentException("articleId can't be null");
         }
-        AbstractViewFacade.getCurrentInstance().navigate(Page.BLOG_ARTICLE,
+        navigationHandler.redirectToPage(HallocasaViewEnum.BLOG_ARTICLE,
                 BlogArticlePage.buildParamsMap(articleId));
     }
 
@@ -60,7 +63,7 @@ public abstract class BlogPageBase extends BaseManagedBean {
         }
         String url = seeMoreLinksMap.get(articleId);
         if (url == null) {
-            url = AbstractViewFacade.getCurrentInstance().buildAbsoluteUrl(Page.BLOG_ARTICLE,
+            url = navigationHandler.buildAbsoluteUrl(HallocasaViewEnum.BLOG_ARTICLE,
                     BlogArticlePage.buildParamsMap(articleId));
         }
         return url;

@@ -1,6 +1,7 @@
 package com.hallocasa.model.controlaccess;
 
 import com.hallocasa.commons.constants.SystemConstants;
+import com.hallocasa.viewmodel.managed.pages.blog.BlogArticlePage;
 import com.hallocasa.viewmodel.managed.pages.blog.BlogIndexPage;
 import com.hallocasa.viewmodel.managed.pages.buyprocess.BuyProcessPage;
 import com.hallocasa.viewmodel.managed.pages.links.LinksPage;
@@ -72,6 +73,11 @@ public enum HallocasaViewEnum {
      * Links list page
      */
     LINKS(HallocasaViewNames.LINKS, "/pages/links/index.xhtml", LinksPage.class,
+            false),
+    /**
+     * Blog article detail
+     */
+    BLOG_ARTICLE(HallocasaViewNames.BLOG_ARTICLE, "/pages/blog/article.xhtml", BlogArticlePage.class,
             false);
 
     /* Static */

@@ -18,6 +18,7 @@ import com.hallocasa.model.controlaccess.AccessValidator;
 import com.hallocasa.services.interfaces.ProfileServices;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.view.i18n.Messages;
+import com.hallocasa.view.navigation.NavigationHandler;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +55,8 @@ public class WebSessionImpl extends Observable implements WebSession,
     private ProfileServices profileServices;
     @Inject
     private AccessValidator accessValidator;
+    @Inject
+    private NavigationHandler navigationHandler;
 
     /* instance variables */
     private AuthInfoVO authInfoVO;
@@ -77,7 +80,7 @@ public class WebSessionImpl extends Observable implements WebSession,
     public Language getCurrentLanguage() {
         if (currentLanguage == null) {
             try {
-                String langParameter = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("lang");
+                String langParameter = navigationHandler.getPageParams().get("lang");
                 if (langParameter != null) {
                     currentLanguage = Language.valueOf(langParameter);
                 } else {

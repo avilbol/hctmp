@@ -8,8 +8,8 @@ import com.hallocasa.dataentities.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.commons.conversion.ConversionUtils;
 import com.hallocasa.model.controlaccess.HallocasaViewNames;
+import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.exceptions.ForbiddenException;
-import com.hallocasa.viewmodel.viewfacade.AbstractViewFacade;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,12 +18,13 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 
 /**
  *
  * @author David Mantilla
  */
-@ManagedBean(name = HallocasaViewNames.BLOG_INDEX )
+@ManagedBean(name = HallocasaViewNames.BLOG_INDEX)
 @ViewScoped
 public class BlogIndexPage extends BlogPageBase {
 
@@ -38,13 +39,13 @@ public class BlogIndexPage extends BlogPageBase {
     /* dependencies */
     @EJB
     private BlogArticleServicesLocal blogArticleServices;
-    private final AbstractViewFacade viewFacade;
+    @Inject
+    private NavigationHandler navigationHandler;
 
     /**
      * Default constructor
      */
     public BlogIndexPage() {
-        this.viewFacade = AbstractViewFacade.getCurrentInstance();
     }
 
     /**
@@ -68,12 +69,12 @@ public class BlogIndexPage extends BlogPageBase {
     private void loadArticles() {
         if (!loadedArticles) {
 
-            String type = viewFacade.getViewParams().get(QUERY_PARAM_TYPE);
+            String type = navigationHandler.getPageParams().get(QUERY_PARAM_TYPE);
 
             // Articulos principales
             if (type != null ? type.equals(TYPE_CATEGORY_LAYOUT) : false) {
                 Integer catId = ConversionUtils.silentIntToStr(
-                        viewFacade.getViewParams().get(QUERY_PARAM_CATEGORY), null);
+                        navigationHandler.getPageParams().get(QUERY_PARAM_CATEGORY), null);
                 if (catId == null) {
                     throw new ForbiddenException();
                 }
