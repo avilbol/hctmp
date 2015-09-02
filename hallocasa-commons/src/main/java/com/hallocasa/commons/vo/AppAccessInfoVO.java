@@ -23,52 +23,9 @@ public class AppAccessInfoVO implements ValueObject {
     /* static fields */
 
     /* instance variables */
-    private List<UseCaseVO> useCases;
-    private List<ProfileVO> profiles;
+
 
     /* constructors */
-    /**
-     * Default Constructor
-     */
-    public AppAccessInfoVO() {
-        useCases = new ArrayList<>();
-    }
-
-    /* Methods */
-
-    /* Getters & Setters */
-    /**
-     * Getter for useCases
-     *
-     * @return the useCases
-     */
-    public List<UseCaseVO> getUseCases() {
-        return useCases;
-    }
-
-    /**
-     * Setter for useCases
-     *
-     * @param useCases the useCases to set
-     */
-    public void setUseCases(List<UseCaseVO> useCases) {
-        this.useCases = useCases;
-    }
-
-    /**
-     * Getter for profiles
-     * @return 
-     */
-    public List<ProfileVO> getProfiles() {
-        return profiles;
-    }
-
-    /**
-     * Setter for profiles
-     * @param profiles 
-     */
-    public void setProfiles(List<ProfileVO> profiles) {
-        this.profiles = profiles;
-    }
+   
 
 }

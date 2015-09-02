@@ -18,7 +18,7 @@ import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Stateless;
 
-import com.hallocasa.dataentities.File;
+import com.hallocasa.dataentities.wcm.File;
 import com.hallocasa.services.constants.ServiceErrorMessage;
 import com.hallocasa.services.interfaces.FileServicesInterface;
 

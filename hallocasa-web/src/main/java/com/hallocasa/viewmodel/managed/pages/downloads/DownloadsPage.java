@@ -5,7 +5,7 @@
  */
 package com.hallocasa.viewmodel.managed.pages.downloads;
 
-import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.dataentities.wcm.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.model.session.WebSessionImpl;

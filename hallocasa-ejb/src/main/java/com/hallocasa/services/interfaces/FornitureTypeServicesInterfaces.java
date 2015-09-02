@@ -4,7 +4,7 @@
  */
 package com.hallocasa.services.interfaces;
 
-import com.hallocasa.dataentities.FornitureType;
+import com.hallocasa.dataentities.wcm.FornitureType;
 import java.io.Serializable;
 import java.util.List;
 

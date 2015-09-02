@@ -1,9 +1,9 @@
 package com.hallocasa.services.messaging.impl;
 
-import com.hallocasa.services.ServicesBase;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.services.messaging.local.MailServicesLocal;
 import com.hallocasa.commons.validation.StandardPropertyValidator;
+import com.hallocasa.services.base.ServicesBase;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;

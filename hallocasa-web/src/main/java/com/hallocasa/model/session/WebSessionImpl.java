@@ -7,9 +7,6 @@ package com.hallocasa.model.session;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.constants.SystemConstants;
-import com.hallocasa.commons.exceptions.services.InactiveUserException;
-import com.hallocasa.commons.exceptions.services.InvalidEmailException;
-import com.hallocasa.commons.exceptions.services.InvalidPasswordLoginException;
 import com.hallocasa.commons.vo.AuthInfoVO;
 import com.hallocasa.commons.vo.CredentialVO;
 import com.hallocasa.commons.vo.ProfileVO;
@@ -17,7 +14,6 @@ import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.controlaccess.AccessValidator;
 import com.hallocasa.services.interfaces.ProfileServices;
 import com.hallocasa.services.interfaces.UserServices;
-import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.view.navigation.NavigationHandler;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -121,7 +117,7 @@ public class WebSessionImpl extends Observable implements WebSession,
             logout();
         }
 
-        authInfoVO = null;
+     /*   authInfoVO = null;
         try {
             authInfoVO = userServices.authenticate(credentialVO);
             currentUser = authInfoVO.getAccount();
@@ -136,7 +132,7 @@ public class WebSessionImpl extends Observable implements WebSession,
         } catch (InactiveUserException e) {
             throw new LoginFailedException(Messages
                     .getString(Messages.LOGIN_INACTIVE_USER_MESSAGE));
-        }
+        } */
     }
 
     @Override

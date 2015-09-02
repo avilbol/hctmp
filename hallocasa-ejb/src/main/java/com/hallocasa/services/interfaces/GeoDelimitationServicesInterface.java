@@ -4,7 +4,7 @@
  */
 package com.hallocasa.services.interfaces;
 
-import com.hallocasa.dataentities.GeoDelimitation;
+import com.hallocasa.dataentities.wcm.GeoDelimitation;
 import java.io.Serializable;
 import java.util.List;
 

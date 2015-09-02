@@ -10,7 +10,7 @@ import java.util.Set;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtils;
 
-import com.hallocasa.commons.vo.interfaces.SocialEntity;
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 
 /**
@@ -20,7 +20,7 @@ import com.hallocasa.commons.vo.interfaces.ValueObject;
  * @param <U> value object class
  * @since 1.7
  */
-public abstract class GenericVOParser<T extends SocialEntity, U extends ValueObject> {
+public abstract class GenericVOParser<T extends HallocasaEntity, U extends ValueObject> {
 
 	private Set<String> ignoreEntityFields;
 	private Set<String> ignoreVOFields;

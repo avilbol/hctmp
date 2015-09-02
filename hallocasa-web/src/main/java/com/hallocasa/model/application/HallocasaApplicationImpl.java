@@ -12,7 +12,7 @@ import javax.faces.context.FacesContext;
 
 import com.hallocasa.services.interfaces.FileServicesInterface;
 import com.hallocasa.services.interfaces.ImageServicesInterface;
-import com.hallocasa.services.persistence.local.PersistenceServices;
+import com.hallocasa.services.persistence.local.WcmPersistenceServices;
 import java.io.Serializable;
 import javax.ejb.EJB;
 
@@ -26,7 +26,7 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
         Serializable {
 
     @EJB
-    private PersistenceServices persistenceServices;
+    private WcmPersistenceServices persistenceServices;
     @EJB
     private ImageServicesInterface imageServices;
     @EJB
@@ -60,7 +60,7 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
     /**
      * @return the databaseServices
      */
-    public PersistenceServices getPersistenceServices() {
+    public WcmPersistenceServices getPersistenceServices() {
         return persistenceServices;
     }
 

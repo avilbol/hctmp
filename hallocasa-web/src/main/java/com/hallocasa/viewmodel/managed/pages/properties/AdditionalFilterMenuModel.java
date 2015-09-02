@@ -6,13 +6,13 @@ import java.util.List;
 
 import javax.faces.convert.BooleanConverter;
 
-import com.hallocasa.dataentities.EnergyType;
-import com.hallocasa.dataentities.HeatingType;
-import com.hallocasa.dataentities.PriceDevelopment;
-import com.hallocasa.dataentities.PropertyCondition;
-import com.hallocasa.dataentities.PropertyUse;
-import com.hallocasa.dataentities.Security;
-import com.hallocasa.dataentities.SewageWater;
+import com.hallocasa.dataentities.wcm.EnergyType;
+import com.hallocasa.dataentities.wcm.HeatingType;
+import com.hallocasa.dataentities.wcm.PriceDevelopment;
+import com.hallocasa.dataentities.wcm.PropertyCondition;
+import com.hallocasa.dataentities.wcm.PropertyUse;
+import com.hallocasa.dataentities.wcm.Security;
+import com.hallocasa.dataentities.wcm.SewageWater;
 import com.hallocasa.services.TypeServices;
 import com.hallocasa.services.filter.FilterCondition.FilterOperation;
 import com.hallocasa.view.converters.IntegerConverter;

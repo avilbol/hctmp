@@ -14,7 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import com.hallocasa.dataentities.TemporalPublisherUser;
+import com.hallocasa.dataentities.wcm.TemporalPublisherUser;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.commons.constants.ViewBundle;
 import com.hallocasa.commons.exceptions.services.ServiceException;

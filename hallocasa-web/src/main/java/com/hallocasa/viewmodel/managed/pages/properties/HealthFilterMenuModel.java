@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hallocasa.dataentities.InterestPlaceRange;
-import com.hallocasa.dataentities.MedicalFacility;
+import com.hallocasa.dataentities.wcm.InterestPlaceRange;
+import com.hallocasa.dataentities.wcm.MedicalFacility;
 import com.hallocasa.services.TypeServices;
 import com.hallocasa.services.filter.FilterCondition.FilterOperation;
 import com.hallocasa.viewmodel.components.filter.FilterSelectItem;

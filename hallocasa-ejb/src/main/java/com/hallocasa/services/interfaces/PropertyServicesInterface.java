@@ -4,8 +4,8 @@
  */
 package com.hallocasa.services.interfaces;
 
-import com.hallocasa.dataentities.Property;
-import com.hallocasa.dataentities.PropertyTopography;
+import com.hallocasa.dataentities.wcm.Property;
+import com.hallocasa.dataentities.wcm.PropertyTopography;
 import com.hallocasa.services.filter.FilterGroup;
 import com.hallocasa.services.pagination.PageIndexInfo;
 import com.hallocasa.services.pagination.PageList;

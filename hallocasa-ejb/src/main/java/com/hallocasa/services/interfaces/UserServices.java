@@ -12,7 +12,7 @@ import com.hallocasa.commons.exceptions.services.ServiceException;
 import com.hallocasa.commons.vo.AppAccessInfoVO;
 import com.hallocasa.commons.vo.AuthInfoVO;
 import com.hallocasa.commons.vo.CredentialVO;
-import com.hallocasa.dataentities.TemporalPublisherUser;
+import com.hallocasa.dataentities.wcm.TemporalPublisherUser;
 
 /**
  *
@@ -28,25 +28,5 @@ public interface UserServices {
     public void savePropertyPublisher(TemporalPublisherUser publisherUser)
             throws ServiceException;
 
-    /**
-     * Return the result of the user authentication process
-     *
-     * @param credentials
-     * @return
-     * @throws InvalidEmailException When the email doesn't exist
-     * @throws InvalidPasswordLoginException When the password doesn't belong to
-     * user
-     * @throws com.hallocasa.commons.exceptions.services.InactiveUserException
-     */
-    public AuthInfoVO authenticate(CredentialVO credentials) throws
-            InvalidEmailException, InvalidPasswordLoginException,
-            InactiveUserException;
 
-    /**
-     * Return access information to the application
-     *
-     * @param userId Id of the user to read access from
-     * @return
-     */
-    public AppAccessInfoVO getAppAccessInfo(long userId);
 }

@@ -9,7 +9,7 @@ import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 
-import com.hallocasa.dataentities.GeoDelimitation;
+import com.hallocasa.dataentities.wcm.GeoDelimitation;
 import com.hallocasa.dataentities.interfaces.TypeInterface;
 import com.hallocasa.services.filter.FilterCondition;
 import com.hallocasa.services.filter.FilterCondition.FilterOperation;

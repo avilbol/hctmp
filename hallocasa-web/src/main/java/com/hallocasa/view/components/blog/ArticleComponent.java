@@ -5,7 +5,7 @@
  */
 package com.hallocasa.view.components.blog;
 
-import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.dataentities.wcm.BlogArticle;
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.model.session.WebSessionImpl;
 import java.util.HashMap;

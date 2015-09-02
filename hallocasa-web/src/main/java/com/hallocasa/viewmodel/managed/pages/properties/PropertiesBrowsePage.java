@@ -10,7 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import com.hallocasa.dataentities.Property;
+import com.hallocasa.dataentities.wcm.Property;
 import com.hallocasa.services.TypeServices;
 import com.hallocasa.services.filter.FilterGroup;
 import com.hallocasa.services.interfaces.GeoDelimitationServicesInterface;

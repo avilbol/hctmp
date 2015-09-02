@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import com.hallocasa.dataentities.GeoDelimitation;
+import com.hallocasa.dataentities.wcm.GeoDelimitation;
 import com.hallocasa.services.interfaces.GeoDelimitationServicesInterface;
 
 /**

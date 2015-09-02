@@ -2,20 +2,20 @@ package com.hallocasa.viewmodel.managed.pages.properties;
 
 import java.io.Serializable;
 
-import com.hallocasa.dataentities.Agriculture;
-import com.hallocasa.dataentities.AnimalAmmount;
-import com.hallocasa.dataentities.AverageAge;
-import com.hallocasa.dataentities.FlowersAmmount;
-import com.hallocasa.dataentities.Fructiculture;
-import com.hallocasa.dataentities.Humidity;
-import com.hallocasa.dataentities.IndsutrialDriver;
-import com.hallocasa.dataentities.Industry;
-import com.hallocasa.dataentities.PopulationDensity;
-import com.hallocasa.dataentities.RainIntensity;
-import com.hallocasa.dataentities.RainPeriod;
-import com.hallocasa.dataentities.RegionGrowthRate;
-import com.hallocasa.dataentities.SeaLevel;
-import com.hallocasa.dataentities.SoilType;
+import com.hallocasa.dataentities.wcm.Agriculture;
+import com.hallocasa.dataentities.wcm.AnimalAmmount;
+import com.hallocasa.dataentities.wcm.AverageAge;
+import com.hallocasa.dataentities.wcm.FlowersAmmount;
+import com.hallocasa.dataentities.wcm.Fructiculture;
+import com.hallocasa.dataentities.wcm.Humidity;
+import com.hallocasa.dataentities.wcm.IndsutrialDriver;
+import com.hallocasa.dataentities.wcm.Industry;
+import com.hallocasa.dataentities.wcm.PopulationDensity;
+import com.hallocasa.dataentities.wcm.RainIntensity;
+import com.hallocasa.dataentities.wcm.RainPeriod;
+import com.hallocasa.dataentities.wcm.RegionGrowthRate;
+import com.hallocasa.dataentities.wcm.SeaLevel;
+import com.hallocasa.dataentities.wcm.SoilType;
 import com.hallocasa.services.TypeServices;
 
 /**

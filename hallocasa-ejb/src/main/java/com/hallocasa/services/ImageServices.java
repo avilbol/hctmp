@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.hallocasa.dataentities.Image;
+import com.hallocasa.dataentities.wcm.Image;
 import com.hallocasa.exceptions.EntityNotFoundException;
 import com.hallocasa.services.interfaces.ImageServicesInterface;
 

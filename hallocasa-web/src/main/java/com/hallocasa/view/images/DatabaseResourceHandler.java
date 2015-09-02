@@ -5,7 +5,7 @@
 package com.hallocasa.view.images;
 
 import com.hallocasa.model.application.HallocasaApplicationImpl;
-import com.hallocasa.dataentities.Image;
+import com.hallocasa.dataentities.wcm.Image;
 import com.hallocasa.exceptions.EntityNotFoundException;
 
 import java.util.logging.Level;

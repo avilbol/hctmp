@@ -2,10 +2,10 @@ package com.hallocasa.viewmodel.managed.pages.properties;
 
 import java.io.Serializable;
 
-import com.hallocasa.dataentities.InterestPlaceRange;
-import com.hallocasa.dataentities.RestaurantType;
-import com.hallocasa.dataentities.ShoppingWay;
-import com.hallocasa.dataentities.Sport;
+import com.hallocasa.dataentities.wcm.InterestPlaceRange;
+import com.hallocasa.dataentities.wcm.RestaurantType;
+import com.hallocasa.dataentities.wcm.ShoppingWay;
+import com.hallocasa.dataentities.wcm.Sport;
 import com.hallocasa.services.TypeServices;
 
 /**

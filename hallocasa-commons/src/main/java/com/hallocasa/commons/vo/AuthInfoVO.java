@@ -3,10 +3,6 @@ package com.hallocasa.commons.vo;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
-
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 
 /**
@@ -15,19 +11,14 @@ import com.hallocasa.commons.vo.interfaces.ValueObject;
  * @author David Mantilla
  * @since 1.7
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AuthInfo", propOrder = {
-    "account",
-    "apps",
-    "partner"
-})
 public class AuthInfoVO implements ValueObject {
 
     private static final long serialVersionUID = -1370266485971582595L;
 
     /* static fields */
-    private UserVO account;
-    private List<AppVO> apps;
+    private UserVO user;
+    private List<UseCaseVO> useCases;
+    private List<ProfileVO> profiles;
 
     /* instance variables */
 
@@ -36,7 +27,8 @@ public class AuthInfoVO implements ValueObject {
      * Default Constructor
      */
     public AuthInfoVO() {
-        this.apps = new ArrayList<>();
+        this.useCases = new ArrayList<>();
+        this.profiles = new ArrayList<>();
     }
 
     /* Methods */
@@ -47,45 +39,56 @@ public class AuthInfoVO implements ValueObject {
      *
      * @return the account
      */
-    public UserVO getAccount() {
-        return account;
+    public UserVO getUser() {
+        return user;
     }
 
     /**
      * Setter for account
      *
-     * @param account the account to set
+     * @param user the account to set
      */
-    public void setAccount(UserVO account) {
-        this.account = account;
+    public void setUser(UserVO user) {
+        this.user = user;
+    }
+
+    /* Methods */
+
+    /* Getters & Setters */
+    /**
+     * Getter for useCases
+     *
+     * @return the useCases
+     */
+    public List<UseCaseVO> getUseCases() {
+        return useCases;
     }
 
     /**
-     * Constructor
+     * Setter for useCases
      *
-     * @param apps
+     * @param useCases the useCases to set
      */
-    public AuthInfoVO(List<AppVO> apps) {
-        super();
-        this.apps = apps;
+    public void setUseCases(List<UseCaseVO> useCases) {
+        this.useCases = useCases;
     }
 
     /**
-     * Getter for apps
+     * Getter for profiles
      *
-     * @return the apps
+     * @return
      */
-    public List<AppVO> getApps() {
-        return apps;
+    public List<ProfileVO> getProfiles() {
+        return profiles;
     }
 
     /**
-     * Setter for apps
+     * Setter for profiles
      *
-     * @param apps the apps to set
+     * @param profiles
      */
-    public void setApps(List<AppVO> apps) {
-        this.apps = apps;
+    public void setProfiles(List<ProfileVO> profiles) {
+        this.profiles = profiles;
     }
 
 }

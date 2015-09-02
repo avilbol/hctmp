@@ -20,7 +20,7 @@ import javax.transaction.UserTransaction;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
 
-import com.hallocasa.dataentities.TemporalPublisherUser;
+import com.hallocasa.dataentities.wcm.TemporalPublisherUser;
 import com.hallocasa.services.base.ServicesBase;
 import com.hallocasa.services.constants.ServiceErrorMessage;
 import com.hallocasa.services.interfaces.MailChimpServicesLocal;
@@ -95,20 +95,5 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
                     ServiceErrorMessage.COMMON_UNEXPECTED_ERROR, e);
         }
     }
-
-    @Override
-    public AuthInfoVO authenticate(CredentialVO credentials) throws 
-            InvalidEmailException, InvalidPasswordLoginException {
-        throw new InvalidEmailException("Not yet implemented");
-    }
-
-    @Override
-    public AppAccessInfoVO getAppAccessInfo(long userId) {
-        // TODO:
-        LOG.log( Level.WARNING, "Not yet done");
-        AppAccessInfoVO appAccessInfoVO = new AppAccessInfoVO();
-        return appAccessInfoVO;
-    }
-    
     
 }

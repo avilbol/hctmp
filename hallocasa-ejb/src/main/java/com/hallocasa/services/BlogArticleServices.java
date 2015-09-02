@@ -1,9 +1,9 @@
 package com.hallocasa.services;
 
 import javax.ejb.Stateless;
-import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.dataentities.wcm.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
-import com.hallocasa.services.persistence.local.PersistenceServices;
+import com.hallocasa.services.persistence.local.WcmPersistenceServices;
 import java.util.List;
 import javax.ejb.EJB;
 
@@ -16,7 +16,7 @@ import javax.ejb.EJB;
 public class BlogArticleServices implements BlogArticleServicesLocal {
 
     @EJB
-    private PersistenceServices persistenceServices;
+    private WcmPersistenceServices persistenceServices;
 
     /**
      * Search an article by its id

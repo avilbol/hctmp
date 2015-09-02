@@ -2,7 +2,7 @@ package com.hallocasa.commons.vo.helpers;
 
 import org.apache.commons.beanutils.Converter;
 
-import com.hallocasa.commons.vo.interfaces.SocialEntity;
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 
 /**
@@ -13,7 +13,7 @@ import com.hallocasa.commons.vo.interfaces.ValueObject;
  * @param <R> Class of the parser used to conversion
  * @since 1.7
  */
-public class GenericVOEntityConverter<T extends SocialEntity, U extends ValueObject, R extends GenericVOParser<T, U>>
+public class GenericVOEntityConverter<T extends HallocasaEntity, U extends ValueObject, R extends GenericVOParser<T, U>>
 	implements Converter {
 
 	private R parser;

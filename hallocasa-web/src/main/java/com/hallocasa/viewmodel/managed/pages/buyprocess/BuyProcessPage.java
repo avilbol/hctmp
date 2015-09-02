@@ -9,7 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
-import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.dataentities.wcm.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.model.controlaccess.HallocasaViewEnum;
 import com.hallocasa.model.controlaccess.HallocasaViewNames;

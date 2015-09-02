@@ -5,7 +5,7 @@
  */
 package com.hallocasa.dataentities.interfaces;
 
-import com.hallocasa.dataentities.TranslationInterface;
+import com.hallocasa.dataentities.wcm.TranslationInterface;
 import com.hallocasa.commons.beans.Listable;
 
 /**

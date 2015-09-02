@@ -15,7 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import com.hallocasa.dataentities.NewsletterReceiver;
+import com.hallocasa.dataentities.wcm.NewsletterReceiver;
 import com.hallocasa.services.interfaces.NewsletterServicesInterface;
 import com.hallocasa.commons.constants.ViewBundle;
 import com.hallocasa.commons.exceptions.services.ServiceException;

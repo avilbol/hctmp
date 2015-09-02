@@ -13,8 +13,6 @@
         <maven.ejb.plugin>2.4</maven.ejb.plugin>
         <maven.war.plugin>2.6</maven.war.plugin>
         <maven.resources.plugin>2.7</maven.resources.plugin>
-        <maven.test.skip>true</maven.test.skip>
-        <maven.surefire.plugin>2.12.4</maven.surefire.plugin>
         <project.encoding>UTF-8</project.encoding>
         <ear.version>7</ear.version>
         <ejb.version>3.1</ejb.version>

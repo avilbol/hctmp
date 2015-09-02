@@ -4,7 +4,7 @@
  */
 package com.hallocasa.services.interfaces;
 
-import com.hallocasa.dataentities.EnvirontmentPublicTransport;
+import com.hallocasa.dataentities.wcm.EnvirontmentPublicTransport;
 import java.io.Serializable;
 import java.util.List;
 

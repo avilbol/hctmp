@@ -23,40 +23,37 @@ import com.hallocasa.commons.Language;
 @Stateless
 public class TypeServices implements Serializable {
 
+    private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID = 1L;
+    @PersistenceContext(unitName = "RealStateDatabasePU")
+    EntityManager em;
 
+    /**
+     * Return a list of values of a particular type
+     *
+     * @param <T>
+     * @param entityClass
+     * @param language
+     * @return
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TypeInterface> List<T> getTypeList(Class<T> entityClass,
+            Language language) {
+        String entityClassName = entityClass.getSimpleName();
 
-	@PersistenceContext(unitName = "RealStateDatabasePU")
-	EntityManager em;
+        StringBuilder str = new StringBuilder();
+        str.append("select entity from ").append(entityClassName);
+        str.append(" entity order by entity.translationName.text");
+        str.append(language.name().substring(0, 1).toUpperCase());
+        str.append(language.name().substring(1, 2));
 
+        Query q = em.createQuery(str.toString());
+        List<T> list = q.getResultList();
+        return list;
+    }
 
-	/**
-	 * Return a list of values of a particular type
-	 *
-	 * @param <T>
-	 * @param entityClass
-	 * @param language
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public <T extends TypeInterface> List<T> getTypeList(Class<T> entityClass,
-			Language language) {
-		String entityClassName = entityClass.getSimpleName();
-
-		StringBuilder str = new StringBuilder();
-		str.append("select entity from ").append(entityClassName);
-		str.append(" entity order by entity.translationName.text");
-		str.append(language.name().substring(0, 1).toUpperCase());
-		str.append(language.name().substring(1, 2));
-
-		Query q = em.createQuery(str.toString());
-		List<T> list = q.getResultList();
-		return list;
-	}
-
-	/*
-	 * ------------------------------------------------------------ Getters y
-	 * setters ------------------------------------------------------------
-	 */
+    /*
+     * ------------------------------------------------------------ Getters y
+     * setters ------------------------------------------------------------
+     */
 }

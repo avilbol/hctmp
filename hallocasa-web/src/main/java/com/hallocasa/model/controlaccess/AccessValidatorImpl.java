@@ -148,6 +148,7 @@ public class AccessValidatorImpl implements AccessValidator, Serializable {
         useCasesSet = new ArrayList<>();
 
         AppAccessInfoVO accessInfoVO;
+        /*
         if (webSession.isLogged()) {
             accessInfoVO = userServices.getAppAccessInfo(webSession
                     .getCurrentUser().getId());
@@ -163,7 +164,7 @@ public class AccessValidatorImpl implements AccessValidator, Serializable {
                     useCasesSet.add(u);
                 }
             }
-        }
+        }*/
     }
 
     /*

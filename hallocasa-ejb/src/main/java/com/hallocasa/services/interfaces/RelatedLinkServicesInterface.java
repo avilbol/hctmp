@@ -4,8 +4,8 @@
  */
 package com.hallocasa.services.interfaces;
 
-import com.hallocasa.dataentities.Link;
-import com.hallocasa.dataentities.LinkType;
+import com.hallocasa.dataentities.wcm.Link;
+import com.hallocasa.dataentities.wcm.LinkType;
 import java.io.Serializable;
 import java.util.List;
 

@@ -6,7 +6,7 @@
 package com.hallocasa.services.interfaces;
 
 import com.hallocasa.commons.exceptions.services.ServiceException;
-import com.hallocasa.dataentities.NewsletterReceiver;
+import com.hallocasa.dataentities.wcm.NewsletterReceiver;
 
 /**
  *

@@ -1,7 +1,7 @@
 package com.hallocasa.services.interfaces;
 
 
-import com.hallocasa.dataentities.BlogArticle;
+import com.hallocasa.dataentities.wcm.BlogArticle;
 import java.util.List;
 import javax.ejb.Local;
 

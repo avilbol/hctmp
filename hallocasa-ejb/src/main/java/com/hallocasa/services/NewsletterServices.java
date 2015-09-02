@@ -5,7 +5,7 @@
  */
 package com.hallocasa.services;
 
-import com.hallocasa.dataentities.NewsletterReceiver;
+import com.hallocasa.dataentities.wcm.NewsletterReceiver;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;

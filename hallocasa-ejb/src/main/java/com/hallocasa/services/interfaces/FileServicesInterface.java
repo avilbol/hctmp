@@ -6,7 +6,7 @@
 package com.hallocasa.services.interfaces;
 
 import com.hallocasa.commons.exceptions.services.ServiceException;
-import com.hallocasa.dataentities.File;
+import com.hallocasa.dataentities.wcm.File;
 
 import java.io.InputStream;
 

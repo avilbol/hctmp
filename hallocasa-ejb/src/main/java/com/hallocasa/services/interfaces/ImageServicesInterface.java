@@ -5,7 +5,7 @@
  */
 package com.hallocasa.services.interfaces;
 
-import com.hallocasa.dataentities.Image;
+import com.hallocasa.dataentities.wcm.Image;
 import com.hallocasa.exceptions.EntityNotFoundException;
 
 /**

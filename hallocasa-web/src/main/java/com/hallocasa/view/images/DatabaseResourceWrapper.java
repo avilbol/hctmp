@@ -6,8 +6,8 @@ package com.hallocasa.view.images;
 
 import com.hallocasa.commons.exceptions.services.ServiceException;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
-import com.hallocasa.dataentities.File;
-import com.hallocasa.dataentities.Image;
+import com.hallocasa.dataentities.wcm.File;
+import com.hallocasa.dataentities.wcm.Image;
 
 import java.io.IOException;
 import java.io.InputStream;

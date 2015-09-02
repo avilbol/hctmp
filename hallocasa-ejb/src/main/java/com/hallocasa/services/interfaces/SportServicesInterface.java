@@ -4,7 +4,7 @@
  */
 package com.hallocasa.services.interfaces;
 
-import com.hallocasa.dataentities.SportPossibility;
+import com.hallocasa.dataentities.wcm.SportPossibility;
 import java.io.Serializable;
 import java.util.List;
 
