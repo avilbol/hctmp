@@ -7,6 +7,7 @@ import com.hallocasa.commons.vo.criteria.QueryCriteria;
 import com.hallocasa.commons.vo.helpers.GenericVOParser;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
+import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.services.persistence.local.WcmPersistenceServices;
 import java.util.List;
 import java.util.Locale;
@@ -246,7 +247,7 @@ public abstract class ServicesBase {
      * @return Found entity
      */
     protected <T> T findAndValidateEntity(Class<T> entityClass, Object id,
-            WcmPersistenceServices persistenceServices) {
+            AppPersistenceServices persistenceServices) {
         if (id == null) {
             throw new ValidationException(entityClass.getSimpleName()
                     + " with id null doesn't exist");

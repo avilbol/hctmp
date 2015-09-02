@@ -6,7 +6,7 @@
 package com.hallocasa.viewmodel.test;
 
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
-import com.hallocasa.services.messaging.local.MailServicesLocal;
+import com.hallocasa.services.messaging.local.MailServices;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,13 +27,13 @@ import javax.faces.event.ActionEvent;
 public class TestPage {
 
     @EJB
-    private MailServicesLocal mailServices;
+    private MailServices mailServices;
 
     public void sendTestEmail(ActionEvent event) {
         try {
             List<String> emails = new ArrayList<String>();
             emails.add("dmantil@hotmail.com");
-            mailServices.sendMail(MailServicesLocal.BuildInMailType.RESET_PASSWORD,
+            mailServices.sendMail(MailServices.BuildInMailType.RESET_PASSWORD,
                     Locale.US, emails, new HashMap<String, String>());
             Logger.getLogger(TestPage.class.getName()).log(Level.INFO, "Mail sent succesfully");
         } catch (MailServicesErrorException ex) {

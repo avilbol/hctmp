@@ -12,7 +12,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.hallocasa.services.interfaces.MailChimpServicesLocal;
+import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.services.interfaces.NewsletterServicesInterface;
 import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
 
@@ -31,7 +31,7 @@ public class NewsletterServices implements NewsletterServicesInterface {
     @PersistenceContext(unitName = "RealStateDatabasePU")
     private EntityManager em;
     @EJB
-    private MailChimpServicesLocal mailChimpServices;
+    private MailChimpServices mailChimpServices;
 
     /*
      * (non-Javadoc)

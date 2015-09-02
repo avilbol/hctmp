@@ -15,7 +15,7 @@ import javax.ejb.Local;
  * @since 1.7
  */
 @Local
-public interface MailServicesLocal {
+public interface MailServices {
 
     /**
      * Key of the password recovery email content in the properties resource

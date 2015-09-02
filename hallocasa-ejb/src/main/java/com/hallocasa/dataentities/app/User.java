@@ -5,10 +5,13 @@
  */
 package com.hallocasa.dataentities.app;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.converters.LanguageConverter;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,6 +33,7 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name = User.QUERY_FIND_BY_EMAIL,
             query = "select u from User u where u.email = ?1")
 })
+@SuppressWarnings({"UniqueEntityName", "ValidPrimaryTableName"})
 public class User implements Serializable, HallocasaEntity {
 
     private static final long serialVersionUID = 1L;
@@ -45,6 +49,13 @@ public class User implements Serializable, HallocasaEntity {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "active_flag")
+    private Boolean activeFlag;
+
+    @Column(name = "language")
+    @Convert(converter = LanguageConverter.class)
+    private Language language;
 
     @JoinColumn(name = "user_type_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -154,6 +165,34 @@ public class User implements Serializable, HallocasaEntity {
      */
     public void setProfiles(List<Profile> profiles) {
         this.profiles = profiles;
+    }
+
+    /**
+     * @return the activeFlag
+     */
+    public Boolean getActiveFlag() {
+        return activeFlag;
+    }
+
+    /**
+     * @param activeFlag the activeFlag to set
+     */
+    public void setActiveFlag(Boolean activeFlag) {
+        this.activeFlag = activeFlag;
+    }
+
+    /**
+     * @return the language
+     */
+    public Language getLanguage() {
+        return language;
+    }
+
+    /**
+     * @param language the language to set
+     */
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
 }

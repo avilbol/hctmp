@@ -1,7 +1,7 @@
 package com.hallocasa.services.messaging.impl;
 
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
-import com.hallocasa.services.messaging.local.MailServicesLocal;
+import com.hallocasa.services.messaging.local.MailServices;
 import com.hallocasa.commons.validation.StandardPropertyValidator;
 import com.hallocasa.services.base.ServicesBase;
 import java.util.List;
@@ -25,10 +25,10 @@ import javax.mail.internet.MimeMessage;
  * @since 1.7
  */
 @Stateless
-public class MailServices extends ServicesBase implements MailServicesLocal {
+public class MailServicesImpl extends ServicesBase implements MailServices {
 
     /* static fields */
-    private static final Logger LOG = Logger.getLogger(MailServices.class
+    private static final Logger LOG = Logger.getLogger(MailServicesImpl.class
             .getName());
 
     /* dependencies */
@@ -42,7 +42,7 @@ public class MailServices extends ServicesBase implements MailServicesLocal {
     /**
      * Default Constructor
      */
-    public MailServices() {
+    public MailServicesImpl() {
     }
 
     /**
@@ -50,7 +50,7 @@ public class MailServices extends ServicesBase implements MailServicesLocal {
      *
      * @param mailSession
      */
-    public MailServices(Session mailSession) {
+    public MailServicesImpl(Session mailSession) {
         super();
         this.mailSession = mailSession;
     }

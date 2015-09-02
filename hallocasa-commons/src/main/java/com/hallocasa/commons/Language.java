@@ -13,29 +13,29 @@ import java.util.Locale;
  */
 public enum Language {
 
-	en("English"), es("Español"), de("Deutsch");
+    en("English"), es("Español"), de("Deutsch");
 
-	private final Locale locale;
-	private final String languageName;
+    private final Locale locale;
+    private final String languageName;
 
-	private Language(String languageName) {
-		locale = new Locale(this.name());
-		this.languageName = languageName;
-	}
+    private Language(String languageName) {
+        locale = new Locale(this.name());
+        this.languageName = languageName;
+    }
 
-	/**
-	 * Return the language Name
-	 * 
-	 * @return
-	 */
-	public String getLanguageName() {
-		return languageName;
-	}
+    /**
+     * Return the language Name
+     *
+     * @return
+     */
+    public String getLanguageName() {
+        return languageName;
+    }
 
-	/**
-	 * @return the locale
-	 */
-	public Locale getLocale() {
-		return locale;
-	}
+    /**
+     * @return the locale
+     */
+    public Locale getLocale() {
+        return locale;
+    }
 }

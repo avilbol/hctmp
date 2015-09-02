@@ -1,4 +1,4 @@
-package com.hallocasa.services.interfaces;
+package com.hallocasa.services.messaging.local;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import com.hallocasa.vo.MailChimpMergeVars;
  * @author David Mantilla
  *
  */
-public interface MailChimpServicesLocal {
+public interface MailChimpServices {
 
     /**
      * Subscribe new user

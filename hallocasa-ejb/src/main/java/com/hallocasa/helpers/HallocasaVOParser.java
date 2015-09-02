@@ -6,7 +6,6 @@ import com.hallocasa.commons.vo.helpers.GenericVOParser;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 import com.hallocasa.dataentities.app.User;
-import com.hallocasa.helpers.UserVOParser;
 import java.util.Date;
 
 import org.apache.commons.beanutils.BeanUtilsBean;

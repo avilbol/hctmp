@@ -1,4 +1,4 @@
-package com.hallocasa.services;
+package com.hallocasa.services.messaging.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import com.ecwid.mailchimp.method.v2_0.lists.Email;
 import com.ecwid.mailchimp.method.v2_0.lists.ListMethod;
 import com.ecwid.mailchimp.method.v2_0.lists.ListMethodResult;
 import com.ecwid.mailchimp.method.v2_0.lists.SubscribeMethod;
-import com.hallocasa.services.interfaces.MailChimpServicesLocal;
+import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.exceptions.MailChimpException;
@@ -26,7 +26,7 @@ import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
  *
  */
 @Stateless
-public class MailChimpServices implements MailChimpServicesLocal {
+public class MailChimpServicesImpl implements MailChimpServices {
 
     @Override
     public void subscribeNewUser(String email, String firstName,

@@ -1,5 +1,6 @@
 package com.hallocasa.services;
 
+import com.hallocasa.services.messaging.impl.MailChimpServicesImpl;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,14 +10,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hallocasa.exceptions.MailChimpException;
-import com.hallocasa.services.interfaces.MailChimpServicesLocal;
+import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.vo.MailChimpList;
 import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
 import com.hallocasa.commons.Language;
 
 public class MailChimpServicesTest {
 
-    private MailChimpServicesLocal mailChimpServices;
+    private MailChimpServices mailChimpServices;
     private static final Logger LOG = Logger
             .getLogger(MailChimpServicesTest.class.getName());
 
@@ -26,7 +27,7 @@ public class MailChimpServicesTest {
 
     @Before
     public void initialize() {
-        mailChimpServices = new MailChimpServices();
+        mailChimpServices = new MailChimpServicesImpl();
     }
 
     @Test

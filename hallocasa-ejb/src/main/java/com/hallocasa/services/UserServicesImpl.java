@@ -23,7 +23,7 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 import com.hallocasa.dataentities.wcm.TemporalPublisherUser;
 import com.hallocasa.services.base.ServicesBase;
 import com.hallocasa.services.constants.ServiceErrorMessage;
-import com.hallocasa.services.interfaces.MailChimpServicesLocal;
+import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.commons.exceptions.services.ServiceException;
 import com.hallocasa.commons.vo.AppAccessInfoVO;
@@ -50,7 +50,7 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
     @Resource
     private SessionContext sessionContext;
     @EJB
-    private MailChimpServicesLocal mailChimpServices;
+    private MailChimpServices mailChimpServices;
 
     /* Methods */
     
