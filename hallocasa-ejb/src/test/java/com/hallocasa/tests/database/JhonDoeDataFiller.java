@@ -5,6 +5,7 @@
  */
 package com.hallocasa.tests.database;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.codec.CodecUtils;
 import com.hallocasa.dataentities.app.User;
 import com.hallocasa.dataentities.app.UserType;
@@ -25,6 +26,7 @@ public class JhonDoeDataFiller implements DatabaseFiller {
         User user = new User();
         user.setEmail(JHON_DOE_EMAIL);
         user.setPassword(CodecUtils.encryptPassword(JHON_DOE_PASSWORD));
+        user.setLanguage(Language.en);
         user.setUserType(new UserType(1L));
         em.persist(user);
         JHON_DOE_ID = user.getId();

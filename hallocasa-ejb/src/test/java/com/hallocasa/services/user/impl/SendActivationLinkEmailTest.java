@@ -11,6 +11,7 @@ import com.hallocasa.services.persistence.impl.AppPersistenceServicesImpl;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.services.user.local.SignUpServices;
 import com.hallocasa.tests.database.DatabaseCreator;
+import com.hallocasa.tests.database.DatabaseUtils;
 import com.hallocasa.tests.database.JhonDoeDataFiller;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,8 +56,7 @@ public class SendActivationLinkEmailTest {
 
         // Open persistence unit
         try {
-            emf = Persistence
-                    .createEntityManagerFactory("SocialPersistenceUnit_Test");
+            emf = DatabaseUtils.loadTestAppPersistenceUnit();
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "", e);
             throw new RuntimeException(e);
@@ -142,7 +142,7 @@ public class SendActivationLinkEmailTest {
 
         ValidationException ve = AssertUtils.assertOnException(signUpServices,
                 METHOD_NAME, parameters, PARAM_CLASSES, ValidationException.class);
-        Assert.assertEquals("Account with id 99999 doesn't exist", ve
+        Assert.assertEquals("User with id 99999 doesn't exist", ve
                 .getMessage());
     }
 

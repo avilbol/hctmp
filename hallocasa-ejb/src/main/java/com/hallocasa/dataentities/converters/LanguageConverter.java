@@ -31,6 +31,9 @@ public class LanguageConverter implements AttributeConverter<Language, String> {
      */
     @Override
     public String convertToDatabaseColumn(Language language) {
+        if ( language == null ){
+            return null;
+        }
         return language.name();
     }
 
@@ -43,6 +46,9 @@ public class LanguageConverter implements AttributeConverter<Language, String> {
      */
     @Override
     public Language convertToEntityAttribute(String languageStr) {
+        if ( languageStr == null ){
+            return null;
+        }
         for (Language language : Language.values()) {
             if (language.name().equals(languageStr)) {
                 return language;

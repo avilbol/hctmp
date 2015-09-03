@@ -9,6 +9,7 @@ import com.hallocasa.services.messaging.impl.MailServicesImpl;
 import com.hallocasa.services.messaging.local.MailServices;
 import com.hallocasa.services.messaging.local.MailServices.MailDefinition;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -87,9 +88,7 @@ public class SendMailTest {
 
     private List<String> createEmailList(String... emails) {
         List<String> list = new ArrayList<>();
-        for (String email : emails) {
-            list.add(email);
-        }
+        list.addAll(Arrays.asList(emails));
         return list;
     }
 
