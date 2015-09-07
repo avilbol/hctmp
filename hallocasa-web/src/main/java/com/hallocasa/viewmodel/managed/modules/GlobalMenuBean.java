@@ -5,7 +5,7 @@
  */
 package com.hallocasa.viewmodel.managed.modules;
 
-import com.hallocasa.model.controlaccess.HallocasaViewEnum;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;

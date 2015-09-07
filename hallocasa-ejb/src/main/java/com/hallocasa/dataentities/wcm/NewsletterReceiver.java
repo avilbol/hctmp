@@ -23,7 +23,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.hallocasa.commons.Language;
-import com.hallocasa.commons.constants.ValidationPatterns;
+import com.hallocasa.commons.validation.ValidationPatterns;
 import com.hallocasa.dataentities.converters.LanguageConverter;
 
 /**

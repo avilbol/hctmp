@@ -6,7 +6,6 @@
 package com.hallocasa.view.navigation;
 
 import com.hallocasa.commons.constants.SystemConstants;
-import com.hallocasa.model.controlaccess.HallocasaViewEnum;
 import com.hallocasa.view.exceptions.PageNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -17,6 +16,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  *
@@ -24,7 +24,7 @@ import javax.inject.Named;
  */
 @Named(value = "NavigationHandler")
 @SessionScoped
-public class NavigationHandlerImpl implements Serializable, NavigationHandler{
+public class NavigationHandlerImpl implements Serializable, NavigationHandler {
 
     private final static Logger LOG = Logger.getLogger(NavigationHandlerImpl.class.getName());
     private static final Map<HallocasaViewEnum, String> PAGES_MAP;
@@ -115,9 +115,10 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler{
 
     /**
      * Builds absolute url given the page enum and the params
+     *
      * @param view
      * @param params
-     * @return 
+     * @return
      */
     @Override
     public String buildAbsoluteUrl(HallocasaViewEnum view, Map<String, String> params) {
@@ -125,32 +126,37 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler{
         if (pageUrl == null) {
             throw new PageNotFoundException(view + "is not maped in the pages map");
         }
-        
-       StringBuilder str = new StringBuilder();
-       str.append( SystemConstants.SERVER_URL );
-       str.append( SystemConstants.APP_CONTEXT );
-       str.append( pageUrl );
-       if ( params != null && !params.isEmpty() ){
-           str.append("?");
-           boolean first = true;
-           for ( Map.Entry<String,String> paramEntry : params.entrySet() ){
-               if ( !first ){
-                   str.append( "&");
-               }
-               str.append( paramEntry.getKey() );
-               str.append( "=");
-               str.append( paramEntry.getValue() );
-               first = false;
-           }
-       }
-       return str.toString();
+
+        StringBuilder str = new StringBuilder();
+        str.append(SystemConstants.SERVER_URL);
+        str.append(SystemConstants.APP_CONTEXT);
+        str.append(pageUrl);
+        if (params != null && !params.isEmpty()) {
+            str.append("?");
+            boolean first = true;
+            for (Map.Entry<String, String> paramEntry : params.entrySet()) {
+                if (!first) {
+                    str.append("&");
+                }
+                // validates page support parameter
+                if (!ArrayUtils.contains(view.getSupportedParams(),
+                        ViewParamEnum.valueOf(paramEntry.getKey()))) {
+                    throw new IllegalArgumentException("View " + view + 
+                            " doesn't support param " + paramEntry.getKey());
+                }
+
+                str.append(paramEntry.getKey());
+                str.append("=");
+                str.append(paramEntry.getValue());
+                first = false;
+            }
+        }
+        return str.toString();
     }
 
     @Override
     public Map<String, String> getPageParams() {
         return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
     }
-    
-    
 
 }

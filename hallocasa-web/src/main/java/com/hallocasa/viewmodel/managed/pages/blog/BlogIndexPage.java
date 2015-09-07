@@ -7,7 +7,7 @@ package com.hallocasa.viewmodel.managed.pages.blog;
 import com.hallocasa.dataentities.wcm.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.commons.conversion.ConversionUtils;
-import com.hallocasa.model.controlaccess.HallocasaViewNames;
+import com.hallocasa.view.navigation.HallocasaViewNames;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.exceptions.ForbiddenException;
 import java.util.ArrayList;

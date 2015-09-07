@@ -8,7 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import com.hallocasa.dataentities.wcm.Link;
 import com.hallocasa.dataentities.wcm.LinkType;
-import com.hallocasa.model.controlaccess.HallocasaViewNames;
+import com.hallocasa.view.navigation.HallocasaViewNames;
 import com.hallocasa.services.interfaces.RelatedLinkServicesInterface;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;

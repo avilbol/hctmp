@@ -1,5 +1,6 @@
 package com.hallocasa.model.controlaccess;
 
+import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.commons.vo.AppAccessInfoVO;
 import com.hallocasa.commons.vo.UseCaseVO;
 import com.hallocasa.model.application.HallocasaApplication;

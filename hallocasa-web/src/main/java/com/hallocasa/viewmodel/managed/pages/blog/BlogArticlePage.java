@@ -5,7 +5,7 @@
 package com.hallocasa.viewmodel.managed.pages.blog;
 
 import com.hallocasa.dataentities.wcm.BlogArticle;
-import com.hallocasa.model.controlaccess.HallocasaViewNames;
+import com.hallocasa.view.navigation.HallocasaViewNames;
 import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.view.navigation.NavigationHandler;
 import java.util.HashMap;

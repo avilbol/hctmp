@@ -69,6 +69,7 @@ public class AuthenticationServicesImplTest {
     }
 
     @Test
+    @SuppressWarnings("ThrowableResultIgnored")
     public void testValidEmailPatternOk() {
         // valid IP for account
         CredentialVO credentialVO = new CredentialVO(goodCredential);
@@ -88,6 +89,7 @@ public class AuthenticationServicesImplTest {
     }
 
     @Test
+    @SuppressWarnings("ThrowableResultIgnored")
     public void testInvalidPasswordFail() {
         CredentialVO credentialVO = new CredentialVO(goodCredential);
         credentialVO.setPassword("clavenovalida");
@@ -140,6 +142,7 @@ public class AuthenticationServicesImplTest {
     }
 
     @Test
+    @SuppressWarnings("ThrowableResultIgnored")
     public void testInvalidEmailFail() {
         CredentialVO credentialVO = new CredentialVO(goodCredential);
         credentialVO.setEmail("invento@empresa.com");

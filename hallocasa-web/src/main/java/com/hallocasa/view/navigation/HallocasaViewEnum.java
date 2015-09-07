@@ -1,6 +1,7 @@
-package com.hallocasa.model.controlaccess;
+package com.hallocasa.view.navigation;
 
 import com.hallocasa.commons.constants.SystemConstants;
+import com.hallocasa.model.controlaccess.UseCaseEnum;
 import com.hallocasa.viewmodel.managed.pages.blog.BlogArticlePage;
 import com.hallocasa.viewmodel.managed.pages.blog.BlogIndexPage;
 import com.hallocasa.viewmodel.managed.pages.buyprocess.BuyProcessPage;
@@ -8,6 +9,7 @@ import com.hallocasa.viewmodel.managed.pages.links.LinksPage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import static com.hallocasa.view.navigation.ViewParamEnum.*;
 
 /**
  * Enumeration to control all the views in the application
@@ -25,60 +27,60 @@ public enum HallocasaViewEnum {
      * trying to get into
      */
     FORBIDDEN(HallocasaViewNames.FORBIDDEN, "/pages/commons/forbidden.xhml",
-            null, false),
+            null, false, null),
     // access controlled pages
     /**
      * Page to log in
      */
-    LOGIN(HallocasaViewNames.LOGIN, "/pages/login/index.xhtml", null, false),
+    LOGIN(HallocasaViewNames.LOGIN, "/pages/login/index.xhtml", null, false, null),
     /**
      * Page to registering new partner
      */
-    REGISTER(HallocasaViewNames.REGISTER, "", null, false),
+    REGISTER(HallocasaViewNames.REGISTER, "", null, false, null),
     /**
      * Default page when the user is logged
      */
-    HOME(HallocasaViewNames.HOME, "", null, true),
+    HOME(HallocasaViewNames.HOME, "", null, true, null),
     /**
      * Page for user ask the password to be recovery by asking an email
      */
     PASSWORD_RECOVERY_REQUEST(HallocasaViewNames.PASSWORD_RECOVERY_REQUEST,
-            "", null, false),
+            "", null, false, null),
     /**
      * Page for account information
      */
-    MY_ACCOUNT(HallocasaViewNames.MY_ACCOUNT, "", null, true,
+    MY_ACCOUNT(HallocasaViewNames.MY_ACCOUNT, "", null, true, null,
             UseCaseEnum.SEE_EDIT_MY_ACCOUNT),
     /**
      * Page for user recover password writing a new one
      */
     PASSWORD_RECOVERY(HallocasaViewNames.PASSWORD_RECOVERY, "",
-            null, false),
+            null, false, null),
     /**
      * Page for user activation after a registering process
      */
     USER_ACTIVATION(HallocasaViewNames.USER_ACTIVATION, "",
-            null, false),
+            null, false, new ViewParamEnum[]{TOKEN, USER_ID, EMAIL}),
     /**
      * Page for buying process
      */
     BUYING_PROCESS(HallocasaViewNames.BUY_PROCESS, "/pages/buyprocess/index.xhtml",
-            BuyProcessPage.class, false),
+            BuyProcessPage.class, false, null),
     /**
      * Blog index page
      */
     BLOG_INDEX(HallocasaViewNames.BLOG_INDEX, "/pages/blog/index.xhtml",
-            BlogIndexPage.class, false),
+            BlogIndexPage.class, false, null),
     /**
      * Links list page
      */
     LINKS(HallocasaViewNames.LINKS, "/pages/links/index.xhtml", LinksPage.class,
-            false),
+            false, null),
     /**
      * Blog article detail
      */
-    BLOG_ARTICLE(HallocasaViewNames.BLOG_ARTICLE, "/pages/blog/article.xhtml", BlogArticlePage.class,
-            false);
+    BLOG_ARTICLE(HallocasaViewNames.BLOG_ARTICLE, "/pages/blog/article.xhtml",
+            BlogArticlePage.class, false, null);
 
     /* Static */
 
@@ -88,6 +90,7 @@ public enum HallocasaViewEnum {
     private final UseCaseEnum[] useCases;
     private final boolean requiresLogin;
     private final String url;
+    private ViewParamEnum[] supportedParams;
 
     /**
      * Constructor
@@ -104,6 +107,7 @@ public enum HallocasaViewEnum {
     private HallocasaViewEnum(String viewName,
             String url,
             Class<?> viewClass, boolean requiresLogin,
+            ViewParamEnum[] supportedParam,
             UseCaseEnum... useCases) {
         this.viewName = viewName;
         this.viewClass = viewClass;
@@ -132,6 +136,15 @@ public enum HallocasaViewEnum {
      */
     public UseCaseEnum[] getUseCases() {
         return useCases;
+    }
+
+    /**
+     * Getter for supportedParams
+     *
+     * @return supportedParams
+     */
+    public ViewParamEnum[] getSupportedParams() {
+        return supportedParams;
     }
 
     /**
@@ -219,7 +232,7 @@ public enum HallocasaViewEnum {
      */
     private static UseCaseEnum[] joinUseCasesArrayFromView(
             UseCaseEnum[]... arrays) {
-        List<UseCaseEnum> useCaseEnums = new ArrayList<UseCaseEnum>();
+        List<UseCaseEnum> useCaseEnums = new ArrayList<>();
         for (UseCaseEnum[] array : arrays) {
             for (UseCaseEnum u : array) {
                 if (!useCaseEnums.contains(u)) {

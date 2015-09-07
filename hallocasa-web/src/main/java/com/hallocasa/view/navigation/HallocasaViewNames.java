@@ -1,4 +1,4 @@
-package com.hallocasa.model.controlaccess;
+package com.hallocasa.view.navigation;
 
 /**
  * 

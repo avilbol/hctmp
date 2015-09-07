@@ -33,7 +33,7 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name = User.QUERY_FIND_BY_EMAIL,
             query = "select u from User u where u.email = ?1")
 })
-@SuppressWarnings({"UniqueEntityName", "ValidPrimaryTableName"})
+@SuppressWarnings({"UniqueEntityName", "ValidPrimaryTableName", "ValidAttributes"})
 public class User implements Serializable, HallocasaEntity {
 
     private static final long serialVersionUID = 1L;
@@ -50,16 +50,19 @@ public class User implements Serializable, HallocasaEntity {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "active_flag")
-    private Boolean activeFlag;
+    @Column(name = "confirmed_flag")
+    private Boolean confirmedFlag;
 
     @Column(name = "language")
     @Convert(converter = LanguageConverter.class)
     private Language language;
 
-    @JoinColumn(name = "user_type_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private UserType userType;
+    @JoinTable(name = "user_user_type", joinColumns = {
+        @JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "user_type_id", referencedColumnName = "id")})
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<UserType> userTypes;
 
     @JoinTable(name = "user_profile", joinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -142,15 +145,15 @@ public class User implements Serializable, HallocasaEntity {
     /**
      * @return the userType
      */
-    public UserType getUserType() {
-        return userType;
+    public List<UserType> getUserTypes() {
+        return userTypes;
     }
 
     /**
-     * @param userType the userType to set
+     * @param userTypes the userType to set
      */
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setUserType(List<UserType> userTypes) {
+        this.userTypes = userTypes;
     }
 
     /**
@@ -168,17 +171,17 @@ public class User implements Serializable, HallocasaEntity {
     }
 
     /**
-     * @return the activeFlag
+     * @return the confirmedFlag
      */
-    public Boolean getActiveFlag() {
-        return activeFlag;
+    public Boolean getConfirmedFlag() {
+        return confirmedFlag;
     }
 
     /**
-     * @param activeFlag the activeFlag to set
+     * @param confirmedFlag the confirmedFlag to set
      */
-    public void setActiveFlag(Boolean activeFlag) {
-        this.activeFlag = activeFlag;
+    public void setConfirmedFlag(Boolean confirmedFlag) {
+        this.confirmedFlag = confirmedFlag;
     }
 
     /**

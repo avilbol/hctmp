@@ -5,7 +5,7 @@
 package com.hallocasa.viewmodel.managed.pages.blog;
 
 import com.hallocasa.dataentities.wcm.BlogArticle;
-import com.hallocasa.model.controlaccess.HallocasaViewEnum;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;

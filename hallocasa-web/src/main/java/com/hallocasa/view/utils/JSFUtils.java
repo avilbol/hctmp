@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javax.faces.context.FacesContext;
 
 import com.hallocasa.commons.constants.ViewBundle;
+import javax.faces.application.FacesMessage;
 
 public class JSFUtils {
 
@@ -32,12 +33,36 @@ public class JSFUtils {
      * @return
      * @throws MissingResourceException
      */
-    public static String getViewBundleString(String resourceBundleKey)  {
+    public static String getViewBundleString(String resourceBundleKey) {
         try {
             return getResourceBundleString(ViewBundle.BUNDLE_NAME,
                     resourceBundleKey);
         } catch (MissingResourceException e) {
             return "??? " + resourceBundleKey + " ???";
         }
+    }
+
+    /**
+     * Adds a global faces error message
+     *
+     * @param summary
+     * @param detail
+     */
+    public static void addFacesError(String summary, String detail) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+                FacesMessage.SEVERITY_ERROR, summary, detail));
+    }
+
+    /**
+     * Adds a faces error message tied to a component
+     *
+     * @param componentId Id from the component for attaching message to
+     * @param summary
+     * @param detail
+     */
+    public static void addFacesError(String componentId, String summary,
+            String detail) {
+        FacesContext.getCurrentInstance().addMessage(componentId,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail));
     }
 }

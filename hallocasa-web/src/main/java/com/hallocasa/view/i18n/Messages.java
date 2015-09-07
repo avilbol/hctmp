@@ -23,7 +23,10 @@ public class Messages {
             .getLogger(Messages.class.getName());
     private static final Map<Locale, ResourceBundle> resourceBundleMap;
 
-    private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
+    public static final String SIGNUP_EMAIL_EXIST = "SignUp.EmailExist.Message.Summary";
+
+    // old:
+    private static final String BUNDLE_NAME = "ViewTextAndMessages"; //$NON-NLS-1$
     public static final String LOGIN_INVALID_EMAIL_MESSAGE = "SocialSession.Login.InvalidEmail.Message";
     public static final String LOGIN_INVALID_PASSWORD_MESSAGE = "SocialSession.Login.InvalidPassword.Message";
     public static final String LOGIN_INVALID_IP_MESSAGE = "SocialSession.Login.InvalidIP.Message";

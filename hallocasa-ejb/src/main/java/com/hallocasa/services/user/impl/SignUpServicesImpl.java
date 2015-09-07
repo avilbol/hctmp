@@ -5,8 +5,14 @@
  */
 package com.hallocasa.services.user.impl;
 
+import com.hallocasa.commons.codec.CodecUtils;
+import com.hallocasa.commons.exceptions.services.InvalidEmailException;
 import com.hallocasa.commons.validation.StandardPropertyValidator;
+import com.hallocasa.commons.vo.RegisterUserVO;
+import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.app.User;
+import com.hallocasa.helpers.ParsersContext;
+import com.hallocasa.helpers.UserVOParser;
 import com.hallocasa.services.base.ServicesBase;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.services.messaging.local.MailServices;
@@ -50,12 +56,7 @@ public class SignUpServicesImpl extends ServicesBase implements SignUpServices {
         this.appPersistenceServices = appPersistenceServices;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.mobiera.social.services.local.AccountServicesLocal#
-     * sendActivationLinkEmail(long)
-     */
+    /* Implementation */
     @Override
     public void sendActivationLinkEmail(long userId, String activationLink,
             String activationKey) throws MailServicesErrorException {
@@ -79,6 +80,43 @@ public class SignUpServicesImpl extends ServicesBase implements SignUpServices {
         params.put("USER_ACTIVATION_KEY", activationKey);
         mailServices.sendMail(BuildInMailType.USER_ACTIVATION,
                 user.getLanguage().getLocale(), emails, params);
+    }
+
+    @Override
+    public void activateUser(long userId) {
+        User user = findAndValidateEntity(User.class, userId,
+                appPersistenceServices);
+        user.setConfirmedFlag(true);
+        appPersistenceServices.mergeEntity(user);
+    }
+
+    @Override
+    public UserVO registerUser(RegisterUserVO registerUserVO)
+            throws InvalidEmailException {
+
+        // validates bean
+        validateBean(registerUserVO, RegisterUserVO.class);
+
+        // search an existing email with the given user
+        List<User> usersWithEmail
+                = appPersistenceServices.executeNamedQuery(
+                        User.QUERY_FIND_BY_EMAIL, new Object[]{
+                            registerUserVO.getEmail()}, User.class);
+        if (!usersWithEmail.isEmpty()) {
+            throw new InvalidEmailException();
+        }
+
+        // creates the new entity
+        User user = new User();
+        user.setEmail(registerUserVO.getEmail());
+        user.setPassword( CodecUtils.encryptPassword(registerUserVO.getPassword()));
+        user.setConfirmedFlag(Boolean.FALSE);
+
+        // persists the new entity and creates value object to return
+        appPersistenceServices.persistEntity(user);
+        UserVO userVO = ParsersContext.USER_VO_PARSER.toValueObject(
+                user, UserVO.class);
+        return userVO;
     }
 
 }

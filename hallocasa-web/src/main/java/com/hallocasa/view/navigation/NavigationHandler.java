@@ -5,7 +5,6 @@
  */
 package com.hallocasa.view.navigation;
 
-import com.hallocasa.model.controlaccess.HallocasaViewEnum;
 import java.util.Map;
 
 /**

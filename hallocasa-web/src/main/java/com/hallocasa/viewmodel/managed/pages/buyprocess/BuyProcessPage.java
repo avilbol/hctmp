@@ -11,8 +11,8 @@ import javax.faces.event.ActionEvent;
 
 import com.hallocasa.dataentities.wcm.BlogArticle;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
-import com.hallocasa.model.controlaccess.HallocasaViewEnum;
-import com.hallocasa.model.controlaccess.HallocasaViewNames;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
+import com.hallocasa.view.navigation.HallocasaViewNames;
 import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;

@@ -6,7 +6,7 @@
 package com.hallocasa.model.application;
 
 import com.hallocasa.commons.constants.SystemConstants;
-import com.hallocasa.model.controlaccess.HallocasaViewEnum;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;

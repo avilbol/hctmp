@@ -1,5 +1,6 @@
 package com.hallocasa.commons.vo;
 
+import com.hallocasa.commons.Language;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
@@ -83,7 +84,7 @@ public class UserVO implements ValueObject {
     private CountryVO country;
 
     @NotNull
-    private LanguageVO language;
+    private Language language;
 
     private Date lastLogin;
 
@@ -337,7 +338,7 @@ public class UserVO implements ValueObject {
      *
      * @return language
      */
-    public LanguageVO getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
@@ -346,7 +347,7 @@ public class UserVO implements ValueObject {
      *
      * @param language
      */
-    public void setLanguage(LanguageVO language) {
+    public void setLanguage(Language language) {
         this.language = language;
     }
 
