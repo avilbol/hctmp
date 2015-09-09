@@ -57,7 +57,8 @@ public class ActivateUserTest {
 
         // services
         persistenceServices = new AppPersistenceServicesImpl(em);
-        signUpServices = new SignUpServicesImpl(persistenceServices, null);
+        signUpServices = new SignUpServicesImpl(persistenceServices, null, 
+                null);
 
         goodParameters = new Object[]{
             LouisaLaneDataFiller.LUISA_LANE_ID,

@@ -12,13 +12,14 @@ import com.hallocasa.commons.vo.RegisterUserVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.app.User;
 import com.hallocasa.helpers.ParsersContext;
-import com.hallocasa.helpers.UserVOParser;
 import com.hallocasa.services.base.ServicesBase;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
+import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.services.messaging.local.MailServices;
 import com.hallocasa.services.messaging.local.MailServices.BuildInMailType;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.services.user.local.SignUpServices;
+import com.hallocasa.vo.MailChimpMergeVars;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +38,8 @@ public class SignUpServicesImpl extends ServicesBase implements SignUpServices {
     private MailServices mailServices;
     @EJB
     private AppPersistenceServices appPersistenceServices;
+    @EJB
+    private MailChimpServices mailChimpServices;
 
     /**
      * Default constructor
@@ -49,11 +52,13 @@ public class SignUpServicesImpl extends ServicesBase implements SignUpServices {
      *
      * @param mailServices
      * @param appPersistenceServices
+     * @param mailChimpServices
      */
     public SignUpServicesImpl(AppPersistenceServices appPersistenceServices,
-            MailServices mailServices) {
+            MailServices mailServices, MailChimpServices mailChimpServices) {
         this.mailServices = mailServices;
         this.appPersistenceServices = appPersistenceServices;
+        this.mailChimpServices = mailChimpServices;
     }
 
     /* Implementation */
@@ -109,14 +114,19 @@ public class SignUpServicesImpl extends ServicesBase implements SignUpServices {
         // creates the new entity
         User user = new User();
         user.setEmail(registerUserVO.getEmail());
-        user.setPassword( CodecUtils.encryptPassword(registerUserVO.getPassword()));
+        user.setPassword(CodecUtils.encryptPassword(registerUserVO.getPassword()));
+        user.setLanguage(registerUserVO.getLanguage());
         user.setConfirmedFlag(Boolean.FALSE);
 
         // persists the new entity and creates value object to return
         appPersistenceServices.persistEntity(user);
+
+        // register user in mailchimp
+        mailChimpServices.subscribeNewUser(user.getEmail(), "", "",
+                user.getLanguage(), MailChimpMergeVars.TypeEnum.PUBLISHER);
+
         UserVO userVO = ParsersContext.USER_VO_PARSER.toValueObject(
                 user, UserVO.class);
         return userVO;
     }
-
 }

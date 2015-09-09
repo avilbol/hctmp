@@ -5,6 +5,7 @@
  */
 package com.hallocasa.commons.vo;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.ValidationMessages;
 import com.hallocasa.commons.validation.NotEmpty;
 import com.hallocasa.commons.validation.ValidationPatterns;
@@ -33,6 +34,8 @@ public class RegisterUserVO implements ValueObject {
     @Pattern(regexp = ValidationPatterns.PASSWORD_PATTERN, message = "{"
             + ValidationMessages.PASSWORD_PATTERN + "}")
     private String password;
+    @NotNull
+    private Language language;
 
     /**
      * Default constructor
@@ -77,6 +80,24 @@ public class RegisterUserVO implements ValueObject {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * Getter for language
+     *
+     * @return
+     */
+    public Language getLanguage() {
+        return language;
+    }
+
+    /**
+     * Setter for language
+     *
+     * @param language
+     */
+    public void setLanguage(Language language) {
+        this.language = language;
     }
 
 }

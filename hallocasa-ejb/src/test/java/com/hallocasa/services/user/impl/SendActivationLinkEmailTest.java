@@ -71,7 +71,7 @@ public class SendActivationLinkEmailTest {
         mailServices = Mockito.mock(MailServices.class);
         persistenceServices = new AppPersistenceServicesImpl(em);
         signUpServices = new SignUpServicesImpl(persistenceServices,
-                mailServices);
+                mailServices, null);
 
         goodParameters = new Object[]{
             JhonDoeDataFiller.JHON_DOE_ID, ACTIVATION_URL,

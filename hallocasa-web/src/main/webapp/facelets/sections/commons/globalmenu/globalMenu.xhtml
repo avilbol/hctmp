@@ -6,21 +6,6 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-
-    
-    <ui:remove>
-    <a href="#" class="fa"><span>#{viewBundle['Label.Agent']}</span></a>
-    <a href="#{constants.contextName}/pages/properties/browse.xhtml"
-       class="fa"><span>#{viewBundle['Label.Property']}</span></a>
-    <a href="#{constants.contextName}/pages/country/country.xhtml?country=colombia"
-       class="fa"><span>#{viewBundle['Label.Colombia']}</span></a>
-    <a href="#{constants.getAbsolutePageUrl('BLOG_INDEX')}"
-       class="fa" style="padding: 5px; padding-left: 0px;">
-        <span>#{viewBundle['Common.Label.Blog']}</span>
-    </a>
-    </ui:remove>
-    
-    
     
     <a href="https://qtrial2014az1.az1.qualtrics.com/SE/?SID=SV_ebnBo4onZ6fv8pL"
        class="fa" style="padding: 5px; padding-left: 0px;"
@@ -60,10 +45,19 @@
             </p:submenu>
         </p:menu>
     </h:form>
+    
+    <a href="#" onclick="PF('signup-dialog').show(); PF('signup-dialog').initPosition();"
+       class="yellow-btn publish-btn">
+        <span>#{viewBundle['SignUp.Header.Button']}</span>
+    </a>
+    
+    
+    <ui:remove>
     <a href="#" onclick="PF('publishPropertyRegister').show(); PF('publishPropertyRegister').initPosition();"
        class="yellow-btn publish-btn">
         <span>#{viewBundle['Register.Label.Publish']}</span>
     </a>
+    </ui:remove>
 
 </ui:composition>
 

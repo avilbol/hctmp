@@ -1,5 +1,6 @@
 package com.hallocasa.services.user.impl;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.codec.CodecUtils;
 import com.hallocasa.commons.exceptions.services.InvalidEmailException;
 import com.hallocasa.commons.exceptions.services.ValidationException;
@@ -9,12 +10,14 @@ import com.hallocasa.commons.test.TestUtils;
 import com.hallocasa.commons.vo.RegisterUserVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.app.User;
+import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.services.persistence.impl.AppPersistenceServicesImpl;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.services.user.local.SignUpServices;
 import com.hallocasa.tests.database.DatabaseCreator;
 import com.hallocasa.tests.database.DatabaseUtils;
 import com.hallocasa.tests.database.JhonDoeDataFiller;
+import com.hallocasa.vo.MailChimpMergeVars;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +28,7 @@ import org.junit.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 public class RegisterUserTest {
 
@@ -63,10 +67,12 @@ public class RegisterUserTest {
         databaseBuilder.fillDatabase();
 
         // services
+        mailChimpServices = Mockito.mock(MailChimpServices.class);
         persistenceServices = new AppPersistenceServicesImpl(em);
-        signUpServices = new SignUpServicesImpl(persistenceServices, null);
+        signUpServices = new SignUpServicesImpl(persistenceServices, null, mailChimpServices);
         goodRegisterUserVO = createGoodParameters();
     }
+    private MailChimpServices mailChimpServices;
 
 
     /* Methods */
@@ -105,6 +111,19 @@ public class RegisterUserTest {
                 ValidationException.class);
         Assert.assertEquals("email-"
                 + ValidationMessages.getString(ValidationMessages.NOT_EMPTY, EN),
+                se.getMessage());
+    }
+
+    @Test
+    public void testEmptyLanguageFail() {
+        RegisterUserVO testRegisterUserVO = cloneGoodRegisterUserVO();
+        testRegisterUserVO.setLanguage(null);
+        ValidationException se;
+        se = AssertUtils.assertOnException(signUpServices, METHOD_NAME,
+                new Object[]{testRegisterUserVO}, PARAM_CLASSES,
+                ValidationException.class);
+        Assert.assertEquals("language-"
+                + ValidationMessages.getString(ValidationMessages.NOT_NULL, EN),
                 se.getMessage());
     }
 
@@ -152,7 +171,22 @@ public class RegisterUserTest {
                 .getEmail());
         Assert.assertEquals(CodecUtils.encryptPassword(
                 goodRegisterUserVO.getPassword()), user.getPassword());
+        Assert.assertEquals(goodRegisterUserVO.getLanguage(), user
+                .getLanguage());
+        Assert.assertEquals(Boolean.FALSE, user.getConfirmedFlag());
 
+    }
+
+    @Test
+    public void testMailChimpServicesIsInvoked() {
+        try {
+            signUpServices.registerUser(goodRegisterUserVO);
+            Mockito.verify(mailChimpServices, Mockito.times(1)).subscribeNewUser(goodRegisterUserVO.getEmail(),
+                    "", "", goodRegisterUserVO.getLanguage(), MailChimpMergeVars.TypeEnum.PUBLISHER);
+
+        } catch (InvalidEmailException ex) {
+            Logger.getLogger(RegisterUserTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /* private utilities */
 
@@ -189,6 +223,7 @@ public class RegisterUserTest {
         RegisterUserVO clone = new RegisterUserVO();
         clone.setEmail(goodRegisterUserVO.getEmail());
         clone.setPassword(goodRegisterUserVO.getPassword());
+        clone.setLanguage(goodRegisterUserVO.getLanguage());
         return clone;
     }
 
@@ -214,6 +249,8 @@ public class RegisterUserTest {
         RegisterUserVO registerUserVO = new RegisterUserVO();
         registerUserVO.setEmail("newuser@dominio.com");
         registerUserVO.setPassword("Aa1#aaaa");
+        registerUserVO.setLanguage(Language.en);
         return registerUserVO;
     }
+
 }
