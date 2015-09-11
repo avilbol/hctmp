@@ -41,6 +41,8 @@
         <module>../hallocasa-ejb</module>
         <module>../hallocasa-web</module>
         <module>../hallocasa-ear</module>
+        <module>../hallocasa-commons</module>
+        <module>../hallocasa-theme</module>
     </modules>
 
     <dependencies>

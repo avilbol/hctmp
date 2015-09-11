@@ -1,21 +1,4 @@
 /**************************************************************************
- Dialog
-***************************************************************************/
-.ui-dialog .ui-dialog-content{
-    padding: 0em;
-    overflow: hidden;
-}
-.ui-dialog .ui-dialog-titlebar{
-    padding: 0em;
-}
-.ui-dialog-titlebar-close{
-    width: 32px;
-    height: 32px;
-    margin-right: 0px !important;
-    background-image: url('../images/icons/close-32.png')
-}
-
-/**************************************************************************
  Inputtext
 ***************************************************************************/
 .ui-inputfield{

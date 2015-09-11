@@ -50,7 +50,7 @@
     </context-param>
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>none</param-value>
+        <param-value>hallocasa</param-value>
     </context-param>
    
     <!-- listener -->

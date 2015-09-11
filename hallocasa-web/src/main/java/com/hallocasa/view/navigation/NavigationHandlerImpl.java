@@ -140,7 +140,7 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
                 }
                 // validates page support parameter
                 if (!ArrayUtils.contains(view.getSupportedParams(),
-                        ViewParamEnum.valueOf(paramEntry.getKey()))) {
+                        ViewParamEnum.find(paramEntry.getKey()))) {
                     throw new IllegalArgumentException("View " + view + 
                             " doesn't support param " + paramEntry.getKey());
                 }
