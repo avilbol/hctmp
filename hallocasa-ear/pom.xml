@@ -33,6 +33,11 @@
                             <artifactId>hallocasa-commons</artifactId>
                             <bundleFileName>hallocasa-commons.jar</bundleFileName>
                         </jarModule>
+                        <jarModule>
+                            <groupId>com.hallocasa</groupId>
+                            <artifactId>hallocasa-theme</artifactId>
+                            <bundleFileName>hallocasa-theme.jar</bundleFileName>
+                        </jarModule>
                         <webModule>
                             <groupId>com.hallocasa</groupId>
                             <artifactId>hallocasa-web</artifactId>
@@ -73,6 +78,12 @@
         <dependency>
             <groupId>com.hallocasa</groupId>
             <artifactId>hallocasa-commons</artifactId>
+            <version>${hallocasa.portal.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.hallocasa</groupId>
+            <artifactId>hallocasa-theme</artifactId>
             <version>${hallocasa.portal.version}</version>
             <type>jar</type>
         </dependency>

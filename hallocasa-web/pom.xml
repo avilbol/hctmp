@@ -54,6 +54,7 @@
             <groupId>com.hallocasa</groupId>
             <artifactId>hallocasa-theme</artifactId>
             <version>${hallocasa.portal.version}</version>
+            <scope>provided</scope>
             <type>jar</type>
         </dependency>
         

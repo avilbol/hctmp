@@ -7,16 +7,27 @@
 
     <!-- Agents-Section -->
     <p:dialog modal="true" widgetVar="signup-dialog" id="signup-dialog"
-              closeOnEscape="true">
-        <h:form id="signup-form">
-            <h:panelGrid columns="2">
-                <p:inputText placeholder="Enter email"/>
-                <p:password feedback="true" inline="true"/>
-                <p:password />
-            </h:panelGrid>
-            <div> 
-                <p:commandButton value="Signup"/>
-                <p:commandButton value="Cancel"/>
+              closeOnEscape="true" header="Sign Up in Hallocasa" resizable="false"
+              styleClass="signup-dialog" width="350">
+        <h:form id="signup-form" styleClass="hc-form">
+            <div class="hc-overlay-form-fields-container">
+
+                <p:outputLabel for="email" value="Email" styleClass="hc-form-label"/>
+                <p:inputText id="email" placeholder="Enter your email" styleClass="hc-form-field"/>
+
+                <p:outputLabel for="password" value="Password" styleClass="hc-form-label"/>
+                <p:password id="password" feedback="true" inline="true" placeholder="Enter your password"
+                            styleClass="hc-form-field"/>
+
+                <p:outputLabel for="password-confirm" value="Password confirm" styleClass="hc-form-label"/>
+                <p:password id="password-confirm" placeholder="Confirm your password"
+                            styleClass="hc-form-field"/>
+            </div>
+            <div class="hc-overlay-form-buttons-container">
+                <div> 
+                    <p:commandButton value="Signup" styleClass="hc-form-cancel-button"/>
+                    <p:commandButton value="Cancel" styleClass="hc-form-submit-button"/>
+                </div>
             </div>
         </h:form>
     </p:dialog>
