@@ -31,8 +31,6 @@ public class RegisterUserVO implements ValueObject {
     @NotNull
     @NotEmpty
     @Size(min = 0, max = 80)
-    @Pattern(regexp = ValidationPatterns.PASSWORD_PATTERN, message = "{"
-            + ValidationMessages.PASSWORD_PATTERN + "}")
     private String password;
     @NotNull
     private Language language;

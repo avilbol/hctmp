@@ -120,6 +120,7 @@ public class SignUpServicesImpl extends ServicesBase implements SignUpServices {
 
         // persists the new entity and creates value object to return
         appPersistenceServices.persistEntity(user);
+        appPersistenceServices.flush();
 
         // register user in mailchimp
         mailChimpServices.subscribeNewUser(user.getEmail(), "", "",

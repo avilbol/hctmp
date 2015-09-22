@@ -6,9 +6,9 @@
 package com.hallocasa.viewmodel.servlet;
 
 import com.hallocasa.commons.Language;
+import com.hallocasa.model.session.WebSession;
 import com.hallocasa.model.session.WebSessionImpl;
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -18,7 +18,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * This class is intented to control the language setting in the url. If the
@@ -48,27 +47,13 @@ public class LangFilter implements Filter {
 
         // log url
         StringBuffer requestURL = ((HttpServletRequest) request).getRequestURL();
-  
 
         // Get the language parameter and change language
         String lang = request.getParameter("lang");
 
-        // if an explicit language has been required then set the language in
-        // session
-        if (lang != null) {
-            HttpSession session = httpServletRequest.getSession();
-            WebSessionImpl webSession = (WebSessionImpl) session.getAttribute("webSession");
-            if (webSession != null) {
-                Language language;
-                try {
-                    language = Language.valueOf(lang);
-                } catch (IllegalArgumentException e) {
-                    language = Language.en;
-                }
-                webSession.changeLanguage(language);
-            }else{
-                LOG.log(Level.WARNING, "{0} has been invloked withot a session", requestURL.toString());
-            }
+        // Initialize websession language
+        WebSessionImpl webSession = (WebSessionImpl) WebSessionImpl.getCurrentInstance();
+        if (initLanguageValue(webSession, lang, request)) {
             chain.doFilter(request, response);
         } // 
         // if no language has been specified then user is redirect to the same
@@ -82,25 +67,56 @@ public class LangFilter implements Filter {
     }
 
     /**
+     * Initialize language if it's not
+     *
+     * @return true if the language was got from the request parameter, false if
+     * a default value or request locale was taken
+     */
+    private boolean initLanguageValue(WebSession webSession, String langParameter, ServletRequest servletRequest) {
+        boolean isDefault = false;
+        boolean isFromLocale = false;
+
+        if (webSession.getCurrentLanguage() == null || langParameter != null) {
+            Language language;
+
+            // if there is not query string, locale is taken from request locale
+            if (langParameter == null) {
+                langParameter = servletRequest.getLocale().getLanguage();
+                isFromLocale = true;
+            }
+
+            // try to obtain the locale from the lang parameter
+            try {
+                language = Language.valueOf(langParameter);
+            } catch (IllegalArgumentException e) {
+                language = null;
+            }
+
+            // if lang string value is not an existing language then english is taken
+            if (language == null) {
+                language = Language.en;
+                isDefault = true;
+            }
+
+            webSession.changeLanguage(language);
+        }
+        return !(isDefault || isFromLocale);
+    }
+
+    /**
      * Appends the query String to the current url
      *
      * @param request
      * @return
      */
     private String appendLangQueryString(ServletRequest request) {
-        HttpSession session = ((HttpServletRequest) request).getSession();
-        WebSessionImpl webSession = (WebSessionImpl) session.getAttribute("webSession");
-        String strLang;
+        WebSessionImpl webSession = (WebSessionImpl) WebSessionImpl.getCurrentInstance();
 
         // get the current language
-        if (webSession == null) {
-            strLang = request.getLocale().getLanguage();
-        } else {
-            strLang = webSession.getCurrentLanguage().name();
-        }
-
+        String strLang = webSession.getCurrentLanguage().name();
         StringBuffer requestURL = ((HttpServletRequest) request).getRequestURL();
         String queryString = ((HttpServletRequest) request).getQueryString();
+
         if (queryString == null) {
             return requestURL + "?lang=" + strLang;
         } else {

@@ -84,7 +84,7 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
      * (java.lang.Object)
      */
     @Override
-    public <T> T persistEntity(T entity )
+    public <T> T persistEntity(T entity)
             throws PersistenceException {
         em.persist(entity);
         return entity;
@@ -98,7 +98,7 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
      * (java.lang.Object)
      */
     @Override
-    public <T> void removeEntity(T entity )
+    public <T> void removeEntity(T entity)
             throws PersistenceException {
         em.remove(entity);
     }
@@ -352,7 +352,7 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
      * (java.lang.String, java.util.HashMap)
      */
     @Override
-    public int executeUpdate(String sentence, HashMap<String, Object> params ) {
+    public int executeUpdate(String sentence, HashMap<String, Object> params) {
 
         Query query = em.createQuery(sentence);
 
@@ -394,14 +394,8 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         return query.executeUpdate();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.mobiera.social.services.local.PersistenceServicesLocal#
-     * executeNativeUpdate(java.lang.String, java.lang.Object[])
-     */
     @Override
-    public int executeNativeUpdate(String sentence, Object[] params ) {
+    public int executeNativeUpdate(String sentence, Object[] params) {
         Query query = em.createNativeQuery(sentence);
 
         int i = 1;
@@ -415,16 +409,14 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         return query.executeUpdate();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.mobiera.social.services.local.PersistenceServicesLocal#getEntityManager
-     * ()
-     */
     @Override
     public EntityManager getEntityManager() {
         return em;
+    }
+
+    @Override
+    public void flush() {
+        em.flush();
     }
 
 }

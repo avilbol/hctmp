@@ -176,4 +176,9 @@ public interface AppPersistenceServices {
      * @return query execution result
      */
     public int executeNativeUpdate(String sentence, Object[] params);
+
+    /**
+     * Flush entity manager
+     */
+    public void flush();
 }

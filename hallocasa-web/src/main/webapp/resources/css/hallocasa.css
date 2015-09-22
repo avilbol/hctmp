@@ -5,9 +5,10 @@
 @import "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,300,400,600";
 
 /* other componentes*/
-@import "#{resource['css:new/reset.css']}";
-@import "#{resource['css:new/layout.css']}";
-@import "#{resource['css:new/header.css']}";
+@import "#{resource['css:reset.css']}";
+@import "#{resource['css:layout.css']}";
+@import "#{resource['css:header.css']}";
+@import "#{resource['css:footer.css']}";
 
 
 /* sections and components */
@@ -15,9 +16,16 @@
 
 
 /* form */
+.hc-form {
+    text-align: left;
+}
 .hc-form .hc-form-label {
     display: block;
     margin-bottom: 0.2em;
+}
+.hc-form-label.hc-form-required:after {
+    content: "*";
+    margin-left: 5px;
 }
 .hc-form .hc-form-field {
     margin-bottom: 0.3em;
@@ -25,19 +33,18 @@
 }
 .hc-overlay-form-fields-container {
     padding-bottom: 20px;
-    font-size: 0.95em;
+    font-size: 0.85em;
 }
 .hc-overlay-form-fields-container {
 
 }
 .hc-overlay-form-buttons-container {
     text-align: center;
-    font-size: 1.0em;
+    font-size: 0.9em;
 }
 .hc-form-cancel-button {
     margin-right: 6px;
 }
-
 
 
 

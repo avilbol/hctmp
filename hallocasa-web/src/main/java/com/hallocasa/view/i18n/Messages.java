@@ -22,11 +22,13 @@ public class Messages {
     private static final Logger LOG = Logger
             .getLogger(Messages.class.getName());
     private static final Map<Locale, ResourceBundle> resourceBundleMap;
-
+    public static final String FACES_BUNDLE_NAME = "viewBundle";
+    public static final String BUNDLE_NAME = "com.hallocasa.language.ViewTextAndMessages";
+    // sign up
     public static final String SIGNUP_EMAIL_EXIST = "SignUp.EmailExist.Message.Summary";
-
-    // old:
-    private static final String BUNDLE_NAME = "ViewTextAndMessages"; //$NON-NLS-1$
+    // newsletter
+    public static final String MESSAGE_NEWSLETTER_THANKS = "Message.Newsletter.Thanks";
+    /* old */
     public static final String LOGIN_INVALID_EMAIL_MESSAGE = "SocialSession.Login.InvalidEmail.Message";
     public static final String LOGIN_INVALID_PASSWORD_MESSAGE = "SocialSession.Login.InvalidPassword.Message";
     public static final String LOGIN_INVALID_IP_MESSAGE = "SocialSession.Login.InvalidIP.Message";

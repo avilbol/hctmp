@@ -16,9 +16,9 @@ import javax.faces.bean.ViewScoped;
 
 import com.hallocasa.dataentities.wcm.TemporalPublisherUser;
 import com.hallocasa.services.interfaces.UserServices;
-import com.hallocasa.commons.constants.ViewBundle;
 import com.hallocasa.commons.exceptions.services.ServiceException;
 import com.hallocasa.model.session.WebSessionImpl;
+import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 import com.hallocasa.viewmodel.managed.modules.NewsletterSubscription;
 
@@ -68,7 +68,7 @@ public class PublishPropertyRegister extends BaseManagedBean {
 
         // show a successful email
         addFacesMessage(null, FacesMessage.SEVERITY_INFO,
-                getBundleMessage(ViewBundle.MESSAGE_NEWSLETTER_THANKS), "");
+                getBundleMessage(Messages.MESSAGE_NEWSLETTER_THANKS), "");
 
         // Reset the form
         initialize();
@@ -83,8 +83,7 @@ public class PublishPropertyRegister extends BaseManagedBean {
     }
 
     /**
-     * @param publisherUser
-     *            the publisherUser to set
+     * @param publisherUser the publisherUser to set
      */
     public void setPublisherUser(TemporalPublisherUser publisherUser) {
         this.publisherUser = publisherUser;

@@ -23,6 +23,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.hallocasa.commons.Language;
+import com.hallocasa.commons.validation.NotEmpty;
 import com.hallocasa.commons.validation.ValidationPatterns;
 import com.hallocasa.dataentities.converters.LanguageConverter;
 
@@ -44,6 +45,7 @@ public class NewsletterReceiver implements Serializable {
     private Integer newsletterReceiverId;
     @Basic(optional = false)
     @NotNull
+    @NotEmpty
     @Size(min = 0, max = 120, message = "{com.hallocasa.validator.constraints.Email.message}")
     @Column(name = "email")
     @Pattern(regexp = ValidationPatterns.EMAIL_PATTERN, message = "{com.hallocasa.validator.constraints.Email.message}")

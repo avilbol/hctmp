@@ -141,8 +141,8 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
                 // validates page support parameter
                 if (!ArrayUtils.contains(view.getSupportedParams(),
                         ViewParamEnum.find(paramEntry.getKey()))) {
-                    throw new IllegalArgumentException("View " + view + 
-                            " doesn't support param " + paramEntry.getKey());
+                    throw new IllegalArgumentException("View " + view
+                            + " doesn't support param " + paramEntry.getKey());
                 }
 
                 str.append(paramEntry.getKey());
@@ -156,7 +156,11 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
 
     @Override
     public Map<String, String> getPageParams() {
-        return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        if (FacesContext.getCurrentInstance() != null) {
+            return FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        } else {
+            return new HashMap<>();
+        }
     }
 
 }

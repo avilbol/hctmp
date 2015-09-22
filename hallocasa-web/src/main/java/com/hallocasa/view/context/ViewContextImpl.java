@@ -9,6 +9,7 @@ import com.hallocasa.view.utils.JSFUtils;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -22,6 +23,16 @@ public class ViewContextImpl implements ViewContext, Serializable {
     public void showGlobalErrorMessage(String summaryKey, String detailKey) {
         JSFUtils.addFacesError(JSFUtils.getViewBundleString(summaryKey),
                 JSFUtils.getViewBundleString(detailKey));
+    }
+
+    @Override
+    public void showGlobalCustomErrorMessage(String summary, String detail) {
+        JSFUtils.addFacesError(summary, detail);
+    }
+
+    @Override
+    public void addCallBackParam(String name, Object value) {
+        RequestContext.getCurrentInstance().addCallbackParam(name, value);
     }
 
 }

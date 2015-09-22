@@ -7,26 +7,46 @@
 
     <!-- Agents-Section -->
     <p:dialog modal="true" widgetVar="signup-dialog" id="signup-dialog"
-              closeOnEscape="true" header="Sign Up in Hallocasa" resizable="false"
-              styleClass="signup-dialog" width="350">
+              closeOnEscape="true" 
+              header="#{viewBundle['SignUp.Dialog.Title']}" 
+              resizable="false"
+              styleClass="signup-dialog" width="auto">
         <h:form id="signup-form" styleClass="hc-form">
             <div class="hc-overlay-form-fields-container">
 
-                <p:outputLabel for="email" value="Email" styleClass="hc-form-label"/>
-                <p:inputText id="email" placeholder="Enter your email" styleClass="hc-form-field"/>
+                <p:outputLabel for="email"  value="#{viewBundle['SignUp.Form.Email']}"
+                               styleClass="hc-form-label hc-form-required"/>
+                <p:inputText id="email" placeholder="#{viewBundle['SignUp.Form.EnterEmail']}" 
+                             styleClass="hc-form-field"
+                             value="#{signUpDialog.registerUserVO.email}"/>
 
-                <p:outputLabel for="password" value="Password" styleClass="hc-form-label"/>
-                <p:password id="password" feedback="true" inline="true" placeholder="Enter your password"
-                            styleClass="hc-form-field"/>
+                <p:outputLabel for="password" 
+                               value="#{viewBundle['SignUp.Form.Password']}"
+                               styleClass="hc-form-label hc-form-required"/>
+                <p:password id="password" feedback="true" inline="true" 
+                            placeholder="#{viewBundle['SignUp.Form.EnterPassword']}" 
+                            styleClass="hc-form-field"
+                            value="#{signUpDialog.registerUserVO.password}"/>
 
-                <p:outputLabel for="password-confirm" value="Password confirm" styleClass="hc-form-label"/>
-                <p:password id="password-confirm" placeholder="Confirm your password"
-                            styleClass="hc-form-field"/>
+                <p:outputLabel for="password-confirm" 
+                               value="#{viewBundle['SignUp.Form.PasswordConfirm']}" 
+                               styleClass="hc-form-label hc-form-required"/>
+                <p:password id="password-confirm" 
+                            placeholder="#{viewBundle['SignUp.Form.ConfirmPassword']}"
+                            styleClass="hc-form-field"
+                            value="#{signUpDialog.passwordConfirm}"/>
             </div>
             <div class="hc-overlay-form-buttons-container">
                 <div> 
-                    <p:commandButton value="Signup" styleClass="hc-form-cancel-button"/>
-                    <p:commandButton value="Cancel" styleClass="hc-form-submit-button"/>
+                    <p:commandButton value="${viewBundle['SignUp.Header.Button']}" 
+                                     styleClass="hc-form-cancel-button"
+                                     actionListener="#{signUpDialog.processSubmitClick()}"
+                                     process="@form" update="@form"
+                                     oncomplete="if (args.ok ) PF('signup-dialog').hide();"/>
+                    <p:commandButton value="${viewBundle['Common.Label.Cancel']}" 
+                                     styleClass="hc-form-submit-button"
+                                     type="button" onclick="PF('signup-dialog').hide();"
+                                     immediate="true" process="@this"/>
                 </div>
             </div>
         </h:form>

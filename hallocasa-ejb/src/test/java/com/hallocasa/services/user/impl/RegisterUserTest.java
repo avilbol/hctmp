@@ -180,12 +180,15 @@ public class RegisterUserTest {
     @Test
     public void testMailChimpServicesIsInvoked() {
         try {
+            em.getTransaction().begin();
             signUpServices.registerUser(goodRegisterUserVO);
             Mockito.verify(mailChimpServices, Mockito.times(1)).subscribeNewUser(goodRegisterUserVO.getEmail(),
                     "", "", goodRegisterUserVO.getLanguage(), MailChimpMergeVars.TypeEnum.PUBLISHER);
-
+            em.getTransaction().rollback();
         } catch (InvalidEmailException ex) {
             Logger.getLogger(RegisterUserTest.class.getName()).log(Level.SEVERE, null, ex);
+            em.getTransaction().rollback();
+            Assert.fail();
         }
     }
     /* private utilities */

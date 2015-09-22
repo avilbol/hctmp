@@ -1,5 +1,5 @@
 CREATE TABLE `hallocasaapp`.`user` (
-  `id` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `email` VARCHAR(80) NOT NULL COMMENT '',
   `password` VARCHAR(45) NOT NULL COMMENT '',
   `language` VARCHAR(10) NOT NULL COMMENT '',

@@ -20,15 +20,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author david
  */
 @Entity
+@Table(name = "user")
 @NamedQueries({
     @NamedQuery(name = User.QUERY_FIND_BY_EMAIL,
             query = "select u from User u where u.email = ?1")

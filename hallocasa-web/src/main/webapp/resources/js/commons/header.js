@@ -61,7 +61,7 @@ $(document).ready(function () {
         },
         defineMode: function () {
             var windowWidth = $(window).width();
-            if ((windowWidth) < MOBILE_MAX_WIDTH) {
+            if ((windowWidth) <= MOBILE_MAX_WIDTH) {
                 globalMenu.setAsMobile();
             } else {
                 globalMenu.setAsDesktop();

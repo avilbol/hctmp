@@ -61,7 +61,7 @@ public class MailServicesImpl extends ServicesBase implements MailServices {
      * (non-Javadoc)
      * 
      * @see
-     * com.mobiera.social.services.MailServicesLocal#sendMail(com.mobiera.social
+     * com.hallocasa.services.MailServicesLocal#sendMail(com.mobiera.social
      * .services.MailServices.MailDefinition, java.util.Locale, java.util.List)
      */
     @Override
@@ -106,7 +106,7 @@ public class MailServicesImpl extends ServicesBase implements MailServices {
      * (non-Javadoc)
      * 
      * @see
-     * com.mobiera.social.services.local.MailServicesLocal#sendFilledMessage
+     * com.hallocasa.services.local.MailServicesLocal#sendFilledMessage
      * (java.lang.String, java.lang.String, java.lang.StringBuilder)
      */
     @Override

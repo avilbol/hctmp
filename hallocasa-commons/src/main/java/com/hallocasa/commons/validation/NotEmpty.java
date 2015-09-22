@@ -14,29 +14,29 @@ import com.hallocasa.commons.i18n.ValidationMessages;
 
 /**
  * Annotation for NotEmpty validator
- * 
+ *
  * @author David Mantilla
  * @since 1.7
  */
-@Target({ METHOD, FIELD, ANNOTATION_TYPE })
+@Target({METHOD, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
 @Constraint(validatedBy = NotEmptyValidator.class)
 @Documented
 public @interface NotEmpty {
 
-	/**
-	 * @return message of the annotation
-	 */
-	String message() default "{" + ValidationMessages.NOT_EMPTY + "}";
+    /**
+     * @return message of the annotation
+     */
+    String message() default "{" + ValidationMessages.NOT_EMPTY + "}";
 
-	/**
-	 * @return groups
-	 */
-	Class<?>[] groups() default {};
+    /**
+     * @return groups
+     */
+    Class<?>[] groups() default {};
 
-	/**
-	 * @return payload class
-	 */
-	Class<? extends Payload>[] payload() default {};
+    /**
+     * @return payload class
+     */
+    Class<? extends Payload>[] payload() default {};
 
 }

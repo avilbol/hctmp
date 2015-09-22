@@ -105,7 +105,10 @@
         <class>com.hallocasa.dataentities.app.UserType</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
+            <property name="eclipselink.target-database" value="MySQL"/>
             <property name="eclipselink.logging.level" value="FINE"/>
+            <property name="eclipselink.ddl-generation" value="none"/>
+            <property name="eclipselink.weaving" value="false"/>
         </properties>
     </persistence-unit>
 </persistence>

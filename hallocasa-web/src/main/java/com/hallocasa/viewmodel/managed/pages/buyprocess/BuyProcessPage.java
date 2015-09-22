@@ -10,10 +10,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import com.hallocasa.dataentities.wcm.BlogArticle;
+import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.HallocasaViewNames;
-import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 import javax.inject.Inject;
@@ -59,7 +59,8 @@ public class BuyProcessPage extends BaseManagedBean {
     private BlogArticleServicesLocal blogArticleServices;
     @Inject
     private NavigationHandler navigationHandler;
-    private WebSessionImpl webSession;
+    @Inject
+    private WebSession webSession;
 
     /* Instance variables */
     private MenuOption activeMenuOption;
@@ -87,7 +88,6 @@ public class BuyProcessPage extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         buyProcessArticles = new ArrayList<>();
-        webSession = WebSessionImpl.getCurrentInstance();
 
         // initialize urls
         faqUrl = BuyProcessPage.buildPageUrl(MenuOption.FAQ);

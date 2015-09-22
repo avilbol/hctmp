@@ -17,9 +17,9 @@ import javax.faces.bean.ViewScoped;
 
 import com.hallocasa.dataentities.wcm.NewsletterReceiver;
 import com.hallocasa.services.interfaces.NewsletterServicesInterface;
-import com.hallocasa.commons.constants.ViewBundle;
 import com.hallocasa.commons.exceptions.services.ServiceException;
 import com.hallocasa.model.session.WebSessionImpl;
+import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 
 /**
@@ -70,7 +70,7 @@ public class NewsletterSubscription extends BaseManagedBean implements
 
         // show a successful email
         addFacesMessage(null, FacesMessage.SEVERITY_INFO,
-                getBundleMessage(ViewBundle.MESSAGE_NEWSLETTER_THANKS), "");
+                getBundleMessage(Messages.MESSAGE_NEWSLETTER_THANKS), "");
     }
 
 }

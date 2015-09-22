@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.mobiera.social.model.controlaccess;
+package com.hallocasa.model.controlaccess;
 
 /**
  * Exception when a forbidden page or forbidden state is required

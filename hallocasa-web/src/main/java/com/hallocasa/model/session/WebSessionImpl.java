@@ -29,6 +29,7 @@ import javax.enterprise.inject.spi.CDI;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletRequest;
 
 /**
  *
@@ -64,7 +65,6 @@ public class WebSessionImpl extends Observable implements WebSession,
      */
     @PostConstruct
     public void initialize() {
-        getCurrentLanguage();
     }
 
     /**
@@ -74,20 +74,6 @@ public class WebSessionImpl extends Observable implements WebSession,
      */
     @Override
     public Language getCurrentLanguage() {
-        if (currentLanguage == null) {
-            try {
-                String langParameter = navigationHandler.getPageParams().get("lang");
-                if (langParameter != null) {
-                    currentLanguage = Language.valueOf(langParameter);
-                } else {
-                    currentLanguage = Language.valueOf(FacesContext.getCurrentInstance()
-                            .getViewRoot().getLocale().getLanguage());
-                }
-            } catch (IllegalArgumentException e) {
-                changeLanguage(Language.en);
-                return Language.en;
-            }
-        }
         return currentLanguage;
     }
 
@@ -106,8 +92,11 @@ public class WebSessionImpl extends Observable implements WebSession,
      *
      * @return
      */
-    public static WebSessionImpl getCurrentInstance() {
-        return FacesContext.getCurrentInstance().getApplication().evaluateExpressionGet(FacesContext.getCurrentInstance(), "#{webSession}", WebSessionImpl.class);
+    @Deprecated
+    public static WebSession
+            getCurrentInstance() {
+        return CDI.current().select(WebSession.class
+        ).get();
     }
 
     @Override
@@ -117,22 +106,22 @@ public class WebSessionImpl extends Observable implements WebSession,
             logout();
         }
 
-     /*   authInfoVO = null;
-        try {
-            authInfoVO = userServices.authenticate(credentialVO);
-            currentUser = authInfoVO.getAccount();
-            accessValidator.clear();
-            currentLanguage = null; // force local reloading
-        } catch (InvalidEmailException e) {
-            throw new LoginFailedException(Messages
-                    .getString(Messages.LOGIN_INVALID_EMAIL_MESSAGE));
-        } catch (InvalidPasswordLoginException e) {
-            throw new LoginFailedException(Messages
-                    .getString(Messages.LOGIN_INVALID_PASSWORD_MESSAGE));
-        } catch (InactiveUserException e) {
-            throw new LoginFailedException(Messages
-                    .getString(Messages.LOGIN_INACTIVE_USER_MESSAGE));
-        } */
+        /*   authInfoVO = null;
+         try {
+         authInfoVO = userServices.authenticate(credentialVO);
+         currentUser = authInfoVO.getAccount();
+         accessValidator.clear();
+         currentLanguage = null; // force local reloading
+         } catch (InvalidEmailException e) {
+         throw new LoginFailedException(Messages
+         .getString(Messages.LOGIN_INVALID_EMAIL_MESSAGE));
+         } catch (InvalidPasswordLoginException e) {
+         throw new LoginFailedException(Messages
+         .getString(Messages.LOGIN_INVALID_PASSWORD_MESSAGE));
+         } catch (InactiveUserException e) {
+         throw new LoginFailedException(Messages
+         .getString(Messages.LOGIN_INACTIVE_USER_MESSAGE));
+         } */
     }
 
     @Override
@@ -174,8 +163,10 @@ public class WebSessionImpl extends Observable implements WebSession,
      *
      * @return The current social session
      */
-    public static WebSession getCurrent() {
-        return CDI.current().select(WebSession.class).get();
+    public static WebSession
+            getCurrent() {
+        return CDI.current().select(WebSession.class
+        ).get();
     }
 
     /**

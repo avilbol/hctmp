@@ -6,6 +6,8 @@
 package com.hallocasa.viewmodel.security;
 
 import com.hallocasa.commons.exceptions.services.InvalidEmailException;
+import com.hallocasa.commons.i18n.ValidationMessages;
+import com.hallocasa.commons.validation.NotEmpty;
 import com.hallocasa.commons.vo.RegisterUserVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.session.WebSession;
@@ -17,19 +19,26 @@ import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.view.navigation.ViewParamEnum;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.ManagedBean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author david
  */
-@ManagedBean("signUpDialog")
+@ManagedBean(name = "signUpDialog")
 @ViewScoped
 public class SignUpDialog {
+
+    /* class variables */
+    private static final Logger LOG = Logger.getLogger(SignUpDialog.class.getName());
 
     /* dependencies */
     @EJB
@@ -43,19 +52,27 @@ public class SignUpDialog {
 
     /* instance variables */
     private RegisterUserVO registerUserVO;
+    @NotNull
+    @NotEmpty
+    @Size(min = 0, max = 80)
+    private String passwordConfirm;
 
     /**
      * Initialize
      */
     @PostConstruct
     public void initialize() {
-
+        registerUserVO = new RegisterUserVO();
+        registerUserVO.setLanguage(webSession.getCurrentLanguage());
     }
 
     /**
      * Listener for click on submit button
      */
     public void processSubmitClick() {
+        if (!validateForm()) {
+            return;
+        }
         try {
             UserVO userVO = signUpServices.registerUser(registerUserVO);
             Map<String, String> params = new HashMap<>();
@@ -65,9 +82,13 @@ public class SignUpDialog {
             String activationKey = UserActivationLinkUtils.generateActivationKey(
                     userVO.getId(), userVO.getEmail());
             signUpServices.sendActivationLinkEmail(userVO.getId(), activationUrl, activationKey);
+            viewContext.addCallBackParam("ok", true);
         } catch (InvalidEmailException ex) {
             viewContext.showGlobalErrorMessage(Messages.SIGNUP_EMAIL_EXIST, null);
         } catch (MailServicesErrorException ex) {
+            viewContext.showGlobalErrorMessage(Messages.UNEXPECTED_ERROR, null);
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Unexepcted error", e);
             viewContext.showGlobalErrorMessage(Messages.UNEXPECTED_ERROR, null);
         }
     }
@@ -79,6 +100,41 @@ public class SignUpDialog {
      */
     public RegisterUserVO getRegisterUserVO() {
         return registerUserVO;
+    }
+
+    /**
+     * Getter for passwordConfirm
+     *
+     * @return
+     */
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    /**
+     * Setter for passwordConfirm
+     *
+     * @param passwordConfirm
+     */
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    /**
+     * Execute additional validations, that means other than bean validations
+     *
+     * @return
+     */
+    private boolean validateForm() {
+        if (!passwordConfirm.equals(registerUserVO.getPassword())) {
+            viewContext.showGlobalCustomErrorMessage(
+                    ValidationMessages.getString(
+                            ValidationMessages.SIGNUP_PASSWORD_CONFIRM_NOT_MATCH,
+                            webSession.getCurrentLanguage().getLocale()),
+                    null);
+            return false;
+        }
+        return true;
     }
 
 }

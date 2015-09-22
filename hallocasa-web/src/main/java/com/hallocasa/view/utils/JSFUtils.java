@@ -1,11 +1,11 @@
 package com.hallocasa.view.utils;
 
+import com.hallocasa.view.i18n.Messages;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 
-import com.hallocasa.commons.constants.ViewBundle;
 import javax.faces.application.FacesMessage;
 
 public class JSFUtils {
@@ -34,8 +34,11 @@ public class JSFUtils {
      * @throws MissingResourceException
      */
     public static String getViewBundleString(String resourceBundleKey) {
+        if (resourceBundleKey == null) {
+            return null;
+        }
         try {
-            return getResourceBundleString(ViewBundle.BUNDLE_NAME,
+            return getResourceBundleString(Messages.FACES_BUNDLE_NAME,
                     resourceBundleKey);
         } catch (MissingResourceException e) {
             return "??? " + resourceBundleKey + " ???";
