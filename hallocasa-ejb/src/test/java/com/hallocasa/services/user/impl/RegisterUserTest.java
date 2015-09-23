@@ -136,15 +136,6 @@ public class RegisterUserTest {
     }
 
     @Test
-    public void testPasswordPatternFail() {
-        RegisterUserVO cloned = cloneGoodRegisterUserVO();
-        cloned.setPassword("invalid password");
-        testValidationFailed(new Object[]{cloned}, "password-"
-                + ValidationMessages.getString(ValidationMessages.PASSWORD_PATTERN,
-                        EN));
-    }
-
-    @Test
     @SuppressWarnings("ThrowableResultIgnored")
     public void testEmailAlreadyExistsExceptionThrown() {
         RegisterUserVO cloned = cloneGoodRegisterUserVO();

@@ -36,10 +36,10 @@ public class ValidationMessages {
     public static final String PAST = "javax.validation.constraints.Past.message";
     public static final String PATTERN = "javax.validation.constraints.Pattern.message";
     public static final String SIZE = "javax.validation.constraints.Size.message";
-    public static final String EMAIL_PATTERN = "com.hallocasa.validator.constrains.EmailPattern.message";
+    public static final String EMAIL_PATTERN = "com.hallocasa.validator.constraints.EmailPattern.message";
     public static final String NOT_EMPTY = "com.hallocasa.validator.constraints.NotEmpty.message";
     public static final String IP = "com.hallocasa.validator.constrains.Ip.message";
-    public static final String URL_PATTERN = "com.hallocasa.validator.constrains.UrlPattern.message";
+    public static final String URL_PATTERN = "com.hallocasa.validator.constraints.UrlPattern.message";
     public static final String PHONE_PATTERN = "com.hallocasa.validator.constrains.PhonePattern.message";
     public static final String PASSWORD_PATTERN = "com.hallocasa.validator.constrains.PasswordPattern.message";
     public static final String GENERAL_NAME_PATTERN = "com.hallocasa.validator.constrains.GeneralNamePattern.message";
@@ -65,7 +65,8 @@ public class ValidationMessages {
             return getResourceBundle(locale).getString(key);
         } catch (MissingResourceException e) {
             LOG.log(Level.WARNING,
-                    "Message not found in ValidationMessages bundle: " + key, e);
+                    "Message not found in ValidationMessages bundle: " + key
+                    + " with locale " + locale, e);
             return "???" + key + "???";
         }
     }
