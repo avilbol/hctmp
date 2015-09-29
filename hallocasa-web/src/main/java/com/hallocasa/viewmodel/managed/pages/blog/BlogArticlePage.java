@@ -8,6 +8,7 @@ import com.hallocasa.dataentities.wcm.BlogArticle;
 import com.hallocasa.view.navigation.HallocasaViewNames;
 import com.hallocasa.model.session.WebSessionImpl;
 import com.hallocasa.view.navigation.NavigationHandler;
+import com.hallocasa.view.navigation.ViewParamEnum;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -75,9 +76,9 @@ public class BlogArticlePage extends BlogPageBase {
      * @param articleId
      * @return
      */
-    public static Map<String, String> buildParamsMap(Integer articleId) {
-        Map<String, String> map = new HashMap<>();
-        map.put(QUERY_PARAM_ARTICLE_ID, articleId.toString());
+    public static Map<ViewParamEnum, String> buildParamsMap(Integer articleId) {
+        Map<ViewParamEnum, String> map = new HashMap<>();
+        map.put(ViewParamEnum.ARTICLE_ID, articleId.toString());
         return map;
     }
 

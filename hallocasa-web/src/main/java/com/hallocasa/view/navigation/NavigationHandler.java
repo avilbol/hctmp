@@ -20,7 +20,7 @@ public interface NavigationHandler {
      * @param params
      * @return
      */
-    public String buildAbsoluteUrl(HallocasaViewEnum view, Map<String, String> params);
+    public String buildAbsoluteUrl(HallocasaViewEnum view, Map<ViewParamEnum, String> params);
 
     /**
      * Redirect to page
@@ -35,7 +35,7 @@ public interface NavigationHandler {
      * @param view
      * @param params
      */
-    public void redirectToPage(HallocasaViewEnum view, Map<String, String> params);
+    public void redirectToPage(HallocasaViewEnum view, Map<ViewParamEnum, String> params);
 
     /**
      * Return the map with request parameters

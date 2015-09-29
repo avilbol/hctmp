@@ -40,7 +40,8 @@ public enum HallocasaViewEnum {
     /**
      * Default page when the user is logged
      */
-    HOME(HallocasaViewNames.HOME, "", null, true, null),
+    HOME(HallocasaViewNames.HOME, "", null, true, new ViewParamEnum[]{
+        ViewParamEnum.LOGIN_DIALOG}),
     /**
      * Page for user ask the password to be recovery by asking an email
      */
@@ -59,8 +60,8 @@ public enum HallocasaViewEnum {
     /**
      * Page for user activation after a registering process
      */
-    USER_ACTIVATION(HallocasaViewNames.USER_ACTIVATION, "",
-            null, false, new ViewParamEnum[]{TOKEN, USER_ID, EMAIL}),
+    USER_ACTIVATION(HallocasaViewNames.USER_ACTIVATION, "/access/pages/confirm-email.xhtml",
+            null, false, new ViewParamEnum[]{TOKEN, EMAIL}),
     /**
      * Page for buying process
      */

@@ -35,4 +35,12 @@ public interface ViewContext {
      * @param detail
      */
     public void showGlobalCustomErrorMessage(String summary, String detail);
+
+    /**
+     * Shows a global info message
+     *
+     * @param summaryKey
+     * @param detailKey
+     */
+    public void showGlobalInfoMessage(String summaryKey, String detailKey);
 }

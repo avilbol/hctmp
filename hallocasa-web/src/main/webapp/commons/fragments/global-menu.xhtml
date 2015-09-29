@@ -58,7 +58,18 @@
             <li class="hc-header-global-menu-item">
                 <p:commandButton onclick="PF('signup-dialog').show();
                         PF('signup-dialog').initPosition();"
-                                 value ="#{viewBundle['SignUp.Header.Button']}"/>
+                                 type="button"
+                                 value ="#{viewBundle['Header.SignUp.Button']}"/>
+            </li>
+            <li class="hc-header-global-menu-item">
+                <p:commandButton onclick="PF('login-dialog').show();
+                        PF('login-dialog').initPosition();"
+                                 type="button"
+                                 value ="#{viewBundle['Header.Login.Button']}"/>
+            </li>
+            <li class="hc-header-global-menu-item">
+                <p:commandButton value ="#{viewBundle['Header.Logout.Button']}"
+                                 actionListener="#{globalMenuBean.processLogoutClick}"/>
             </li>
             <li class="hc-header-global-menu-item hc-header-global-menu-item-mobile-button">
                 <p:commandButton value="Menu" styleClass="js-header-global-mobile-button"

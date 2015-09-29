@@ -16,7 +16,9 @@ public enum ViewParamEnum {
 
     TOKEN("token"),
     EMAIL("email"),
-    USER_ID("user-id");
+    USER_ID("user-id"),
+    LOGIN_DIALOG("login-dialog"),
+    ARTICLE_ID("article-id");
 
     private final String paramKey;
 

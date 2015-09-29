@@ -280,6 +280,11 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 .ui-dialog.ui-widget-content{ border: 1px }
 .ui-dialog .ui-dialog-title{ margin: 0px; }
 
+/* Panels */
+.ui-panel{ padding: 0px; }
+.ui-panel .ui-panel-titlebar{ background-image: none; background-color: #002d45; color: white; padding: 12px 25px 12px 25px; font-size: 0.9em; }
+.ui-panel .ui-panel-content{ padding: 25px; }
+
 /* Buttons */
 .ui-button .ui-button-text { padding: 0.6em 1.2em; }
 .ui-button-text-icon-left .ui-button-text.ui-c { margin-left: 0.7em; }

@@ -82,7 +82,12 @@ public class SignUpDialog {
             String activationKey = UserActivationLinkUtils.generateActivationKey(
                     userVO.getId(), userVO.getEmail());
             signUpServices.sendActivationLinkEmail(userVO.getId(), activationUrl, activationKey);
+            
+            // shows success messages
+            viewContext.showGlobalInfoMessage(Messages.SIGNUP_SUCCESS, null);
+            viewContext.showGlobalInfoMessage(Messages.SIGNUP_EMAIL_SENT, null);
             viewContext.addCallBackParam("ok", true);
+            
         } catch (InvalidEmailException ex) {
             viewContext.showGlobalErrorMessage(Messages.SIGNUP_EMAIL_EXIST, null);
         } catch (MailServicesErrorException ex) {

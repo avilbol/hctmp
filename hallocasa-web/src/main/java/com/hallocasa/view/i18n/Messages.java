@@ -26,6 +26,9 @@ public class Messages {
     public static final String BUNDLE_NAME = "com.hallocasa.language.ViewTextAndMessages";
     // sign up
     public static final String SIGNUP_EMAIL_EXIST = "SignUp.EmailExist.Message.Summary";
+    public static final String SIGNUP_SUCCESS = "SignUp.Form.Success.Message";
+    public static final String SIGNUP_EMAIL_SENT = "SignUp.Form.Success.EmailSent";
+    
     // newsletter
     public static final String MESSAGE_NEWSLETTER_THANKS = "Message.Newsletter.Thanks";
     /* old */

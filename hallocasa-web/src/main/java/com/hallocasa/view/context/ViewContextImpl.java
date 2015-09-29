@@ -35,4 +35,10 @@ public class ViewContextImpl implements ViewContext, Serializable {
         RequestContext.getCurrentInstance().addCallbackParam(name, value);
     }
 
+    @Override
+    public void showGlobalInfoMessage(String summaryKey, String detailKey) {
+        JSFUtils.addFacesInfo(JSFUtils.getViewBundleString(summaryKey),
+                JSFUtils.getViewBundleString(detailKey));
+    }
+
 }

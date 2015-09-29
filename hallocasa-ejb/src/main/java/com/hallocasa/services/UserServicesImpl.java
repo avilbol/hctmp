@@ -5,8 +5,6 @@
  */
 package com.hallocasa.services;
 
-import com.hallocasa.commons.exceptions.services.InvalidEmailException;
-import com.hallocasa.commons.exceptions.services.InvalidPasswordLoginException;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
@@ -26,11 +24,12 @@ import com.hallocasa.services.constants.ServiceErrorMessage;
 import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.commons.exceptions.services.ServiceException;
-import com.hallocasa.commons.vo.AppAccessInfoVO;
-import com.hallocasa.commons.vo.AuthInfoVO;
-import com.hallocasa.commons.vo.CredentialVO;
+import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.dataentities.app.User;
+import com.hallocasa.helpers.ParsersContext;
+import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
-import java.util.logging.Level;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -42,24 +41,35 @@ import java.util.logging.Logger;
 public class UserServicesImpl extends ServicesBase implements UserServices {
 
     /* constances */
-    private Logger LOG = Logger.getLogger( UserServicesImpl.class.getName() );
-    
+    private Logger LOG = Logger.getLogger(UserServicesImpl.class.getName());
+
     /* Dependences */
     @PersistenceContext(unitName = "RealStateDatabasePU")
     private EntityManager em;
+    @EJB
+    private AppPersistenceServices appPersistenceServices;
     @Resource
     private SessionContext sessionContext;
     @EJB
     private MailChimpServices mailChimpServices;
 
     /* Methods */
-    
-    
-    
+    @Override
+    public UserVO find(String email) {
+        List<User> users = appPersistenceServices.executeNamedQuery(
+                User.QUERY_FIND_BY_EMAIL, new Object[]{email}, User.class);
+        if (users.isEmpty()) {
+            return null;
+        }
+        UserVO userVO = ParsersContext.USER_VO_PARSER.toValueObject(users.get(0), UserVO.class);
+        return userVO;
+    }
+
     /**
      *
      * @throws ServiceException
      */
+    @Deprecated
     @Override
     public void savePropertyPublisher(TemporalPublisherUser publisherUser)
             throws ServiceException {
@@ -95,5 +105,5 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
                     ServiceErrorMessage.COMMON_UNEXPECTED_ERROR, e);
         }
     }
-    
+
 }

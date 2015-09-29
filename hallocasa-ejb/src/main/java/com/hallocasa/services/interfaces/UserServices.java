@@ -5,13 +5,8 @@
  */
 package com.hallocasa.services.interfaces;
 
-import com.hallocasa.commons.exceptions.services.InactiveUserException;
-import com.hallocasa.commons.exceptions.services.InvalidEmailException;
-import com.hallocasa.commons.exceptions.services.InvalidPasswordLoginException;
 import com.hallocasa.commons.exceptions.services.ServiceException;
-import com.hallocasa.commons.vo.AppAccessInfoVO;
-import com.hallocasa.commons.vo.AuthInfoVO;
-import com.hallocasa.commons.vo.CredentialVO;
+import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.wcm.TemporalPublisherUser;
 
 /**
@@ -21,12 +16,19 @@ import com.hallocasa.dataentities.wcm.TemporalPublisherUser;
 public interface UserServices {
 
     /**
+     * Finds a user by email
+     *
+     * @param email
+     * @return
+     */
+    public UserVO find(String email);
+
+    /**
      *
      * @param publisherUser
      * @throws ServiceException
      */
     public void savePropertyPublisher(TemporalPublisherUser publisherUser)
             throws ServiceException;
-
 
 }

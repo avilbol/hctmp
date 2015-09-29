@@ -72,7 +72,7 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
      * @param params
      */
     @Override
-    public void redirectToPage(HallocasaViewEnum view, Map<String, String> params) {
+    public void redirectToPage(HallocasaViewEnum view, Map<ViewParamEnum, String> params) {
         String url = PAGES_MAP.get(view);
         if (url == null) {
             throw new PageNotFoundException(view + "is not maped in the pages map");
@@ -94,7 +94,7 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
      * @return Url lista para ser redireccionada
      */
     private String buildViewUrl(String pageFileName,
-            Map<String, String> queryStrings) {
+            Map<ViewParamEnum, String> queryStrings) {
 
         // construye la dirección
         StringBuilder str = new StringBuilder();
@@ -105,8 +105,8 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
 
         if (queryStrings != null) {
             str.append("?");
-            for (String key : queryStrings.keySet()) {
-                str.append(key).append("=").append(queryStrings.get(key));
+            for (ViewParamEnum key : queryStrings.keySet()) {
+                str.append(key.getParamKey()).append("=").append(queryStrings.get(key));
             }
         }
 
@@ -121,7 +121,7 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
      * @return
      */
     @Override
-    public String buildAbsoluteUrl(HallocasaViewEnum view, Map<String, String> params) {
+    public String buildAbsoluteUrl(HallocasaViewEnum view, Map<ViewParamEnum, String> params) {
         String pageUrl = PAGES_MAP.get(view);
         if (pageUrl == null) {
             throw new PageNotFoundException(view + "is not maped in the pages map");
@@ -134,13 +134,13 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
         if (params != null && !params.isEmpty()) {
             str.append("?");
             boolean first = true;
-            for (Map.Entry<String, String> paramEntry : params.entrySet()) {
+            for (Map.Entry<ViewParamEnum, String> paramEntry : params.entrySet()) {
                 if (!first) {
                     str.append("&");
                 }
                 // validates page support parameter
                 if (!ArrayUtils.contains(view.getSupportedParams(),
-                        ViewParamEnum.find(paramEntry.getKey()))) {
+                        ViewParamEnum.find(paramEntry.getKey().getParamKey()))) {
                     throw new IllegalArgumentException("View " + view
                             + " doesn't support param " + paramEntry.getKey());
                 }

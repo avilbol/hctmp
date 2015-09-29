@@ -26,7 +26,6 @@ import com.hallocasa.services.interfaces.FileServicesInterface;
  * @author David Mantilla
  */
 @Stateless
-@Lock(LockType.READ)
 public class FileServices implements FileServicesInterface {
 
     private static final String FILES_PATH;

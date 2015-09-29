@@ -68,4 +68,15 @@ public class JSFUtils {
         FacesContext.getCurrentInstance().addMessage(componentId,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail));
     }
+
+    /**
+     * Adds a faces info message
+     *
+     * @param summary
+     * @param detail
+     */
+    public static void addFacesInfo(String summary, String detail) {
+        FacesContext.getCurrentInstance().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail));
+    }
 }

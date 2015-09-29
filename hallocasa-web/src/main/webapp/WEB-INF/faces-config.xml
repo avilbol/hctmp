@@ -8,10 +8,18 @@
             <base-name>com.hallocasa.language.ViewTextAndMessages</base-name>
             <var>viewBundle</var>
         </resource-bundle>
+        
+        <!--<resource-bundle>
+                <base-name>com.hallocasa.language.BeanLabels</base-name>
+                <var>labelBundle</var>
+            </resource-bundle>-->
         <resource-bundle>
-            <base-name>com.hallocasa.language.BeanLabels</base-name>
-            <var>labelBundle</var>
+            <base-name>com.hallocasa.language.ViewTextAndMessages</base-name>
+            <var>viewBundle</var>
         </resource-bundle>
+        <message-bundle>
+            <base-name>com.hallocasa.language.MessagingSettings</base-name>
+        </message-bundle>
         <resource-handler>
             com.hallocasa.view.images.DatabaseResourceHandler
         </resource-handler>
