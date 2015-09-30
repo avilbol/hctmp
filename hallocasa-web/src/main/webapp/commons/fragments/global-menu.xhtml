@@ -61,16 +61,20 @@
                                  type="button"
                                  value ="#{viewBundle['Header.SignUp.Button']}"/>
             </li>
-            <li class="hc-header-global-menu-item">
-                <p:commandButton onclick="PF('login-dialog').show();
-                        PF('login-dialog').initPosition();"
-                                 type="button"
-                                 value ="#{viewBundle['Header.Login.Button']}"/>
-            </li>
-            <li class="hc-header-global-menu-item">
-                <p:commandButton value ="#{viewBundle['Header.Logout.Button']}"
-                                 actionListener="#{globalMenuBean.processLogoutClick}"/>
-            </li>
+            <ui:fragment rendered="#{globalMenuBean.showLoginButton}">
+                <li class="hc-header-global-menu-item">
+                    <p:commandButton onclick="PF('login-dialog').show();
+                            PF('login-dialog').initPosition();"
+                                     type="button"
+                                     value ="#{viewBundle['Header.Login.Button']}"/>
+                </li>
+            </ui:fragment>
+            <ui:fragment  rendered="#{globalMenuBean.showLogoutButton}">
+                <li class="hc-header-global-menu-item">
+                    <p:commandButton value ="#{viewBundle['Header.Logout.Button']}"
+                                     actionListener="#{globalMenuBean.processLogoutClick}"/>
+                </li>
+            </ui:fragment>
             <li class="hc-header-global-menu-item hc-header-global-menu-item-mobile-button">
                 <p:commandButton value="Menu" styleClass="js-header-global-mobile-button"
                                  icon="ui-icon-menu-16x16"/>
@@ -79,6 +83,7 @@
     </h:form>
 
     <ui:include src="/access/fragments/signup-dialog.xhtml" />
+    <ui:include src="/access/fragments/login-dialog.xhtml" />
 
 </ui:composition>
 

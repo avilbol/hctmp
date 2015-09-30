@@ -27,16 +27,6 @@ import org.apache.commons.lang3.ArrayUtils;
 public class NavigationHandlerImpl implements Serializable, NavigationHandler {
 
     private final static Logger LOG = Logger.getLogger(NavigationHandlerImpl.class.getName());
-    private static final Map<HallocasaViewEnum, String> PAGES_MAP;
-
-    /* constructors */
-    static {
-        // maps a url for all pages
-        PAGES_MAP = new HashMap<>();
-        PAGES_MAP.put(HallocasaViewEnum.HOME, "/facelets/pages/main.xhtml");
-        PAGES_MAP.put(HallocasaViewEnum.BLOG_INDEX, "/pages/blog/index.xhtml");
-        PAGES_MAP.put(HallocasaViewEnum.BLOG_ARTICLE, "/pages/blog/article.xhtml");
-    }
 
     /**
      * Default constructor
@@ -52,7 +42,7 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
      */
     @Override
     public void redirectToPage(HallocasaViewEnum view) {
-        String url = PAGES_MAP.get(view);
+        String url = view.getUrl();
         if (url == null) {
             throw new PageNotFoundException(view + "is not maped in the pages map");
         }
@@ -73,7 +63,7 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
      */
     @Override
     public void redirectToPage(HallocasaViewEnum view, Map<ViewParamEnum, String> params) {
-        String url = PAGES_MAP.get(view);
+        String url = view.getUrl();
         if (url == null) {
             throw new PageNotFoundException(view + "is not maped in the pages map");
         }
@@ -122,7 +112,7 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
      */
     @Override
     public String buildAbsoluteUrl(HallocasaViewEnum view, Map<ViewParamEnum, String> params) {
-        String pageUrl = PAGES_MAP.get(view);
+        String pageUrl = view.getUrl();
         if (pageUrl == null) {
             throw new PageNotFoundException(view + "is not maped in the pages map");
         }

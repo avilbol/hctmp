@@ -7,6 +7,9 @@ package com.hallocasa.model.session;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.constants.SystemConstants;
+import com.hallocasa.commons.exceptions.services.InactiveUserException;
+import com.hallocasa.commons.exceptions.services.InvalidEmailException;
+import com.hallocasa.commons.exceptions.services.InvalidPasswordLoginException;
 import com.hallocasa.commons.vo.AuthInfoVO;
 import com.hallocasa.commons.vo.CredentialVO;
 import com.hallocasa.commons.vo.ProfileVO;
@@ -14,6 +17,8 @@ import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.controlaccess.AccessValidator;
 import com.hallocasa.services.interfaces.ProfileServices;
 import com.hallocasa.services.interfaces.UserServices;
+import com.hallocasa.services.security.local.AuthenticationServices;
+import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.view.navigation.NavigationHandler;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,10 +31,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.spi.CDI;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletRequest;
 
 /**
  *
@@ -54,6 +57,8 @@ public class WebSessionImpl extends Observable implements WebSession,
     private AccessValidator accessValidator;
     @Inject
     private NavigationHandler navigationHandler;
+    @EJB
+    private AuthenticationServices authenticationServices;
 
     /* instance variables */
     private AuthInfoVO authInfoVO;
@@ -106,26 +111,31 @@ public class WebSessionImpl extends Observable implements WebSession,
             logout();
         }
 
-        /*   authInfoVO = null;
-         try {
-         authInfoVO = userServices.authenticate(credentialVO);
-         currentUser = authInfoVO.getAccount();
-         accessValidator.clear();
-         currentLanguage = null; // force local reloading
-         } catch (InvalidEmailException e) {
-         throw new LoginFailedException(Messages
-         .getString(Messages.LOGIN_INVALID_EMAIL_MESSAGE));
-         } catch (InvalidPasswordLoginException e) {
-         throw new LoginFailedException(Messages
-         .getString(Messages.LOGIN_INVALID_PASSWORD_MESSAGE));
-         } catch (InactiveUserException e) {
-         throw new LoginFailedException(Messages
-         .getString(Messages.LOGIN_INACTIVE_USER_MESSAGE));
-         } */
+        authInfoVO = null;
+        try {
+            authInfoVO = authenticationServices.authenticate(credentialVO);
+            currentUser = authInfoVO.getUser();
+            accessValidator.clear();
+        } catch (InvalidEmailException e) {
+            throw new LoginFailedException(Messages
+                    .getString(Messages.LOGIN_INVALID_EMAIL_MESSAGE,
+                            currentLanguage.getLocale()));
+        } catch (InvalidPasswordLoginException e) {
+            throw new LoginFailedException(Messages
+                    .getString(Messages.LOGIN_INVALID_PASSWORD_MESSAGE,
+                            currentLanguage.getLocale()));
+        } catch (InactiveUserException e) {
+            throw new LoginFailedException(Messages
+                    .getString(Messages.LOGIN_INACTIVE_USER_MESSAGE,
+                            currentLanguage.getLocale()));
+        }
     }
 
     @Override
     public boolean isLogged() {
+        if (currentUser == null) {
+            return false;
+        }
         return currentUser.getId() != null;
     }
 

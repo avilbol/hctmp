@@ -32,10 +32,9 @@ public class Messages {
     // newsletter
     public static final String MESSAGE_NEWSLETTER_THANKS = "Message.Newsletter.Thanks";
     /* old */
-    public static final String LOGIN_INVALID_EMAIL_MESSAGE = "SocialSession.Login.InvalidEmail.Message";
-    public static final String LOGIN_INVALID_PASSWORD_MESSAGE = "SocialSession.Login.InvalidPassword.Message";
-    public static final String LOGIN_INVALID_IP_MESSAGE = "SocialSession.Login.InvalidIP.Message";
-    public static final String LOGIN_INACTIVE_USER_MESSAGE = "SocialSession.Login.InactiveUser.Message";
+    public static final String LOGIN_INVALID_EMAIL_MESSAGE = "Login.InvalidEmail.Message";
+    public static final String LOGIN_INVALID_PASSWORD_MESSAGE = "Login.InvalidPassword.Message";
+    public static final String LOGIN_INACTIVE_USER_MESSAGE = "Login.InactiveUser.Message";
     public static final String UNEXPECTED_ERROR = "Common.UnexpectedError.Message";
     public static final String PASSWORD_NOT_MATCH = "PassRecoveryPresenter.PasswordNotMatch.Message";
     public static final String PASSWORD_CHANGED_SUCCESS = "PassRecoveryPresenter.PasswordChangedSuccess.Message";

@@ -40,7 +40,7 @@ public enum HallocasaViewEnum {
     /**
      * Default page when the user is logged
      */
-    HOME(HallocasaViewNames.HOME, "", null, true, new ViewParamEnum[]{
+    HOME(HallocasaViewNames.HOME, "/home/index.xhtml", null, true, new ViewParamEnum[]{
         ViewParamEnum.LOGIN_DIALOG}),
     /**
      * Page for user ask the password to be recovery by asking an email

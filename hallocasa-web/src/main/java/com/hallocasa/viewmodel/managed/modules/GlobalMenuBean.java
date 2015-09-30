@@ -5,7 +5,10 @@
  */
 package com.hallocasa.viewmodel.managed.modules;
 
+import com.hallocasa.commons.vo.CredentialVO;
+import com.hallocasa.model.session.LoginFailedException;
 import com.hallocasa.model.session.WebSession;
+import com.hallocasa.view.context.ViewContext;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
 import javax.faces.bean.ManagedBean;
@@ -14,17 +17,23 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
 /**
+ * ViewModel of the global menu section
  *
  * @author David Mantilla
  */
 @ManagedBean(name = "globalMenuBean")
 @ViewScoped
 public class GlobalMenuBean {
-    
+
+    // dependencies
     @Inject
     private NavigationHandler navigationHandler;
     @Inject
     private WebSession webSession;
+    @Inject
+    private ViewContext viewContext;
+
+   
 
     /**
      * Listener for item click
@@ -44,4 +53,22 @@ public class GlobalMenuBean {
         navigationHandler.redirectToPage(HallocasaViewEnum.HOME);
     }
     
+    /**
+     * Getter for showLogoutButton
+     *
+     * @return showLogoutButton
+     */
+    public boolean getShowLogoutButton() {
+        return webSession.isLogged();
+    }
+
+    /**
+     * Getter for showLoginButton
+     *
+     * @return
+     */
+    public boolean getShowLoginButton() {
+        return !webSession.isLogged();
+    }
+
 }
