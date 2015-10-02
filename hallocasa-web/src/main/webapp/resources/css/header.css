@@ -6,16 +6,17 @@
 
 /* header menu bar*/
 .hc-header-menu-bar {
-    padding-right: 130px;
 }
 .hc-header-menu-bar {
     font-size: 1.1em;
     font-family: inherit;
     display: inline-block;
+    text-align: right;
     width: 100%;
 }
 .hc-header-global-menu {
     text-align: right;
+    display: inline-block;
 }
 .hc-header-global-menu .hc-header-global-menu-item {
     margin-left: 20px;
@@ -34,13 +35,11 @@
 
 /* buttons toolbar */
 .hc-header-global-toolbar {
+    padding-left: 1em;
+    padding-right: 1em;
     font-size: 0.8em;
     text-align: right;
-    width: 100px;
-    display: block;
-    position: absolute;
-    right: 20px;
-    top: 14px
+    display: inline-block;
 }
 .hc-header-global-toolbar > li {
     display: inline-block;

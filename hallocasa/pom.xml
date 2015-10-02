@@ -35,6 +35,7 @@
         <el.version>2.2</el.version>
         <messagebox.version>2.0.7</messagebox.version>
         <scripts.location>${project.basedir}/../database/scripts</scripts.location>
+        <netbeans.compile.on.save>all</netbeans.compile.on.save>
     </properties>
 
     <modules>
