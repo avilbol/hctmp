@@ -43,10 +43,6 @@
                                      actionListener="#{signUpDialog.processSubmitClick()}"
                                      process="@form" update="@form"
                                      oncomplete="if (args.ok ) PF('signup-dialog').hide();"/>
-                    <p:commandButton value="${viewBundle['Common.Label.Cancel']}" 
-                                     styleClass="hc-form-submit-button"
-                                     type="button" onclick="PF('signup-dialog').hide();"
-                                     immediate="true" process="@this"/>
                 </div>
             </div>
         </h:form>

@@ -29,24 +29,21 @@
                             value="#{loginDialog.credentials.password}"/>
 
             </div>
-            <div class="hc-overlay-form-buttons-container">
-                <p:commandButton value="${viewBundle['Login.Submit.Button']}" 
-                                 styleClass="hc-form-cancel-button"
-                                 actionListener="#{loginDialog.processSubmitClick()}"
-                                 process="@form" update="@form"
-                                 oncomplete="if (args.ok ){ PF('login-dialog').hide();refreshAll();}"/>
-                <p:commandButton value="${viewBundle['Common.Label.Cancel']}" 
-                                 styleClass="hc-form-submit-button"
-                                 type="button" onclick="PF('login-dialog').hide();"
-                                 immediate="true" process="@this"/>
-            </div>
             <div class="hc-overlay-form-additional-options">
                 <ui:remove>
                     <p:commandLink value="#{viewBundle['Login.Link.PasswordRecovery']}"/>
                 </ui:remove>
                 <p:commandLink value="#{viewBundle['Login.Link.SignUp']}"
                                onclick=" PF('login-dialog').hide();
-                                       PF('signup-dialog').show();"/>
+                                       PF('signup-dialog').show();"
+                               styleClass="hc-link login-dialog-signup-link"/>
+            </div>
+            <div class="hc-overlay-form-buttons-container">
+                <p:commandButton value="${viewBundle['Login.Submit.Button']}" 
+                                 styleClass="hc-form-cancel-button"
+                                 actionListener="#{loginDialog.processSubmitClick()}"
+                                 process="@form" update="@form"
+                                 oncomplete="if (args.ok ){ PF('login-dialog').hide();refreshAll();}"/>
             </div>
             <p:remoteCommand name="refreshAll" update="@all" process="@this"/>
         </h:form>
