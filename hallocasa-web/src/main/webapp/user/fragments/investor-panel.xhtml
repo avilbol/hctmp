@@ -3,38 +3,28 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                template="../../commons/templates/general-layout.xhtml"
                 xmlns:p="http://primefaces.org/ui">
+    <p:panel header="#{viewBundle['Profile.Investor.Panel.Title']}" 
+             styleClass="user-profile-panel">
+        <div class="section hc-overlay-form-fields-container clearfix">
+            <div class="col span_1_of_3">
+                <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTrnDcg_KmtBz1de-73hUlF2a8jjxyPZ6xTY_s6J6xiNDtbHEGcCuye0w"/>
+            </div>
+            <div class="col span_2_of_3">
+                <span class="hc-form-label">
+                    #{viewBundle['Profile.Data.Name.Label']}
+                </span>
+                <span>
+                    Manolo Cardona
+                </span><br/>
 
-    <ui:param name="header_showSubMenu" value="#{false}" />
-
-    <ui:define name="styleSheetsSection">
-        <h:outputStylesheet library="css" name="confirm-email.css"/>
-    </ui:define>
-
-    <ui:define name="contentSection">
-        <div class="land-page-background1"/>
-        
-        <div>#{confirmEmailPage.launch()}</div>
-
-        <br/><br/><br/><br/><br/>
-        <h:form>
-            <p:panel header="#{viewBundle['Email.Confirm.Panel.Title']}" 
-                     styleClass="confirm-email-panel">
-                <div class="hc-overlay-form-fields-container">
-                    <span>#{viewBundle['Email.Confirm.Panel.Thanks.Line1']}</span><br/>
-                    <span>#{viewBundle['Email.Confirm.Panel.Thanks.Line2']}</span>
-                </div>
-                <div class="hc-overlay-form-buttons-container">
-                    <p:commandButton value="#{viewBundle['Email.Confirm.Login.Button']}" 
-                                     styleClass="hc-form-cancel-button"
-                                     process="@this" 
-                                     actionListener="#{confirmEmailPage.processGoToLoginClick}"/>
-                </div>
-            </p:panel>
-        </h:form>
-
-        <h:outputScript library="js" name="home/background-image.js"/>
-    </ui:define>
-
+                <span class="hc-form-label">
+                    #{viewBundle['Profile.Data.Email.Label']}
+                </span>
+                <span>
+                    manolo.cardona@col.com
+                </span>
+            </div>
+        </div>
+    </p:panel>
 </ui:composition>

@@ -1,5 +1,6 @@
 package com.hallocasa.commons.vo;
 
+import com.hallocasa.commons.Language;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -37,7 +38,7 @@ public class CountryVO implements Serializable, ValueObject {
 
 	private Long id;
 	private String countryName;
-	private LanguageVO defaultLanguage;
+	private Language defaultLanguage;
 	private String code;
 	private String countryIndicative;
 
@@ -66,7 +67,7 @@ public class CountryVO implements Serializable, ValueObject {
 	 * @param code
 	 * @param countryIndicative
 	 */
-	public CountryVO(Long id, String countryName, LanguageVO defaultLanguage,
+	public CountryVO(Long id, String countryName, Language defaultLanguage,
 			String code, String countryIndicative) {
 		super();
 		this.id = id;
@@ -117,7 +118,7 @@ public class CountryVO implements Serializable, ValueObject {
 	 * 
 	 * @return the defaultLanguage
 	 */
-	public LanguageVO getDefaultLanguage() {
+	public Language getDefaultLanguage() {
 		return defaultLanguage;
 	}
 
@@ -126,7 +127,7 @@ public class CountryVO implements Serializable, ValueObject {
 	 * 
 	 * @param defaultLanguage the defaultLanguage to set
 	 */
-	public void setDefaultLanguage(LanguageVO defaultLanguage) {
+	public void setDefaultLanguage(Language defaultLanguage) {
 		this.defaultLanguage = defaultLanguage;
 	}
 

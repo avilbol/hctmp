@@ -3,38 +3,77 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                template="../../commons/templates/general-layout.xhtml"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:param name="header_showSubMenu" value="#{false}" />
+    <p:panel header="#{viewBundle['Profile.Service.Panel.Title']}" 
+             styleClass="user-profile-panel">
+        <div class="section hc-overlay-form-fields-container clearfix">
 
-    <ui:define name="styleSheetsSection">
-        <h:outputStylesheet library="css" name="confirm-email.css"/>
-    </ui:define>
+            <div class="col span_1_of_3">
+                <span class="hc-form-label">#{viewBundle['Profile.Data.Country.Label']}</span>
+                <span>Colombia</span><br/>
 
-    <ui:define name="contentSection">
-        <div class="land-page-background1"/>
+                <span class="hc-form-label">#{viewBundle['Profile.Data.State.Label']}</span>
+                <span>Cundinamarca</span><br/>
+
+                <span class="hc-form-label">#{viewBundle['Profile.Data.City.Label']}</span>
+                <span>Bogotá</span><br/>
+
+                <span class="hc-form-label">#{viewBundle['Profile.Data.Website.Label']}</span>
+                <span>http://www.mysite.com</span><br/>
+
+                <span class="hc-form-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span>
+                <span>http://www.linkedin.com/profile123</span><br/>
+
+                <span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span>
+                <span>manolo_skype_23</span><br/>
+            </div>
+
+            <div class="col span_1_of_3">
+                <span class="hc-form-label">#{viewBundle['Profile.Data.Languages.Label']}</span>
+                <span>Español</span><br/>
+                <span>Emglish</span><br/>
+                <span>Dutch</span><br/>
+            </div>
+
+            <div class="col span_1_of_3">
+                <span class="hc-form-label">#{viewBundle['Profile.Data.Services.Label']}</span>
+                <span>Broker</span><br/>
+                <span>Notary</span><br/>
+                <span>Appraisor</span><br/>
+                <span>Translator</span><br/>
+                <span>Expert</span><br/>
+                <span>Property Manager</span><br/>
+            </div>
+        </div>
+        <hr/>
         
-        <div>#{confirmEmailPage.launch()}</div>
-
-        <br/><br/><br/><br/><br/>
-        <h:form>
-            <p:panel header="#{viewBundle['Email.Confirm.Panel.Title']}" 
-                     styleClass="confirm-email-panel">
-                <div class="hc-overlay-form-fields-container">
-                    <span>#{viewBundle['Email.Confirm.Panel.Thanks.Line1']}</span><br/>
-                    <span>#{viewBundle['Email.Confirm.Panel.Thanks.Line2']}</span>
-                </div>
-                <div class="hc-overlay-form-buttons-container">
-                    <p:commandButton value="#{viewBundle['Email.Confirm.Login.Button']}" 
-                                     styleClass="hc-form-cancel-button"
-                                     process="@this" 
-                                     actionListener="#{confirmEmailPage.processGoToLoginClick}"/>
-                </div>
-            </p:panel>
-        </h:form>
-
-        <h:outputScript library="js" name="home/background-image.js"/>
-    </ui:define>
+        <div class="section hc-overlay-form-fields-container clearfix">
+            <span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( Español )</span>
+            <span>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque justo velit, 
+                suscipit at condimentum et, eleifend in ex. Aenean lacus sapien, iaculis non nulla id, 
+                mattis suscipit libero. Nulla vel justo sit amet urna dictum dapibus. In vel vestibulum 
+                ipsum. Curabitur quis nulla eget ante tempus congue sit amet at felis
+            </span>
+            <hr/>
+            <span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( English )</span>
+            <span>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque justo velit, 
+                suscipit at condimentum et, eleifend in ex. Aenean lacus sapien, iaculis non nulla id, 
+                mattis suscipit libero. Nulla vel justo sit amet urna dictum dapibus. In vel vestibulum 
+                ipsum. Curabitur quis nulla eget ante tempus congue sit amet at felis
+            </span>
+            <hr/>
+            <span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( Deutch )</span>
+            <span>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque justo velit, 
+                suscipit at condimentum et, eleifend in ex. Aenean lacus sapien, iaculis non nulla id, 
+                mattis suscipit libero. Nulla vel justo sit amet urna dictum dapibus. In vel vestibulum 
+                ipsum. Curabitur quis nulla eget ante tempus congue sit amet at felis
+            </span>
+        </div>
+        
+    </p:panel>
 
 </ui:composition>

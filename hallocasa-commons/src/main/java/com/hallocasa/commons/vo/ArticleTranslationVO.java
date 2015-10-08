@@ -1,5 +1,6 @@
 package com.hallocasa.commons.vo;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 
 /**
@@ -17,7 +18,7 @@ public class ArticleTranslationVO implements ValueObject {
 	private String body;
 	private String title;
 	private Long articleId;
-	private LanguageVO language;
+	private Language language;
 
 	/* constructors */
 
@@ -83,7 +84,7 @@ public class ArticleTranslationVO implements ValueObject {
 	 * 
 	 * @return the language
 	 */
-	public LanguageVO getLanguage() {
+	public Language getLanguage() {
 		return language;
 	}
 
@@ -92,7 +93,7 @@ public class ArticleTranslationVO implements ValueObject {
 	 * 
 	 * @param language the language to set
 	 */
-	public void setLanguage(LanguageVO language) {
+	public void setLanguage(Language language) {
 		this.language = language;
 	}
 
