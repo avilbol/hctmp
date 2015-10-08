@@ -1,0 +1,18 @@
+CREATE TABLE `hallocasaapp`.`user` (
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `email` VARCHAR(80) NOT NULL COMMENT '',
+  `password` VARCHAR(45) NOT NULL COMMENT '',
+  `first_name` VARCHAR(45)  COMMENT '',
+  `last_name` VARCHAR(45)  COMMENT '',
+  `state` VARCHAR(45)  COMMENT '',
+  `city` VARCHAR(45)  COMMENT '',
+  `web_site` VARCHAR(80)  COMMENT '',
+  `linked_in` VARCHAR(80)  COMMENT '',
+  `skype` VARCHAR(45)  COMMENT '',
+  `language` VARCHAR(10) NOT NULL COMMENT '',
+  `confirmed_flag` TINYINT(1) NOT NULL DEFAULT 0 COMMENT '',
+  `user_description` TEXT COMMENT '',
+  `country_id` INT COMMENT '',
+  PRIMARY KEY `pk__user` (`id`)  COMMENT '',
+  UNIQUE INDEX `uq__user__email` (`email` ASC)  COMMENT '',
+  FOREIGN KEY `fk__user__country` (`country_id`) REFERENCES `hallocasaapp`.`country`(`id`) );
