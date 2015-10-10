@@ -6,8 +6,10 @@
 package com.hallocasa.dataentities.app;
 
 import com.hallocasa.commons.Language;
+import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.dataentities.converters.LanguageConverter;
+import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -57,6 +59,31 @@ public class User implements Serializable, HallocasaEntity {
     @Column(name = "language")
     @Convert(converter = LanguageConverter.class)
     private Language language;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "state")
+    private String state;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "web_site")
+    private String webSite;
+
+    @Column(name = "linked_in")
+    private String linkedIn;
+
+    @Column(name = "skype")
+    private String skype;
+
+    @Column(name = "user_description")
+    @Convert(converter = MultiLanguageTextConverter.class)
+    private MultiLanguageText userDescription;
 
     @JoinTable(name = "user_user_type", joinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "id")},
@@ -197,6 +224,118 @@ public class User implements Serializable, HallocasaEntity {
      */
     public void setLanguage(Language language) {
         this.language = language;
+    }
+
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    /**
+     * @return the state
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /**
+     * @return the city
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * @param city the city to set
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    /**
+     * @return the webSite
+     */
+    public String getWebSite() {
+        return webSite;
+    }
+
+    /**
+     * @param webSite the webSite to set
+     */
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
+    }
+
+    /**
+     * @return the linkedIn
+     */
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    /**
+     * @param linkedIn the linkedIn to set
+     */
+    public void setLinkedIn(String linkedIn) {
+        this.linkedIn = linkedIn;
+    }
+
+    /**
+     * @return the skype
+     */
+    public String getSkype() {
+        return skype;
+    }
+
+    /**
+     * @param skype the skype to set
+     */
+    public void setSkype(String skype) {
+        this.skype = skype;
+    }
+
+    /**
+     * @return the userDescription
+     */
+    public MultiLanguageText getUserDescription() {
+        return userDescription;
+    }
+
+    /**
+     * @param userDescription the userDescription to set
+     */
+    public void setUserDescription(MultiLanguageText userDescription) {
+        this.userDescription = userDescription;
     }
 
 }

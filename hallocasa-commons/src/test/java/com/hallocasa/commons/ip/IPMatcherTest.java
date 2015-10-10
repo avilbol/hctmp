@@ -1,4 +1,4 @@
-package com.mobiera.social.commons.test.ip;
+package com.hallocasa.commons.ip;
 
 import org.junit.Assert;
 import org.junit.Test;

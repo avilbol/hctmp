@@ -1,4 +1,4 @@
-package com.mobiera.social.commons.test.codec;
+package com.hallocasa.commons.codec;
 
 import java.util.HashMap;
 
