@@ -1,7 +1,7 @@
 package com.hallocasa.commons.vo;
 
 import com.hallocasa.commons.Language;
-import java.util.Date;
+import com.hallocasa.commons.i18n.MultiLanguageText;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -11,9 +11,12 @@ import com.hallocasa.commons.i18n.ValidationMessages;
 import com.hallocasa.commons.validation.NotEmpty;
 import com.hallocasa.commons.validation.ValidationPatterns;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * Value Object for account
+ * Value Object for user
  *
  * @author David Mantilla
  * @since 1.7
@@ -22,12 +25,15 @@ public class UserVO implements ValueObject {
 
     /* static fields */
     private static final long serialVersionUID = -8590243051229357778L;
+    public static final String spokenLanguages_ = "spokenLanguages";
 
     /* static fields */
 
     /* instance variables */
     private Long id;
-    private Boolean activeFlag;
+
+    @NotNull
+    private Boolean confirmedFlag;
 
     @NotNull
     @NotEmpty
@@ -50,44 +56,36 @@ public class UserVO implements ValueObject {
             + ValidationMessages.GENERAL_NAME_PATTERN + "}")
     private String lastName;
 
-    @Pattern(regexp = ValidationPatterns.PHONE_PATTERN, message = "{"
-            + ValidationMessages.PHONE_PATTERN + "}")
-    private String mobile;
-
-    @Pattern(regexp = ValidationPatterns.PHONE_PATTERN, message = "{"
-            + ValidationMessages.PHONE_PATTERN + "}")
-    private String phone;
-
     @Size(min = 0, max = 45)
     @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
             + ValidationMessages.GENERAL_NAME_PATTERN + "}")
     private String city;
 
     @Size(min = 0, max = 45)
-    @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
-            + ValidationMessages.GENERAL_NAME_PATTERN + "}")
-    private String state;
-
-    @Size(min = 0, max = 45)
     private String skype;
 
-    @Size(min = 0, max = 45)
-    private String address1;
+    @Pattern(regexp = ValidationPatterns.URL_PATTERN, message = "{"
+            + ValidationMessages.URL_PATTERN + "}")
+    @Size(min = 0, max = 80)
+    private String linkedIn;
 
-    @Size(min = 0, max = 45)
-    private String address2;
+    @Pattern(regexp = ValidationPatterns.URL_PATTERN, message = "{"
+            + ValidationMessages.URL_PATTERN + "}")
+    @Size(min = 0, max = 80)
+    private String webSite;
 
-    @Size(min = 0, max = 20)
-    private String postalCode;
-
-    @NotNull
     private CountryVO country;
+
+    private StateVO state;
 
     @NotNull
     private Language language;
 
-    private Date lastLogin;
+    private List<Language> spokenLanguages;
 
+    private MultiLanguageText userDescription;
+
+    private List<UserTypeVO> userTypes;
 
     /* constructors */
     /**
@@ -97,23 +95,24 @@ public class UserVO implements ValueObject {
         super();
     }
 
-    public UserVO(UserVO account) {
+    public UserVO(UserVO user) {
         super();
-        this.id = account.getId();
-        this.email = account.getEmail();
-        this.firstName = account.getFirstName();
-        this.lastName = account.getLastName();
-        this.mobile = account.getMobile();
-        this.phone = account.getPhone();
-        this.address1 = account.getAddress1();
-        this.address2 = account.getAddress2();
-        this.postalCode = account.getPostalCode();
-        this.city = account.getCity();
-        this.state = account.getState();
-        this.skype = account.getSkype();
-        this.country = account.getCountry();
-        this.language = account.getLanguage();
-        this.lastLogin = account.getLastLogin();
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.webSite = user.webSite;
+        this.city = user.city;
+        this.state = user.state;
+        this.skype = user.skype;
+        this.country = user.country;
+        this.language = user.language;
+        this.linkedIn = user.linkedIn;
+        this.spokenLanguages = new ArrayList<>();
+        Collections.copy(this.spokenLanguages, user.spokenLanguages);
+        this.userTypes = new ArrayList<>();
+        Collections.copy(this.userTypes, user.userTypes);
+        this.userDescription = new MultiLanguageText(user.getUserDescription());
     }
 
     /**
@@ -151,24 +150,6 @@ public class UserVO implements ValueObject {
      */
     public void setId(Long id) {
         this.id = id;
-    }
-
-    /**
-     * Getter for activeFlag
-     *
-     * @return the activeFlag
-     */
-    public Boolean getActiveFlag() {
-        return activeFlag;
-    }
-
-    /**
-     * Setter for activeFlag
-     *
-     * @param activeFlag the activeFlag to set
-     */
-    public void setActiveFlag(Boolean activeFlag) {
-        this.activeFlag = activeFlag;
     }
 
     /**
@@ -226,42 +207,6 @@ public class UserVO implements ValueObject {
     }
 
     /**
-     * Getter for mobile
-     *
-     * @return the mobile
-     */
-    public String getMobile() {
-        return mobile;
-    }
-
-    /**
-     * Setter for mobile
-     *
-     * @param mobile the mobile to set
-     */
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    /**
-     * Getter for phone
-     *
-     * @return the phone
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
-     * Setter for phone
-     *
-     * @param phone the phone to set
-     */
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    /**
      * Getter for city
      *
      * @return the city
@@ -284,7 +229,7 @@ public class UserVO implements ValueObject {
      *
      * @return the state
      */
-    public String getState() {
+    public StateVO getState() {
         return state;
     }
 
@@ -293,7 +238,7 @@ public class UserVO implements ValueObject {
      *
      * @param state the state to set
      */
-    public void setState(String state) {
+    public void setState(StateVO state) {
         this.state = state;
     }
 
@@ -352,72 +297,21 @@ public class UserVO implements ValueObject {
     }
 
     /**
-     * Getter for address1
+     * Getter for webSite
      *
-     * @return address1
+     * @return webSite
      */
-    public String getAddress1() {
-        return address1;
+    public String getWebSite() {
+        return webSite;
     }
 
     /**
-     * Setter for address1
+     * Setter for webSite
      *
-     * @param address1
+     * @param webSite
      */
-    public void setAddress1(String address1) {
-        this.address1 = address1;
-    }
-
-    /**
-     * Getter for address2
-     *
-     * @return address2
-     */
-    public String getAddress2() {
-        return address2;
-    }
-
-    /**
-     * Setter for address2
-     *
-     * @param address2
-     */
-    public void setAddress2(String address2) {
-        this.address2 = address2;
-    }
-
-    /**
-     * Getter for postalCode
-     *
-     * @return postalCode
-     */
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    /**
-     * Setter for postalCode
-     *
-     * @param postalCode
-     */
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-
-    /**
-     * @return lastLogin
-     */
-    public Date getLastLogin() {
-        return lastLogin;
-    }
-
-    /**
-     * @param lastLogin
-     */
-    public void setLastLogin(Date lastLogin) {
-        this.lastLogin = lastLogin;
+    public void setWebSite(String webSite) {
+        this.webSite = webSite;
     }
 
     /*
@@ -458,6 +352,98 @@ public class UserVO implements ValueObject {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the confirmedFlag
+     */
+    public Boolean getConfirmedFlag() {
+        return confirmedFlag;
+    }
+
+    /**
+     * @param confirmedFlag the confirmedFlag to set
+     */
+    public void setConfirmedFlag(Boolean confirmedFlag) {
+        this.confirmedFlag = confirmedFlag;
+    }
+
+    /**
+     * @return the linkedIn
+     */
+    public String getLinkedIn() {
+        return linkedIn;
+    }
+
+    /**
+     * @param linkedIn the linkedIn to set
+     */
+    public void setLinkedIn(String linkedIn) {
+        this.linkedIn = linkedIn;
+    }
+
+    /**
+     * @return the spokenLanguages
+     */
+    public List<Language> getSpokenLanguages() {
+        return spokenLanguages;
+    }
+
+    /**
+     * @param spokenLanguages the spokenLanguages to set
+     */
+    public void setSpokenLanguages(List<Language> spokenLanguages) {
+        this.spokenLanguages = spokenLanguages;
+    }
+
+    /**
+     * @return the userDescription
+     */
+    public MultiLanguageText getUserDescription() {
+        return userDescription;
+    }
+
+    /**
+     * @param userDescription the userDescription to set
+     */
+    public void setUserDescription(MultiLanguageText userDescription) {
+        this.userDescription = userDescription;
+    }
+
+    /**
+     * Return concatenation of firstName and lastName
+     *
+     * @return
+     */
+    public String getFullName() {
+        StringBuilder str = new StringBuilder();
+        boolean hasFirstName = false;
+
+        if (firstName != null && !firstName.isEmpty()) {
+            str.append(firstName);
+            hasFirstName = true;
+        }
+        if (hasFirstName && lastName != null && lastName.isEmpty()) {
+            str.append(" ");
+        }
+        if (lastName != null) {
+            str.append(lastName);
+        }
+        return str.toString();
+    }
+
+    /**
+     * @return the userTypes
+     */
+    public List<UserTypeVO> getUserTypes() {
+        return userTypes;
+    }
+
+    /**
+     * @param userTypes the userTypes to set
+     */
+    public void setUserTypes(List<UserTypeVO> userTypes) {
+        this.userTypes = userTypes;
     }
 
 }

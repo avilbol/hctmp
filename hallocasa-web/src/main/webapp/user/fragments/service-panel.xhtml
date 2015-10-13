@@ -11,67 +11,48 @@
 
             <div class="col span_1_of_3">
                 <span class="hc-form-label">#{viewBundle['Profile.Data.Country.Label']}</span>
-                <span>Colombia</span><br/>
+                <h:outputText value="#{profileReadPage.user.country.countryName}"/>
+                <br/>
 
                 <span class="hc-form-label">#{viewBundle['Profile.Data.State.Label']}</span>
-                <span>Cundinamarca</span><br/>
+                <h:outputText value="#{profileReadPage.user.state.stateName}"/>
 
                 <span class="hc-form-label">#{viewBundle['Profile.Data.City.Label']}</span>
-                <span>Bogotá</span><br/>
+                <h:outputText value="#{profileReadPage.user.city}"/>
 
                 <span class="hc-form-label">#{viewBundle['Profile.Data.Website.Label']}</span>
-                <span>http://www.mysite.com</span><br/>
+                <h:outputText value="#{profileReadPage.user.webSite}"/>
 
                 <span class="hc-form-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span>
-                <span>http://www.linkedin.com/profile123</span><br/>
+                <h:outputText value="#{profileReadPage.user.linkedIn}"/>
 
                 <span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span>
-                <span>manolo_skype_23</span><br/>
+                <h:outputText value="#{profileReadPage.user.skype}"/>
             </div>
 
             <div class="col span_1_of_3">
                 <span class="hc-form-label">#{viewBundle['Profile.Data.Languages.Label']}</span>
-                <span>Español</span><br/>
-                <span>Emglish</span><br/>
-                <span>Dutch</span><br/>
+                <ui:repeat value="#{profileReadPage.user.spokenLanguages}" var="lang">
+                    <h:outputText value="#{lang.languageName}"/><br/>
+                </ui:repeat>
             </div>
 
             <div class="col span_1_of_3">
                 <span class="hc-form-label">#{viewBundle['Profile.Data.Services.Label']}</span>
-                <span>Broker</span><br/>
-                <span>Notary</span><br/>
-                <span>Appraisor</span><br/>
-                <span>Translator</span><br/>
-                <span>Expert</span><br/>
-                <span>Property Manager</span><br/>
+                <ui:repeat value="#{profileReadPage.user.userTypes}" var="userType">
+                    <h:outputText value="#{userType.userTypeName.getText(webSession.currentLanguage)}"/><br/>
+                </ui:repeat>
             </div>
         </div>
         <hr/>
         
         <div class="section hc-overlay-form-fields-container clearfix">
-            <span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( Español )</span>
-            <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque justo velit, 
-                suscipit at condimentum et, eleifend in ex. Aenean lacus sapien, iaculis non nulla id, 
-                mattis suscipit libero. Nulla vel justo sit amet urna dictum dapibus. In vel vestibulum 
-                ipsum. Curabitur quis nulla eget ante tempus congue sit amet at felis
-            </span>
-            <hr/>
-            <span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( English )</span>
-            <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque justo velit, 
-                suscipit at condimentum et, eleifend in ex. Aenean lacus sapien, iaculis non nulla id, 
-                mattis suscipit libero. Nulla vel justo sit amet urna dictum dapibus. In vel vestibulum 
-                ipsum. Curabitur quis nulla eget ante tempus congue sit amet at felis
-            </span>
-            <hr/>
-            <span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( Deutch )</span>
-            <span>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque justo velit, 
-                suscipit at condimentum et, eleifend in ex. Aenean lacus sapien, iaculis non nulla id, 
-                mattis suscipit libero. Nulla vel justo sit amet urna dictum dapibus. In vel vestibulum 
-                ipsum. Curabitur quis nulla eget ante tempus congue sit amet at felis
-            </span>
+            <ui:repeat value="#{applicationContext.languages}" var="lang">
+                <span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( #{lang.languageName} )</span>
+                <span>
+                    #{profileReadPage.user.userDescription.getText(lang)}
+                </span>
+            </ui:repeat>
         </div>
         
     </p:panel>

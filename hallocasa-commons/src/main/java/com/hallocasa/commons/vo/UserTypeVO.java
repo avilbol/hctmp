@@ -3,44 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hallocasa.dataentities.app;
+package com.hallocasa.commons.vo;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
-import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 /**
  *
  * @author david
  */
-@Entity
-public class UserType implements Serializable {
+public class UserTypeVO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @Column(name = "id")
     private Long id;
-
-    @Column(name = "user_type_name")
-    @Convert(converter = MultiLanguageTextConverter.class)
     private MultiLanguageText userTypeName;
 
     /**
      * Default constructor
      */
-    public UserType() {
+    public UserTypeVO() {
     }
 
     /**
      *
      * @param id
      */
-    public UserType(Long id) {
+    public UserTypeVO(Long id) {
         this.id = id;
     }
 
@@ -49,7 +36,7 @@ public class UserType implements Serializable {
      * @param id
      * @param userTypeName
      */
-    public UserType(Long id, MultiLanguageText userTypeName) {
+    public UserTypeVO(Long id, MultiLanguageText userTypeName) {
         this.id = id;
         this.userTypeName = userTypeName;
     }
@@ -72,11 +59,14 @@ public class UserType implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserType)) {
+        if (!(object instanceof UserTypeVO)) {
             return false;
         }
-        UserType other = (UserType) object;
-        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+        UserTypeVO other = (UserTypeVO) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 
     @Override

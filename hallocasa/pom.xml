@@ -4,6 +4,28 @@
     <artifactId>hallocasa</artifactId>
     <version>1.1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+    
+    <profiles>
+        <profile>
+            <id>development</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
+                <dbMaintainer.includedQualifiers>dev,all</dbMaintainer.includedQualifiers>
+                <dbMaintainer.excludedQualifiers>pro</dbMaintainer.excludedQualifiers>
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
+                <dbMaintainer.includedQualifiers>pro,all</dbMaintainer.includedQualifiers>
+                <dbMaintainer.excludedQualifiers>dev</dbMaintainer.excludedQualifiers>
+            </properties>
+        </profile>
+    </profiles>
   
     <properties>
         <maven.compiler.plugin>3.2</maven.compiler.plugin>

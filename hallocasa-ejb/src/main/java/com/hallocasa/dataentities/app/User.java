@@ -10,7 +10,9 @@ import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.dataentities.converters.LanguageConverter;
 import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
+import com.hallocasa.dataentities.converters.SpokenLanguagesConverter;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -22,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -39,9 +42,12 @@ import javax.persistence.Table;
 @SuppressWarnings({"UniqueEntityName", "ValidPrimaryTableName", "ValidAttributes"})
 public class User implements Serializable, HallocasaEntity {
 
+    /* static fields */
     private static final long serialVersionUID = 1L;
     public static final String QUERY_FIND_BY_EMAIL = "User.findByEmail";
+    public static final String spokenLanguages_ = "spokenLanguages";
 
+    /* instance variables */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -66,9 +72,6 @@ public class User implements Serializable, HallocasaEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "state")
-    private String state;
-
     @Column(name = "city")
     private String city;
 
@@ -81,7 +84,11 @@ public class User implements Serializable, HallocasaEntity {
     @Column(name = "skype")
     private String skype;
 
-    @Column(name = "user_description")
+    @Column(name = "spoken_languages", columnDefinition = "BLOB NULL")
+    @Convert(converter = SpokenLanguagesConverter.class)
+    private List<Language> spokenLanguages;
+
+    @Column(name = "user_description", columnDefinition = "BLOB NULL")
     @Convert(converter = MultiLanguageTextConverter.class)
     private MultiLanguageText userDescription;
 
@@ -99,11 +106,26 @@ public class User implements Serializable, HallocasaEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Profile> profiles;
 
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Country country;
+
+    @JoinColumn(name = "state_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private State state;
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
+    }
+
+    /**
+     * Default constructor
+     */
+    public User() {
+        this.spokenLanguages = new ArrayList<>();
     }
 
     @Override
@@ -113,10 +135,8 @@ public class User implements Serializable, HallocasaEntity {
             return false;
         }
         User other = (User) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null)
+                || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
@@ -181,7 +201,7 @@ public class User implements Serializable, HallocasaEntity {
      * @param userTypes the userType to set
      */
     public void setUserType(List<UserType> userTypes) {
-        this.userTypes = userTypes;
+        this.setUserTypes(userTypes);
     }
 
     /**
@@ -255,20 +275,6 @@ public class User implements Serializable, HallocasaEntity {
     }
 
     /**
-     * @return the state
-     */
-    public String getState() {
-        return state;
-    }
-
-    /**
-     * @param state the state to set
-     */
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    /**
      * @return the city
      */
     public String getCity() {
@@ -336,6 +342,55 @@ public class User implements Serializable, HallocasaEntity {
      */
     public void setUserDescription(MultiLanguageText userDescription) {
         this.userDescription = userDescription;
+    }
+
+    /**
+     * @return the spokenLanguages
+     */
+    public List<Language> getSpokenLanguages() {
+        return spokenLanguages;
+    }
+
+    /**
+     * @param spokenLanguages the spokenLanguages to set
+     */
+    public void setSpokenLanguages(List<Language> spokenLanguages) {
+        this.spokenLanguages = spokenLanguages;
+    }
+
+    /**
+     * @param userTypes the userTypes to set
+     */
+    public void setUserTypes(List<UserType> userTypes) {
+        this.userTypes = userTypes;
+    }
+
+    /**
+     * @return the country
+     */
+    public Country getCountry() {
+        return country;
+    }
+
+    /**
+     * @param country the country to set
+     */
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    /**
+     * @return the state
+     */
+    public State getState() {
+        return state;
+    }
+
+    /**
+     * @param state the state to set
+     */
+    public void setState(State state) {
+        this.state = state;
     }
 
 }

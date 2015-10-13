@@ -10,8 +10,6 @@ import com.google.gson.JsonSyntaxException;
 import com.hallocasa.commons.Language;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.beanutils.BeanUtils;
 
 /**
@@ -30,6 +28,28 @@ public class MultiLanguageText implements Serializable {
      * Default constructor
      */
     public MultiLanguageText() {
+    }
+
+    /**
+     * Constructor with all language text
+     *
+     * @param de
+     * @param en
+     * @param es
+     */
+    public MultiLanguageText(String de, String en, String es) {
+        this.de = de;
+        this.en = en;
+        this.es = es;
+    }
+
+    /**
+     * Create an instance cloned by the passed as parameter
+     *
+     * @param other
+     */
+    public MultiLanguageText(MultiLanguageText other) {
+        this(other.de, other.en, other.es);
     }
 
     /**

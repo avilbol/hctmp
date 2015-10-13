@@ -7,11 +7,13 @@ package com.hallocasa.dataentities.converters;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 
 /**
  *
  * @author david
  */
+@Converter
 public class MultiLanguageTextConverter implements AttributeConverter<MultiLanguageText, String> {
 
     @Override

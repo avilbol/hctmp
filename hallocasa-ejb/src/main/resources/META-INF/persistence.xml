@@ -97,12 +97,16 @@
         
         <!-- converters -->
         <class>com.hallocasa.dataentities.converters.LanguageConverter</class>
+        <class>com.hallocasa.dataentities.converters.MultiLanguageTextConverter</class>
+        <class>com.hallocasa.dataentities.converters.SpokenLanguagesConverter</class>
         
         <!-- entities -->
         <class>com.hallocasa.dataentities.app.Profile</class>
         <class>com.hallocasa.dataentities.app.UseCase</class>
         <class>com.hallocasa.dataentities.app.User</class>
         <class>com.hallocasa.dataentities.app.UserType</class>
+        <class>com.hallocasa.dataentities.app.State</class>
+        <class>com.hallocasa.dataentities.app.Country</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="eclipselink.target-database" value="MySQL"/>

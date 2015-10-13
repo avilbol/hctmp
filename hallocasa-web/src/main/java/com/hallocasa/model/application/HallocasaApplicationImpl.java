@@ -5,6 +5,7 @@
  */
 package com.hallocasa.model.application;
 
+import com.hallocasa.commons.Language;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -14,6 +15,8 @@ import com.hallocasa.services.interfaces.FileServicesInterface;
 import com.hallocasa.services.interfaces.ImageServicesInterface;
 import com.hallocasa.services.persistence.local.WcmPersistenceServices;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 
 /**
@@ -26,11 +29,16 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
         Serializable {
 
     @EJB
+    @Deprecated
     private WcmPersistenceServices persistenceServices;
     @EJB
+    @Deprecated
     private ImageServicesInterface imageServices;
     @EJB
+    @Deprecated
     private FileServicesInterface fileServices;
+    
+    private List<Language> languages;
 
     /**
      * Getter for the current instance of the application context
@@ -54,12 +62,17 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 
     @PostConstruct
     public void initialize() {
-
+        languages = new ArrayList<>();
+        languages.add(Language.en);
+        languages.add(Language.es);
+        languages.add(Language.de);
+        
     }
 
     /**
      * @return the databaseServices
      */
+    @Deprecated
     public WcmPersistenceServices getPersistenceServices() {
         return persistenceServices;
     }
@@ -69,6 +82,7 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
      *
      * @return EJB ImageServices
      */
+    @Deprecated
     public ImageServicesInterface getImageServices() {
         return imageServices;
     }
@@ -78,6 +92,7 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
      *
      * @return EJB ImageServices
      */
+    @Deprecated
     public FileServicesInterface getFileServices() {
         return fileServices;
     }
@@ -89,4 +104,14 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
     public String getVersion() {
         return "0.0.0.1";
     }
+
+    /**
+     * Return the list of available languages
+     * @return 
+     */
+    public List<Language> getLanguages() {
+        return languages;
+    }
+    
+    
 }

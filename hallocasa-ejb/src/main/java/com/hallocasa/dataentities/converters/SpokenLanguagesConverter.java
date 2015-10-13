@@ -5,10 +5,26 @@
  */
 package com.hallocasa.dataentities.converters;
 
+import com.google.gson.reflect.TypeToken;
+import com.hallocasa.commons.Language;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
+
 /**
+ * Converter from SpokenLanguage attribute
  *
- * @author david
+ * @author David Mantilla
  */
-public class SpokenLanguagesConverter {
-    
+@Converter
+public class SpokenLanguagesConverter extends JSONConverter<ArrayList<Language>>
+        implements AttributeConverter<ArrayList<Language>, String> {
+
+    @Override
+    public Type getAttributeType() {
+        return new TypeToken<ArrayList<Language>>() {
+        }.getType();
+    }
+
 }

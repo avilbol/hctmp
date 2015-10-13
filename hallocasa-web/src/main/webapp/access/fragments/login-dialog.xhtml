@@ -34,6 +34,8 @@
                     <p:commandLink value="#{viewBundle['Login.Link.PasswordRecovery']}"/>
                 </ui:remove>
                 <p:commandLink value="#{viewBundle['Login.Link.SignUp']}"
+                               process="@this"
+                               immediate="true"
                                onclick=" PF('login-dialog').hide();
                                        PF('signup-dialog').show();"
                                styleClass="hc-link login-dialog-signup-link"/>

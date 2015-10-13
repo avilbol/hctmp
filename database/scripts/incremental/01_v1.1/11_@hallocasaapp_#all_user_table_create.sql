@@ -14,6 +14,8 @@ CREATE TABLE `hallocasaapp`.`user` (
   `user_description` TEXT COMMENT 'JSON (MultilanguageText) with description for each language',
   `spoken_languages` TEXT COMMENT 'JSON with an array of spoken languages',
   `country_id` INT COMMENT '',
+  `state_id` INT COMMENT '',
   PRIMARY KEY `pk__user` (`id`)  COMMENT '',
   UNIQUE INDEX `uq__user__email` (`email` ASC)  COMMENT '',
-  FOREIGN KEY `fk__user__country` (`country_id`) REFERENCES `hallocasaapp`.`country`(`id`) );
+  FOREIGN KEY `fk__user__country` (`country_id`) REFERENCES `hallocasaapp`.`country`(`id`),
+  FOREIGN KEY `fk__user__state` (`state_id`) REFERENCES `hallocasaapp`.`state`(`id`) );

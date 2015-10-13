@@ -1,18 +1,7 @@
-CREATE TABLE `hallocasaapp`.`translation` (
-  `id` INT NOT NULL COMMENT '',
-  `text_en` TEXT COMMENT '',
-  `text_es` TEXT COMMENT '',
-  `text_de` TEXT COMMENT '',
-  PRIMARY KEY (`id`)  COMMENT '');
-
 CREATE TABLE `hallocasaapp`.`user_type` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
-  `user_type_name` VARCHAR(45) NOT NULL COMMENT '',
-  `translation_id` INT NOT NULL COMMENT '',
-  PRIMARY KEY (`id`)  COMMENT '',
-  CONSTRAINT `fk__user_type__translation`
-    FOREIGN KEY (`translation_id`)
-    REFERENCES `hallocasaapp`.`translation` (`id`) );
+  `user_type_name` TEXT NOT NULL COMMENT 'JSON multilanguages field',
+  PRIMARY KEY (`id`)  COMMENT '' );
 
 CREATE TABLE `hallocasaapp`.`user_type_profiles` (
   `user_type_id` INT NOT NULL COMMENT '',

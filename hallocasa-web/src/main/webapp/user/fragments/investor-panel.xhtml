@@ -14,16 +14,12 @@
                 <span class="hc-form-label">
                     #{viewBundle['Profile.Data.Name.Label']}
                 </span>
-                <span>
-                    Manolo Cardona
-                </span><br/>
+                <h:outputText value="#{profileReadPage.user.fullName}"/>
 
                 <span class="hc-form-label">
                     #{viewBundle['Profile.Data.Email.Label']}
                 </span>
-                <span>
-                    manolo.cardona@col.com
-                </span>
+                <h:outputText value="#{profileReadPage.user.email}"/>
             </div>
         </div>
     </p:panel>

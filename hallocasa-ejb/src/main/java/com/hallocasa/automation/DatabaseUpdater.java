@@ -30,11 +30,10 @@ public class DatabaseUpdater {
      */
     @PostConstruct
     public void initialize() {
-        try {
-            Properties properties = new Properties();
-            InputStream is =  DatabaseUpdater.class.getResourceAsStream("/dbmaintain.properties");
+        Properties properties = new Properties();
+
+        try (InputStream is = DatabaseUpdater.class.getResourceAsStream("/dbmaintain.properties")) {
             properties.load(is);
-            is.close();
             MainFactory mainFactory = new MainFactory(properties);
             DbMaintainer dbMaintainer = mainFactory.createDbMaintainer();
             dbMaintainer.updateDatabase(false);

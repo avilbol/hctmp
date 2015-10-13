@@ -5,6 +5,7 @@
  */
 package com.hallocasa.tests.database;
 
+import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.dataentities.app.UserType;
 import javax.persistence.EntityManager;
 
@@ -20,7 +21,7 @@ public class BasicDataFiller implements DatabaseFiller {
     }
     
     private void createUserTypes(EntityManager em) {
-        UserType userType = new UserType(1L, "Inmobiliario");
+        UserType userType = new UserType(1L, new MultiLanguageText( "{'en':'Inmobiliario'}") );
         em.persist(userType);
     }
     
