@@ -6,6 +6,7 @@
 package com.hallocasa.dataentities.converters;
 
 import com.hallocasa.commons.Language;
+import com.hallocasa.dataentities.types.LanguageList;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
@@ -23,7 +24,7 @@ public class SpokenLanguagesConverterTest {
     public void testConvertLanguagesToJSON() {
         SpokenLanguagesConverter slc = new SpokenLanguagesConverter();
 
-        ArrayList<Language> languages = new ArrayList<>();
+        LanguageList languages = new LanguageList();
         languages.add(Language.en);
         languages.add(Language.es);
 
@@ -35,7 +36,7 @@ public class SpokenLanguagesConverterTest {
     public void testConvertJSONToLanguages() {
         SpokenLanguagesConverter slc = new SpokenLanguagesConverter();
 
-        List<Language> languages = slc.convertToEntityAttribute(SPOKEN_LANGUAGES_JSON);
+        LanguageList languages = slc.convertToEntityAttribute(SPOKEN_LANGUAGES_JSON);
         Assert.assertEquals(2, languages.size());
         Assert.assertTrue(languages.contains(Language.en));
         Assert.assertTrue(languages.contains(Language.es));

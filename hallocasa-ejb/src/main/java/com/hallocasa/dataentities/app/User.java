@@ -11,6 +11,7 @@ import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.dataentities.converters.LanguageConverter;
 import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import com.hallocasa.dataentities.converters.SpokenLanguagesConverter;
+import com.hallocasa.dataentities.types.LanguageList;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,11 +85,11 @@ public class User implements Serializable, HallocasaEntity {
     @Column(name = "skype")
     private String skype;
 
-    @Column(name = "spoken_languages", columnDefinition = "BLOB NULL")
+    @Column(name = "spoken_languages")
     @Convert(converter = SpokenLanguagesConverter.class)
-    private List<Language> spokenLanguages;
+    private LanguageList spokenLanguages;
 
-    @Column(name = "user_description", columnDefinition = "BLOB NULL")
+    @Column(name = "user_description")
     @Convert(converter = MultiLanguageTextConverter.class)
     private MultiLanguageText userDescription;
 
@@ -107,11 +108,11 @@ public class User implements Serializable, HallocasaEntity {
     private List<Profile> profiles;
 
     @JoinColumn(name = "country_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private Country country;
 
     @JoinColumn(name = "state_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private State state;
 
     @Override
@@ -125,7 +126,7 @@ public class User implements Serializable, HallocasaEntity {
      * Default constructor
      */
     public User() {
-        this.spokenLanguages = new ArrayList<>();
+        this.spokenLanguages = new LanguageList();
     }
 
     @Override
@@ -354,7 +355,7 @@ public class User implements Serializable, HallocasaEntity {
     /**
      * @param spokenLanguages the spokenLanguages to set
      */
-    public void setSpokenLanguages(List<Language> spokenLanguages) {
+    public void setSpokenLanguages(LanguageList spokenLanguages) {
         this.spokenLanguages = spokenLanguages;
     }
 

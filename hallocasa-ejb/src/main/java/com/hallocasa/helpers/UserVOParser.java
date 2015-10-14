@@ -3,6 +3,7 @@ package com.hallocasa.helpers;
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.app.User;
+import com.hallocasa.dataentities.types.LanguageList;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
@@ -57,7 +58,7 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
             String propertyName, Object propertyValue, Object[] options)
             throws IllegalAccessException, InvocationTargetException {
         if (propertyName.equals(User.spokenLanguages_)) {
-            entity.setSpokenLanguages(new ArrayList<Language>());
+            entity.setSpokenLanguages(new LanguageList());
             entity.getSpokenLanguages().addAll(vo.getSpokenLanguages());
         }
         super.copyVOPropertyToEntityProperty(vo, entity, propertyName,
