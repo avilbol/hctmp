@@ -22,13 +22,21 @@ import static com.hallocasa.view.navigation.ViewParamEnum.*;
 public enum HallocasaViewEnum {
 
     // Public pages
+    //
     /**
      * Page that is shown every time user is not allowed to enter the page is
      * trying to get into
      */
-    FORBIDDEN(HallocasaViewNames.FORBIDDEN, "/pages/commons/forbidden.xhml",
+    FORBIDDEN(HallocasaViewNames.FORBIDDEN, "/commons/forbidden.xhtml",
             null, false, null),
+    /**
+     * Page that is shown every time user has entered a non existing page
+     */
+    PAGE_NOT_FOUND(HallocasaViewNames.PAGE_NOT_FOUND, "/commons/page-not-found.xhtml",
+            null, false, null),
+    //
     // access controlled pages
+
     /**
      * Page to log in
      */
@@ -84,6 +92,7 @@ public enum HallocasaViewEnum {
             BlogArticlePage.class, false, null);
 
     /* Static */
+    public static final HallocasaViewEnum DEFAULT_VIEW = HOME;
 
     /* Instance variables */
     private final String viewName;
@@ -206,6 +215,21 @@ public enum HallocasaViewEnum {
             }
         }
         throw new IllegalArgumentException(clazz + " not found in the enum");
+    }
+
+    /**
+     * Find a view given its URL
+     *
+     * @param url
+     * @return
+     */
+    public static HallocasaViewEnum findByUrl(String url) {
+        for (HallocasaViewEnum s : values()) {
+            if (s.url.equals(url)) {
+                return s;
+            }
+        }
+        throw new IllegalArgumentException(url + " not found in the enum");
     }
 
     /**

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hallocasa.viewmodel.servlet;
+package com.hallocasa.controller.filters;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.model.session.WebSession;

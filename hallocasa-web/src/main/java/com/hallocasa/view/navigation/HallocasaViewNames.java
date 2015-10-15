@@ -11,6 +11,7 @@ public interface HallocasaViewNames {
         public static final String BLOG_INDEX = "blogIndexPage";
         public static final String BLOG_ARTICLE = "blogArticlePage";
         public static final String LINKS = "links";
+        public static final String PAGE_NOT_FOUND = "pageNotFound";
     
         // TODO: check this list
         public static final String LOGIN = "login";

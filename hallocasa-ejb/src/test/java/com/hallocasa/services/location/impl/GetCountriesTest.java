@@ -6,15 +6,12 @@
 package com.hallocasa.services.location.impl;
 
 import com.hallocasa.commons.vo.CountryVO;
-import com.hallocasa.dataentities.app.Country;
-import com.hallocasa.services.location.impl.CountryServicesImpl;
 import com.hallocasa.services.location.local.CountryServices;
 import com.hallocasa.services.persistence.impl.AppPersistenceServicesImpl;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.tests.database.BasicDataFiller;
 import com.hallocasa.tests.database.DatabaseCreator;
 import com.hallocasa.tests.database.DatabaseUtils;
-import com.hallocasa.tests.database.JhonDoeDataFiller;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
