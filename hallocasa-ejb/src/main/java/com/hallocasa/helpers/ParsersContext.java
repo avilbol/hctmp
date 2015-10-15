@@ -10,6 +10,7 @@ package com.hallocasa.helpers;
 public class ParsersContext {
 
     public static final UserVOParser USER_VO_PARSER = new UserVOParser();
+    public static final CountryVOParser COUNTRY_VO_PARSER = new CountryVOParser();
 
     /* instance variables */
 

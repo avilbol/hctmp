@@ -41,7 +41,7 @@ import java.util.logging.Logger;
 public class UserServicesImpl extends ServicesBase implements UserServices {
 
     /* constances */
-    private Logger LOG = Logger.getLogger(UserServicesImpl.class.getName());
+    private final static Logger LOG = Logger.getLogger(UserServicesImpl.class.getName());
 
     /* Dependences */
     @PersistenceContext(unitName = "RealStateDatabasePU")

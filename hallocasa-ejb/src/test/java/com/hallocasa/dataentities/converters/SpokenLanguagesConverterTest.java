@@ -7,8 +7,6 @@ package com.hallocasa.dataentities.converters;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.dataentities.types.LanguageList;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
