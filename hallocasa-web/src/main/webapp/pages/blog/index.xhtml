@@ -3,13 +3,18 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"  
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="../../facelets/templates/portalLayout.xhtml">
+                template="../../commons/templates/general-layout.xhtml">
 
     <ui:param name="header_showBanner" value="#{false}" />
     <ui:param name="header_showSubMenu" value="#{false}" />
+    
+    <ui:define name="styleSheetsSection">
+        <h:outputStylesheet library="css" name="blog.css"/>
+    </ui:define>
 
     <!-- Blog content section -->
-    <ui:define name="portalSection">
+    <ui:define name="contentSection">
+        <br/><br/><br/>
         <div id="blog-layout">
             <h:panelGroup rendered="#{blogIndexPage.firstArticle ne null}">
                 <ui:include src="articlepreview.xhtml" >
