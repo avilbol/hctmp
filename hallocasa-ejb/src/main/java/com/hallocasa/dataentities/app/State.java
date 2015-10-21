@@ -5,6 +5,7 @@
  */
 package com.hallocasa.dataentities.app;
 
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,11 +27,14 @@ import javax.persistence.Table;
 @Table(name = "state")
 @NamedQueries({
     @NamedQuery(name = State.QUERY_FIND_BY_ID,
-            query = "select s from State s where s.id = ?1")
+            query = "select s from State s where s.id = ?1"),
+    @NamedQuery(name = State.QUERY_FIND_BY_COUNTRY,
+            query = "select s from State s where s.country = ?1")
 })
-public class State implements Serializable {
+public class State implements Serializable, HallocasaEntity {
 
     public static final String QUERY_FIND_BY_ID = "State.findById";
+    public static final String QUERY_FIND_BY_COUNTRY = "State.findByCountry";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +52,19 @@ public class State implements Serializable {
      * Default constructor
      */
     public State() {
+    }
+
+    /**
+     * Constructor with parameters
+     *
+     * @param id
+     * @param stateName
+     * @param country
+     */
+    public State(Long id, String stateName, Country country) {
+        this.id = id;
+        this.stateName = stateName;
+        this.country = country;
     }
 
     /**

@@ -11,6 +11,7 @@ public class ParsersContext {
 
     public static final UserVOParser USER_VO_PARSER = new UserVOParser();
     public static final CountryVOParser COUNTRY_VO_PARSER = new CountryVOParser();
+    public static final StateVOParser STATE_VO_PARSER = new StateVOParser();
 
     /* instance variables */
 
