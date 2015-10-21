@@ -1,10 +1,12 @@
 package com.hallocasa.helpers;
 
+import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.helpers.GenericVOEntityConverter;
 import com.hallocasa.commons.vo.helpers.GenericVOParser;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
+import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.User;
 import java.util.Date;
 
@@ -18,8 +20,8 @@ public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject>
         extends GenericVOParser<T, U> {
 
     // TODO: Check if this could be static or not. Worry about thread-safe
-    private static BeanUtilsBean beanUtilsBean;
-    private static ConvertUtilsBean convertUtilsBean;
+    private static final BeanUtilsBean beanUtilsBean;
+    private static final ConvertUtilsBean convertUtilsBean;
 
     /* static fields */
     static {
@@ -27,6 +29,7 @@ public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject>
 
         // account - account VO converter
         registerConverter(User.class, UserVO.class, UserVOParser.class);
+        registerConverter(Country.class, CountryVO.class, CountryVOParser.class);
 
         // Date (use null as null)
         DateConverter dateConverter = new DateConverter(null);
@@ -52,7 +55,7 @@ public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject>
      */
     private static <T extends HallocasaEntity, U extends ValueObject, R extends GenericVOParser<T, U>> void registerConverter(
             Class<T> entityClass, Class<U> voClass, Class<R> parserClass) {
-        GenericVOEntityConverter<T, U, R> converter = new GenericVOEntityConverter<T, U, R>(
+        GenericVOEntityConverter<T, U, R> converter = new GenericVOEntityConverter<>(
                 parserClass, entityClass, voClass);
         convertUtilsBean.register(converter, entityClass);
         convertUtilsBean.register(converter, voClass);
