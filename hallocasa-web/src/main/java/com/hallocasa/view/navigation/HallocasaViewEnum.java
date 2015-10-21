@@ -96,7 +96,7 @@ public enum HallocasaViewEnum {
      * Blog article detail
      */
     BLOG_ARTICLE(HallocasaViewNames.BLOG_ARTICLE, "/pages/blog/article.xhtml",
-            BlogArticlePage.class, false, null);
+            BlogArticlePage.class, false, new ViewParamEnum[]{ARTICLE_ID});
 
     /* Static */
     public static final HallocasaViewEnum DEFAULT_VIEW = HOME;
@@ -107,7 +107,7 @@ public enum HallocasaViewEnum {
     private final UseCaseEnum[] useCases;
     private final boolean requiresLogin;
     private final String url;
-    private ViewParamEnum[] supportedParams;
+    private final ViewParamEnum[] supportedParams;
 
     /**
      * Constructor
@@ -124,10 +124,11 @@ public enum HallocasaViewEnum {
     private HallocasaViewEnum(String viewName,
             String url,
             Class<?> viewClass, boolean requiresLogin,
-            ViewParamEnum[] supportedParam,
+            ViewParamEnum[] supportedParams,
             UseCaseEnum... useCases) {
         this.viewName = viewName;
         this.viewClass = viewClass;
+        this.supportedParams = supportedParams;
         this.useCases = useCases;
         this.url = url;
         this.requiresLogin = requiresLogin;
