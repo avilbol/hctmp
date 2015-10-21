@@ -12,6 +12,7 @@ public interface HallocasaViewNames {
         public static final String BLOG_ARTICLE = "blogArticlePage";
         public static final String LINKS = "links";
         public static final String PAGE_NOT_FOUND = "pageNotFound";
+        public static final String USER_PROFILE_VIEW = "profileReadPage";
     
         // TODO: check this list
         public static final String LOGIN = "login";
@@ -26,7 +27,6 @@ public interface HallocasaViewNames {
 	public static final String ADMIN_PANEL = "adminpanel";
 	public static final String MY_COMPANY = "mycompany";
 	public static final String APPS = "apps";
-	public static final String MY_ACCOUNT = "myaccount";
 	public static final String USER_ACTIVATION = "useractivation";
 	public static final String CONFIGURE_SUPERVISION = "configureSupervision";
 	public static final String EDIT_SUPERVISION = "editSupervision";

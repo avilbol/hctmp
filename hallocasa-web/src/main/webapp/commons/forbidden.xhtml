@@ -3,6 +3,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
                 template="../commons/templates/general-layout.xhtml">
 
     <ui:param name="header_showSubMenu" value="#{false}" />
@@ -13,9 +14,17 @@
 
     <ui:define name="contentSection">
         <div class="land-page-background"/>
-        
-        <div>Page not found</div>
-        
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <p:panel header="#{viewBundle['Forbidden.Panel.Title']}"
+                 styleClass="hc-centered-panel">
+            <div>#{viewBundle['Forbidden.Panel.Info']}</div>
+        </p:panel>
+
         <div class="home-fill-extra-space"/>
 
         <h:outputScript library="js" name="home/background-image.js"/>

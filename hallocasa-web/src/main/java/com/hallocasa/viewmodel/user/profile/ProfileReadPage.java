@@ -7,7 +7,7 @@ package com.hallocasa.viewmodel.user.profile;
 
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.session.WebSession;
-import com.hallocasa.view.navigation.HallocasaViewEnum;
+import com.hallocasa.view.navigation.HallocasaViewNames;
 import com.hallocasa.view.navigation.NavigationHandler;
 import java.io.Serializable;
 import javax.faces.bean.ViewScoped;
@@ -20,7 +20,7 @@ import javax.inject.Named;
  * @author David Mantilla
  * @since 1.7
  */
-@Named(value = "profileReadPage")
+@Named(value = HallocasaViewNames.USER_PROFILE_VIEW)
 @ViewScoped
 public class ProfileReadPage implements Serializable {
 

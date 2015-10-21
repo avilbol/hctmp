@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import static com.hallocasa.view.navigation.ViewParamEnum.*;
+import com.hallocasa.viewmodel.user.profile.ProfileReadPage;
 
 /**
  * Enumeration to control all the views in the application
@@ -58,8 +59,8 @@ public enum HallocasaViewEnum {
     /**
      * Page for account information
      */
-    MY_ACCOUNT(HallocasaViewNames.MY_ACCOUNT, "", null, true, null,
-            UseCaseEnum.SEE_EDIT_MY_ACCOUNT),
+    MY_PROFILE(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/profile.xhtml",
+            ProfileReadPage.class, true, null, UseCaseEnum.SEE_MY_PROFILE),
     /**
      * Page for user recover password writing a new one
      */

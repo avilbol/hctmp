@@ -13,8 +13,8 @@ import java.util.List;
 @SuppressWarnings("javadoc")
 public enum UseCaseEnum {
 
-    FULL_ACCESS("/hallocasa/admin/main"),
-    SEE_EDIT_MY_ACCOUNT("/hallocasa/user/my account", FULL_ACCESS);
+    FULL_ACCESS("/hallocasa/admin/all"),
+    SEE_MY_PROFILE("/hallocasa/user/my profile/view", FULL_ACCESS);
 
     private static final HashMap<String, UseCaseEnum> findMap;
     private final String useCaseName;
