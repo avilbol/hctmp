@@ -135,7 +135,7 @@ public class NavigationHandlerImpl implements Serializable, NavigationHandler {
                             + " doesn't support param " + paramEntry.getKey());
                 }
 
-                str.append(paramEntry.getKey());
+                str.append(paramEntry.getKey().getParamKey());
                 str.append("=");
                 str.append(paramEntry.getValue());
                 first = false;
