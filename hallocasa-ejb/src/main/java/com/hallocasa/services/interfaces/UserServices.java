@@ -24,6 +24,14 @@ public interface UserServices {
     public UserVO find(String email);
 
     /**
+     * Finds a user by its id
+     *
+     * @param id
+     * @return
+     */
+    public UserVO find(long id);
+
+    /**
      *
      * @param publisherUser
      * @throws ServiceException

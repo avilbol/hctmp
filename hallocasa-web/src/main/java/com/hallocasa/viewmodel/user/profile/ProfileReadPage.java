@@ -6,10 +6,13 @@
 package com.hallocasa.viewmodel.user.profile;
 
 import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.model.controlaccess.ForbiddenException;
 import com.hallocasa.model.session.WebSession;
+import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.view.navigation.HallocasaViewNames;
 import com.hallocasa.view.navigation.NavigationHandler;
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -32,6 +35,8 @@ public class ProfileReadPage implements Serializable {
     private WebSession webSession;
     @Inject
     private NavigationHandler navigationHandler;
+    @EJB
+    private UserServices userServices;
 
     /**
      * Default constructor
@@ -43,13 +48,17 @@ public class ProfileReadPage implements Serializable {
      * Initialize the bean
      */
     public void initialize() {
-        user = webSession.getCurrentUser();
+        user = userServices.find(webSession.getCurrentUser().getId());
+        if ( user == null ){
+            // it should never 
+            throw new ForbiddenException();
+        }
     }
-    
+
     /**
      * Process click event over edit button
      */
-    public void processEditClick(){
+    public void processEditClick() {
         // navigationHandler.redirectToPage(HallocasaViewEnum.);
     }
 

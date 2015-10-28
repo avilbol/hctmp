@@ -65,6 +65,16 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
         return userVO;
     }
 
+    @Override
+    public UserVO find(long id) {
+        User user = appPersistenceServices.findEntity(User.class, id);
+        if (user == null) {
+            return null;
+        }
+        UserVO userVO = ParsersContext.USER_VO_PARSER.toValueObject(user, UserVO.class);
+        return userVO;
+    }
+
     /**
      *
      * @throws ServiceException

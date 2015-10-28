@@ -6,7 +6,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
-                template="../../facelets/templates/portalLayout.xhtml">
+                template="../../commons/templates/general-layout.xhtml">
 
     <!-- Templates vars -->
     <ui:param name="header_showBanner" value="#{false}" />
@@ -25,8 +25,13 @@
         <meta property="og:type" content="article" />
         <meta property="og:description" content="#{blogArticlePage.articleDescription}" /> 
     </ui:define>
+    
+    <ui:define name="styleSheetsSection">
+        <h:outputStylesheet library="css" name="blog.css"/>
+    </ui:define>
 
-    <ui:define name="portalSection">
+    <ui:define name="contentSection">
+        Hola Mundo, hola mundo 3 
         <script type="text/javascript" 
                 src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-552fd9640c844a85" async="async">
         </script>
