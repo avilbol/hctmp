@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import static com.hallocasa.view.navigation.ViewParamEnum.*;
+import com.hallocasa.viewmodel.user.profile.ProfileEditPage;
 import com.hallocasa.viewmodel.user.profile.ProfileReadPage;
 
 /**
@@ -61,6 +62,11 @@ public enum HallocasaViewEnum {
      */
     MY_PROFILE(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/profile.xhtml",
             ProfileReadPage.class, true, null, UseCaseEnum.SEE_MY_PROFILE),
+    /**
+     * Page for profile editing
+     */
+    EDIT_PROFILE(HallocasaViewNames.USER_PROFILE_EDIT, "/user/pages/edit-profile.xhtml",
+            ProfileEditPage.class, true, null, UseCaseEnum.EDIT_MY_PROFILE),
     /**
      * Page for user recover password writing a new one
      */

@@ -7,6 +7,7 @@ package com.hallocasa.viewmodel.user.profile;
 
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.session.WebSession;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.HallocasaViewNames;
 import com.hallocasa.view.navigation.NavigationHandler;
 import java.io.Serializable;
@@ -50,7 +51,7 @@ public class ProfileReadPage implements Serializable {
      * Process click event over edit button
      */
     public void processEditClick(){
-        // navigationHandler.redirectToPage(HallocasaViewEnum.);
+        navigationHandler.redirectToPage(HallocasaViewEnum.EDIT_PROFILE);
     }
 
     /**

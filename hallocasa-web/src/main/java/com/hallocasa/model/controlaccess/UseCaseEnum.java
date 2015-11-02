@@ -14,7 +14,8 @@ import java.util.List;
 public enum UseCaseEnum {
 
     FULL_ACCESS("/hallocasa/admin/all"),
-    SEE_MY_PROFILE("/hallocasa/user/my profile/view", FULL_ACCESS);
+    SEE_MY_PROFILE("/hallocasa/user/my profile/view", FULL_ACCESS),
+    EDIT_MY_PROFILE("/hallocasa/user/my profile/edit", FULL_ACCESS);
 
     private static final HashMap<String, UseCaseEnum> findMap;
     private final String useCaseName;

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <p:panel header="#{viewBundle['Profile.Investor.Panel.Title']}" 
+             styleClass="user-profile-panel">
+        <div class="section hc-overlay-form-fields-container clearfix">
+            <div class="col span_1_of_3">
+                <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTrnDcg_KmtBz1de-73hUlF2a8jjxyPZ6xTY_s6J6xiNDtbHEGcCuye0w"/>
+                <p:commandButton value="Editar"
+                             actionListener="#{profileEditPage.processEditImageClick()}"
+                             process="@this" />
+            </div>
+            <div class="col span_2_of_3">
+                <p:outputLabel 
+                        styleClass="hc-form-label"
+                        value="#{viewBundle['Profile.Data.Name.Label']}" 
+                        for="fullName" />
+                <p:inputText 
+                        id="fullName" 
+                        value="#{profileReadPage.user.fullName}"/>
+                <span class="hc-form-label">
+                    #{viewBundle['Profile.Data.Email.Label']}
+                </span>
+                <h:outputText value="#{profileEditPage.user.email}"/>
+            </div>
+        </div>
+    </p:panel>
+</ui:composition>

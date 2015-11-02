@@ -18,7 +18,8 @@
             <h:form styleClass="hc-form">
                 <div class="hc-overlay-form-buttons-container">
                     <p:commandButton value="#{viewBundle['Profile.Edit.Button']}" 
-                                     process="@this" />
+                                     process="@this"
+                                     actionListener="#{profileReadPage.processEditClick()}"/>
                 </div>
                 
                 <ui:include src="../fragments/investor-panel.xhtml"/>
