@@ -59,7 +59,6 @@ public class CountryServicesImpl implements CountryServices {
             throw new IllegalArgumentException("Country with id " + countryId
                     + " doesn't exist");
         }
-
         List<State> states = appPersistenceServices.executeNamedQuery(
                 State.QUERY_FIND_BY_COUNTRY, new Object[]{country}, State.class);
         List<StateVO> stateVOs = ParsersContext.STATE_VO_PARSER.toValueObjectList(

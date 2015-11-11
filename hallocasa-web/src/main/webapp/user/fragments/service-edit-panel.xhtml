@@ -6,54 +6,68 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-
-    <p:panel header="#{viewBundle['Profile.Service.Panel.Title']}" 
-             >
+    
+    <p:dialog header="Modificar imagen de perfil" widgetVar="hc-image-upload" minHeight="100">
+        <h:outputText value="Selecciona una imagen" />
+        <p:commandButton value="Examinar"
+                             actionListener="#{profileEditPage.processEditImageClick()}"
+                             process="@this"
+                             oncomplete=""/>
+    </p:dialog>
+    
+    <p:panel header="#{viewBundle['Profile.Service.Panel.Title']}" >
         <div class="section hc-overlay-form-fields-container clearfix">
-
             <div class="col span_1_of_3">
+                <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTrnDcg_KmtBz1de-73hUlF2a8jjxyPZ6xTY_s6J6xiNDtbHEGcCuye0w"/>
+                <p:commandButton value="Editar"
+                             actionListener="#{profileEditPage.processEditImageClick()}"
+                             process="@this"
+                             oncomplete="PF('hc-image-upload').show()"/>
                 <p:outputLabel 
                     styleClass="hc-form-label"
                     value="#{viewBundle['Profile.Data.Country.Label']}" 
                     for="countryName" />
-                <p:selectOneMenu
+                <h:selectOneMenu
                     id="countryName" 
                     styleClass="hc-form-field"
-                    var="country"
-                    value="#{profileEditPage.user.country}" 
-                    completeMethod="#{profileEditPage.countries}">
-                    <
-                    <h:outputText value="#{country.countryName}" />
+                    value="#{profileEditPage.user.country}"
+                    converter="countryConverter">
+                    <f:selectItems 
+                        value="#{profileEditPage.countries}"
+                        var="country"
+                        itemLabel="#{country.countryName}"
+                        itemValue="#{country}"/>
                     <p:ajax 
-                        event="itemSelect" 
-                        listener="#{profileEditPage.processCountrySelect()}"
+                        event="change" 
+                        listener="#{profileEditPage.processCountrySelect}"
                         process="@this"
                         update="stateName">
                     </p:ajax>
-                </p:autoComplete>
+                </h:selectOneMenu>
                 <br/>
                 
                 <p:outputLabel 
                     styleClass="hc-form-label"
                     value="#{viewBundle['Profile.Data.State.Label']}" 
-                    for="stateName" />
-                <p:autoComplete 
+                    for="stateName"/>
+                <h:selectOneMenu 
                     id="stateName" 
-                    forceSelection="true"
-                    var="state"
                     styleClass="hc-form-field"
-                    value="#{profileEditPage.user.state}" 
-                    completeMethod="#{profileEditPage.states}">
-                    <h:outputText value="#{state.stateName}" />
-                    
-                </p:autoComplete>
+                    value="#{profileEditPage.user.state}"
+                    converter="stateConverter">
+                    <f:selectItems 
+                        value="#{profileEditPage.states}"
+                        var="state"
+                        itemLabel="#{state.stateName}"
+                        itemValue="#{state}"/>
+                </h:selectOneMenu>
                 <br/>
 
                 <p:outputLabel 
                     styleClass="hc-form-label"
                     value="#{viewBundle['Profile.Data.City.Label']}" 
                     for="cityName" />
-                <p:inputText id="cityName" value="#{profileEditPage.user.city}" required="true"
+                <p:inputText id="cityName" value="#{profileEditPage.user.city}" 
                              requiredMessage="Debe especificar la ciudad"/>
                 <br/>
               
@@ -83,28 +97,50 @@
                     id="skypeName" 
                     value="#{profileEditPage.user.skype}" />
             </div>
-
-            <div class="col span_1_of_3" >
-                <span class="hc-form-label">#{viewBundle['Profile.Data.Languages.Label']}</span>
-                <p:selectManyCheckbox
-                    id="spokenLanguages" 
-                    value="#{profileEditPage.user.spokenLanguages}"
-                    columns="3">
-                    <f:selectItems 
-                        value="#{profileEditPage.languages}" 
-                        var="language" 
-                        itemLabel="#{languageName}" 
-                        itemValue="#{languageName}">
-                    </f:selectItems>
-                </p:selectManyCheckbox>
-            </div>
-
-            <div class="col span_1_of_3" >
-                <span class="hc-form-label">#{viewBundle['Profile.Data.Services.Label']}</span>
-                <ui:repeat value="#{profileReadPage.user.userTypes}" var="userType">
-                    <h:outputText value="#{userType.userTypeName.getText(webSession.currentLanguage)}"/><br/>
-                </ui:repeat>
-            </div>
+            <p:fieldset styleClass="col span_1_of_3" 
+                        legend="#{viewBundle['Profile.Data.Languages.Label']}" 
+                        toggleable="true" 
+                        toggleSpeed="500">
+                <h:panelGroup layout="block" styleClass="hc-manycheckbox-three-columns">
+                        <p:selectManyCheckbox
+                            id="spokenLanguages" 
+                            value="#{profileEditPage.user.spokenLanguages}"
+                            layout="pageDirection">
+                            <f:selectItems 
+                                value="#{profileEditPage.languages}" 
+                                var="language" 
+                                itemLabel="#{language.languageName}" 
+                                itemValue="#{language.languageName}">
+                            </f:selectItems>
+                            <p:ajax 
+                                listener="#{profileEditPage.processLanguagesSelectedChange}"
+                                update="user-description-section"/>
+                        </p:selectManyCheckbox>
+                </h:panelGroup>
+            </p:fieldset>
+            
+            <p:fieldset styleClass="col span_1_of_3" 
+                        legend="#{viewBundle['Profile.Data.Services.Label']}" 
+                        toggleable="true" 
+                        toggleSpeed="500">
+                <h:panelGroup layout="block">
+                    <p:selectManyCheckbox
+                        id="userTypes" 
+                        value="#{profileEditPage.user.userTypes}"
+                        columns="1"
+                        layout="pageDirection">
+                        <f:selectItems 
+                            value="#{profileEditPage.tempUserTypes}" 
+                            var="userType" 
+                            itemLabel="#{userType.userTypeName.getText(webSession.currentLanguage)}" 
+                            itemValue="#{userType}">
+                        </f:selectItems>
+                        <ui:repeat var="item" value="#{bean.myList}">
+                            <h:outputText value="#{item.property}" />
+                        </ui:repeat>
+                    </p:selectManyCheckbox>
+                </h:panelGroup>
+            </p:fieldset>
         </div>
         <hr/>
         
@@ -112,16 +148,19 @@
             layout="block" 
             styleClass="section hc-overlay-form-fields-container clearfix"
             id="user-description-section">
-            <ui:repeat value="#{applicationContext.languages}" var="lang">
-                <span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( #{lang.languageName} )</span>
+            <ui:repeat value="#{profileEditPage.user.spokenLanguages}" var="lang">
+                <span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( #{lang} )</span>
                 <span>
                     <p:inputTextarea 
                         rows="10" 
                         cols="30" 
                         value="#{userDescription[lang]}"
-                        maxlength="300" 
+                        maxlength="800" 
+                        styleClass="hc-input-text-area"
                         counterTemplate="{0} characters remaining." 
-                        autoResize="false" />
+                        autoResize="false">
+                        <f:validateLength minimum="20"/>
+                    </p:inputTextarea>
                 </span>
             </ui:repeat>
         </h:panelGroup>

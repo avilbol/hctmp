@@ -12,6 +12,7 @@ import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.UserServices;import com.hallocasa.view.navigation.HallocasaViewEnum;import com.hallocasa.view.navigation.HallocasaViewNames;
 import com.hallocasa.view.navigation.NavigationHandler;
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
@@ -43,10 +44,10 @@ public class ProfileReadPage implements Serializable {
      */
     public ProfileReadPage() {
     }
-
     /**
      * Initialize the bean
      */
+    @PostConstruct
     public void initialize() {
         user = userServices.find(webSession.getCurrentUser().getId());
         if ( user == null ){

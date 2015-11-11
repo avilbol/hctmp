@@ -63,10 +63,9 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
     @PostConstruct
     public void initialize() {
         languages = new ArrayList<>();
-        languages.add(Language.en);
-        languages.add(Language.es);
-        languages.add(Language.de);
-        
+        for(Language language : Language.values()){
+            languages.add(language);
+        }
     }
 
     /**

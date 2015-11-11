@@ -39,9 +39,7 @@
 
             <div class="col span_1_of_3">
                 <span class="hc-form-label">#{viewBundle['Profile.Data.Services.Label']}</span>
-                <ui:repeat value="#{profileReadPage.user.userTypes}" var="userType">
-                    <h:outputText value="#{userType.userTypeName.getText(webSession.currentLanguage)}"/><br/>
-                </ui:repeat>
+                
             </div>
         </div>
         <hr/>

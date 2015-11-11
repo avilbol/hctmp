@@ -12,12 +12,14 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author david
  */
 @Entity
+@Table(name = "user_type")
 public class UserType implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -438,6 +438,14 @@ public class UserVO implements ValueObject {
     public List<UserTypeVO> getUserTypes() {
         return userTypes;
     }
+    
+    /**
+     * @return the userTypes
+     */
+    public List<UserTypeVO> getExample() {
+        System.out.println("blablabla" + userTypes.size());
+        return userTypes;
+    }
 
     /**
      * @param userTypes the userTypes to set

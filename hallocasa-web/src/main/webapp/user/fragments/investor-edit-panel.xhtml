@@ -7,13 +7,7 @@
     <p:panel header="#{viewBundle['Profile.Investor.Panel.Title']}" 
              styleClass="user-profile-panel">
         <div class="section hc-overlay-form-fields-container clearfix">
-            <div class="col span_1_of_3">
-                <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTrnDcg_KmtBz1de-73hUlF2a8jjxyPZ6xTY_s6J6xiNDtbHEGcCuye0w"/>
-                <p:commandButton value="Editar"
-                             actionListener="#{profileEditPage.processEditImageClick()}"
-                             process="@this" />
-            </div>
-            <div class="col span_2_of_3">
+            <div class="col">
                 <p:outputLabel 
                         styleClass="hc-form-label"
                         value="#{viewBundle['Profile.Data.Name.Label']}" 
