@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <f:view id="view" locale="#{webSession.currentLanguage.locale}">
         <h:head>
             <title>#{generalLayout_title eq null ? 'Hallocasa' : generalLayout_title}</title>
@@ -21,6 +22,15 @@
         <h:body>
             <h:outputStylesheet library="css" name="theme.css"/>
             <h:outputStylesheet library="css" name="hallocasa.css"/>
+            
+            <p:dialog widgetVar="statusDialog" modal="true" showHeader="false">
+                <p:graphicImage library="images" name="app_images/loading_spinner.gif" />
+            </p:dialog>
+            
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+
+            
             <ui:insert name="styleSheetsSection"/>
 
             <ui:insert name="messagesSection">

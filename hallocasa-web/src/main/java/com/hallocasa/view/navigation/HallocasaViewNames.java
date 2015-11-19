@@ -14,6 +14,7 @@ public interface HallocasaViewNames {
         public static final String PAGE_NOT_FOUND = "pageNotFound";
         public static final String USER_PROFILE_VIEW = "profileReadPage";
         public static final String USER_PROFILE_EDIT = "profileEditPage";
+        public static final String TEST_PAGE = "testPage";
     
         // TODO: check this list
         public static final String LOGIN = "login";

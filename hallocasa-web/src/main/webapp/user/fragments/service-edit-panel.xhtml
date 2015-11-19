@@ -17,6 +17,28 @@
     
     <p:panel header="#{viewBundle['Profile.Service.Panel.Title']}" >
         <div class="section hc-overlay-form-fields-container clearfix">
+            <p:fieldset styleClass="col span_3_of_3" 
+                        legend="#{viewBundle['Profile.Data.Services.Label']}" 
+                        toggleable="true" 
+                        toggleSpeed="500">
+                <p:selectManyCheckbox
+                    id="userTypes" 
+                    value="#{profileEditPage.user.userTypes}"
+                    styleClass="hc-selectManyChkbox">
+                    <f:selectItems 
+                        value="#{profileEditPage.tempUserTypes}" 
+                        var="userType" 
+                        itemLabel="#{userType.userTypeName.getText(webSession.currentLanguage)}" 
+                        itemValue="#{userType}">
+                    </f:selectItems>
+                    <ui:repeat var="item" value="#{bean.myList}">
+                        <h:outputText value="#{item.property}" />
+                    </ui:repeat>
+                </p:selectManyCheckbox>
+            </p:fieldset>
+        </div>
+        <hr/>
+        <div class="section hc-overlay-form-fields-container clearfix">            
             <div class="col span_1_of_3">
                 <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTrnDcg_KmtBz1de-73hUlF2a8jjxyPZ6xTY_s6J6xiNDtbHEGcCuye0w"/>
                 <p:commandButton value="Editar"
@@ -67,8 +89,7 @@
                     styleClass="hc-form-label"
                     value="#{viewBundle['Profile.Data.City.Label']}" 
                     for="cityName" />
-                <p:inputText id="cityName" value="#{profileEditPage.user.city}" 
-                             requiredMessage="Debe especificar la ciudad"/>
+                <p:inputText id="cityName" value="#{profileEditPage.user.city}" />
                 <br/>
               
                 <p:outputLabel 
@@ -97,11 +118,11 @@
                     id="skypeName" 
                     value="#{profileEditPage.user.skype}" />
             </div>
-            <p:fieldset styleClass="col span_1_of_3" 
-                        legend="#{viewBundle['Profile.Data.Languages.Label']}" 
+            <div class="col span_2_of_3">
+                <p:fieldset legend="#{viewBundle['Profile.Data.Languages.Label']}" 
                         toggleable="true" 
                         toggleSpeed="500">
-                <h:panelGroup layout="block" styleClass="hc-manycheckbox-three-columns">
+                    <h:panelGroup layout="block" styleClass="hc-manycheckbox-three-columns hc-selectManyChkbox">
                         <p:selectManyCheckbox
                             id="spokenLanguages" 
                             value="#{profileEditPage.user.spokenLanguages}"
@@ -116,36 +137,14 @@
                                 listener="#{profileEditPage.processLanguagesSelectedChange}"
                                 update="user-description-section"/>
                         </p:selectManyCheckbox>
-                </h:panelGroup>
-            </p:fieldset>
-            
-            <p:fieldset styleClass="col span_1_of_3" 
-                        legend="#{viewBundle['Profile.Data.Services.Label']}" 
-                        toggleable="true" 
-                        toggleSpeed="500">
-                <h:panelGroup layout="block">
-                    <p:selectManyCheckbox
-                        id="userTypes" 
-                        value="#{profileEditPage.user.userTypes}"
-                        columns="1"
-                        layout="pageDirection">
-                        <f:selectItems 
-                            value="#{profileEditPage.tempUserTypes}" 
-                            var="userType" 
-                            itemLabel="#{userType.userTypeName.getText(webSession.currentLanguage)}" 
-                            itemValue="#{userType}">
-                        </f:selectItems>
-                        <ui:repeat var="item" value="#{bean.myList}">
-                            <h:outputText value="#{item.property}" />
-                        </ui:repeat>
-                    </p:selectManyCheckbox>
-                </h:panelGroup>
-            </p:fieldset>
+                    </h:panelGroup>
+                </p:fieldset>
+            </div>
         </div>
         <hr/>
         
         <h:panelGroup 
-            layout="block" 
+            layout="block"
             styleClass="section hc-overlay-form-fields-container clearfix"
             id="user-description-section">
             <ui:repeat value="#{profileEditPage.user.spokenLanguages}" var="lang">
@@ -154,7 +153,7 @@
                     <p:inputTextarea 
                         rows="10" 
                         cols="30" 
-                        value="#{userDescription[lang]}"
+                        value="#{profileEditPage.userDescription[lang]}"
                         maxlength="800" 
                         styleClass="hc-input-text-area"
                         counterTemplate="{0} characters remaining." 

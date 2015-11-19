@@ -32,6 +32,20 @@ public class UserType implements Serializable {
     @Convert(converter = MultiLanguageTextConverter.class)
     private MultiLanguageText userTypeName;
 
+    @Column(name = "user_type_tooltip")
+    @Convert(converter = MultiLanguageTextConverter.class)
+    private MultiLanguageText userTypeTooltip;
+    
+    @Column(name="manage_tooltip", 
+            columnDefinition="boolean default true", 
+            nullable=false)
+    private Boolean manageTooltip = false;
+    
+    @Column(name="manage_certificate",
+            columnDefinition="boolean default true", 
+            nullable=false)
+    private Boolean manageCertificate = false;
+    
     /**
      * Default constructor
      */
@@ -100,4 +114,27 @@ public class UserType implements Serializable {
         this.userTypeName = userTypeName;
     }
 
+    public MultiLanguageText getUserTypeTooltip() {
+        return userTypeTooltip;
+    }
+
+    public void setUserTypeTooltip(MultiLanguageText userTypeTooltip) {
+        this.userTypeTooltip = userTypeTooltip;
+    }
+
+    public Boolean getManageTooltip() {
+        return manageTooltip;
+    }
+
+    public void setManageTooltip(Boolean manageTooltip) {
+        this.manageTooltip = manageTooltip;
+    }
+
+    public Boolean getManageCertificate() {
+        return manageCertificate;
+    }
+
+    public void setManageCertificate(Boolean manageCertificate) {
+        this.manageCertificate = manageCertificate;
+    }
 }
