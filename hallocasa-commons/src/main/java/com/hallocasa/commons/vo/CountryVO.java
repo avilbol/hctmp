@@ -1,6 +1,7 @@
 package com.hallocasa.commons.vo;
 
 import com.hallocasa.commons.Language;
+import com.hallocasa.commons.i18n.MultiLanguageText;
 import java.io.Serializable;
 
 import com.hallocasa.commons.vo.interfaces.ValueObject;
@@ -24,7 +25,7 @@ public class CountryVO implements Serializable, ValueObject {
     public static final String countryIndicative_ = "countryIndicative";
 
     private Long id;
-    private String countryName;
+    private MultiLanguageText countryName;
     private Language defaultLanguage;
     private String code;
     private String countryIndicative;
@@ -54,7 +55,7 @@ public class CountryVO implements Serializable, ValueObject {
      * @param code
      * @param countryIndicative
      */
-    public CountryVO(Long id, String countryName, Language defaultLanguage,
+    public CountryVO(Long id, MultiLanguageText countryName, Language defaultLanguage,
             String code, String countryIndicative) {
         super();
         this.id = id;
@@ -87,7 +88,7 @@ public class CountryVO implements Serializable, ValueObject {
      *
      * @return the countryName
      */
-    public String getCountryName() {
+    public MultiLanguageText getCountryName() {
         return countryName;
     }
 
@@ -96,7 +97,7 @@ public class CountryVO implements Serializable, ValueObject {
      *
      * @param countryName the countryName to set
      */
-    public void setCountryName(String countryName) {
+    public void setCountryName(MultiLanguageText countryName) {
         this.countryName = countryName;
     }
 

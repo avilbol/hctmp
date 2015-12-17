@@ -6,12 +6,15 @@
 package com.hallocasa.dataentities.app;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -20,8 +23,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user_type")
-public class UserType implements Serializable {
+@NamedQueries({
+    @NamedQuery(name= UserType.QUERY_FIND_ALL, query = "select u from UserType u")
+})
+public class UserType implements Serializable, HallocasaEntity {
 
+    public static final String QUERY_FIND_ALL = "UserType.findAll";
+    
     private static final long serialVersionUID = 1L;
 
     @Id

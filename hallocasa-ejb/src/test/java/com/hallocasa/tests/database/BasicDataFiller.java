@@ -47,13 +47,13 @@ public class BasicDataFiller implements DatabaseFiller {
         GERMANY_ID = country.getId();
 
         // states 
-        State state = new State(null, "Cundinamarca", colombia);
+        State state = new State(null, new MultiLanguageText("{'en':'Cundinamarca','en':'Cundinamarca','en':'Cundinamarca'}"), colombia);
         em.persist(state);
         CUNDINAMARCA_ID = state.getId();
-        state = new State(null, "Boyaca", colombia);
+        state = new State(null, new MultiLanguageText("{'en':'Boyaca','en':'Boyaca','en':'Boyaca'}"), colombia);
         em.persist(state);
         BOYACA_ID = state.getId();
-        state = new State(null, "Meta", colombia);
+        state = new State(null, new MultiLanguageText("{'en':'Meta','en':'Meta','en':'Meta'}"), colombia);
         em.persist(state);
         META_ID = state.getId();
     }

@@ -41,6 +41,10 @@ public class UserVO implements ValueObject {
     @Pattern(regexp = ValidationPatterns.EMAIL_PATTERN, message = "{"
             + ValidationMessages.EMAIL_PATTERN + "}")
     private String email;
+    
+    private String editedPassword;
+    
+    private String password;
 
     @NotEmpty
     @Size(min = 0, max = 45)
@@ -61,11 +65,13 @@ public class UserVO implements ValueObject {
             + ValidationMessages.GENERAL_NAME_PATTERN + "}")
     private String city;
 
+    @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
+            + ValidationMessages.GENERAL_NAME_PATTERN + "}")
     @Size(min = 0, max = 45)
     private String skype;
 
-    @Pattern(regexp = ValidationPatterns.URL_PATTERN, message = "{"
-            + ValidationMessages.URL_PATTERN + "}")
+    @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
+            + ValidationMessages.GENERAL_NAME_PATTERN + "}")
     @Size(min = 0, max = 80)
     private String linkedIn;
 
@@ -74,8 +80,10 @@ public class UserVO implements ValueObject {
     @Size(min = 0, max = 80)
     private String webSite;
 
+    @NotNull
     private CountryVO country;
 
+    @NotNull
     private StateVO state;
 
     @NotNull
@@ -85,7 +93,7 @@ public class UserVO implements ValueObject {
 
     private MultiLanguageText userDescription;
 
-    private List<UserTypeVO> userTypes;
+    private List<UserTypeVO> userTypes = new ArrayList<>();
 
     /* constructors */
     /**
@@ -109,9 +117,8 @@ public class UserVO implements ValueObject {
         this.language = user.language;
         this.linkedIn = user.linkedIn;
         this.spokenLanguages = new ArrayList<>();
-        Collections.copy(this.spokenLanguages, user.spokenLanguages);
-        this.userTypes = new ArrayList<>();
-        Collections.copy(this.userTypes, user.userTypes);
+        this.spokenLanguages = new ArrayList<>(user.spokenLanguages);
+        this.userTypes = new ArrayList<>(user.userTypes);
         this.userDescription = new MultiLanguageText(user.getUserDescription());
     }
 
@@ -423,7 +430,7 @@ public class UserVO implements ValueObject {
             str.append(firstName);
             hasFirstName = true;
         }
-        if (hasFirstName && lastName != null && lastName.isEmpty()) {
+        if (hasFirstName && lastName != null && !lastName.isEmpty()) {
             str.append(" ");
         }
         if (lastName != null) {
@@ -438,14 +445,6 @@ public class UserVO implements ValueObject {
     public List<UserTypeVO> getUserTypes() {
         return userTypes;
     }
-    
-    /**
-     * @return the userTypes
-     */
-    public List<UserTypeVO> getExample() {
-        System.out.println("blablabla" + userTypes.size());
-        return userTypes;
-    }
 
     /**
      * @param userTypes the userTypes to set
@@ -454,4 +453,19 @@ public class UserVO implements ValueObject {
         this.userTypes = userTypes;
     }
 
+    public String getEditedPassword() {
+        return editedPassword;
+    }
+
+    public void setEditedPassword(String editedPassword) {
+        this.editedPassword = editedPassword;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

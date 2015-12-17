@@ -5,6 +5,7 @@
  */
 package com.hallocasa.commons.i18n;
 
+import com.hallocasa.commons.Language;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,9 +28,9 @@ public class MultiLanguageTextTest {
     @Test
     public void testToJsonOk() {
         MultiLanguageText multiLanguageText = new MultiLanguageText();
-        multiLanguageText.setDe(GERMAN_TEXT);
-        multiLanguageText.setEn(ENGLISH_TEXT);
-        multiLanguageText.setEs(SPANISH_TEXT);
+        multiLanguageText.setLangValue(Language.de, GERMAN_TEXT);
+        multiLanguageText.setLangValue(Language.en, ENGLISH_TEXT);
+        multiLanguageText.setLangValue(Language.es, SPANISH_TEXT);
         Assert.assertEquals(JSON_TEXT,
                 multiLanguageText.toJSON());
     }
@@ -37,32 +38,32 @@ public class MultiLanguageTextTest {
     @Test
     public void testFromJsonOk() {
         MultiLanguageText multiLanguageText = new MultiLanguageText(JSON_TEXT);
-        Assert.assertEquals(GERMAN_TEXT, multiLanguageText.getDe());
-        Assert.assertEquals(ENGLISH_TEXT, multiLanguageText.getEn());
-        Assert.assertEquals(SPANISH_TEXT, multiLanguageText.getEs());
+        Assert.assertEquals(GERMAN_TEXT, multiLanguageText.getLangValue(Language.de));
+        Assert.assertEquals(ENGLISH_TEXT, multiLanguageText.getLangValue(Language.en));
+        Assert.assertEquals(SPANISH_TEXT, multiLanguageText.getLangValue(Language.es));
     }
 
     @Test
     public void testFrom2LangJsonOk() {
         MultiLanguageText multiLanguageText = new MultiLanguageText(ONLY_2_LANG_JSON_TEXT);
-        Assert.assertEquals(GERMAN_TEXT, multiLanguageText.getDe());
-        Assert.assertEquals(ENGLISH_TEXT, multiLanguageText.getEn());
-        Assert.assertEquals(null, multiLanguageText.getEs());
+        Assert.assertEquals(GERMAN_TEXT, multiLanguageText.getLangValue(Language.de));
+        Assert.assertEquals(ENGLISH_TEXT, multiLanguageText.getLangValue(Language.en));
+        Assert.assertEquals(null, multiLanguageText.getLangValue(Language.es));
     }
 
     @Test
     public void testFromJsonFail() {
         MultiLanguageText multiLanguageText = new MultiLanguageText(ONLY_2_LANG_JSON_TEXT);
-        Assert.assertEquals(GERMAN_TEXT, multiLanguageText.getDe());
-        Assert.assertEquals(ENGLISH_TEXT, multiLanguageText.getEn());
-        Assert.assertEquals(null, multiLanguageText.getEs());
+        Assert.assertEquals(GERMAN_TEXT, multiLanguageText.getLangValue(Language.de));
+        Assert.assertEquals(ENGLISH_TEXT, multiLanguageText.getLangValue(Language.en));
+        Assert.assertEquals(null, multiLanguageText.getLangValue(Language.es));
     }
 
     @Test
     public void testFromJsonWithEmptyStringOk() {
         MultiLanguageText multiLanguageText = new MultiLanguageText("");
-        Assert.assertEquals(null, multiLanguageText.getDe());
-        Assert.assertEquals(null, multiLanguageText.getEn());
-        Assert.assertEquals(null, multiLanguageText.getEs());
+        Assert.assertEquals(null, multiLanguageText.getLangValue(Language.de));
+        Assert.assertEquals(null, multiLanguageText.getLangValue(Language.en));
+        Assert.assertEquals(null, multiLanguageText.getLangValue(Language.es));
     }
 }

@@ -8,24 +8,23 @@
     
     <ui:param name="header_showSubMenu" value="#{false}"></ui:param>
     
-    <p:growl globalOnly="false"/>
+    <p:growl globalOnly="false" showDetail="false"/>
     
     <ui:define name="contentSection">
         <div class="page">
             <br/><br/><br/><br/><br/>
             <h:form styleClass="hc-form">
-                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
                 <ui:include src="../fragments/investor-edit-panel.xhtml"/>
                 <ui:include src="../fragments/service-edit-panel.xhtml"/>
                 <br/>
                  <div class="hc-overlay-form-buttons-container">
                     <p:commandButton value="Guardar"
                                      action="#{profileEditPage.processSaveClick()}"
-                                     process="@form"
-                                     update="@form"/>
+                                     process="@form"/>
                     <p:commandButton value="#{viewBundle['Common.Label.Cancel']}"
                                          action="#{profileEditPage.processCancelClick()}"
-                                         process="@form" />
+                                         process="@form" immediate="true" />
                 </div>
             </h:form>
         </div>

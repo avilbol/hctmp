@@ -1,26 +1,32 @@
-package com.hallocasa.helpers;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.hallocasa.helpers.test;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.app.User;
 import com.hallocasa.dataentities.app.UserType;
+import com.hallocasa.dataentities.app.test.UserTest;
 import com.hallocasa.dataentities.types.LanguageList;
+import com.hallocasa.helpers.HallocasaVOParser;
+import com.hallocasa.helpers.ParsersContext;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 /**
- * Parser of accountVO to account and vice-versa
  *
- * @author David Mantilla
- * @since 1.7
+ * @author juan
  */
-public class UserVOParser extends HallocasaVOParser<User, UserVO> {
+public class UserTestVOParser extends HallocasaVOParser<UserTest, UserVO> {
 
     /**
      * Constructor
      */
-    public UserVOParser() {
+    public UserTestVOParser() {
         super();
     }
 
@@ -33,19 +39,13 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
     /* Methods */
     @Override
     protected void copyEntityPropertyToValueObjectProperty(UserVO vo,
-            User entity, String propertyName, Object propertyValue,
+            UserTest entity, String propertyName, Object propertyValue,
             Object[] options) throws IllegalAccessException,
             InvocationTargetException {
         if (propertyName.equals(UserVO.spokenLanguages_)) {
             vo.setSpokenLanguages(new ArrayList<Language>());
             vo.getSpokenLanguages().addAll(entity.getSpokenLanguages());
-        }
-        else if (propertyName.equals(User.userTypes_)) {
-            for (UserType userType : entity.getUserTypes()) {
-                vo.getUserTypes().add(ParsersContext.USER_TYPE_VO_PARSER
-                        .toValueObject(userType, UserTypeVO.class));
-            }
-        }  else {
+        } else {
             super.copyEntityPropertyToValueObjectProperty(vo, entity,
                     propertyName, propertyValue, options);
         }
@@ -62,7 +62,7 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
      * java.lang.Object)
      */
     @Override
-    protected void copyVOPropertyToEntityProperty(UserVO vo, User entity,
+    protected void copyVOPropertyToEntityProperty(UserVO vo, UserTest entity,
             String propertyName, Object propertyValue, Object[] options)
             throws IllegalAccessException, InvocationTargetException {
         if (propertyName.equals(User.spokenLanguages_)) {
@@ -89,7 +89,7 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    public void copyVOToEntity(UserVO vo, User entity,
+    public void copyVOToEntity(UserVO vo, UserTest entity,
             boolean excludeIpList) throws IllegalAccessException,
             InvocationTargetException {
         copyVOToEntity(vo, entity, buildOptions(excludeIpList));
@@ -102,6 +102,4 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
     private Object[] buildOptions(boolean excludeIpList) {
         return new Object[]{excludeIpList};
     }
-
-    /* Getters & Setters */
 }

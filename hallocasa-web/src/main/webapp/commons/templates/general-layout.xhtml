@@ -22,15 +22,7 @@
         <h:body>
             <h:outputStylesheet library="css" name="theme.css"/>
             <h:outputStylesheet library="css" name="hallocasa.css"/>
-            
-            <p:dialog widgetVar="statusDialog" modal="true" showHeader="false">
-                <p:graphicImage library="images" name="app_images/loading_spinner.gif" />
-            </p:dialog>
-            
-            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
- 
 
-            
             <ui:insert name="styleSheetsSection"/>
 
             <ui:insert name="messagesSection">
@@ -46,6 +38,20 @@
             <ui:insert name="footerSection">
                 <ui:include src="../fragments/footer.xhtml"/>
             </ui:insert>
+            
+            <p:ajaxStatus 
+                onstart="PF('statusDialog').show()" 
+                onsuccess="PF('statusDialog').hide()" />
+            <p:dialog 
+                widgetVar="statusDialog" 
+                modal="true" 
+                showHeader="false" 
+                resizable="false"
+                closable="false">
+                <p:graphicImage 
+                    library="images" 
+                    name="app_images/loading_spinner.gif" />
+            </p:dialog>
 
             <h:outputScript library="js" name="commons/google.js"/>
             <h:outputScript library="js" name="commons/header.js"/>

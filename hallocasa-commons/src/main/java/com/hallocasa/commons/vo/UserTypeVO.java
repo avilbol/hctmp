@@ -6,13 +6,14 @@
 package com.hallocasa.commons.vo;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.interfaces.ValueObject;
 import java.io.Serializable;
 
 /**
  *
  * @author david
  */
-public class UserTypeVO implements Serializable {
+public class UserTypeVO implements Serializable, ValueObject {
 
     private Long id;
     private MultiLanguageText userTypeName;

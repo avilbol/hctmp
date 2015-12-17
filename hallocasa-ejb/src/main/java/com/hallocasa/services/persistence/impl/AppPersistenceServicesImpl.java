@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -47,6 +48,11 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
     public AppPersistenceServicesImpl(EntityManager em) {
         this.em = em;
         initialize();
+    }
+    
+    @Override
+    public EntityTransaction loadTransaction(){
+        return em.getTransaction();
     }
 
     /**

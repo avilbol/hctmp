@@ -32,6 +32,12 @@ public interface UserServices {
     public UserVO find(long id);
 
     /**
+     * 
+     * @param user 
+     */
+    public void save(UserVO userVO) throws ServiceException;
+    
+    /**
      *
      * @param publisherUser
      * @throws ServiceException

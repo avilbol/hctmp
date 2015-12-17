@@ -5,34 +5,39 @@
  */
 package com.hallocasa.view.converters;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.UserTypeVO;
+import com.hallocasa.dataentities.app.UserType;
+import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.services.location.local.CountryServices;
+import static com.hallocasa.utils.FormatUtils.isNumeric;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import static com.hallocasa.utils.FormatUtils.*;
+import javax.inject.Inject;
 
 /**
  *
  * @author Alexander Villamil
  */
-@FacesConverter(value = "countryConverter")
-public class CountryConverter implements Converter {
-
+@FacesConverter(value = "userTypeConverter")
+public class UserTypeConverter implements Converter {
+    
     // Dependencies
-    @EJB
-    private CountryServices countryServices;
+    @Inject
+    private HallocasaApplicationImpl halloCasaApplication;
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if (value == null || !isNumeric(value)) {
             return null;
         }
-        for(CountryVO country : countryServices.getCountries()){
-            if(country.getId().equals(Long.parseLong(value))){
-                return country;
+        for(UserTypeVO userType : halloCasaApplication.getUserTypes()){
+            if(userType.getId().equals(Long.parseLong(value))){
+                return userType;
             }
         }
         return null;
@@ -43,6 +48,7 @@ public class CountryConverter implements Converter {
         if(value == null){
             return null;
         }
-        return "" + ((CountryVO) value).getId();
+        return "" + ((UserTypeVO)value).getId();
     }
+    
 }

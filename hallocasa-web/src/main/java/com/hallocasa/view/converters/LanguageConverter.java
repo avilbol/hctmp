@@ -5,36 +5,30 @@
  */
 package com.hallocasa.view.converters;
 
-import com.hallocasa.commons.vo.CountryVO;
-import com.hallocasa.commons.vo.StateVO;
-import com.hallocasa.model.application.HallocasaApplication;
-import com.hallocasa.services.location.local.CountryServices;
-import javax.ejb.EJB;
+import com.hallocasa.commons.Language;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import static com.hallocasa.utils.FormatUtils.*;
 
 /**
  *
  * @author Alexander Villamil
  */
-@FacesConverter(value = "stateConverter")
-public class StateConverter implements Converter {
-
-   
+@FacesConverter(value = "languageConverter")
+public class LanguageConverter implements Converter {
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (isNumeric(value)) {
-            return new StateVO(Long.parseLong(value));
-        }
-        return null;
+        return Language.valueOf(value);
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        return "" + ((StateVO) value).getId();
+        if(value == null){
+            return null;
+        }
+        return value.toString();
     }
+    
 }

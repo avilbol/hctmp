@@ -15,7 +15,19 @@ public class DatabaseUtils {
     public static EntityManagerFactory loadTestAppPersistenceUnit() {
         try {
             EntityManagerFactory emf = Persistence
-                    .createEntityManagerFactory("App_Test");
+                    .createEntityManagerFactory("TestApp");
+            return emf;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "", e);
+            throw new RuntimeException(e);
+        }
+    }
+    
+    /* static fields */
+    public static EntityManagerFactory loadMainAppPersistenceUnit() {
+        try {
+            EntityManagerFactory emf = Persistence
+                    .createEntityManagerFactory("App");
             return emf;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "", e);

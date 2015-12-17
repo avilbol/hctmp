@@ -8,17 +8,29 @@
              styleClass="user-profile-panel">
         <div class="section hc-overlay-form-fields-container clearfix">
             <div class="col">
-                <p:outputLabel 
+                <b><p:outputLabel 
                         styleClass="hc-form-label"
                         value="#{viewBundle['Profile.Data.Name.Label']}" 
-                        for="fullName" />
-                <p:inputText 
-                        id="fullName" 
-                        value="#{profileReadPage.user.fullName}"/>
+                        for="firstName" /></b>
+                <h:inputText 
+                    id="firstName" 
+                    styleClass="hc-form-field"
+                    value="#{profileEditPage.user.firstName}"/>
+                <br/>
+                <b><p:outputLabel 
+                        styleClass="hc-form-label"
+                        value="#{viewBundle['Profile.Data.LastName.Label']}" 
+                        for="lastName" /></b>
+                <h:inputText 
+                    id="lastName"
+                    styleClass="hc-form-field"
+                    value="#{profileEditPage.user.lastName}"/>
+                <br/>
                 <span class="hc-form-label">
-                    #{viewBundle['Profile.Data.Email.Label']}
+                    <b>#{viewBundle['Profile.Data.Email.Label']}</b>
                 </span>
-                <h:outputText value="#{profileEditPage.user.email}"/>
+                <h:outputText value="#{profileEditPage.user.email}" 
+                    styleClass="hc-form-field"/>
             </div>
         </div>
     </p:panel>

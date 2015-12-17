@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hallocasa.model.application;
+package com.hallocasa.services.globalapp;
 
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.UserTypeVO;
@@ -11,11 +11,11 @@ import java.util.List;
 
 /**
  *
- * @author david
+ * @author avillamil
  */
-public interface HallocasaApplication {
+public interface GlobalAppServices {
     
-    List<CountryVO> getCountries();
+    public List<CountryVO> getCountries();
     
-    List<UserTypeVO> getUserTypes();
+    public List<UserTypeVO> getUserTypes();
 }

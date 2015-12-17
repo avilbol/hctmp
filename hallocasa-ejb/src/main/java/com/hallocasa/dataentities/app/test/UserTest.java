@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hallocasa.dataentities.app;
+package com.hallocasa.dataentities.app.test;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.app.Country;
+import com.hallocasa.dataentities.app.State;
+import com.hallocasa.dataentities.app.UserType;
 import com.hallocasa.dataentities.converters.LanguageConverter;
 import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import com.hallocasa.dataentities.converters.SpokenLanguagesConverter;
@@ -32,23 +35,21 @@ import javax.persistence.Table;
 
 /**
  *
- * @author david
+ * @author Alexander Villamil
  */
 @Entity
 @Table(name = "user")
 @NamedQueries({
-    @NamedQuery(name = User.QUERY_FIND_BY_EMAIL,
+    @NamedQuery(name = UserTest.QUERY_FIND_BY_EMAIL,
             query = "select u from User u where u.email = ?1")
 })
-@SuppressWarnings({"UniqueEntityName", "ValidPrimaryTableName", "ValidAttributes"})
-public class User implements Serializable, HallocasaEntity {
+//@SuppressWarnings({"UniqueEntityName", "ValidPrimaryTableName", "ValidAttributes"})
+public class UserTest implements Serializable, HallocasaEntity {
 
     /* static fields */
     private static final long serialVersionUID = 1L;
     public static final String QUERY_FIND_BY_EMAIL = "User.findByEmail";
     public static final String spokenLanguages_ = "spokenLanguages";
-    public static final String password_ = "password";
-    public static final String userTypes_ = "userTypes";
 
     /* instance variables */
     @Id
@@ -95,11 +96,11 @@ public class User implements Serializable, HallocasaEntity {
     @Convert(converter = MultiLanguageTextConverter.class)
     private MultiLanguageText userDescription;
 
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_user_type", joinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {
                 @JoinColumn(name = "user_type_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
     private List<UserType> userTypes = new ArrayList<>();
 
     /*@JoinTable(name = "user_profile", joinColumns = {
@@ -127,24 +128,24 @@ public class User implements Serializable, HallocasaEntity {
     /**
      * Default constructor
      */
-    public User() {
-        this.spokenLanguages = new LanguageList();
+    public UserTest() {
+        //this.spokenLanguages = new LanguageList();
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof UserTest)) {
             return false;
         }
-        User other = (User) object;
+        UserTest other = (UserTest) object;
         return !((this.id == null && other.id != null)
                 || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
     public String toString() {
-        return "com.hallocasa.dataentities.app.User[ id=" + id + " ]";
+        return "com.hallocasa.dataentities.app.test.UserTest[ id=" + id + " ]";
     }
 
     /**
@@ -203,9 +204,9 @@ public class User implements Serializable, HallocasaEntity {
     /**
      * @param userTypes the userType to set
      */
-    public void setUserType(List<UserType> userTypes) {
-        this.setUserTypes(userTypes);
-    }
+    //public void setUserType(List<UserType> userTypes) {
+    //    this.setUserTypes(userTypes);
+    //}
 
     /**
      * @return the confirmedFlag
@@ -383,3 +384,4 @@ public class User implements Serializable, HallocasaEntity {
     }
 
 }
+
