@@ -5,51 +5,67 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
 
-    <p:panel header="#{viewBundle['Profile.Service.Panel.Title']}" 
-             styleClass="user-profile-panel">
+    <p:panel 
+        header="#{viewBundle['Profile.Service.Panel.Title']}" 
+        rendered="#{not empty profileReadPage.user.userTypes}"
+        styleClass="user-profile-panel">
         <div class="section hc-overlay-form-fields-container clearfix">
-
             <div class="col span_1_of_3">
-                <span class="hc-form-label">#{viewBundle['Profile.Data.Country.Label']}</span>
-                <h:outputText value="#{profileReadPage.user.country.countryName}"/>
+                <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTrnDcg_KmtBz1de-73hUlF2a8jjxyPZ6xTY_s6J6xiNDtbHEGcCuye0w"/>
+            </div>
+            <div class="col span_1_of_3">
+                
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Country.Label']}</span></b>
+                <h:outputText value="#{profileReadPage.countryName}" styleClass="hc-form-field"/>
                 <br/>
 
-                <span class="hc-form-label">#{viewBundle['Profile.Data.State.Label']}</span>
-                <h:outputText value="#{profileReadPage.user.state.stateName}"/>
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.State.Label']}</span></b>
+                <h:outputText value="#{profileReadPage.stateName}" styleClass="hc-form-field"/>
 
-                <span class="hc-form-label">#{viewBundle['Profile.Data.City.Label']}</span>
-                <h:outputText value="#{profileReadPage.user.city}"/>
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.City.Label']}</span></b>
+                <h:outputText value="#{profileReadPage.user.city}" styleClass="hc-form-field"/>
 
-                <span class="hc-form-label">#{viewBundle['Profile.Data.Website.Label']}</span>
-                <h:outputText value="#{profileReadPage.user.webSite}"/>
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Website.Label']}</span></b>
+                <h:outputText value="#{profileReadPage.websiteName}" 
+                              styleClass="hc-form-field #{profileReadPage.websitePending ? 'hc-gray-field' : ''}"/>
 
-                <span class="hc-form-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span>
-                <h:outputText value="#{profileReadPage.user.linkedIn}"/>
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span></b>
+                <h:outputText value="#{profileReadPage.linkedInName}"
+                              styleClass="hc-form-field #{profileReadPage.linkedInPending ? 'hc-gray-field' : ''}"/>
 
-                <span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span>
-                <h:outputText value="#{profileReadPage.user.skype}"/>
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
+                <h:outputText value="#{profileReadPage.skypeName}"
+                              styleClass="hc-form-field #{profileReadPage.skypePending ? 'hc-gray-field' : ''}"/>
             </div>
 
             <div class="col span_1_of_3">
-                <span class="hc-form-label">#{viewBundle['Profile.Data.Languages.Label']}</span>
-                <ui:repeat value="#{profileReadPage.user.spokenLanguages}" var="lang">
-                    <h:outputText value="#{lang.languageName}"/><br/>
-                </ui:repeat>
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Languages.Label']}</span></b>
+                <h:panelGroup >
+                    <ui:repeat value="#{profileReadPage.user.spokenLanguages}" var="lang">
+                        <span class="hc-form-field">
+                            <h:outputText value="#{lang.languageName}"/><br/>
+                        </span>
+                    </ui:repeat>
+                </h:panelGroup>
             </div>
 
             <div class="col span_1_of_3">
-                <span class="hc-form-label">#{viewBundle['Profile.Data.Services.Label']}</span>
-                <ui:repeat value="#{profileReadPage.user.userTypes}" var="userType">
-                    <h:outputText value="#{userType.userTypeName.getText(webSession.currentLanguage)}"/><br/>
-                </ui:repeat>
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Services.Label']}</span></b>
+                <h:panelGroup>
+                    <ui:repeat value="#{profileReadPage.user.userTypes}" var="userType">
+                        <span class="hc-form-field">
+                            <h:outputText value="#{userType.userTypeName.getText(webSession.currentLanguage)}"/>
+                        </span><br/>
+                    </ui:repeat>
+                </h:panelGroup>
             </div>
         </div>
         <hr/>
         
         <div class="section hc-overlay-form-fields-container clearfix">
-            <ui:repeat value="#{applicationContext.languages}" var="lang">
-                <span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( #{lang.languageName} )</span>
-                <span>
+            <ui:repeat value="#{profileReadPage.user.spokenLanguages}" var="lang">
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( #{lang.languageName} )</span></b>
+                <span class="hc-form-field">
                     #{profileReadPage.user.userDescription.getText(lang)}
                 </span>
             </ui:repeat>

@@ -7,6 +7,7 @@ package com.hallocasa.tests.database;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.dataentities.app.Country;
+import com.hallocasa.dataentities.app.State;
 import com.hallocasa.dataentities.app.UserType;
 import javax.persistence.EntityManager;
 
@@ -16,9 +17,12 @@ import javax.persistence.EntityManager;
  */
 public class BasicDataFiller implements DatabaseFiller {
 
-    public static  long COLOMBIA_ID = 1L;
-    public static  long USA_ID = 2L;
-    public static  long GERMANY_ID = 3L;
+    public static long COLOMBIA_ID;
+    public static long USA_ID;
+    public static long GERMANY_ID;
+    public static long CUNDINAMARCA_ID;
+    public static long BOYACA_ID;
+    public static long META_ID;
 
     @Override
     public void fillDatabase(EntityManager em) {
@@ -34,6 +38,7 @@ public class BasicDataFiller implements DatabaseFiller {
         Country country = new Country(null, new MultiLanguageText("{'en':'Colombia'}"), "CO");
         em.persist(country);
         COLOMBIA_ID = country.getId();
+        Country colombia = country;
         country = new Country(null, new MultiLanguageText("{'en':'United States'}"), "US");
         em.persist(country);
         USA_ID = country.getId();
@@ -41,6 +46,16 @@ public class BasicDataFiller implements DatabaseFiller {
         em.persist(country);
         GERMANY_ID = country.getId();
 
+        // states 
+        State state = new State(null, new MultiLanguageText("{'en':'Cundinamarca','en':'Cundinamarca','en':'Cundinamarca'}"), colombia);
+        em.persist(state);
+        CUNDINAMARCA_ID = state.getId();
+        state = new State(null, new MultiLanguageText("{'en':'Boyaca','en':'Boyaca','en':'Boyaca'}"), colombia);
+        em.persist(state);
+        BOYACA_ID = state.getId();
+        state = new State(null, new MultiLanguageText("{'en':'Meta','en':'Meta','en':'Meta'}"), colombia);
+        em.persist(state);
+        META_ID = state.getId();
     }
 
 }

@@ -14,6 +14,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import org.dbmaintain.DbMaintainer;
 import org.dbmaintain.MainFactory;
+import org.dbmaintain.script.executedscriptinfo.ExecutedScriptInfoSource;
 
 /**
  *
@@ -36,6 +37,8 @@ public class DatabaseUpdater {
             properties.load(is);
             MainFactory mainFactory = new MainFactory(properties);
             DbMaintainer dbMaintainer = mainFactory.createDbMaintainer();
+            //ExecutedScriptInfoSource exScriptInfoSource = mainFactory.createExecutedScriptInfoSource();
+            //exScriptInfoSource.clearAllExecutedScripts();
             dbMaintainer.updateDatabase(false);
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, "Error executing dbMaintain update process", ex);

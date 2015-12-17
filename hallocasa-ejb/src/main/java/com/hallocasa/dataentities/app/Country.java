@@ -116,5 +116,4 @@ public class Country implements Serializable, HallocasaEntity {
     public void setJavaCode(String javaCode) {
         this.javaCode = javaCode;
     }
-
 }

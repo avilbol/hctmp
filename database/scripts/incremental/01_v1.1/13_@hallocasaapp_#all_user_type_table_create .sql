@@ -1,6 +1,9 @@
 CREATE TABLE `hallocasaapp`.`user_type` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `user_type_name` TEXT NOT NULL COMMENT 'JSON multilanguages field',
+  `user_type_tooltip` TEXT COMMENT 'JSON multilanguages field',
+  `manage_tooltip` TINYINT(1) NOT NULL DEFAULT '0',
+  `manage_certificate` TINYINT(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)  COMMENT '' );
 
 CREATE TABLE `hallocasaapp`.`user_type_profiles` (

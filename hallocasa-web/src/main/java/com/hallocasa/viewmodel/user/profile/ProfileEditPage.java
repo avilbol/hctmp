@@ -9,24 +9,32 @@ import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.StateVO;
+import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
-import com.hallocasa.model.application.HallocasaApplication;
+import com.hallocasa.dataentities.app.UserType;
+import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.model.session.WebSession;
+import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.services.location.local.CountryServices;
+import com.hallocasa.utils.FormatUtils;
 import com.hallocasa.view.context.ViewContext;
+import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
-import com.hallocasa.view.navigation.HallocasaViewNames;
 import com.hallocasa.view.navigation.NavigationHandler;
+import com.hallocasa.viewmodel.security.LoginDialog;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 /**
  * View model for profile page
@@ -34,63 +42,46 @@ import javax.inject.Named;
  * @author Alexander Villamil
  * @since 1.7
  */
-@Named(value = HallocasaViewNames.USER_PROFILE_EDIT)
+@ManagedBean
 @ViewScoped
 public class ProfileEditPage implements Serializable {
 
     /* instance variables */
     private UserVO user;
 
+    /* class variables */
+    private static final Logger LOG = Logger.getLogger(LoginDialog.class.getName());
+    
+    @EJB
+    CountryServices countryServices;
+    
+    @EJB
+    private UserServices userServices;
+    
     /* dependencies */
     @Inject
     private WebSession webSession;
-   
     @Inject
     private ViewContext viewContext;
     @Inject
     private NavigationHandler navigationHandler;
     @Inject
-    private HallocasaApplication halloCasaApplication;
-    
-    @EJB
-    private CountryServices countryServices;
-    
-    /**
-     * Country list
-     */
-    private List<CountryVO> countries;
+    private HallocasaApplicationImpl halloCasaApplication;
     
     /**
      * Language list
      */
     private List<Language> languages;
-    
-    
-    
+   
     /**
      * States list
      */
     private List<StateVO> states;
     
     /**
-     * English description
-     */
-    private String userDescriptionEn;
-    
-    /**
      * User description
      */
     private Map<Language, String> userDescription;
-    
-    /**
-     * Spanish description
-     */
-    private String userDescriptionEs;
-    
-    /**
-     * Deutsch description
-     */
-    private String userDescriptionDe;
     
     /**
      * Default constructor
@@ -103,37 +94,43 @@ public class ProfileEditPage implements Serializable {
      */
     @PostConstruct
     public void initialize() {
-        user = webSession.getCurrentUser();
-        countries = countryServices.getCountries();
-        states = new ArrayList<StateVO>();
-        languages = new ArrayList<Language>();
-        languages.add(Language.de);
-        languages.add(Language.en);
-        languages.add(Language.es);
-        userDescription = new HashMap<Language, String>();
-        for(Language languaje : languages){
-            MultiLanguageText mtLangTxt = user.getUserDescription();
-            userDescription.put(languaje, mtLangTxt == null ? "" : user.getUserDescription().getText(languaje));
+        user = userServices.find(webSession.getCurrentUser().getId());
+        processCountrySelect();
+        languages = halloCasaApplication.getLanguages();
+    }
+    
+    /**
+     * Process change on checkboxes of languages selected
+     */
+    public void processLanguagesSelectedChange(){
+        if(user.getUserDescription() == null){
+            user.setUserDescription(new MultiLanguageText());
         }
-       
+        for(Language lang : user.getSpokenLanguages()){
+            if(FormatUtils.isEmptyValue(user.getUserDescription().getLangValue(lang))){
+               user.getUserDescription().setLangValue(lang, ""); 
+            }
+        }
     }
     
     /**
      * Process click event over save button
      */
     public void processSaveClick(){
-        // TODO : ask if this is correct
         try {
-            // TODO : Implement service
-            user.getUserDescription().setDe(userDescription.get(Language.de));
-            user.getUserDescription().setEn(userDescription.get(Language.en));
-            user.getUserDescription().setEs(userDescription.get(Language.es));
+            user.setConfirmedFlag(Boolean.TRUE);
+            userServices.save(user);
             navigationHandler.redirectToPage(HallocasaViewEnum.MY_PROFILE);
-            // TODO : Create bundles for these texts
             viewContext.showGlobalInfoMessage("Hecho", "El perfil ha sido guardado satisfactoriamente");
-        } catch (Exception ex) { // What exception type?
+        } catch (Exception ex) { 
+            LOG.log(Level.SEVERE, "Unexepcted error", ex);
+            viewContext.showGlobalErrorMessage(Messages.UNEXPECTED_ERROR, null);
             viewContext.showGlobalCustomErrorMessage(ex.getMessage(), "");
         }
+    }
+    
+    public void test(){
+        System.out.println(user.getUserTypes().size());
     }
     
     /**
@@ -154,54 +151,21 @@ public class ProfileEditPage implements Serializable {
      * Process country selection event
      */
     public void processCountrySelect(){
-        // TODO ; Modify this method using definitely Services
-        CountryVO cvo = user.getCountry();
-        List<StateVO> states = new ArrayList<StateVO>();
-        if(cvo.getId().equals(1)){
-             states = new ArrayList<StateVO>();
-             StateVO svo = new StateVO();
-             svo.setId((long) 1);
-             svo.setStateName("Cundinamarca");
-             states.add(svo);
-             svo = new StateVO();
-             svo.setId((long) 2);
-             svo.setStateName("Huila");
-             states.add(svo);
-             svo = new StateVO();
-             svo.setId((long) 3);
-             svo.setStateName("Bogotá D.C");
-             states.add(svo);
-        }
-        else if(cvo.getId().equals(2)){
-             states = new ArrayList<StateVO>();
-             StateVO svo = new StateVO();
-             svo.setId((long) 1);
-             svo.setStateName("Berlin");
-             states.add(svo);
-             svo = new StateVO();
-             svo.setId((long) 2);
-             svo.setStateName("Bradenburg");
-             states.add(svo);
-             svo = new StateVO();
-             svo.setId((long) 3);
-             svo.setStateName("Hamburg");
-             states.add(svo);
-        }
-        else{
-             states = new ArrayList<StateVO>();
-             StateVO svo = new StateVO();
-             svo.setId((long) 1);
-             svo.setStateName("State 1");
-             states.add(svo);
-             svo = new StateVO();
-             svo.setId((long) 2);
-             svo.setStateName("State 2");
-             states.add(svo);
-             svo = new StateVO();
-             svo.setId((long) 3);
-             svo.setStateName("State 3");
-             states.add(svo);
-        }
+       if(user.getCountry() != null){
+            states = countryServices.getStates(user.getCountry().getId());
+       }
+       else{
+           states = new ArrayList<>();
+           user.setState(null);
+       }
+    }
+    
+    public String getCountryName(CountryVO country){
+        return country.getCountryName().getText(webSession.getCurrentLanguage());
+    }
+    
+    public String getStateName(StateVO state){
+        return state.getStateName().getText(webSession.getCurrentLanguage());
     }
     
     /**
@@ -211,14 +175,6 @@ public class ProfileEditPage implements Serializable {
      */
     public UserVO getUser() {
         return user;
-    }
-
-    public List<CountryVO> getCountries() {
-        return countries;
-    }
-
-    public void setCountries(List<CountryVO> countries) {
-        this.countries = countries;
     }
 
     public List<StateVO> getStates() {
@@ -250,6 +206,4 @@ public class ProfileEditPage implements Serializable {
     public void setUserDescription(Map<Language, String> userDescription) {
         this.userDescription = userDescription;
     }
-    
-    
 }

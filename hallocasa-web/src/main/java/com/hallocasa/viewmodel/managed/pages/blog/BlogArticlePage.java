@@ -24,11 +24,9 @@ import org.apache.commons.lang.StringEscapeUtils;
 @ManagedBean(name = HallocasaViewNames.BLOG_ARTICLE)
 @ViewScoped
 public class BlogArticlePage extends BlogPageBase {
-
-    private static final String QUERY_PARAM_ARTICLE_ID = "article";
+    
     private BlogArticle article;
     private String articleDescription;
-
 
     /* dependencies */
     @Inject
@@ -47,7 +45,7 @@ public class BlogArticlePage extends BlogPageBase {
     public void initialize() {
         // loads article from view paramters
         String articleIdStr = navigationHandler.getPageParams().
-                get(QUERY_PARAM_ARTICLE_ID);
+                get(ViewParamEnum.ARTICLE_ID.name());
         Integer articleId = null;
         try {
             articleId = new Integer(articleIdStr);
@@ -71,7 +69,7 @@ public class BlogArticlePage extends BlogPageBase {
     }
 
     /**
-     * Builds params map for this page
+     * Builds parameter map for this page
      *
      * @param articleId
      * @return

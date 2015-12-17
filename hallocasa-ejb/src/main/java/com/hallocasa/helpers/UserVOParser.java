@@ -1,8 +1,10 @@
 package com.hallocasa.helpers;
 
 import com.hallocasa.commons.Language;
+import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.app.User;
+import com.hallocasa.dataentities.app.UserType;
 import com.hallocasa.dataentities.types.LanguageList;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -37,7 +39,13 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
         if (propertyName.equals(UserVO.spokenLanguages_)) {
             vo.setSpokenLanguages(new ArrayList<Language>());
             vo.getSpokenLanguages().addAll(entity.getSpokenLanguages());
-        } else {
+        }
+        else if (propertyName.equals(User.userTypes_)) {
+            for (UserType userType : entity.getUserTypes()) {
+                vo.getUserTypes().add(ParsersContext.USER_TYPE_VO_PARSER
+                        .toValueObject(userType, UserTypeVO.class));
+            }
+        }  else {
             super.copyEntityPropertyToValueObjectProperty(vo, entity,
                     propertyName, propertyValue, options);
         }
@@ -61,8 +69,16 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
             entity.setSpokenLanguages(new LanguageList());
             entity.getSpokenLanguages().addAll(vo.getSpokenLanguages());
         }
-        super.copyVOPropertyToEntityProperty(vo, entity, propertyName,
-                propertyValue, options);
+        else if (propertyName.equals(User.userTypes_)) {
+            for (UserTypeVO userTypeVO : vo.getUserTypes()) {
+                entity.getUserTypes().add(ParsersContext.USER_TYPE_VO_PARSER
+                        .toEntity(userTypeVO, UserType.class));
+            }
+        }
+        else{
+            super.copyVOPropertyToEntityProperty(vo, entity, propertyName,
+                propertyValue, options);   
+        }
     }
 
     /**

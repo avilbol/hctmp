@@ -5,6 +5,7 @@
  */
 package com.hallocasa.services;
 
+import com.hallocasa.commons.Language;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
@@ -24,6 +25,7 @@ import com.hallocasa.services.constants.ServiceErrorMessage;
 import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.commons.exceptions.services.ServiceException;
+import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.app.User;
 import com.hallocasa.helpers.ParsersContext;
@@ -31,6 +33,10 @@ import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.persistence.PersistenceException;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.SystemException;
 
 /**
  *
@@ -52,7 +58,7 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
     private SessionContext sessionContext;
     @EJB
     private MailChimpServices mailChimpServices;
-
+    
     /* Methods */
     @Override
     public UserVO find(String email) {
@@ -65,6 +71,22 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
         return userVO;
     }
 
+    @Override
+    public UserVO find(long id) {
+        User user = appPersistenceServices.findEntity(User.class, id);
+        if (user == null) {
+            return null;
+        }
+        UserVO userVO = ParsersContext.USER_VO_PARSER.toValueObject(user, UserVO.class);
+        return userVO;
+    }
+
+    @Override
+    public void save(UserVO userVO) throws ServiceException{
+        User user = ParsersContext.USER_VO_PARSER.toEntity(userVO, User.class);
+        appPersistenceServices.mergeEntity(user);
+    }
+    
     /**
      *
      * @throws ServiceException

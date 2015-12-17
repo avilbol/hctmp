@@ -28,7 +28,7 @@ public interface ValidationPatterns {
     /**
      * Regular expression for general names
      */
-    public static final String GENERAL_NAME = "^[a-zA-Z\\s.√°√©√≠√≥√∫√±√ë√Å√â√ç√ì√ö√º√ú'\\-\\&0-9,]*$";
+    public static final String GENERAL_NAME = "^[a-zA-Z·ÈÌÛ˙¡…Õ”⁄Ò—‹¸\\s.√°√©√≠√≥√∫√±√ë√?√â√?√ì√ö√º√ú'\\-\\&0-9,]*$";
     /**
      * Regular expression for street address
      */

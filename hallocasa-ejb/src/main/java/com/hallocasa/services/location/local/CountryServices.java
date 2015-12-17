@@ -6,6 +6,7 @@
 package com.hallocasa.services.location.local;
 
 import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.StateVO;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -22,4 +23,12 @@ public interface CountryServices {
      * @return
      */
     public List<CountryVO> getCountries();
+
+    /**
+     * Return the list of all states given a countryF
+     *
+     * @param countryId
+     * @return
+     */
+    public List<StateVO> getStates(Long countryId);
 }

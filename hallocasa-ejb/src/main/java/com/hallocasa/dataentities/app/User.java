@@ -47,6 +47,8 @@ public class User implements Serializable, HallocasaEntity {
     private static final long serialVersionUID = 1L;
     public static final String QUERY_FIND_BY_EMAIL = "User.findByEmail";
     public static final String spokenLanguages_ = "spokenLanguages";
+    public static final String password_ = "password";
+    public static final String userTypes_ = "userTypes";
 
     /* instance variables */
     @Id
@@ -87,7 +89,7 @@ public class User implements Serializable, HallocasaEntity {
 
     @Column(name = "spoken_languages")
     @Convert(converter = SpokenLanguagesConverter.class)
-    private LanguageList spokenLanguages;
+    private LanguageList spokenLanguages = new LanguageList();
 
     @Column(name = "user_description")
     @Convert(converter = MultiLanguageTextConverter.class)
@@ -98,14 +100,14 @@ public class User implements Serializable, HallocasaEntity {
             inverseJoinColumns = {
                 @JoinColumn(name = "user_type_id", referencedColumnName = "id")})
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<UserType> userTypes;
+    private List<UserType> userTypes = new ArrayList<>();
 
-    @JoinTable(name = "user_profile", joinColumns = {
+    /*@JoinTable(name = "user_profile", joinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {
                 @JoinColumn(name = "profile_id", referencedColumnName = "id")})
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<Profile> profiles;
+    private List<Profile> profiles;*/
 
     @JoinColumn(name = "country_id", referencedColumnName = "id")
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -203,20 +205,6 @@ public class User implements Serializable, HallocasaEntity {
      */
     public void setUserType(List<UserType> userTypes) {
         this.setUserTypes(userTypes);
-    }
-
-    /**
-     * @return the profiles
-     */
-    public List<Profile> getProfiles() {
-        return profiles;
-    }
-
-    /**
-     * @param profiles the profiles to set
-     */
-    public void setProfiles(List<Profile> profiles) {
-        this.profiles = profiles;
     }
 
     /**
