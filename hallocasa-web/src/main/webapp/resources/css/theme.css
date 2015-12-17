@@ -28,14 +28,46 @@ table{
 /* Interaction states
 ----------------------------------*/
 .ui-button.ui-state-default { border: 1px solid #fbe644; background: #fbe644 url("#{resource['primefaces-hallocasa:images/ui-bg_spotlight_0_fbe644_600x600.png']}") 50% 50% repeat-x; font-weight: normal; color: #000000; }
-.ui-button:hover,.ui-button.ui-state-focus { border: 1px solid #002d45; background: #002d45 url("#{resource['primefaces-hallocasa:images/ui-bg_spotlight_0_002d45_600x600.png']}") 50% 50% repeat-x; font-weight: normal; color: #ffffff; }
+.ui-button:hover,
+.ui-button.ui-state-focus,
+.ui-menuitem .ui-state-hover,
+.ui-menuitem .ui-state-hover *
+{ border: 1px solid #002d45; 
+  background: #002d45 url("#{resource['primefaces-hallocasa:images/ui-bg_spotlight_0_002d45_600x600.png']}") 50% 50% repeat-x; 
+  font-weight: normal; 
+  color: #ffffff !important; }
 .ui-button.ui-state-active { border: 1px solid #000000; background: #fbe644 url("#{resource['primefaces-hallocasa:images/ui-bg_spotlight_0_fbe644_600x600.png']}") 50% 50% repeat-x; font-weight: normal; color: #212121; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #000000; text-decoration: none; }
 .ui-state-hover a, .ui-state-hover a:hover, .ui-state-hover a:link, .ui-state-hover a:visited { color: #ffffff; text-decoration: none; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #212121; text-decoration: none; }
 
+.hc-selectManyChkbox .ui-state-default{
+    border: 1px solid #a8a8a8;
+    background: #c4c4c4 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.8)), to(rgba(255,255,255,0)));
+}
 
+.hc-selectManyChkbox .ui-state-hover{
+    border: 1px solid #7096ab;
+    background: #85b2cb -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0.6)), to(rgba(255,255,255,0)));
+}
 
+.hc-selectManyChkbox ui-chkbox-box{
+    width: 14px;
+    height: 14px;
+}
+
+.hc-selectManyChkbox tr,
+.hc-selectManyChkbox td{
+    padding: 2px;
+}
+
+.hc-selectManyChkbox label {
+    margin-top : 0px;
+}
+
+.hc-selectManyChkbox .ui-icon-check{
+    background-position: -65px -146px;
+}
 /*
 .ui-button.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #fbe644; background: #fbe644 url("#{resource['primefaces-hallocasa:images/ui-bg_spotlight_0_fbe644_600x600.png']}") 50% 50% repeat-x; font-weight: normal; color: #000000; }
 ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #000000; text-decoration: none; }
@@ -289,3 +321,7 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 .ui-button .ui-button-text { padding: 0.6em 1.2em; }
 .ui-button-text-icon-left .ui-button-text.ui-c { margin-left: 0.7em; }
 
+/* Fieldset */
+.ui-fieldset-legend {
+    font-weight:bold;
+}

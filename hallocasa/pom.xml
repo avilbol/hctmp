@@ -66,6 +66,7 @@
         <module>../hallocasa-ear</module>
         <module>../hallocasa-commons</module>
         <module>../hallocasa-theme</module>
+        <module>../avilbol-theme</module>
     </modules>
 
     <dependencies>

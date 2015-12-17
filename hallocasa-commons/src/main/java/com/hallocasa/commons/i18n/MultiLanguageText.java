@@ -7,9 +7,14 @@ package com.hallocasa.commons.i18n;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.hallocasa.commons.Language;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 
 /**
@@ -20,37 +25,20 @@ public class MultiLanguageText implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static Gson gson = new Gson();
-    private String de;
-    private String en;
-    private String es;
+    private Map<Language, String> langMap;
 
     /**
      * Default constructor
      */
     public MultiLanguageText() {
+        langMap = new LinkedHashMap<>();
     }
 
-    /**
-     * Constructor with all language text
-     *
-     * @param de
-     * @param en
-     * @param es
-     */
-    public MultiLanguageText(String de, String en, String es) {
-        this.de = de;
-        this.en = en;
-        this.es = es;
+    public MultiLanguageText(MultiLanguageText another) {
+        this.langMap = another.langMap;
     }
-
-    /**
-     * Create an instance cloned by the passed as parameter
-     *
-     * @param other
-     */
-    public MultiLanguageText(MultiLanguageText other) {
-        this(other.de, other.en, other.es);
-    }
+    
+    
 
     /**
      * Constructor
@@ -63,58 +51,30 @@ public class MultiLanguageText implements Serializable {
     }
 
     public String getText(Language language) {
-        switch (language) {
-            case de:
-                return getDe();
-            case en:
-                return getEn();
-            case es:
-                return getEs();
-            default:
-                throw new UnsupportedOperationException("Language " + language + " not supported yet");
+        String languageValue = this.langMap.get(language);
+        if(languageValue == null){
+            throw new UnsupportedOperationException("Language " + language + " not supported yet");
         }
+        return languageValue;
     }
 
-    /**
-     * @return the de
-     */
-    public String getDe() {
-        return de;
+    public Map<Language, String> getLangMap() {
+        return langMap;
     }
 
-    /**
-     * @param de the de to set
-     */
-    public void setDe(String de) {
-        this.de = de;
+    public void setLangMap(Map<Language, String> langMap) {
+        this.langMap = langMap;
     }
-
-    /**
-     * @return the en
-     */
-    public String getEn() {
-        return en;
+    
+    public String getLangValue(Language langValue){
+        return langMap.get(langValue);
     }
-
-    /**
-     * @param en the en to set
-     */
-    public void setEn(String en) {
-        this.en = en;
-    }
-
-    /**
-     * @return the es
-     */
-    public String getEs() {
-        return es;
-    }
-
-    /**
-     * @param es the es to set
-     */
-    public void setEs(String es) {
-        this.es = es;
+    
+    public void setLangValue(Language langValue, String value){
+        if(langMap == null){
+            langMap = new HashMap<>();
+        }
+        langMap.put(langValue, value);
     }
 
     /**
@@ -123,7 +83,7 @@ public class MultiLanguageText implements Serializable {
      * @return
      */
     public String toJSON() {
-        return gson.toJson(this);
+        return gson.toJson(this.langMap);
     }
 
     /**
@@ -134,18 +94,16 @@ public class MultiLanguageText implements Serializable {
      * a valid JSON or doesn't match with expected JSON structure
      */
     public void loadFromJSON(String jsonText) {
-        MultiLanguageText multiLanguageText = null;
+        MultiLanguageText multiLanguageText = new MultiLanguageText();
         try {
-            multiLanguageText = gson.fromJson(jsonText, MultiLanguageText.class);
+            if(!jsonText.isEmpty()){
+                Type type = new TypeToken<Map<Language, String>>(){}.getType();
+                multiLanguageText.setLangMap(
+                    (Map<Language, String>) gson.fromJson(jsonText, type));
+            }
         } catch (JsonSyntaxException e) {
             throw new IllegalArgumentException(e);
         }
-
-        // avoid failing in empty string
-        if (multiLanguageText == null) {
-            multiLanguageText = new MultiLanguageText();
-        }
-
         // copy converter object to this instance
         try {
             BeanUtils.copyProperties(this, multiLanguageText);

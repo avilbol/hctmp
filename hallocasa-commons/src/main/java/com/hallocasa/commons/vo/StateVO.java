@@ -1,5 +1,6 @@
 package com.hallocasa.commons.vo;
 
+import com.hallocasa.commons.i18n.MultiLanguageText;
 import java.io.Serializable;
 
 import com.hallocasa.commons.vo.interfaces.ValueObject;
@@ -21,7 +22,7 @@ public class StateVO implements Serializable, ValueObject {
     public static final String stateName_ = "stateName";
 
     private Long id;
-    private String stateName;
+    private MultiLanguageText stateName;
     private CountryVO country;
 
     /**
@@ -63,7 +64,7 @@ public class StateVO implements Serializable, ValueObject {
      *
      * @return the stateName
      */
-    public String getStateName() {
+    public MultiLanguageText getStateName() {
         return stateName;
     }
 
@@ -72,7 +73,7 @@ public class StateVO implements Serializable, ValueObject {
      *
      * @param stateName the stateName to set
      */
-    public void setStateName(String stateName) {
+    public void setStateName(MultiLanguageText stateName) {
         this.stateName = stateName;
     }
 

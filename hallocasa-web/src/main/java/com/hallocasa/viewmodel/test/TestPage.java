@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -28,6 +29,24 @@ public class TestPage {
 
     @EJB
     private MailServices mailServices;
+    
+    private List<String> availableElements;
+    
+    private List<String> selectedElements;
+    
+    @PostConstruct
+    public void init(){
+        availableElements = new ArrayList<String>();
+        availableElements.add("A");
+        availableElements.add("B");
+        availableElements.add("C");
+        
+        selectedElements = new ArrayList<String>();
+        //selectedElements.add("A");
+        selectedElements.add("B");
+        selectedElements.add("C");
+    }
+
 
     public void sendTestEmail(ActionEvent event) {
         try {
@@ -40,4 +59,22 @@ public class TestPage {
             Logger.getLogger(TestPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public List<String> getAvailableElements() {
+        return availableElements;
+    }
+
+    public void setAvailableElements(List<String> availableElements) {
+        this.availableElements = availableElements;
+    }
+
+    public List<String> getSelectedElements() {
+        return selectedElements;
+    }
+
+    public void setSelectedElements(List<String> selectedElements) {
+        this.selectedElements = selectedElements;
+    }
+    
+    
 }

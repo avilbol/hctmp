@@ -6,16 +6,20 @@
 package com.hallocasa.commons.vo;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.interfaces.ValueObject;
 import java.io.Serializable;
 
 /**
  *
  * @author david
  */
-public class UserTypeVO implements Serializable {
+public class UserTypeVO implements Serializable, ValueObject {
 
     private Long id;
     private MultiLanguageText userTypeName;
+    private MultiLanguageText userTypeTooltip;
+    private Boolean manageTooltip;
+    private Boolean manageCertificate;
 
     /**
      * Default constructor
@@ -88,4 +92,27 @@ public class UserTypeVO implements Serializable {
         this.userTypeName = userTypeName;
     }
 
+    public MultiLanguageText getUserTypeTooltip() {
+        return userTypeTooltip;
+    }
+
+    public void setUserTypeTooltip(MultiLanguageText userTypeTooltip) {
+        this.userTypeTooltip = userTypeTooltip;
+    }
+
+    public Boolean getManageTooltip() {
+        return manageTooltip;
+    }
+
+    public void setManageTooltip(Boolean manageTooltip) {
+        this.manageTooltip = manageTooltip;
+    }
+
+    public Boolean getManageCertificate() {
+        return manageCertificate;
+    }
+
+    public void setManageCertificate(Boolean manageCertificate) {
+        this.manageCertificate = manageCertificate;
+    }
 }

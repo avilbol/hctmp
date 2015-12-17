@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -28,6 +29,12 @@ public interface AppPersistenceServices {
     public <T> T mergeEntity(T entity)
             throws PersistenceException;
 
+    /**
+     * 
+     * @return the transaction manager 
+     */
+    public EntityTransaction loadTransaction();
+    
     /**
      * Removes an entity
      *

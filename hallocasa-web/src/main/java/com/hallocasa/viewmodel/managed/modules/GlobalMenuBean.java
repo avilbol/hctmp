@@ -6,6 +6,7 @@
 package com.hallocasa.viewmodel.managed.modules;
 
 import com.hallocasa.commons.vo.CredentialVO;
+import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.session.LoginFailedException;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.view.context.ViewContext;
@@ -53,22 +54,25 @@ public class GlobalMenuBean {
         navigationHandler.redirectToPage(HallocasaViewEnum.HOME);
     }
     
+    public void processGoToProfile() {
+        navigationHandler.redirectToPage(HallocasaViewEnum.MY_PROFILE);
+    }
+    
     /**
      * Getter for showLogoutButton
      *
      * @return showLogoutButton
      */
-    public boolean getShowLogoutButton() {
+    public boolean isLogged() {
         return webSession.isLogged();
     }
 
-    /**
-     * Getter for showLoginButton
-     *
-     * @return
-     */
-    public boolean getShowLoginButton() {
-        return !webSession.isLogged();
+    public String getUsername(){
+        UserVO userVO = webSession.getCurrentUser();
+        if(userVO.getFirstName() == null){
+            return userVO.getEmail();
+        }
+        return userVO.getFirstName();
     }
-
+    
 }

@@ -5,9 +5,12 @@
  */
 package com.hallocasa.dataentities.app;
 
+import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -42,7 +45,8 @@ public class State implements Serializable, HallocasaEntity {
     private Long id;
 
     @Column(name = "state_name")
-    private String stateName;
+    @Convert(converter = MultiLanguageTextConverter.class)
+    private MultiLanguageText stateName;
 
     @JoinColumn(name = "country_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -61,7 +65,7 @@ public class State implements Serializable, HallocasaEntity {
      * @param stateName
      * @param country
      */
-    public State(Long id, String stateName, Country country) {
+    public State(Long id, MultiLanguageText stateName, Country country) {
         this.id = id;
         this.stateName = stateName;
         this.country = country;
@@ -84,14 +88,14 @@ public class State implements Serializable, HallocasaEntity {
     /**
      * @return the stateName
      */
-    public String getStateName() {
+    public MultiLanguageText getStateName() {
         return stateName;
     }
 
     /**
      * @param stateName the stateName to set
      */
-    public void setStateName(String stateName) {
+    public void setStateName(MultiLanguageText stateName) {
         this.stateName = stateName;
     }
 

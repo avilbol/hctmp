@@ -30,15 +30,15 @@
                     <span>#{viewBundle['Common.Label.BuyingProcess']}</span>
                 </a>
             </li>
-            <li class="hc-header-global-menu-item hc-header-language-menu">
+            <li class="hc-header-global-menu-item hc-header-menu">
 
-                <p:commandLink  type="button" id="languageMenuTrigger"
-                                styleClass="fa" class="language-link">
-                    <span>#{webSession.currentLanguage.languageName}</span>
-                </p:commandLink>
+                <h:panelGroup id="languageMenuTrigger"
+                              styleClass="fa" class="language-link">
+                    <span class="hc-simple-link">#{webSession.currentLanguage.languageName}</span>
+                </h:panelGroup>
 
                 <p:menu overlay="true" my="left top" trigger="languageMenuTrigger"
-                        widgetVar="languageMenuWv" at="left bottom" styleClass="hc-header-language-menu-overlay" >
+                        widgetVar="languageMenuWv" at="left bottom" styleClass="hc-header-menu-overlay hc-header-language-menu-overlay" >
                     <p:submenu label="Language Selection">
                         <p:menuitem value="English"
                                     immediate="true"
@@ -55,13 +55,13 @@
         </ul>
 
         <ul class="hc-header-global-toolbar">
-            <li class="hc-header-global-menu-item">
-                <p:commandButton onclick="PF('signup-dialog').show();
-                        PF('signup-dialog').initPosition();"
-                                 type="button"
-                                 value ="#{viewBundle['Header.SignUp.Button']}"/>
-            </li>
-            <ui:fragment rendered="#{globalMenuBean.showLoginButton}">
+            <ui:fragment rendered="#{!globalMenuBean.logged}">
+                <li class="hc-header-global-menu-item">
+                    <p:commandButton onclick="PF('signup-dialog').show();
+                            PF('signup-dialog').initPosition();"
+                                     type="button"
+                                     value ="#{viewBundle['Header.SignUp.Button']}"/>
+                </li>
                 <li class="hc-header-global-menu-item">
                     <p:commandButton onclick="PF('login-dialog').show();
                             PF('login-dialog').initPosition();"
@@ -69,10 +69,30 @@
                                      value ="#{viewBundle['Header.Login.Button']}"/>
                 </li>
             </ui:fragment>
-            <ui:fragment  rendered="#{globalMenuBean.showLogoutButton}">
-                <li class="hc-header-global-menu-item">
-                    <p:commandButton value ="#{viewBundle['Header.Logout.Button']}"
-                                     actionListener="#{globalMenuBean.processLogoutClick}"/>
+            <ui:fragment  rendered="#{globalMenuBean.logged}">
+                <li class="hc-header-global-menu-item hc-header-menu">
+                    <h:panelGroup id="profileTrigger"
+                                  styleClass="fa" class="menu-link hc-simple-link">
+                        <h:graphicImage library="images" name="app_images/user_male_16.png"/>
+                        <h:outputText value="#{globalMenuBean.username}"/>
+                    </h:panelGroup>
+
+                    <p:menu 
+                        overlay="true" 
+                        my="left top" 
+                        trigger="profileTrigger"
+                        widgetVar="profileMenuWv" 
+                        at="left bottom"
+                        styleClass="hc-header-menu-overlay hc-header-profile-menu-overlay" >
+                        <p:submenu label="Options">
+                            <p:menuitem value="#{viewBundle['GlobalMenu.GoToProfile']}"
+                                        immediate="true"
+                                        actionListener="#{globalMenuBean.processGoToProfile}"/>
+                            <p:menuitem value="#{viewBundle['Header.Logout.Button']}"
+                                        immediate="true"
+                                        actionListener="#{globalMenuBean.processLogoutClick}"/>
+                        </p:submenu>
+                    </p:menu>
                 </li>
             </ui:fragment>
             <li class="hc-header-global-menu-item hc-header-global-menu-item-mobile-button">

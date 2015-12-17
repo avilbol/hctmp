@@ -6,6 +6,11 @@
 package com.hallocasa.model.application;
 
 import com.hallocasa.commons.Language;
+import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.UserTypeVO;
+import com.hallocasa.dataentities.app.Country;
+import com.hallocasa.dataentities.app.UserType;
+import com.hallocasa.helpers.ParsersContext;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -13,9 +18,11 @@ import javax.faces.context.FacesContext;
 
 import com.hallocasa.services.interfaces.FileServicesInterface;
 import com.hallocasa.services.interfaces.ImageServicesInterface;
+import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.services.persistence.local.WcmPersistenceServices;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 
@@ -38,7 +45,14 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
     @Deprecated
     private FileServicesInterface fileServices;
     
+    @EJB
+    private AppPersistenceServices appPersistenceServices;
+    
     private List<Language> languages;
+    
+    private List<CountryVO> countries;
+    
+    private List<UserTypeVO> userTypes;
 
     /**
      * Getter for the current instance of the application context
@@ -63,12 +77,35 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
     @PostConstruct
     public void initialize() {
         languages = new ArrayList<>();
-        languages.add(Language.en);
-        languages.add(Language.es);
-        languages.add(Language.de);
-        
+        languages.addAll(Arrays.asList(Language.values())); 
+        List<Country> rawCountries = appPersistenceServices.executeNamedQuery(
+                Country.QUERY_FIND_ALL, null, Country.class);
+        countries = ParsersContext.COUNTRY_VO_PARSER.
+                toValueObjectList(rawCountries, CountryVO.class);
+        List<UserType> rawUserTypes = appPersistenceServices.executeNamedQuery(
+                UserType.QUERY_FIND_ALL, null, UserType.class);
+        userTypes = ParsersContext.USER_TYPE_VO_PARSER.
+                toValueObjectList(rawUserTypes, UserTypeVO.class);
     }
 
+    @Override
+    public List<CountryVO> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(List<CountryVO> countries) {
+        this.countries = countries;
+    }
+
+    @Override
+    public List<UserTypeVO> getUserTypes() {
+        return userTypes;
+    }
+
+    public void setUserTypes(List<UserTypeVO> userTypes) {
+        this.userTypes = userTypes;
+    }
+    
     /**
      * @return the databaseServices
      */

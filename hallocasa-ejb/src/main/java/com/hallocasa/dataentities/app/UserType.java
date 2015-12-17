@@ -6,20 +6,30 @@
 package com.hallocasa.dataentities.app;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  *
  * @author david
  */
 @Entity
-public class UserType implements Serializable {
+@Table(name = "user_type")
+@NamedQueries({
+    @NamedQuery(name= UserType.QUERY_FIND_ALL, query = "select u from UserType u")
+})
+public class UserType implements Serializable, HallocasaEntity {
 
+    public static final String QUERY_FIND_ALL = "UserType.findAll";
+    
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -30,6 +40,20 @@ public class UserType implements Serializable {
     @Convert(converter = MultiLanguageTextConverter.class)
     private MultiLanguageText userTypeName;
 
+    @Column(name = "user_type_tooltip")
+    @Convert(converter = MultiLanguageTextConverter.class)
+    private MultiLanguageText userTypeTooltip;
+    
+    @Column(name="manage_tooltip", 
+            columnDefinition="boolean default true", 
+            nullable=false)
+    private Boolean manageTooltip = false;
+    
+    @Column(name="manage_certificate",
+            columnDefinition="boolean default true", 
+            nullable=false)
+    private Boolean manageCertificate = false;
+    
     /**
      * Default constructor
      */
@@ -98,4 +122,27 @@ public class UserType implements Serializable {
         this.userTypeName = userTypeName;
     }
 
+    public MultiLanguageText getUserTypeTooltip() {
+        return userTypeTooltip;
+    }
+
+    public void setUserTypeTooltip(MultiLanguageText userTypeTooltip) {
+        this.userTypeTooltip = userTypeTooltip;
+    }
+
+    public Boolean getManageTooltip() {
+        return manageTooltip;
+    }
+
+    public void setManageTooltip(Boolean manageTooltip) {
+        this.manageTooltip = manageTooltip;
+    }
+
+    public Boolean getManageCertificate() {
+        return manageCertificate;
+    }
+
+    public void setManageCertificate(Boolean manageCertificate) {
+        this.manageCertificate = manageCertificate;
+    }
 }
