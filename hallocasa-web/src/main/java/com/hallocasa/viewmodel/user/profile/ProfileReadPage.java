@@ -58,7 +58,7 @@ public class ProfileReadPage implements Serializable {
     /**
      * Process click event over edit button
      */
-    public void processEditClick() {
+        // navigationHandler.redirectToPage(HallocasaViewEnum.);
         navigationHandler.redirectToPage(HallocasaViewEnum.EDIT_PROFILE);
     }
 
