@@ -36,6 +36,14 @@ public interface AppPersistenceServices {
     public EntityTransaction loadTransaction();
     
     /**
+     * Refresh data of entity
+     * @param <T>
+     * @param entity
+     * @throws PersistenceException 
+     */
+    public <T> void refresh(T entity) throws PersistenceException;
+    
+    /**
      * Removes an entity
      *
      * @param <T>
@@ -63,6 +71,18 @@ public interface AppPersistenceServices {
      */
     public <T> T findEntity(Class<T> entityClass, Object primaryKey)
             throws PersistenceException;
+    
+    /**
+     * @param <T> Entity Type
+     * @param entityClass
+     * @param primaryKey
+     * @return the found entity
+     * @throws PersistenceException
+     */
+    public <T> T findEntityWithRefresh(Class<T> entityClass, Object primaryKey)
+            throws PersistenceException;
+    
+    
 
     /**
      * @param <T> expected Type

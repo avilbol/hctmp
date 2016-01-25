@@ -81,6 +81,13 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
             throws PersistenceException {
         return em.find(entityClass, primaryKey);
     }
+    
+    @Override
+    public <T> T findEntityWithRefresh(Class<T> entityClass, Object primaryKey)
+            throws PersistenceException {
+        em.getEntityManagerFactory().getCache().evictAll();
+        return em.find(entityClass, primaryKey);
+    }
 
     /*
      * (non-Javadoc)
@@ -423,6 +430,11 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
     @Override
     public void flush() {
         em.flush();
+    }
+
+    @Override
+    public <T> void refresh(T entity) throws PersistenceException {
+        em.refresh(entity);
     }
 
 }

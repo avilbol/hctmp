@@ -92,6 +92,7 @@
     <class>com.hallocasa.dataentities.converters.LanguageConverter</class>
     <class>com.hallocasa.dataentities.converters.MultiLanguageTextConverter</class>
     <class>com.hallocasa.dataentities.converters.SpokenLanguagesConverter</class>
+    <class>com.hallocasa.dataentities.converters.ImageContainerConverter</class>
     <!-- entities -->
     <class>com.hallocasa.dataentities.app.Profile</class>
     <class>com.hallocasa.dataentities.app.UseCase</class>
@@ -113,6 +114,7 @@
     <class>com.hallocasa.dataentities.converters.LanguageConverter</class>
     <class>com.hallocasa.dataentities.converters.MultiLanguageTextConverter</class>
     <class>com.hallocasa.dataentities.converters.SpokenLanguagesConverter</class>
+    <class>com.hallocasa.dataentities.converters.ImageContainerConverter</class>
     <!-- entities -->
     <class>com.hallocasa.dataentities.app.Profile</class>
     <class>com.hallocasa.dataentities.app.UseCase</class>

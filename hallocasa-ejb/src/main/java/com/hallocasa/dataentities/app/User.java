@@ -8,10 +8,12 @@ package com.hallocasa.dataentities.app;
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.converters.ImageContainerConverter;
 import com.hallocasa.dataentities.converters.LanguageConverter;
 import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import com.hallocasa.dataentities.converters.SpokenLanguagesConverter;
 import com.hallocasa.dataentities.types.LanguageList;
+import com.hallocasa.commons.vo.ImageContainer;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +119,10 @@ public class User implements Serializable, HallocasaEntity {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private State state;
 
+    @Column(name = "image_name")
+    @Convert(converter = ImageContainerConverter.class)
+    private ImageContainer image;
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -380,6 +386,14 @@ public class User implements Serializable, HallocasaEntity {
      */
     public void setState(State state) {
         this.state = state;
+    }
+    
+    public ImageContainer getImage() {
+        return image;
+    }
+
+    public void setImage(ImageContainer image) {
+        this.image = image;
     }
 
 }

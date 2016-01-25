@@ -5,22 +5,17 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 
-    <p:dialog header="Modificar imagen de perfil" widgetVar="hc-image-upload" minHeight="100">
-        <h:outputText value="Selecciona una imagen" />
-        <p:commandButton value="Examinar"
-                         actionListener="#{profileEditPage.processEditImageClick()}"
-                         process="@this"
-                         oncomplete=""/>
-    </p:dialog>
+  
 
     <p:panel header="#{viewBundle['Profile.Service.Panel.Title']}" >
         <div class="section hc-overlay-form-fields-container clearfix">
             <p:fieldset styleClass="col span_3_of_3" 
                         legend="#{viewBundle['Profile.Data.Services.Label']}" 
                         toggleable="true" 
-                        toggleSpeed="500">  
+                        toggleSpeed="500"> 
                 <p:selectManyCheckbox
                     id="userTypes" 
                     label="Servicios"
@@ -46,11 +41,9 @@
                 rendered="#{not empty profileEditPage.user.userTypes}">
                 <div class="section hc-overlay-form-fields-container clearfix">            
                     <div class="col span_1_of_3">
-                        <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTrnDcg_KmtBz1de-73hUlF2a8jjxyPZ6xTY_s6J6xiNDtbHEGcCuye0w"/>
-                        <p:commandButton value="Editar"
-                                         actionListener="#{profileEditPage.processEditImageClick()}"
-                                         process="@this"
-                                         oncomplete="PF('hc-image-upload').show()"/>
+                        <utils:imageEditor 
+                            imageUrl="#{profileEditPage.user.image}"
+                            imageType="userImage"/>
                         <b><p:outputLabel 
                             styleClass="hc-form-label"
                             value="#{viewBundle['Profile.Data.Country.Label']}" 

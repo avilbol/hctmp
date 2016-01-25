@@ -20,6 +20,18 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    
+    <!-- User Image Mapping -->
+    <servlet>
+        <servlet-name>userImageServlet</servlet-name>
+        <servlet-class>com.hallocasa.servlet.ImageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userImageServlet</servlet-name>
+        <url-pattern>/userimage/*</url-pattern>
+    </servlet-mapping>
+    
+    
     <!-- context-parameter -->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>

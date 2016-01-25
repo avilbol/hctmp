@@ -24,6 +24,4 @@ public interface FileServicesInterface {
      * @throws ServiceException
      */
     public InputStream getFileInputStream(File dbFile) throws ServiceException;
-
-
 }

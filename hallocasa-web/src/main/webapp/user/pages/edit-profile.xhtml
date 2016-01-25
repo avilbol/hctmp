@@ -13,18 +13,24 @@
     <ui:define name="contentSection">
         <div class="page">
             <br/><br/><br/><br/><br/>
-            <h:form styleClass="hc-form">
+            <h:form styleClass="hc-form" 
+                    enctype="multipart/form-data">
                 <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
                 <ui:include src="../fragments/investor-edit-panel.xhtml"/>
                 <ui:include src="../fragments/service-edit-panel.xhtml"/>
                 <br/>
                  <div class="hc-overlay-form-buttons-container">
-                    <p:commandButton value="Guardar"
-                                     action="#{profileEditPage.processSaveClick()}"
-                                     process="@form"/>
-                    <p:commandButton value="#{viewBundle['Common.Label.Cancel']}"
-                                         action="#{profileEditPage.processCancelClick()}"
-                                         process="@form" immediate="true" />
+                    <h:commandButton value="Guardar"
+                                     actionListener="#{profileEditPage.processSaveClick()}"
+                                     styleClass="hc-basic-button">
+                        <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
+                    <h:commandButton value="#{viewBundle['Common.Label.Cancel']}"
+                                         actionListener="#{profileEditPage.processCancelClick()}"
+                                         immediate="true"
+                                         styleClass="hc-basic-button">
+                         <f:ajax execute="@form" render="@form"/>
+                    </h:commandButton>
                 </div>
             </h:form>
         </div>

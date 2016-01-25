@@ -12,7 +12,6 @@ import com.hallocasa.commons.validation.NotEmpty;
 import com.hallocasa.commons.validation.ValidationPatterns;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -60,7 +59,8 @@ public class UserVO implements ValueObject {
             + ValidationMessages.GENERAL_NAME_PATTERN + "}")
     private String lastName;
 
-    @Size(min = 0, max = 45)
+    @NotNull(message = "{" + ValidationMessages.NOT_EMPTY + "}")
+    @Size(min = 4, max = 45)
     @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
             + ValidationMessages.GENERAL_NAME_PATTERN + "}")
     private String city;
@@ -79,14 +79,16 @@ public class UserVO implements ValueObject {
             + ValidationMessages.URL_PATTERN + "}")
     @Size(min = 0, max = 80)
     private String webSite;
+    
+    private ImageContainer image;
 
-    @NotNull
+    @NotNull(message = "{" + ValidationMessages.NOT_EMPTY + "}")
     private CountryVO country;
 
-    @NotNull
+    @NotNull(message = "{" + ValidationMessages.NOT_EMPTY + "}")
     private StateVO state;
 
-    @NotNull
+    @NotNull(message = "{" + ValidationMessages.NOT_EMPTY + "}")
     private Language language;
 
     private List<Language> spokenLanguages;
@@ -468,4 +470,15 @@ public class UserVO implements ValueObject {
     public void setPassword(String password) {
         this.password = password;
     }
-}
+
+    public ImageContainer getImage() {
+        return image;
+    }
+
+    public void setImage(ImageContainer image) {
+        this.image = image;
+    }
+
+    
+    
+  }

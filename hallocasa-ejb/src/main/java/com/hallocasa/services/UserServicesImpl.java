@@ -73,7 +73,7 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
 
     @Override
     public UserVO find(long id) {
-        User user = appPersistenceServices.findEntity(User.class, id);
+        User user = appPersistenceServices.findEntityWithRefresh(User.class, id);
         if (user == null) {
             return null;
         }

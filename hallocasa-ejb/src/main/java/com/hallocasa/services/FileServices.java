@@ -29,6 +29,7 @@ import com.hallocasa.services.interfaces.FileServicesInterface;
 public class FileServices implements FileServicesInterface {
 
     private static final String FILES_PATH;
+    public static final String USER_IMAGES_PATH;
     private static final Logger LOG = Logger.getLogger(FileServices.class
             .getName());
     public static final String EJB_RESOURCE_NAME = "FileServices";
@@ -38,14 +39,18 @@ public class FileServices implements FileServicesInterface {
         try {
             properties.load(FileServices.class.getClassLoader()
                     .getResourceAsStream(
-                            "com/hallocasa/hallocasa.config.properties"));
+                            "hallocasa.config.properties"));
         } catch (IOException ex) {
             LOG.log(Level.SEVERE, null, ex);
             throw new RuntimeException(ex);
         }
         FILES_PATH = properties.getProperty("Persistance.Files.filesPath");
+        USER_IMAGES_PATH = properties.getProperty("Persistance.Files.userImagesPath");
     }
-
+    
+    
+   
+    
     /**
      * Get the inputstream from a File data entity
      *

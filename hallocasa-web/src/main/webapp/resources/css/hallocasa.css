@@ -13,7 +13,30 @@
 
 /* sections and components */
 
+.hc-basic-button {
+    padding: 0.6em 1.2em;
+    display: block;
+    line-height: 1.4;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #FBE644;
+    background: #FBE644;
+    border-radius: 6px;
+}
 
+
+
+.hc-basic-button:hover {
+    border: 1px solid #002d45;
+    background: #002d45;
+    font-weight: normal;
+    color: #ffffff !important;
+}
+
+.hc-state-active-button {
+    
+}
 
 /* form */
 .hc-form {
@@ -100,6 +123,29 @@
     max-width: 100%;
 }
 
+.hc-300-panel {
+    width: 500px;
+    height: 500px;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: scroll;
+}
+
+.hc-padding-20{
+    padding:20px;
+}
+
+div.hc-responsive-div{
+    width: 192px;
+    height: 230px;
+}
+
+div.hc-responsive-div,
+div.hc-responsive-div img{
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
 /* yellow button */
 .hc-yellow-button-link {
     margin-bottom: 20px;
@@ -135,6 +181,10 @@
 }
 .hc-simple-link{
     cursor:pointer;
+}
+
+.hc-go-right{
+    text-align: right !important;
 }
 
 

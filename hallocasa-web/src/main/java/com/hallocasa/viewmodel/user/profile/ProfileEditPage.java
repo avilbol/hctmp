@@ -9,23 +9,29 @@ import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.StateVO;
-import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
-import com.hallocasa.dataentities.app.UserType;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.model.session.WebSession;
+import com.hallocasa.services.FileServices;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.services.location.local.CountryServices;
+import com.hallocasa.utils.ApplicationFileUtils;
 import com.hallocasa.utils.FormatUtils;
 import com.hallocasa.view.context.ViewContext;
 import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.security.LoginDialog;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -35,6 +41,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+import thirdparty.org.apache.commons.io.FileUtils;
 
 /**
  * View model for profile page
@@ -84,6 +91,10 @@ public class ProfileEditPage implements Serializable {
     private Map<Language, String> userDescription;
     
     /**
+     * User images path
+     */
+    private String userImagesPath;
+    /**
      * Default constructor
      */
     public ProfileEditPage() {
@@ -119,6 +130,7 @@ public class ProfileEditPage implements Serializable {
     public void processSaveClick(){
         try {
             user.setConfirmedFlag(Boolean.TRUE);
+            manageUserImage();
             userServices.save(user);
             navigationHandler.redirectToPage(HallocasaViewEnum.MY_PROFILE);
             viewContext.showGlobalInfoMessage("Hecho", "El perfil ha sido guardado satisfactoriamente");
@@ -129,8 +141,33 @@ public class ProfileEditPage implements Serializable {
         }
     }
     
-    public void test(){
-        System.out.println(user.getUserTypes().size());
+    public void manageUserImage(){
+        try{
+            String imageUrl = this.user.getImage().getUrl();
+            String imagePath = ApplicationFileUtils.getAbsolutePath(imageUrl);
+            File sourceFile = new File(ApplicationFileUtils.getAbsoluteUrl(imageUrl));
+            String mimeType = ApplicationFileUtils.getMimeType(sourceFile);
+            String ext = mimeType.equals("image/png") ? "png" : "jpg";
+            File destFile = new File(imagePath + "/user" + this.user.getId() + "." + ext);
+            FileUtils.deleteQuietly(destFile);
+            if(!sourceFile.getName().equals(destFile.getName()))
+            FileUtils.copyFile(sourceFile, destFile); 
+            this.user.getImage().setUrl(ApplicationFileUtils.getRelativePath(imageUrl) 
+                    + "/" + destFile.getName());
+            File f = new File(FileServices.USER_IMAGES_PATH);
+            File[] matchingFiles = f.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return !name.startsWith("user");
+                }
+            });
+            for(File file : matchingFiles){
+                FileUtils.forceDelete(file);
+            }
+        } catch(IOException e){
+            viewContext.showGlobalErrorMessage("error", "error");
+        }
+       
     }
     
     /**
@@ -206,4 +243,13 @@ public class ProfileEditPage implements Serializable {
     public void setUserDescription(Map<Language, String> userDescription) {
         this.userDescription = userDescription;
     }
+
+    public String getUserImagesPath() {
+        return userImagesPath;
+    }
+
+    public void setUserImagesPath(String userImagesPath) {
+        this.userImagesPath = userImagesPath;
+    }
+    
 }
