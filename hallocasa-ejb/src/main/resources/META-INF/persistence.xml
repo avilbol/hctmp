@@ -100,6 +100,7 @@
     <class>com.hallocasa.dataentities.app.UserType</class>
     <class>com.hallocasa.dataentities.app.State</class>
     <class>com.hallocasa.dataentities.app.Country</class>
+    <class>com.hallocasa.dataentities.app.Token</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.target-database" value="MySQL"/>
@@ -123,6 +124,7 @@
     <class>com.hallocasa.dataentities.app.UserType</class>
     <class>com.hallocasa.dataentities.app.State</class>
     <class>com.hallocasa.dataentities.app.Country</class>
+    <class>com.hallocasa.dataentities.app.Token</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.target-database" value="MYSQL"/>

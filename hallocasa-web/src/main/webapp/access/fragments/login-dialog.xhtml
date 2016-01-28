@@ -3,7 +3,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"  
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <!-- Agents-Section -->
     <p:dialog modal="true" widgetVar="login-dialog" id="login-dialog"
@@ -30,15 +31,21 @@
 
             </div>
             <div class="hc-overlay-form-additional-options">
-                <ui:remove>
-                    <p:commandLink value="#{viewBundle['Login.Link.PasswordRecovery']}"/>
-                </ui:remove>
                 <p:commandLink value="#{viewBundle['Login.Link.SignUp']}"
                                process="@this"
                                immediate="true"
                                onclick=" PF('login-dialog').hide();
                                        PF('signup-dialog').show();"
                                styleClass="hc-link login-dialog-signup-link"/>
+                <p:commandLink value="#{viewBundle['ForgotPassword.forgot']}"
+                               immediate="true" ajax="true" 
+                               update=":password-recovery-form"
+                               action="#{passwordRecoveryDialog.initialize()}"
+                               oncomplete="PF('login-dialog').hide();
+                                       PF('password-recovery-dialog').show();"
+                               styleClass="hc-link login-dialog-signup-link"/>
+                <br/>
+                
             </div>
             <div class="hc-overlay-form-buttons-container">
                 <p:commandButton value="${viewBundle['Login.Submit.Button']}" 

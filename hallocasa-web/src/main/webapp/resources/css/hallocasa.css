@@ -57,7 +57,7 @@
     content: "*";
     margin-left: 5px;
 }
-.hc-form .hc-form-field {
+.hc-form .hc-form-field .hc-output-text {
     margin: 0em 0.6em 0.3em 0.6em;
     width: 100%;
 }

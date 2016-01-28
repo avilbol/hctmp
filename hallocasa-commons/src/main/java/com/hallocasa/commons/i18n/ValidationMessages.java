@@ -48,7 +48,8 @@ public class ValidationMessages {
 
     /* sign up dialog */
     public static final String SIGNUP_PASSWORD_CONFIRM_NOT_MATCH = "com.hallocasa.signup.password.NotMatch.summary";
-
+    public static final String RECOVERY_PASSWORD_CONFIRM_NOT_MATCH = "com.hallocasa.signup.password.NotMatch.summary";
+    
     static {
         resourceBundleMap = new HashMap<Locale, ResourceBundle>();
     }

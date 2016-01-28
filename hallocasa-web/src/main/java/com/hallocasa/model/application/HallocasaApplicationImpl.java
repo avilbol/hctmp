@@ -53,6 +53,8 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
     private List<CountryVO> countries;
     
     private List<UserTypeVO> userTypes;
+    
+    private Integer userIdInRecoveryProcess;
 
     /**
      * Getter for the current instance of the application context
@@ -149,6 +151,20 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
     public List<Language> getLanguages() {
         return languages;
     }
-    
-    
+
+    public AppPersistenceServices getAppPersistenceServices() {
+        return appPersistenceServices;
+    }
+
+    public void setAppPersistenceServices(AppPersistenceServices appPersistenceServices) {
+        this.appPersistenceServices = appPersistenceServices;
+    }
+
+    public Integer getUserIdInRecoveryProcess() {
+        return this.userIdInRecoveryProcess;
+    }
+
+    public void setUserIdInRecoveryProcess(Integer userIdInRecoveryProcess) {
+        this.userIdInRecoveryProcess = userIdInRecoveryProcess;
+    }
 }

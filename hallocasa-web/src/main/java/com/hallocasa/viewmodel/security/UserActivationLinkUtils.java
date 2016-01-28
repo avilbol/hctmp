@@ -1,6 +1,7 @@
 package com.hallocasa.viewmodel.security;
 
 import com.hallocasa.commons.codec.CodecUtils;
+import com.hallocasa.dataentities.app.Token;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.ViewParamEnum;
 import java.io.UnsupportedEncodingException;
@@ -43,6 +44,13 @@ public class UserActivationLinkUtils {
             // this exception ever
         }
         return HallocasaViewEnum.USER_ACTIVATION.getAbsolutePath(params);
+    }
+    
+    public static String buildPasswordRecoveryUrl(Token token){
+        Map<String, String> params = new HashMap<>();
+        params.put(ViewParamEnum.RECOVERY_PASSWORD.getParamKey(),
+                token.getTokenContent());
+        return HallocasaViewEnum.HOME.getAbsolutePath(params);
     }
 
     /**

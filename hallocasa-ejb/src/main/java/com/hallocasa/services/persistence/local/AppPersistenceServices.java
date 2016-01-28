@@ -191,6 +191,14 @@ public interface AppPersistenceServices {
     public int executeUpdate(String sentence, Object[] params);
 
     /**
+     * 
+     * @param queryName
+     * @param params
+     * @return 
+     */
+    public int executeNamedQuery(String queryName, Object[] params);
+    
+    /**
      * @return Entity Manager
      */
     public EntityManager getEntityManager();

@@ -231,6 +231,27 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         }
         return query.getResultList();
     }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.mobiera.social.services.local.PersistenceServicesLocal#executeNamedQuery
+     * (java.lang.String, java.lang.Object[], java.lang.Class, int, int)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public int executeNamedQuery(String queryName, Object[] params) {
+        Query query = em.createNamedQuery(queryName);
+        int i = 1;
+        if (params != null) {
+            for (Object entry : params) {
+                query.setParameter(i, entry);
+                i++;
+            }
+        }
+        return query.executeUpdate();
+    }
 
     /*
      * (non-Javadoc)

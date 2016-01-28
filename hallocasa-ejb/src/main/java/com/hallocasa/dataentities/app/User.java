@@ -40,7 +40,7 @@ import javax.persistence.Table;
 @Table(name = "user")
 @NamedQueries({
     @NamedQuery(name = User.QUERY_FIND_BY_EMAIL,
-            query = "select u from User u where u.email = ?1")
+            query = "select u from User u where u.email = ?1"),
 })
 @SuppressWarnings({"UniqueEntityName", "ValidPrimaryTableName", "ValidAttributes"})
 public class User implements Serializable, HallocasaEntity {

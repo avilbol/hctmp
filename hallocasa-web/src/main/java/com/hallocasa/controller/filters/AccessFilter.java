@@ -58,7 +58,6 @@ public class AccessFilter implements Filter {
                 }
             }
         }
-
         chain.doFilter(request, response);
     }
 
