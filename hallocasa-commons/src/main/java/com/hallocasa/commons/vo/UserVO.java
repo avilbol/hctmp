@@ -59,12 +59,6 @@ public class UserVO implements ValueObject {
             + ValidationMessages.GENERAL_NAME_PATTERN + "}")
     private String lastName;
 
-    @NotNull(message = "{" + ValidationMessages.NOT_EMPTY + "}")
-    @Size(min = 4, max = 45)
-    @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
-            + ValidationMessages.GENERAL_NAME_PATTERN + "}")
-    private String city;
-
     @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
             + ValidationMessages.GENERAL_NAME_PATTERN + "}")
     @Size(min = 0, max = 45)
@@ -87,9 +81,15 @@ public class UserVO implements ValueObject {
 
     @NotNull(message = "{" + ValidationMessages.NOT_EMPTY + "}")
     private StateVO state;
+    
+    @NotNull(message = "{" + ValidationMessages.NOT_EMPTY + "}")
+    private CityVO city;
 
     @NotNull(message = "{" + ValidationMessages.NOT_EMPTY + "}")
     private Language language;
+    
+    @NotNull(message = "{" + ValidationMessages.NOT_EMPTY + "}")
+    private Language mainSpokenLanguage;
 
     private List<Language> spokenLanguages;
 
@@ -215,21 +215,11 @@ public class UserVO implements ValueObject {
         this.lastName = lastName;
     }
 
-    /**
-     * Getter for city
-     *
-     * @return the city
-     */
-    public String getCity() {
+    public CityVO getCity() {
         return city;
     }
 
-    /**
-     * Setter for city
-     *
-     * @param city the city to set
-     */
-    public void setCity(String city) {
+    public void setCity(CityVO city) {
         this.city = city;
     }
 
@@ -305,6 +295,15 @@ public class UserVO implements ValueObject {
         this.language = language;
     }
 
+    public Language getMainSpokenLanguage() {
+        return mainSpokenLanguage;
+    }
+
+    public void setMainSpokenLanguage(Language mainSpokenLanguage) {
+        this.mainSpokenLanguage = mainSpokenLanguage;
+    }
+
+    
     /**
      * Getter for webSite
      *

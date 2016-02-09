@@ -77,9 +77,6 @@ public class User implements Serializable, HallocasaEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "city")
-    private String city;
-
     @Column(name = "web_site")
     private String webSite;
 
@@ -92,7 +89,11 @@ public class User implements Serializable, HallocasaEntity {
     @Column(name = "spoken_languages")
     @Convert(converter = SpokenLanguagesConverter.class)
     private LanguageList spokenLanguages = new LanguageList();
-
+    
+    @Column(name = "main_spoken_language")
+    @Convert(converter = LanguageConverter.class)
+    private Language mainSpokenLanguage;
+    
     @Column(name = "user_description")
     @Convert(converter = MultiLanguageTextConverter.class)
     private MultiLanguageText userDescription;
@@ -118,6 +119,10 @@ public class User implements Serializable, HallocasaEntity {
     @JoinColumn(name = "state_id", referencedColumnName = "id")
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     private State state;
+    
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    private City city;
 
     @Column(name = "image_name")
     @Convert(converter = ImageContainerConverter.class)
@@ -241,6 +246,14 @@ public class User implements Serializable, HallocasaEntity {
         this.language = language;
     }
 
+    public Language getMainSpokenLanguage() {
+        return mainSpokenLanguage;
+    }
+
+    public void setMainSpokenLanguage(Language mainSpokenLanguage) {
+        this.mainSpokenLanguage = mainSpokenLanguage;
+    }
+
     /**
      * @return the firstName
      */
@@ -269,17 +282,11 @@ public class User implements Serializable, HallocasaEntity {
         this.lastName = lastName;
     }
 
-    /**
-     * @return the city
-     */
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    /**
-     * @param city the city to set
-     */
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 

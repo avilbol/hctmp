@@ -5,6 +5,7 @@
  */
 package com.hallocasa.viewmodel.security;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.codec.CodecUtils;
 import com.hallocasa.commons.exceptions.services.ServiceException;
 import com.hallocasa.commons.i18n.ValidationMessages;
@@ -89,7 +90,8 @@ public class PasswordRecoveryDialog {
         Token token = createRecoveryPasswordToken(user.getId());
         
         Map<String, String> params = new HashMap<>();
-        params.put("PASSWORD_LINK", generateRecoveryPasswordLink(token));
+        params.put("PASSWORD_LINK", generateRecoveryPasswordLink(token, user.getLanguage()));
+        
         
         securityServices.saveToken(token);
         List<String> emails = new ArrayList<>();
@@ -165,8 +167,8 @@ public class PasswordRecoveryDialog {
         return token;
     }
     
-    private String generateRecoveryPasswordLink(Token token){
-        return UserActivationLinkUtils.buildPasswordRecoveryUrl(token);
+    private String generateRecoveryPasswordLink(Token token, Language language){
+        return UserActivationLinkUtils.buildPasswordRecoveryUrl(token, language);
     }
  
     

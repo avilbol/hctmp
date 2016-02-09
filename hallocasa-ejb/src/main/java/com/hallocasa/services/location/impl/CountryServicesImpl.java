@@ -5,8 +5,10 @@
  */
 package com.hallocasa.services.location.impl;
 
+import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.StateVO;
+import com.hallocasa.dataentities.app.City;
 import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.State;
 import com.hallocasa.helpers.ParsersContext;
@@ -64,6 +66,21 @@ public class CountryServicesImpl implements CountryServices {
         List<StateVO> stateVOs = ParsersContext.STATE_VO_PARSER.toValueObjectList(
                 states, StateVO.class);
         return stateVOs;
+    }
+    
+    @Override
+    public List<CityVO> getCities(Long stateId) {
+        // finds state
+        State state = appPersistenceServices.findEntity(State.class, stateId);
+        if (state == null) {
+            throw new IllegalArgumentException("State with id " + stateId
+                    + " doesn't exist");
+        }
+        List<City> cities = appPersistenceServices.executeNamedQuery(
+                City.QUERY_FIND_BY_STATE, new Object[]{state}, City.class);
+        List<CityVO> cityVOs = ParsersContext.CITY_VO_PARSER.toValueObjectList(
+               cities, CityVO.class);
+        return cityVOs;
     }
 
 }

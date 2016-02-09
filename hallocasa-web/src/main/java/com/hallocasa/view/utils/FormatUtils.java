@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hallocasa.utils;
+package com.hallocasa.view.utils;
 
 /**
  *
@@ -24,7 +24,7 @@ public class FormatUtils {
     
     public static String getDefensiveLabel(String value){
         if(value == null || value.equals("")){
-            return "No especificado";
+            return JSFUtils.getViewBundleString("Common.Label.NotSpecified");
         }
         return value;
     }

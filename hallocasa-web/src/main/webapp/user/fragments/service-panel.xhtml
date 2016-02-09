@@ -3,7 +3,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 
     <p:panel 
         header="#{viewBundle['Profile.Service.Panel.Title']}" 
@@ -11,9 +12,10 @@
         styleClass="user-profile-panel">
         <div class="section hc-overlay-form-fields-container clearfix">
             <div class="col span_1_of_3 hc-responsive-div">
-                <!--<img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTrnDcg_KmtBz1de-73hUlF2a8jjxyPZ6xTY_s6J6xiNDtbHEGcCuye0w"/>-->
-                <h:graphicImage  
-                    url="#{profileReadPage.user.image.url}"/>
+                <utils:imageEditor 
+                    imageUrl="#{profileEditPage.user.image}"
+                    imageType="userImage"
+                    readOnly="true"/>
             </div>
             <div class="col span_1_of_3">
                 
@@ -25,7 +27,7 @@
                 <h:outputText value="#{profileReadPage.stateName}" styleClass="hc-form-field"/>
 
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.City.Label']}</span></b>
-                <h:outputText value="#{profileReadPage.user.city}" styleClass="hc-form-field"/>
+                <h:outputText value="#{profileReadPage.cityName}" styleClass="hc-form-field"/>
 
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Website.Label']}</span></b>
                 <h:outputText value="#{profileReadPage.websiteName}" 
@@ -72,6 +74,21 @@
                 </span>
             </ui:repeat>
         </div>
+        
+        <h:panelGroup 
+            layout="block"
+            styleClass="section hc-overlay-form-fields-container clearfix"
+            id="user-description-section">
+            <b>
+                <h:outputLabel styleClass="hc-form-label" 
+                               for="#{mainSpokenLanguage}" 
+                               value="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}">
+                </h:outputLabel>
+            </b>
+            <span class="hc-form-field">
+                #{profileReadPage.user.mainSpokenLanguage.languageName}
+            </span>
+        </h:panelGroup>
         
     </p:panel>
 

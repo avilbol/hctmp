@@ -15,7 +15,6 @@
 
 .hc-basic-button {
     padding: 0.6em 1.2em;
-    display: block;
     line-height: 1.4;
     box-sizing: border-box;
     cursor: pointer;
@@ -56,6 +55,10 @@
 .hc-form-across-label.hc-form-required:after{
     content: "*";
     margin-left: 5px;
+}
+
+.hc-form .hc-form-field {
+    min-width: 200px;
 }
 .hc-form .hc-form-field .hc-output-text {
     margin: 0em 0.6em 0.3em 0.6em;
@@ -135,9 +138,8 @@
     padding:20px;
 }
 
-div.hc-responsive-div{
-    width: 192px;
-    height: 230px;
+hc-image-container-1m{
+    height:
 }
 
 div.hc-responsive-div,

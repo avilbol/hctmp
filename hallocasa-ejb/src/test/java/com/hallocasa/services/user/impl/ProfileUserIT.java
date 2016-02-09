@@ -8,6 +8,7 @@ package com.hallocasa.services.user.impl;
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.codec.CodecUtils;
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.StateVO;
 import com.hallocasa.commons.vo.UserTypeVO;
@@ -101,10 +102,13 @@ public class ProfileUserIT {
         userVO.setLanguage(Language.en);
         CountryVO country = new CountryVO();
         StateVO state = new StateVO();
+        CityVO city = new CityVO();
         MultiLanguageText countryName = new MultiLanguageText();
         countryName.setLangValue(Language.es, "Colombia");
         MultiLanguageText stateName = new MultiLanguageText();
         stateName.setLangValue(Language.es, "Bogota");
+        MultiLanguageText cityName = new MultiLanguageText();
+        cityName.setLangValue(Language.es, "Bogota");
         MultiLanguageText userTypeName = new MultiLanguageText();
         userTypeName.setLangValue(Language.es, "Traductor");
         MultiLanguageText userTypeTooltip = new MultiLanguageText();
@@ -125,7 +129,9 @@ public class ProfileUserIT {
         state.setCountry(country);
         state.setId(1l);
         state.setStateName(stateName);
-        
+        city.setState(state);
+        city.setId(1l);
+        city.setCityName(cityName);
         userVO.setLanguage(Language.de);
         userVO.setState(state);
         userVO.setConfirmedFlag(Boolean.TRUE);
@@ -133,7 +139,7 @@ public class ProfileUserIT {
         userVO.setLinkedIn("");
         userVO.setCountry(country);
         userVO.setState(state);
-        userVO.setCity("Bogota");
+        userVO.setCity(city);
         userVO.setSpokenLanguages(Arrays.asList(new Language[]{Language.de}));
         userVO.setUserTypes(Arrays.asList(new UserTypeVO[]{usertype}));
         userVO.setFirstName("Alexander");

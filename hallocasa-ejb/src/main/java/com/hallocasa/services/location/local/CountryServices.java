@@ -5,6 +5,7 @@
  */
 package com.hallocasa.services.location.local;
 
+import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.StateVO;
 import java.util.List;
@@ -25,10 +26,18 @@ public interface CountryServices {
     public List<CountryVO> getCountries();
 
     /**
-     * Return the list of all states given a countryF
+     * Return the list of all states given a country
      *
      * @param countryId
      * @return
      */
     public List<StateVO> getStates(Long countryId);
+    
+    /**
+     * Return the list of all cities given a state
+     * 
+     * @param stateId
+     * @return 
+     */
+    public List<CityVO> getCities(Long stateId);
 }

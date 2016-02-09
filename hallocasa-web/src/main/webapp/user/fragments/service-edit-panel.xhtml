@@ -7,9 +7,6 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
-
-  
-
     <p:panel header="#{viewBundle['Profile.Service.Panel.Title']}" >
         <div class="section hc-overlay-form-fields-container clearfix">
             <p:fieldset styleClass="col span_3_of_3" 
@@ -41,9 +38,11 @@
                 rendered="#{not empty profileEditPage.user.userTypes}">
                 <div class="section hc-overlay-form-fields-container clearfix">            
                     <div class="col span_1_of_3">
-                        <utils:imageEditor 
-                            imageUrl="#{profileEditPage.user.image}"
-                            imageType="userImage"/>
+                        <span id="imageUrl">
+                            <utils:imageEditor 
+                                imageUrl="#{profileEditPage.user.image}"
+                                imageType="userImage"/>
+                        </span>
                         <b><p:outputLabel 
                             styleClass="hc-form-label"
                             value="#{viewBundle['Profile.Data.Country.Label']}" 
@@ -63,7 +62,7 @@
                                 event="change" 
                                 listener="#{profileEditPage.processCountrySelect}"
                                 process="@this"
-                                update="stateName">
+                                update="stateName,cityName">
                             </p:ajax>
                         </h:selectOneMenu>
                         <br/>
@@ -82,6 +81,12 @@
                                 var="state"
                                 itemLabel="#{profileEditPage.getStateName(state)}"
                                 itemValue="#{state}"/>
+                            <p:ajax 
+                                event="change" 
+                                listener="#{profileEditPage.processStateSelect}"
+                                process="@this"
+                                update="cityName">
+                            </p:ajax>
                         </h:selectOneMenu>
                         <br/>
 
@@ -89,7 +94,17 @@
                             styleClass="hc-form-label"
                             value="#{viewBundle['Profile.Data.City.Label']}" 
                             for="cityName" /></b>
-                        <h:inputText id="cityName" styleClass="hc-form-field" value="#{profileEditPage.user.city}" />
+                        <h:selectOneMenu 
+                            id="cityName" 
+                            styleClass="hc-form-field"
+                            value="#{profileEditPage.user.city}"
+                            converter="cityConverter">
+                            <f:selectItems 
+                                value="#{profileEditPage.cities}"
+                                var="city"
+                                itemLabel="#{profileEditPage.getCityName(city)}"
+                                itemValue="#{city}"/>
+                        </h:selectOneMenu>
                         <br/>
 
                         <b><p:outputLabel 
@@ -137,7 +152,7 @@
                                     </f:selectItems>
                                     <f:ajax 
                                         listener="#{profileEditPage.processLanguagesSelectedChange}"
-                                        render="user-description-section" 
+                                        render="user-description-section  main-language-section" 
                                         immediate="true"  />
                                 </p:selectManyCheckbox>
                             </h:panelGroup>
@@ -145,6 +160,29 @@
                     </div>
                 </div>
                 <hr/>
+                <h:panelGroup layout="block"
+                    styleClass="section hc-overlay-form-fields-container clearfix"
+                    id="main-language-section">
+                    <b>
+                        <h:outputLabel styleClass="hc-form-label" 
+                                       for="#{mainSpokenLanguage}" 
+                                       value="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}">
+                        </h:outputLabel>
+                    </b>
+                    <span>
+                        <h:selectOneMenu 
+                            id="mainSpokenLanguage" 
+                            styleClass="hc-form-field"
+                            value="#{profileEditPage.user.mainSpokenLanguage}"
+                            converter="languageConverter">
+                            <f:selectItems 
+                                value="#{profileEditPage.user.spokenLanguages}"
+                                var="language"
+                                itemLabel="#{language.languageName}"
+                                itemValue="#{language}"/>
+                        </h:selectOneMenu>
+                    </span>
+                </h:panelGroup>
                 <h:panelGroup 
                     layout="block"
                     styleClass="section hc-overlay-form-fields-container clearfix"

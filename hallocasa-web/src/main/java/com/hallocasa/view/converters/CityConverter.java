@@ -5,32 +5,32 @@
  */
 package com.hallocasa.view.converters;
 
-import com.hallocasa.commons.vo.StateVO;
+import com.hallocasa.commons.vo.CityVO;
+import static com.hallocasa.view.utils.FormatUtils.isNumeric;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import static com.hallocasa.view.utils.FormatUtils.*;
 
 /**
  *
  * @author Alexander Villamil
  */
-@FacesConverter(value = "stateConverter")
-public class StateConverter implements Converter {
-
-   
+@FacesConverter(value = "cityConverter")
+public class CityConverter implements Converter{
+    
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if (isNumeric(value)) {
-            return new StateVO(Long.parseLong(value));
+            return new CityVO(Long.parseLong(value));
         }
         return null;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        return "" + ((StateVO) value).getId();
+        return "" + ((CityVO) value).getId();
     }
+    
 }

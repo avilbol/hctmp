@@ -11,7 +11,7 @@ import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.dataentities.app.UserType;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.services.location.local.CountryServices;
-import static com.hallocasa.utils.FormatUtils.isNumeric;
+import static com.hallocasa.view.utils.FormatUtils.isNumeric;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

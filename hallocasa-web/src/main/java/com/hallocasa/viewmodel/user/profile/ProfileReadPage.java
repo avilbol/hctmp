@@ -5,14 +5,13 @@
  */
 package com.hallocasa.viewmodel.user.profile;
 
-import com.hallocasa.commons.vo.CountryVO;
-import com.hallocasa.commons.vo.StateVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.controlaccess.ForbiddenException;
 import com.hallocasa.model.session.WebSession;
 
-import com.hallocasa.services.interfaces.UserServices;import com.hallocasa.utils.FormatUtils;
-import com.hallocasa.view.navigation.HallocasaViewEnum;import com.hallocasa.view.navigation.HallocasaViewNames;
+import com.hallocasa.services.interfaces.UserServices;
+import com.hallocasa.view.utils.FormatUtils;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -89,6 +88,10 @@ public class ProfileReadPage implements Serializable {
     
     public String getStateName(){
         return user.getState().getStateName().getText(webSession.getCurrentLanguage());
+    }
+    
+    public String getCityName(){
+        return user.getCity().getCityName().getText(webSession.getCurrentLanguage());
     }
     
     public String getWebsiteName(){

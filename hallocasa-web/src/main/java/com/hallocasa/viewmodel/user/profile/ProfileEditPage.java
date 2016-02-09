@@ -7,6 +7,7 @@ package com.hallocasa.viewmodel.user.profile;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.StateVO;
 import com.hallocasa.commons.vo.UserVO;
@@ -16,21 +17,16 @@ import com.hallocasa.services.FileServices;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.services.location.local.CountryServices;
 import com.hallocasa.utils.ApplicationFileUtils;
-import com.hallocasa.utils.FormatUtils;
+import com.hallocasa.view.utils.FormatUtils;
 import com.hallocasa.view.context.ViewContext;
 import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.security.LoginDialog;
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -84,6 +80,11 @@ public class ProfileEditPage implements Serializable {
      * States list
      */
     private List<StateVO> states;
+    
+    /**
+     * States list
+     */
+    private List<CityVO> cities;
     
     /**
      * User description
@@ -188,13 +189,24 @@ public class ProfileEditPage implements Serializable {
      * Process country selection event
      */
     public void processCountrySelect(){
-       if(user.getCountry() != null){
+       cities = new ArrayList<>();
+       user.setCity(null);
+       user.setState(null);
+       if(user.getCountry() != null)
             states = countryServices.getStates(user.getCountry().getId());
-       }
-       else{
+       else
            states = new ArrayList<>();
-           user.setState(null);
-       }
+    }
+    
+     /**
+     * Process country selection event
+     */
+    public void processStateSelect(){
+       user.setCity(null);
+       if(user.getState() != null)
+            cities = countryServices.getCities(user.getState().getId());
+       else
+           cities = new ArrayList<>();
     }
     
     public String getCountryName(CountryVO country){
@@ -203,6 +215,10 @@ public class ProfileEditPage implements Serializable {
     
     public String getStateName(StateVO state){
         return state.getStateName().getText(webSession.getCurrentLanguage());
+    }
+    
+    public String getCityName(CityVO city){
+        return city.getCityName().getText(webSession.getCurrentLanguage());
     }
     
     /**
@@ -220,6 +236,14 @@ public class ProfileEditPage implements Serializable {
 
     public void setStates(List<StateVO> states) {
         this.states = states;
+    }
+
+    public List<CityVO> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<CityVO> cities) {
+        this.cities = cities;
     }
 
     public List<Language> getLanguages() {

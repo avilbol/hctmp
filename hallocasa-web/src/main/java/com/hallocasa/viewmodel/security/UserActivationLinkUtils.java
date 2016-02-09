@@ -1,5 +1,6 @@
 package com.hallocasa.viewmodel.security;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.codec.CodecUtils;
 import com.hallocasa.dataentities.app.Token;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
@@ -46,10 +47,11 @@ public class UserActivationLinkUtils {
         return HallocasaViewEnum.USER_ACTIVATION.getAbsolutePath(params);
     }
     
-    public static String buildPasswordRecoveryUrl(Token token){
+    public static String buildPasswordRecoveryUrl(Token token, Language language){
         Map<String, String> params = new HashMap<>();
         params.put(ViewParamEnum.RECOVERY_PASSWORD.getParamKey(),
                 token.getTokenContent());
+        params.put(ViewParamEnum.LANGUAGE.getParamKey(), language.toString());
         return HallocasaViewEnum.HOME.getAbsolutePath(params);
     }
 
