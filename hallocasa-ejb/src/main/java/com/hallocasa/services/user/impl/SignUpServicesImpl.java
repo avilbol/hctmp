@@ -5,9 +5,11 @@
  */
 package com.hallocasa.services.user.impl;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.codec.CodecUtils;
 import com.hallocasa.commons.exceptions.services.InvalidEmailException;
 import com.hallocasa.commons.validation.StandardPropertyValidator;
+import com.hallocasa.commons.vo.ImageContainer;
 import com.hallocasa.commons.vo.RegisterUserVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.app.User;
@@ -20,10 +22,12 @@ import com.hallocasa.services.messaging.local.MailServices.BuildInMailType;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.services.user.local.SignUpServices;
 import com.hallocasa.vo.MailChimpMergeVars;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -41,6 +45,8 @@ public class SignUpServicesImpl extends ServicesBase implements SignUpServices {
     @EJB
     private MailChimpServices mailChimpServices;
 
+    private static final String DEFAULT_IMAGE_URL = "/userimage/user0.jpg";
+    
     /**
      * Default constructor
      */
@@ -116,6 +122,8 @@ public class SignUpServicesImpl extends ServicesBase implements SignUpServices {
         user.setEmail(registerUserVO.getEmail());
         user.setPassword(CodecUtils.encryptPassword(registerUserVO.getPassword()));
         user.setLanguage(registerUserVO.getLanguage());
+        user.setMainSpokenLanguage(registerUserVO.getLanguage());
+        user.setImage(new ImageContainer(DEFAULT_IMAGE_URL));
         user.setConfirmedFlag(Boolean.FALSE);
 
         // persists the new entity and creates value object to return

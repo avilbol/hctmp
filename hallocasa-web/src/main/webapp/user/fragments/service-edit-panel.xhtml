@@ -166,6 +166,7 @@
                     <b>
                         <h:outputLabel styleClass="hc-form-label" 
                                        for="#{mainSpokenLanguage}" 
+                                       label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
                                        value="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}">
                         </h:outputLabel>
                     </b>
@@ -174,6 +175,7 @@
                             id="mainSpokenLanguage" 
                             styleClass="hc-form-field"
                             value="#{profileEditPage.user.mainSpokenLanguage}"
+                            label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
                             converter="languageConverter">
                             <f:selectItems 
                                 value="#{profileEditPage.user.spokenLanguages}"

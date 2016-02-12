@@ -107,7 +107,12 @@ public class ProfileEditPage implements Serializable {
     @PostConstruct
     public void initialize() {
         user = userServices.find(webSession.getCurrentUser().getId());
-        processCountrySelect();
+        if(user.getCountry() != null){
+        	states = countryServices.getStates(user.getCountry().getId());
+        }
+        if(user.getState() != null){
+        	cities = countryServices.getCities(user.getState().getId());
+        }
         languages = halloCasaApplication.getLanguages();
     }
     
@@ -131,7 +136,9 @@ public class ProfileEditPage implements Serializable {
     public void processSaveClick(){
         try {
             user.setConfirmedFlag(Boolean.TRUE);
-            manageUserImage();
+            if(this.user.getImage() != null){
+            	manageUserImage();
+            }
             userServices.save(user);
             navigationHandler.redirectToPage(HallocasaViewEnum.MY_PROFILE);
             viewContext.showGlobalInfoMessage("Hecho", "El perfil ha sido guardado satisfactoriamente");

@@ -1,0 +1,151 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>hallocasa-ejb</artifactId>
+    <name>Hallocasa Ejb Project</name>
+    <packaging>ejb</packaging>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>${maven.ejb.plugin}</version>
+                <configuration>
+                    <ejbVersion>${ejb.version}</ejbVersion>
+                    <generateClient>false</generateClient>
+                    <!-- <clientIncludes> <clientInclude>com/mobiera/social/services/remote/**</clientInclude> 
+                    </clientIncludes> -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <id>copy-common-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>../hallocasa-commons/src/main/resources/</directory>
+                                    <includes>
+                                        <include>ValidationMessages_de.properties</include>
+                                        <include>ValidationMessages_en.properties</include>
+                                        <include>ValidationMessages_es.properties</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+       
+        <!-- DBMaintain -->
+        <dependency>
+            <groupId>org.dbmaintain</groupId>
+            <artifactId>dbmaintain</artifactId>
+            <version>2.4</version>
+        </dependency>
+        
+        <!-- hallocasa -->
+        <dependency>
+            <groupId>com.hallocasa</groupId>
+            <artifactId>hallocasa-commons</artifactId>
+            <version>${hallocasa.portal.version}</version>
+            <type>jar</type>
+        </dependency>
+        
+        <!-- Mail chimp -->
+        <dependency>
+            <groupId>com.ecwid</groupId>
+            <artifactId>ecwid-mailchimp</artifactId>
+            <version>2.0.1.1-SNAPSHOT</version>
+        </dependency>
+        
+        <!-- Mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- eclipse jpa-->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- Unit testing -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.em.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <version>${el.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+    </dependencies>
+
+    <parent>
+        <groupId>com.hallocasa</groupId>
+        <artifactId>hallocasa</artifactId>
+        <version>1.1.0.1-SNAPSHOT</version>
+        <relativePath>../hallocasa</relativePath>
+    </parent>
+
+</project>

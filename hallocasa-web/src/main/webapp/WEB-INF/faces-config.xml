@@ -18,7 +18,7 @@
             <var>viewBundle</var>
         </resource-bundle>
         <message-bundle>
-            <base-name>com.hallocasa.language.MessagingSettings</base-name>
+            com.hallocasa.language.MessagingSettings
         </message-bundle>
         <resource-handler>
             com.hallocasa.view.images.DatabaseResourceHandler

@@ -1,5 +1,6 @@
 package com.hallocasa.helpers;
 
+import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.StateVO;
 import com.hallocasa.commons.vo.UserVO;
@@ -7,9 +8,11 @@ import com.hallocasa.commons.vo.helpers.GenericVOEntityConverter;
 import com.hallocasa.commons.vo.helpers.GenericVOParser;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
+import com.hallocasa.dataentities.app.City;
 import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.State;
 import com.hallocasa.dataentities.app.User;
+
 import java.util.Date;
 
 import org.apache.commons.beanutils.BeanUtilsBean;
@@ -33,6 +36,7 @@ public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject>
         registerConverter(User.class, UserVO.class, UserVOParser.class);
         registerConverter(Country.class, CountryVO.class, CountryVOParser.class);
         registerConverter(State.class, StateVO.class, StateVOParser.class);
+        registerConverter(City.class, CityVO.class, CityVOParser.class);
 
         // Date (use null as null)
         DateConverter dateConverter = new DateConverter(null);
