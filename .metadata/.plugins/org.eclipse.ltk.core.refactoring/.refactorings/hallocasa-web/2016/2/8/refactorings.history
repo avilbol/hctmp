@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.hallocasa.viewmodel.user.present.BrowserProfilePage&apos; to &apos;ProfileBrowserPage&apos;&#x0D;&#x0A;- Original project: &apos;hallocasa-web&apos;&#x0D;&#x0A;- Original element: &apos;com.hallocasa.viewmodel.user.present.BrowserProfilePage&apos;&#x0D;&#x0A;- Renamed element: &apos;com.hallocasa.viewmodel.user.present.ProfileBrowserPage&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;BrowserProfilePage&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java&lt;com.hallocasa.viewmodel.user.present{BrowserProfilePage.java[BrowserProfilePage" matchStrategy="1" name="ProfileBrowserPage" qualified="false" references="true" similarDeclarations="false" stamp="1455572327940" textual="false" version="1.0"/>
+</session>

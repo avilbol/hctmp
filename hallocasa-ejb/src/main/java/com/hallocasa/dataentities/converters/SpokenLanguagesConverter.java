@@ -5,14 +5,14 @@
  */
 package com.hallocasa.dataentities.converters;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.hallocasa.commons.Language;
-import com.hallocasa.dataentities.types.LanguageList;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.hallocasa.dataentities.types.LanguageList;
 
 /**
  * Converter from SpokenLanguage attribute

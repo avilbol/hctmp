@@ -7,6 +7,7 @@ package com.hallocasa.services.persistence.local;
 
 import java.util.HashMap;
 import java.util.List;
+
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -216,4 +217,16 @@ public interface AppPersistenceServices {
      * Flush entity manager
      */
     public void flush();
+
+    /**
+     * 
+     * @param sqlQuery
+     * @param params
+     * @param expectedClass
+     * @param startIndex
+     * @param endIndex
+     * @return
+     */
+	public <T> List<T> executeNativeQuery(String sqlQuery, HashMap<String, Object> params,
+			Class<T> expectedClass, Integer startIndex, Integer endIndex);
 }

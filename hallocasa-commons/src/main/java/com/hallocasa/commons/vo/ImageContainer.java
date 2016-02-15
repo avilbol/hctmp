@@ -12,7 +12,12 @@ import java.io.Serializable;
  */
 public class ImageContainer implements Serializable {
 
-    public ImageContainer(String url) {
+	/**
+	 * Constante de serialización
+	 */
+	private static final long serialVersionUID = 1761450168544209129L;
+	
+	public ImageContainer(String url) {
         this.url = url;
     }
 

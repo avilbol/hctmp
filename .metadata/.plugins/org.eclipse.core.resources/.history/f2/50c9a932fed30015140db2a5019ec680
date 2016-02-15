@@ -1,0 +1,26 @@
+package com.hallocasa.services;
+
+import javax.ejb.EJB;
+
+import com.hallocasa.commons.exceptions.services.ServiceException;
+import com.hallocasa.dataentities.app.TestEntity;
+import com.hallocasa.services.interfaces.TestServices;
+import com.hallocasa.services.persistence.local.AppPersistenceServices;
+
+
+public class TestServicesImpl implements TestServices {
+
+	@EJB
+    private AppPersistenceServices appPersistenceServices;
+	
+	@Override
+	public TestEntity findTestEntity(long id) {
+		return appPersistenceServices.findEntity(TestEntity.class, id);
+	}
+
+	@Override
+	public void saveTestEntity(TestEntity testEntity) throws ServiceException {
+		appPersistenceServices.mergeEntity(testEntity);
+	}
+
+}

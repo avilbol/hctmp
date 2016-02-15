@@ -2,8 +2,13 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="javax.faces.context.ExternalContext"/>
 <fullyQualifiedTypeName name="javax.faces.context.FacesContext"/>
-<fullyQualifiedTypeName name="com.hallocasa.dataentities.app.City"/>
 <fullyQualifiedTypeName name="com.hallocasa.commons.vo.CityVO"/>
 <fullyQualifiedTypeName name="com.hallocasa.commons.Language"/>
+<fullyQualifiedTypeName name="com.hallocasa.dataentities.app.City"/>
+<fullyQualifiedTypeName name="com.hallocasa.dataentities.app.TestEntity"/>
+<fullyQualifiedTypeName name="javax.persistence.Converter"/>
+<fullyQualifiedTypeName name="javax.persistence.Convert"/>
+<fullyQualifiedTypeName name="com.hallocasa.dataentities.converters.ImageContainerConverter"/>
+<fullyQualifiedTypeName name="org.junit.Assert"/>
 <fullyQualifiedTypeName name="com.hallocasa.commons.vo.ImageContainer"/>
 </qualifiedTypeNameHistroy>

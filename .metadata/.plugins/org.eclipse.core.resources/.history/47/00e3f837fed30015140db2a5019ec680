@@ -1,0 +1,22 @@
+package com.hallocasa.services.interfaces;
+
+import com.hallocasa.commons.exceptions.services.ServiceException;
+import com.hallocasa.dataentities.app.TestEntity;
+
+public interface TestServices {
+
+	/**
+     * Finds a testEntity by its id
+     *
+     * @param id
+     * @return
+     */
+    public TestEntity findTestEntity(long id);
+
+    /**
+     * 
+     * @param user 
+     */
+    public void saveTestEntity(TestEntity testEntity) throws ServiceException;
+	
+}

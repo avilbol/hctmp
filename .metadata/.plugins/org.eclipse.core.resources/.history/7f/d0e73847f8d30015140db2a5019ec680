@@ -1,0 +1,33 @@
+package com.hallocasa.dataentities.app;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.hallocasa.commons.vo.ImageContainer;
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+
+@Entity
+@Table(name = "user")
+public class TestEntity implements Serializable, HallocasaEntity {
+
+	 /* static fields */
+    private static final long serialVersionUID = 1L;
+
+    /* instance variables */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    
+    @Column(name = "image_url")
+    private ImageContainer imageUrl;
+    
+    
+	
+}

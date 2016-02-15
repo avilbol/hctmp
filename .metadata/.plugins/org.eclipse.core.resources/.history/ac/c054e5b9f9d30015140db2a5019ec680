@@ -1,0 +1,21 @@
+package com.hallocasa.services;
+
+import com.hallocasa.commons.exceptions.services.ServiceException;
+import com.hallocasa.dataentities.app.TestEntity;
+import com.hallocasa.services.interfaces.TestServices;
+
+public class TestServicesImpl implements TestServices {
+
+	@Override
+	public TestEntity findTestEntity(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void saveTestEntity(TestEntity testEntity) throws ServiceException {
+		// TODO Auto-generated method stub
+
+	}
+
+}

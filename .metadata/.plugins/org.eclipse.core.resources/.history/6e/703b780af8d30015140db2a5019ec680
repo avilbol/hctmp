@@ -1,0 +1,9 @@
+package com.hallocasa.dataentities.app;
+
+import java.io.Serializable;
+
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+
+public class TestEntity implements Serializable, HallocasaEntity {
+
+}

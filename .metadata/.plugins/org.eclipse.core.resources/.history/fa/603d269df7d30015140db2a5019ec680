@@ -1,0 +1,5 @@
+package com.hallocasa.dataentities.app;
+
+public class TestEntity {
+
+}
