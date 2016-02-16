@@ -28,10 +28,12 @@ import com.hallocasa.tests.database.DatabaseCreator;
 import com.hallocasa.tests.database.DatabaseUtils;
 import com.hallocasa.tests.database.JhonDoeDataFiller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -124,13 +126,16 @@ public class ProfileUserIT {
 	/* Methods */
 	@Test
 	public void testLoadProfileList() {
-		List<User> initialUsers =  persistenceServices.executeNativeQuery(
-				User.QUERY_FIND_RANDOM_LIST, 
-				new HashMap<String, Object>(), User.class, 0,
-				5);
-
+		UserServicesImpl userServices = new UserServicesImpl();
+		userServices.setAppPersistenceServices(persistenceServices);
+		List<UserVO> userVOList = userServices.loadUserVOList(5,
+				StrategySort.RANDOM);
+		List<UserVO> plusUserVOList = userServices.loadUserVOList(userVOList,
+				5, StrategySort.RANDOM);
+		List<UserVO> fullUserVOList = userServices.loadUserVOList(plusUserVOList,
+				5, StrategySort.RANDOM);
 	}
-	
+
 	/**
 	 * 
 	 * @return

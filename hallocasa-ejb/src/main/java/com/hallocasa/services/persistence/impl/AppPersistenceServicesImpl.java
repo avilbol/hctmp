@@ -6,16 +6,18 @@
 package com.hallocasa.services.persistence.impl;
 
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -350,6 +352,49 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         return query.getResultList();
     }
 
+    
+    @Override
+    public <T> T executeQuery(String sqlQuery, Class<T> expectedClass){
+    	TypedQuery<T> query = em.createQuery(sqlQuery, expectedClass);
+    	return query.getSingleResult();
+    }
+    
+    
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.mobiera.social.services.local.PersistenceServicesLocal#executeQuery
+     * (java.lang.String, java.util.HashMap, java.lang.Class)
+     */
+    @Override
+    public <T> T executeQuery(String jpqlQuery,
+            HashMap<String, Object> params, Class<T> expectedClass, Integer index) {
+    	try{
+    		TypedQuery<T> query = em.createQuery(jpqlQuery, expectedClass);
+            
+            query.setFirstResult(index);
+            query.setMaxResults(1);
+            
+            if (params != null && !params.isEmpty()) {
+
+                Iterator<Map.Entry<String, Object>> it = params.entrySet()
+                        .iterator();
+
+                while (it.hasNext()) {
+                    Map.Entry<String, Object> paramEntry = it.next();
+                    query.setParameter(String.valueOf(paramEntry.getKey()),
+                            paramEntry.getValue());
+                }
+            }
+            return query.getSingleResult();
+    	} catch(NoResultException e){
+    		return null;
+    	}
+       
+    }
+    
     
     /*
      * (non-Javadoc)

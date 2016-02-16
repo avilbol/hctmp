@@ -46,7 +46,8 @@ public class User implements Serializable, HallocasaEntity {
 	/* static fields */
 	private static final long serialVersionUID = 1L;
 	public static final String QUERY_FIND_BY_EMAIL = "User.findByEmail";
-	public static final String QUERY_FIND_RANDOM_LIST = "select * from User u ORDER BY RAND()";
+	public static final String QUERY_ALL_LIST_WITH_USER_TYPES = "select u from User u WHERE size(u.userTypes) > 0";
+	public static final String QUERY_COUNT_LIST_WITH_USER_TYPES = "select count(u) from User u  WHERE size(u.userTypes) > 0";
 	public static final String QUERY_FIND_RANDOM_EXCLUDE_LIST = "select u from User u WHERE u.id NOT IN :exclList ORDER BY RAND()";
 	public static final String spokenLanguages_ = "spokenLanguages";
 	public static final String password_ = "password";

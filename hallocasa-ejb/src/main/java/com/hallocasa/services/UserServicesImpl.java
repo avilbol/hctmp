@@ -41,6 +41,7 @@ import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import javax.persistence.PersistenceException;
@@ -161,26 +162,80 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
 	@Override
 	public List<UserVO> loadUserVOList(Integer initialAmmount,
 			StrategySort strategySort) {
-		List<UserVO> userVOList = appPersistenceServices.executeQuery(
-				User.QUERY_FIND_RANDOM_LIST, new Object[] {}, UserVO.class, 0,
-				initialAmmount);
-		return userVOList;
+		return createUserVOList(null, initialAmmount);
 	}
 
 	@Override
 	public List<UserVO> loadUserVOList(List<UserVO> existingUserVOList,
 			Integer aditionalAmmount, StrategySort strategySort) {
-		List<Long> exclList = new ArrayList<Long>();
-		for (UserVO userVO : existingUserVOList) {
-			exclList.add(userVO.getId());
-		}
-		HashMap<String, Object> objectMap = new HashMap<String, Object>();
-		objectMap.put("exclList", exclList);
-		List<UserVO> users = appPersistenceServices.executeQuery(
-				User.QUERY_FIND_RANDOM_EXCLUDE_LIST, objectMap, UserVO.class,
-				0, aditionalAmmount);
-		existingUserVOList.addAll(users);
-		return existingUserVOList;
+		return createUserVOList(existingUserVOList, aditionalAmmount);
 	}
 
+	/**
+	 * Detect the presence of users with an id duplicated in candidate
+	 * new element
+	 * @param user
+	 * @param userList
+	 * @return
+	 */
+	private boolean duplicateUser(User user, List<User> userList){
+		for(User userItem : userList){
+			if(user.getId().equals(userItem.getId())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	private List<UserVO> toUserVOList(List<User> userList){
+		List<UserVO> userVOList = new ArrayList<UserVO>();
+		int counter = 0;
+		for(User user: userList){
+			userVOList.add(ParsersContext.USER_VO_PARSER.toValueObject(
+					userList.get(counter++), UserVO.class));
+		}
+		return userVOList;
+	}
+	
+	private List<User> toUserList(List<UserVO> userVOList){
+		List<User> userList = new ArrayList<User>();
+		for(UserVO userVO: userVOList){
+			userList.add(ParsersContext.USER_VO_PARSER.toEntity(
+					userVO, User.class));
+		}
+		return userList;
+	}
+	
+	private List<UserVO> createUserVOList(List<UserVO> existingUserVOList,
+			Integer elementNumber){
+		Integer counter = 0;
+		List<User> userList;
+		if(existingUserVOList == null){
+			userList = new ArrayList<User>();
+		}
+		else{
+			userList =  toUserList(existingUserVOList);
+		}
+		Integer profileAmmount = appPersistenceServices.executeQuery(
+				User.QUERY_COUNT_LIST_WITH_USER_TYPES, Long.class).intValue();
+		Random random = new Random();
+		while (counter++ < elementNumber && profileAmmount > userList.size()) {
+			User userItem = new User();
+			do{
+				Integer indexToFix = random.nextInt(profileAmmount);
+				userItem = appPersistenceServices.executeQuery(
+						User.QUERY_ALL_LIST_WITH_USER_TYPES, new HashMap<String, Object>(),
+						User.class, indexToFix);
+			} while(duplicateUser(userItem, userList));
+			userList.add(userItem);
+		}
+		return toUserVOList(userList);
+	}
+
+
+	public void setAppPersistenceServices(
+			AppPersistenceServices appPersistenceServices) {
+		this.appPersistenceServices = appPersistenceServices;
+	}
 }
