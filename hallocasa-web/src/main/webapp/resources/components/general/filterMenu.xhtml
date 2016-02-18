@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:cc="http://java.sun.com/jsf/composite">
+    <cc:interface componentType="FilterMenuComponent">
+        <cc:attribute name="value"
+                      type="com.hallocasa.view.components.general.filtermenu.FilterMenuModel"
+                      required="true" />
+        <cc:attribute name="filterChangeListener"
+                      method-signature="void l(com.hallocasa.view.components.general.filtermenu.FilterMenuItem)" />
+        <cc:attribute name="filterStatus" type="java.lang.String"
+                      shortDescription="Id of the filerStatus 
+                      component associated to this filterMenu" />
+        <cc:attribute name="filterChangeUpdate" type="java.lang.String"
+                      shortDescription="Id or ids to update after the filter change event"
+                      required="false" />
+    </cc:interface>
+
+    <cc:implementation>
+        <div id="#{cc.id}">
+            <p:accordionPanel value="#{cc.attrs.value.filterMenuItems}"
+                              multiple="true" var="filterItem"
+                              id="fiterMenuAccordeon">
+                <p:tab title="#{filterItem.title}" id="filterTab">
+
+                    <!-- Filter Select menu Type !-->
+                    <h:panelGroup layout="block" id="filerPanel"
+                                  rendered="#{filterItem.filterType eq 'SELECT_MANY' }">
+                        <p:selectManyCheckbox value="#{filterItem.listValue}"
+                                              layout="pageDirection" converter="#{filterItem.converter}">
+                            <p:ajax event="change" listener="#{cc.onFilterChange}"
+                                    update="#{cc.attrs.filterStatus},#{cc.attrs.filterChangeUpdate}" />
+                            <f:selectItems value="#{filterItem.filterMenuItemOptions}" />
+                            <f:attribute name="filterItem" value="#{filterItem}" />
+                        </p:selectManyCheckbox>
+                    </h:panelGroup>
+
+                    <!-- Filter range type !-->
+                    <h:panelGroup layout="block"
+                                  rendered="#{filterItem.filterType eq 'RANGE' }">
+                        <p:inputText value="#{filterItem.firstValue}"
+                                     validator="#{filterItem.validateFirstValue}"
+                                     converter="#{filterItem.converter}">
+                            <p:ajax event="change" listener="#{cc.onFilterChange}"
+                                    update="#{cc.attrs.filterStatus},#{cc.attrs.filterChangeUpdate}" />
+                            <f:attribute name="filterItem" value="#{filterItem}" />
+                        </p:inputText>
+                        <p:inputText value="#{filterItem.secondValue}"
+                                     validator="#{filterItem.validateSecondValue}"
+                                     converter="#{filterItem.converter}">
+                            <p:ajax event="change" listener="#{cc.onFilterChange}"
+                                    update="#{cc.attrs.filterStatus},#{cc.attrs.filterChangeUpdate}" />
+                            <f:attribute name="filterItem" value="#{filterItem}" />
+                        </p:inputText>
+                    </h:panelGroup>
+
+                    <!-- Filter contains type !-->
+                    <h:panelGroup layout="block"
+                                  rendered="#{filterItem.filterType eq 'CONTAINS' }">
+                        <p:inputText value="#{filterItem.firstValue}"
+                                     validator="#{filterItem.validateFirstValue}"
+                                     converter="#{filterItem.converter}">
+                            <p:ajax event="change" listener="#{cc.onFilterChange}"
+                                    update="#{cc.attrs.filterStatus},#{cc.attrs.filterChangeUpdate}" />
+                            <f:attribute name="filterItem" value="#{filterItem}" />
+                        </p:inputText>
+                    </h:panelGroup>
+
+                </p:tab>
+            </p:accordionPanel>
+        </div>
+    </cc:implementation>
+
+</ui:composition>

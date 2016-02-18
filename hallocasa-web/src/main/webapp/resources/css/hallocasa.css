@@ -1,0 +1,192 @@
+/* Hallocasa content styles */
+
+/* fonts */
+@import "http://fonts.googleapis.com/css?family=Roboto:400,900italic,700italic,500italic,400italic,300italic,100italic,900,700,500,300,100";
+@import "http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,300,400,600";
+
+/* other componentes*/
+@import "#{resource['css:reset.css']}";
+@import "#{resource['css:layout.css']}";
+@import "#{resource['css:header.css']}";
+@import "#{resource['css:footer.css']}";
+
+
+/* sections and components */
+
+.hc-basic-button {
+    padding: 0.6em 1.2em;
+    line-height: 1.4;
+    box-sizing: border-box;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #FBE644;
+    background: #FBE644;
+    border-radius: 6px;
+}
+
+
+
+.hc-basic-button:hover {
+    border: 1px solid #002d45;
+    background: #002d45;
+    font-weight: normal;
+    color: #ffffff !important;
+}
+
+.hc-state-active-button {
+    
+}
+
+/* form */
+.hc-form {
+    text-align: left;
+}
+.hc-form .hc-form-label {
+    display: block;
+    margin-bottom: 0.2em;
+}
+.hc-form .hc-form-across-label {
+    display: inline;
+    margin-bottom: 0.2em;
+    font-weight: bold;
+}
+
+.hc-form-label.hc-form-required:after,
+.hc-form-across-label.hc-form-required:after{
+    content: "*";
+    margin-left: 5px;
+}
+
+.hc-form .hc-form-field {
+    min-width: 200px;
+}
+.hc-form .hc-form-field .hc-output-text {
+    margin: 0em 0.6em 0.3em 0.6em;
+    width: 100%;
+}
+
+.hc-gray-field {
+    color: #B1B1B1;
+}
+
+.hc-overlay-form-fields-container {
+    padding-bottom: 20px;
+    font-size: 0.85em;
+}
+.hc-overlay-form-fields-container {
+
+}
+.hc-overlay-form-buttons-container {
+    text-align: right;
+    font-size: 0.9em;
+}
+.hc-form-cancel-button {
+    margin-right: 6px;
+}
+
+.hc-manycheckbox-three-columns {
+    width : 100%;
+}
+
+.hc-manycheckbox-three-columns tr{
+    float: left;
+    width: 33%;
+}
+
+
+.hc-overlay-form-additional-options {
+    padding-top: 0.1em;
+    font-size: 0.8em;
+    text-align: right;
+    margin-bottom: 1.6em;
+    margin-top: -1.2em;
+}
+.hc-overlay-form-additional-options .hc-link {
+
+}
+.hc-overlay-form-additional-options .hc-link:hover {
+    text-decoration: underline;
+}
+
+.hc-centered-panel {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.hc-input-text-area {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+}
+
+.hc-input-text-area {                         
+    max-width: 100%;
+}
+
+.hc-300-panel {
+    width: 500px;
+    height: 500px;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: scroll;
+}
+
+.hc-padding-20{
+    padding:20px;
+}
+
+hc-image-container-1m{
+    height:
+}
+
+div.hc-responsive-div,
+div.hc-responsive-div img{
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
+/* yellow button */
+.hc-yellow-button-link {
+    margin-bottom: 20px;
+    white-space: nowrap;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 0px;
+}
+.hc-yellow-button-link {
+    background-color:#fbe644;
+    color:#000;
+    font-size:17px;
+    padding:10px 15px;
+    margin:0 3px;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    -ms-border-radius:5px;
+    -o-border-radius:5px;
+    border-radius:5px;
+    z-index:1;
+}
+.hc-yellow-button-link  span {
+    color: black;
+}
+.hc-yellow-button-link :visited {
+    color:#000;
+}
+.hc-yellow-button-link :hover,
+.hc-yellow-button-link :active,
+.hc-yellow-button-link :hover span,
+.hc-yellow-button-link :active span{
+    color: white;
+}
+.hc-simple-link{
+    cursor:pointer;
+}
+
+.hc-go-right{
+    text-align: right !important;
+}
+
+

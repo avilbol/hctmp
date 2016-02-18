@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>Real State Application</display-name>
+    <!-- Session -->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>home/index.xhtml</welcome-file>
+    </welcome-file-list>
+    <!-- servlet for jsf -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    
+    <!-- User Image Mapping -->
+    <servlet>
+        <servlet-name>userImageServlet</servlet-name>
+        <servlet-class>com.hallocasa.servlet.ImageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>userImageServlet</servlet-name>
+        <url-pattern>/userimage/*</url-pattern>
+    </servlet-mapping>
+    
+    
+    <!-- context-parameter -->
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>${javax.faces.PROJECT_STAGE}</param-value>
+    </context-param>
+    <context-param>
+        <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param>
+    <context-param>
+        <param-name>EPGContex.AppMode</param-name>
+        <param-value>Web</param-value>
+    </context-param>
+    <context-param>
+        <description>Tiempo de Expirar de los recursos</description>
+        <param-name>com.sun.faces.defaultResourceMaxAge</param-name>
+        <param-value>86400000</param-value>
+    </context-param>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>hallocasa</param-value>
+    </context-param>
+    <!-- listener -->
+    <listener>
+        <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+    </listener>
+    <filter>
+        <filter-name>LangFilter</filter-name>
+        <filter-class>com.hallocasa.controller.filters.LangFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LangFilter</filter-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AccessFilter</filter-name>
+        <filter-class>com.hallocasa.controller.filters.AccessFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AccessFilter</filter-name>
+        <url-pattern>*.xhtml</url-pattern>
+        <url-pattern>*.asp</url-pattern>
+        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.jsf</url-pattern>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    <listener>
+        <listener-class>com.hallocasa.controller.filters.ServerUrlFinder</listener-class>
+    </listener>
+    <!-- web fonts -->
+</web-app>

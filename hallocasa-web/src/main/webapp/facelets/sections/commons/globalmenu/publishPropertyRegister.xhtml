@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"  
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <p:dialog widgetVar="publishPropertyRegister" id="publishPropertyRegisterDialog"
+              styleClass="data-box"  closeOnEscape="true"
+              onShow="document.getElementById('publishPropertyRegisterForm').reset();">
+
+        <f:facet name="header">
+            <h2>#{viewBundle['Register.Label.RegisterTitle']}</h2>
+        </f:facet>
+
+        <h:form id="publishPropertyRegisterForm">
+            <p>#{viewBundle['Register.Prompt1.Message']}</p>
+
+            <p:growl globalOnly="false"/>
+            <h:panelGrid columns="2" styleClass="fields-grid">
+                <p:outputLabel for="fullName" value="#{viewBundle['Register.Label.FullName']}"/>
+                <p:inputText id="fullName" style="margin-left: 0.4em;"  required="true"
+                             value="#{publishPropertyRegister.publisherUser.fullName}"
+                             requiredMessage="#{viewBundle['Register.Message.FullName.Required']}"/>
+
+                <p:outputLabel for="email" value="#{viewBundle['Register.Label.Email']}"/>
+                <p:inputText id="email" style="margin-left: 0.4em;" required="true"
+                             value="#{publishPropertyRegister.publisherUser.email}"
+                             requiredMessage="#{viewBundle['Register.Message.Email.Required']}"/>
+            </h:panelGrid>
+            <hr/>
+            <div class="buttons-wrapper">
+                <p:commandLink value="#{viewBundle['Common.Label.Send']}" 
+                               process="@form" update="@form" styleClass="yellow-btn"
+                               actionListener="#{publishPropertyRegister.submit}"/>
+            </div>
+        </h:form>
+
+    </p:dialog>
+
+</ui:composition>
+
