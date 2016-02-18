@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="Rerun com.hallocasa.services.user.impl.ProfileUserIT.testLoadProfileList" project="hallocasa-ejb" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testcase name="testLoadProfileList" classname="com.hallocasa.services.user.impl.ProfileUserIT" time="19.029"/>
-</testrun>

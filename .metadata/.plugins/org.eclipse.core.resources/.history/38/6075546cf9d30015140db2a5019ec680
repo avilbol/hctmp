@@ -1,5 +1,0 @@
-package com.hallocasa.services.interfaces;
-
-public interface TestServices {
-
-}

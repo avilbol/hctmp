@@ -1,5 +1,0 @@
-package com.hallocasa.commons;
-
-public enum StrategySort {
-
-}
