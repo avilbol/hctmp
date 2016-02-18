@@ -1,3 +1,0 @@
-INDEX VERSION 1.126
-D:\development\hc\hallocasa-portal\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2697083369.index
-\hallocasa-web\src\main\java
