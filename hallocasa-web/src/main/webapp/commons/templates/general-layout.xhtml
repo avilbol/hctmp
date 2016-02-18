@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view id="view" locale="#{webSession.currentLanguage.locale}">
+        <h:head>
+            <title>#{generalLayout_title eq null ? 'Hallo Casa' : generalLayout_title}</title>
+            <link rel="icon" type="image/ico" href="#{constants.resourcesPath}/images/icons/favicon.ico"/>
+            <meta charset="UTF-8"/>
+            <meta name="author" content="HalloCasa"/>
+            <meta name="keywords" content="Real State"/>
+            <meta name="description" content="#{generalLayout_description}"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+            <meta name="google-site-verification" content="KifMnFDrTkAgets6a69lfdSx44-dK6Xtaf7LyKHCTIY" />
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/font-awesome.css"/>
+            <link rel="stylesheet" href="#{constants.resourcesPath}/css/flipboard-icon-styles.css"/>
+            <ui:insert name="headSection"/>
+        </h:head>
+        <h:body>
+            <h:outputStylesheet library="css" name="theme.css"/>
+            <h:outputStylesheet library="css" name="hallocasa.css"/>
+
+            <ui:insert name="styleSheetsSection"/>
+
+            <ui:insert name="messagesSection">
+                <ui:include src="../fragments/global-messages.xhtml"/>
+            </ui:insert>
+
+            <ui:insert name="headerSection">
+                <ui:include src="../fragments/header.xhtml"/>
+            </ui:insert>
+
+            <ui:insert name="contentSection"/>
+
+            <ui:insert name="footerSection">
+                <ui:include src="../fragments/footer.xhtml"/>
+            </ui:insert>
+            
+            <p:ajaxStatus 
+                onstart="PF('statusDialog').show()" 
+                onsuccess="PF('statusDialog').hide()" />
+            <p:dialog 
+                widgetVar="statusDialog" 
+                modal="true" 
+                showHeader="false" 
+                resizable="false"
+                closable="false">
+                <p:graphicImage 
+                    library="images" 
+                    name="app_images/loading_spinner.gif" />
+            </p:dialog>
+
+            <h:outputScript library="js" name="commons/google.js"/>
+            <h:outputScript library="js" name="commons/header.js"/>
+            <h:outputScript library="js" name="commons/utils.js"/>
+            <script src="//load.sumome.com/" data-sumo-site-id="32c6496d5878bce4c57e22ef90a9ee945a6f1ab766a4aba486e93d8a00b0e287" async="async"></script>
+            <ui:insert name="jsSection"/>
+        </h:body>
+    </f:view>
+</html>
+
