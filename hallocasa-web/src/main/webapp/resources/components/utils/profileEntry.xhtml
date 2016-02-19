@@ -1,54 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
-                xmlns:cc="http://java.sun.com/jsf/composite"
-                xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
-    <cc:interface componentType="profileEntryComponent">
-        <cc:attribute name="user"
-                      type="com.hallocasa.commons.vo.UserVO"
-                      shortDescription="Profile to show"/>
-        <cc:attribute name="size"
-                      type="java.lang.Integer"
-				      default="200"
-                      shortDescription="profile entry size"/>
-        <cc:attribute name="language"
-                      type="java.lang.String"
-				      default="en"
-                      shortDescription="Language to view user data"/>
-    </cc:interface>
-    <cc:implementation>
-  		<h:panelGroup id="profile-entry-container" 
-      			  style="width:300px">
-      			  #{cc.user.image.url}
-	       	<div style="width:30%">
-	       		<utils:imageEditor 
-	               imageUrl="#{cc.user.image}"
-	               imageType="userImage"
-	               readOnly="true"/>
-	       	</div>
-	       	<div style="width:30%">
-	       	dddddddddddddd 
-	       		#{cc.user.image.url}
-	       		<ui:repeat value="#{cc.user.userTypes}" 
-	       				   var="userType">
-	       			<div style="display:block">
-	       				#{cc.load(userType)}	
-	       			</div>   
-	       		</ui:repeat>
-	       		<ui:repeat value="#{cc.user.spokenLanguages}" 
-	       				   var="spokenLanguage">
-	       			<div style="display:block">
-	       				#{spokenLanguage.languageName}	
-	       			</div>   
-	       		</ui:repeat>
-	       	</div>
-	       	<div style="width:40%">
-	       		<p>#{cc.loadDescription()}</p>
-	       	</div>
-       </h:panelGroup>
-    </cc:implementation>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
+	<cc:interface componentType="profileEntryComponent">
+		<cc:attribute name="user" type="com.hallocasa.commons.vo.UserVO"
+			shortDescription="Profile to show" />
+		<cc:attribute name="size" type="java.lang.Integer" default="200"
+			shortDescription="profile entry size" />
+		<cc:attribute name="language" type="com.hallocasa.commons.Language"
+			default="en" shortDescription="Language to view user data" />
+		<cc:attribute name="onClick" required="true"
+			method-signature="void action(com.hallocasa.commons.vo.UserVO)"
+			shortDescription="action to execute when click"/>
+	</cc:interface>
+	<cc:implementation>
+		<h:outputScript>
+	    	function doClick(id){
+	    		$('#' + id.split(':').join('\\:')).click();
+	    	}
+    	</h:outputScript>
+		<f:event type="postAddToView" listener="#{cc.initialize}" />
+		<h:outputStylesheet library="css" name="modules/profile/browse.css" />
+
+		<h:panelGroup id="profile-entry-container" style="width:700px;">
+
+			<h:commandLink binding="#{cc.commandLink}">
+				<f:ajax listener="#{cc.attrs.onClick}"></f:ajax>
+				<f:param name="user" value="#{cc.user}"></f:param>
+			</h:commandLink>
+			<div class="hc-profile-browse-panel"
+				onclick="doClick('#{cc.commandLink.clientId}')">
+				<div style="width: 30%; float: left" class="hc-profile-browse-cell">
+					<div>
+						<utils:imageEditor imageUrl="#{cc.user.image}"
+							imageType="userImage" readOnly="true" />
+					</div>
+					<div>
+						<b> <h:outputText value="#{cc.cityName}">
+							</h:outputText>
+						</b>
+					</div>
+				</div>
+				<div style="width: 30%" class="hc-profile-browse-cell">
+					<div>
+						<b> <h:outputText
+								value="#{cc.user.firstName} #{cc.user.lastName}">
+							</h:outputText>
+						</b>
+					</div>
+					<div>
+						<div style="width: 50%; float: left"
+							class="hc-profile-browse-cell">
+							<ui:repeat value="#{cc.user.spokenLanguages}"
+								var="spokenLanguage">
+								<div style="display: block">
+									#{spokenLanguage.languageName}</div>
+							</ui:repeat>
+						</div>
+						<div style="width: 50%; float: right"
+							class="hc-profile-browse-cell">
+							<ui:repeat value="#{cc.user.userTypes}" var="userType">
+								<div style="display: block">#{cc.load(userType)}</div>
+							</ui:repeat>
+						</div>
+					</div>
+				</div>
+				<div style="width: 40%; padding: 5px" class="hc-profile-browse-cell">
+					Description <br />
+					<br />
+					<p>#{cc.loadDescription()}</p>
+				</div>
+			</div>
+
+		</h:panelGroup>
+	</cc:implementation>
 </ui:composition>

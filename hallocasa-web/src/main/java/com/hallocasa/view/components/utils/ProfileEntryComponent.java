@@ -1,17 +1,21 @@
 package com.hallocasa.view.components.utils;
 
-import java.io.IOException;
 import java.util.HashMap;
 
-import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.model.session.WebSession;
 import com.hallocasa.view.components.base.BaseComponent;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
+import com.hallocasa.view.navigation.NavigationHandler;
 
 /**
  * 
@@ -22,7 +26,7 @@ import com.hallocasa.view.components.base.BaseComponent;
 public class ProfileEntryComponent extends BaseComponent {
 
 	enum Attributes {
-		user, size, language
+		user, size, language, onClick
 	}
 
 	/**
@@ -31,14 +35,29 @@ public class ProfileEntryComponent extends BaseComponent {
 	private UserVO user;
 
 	/**
+	 * Component for apply command link
+	 */
+	private UIComponent commandLink;
+	
+	/**
 	 * Language for presentation
 	 */
 	private Language language;
+	
+	/* dependencies */
+    @Inject
+    private WebSession webSession;
+
+    public String getCityName(){
+        return user.getCity().getCityName().getText(webSession.getCurrentLanguage());
+    }
 
 	@Override
-	@PostConstruct
-	protected void initialize() {
-		
+	public void initialize() {
+		language =  (Language) this.getAttributes().get(
+				Attributes.language.toString());
+		user = (UserVO) this.getAttributes().get(
+				Attributes.user.toString());
 	}
 
 	@Override
@@ -65,10 +84,6 @@ public class ProfileEntryComponent extends BaseComponent {
 	}
 
 	public UserVO getUser() {
-		if(user == null){
-			user = (UserVO) this.getAttributes().get(
-					Attributes.user.toString());
-		}
 		return user;
 	}
 
@@ -77,17 +92,18 @@ public class ProfileEntryComponent extends BaseComponent {
 	}
 
 	public Language getLanguage() {
-		if(language == null){
-			language = Language.valueOf((String) this.getAttributes().get(
-					Attributes.language.toString()));
-		}
 		return language;
 	}
 
 	public void setLanguage(Language language) {
 		this.language = language;
 	}
-	
-	
 
+	public UIComponent getCommandLink() {
+		return commandLink;
+	}
+
+	public void setCommandLink(UIComponent commandLink) {
+		this.commandLink = commandLink;
+	}
 }

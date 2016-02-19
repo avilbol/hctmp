@@ -18,6 +18,7 @@ import com.hallocasa.viewmodel.test.TestPage;
 import com.hallocasa.viewmodel.user.present.ProfileBrowserPage;
 import com.hallocasa.viewmodel.user.profile.ProfileEditPage;
 import com.hallocasa.viewmodel.user.profile.ProfileReadPage;
+import com.hallocasa.viewmodel.user.profile.PublicProfilePage;
 
 /**
  * Enumeration to control all the views in the application
@@ -79,7 +80,13 @@ public enum HallocasaViewEnum {
      */
     BROWSE_PROFILE(HallocasaViewNames.USER_PROFILE_BROWSER, "/profile/profile-browser.xhtml",
     		ProfileBrowserPage.class, false, null, UseCaseEnum.BROWSE_PROFILES),
-            
+        
+	/**
+     * Page for profile public
+     */
+    PUBLIC_PROFILE(HallocasaViewNames.USER_PROFILE_PUBLIC, "/profile/public-profile.xhtml",
+    		PublicProfilePage.class, false, null, UseCaseEnum.SEE_PUBLIC_PROFILE),
+    		
      /**
      * Page for tests
      */

@@ -4,6 +4,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:utils="http://java.sun.com/jsf/composite/components/utils"
                 template="../commons/templates/general-layout.xhtml">
     
@@ -17,15 +18,20 @@
 	            <br/><br/><br/><br/><br/>
 	            <h:panelGroup id="profileListArea">
 		           	 <p>Y estos son los perfiles de Hallo Casa</p>
+		           	 
+		           	 <ui:repeat var="item" 
+		           		  value="#{profileBrowserPage.itemList}">
+		           		  #{item}
+		           	 </ui:repeat>
+		           	 
 		           	 <ui:repeat var="profileItem" 
 		           		  value="#{profileBrowserPage.userList}">
-		           		  <p>element</p>
-		           		  <utils:profileEntry 
-		           		  	user="#{profileItem}" 
-		           		  	size="300"
-		           		  	language="#{profileBrowserPage.language}"/>
+		           		  <utils:element attr="#{profileItem}"/>
 		           	 </ui:repeat>
-		           	 <h:commandButton actionListener="#{profileBrowserPage.onLoadMoreProfiles()}"
+		           	 
+		           	 
+		           	 <h:commandButton styleClass="hc-basic-button"
+		           	 				  actionListener="#{profileBrowserPage.onLoadMoreProfiles()}"
 		           	 				  value="Cargar más" />
 	            </h:panelGroup>
 	        </div>

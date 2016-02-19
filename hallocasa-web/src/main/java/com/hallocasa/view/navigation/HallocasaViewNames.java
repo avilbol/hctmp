@@ -15,6 +15,7 @@ public interface HallocasaViewNames {
         public static final String USER_PROFILE_VIEW = "profileReadPage";
         public static final String USER_PROFILE_EDIT = "profileEditPage";
         public static final String USER_PROFILE_BROWSER = "profileBrowserPage";
+        public static final String USER_PROFILE_PUBLIC = "publicProfilePage";
         public static final String TEST_PAGE = "testPage";
     
         // TODO: check this list

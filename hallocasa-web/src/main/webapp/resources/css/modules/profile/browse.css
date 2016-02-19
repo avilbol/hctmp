@@ -1,0 +1,12 @@
+.hc-profile-browse-panel{
+	background-color: #F5F6DD;
+	height:auto;
+	display:table;
+	margin:25px 0px;
+	width:100%;
+	cursor:pointer
+}
+.hc-profile-browse-cell{
+	display:inline-block;
+	height:350px;
+}
