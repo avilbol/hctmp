@@ -15,7 +15,7 @@ body {
     width: 100%;
     display: block;
     position: relative;
-    padding-bottom: 200px;
+    /*padding-bottom: 200px;*/
 }
 
 .header{
@@ -47,6 +47,20 @@ body {
 .span_2_of_3 { width: 66%; }
 .span_1_of_3 { width: 32%; }
 
+#j_idt87{ position: absolute!important;}
+#j_idt86{ position: absolute!important;}
+
+#password-recovery-dialog{ position: absolute!important;}
+#password-retype-dialog{ position: absolute!important;}
+
+#login-dialog{ 
+	position: absolute!important;
+    width: 358px!important;
+    height: 320px!important;
+    left: 497.5px!important;
+    top: 193.5px!important;
+    }
+.ui-dialog .ui-dialog-content{ 	position: absolute!important;}
 .clearfix {
     overflow: auto;
 }
