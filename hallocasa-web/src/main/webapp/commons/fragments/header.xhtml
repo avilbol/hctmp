@@ -13,18 +13,24 @@
             header_subMenuPath: String, is the path to the sub-menu 
             header_showBanner: boolean, indicates if show or not the banner -->
     </ui:remove>
-
+    <div class="contenedor">
+    
+        
     <header id="top" class="header">
         <div class="top-strip">
+        <div class="row col-md-6">
             <div class="hc-header-logo">
                 <ui:include src="logo.xhtml"/>
             </div>
-            <div class="hc-header-menu-bar">
+            </div>
+        <div class="row col-md-6">
+            <div class="col-md-12 col-md-offset-1">
                 <ui:include src="global-menu.xhtml"/>
+            </div>
             </div>
         </div>
     </header>
-
+</div>
     <ui:remove>
         <c:if test="#{header_showBanner ne true}">
 

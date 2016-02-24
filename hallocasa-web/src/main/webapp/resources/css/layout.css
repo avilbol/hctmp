@@ -14,14 +14,9 @@ body {
     min-height: 100%;
     width: 100%;
     display: block;
-    position: relative;
-    /*padding-bottom: 200px;*/
 }
 
-.header{
-    width: 100%;    
-    overflow: hidden;
-}
+
 .page {
     width: 980px;
     margin-left: auto;
@@ -47,31 +42,9 @@ body {
 .span_2_of_3 { width: 66%; }
 .span_1_of_3 { width: 32%; }
 
-#j_idt87{ position: absolute!important;}
-#j_idt86{ position: absolute!important;}
 
-#password-recovery-dialog{ position: absolute!important;}
-#password-retype-dialog{ position: absolute!important;}
-
-#login-dialog{ 
-	position: absolute!important;
-    width: 358px!important;
-    height: 320px!important;
-    left: 497.5px!important;
-    top: 193.5px!important;
-    }
-.ui-dialog .ui-dialog-content{ 	position: absolute!important;}
 .clearfix {
     overflow: auto;
 }
 
-@media only screen and (max-width: 480px) {
-    .col {  margin: 1% 0 1% 0%; }
-    .span_3_of_3, .span_2_of_3, .span_1_of_3 { width: 100%; }
-    body { padding-bottom: 20em; }
-}
-@media screen and (max-width: 980px) {
-    .page {
-        width: 100%;
-    }
-}
+

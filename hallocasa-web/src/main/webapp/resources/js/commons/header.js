@@ -1,3 +1,7 @@
+function menu() {
+    document.getElementsByClassName("topnav")[0].classList.toggle("responsive");
+}
+
 $(document).ready(function () {
     var MOBILE_MAX_WIDTH = 480;
     var MODE_DESKTOP = 'desktop';
@@ -71,3 +75,4 @@ $(document).ready(function () {
 
     globalMenu.init();
 });
+

@@ -103,12 +103,9 @@
 
 /* Investment box */
 .positioning-statement{
-    position: absolute; 
-    z-index: 10; 
-    top: 200px; 
-    left: 50px;
-    width: 400px;
-    max-width: 100%;
+    float: left;
+    width: 60%;
+    height: 383px;
 }
 .positioning-statement .title {
     padding: 10px;

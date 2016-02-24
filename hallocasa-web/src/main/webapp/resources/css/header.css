@@ -1,36 +1,34 @@
 /* top container */
 .top-strip {
     margin-top: 20px;
-    display: block;
+        height: 265px;
+    float: left;
+    width: 100%;
 }
 
 /* header menu bar*/
-.hc-header-menu-bar {
+ul.hc-header-global-menu.ui-corner-all.js-header-global-menu li a{
+    padding: 19px 5px 20px 5px;
+    font-size: 15px;
+    font-weight: 700;
 }
-.hc-header-menu-bar {
-    font-size: 1.1em;
-    font-family: inherit;
-    display: inline-block;
-    text-align: right;
-    width: 100%;
-}
+
 .hc-header-global-menu {
-    text-align: right;
+        margin: 0 auto;
     display: inline-block;
 }
 .hc-header-global-menu .hc-header-global-menu-item {
-    margin-left: 20px;
+        margin: 20px 10px;
     display: inline-block;
 }
 .hc-header-global-menu .hc-header-global-menu-item a,
 .hc-header-global-menu .hc-header-global-menu-item .hc-simple-link{
-    color: #404345;
-    font-size: 0.9em;
-    text-decoration: none;
-    transition: all 200ms;
+        width: 100%;
 }
 .hc-header-global-menu .hc-header-global-menu-item a:hover {
-    color: black;
+        color: #F8F8F8;
+    background: #1D669B;    
+    text-decoration: none;    
 }
 
 
@@ -42,21 +40,27 @@
     text-align: right;
     display: inline-block;
 }
-.hc-header-global-toolbar > li {
-    display: inline-block;
-    list-style: none;
+.hc-header-global-toolbar{   
+	float:right;
+}
+ .hc-header-global-toolbar > li {
+   float:left;
 }
 .hc-header-global-toolbar .hc-header-global-menu-item-mobile-button {
     display: none;
 }
 
 @media  screen and (max-width: 768px) {
-    .hc-header-global-menu { text-align: center; padding: 1em; }
-    .hc-header-menu-bar { padding-right: 0px; padding: 0px 10px 0px 10px }
-    .hc-header-global-toolbar { top: 20px; }
+     .hc-header-global-toolbar { top: 20px; }
+     .navbar-default{        
+      background-color: transparent!important;
+    border-color: transparent!important;}
+    .hc-header-global-toolbar .hc-header-global-menu-item-mobile-button {
+    display: inline-block;
+}
+
 }
 @media  screen and (max-width: 480px) {
-    .hc-header-menu-bar { padding-right: 0px; padding: 0px 10px 0px 10px; display: inline-block; }
     .hc-header-global-toolbar { width: 100%; position: inherit; text-align: right; top: auto; right: auto; }
     .hc-header-global-toolbar .hc-header-global-menu-item-mobile-button { display: inline-block; }
     .hc-header-global-menu { 
@@ -69,6 +73,9 @@
         text-align: left; 
         background: white;
     }
+    ul.hc-header-global-toolbar li {
+    padding: 7px;
+}
     .hc-header-global-menu .hc-header-global-menu-item { display: block; margin-left: 0px; }
     .top-strip { text-align: right; }
 }
@@ -76,7 +83,7 @@
 
 /* logo */
 .hc-header-logo {
-    position: absolute;
+	float:left;
     background-image: url("#{resource['images:logo-hallocasa.png']}");
     background-size: 200px 100px;
     background-repeat: no-repeat;
@@ -96,14 +103,8 @@
 }
 @media screen and (max-width: 480px) {
     .hc-header-logo {
-        left: 10px;
-        position: absolute;
-        background-size: 100px 50px;
-        background-repeat: no-repeat;
-        height: 50px;
-        width: 100px;
-        top: 30px;
-        float: left;
+                float: left;
+                
     }
 }
 
