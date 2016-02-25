@@ -1,8 +1,8 @@
 package com.hallocasa.view.components.utils;
 
 import java.util.HashMap;
+import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
@@ -14,8 +14,6 @@ import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.view.components.base.BaseComponent;
-import com.hallocasa.view.navigation.HallocasaViewEnum;
-import com.hallocasa.view.navigation.NavigationHandler;
 
 /**
  * 
@@ -26,13 +24,13 @@ import com.hallocasa.view.navigation.NavigationHandler;
 public class ProfileEntryComponent extends BaseComponent {
 
 	enum Attributes {
-		user, size, language, onClick
+		value, size, language, onClick, presentation
 	}
 
 	/**
 	 * User for component data
 	 */
-	private UserVO user;
+	private UserVO profile;
 
 	/**
 	 * Component for apply command link
@@ -44,33 +42,48 @@ public class ProfileEntryComponent extends BaseComponent {
 	 */
 	private Language language;
 	
+	/**
+	 * Identifier of complete presentation
+	 */
+	public static final String COMPLETE_PRESENTATION = "complete";
+	
+	/**
+	 * Identifier of lite presentation
+	 */
+	public static final String LITE_PRESENTATION = "lite";
+
+	/**
+	 * Maximum allowed of languages in lite version
+	 */
+	private static final int MAX_SPOKEN_LANGUAGES_ALLOWED_IN_LITE = 4;
+	
 	/* dependencies */
     @Inject
     private WebSession webSession;
 
     public String getCityName(){
-        return user.getCity().getCityName().getText(webSession.getCurrentLanguage());
+        return profile.getCity().getCityName().getText(webSession.getCurrentLanguage());
     }
 
 	@Override
 	public void initialize() {
 		language =  (Language) this.getAttributes().get(
 				Attributes.language.toString());
-		user = (UserVO) this.getAttributes().get(
-				Attributes.user.toString());
+		profile = (UserVO) this.getAttributes().get(
+				Attributes.value.toString());
 	}
 
 	@Override
 	protected void saveComponent(FacesContext facesContext,
 			HashMap<String, Object> map) {
-		map.put(Attributes.user.toString(), this.user);
+		map.put(Attributes.value.toString(), this.profile);
 		map.put(Attributes.language.toString(), this.language);
 	}
 
 	@Override
 	protected void restoreComponent(FacesContext facesContext,
 			HashMap<String, Object> map){
-		this.user = (UserVO) map.get(Attributes.user.toString());
+		this.profile = (UserVO) map.get(Attributes.value.toString());
 		this.language = (Language) map.get(Attributes.language.toString());
 	}
 
@@ -79,16 +92,34 @@ public class ProfileEntryComponent extends BaseComponent {
 	}
 
 	public String loadDescription() {
-		return this.user.getUserDescription().getLangValue(
-				this.user.getMainSpokenLanguage());
+		return this.profile.getUserDescription().getLangValue(
+				this.profile.getMainSpokenLanguage());
+	}
+	
+	public List<Language> loadSpokenLanguageList(){
+		List<Language> languageList = this.profile.getSpokenLanguages();
+		if(languageList.size() <= MAX_SPOKEN_LANGUAGES_ALLOWED_IN_LITE ||
+				getAttributes().get(Attributes.presentation.toString()).equals(COMPLETE_PRESENTATION)){
+			return languageList;
+		}
+		return languageList.subList(0, MAX_SPOKEN_LANGUAGES_ALLOWED_IN_LITE);
+	}
+	
+	public String loadAdditionalLanguagesMark(){
+		List<Language> languageList = this.profile.getSpokenLanguages();
+		if(languageList.size() <= MAX_SPOKEN_LANGUAGES_ALLOWED_IN_LITE ||
+				getAttributes().get(Attributes.presentation.toString()).equals(COMPLETE_PRESENTATION)){
+			return "";
+		}
+		return "...";
+	}
+ 
+	public UserVO getProfile() {
+		return profile;
 	}
 
-	public UserVO getUser() {
-		return user;
-	}
-
-	public void setUser(UserVO user) {
-		this.user = user;
+	public void setProfile(UserVO profile) {
+		this.profile = profile;
 	}
 
 	public Language getLanguage() {
@@ -105,5 +136,13 @@ public class ProfileEntryComponent extends BaseComponent {
 
 	public void setCommandLink(UIComponent commandLink) {
 		this.commandLink = commandLink;
+	}
+	
+	public String getLitePresentation(){
+		return LITE_PRESENTATION;
+	}
+	
+	public String getCompletePresentation(){
+		return COMPLETE_PRESENTATION;
 	}
 }

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.FacesComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
 
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.view.components.base.BaseComponent;
@@ -14,25 +13,12 @@ import com.hallocasa.view.components.base.BaseComponent;
 @ViewScoped
 public class ElementComponent extends BaseComponent {
 
-	UserVO user;
+	private UserVO user;
 	
-	protected void initialize(ComponentSystemEvent event) {
+	@Override
+	public void initialize() {
 		user = (UserVO) this.getAttributes().get(
 				"attr");
-	}
-
-	@Override
-	protected void saveComponent(FacesContext facesContext,
-			HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void restoreComponent(FacesContext facesContext,
-			HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public UserVO getUser() {
@@ -44,8 +30,12 @@ public class ElementComponent extends BaseComponent {
 	}
 
 	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
-		
+	protected void saveComponent(FacesContext facesContext,
+			HashMap<String, Object> map) {
+	}
+
+	@Override
+	protected void restoreComponent(FacesContext facesContext,
+			HashMap<String, Object> map) {	
 	}
 }

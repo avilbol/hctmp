@@ -12,7 +12,7 @@
 			shortDescription="attr" />
 	</cc:interface>
 	<cc:implementation>
-		<f:event type="postAddToView" listener="#{cc.initialize}" />
-		#{cc.attrs.attr}
+		 <f:event listener="#{cc.initialize}" type="preRenderComponent"/>
+		 <h:outputText value="User Element: #{cc.user}"></h:outputText>
 	</cc:implementation>
 </ui:composition>

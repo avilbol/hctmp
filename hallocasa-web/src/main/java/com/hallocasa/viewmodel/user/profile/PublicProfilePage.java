@@ -2,9 +2,18 @@ package com.hallocasa.viewmodel.user.profile;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
+import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.model.controlaccess.ForbiddenException;
+import com.hallocasa.model.session.WebSession;
+import com.hallocasa.services.interfaces.UserServices;
+import com.hallocasa.view.utils.FormatUtils;
 import com.hallocasa.view.utils.JSFUtils;
 
 /**
@@ -17,18 +26,28 @@ import com.hallocasa.view.utils.JSFUtils;
 @ViewScoped
 public class PublicProfilePage implements Serializable{
 
-	
-	
 	/**
 	 * Serialization constant
 	 */
 	private static final long serialVersionUID = 6405708913149271548L;
 	
+	/* dependencies */
+    @Inject
+    private WebSession webSession;
+	
+	@EJB
+    private UserServices userServices;
+
 	private String userIdStr;
 	
+	private UserVO user;
+	
 	public void initialize(){
-		Object object = JSFUtils.getRequestElement("user");
-		System.out.println(this.userIdStr);
+		user = userServices.find(Integer.parseInt(this.getUserIdStr()));
+	    if (user == null){
+	        // it should never 
+	        throw new ForbiddenException();
+	    }
 	}
 
 	public String getUserIdStr() {
@@ -38,4 +57,40 @@ public class PublicProfilePage implements Serializable{
 	public void setUserIdStr(String userIdStr) {
 		this.userIdStr = userIdStr;
 	}
+
+	public UserVO getUser() {
+		return user;
+	}
+
+	public void setUser(UserVO user) {
+		this.user = user;
+	}
+	
+	public String getUsername(){
+	    return FormatUtils.getDefensiveLabel(user.getFullName());
+	}
+	
+	public String getCountryName(){
+        return user.getCountry().getCountryName().getText(webSession.getCurrentLanguage());
+    }
+    
+    public String getStateName(){
+        return user.getState().getStateName().getText(webSession.getCurrentLanguage());
+    }
+    
+    public String getCityName(){
+        return user.getCity().getCityName().getText(webSession.getCurrentLanguage());
+    }
+    
+    public String getWebsiteName(){
+        return FormatUtils.getDefensiveLabel(user.getWebSite());
+    }
+    
+    public String getSkypeName(){
+        return FormatUtils.getDefensiveLabel(user.getSkype());
+    }
+    
+    public String getLinkedInName(){
+        return FormatUtils.getDefensiveLabel(user.getLinkedIn());
+    }
 }

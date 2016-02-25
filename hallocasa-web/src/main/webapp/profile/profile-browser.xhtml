@@ -13,28 +13,31 @@
     <p:growl globalOnly="false" showDetail="false"/>
     
     <ui:define name="contentSection">
+    	
     	<h:form id="profileBrowserForm">
     		<div class="page">
-	            <br/><br/><br/><br/><br/>
-	            <h:panelGroup id="profileListArea">
-		           	 <p>Y estos son los perfiles de Hallo Casa</p>
-		           	 
-		           	 <ui:repeat var="item" 
-		           		  value="#{profileBrowserPage.itemList}">
-		           		  #{item}
-		           	 </ui:repeat>
-		           	 
-		           	 <ui:repeat var="profileItem" 
+    			<br/><br/><br/><br/><br/>
+	            <p:panel 
+	            	header="#{viewBundle['PublicProfile.BrowseProfile.PanelTitle']}" 
+	            	styleClass="user-profile-panel">
+	            	<h:panelGroup id="profileListArea"> 
+		           	 	<ui:repeat var="profileItem" 
 		           		  value="#{profileBrowserPage.userList}">
-		           		  <utils:element attr="#{profileItem}"/>
-		           	 </ui:repeat>
-		           	 
-		           	 
-		           	 <h:commandButton styleClass="hc-basic-button"
-		           	 				  actionListener="#{profileBrowserPage.onLoadMoreProfiles()}"
-		           	 				  value="Cargar más" />
-	            </h:panelGroup>
+		           		  	<utils:profileEntry  
+		           		  		value="#{profileItem}" 
+		           		  		size="300"
+		           		  		presentation="lite"
+		           		  		language="#{profileBrowserPage.language}"
+		           		  		onClick="#{profileBrowserPage.onProfileSelect(profileItem)}"/>
+		           	 	</ui:repeat>
+		           	 	<h:commandButton 
+		           	 		styleClass="hc-basic-button"
+		           	 		actionListener="#{profileBrowserPage.onLoadMoreProfiles()}"
+		           	 		value="#{viewBundle['PublicProfile.BrowseProfile.loadMore']}" />
+	            	</h:panelGroup>
+	            </p:panel>
 	        </div>
     	</h:form>
+    	
     </ui:define>
 </ui:composition>

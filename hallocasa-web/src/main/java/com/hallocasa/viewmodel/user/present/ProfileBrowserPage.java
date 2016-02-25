@@ -41,8 +41,6 @@ public class ProfileBrowserPage {
 	private Language language;
 
 	private List<UserVO> userList;
-	
-	private List<Integer> itemList;
     
     @Inject
     private NavigationHandler navigationHandler;
@@ -83,18 +81,4 @@ public class ProfileBrowserPage {
 	public void setUserList(List<UserVO> userList) {
 		this.userList = userList;
 	}
-
-	public List<Integer> getItemList() {
-		itemList = new ArrayList<Integer>(20);
-		itemList.add(2);
-		itemList.add(4);
-		itemList.add(5);
-		return itemList;
-	}
-
-	public void setItemList(List<Integer> itemList) {
-		this.itemList = itemList;
-	}
-	
-	
 }

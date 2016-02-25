@@ -8,12 +8,14 @@
 	xmlns:cc="http://java.sun.com/jsf/composite"
 	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 	<cc:interface componentType="profileEntryComponent">
-		<cc:attribute name="user" type="com.hallocasa.commons.vo.UserVO"
+		<cc:attribute name="value" type="com.hallocasa.commons.vo.UserVO"
 			shortDescription="Profile to show" />
 		<cc:attribute name="size" type="java.lang.Integer" default="200"
 			shortDescription="profile entry size" />
 		<cc:attribute name="language" type="com.hallocasa.commons.Language"
 			default="en" shortDescription="Language to view user data" />
+		<cc:attribute name="presentation" type="java.lang.String"
+			default="lite" shortDescription="Mode to organize the component" />
 		<cc:attribute name="onClick" required="true"
 			method-signature="void action(com.hallocasa.commons.vo.UserVO)"
 			shortDescription="action to execute when click"/>
@@ -21,23 +23,25 @@
 	<cc:implementation>
 		<h:outputScript>
 	    	function doClick(id){
-	    		$('#' + id.split(':').join('\\:')).click();
+	    		if(#{cc.attrs.presentation.equals(cc.completePresentation)}){
+	    			$('#' + id.split(':').join('\\:')).click();
+	    		}
 	    	}
     	</h:outputScript>
-		<f:event type="postAddToView" listener="#{cc.initialize}" />
+		<f:event type="preRenderComponent" listener="#{cc.initialize}" />
 		<h:outputStylesheet library="css" name="modules/profile/browse.css" />
 
 		<h:panelGroup id="profile-entry-container" style="width:700px;">
 
 			<h:commandLink binding="#{cc.commandLink}">
 				<f:ajax listener="#{cc.attrs.onClick}"></f:ajax>
-				<f:param name="user" value="#{cc.user}"></f:param>
+				<f:param name="user" value="#{cc.profile}"></f:param>
 			</h:commandLink>
-			<div class="hc-profile-browse-panel"
+			<div class="hc-profile-browse-panel-#{cc.attrs.presentation}"
 				onclick="doClick('#{cc.commandLink.clientId}')">
 				<div style="width: 30%; float: left" class="hc-profile-browse-cell">
 					<div>
-						<utils:imageEditor imageUrl="#{cc.user.image}"
+						<utils:imageEditor imageUrl="#{cc.profile.image}"
 							imageType="userImage" readOnly="true" />
 					</div>
 					<div>
@@ -49,29 +53,39 @@
 				<div style="width: 30%" class="hc-profile-browse-cell">
 					<div>
 						<b> <h:outputText
-								value="#{cc.user.firstName} #{cc.user.lastName}">
+								value="#{cc.profile.firstName} #{cc.profile.lastName}">
 							</h:outputText>
 						</b>
 					</div>
 					<div>
 						<div style="width: 50%; float: left"
 							class="hc-profile-browse-cell">
-							<ui:repeat value="#{cc.user.spokenLanguages}"
+							<ui:repeat value="#{cc.loadSpokenLanguageList()}"
 								var="spokenLanguage">
 								<div style="display: block">
 									#{spokenLanguage.languageName}</div>
 							</ui:repeat>
+							<div style="display: block">
+									#{cc.loadAdditionalLanguagesMark()}</div>
+							<ui:fragment 
+								rendered="#{cc.attrs.presentation.equals(cc.litePresentation)}">
+								<h:commandButton 
+		           	 				styleClass="hc-basic-button"
+		           	 				actionListener="#{profileBrowserPage.attrs.onClick}"
+		           	 				value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
+							</ui:fragment>
 						</div>
 						<div style="width: 50%; float: right"
 							class="hc-profile-browse-cell">
-							<ui:repeat value="#{cc.user.userTypes}" var="userType">
+							<ui:repeat value="#{cc.profile.userTypes}" var="userType">
 								<div style="display: block">#{cc.load(userType)}</div>
 							</ui:repeat>
 						</div>
 					</div>
 				</div>
 				<div style="width: 40%; padding: 5px" class="hc-profile-browse-cell">
-					Description <br />
+					<h:outputText 
+						value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}"/> <br />
 					<br />
 					<p>#{cc.loadDescription()}</p>
 				</div>
