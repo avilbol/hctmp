@@ -25,7 +25,7 @@
 @media screen and (max-width:800px) {
     .land-page-background {
         background-image: url( "#{resource['images:slide-01-E.jpg']}");
-        background-repeat: repeat-y;
+        background-repeat: round;
     }
 }
 
@@ -104,14 +104,13 @@
 /* Investment box */
 .positioning-statement{
     float: left;
-    width: 60%;
-    height: 383px;
+    width: 100%;    height: auto;
+    margin-bottom: 295px;
+
 }
 .positioning-statement .title {
     padding: 10px;
-    font-size: 18px;
-    background: white;
-    border: 1px solid #666;
+    font-size: 30px;
     display: block;
     color: #666;
     width: 100%;
@@ -119,36 +118,10 @@
 }
 .positioning-statement .sub-title {
     padding: 10px;
-    font-size: 14px;
+    font-size: 30px;
     background: #002d45;
     display: block;
     color: white;
     width: 100%;
     text-align: center;
-}
-@media screen and ( max-width: 1280px ) {
-    .positioning-statement {
-        position: static;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 7em;
-    }
-}
-@media screen and ( max-width: 768px ) {
-    .positioning-statement {
-        margin-top: 1em;
-    }
-}
-@media screen and ( max-width: 480px ) {
-    .positioning-statement {
-        margin-top: 4em;
-    }
-}
-
-/* extra space */
-@media screen and ( max-width: 480px ) {
-    .home-fill-extra-space{
-        height: 5em;
-    }
 }

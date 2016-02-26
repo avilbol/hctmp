@@ -10,72 +10,69 @@
 
 
 
-	<h:form id="global-menu">	
-	
-        <div class="row col-md-12">        
-    <!-- Brand and toggle get grouped for better mobile display -->
-	       <ul class="hc-header-global-toolbar">
-			<ui:fragment rendered="#{!globalMenuBean.logged}">
-				<li class="hc-header-global-menu-item"><p:commandButton class="btn btn-primary"
-						onclick="PF('signup-dialog').show();
-                            PF('signup-dialog').initPosition();"
-						type="button" value="#{viewBundle['Header.SignUp.Button']}" /></li>
-				<li class="hc-header-global-menu-item"><p:commandButton  class="btn btn-primary"
-						onclick="PF('login-dialog').show();
-                            PF('login-dialog').initPosition();"
-						type="button" value="#{viewBundle['Header.Login.Button']}" /></li>
-			</ui:fragment>
-			<ui:fragment rendered="#{globalMenuBean.logged}">
-				<li class="hc-header-global-menu-item hc-header-menu"><h:panelGroup
-						id="profileTrigger" styleClass="fa"
-						class="menu-link hc-simple-link">
-						<h:graphicImage library="images"
-							name="app_images/user_male_16.png" />
-						<h:outputText value="#{globalMenuBean.username}" />
-					</h:panelGroup> <p:menu overlay="true" my="left top" trigger="profileTrigger"
-						widgetVar="profileMenuWv" at="left bottom"
-						styleClass="hc-header-menu-overlay hc-header-profile-menu-overlay">
-						<p:submenu label="Options">
-							<p:menuitem value="#{viewBundle['GlobalMenu.GoToProfile']}"
-								immediate="true"
-								actionListener="#{globalMenuBean.processGoToProfile}" />
-							<p:menuitem value="#{viewBundle['Header.Logout.Button']}"
-								immediate="true"
-								actionListener="#{globalMenuBean.processLogoutClick}" />
-						</p:submenu>
-					</p:menu></li>
-			</ui:fragment>
-			<li
-				class="hc-header-global-menu-item hc-header-global-menu-item-mobile-button">
-				<p:commandButton value="Menu"
-					styleClass="btn btn-primary"
-					icon="ui-icon-menu-16x16" />
-			</li>
-		</ul>
-		</div>		
-        <div class="row col-md-12">
-		<nav role="navigation" class="navbar navbar-default">
+	<h:form id="global-menu">
 
-    <!-- Collection of nav links, forms, and other content for toggling -->
-    		<div id="navbarCollapse" class="collapse navbar-collapse">
-       		<ul class="hc-header-global-menu ui-corner-all js-header-global-menu ">
-			<li class="hc-header-global-menu-item active"><a
-				href="https://qtrial2014az1.az1.qualtrics.com/SE/?SID=SV_ebnBo4onZ6fv8pL"
-				target="_blank"> <span>#{viewBundle['Common.Label.GiveFeedback']}</span>
-			</a></li>
-			<li class="hc-header-global-menu-item"><a
-				href="#{constants.getAbsolutePageUrl('BLOG_INDEX')}"> <span>#{viewBundle['Common.Label.Blog']}</span>
-			</a></li>
-			<li class="hc-header-global-menu-item"><a
-				href="#{constants.getAbsolutePageUrl('LINKS')}"> <span>#{viewBundle['Common.Label.Links']}</span>
-			</a></li>
-			<li class="hc-header-global-menu-item"><a
-				href="#{constants.getAbsolutePageUrl('BUYING_PROCESS')}"> <span>#{viewBundle['Common.Label.BuyingProcess']}</span>
-			</a></li>
-			<li class="hc-header-global-menu-item hc-header-menu"><h:panelGroup
+		<div class="row col-md-10">
+			<nav id="nav-main">
+			<ul>
+				<li><a
+					href="https://qtrial2014az1.az1.qualtrics.com/SE/?SID=SV_ebnBo4onZ6fv8pL"
+					target="_blank"> <span>#{viewBundle['Common.Label.GiveFeedback']}</span>
+				</a></li>
+				<li><a href="#{constants.getAbsolutePageUrl('BLOG_INDEX')}">
+						<span>#{viewBundle['Common.Label.Blog']}</span>
+				</a></li>
+				<li><a href="#{constants.getAbsolutePageUrl('LINKS')}"> <span>#{viewBundle['Common.Label.Links']}</span>
+				</a></li>
+				<li><a href="#{constants.getAbsolutePageUrl('BUYING_PROCESS')}">
+						<span>#{viewBundle['Common.Label.BuyingProcess']}</span>
+				</a></li>
+				<li><a><p:commandButton
+							onclick="PF('signup-dialog').show();
+                            PF('signup-dialog').initPosition();"
+							type="button" value="#{viewBundle['Header.SignUp.Button']}" /></a></li>
+				<li><a><p:commandButton
+							onclick="PF('login-dialog').show();
+                            PF('login-dialog').initPosition();"
+							type="button" value="#{viewBundle['Header.Login.Button']}" /></a></li>
+
+			</ul>
+			</nav>
+			<div id="nav-trigger"
+				class="hc-header-global-menu-item hc-header-global-menu-item-mobile-button">
+				<span></span>
+			</div>
+			<nav id="nav-mobile"></nav>
+			|
+		</div>
+
+		<div class="row col-md-2">
+			<li class="hc-header-global-menu-item hc-header-menu profile"><h:panelGroup
+					id="profileTrigger" styleClass="fa"
+					class="menu-link hc-simple-link">
+					<h:graphicImage library="images" name="app_images/user_male_16.png" />
+					<h:outputText value="#{globalMenuBean.username}" />
+				</h:panelGroup> <p:menu overlay="true" my="left top" trigger="profileTrigger"
+					widgetVar="profileMenuWv" at="left bottom"
+					styleClass="hc-header-menu-overlay hc-header-profile-menu-overlay">
+					<p:submenu label="Options">
+						<p:menuitem value="#{viewBundle['GlobalMenu.GoToProfile']}"
+							immediate="true"
+							actionListener="#{globalMenuBean.processGoToProfile}" />
+						<p:menuitem value="#{viewBundle['Header.Logout.Button']}"
+							immediate="true"
+							actionListener="#{globalMenuBean.processLogoutClick}" />
+					</p:submenu>
+				</p:menu></li>
+		</div>
+
+
+		<div class="row col-md-1">
+			<li class="hc-header-global-menu-item hc-header-menu languaje"><h:panelGroup
 					id="languageMenuTrigger" styleClass="fa" class="language-link">
 					<span class="hc-simple-link">#{webSession.currentLanguage.languageName}</span>
-				</h:panelGroup><p:menu overlay="true" my="left top" trigger="languageMenuTrigger"
+				</h:panelGroup>
+				<p:menu overlay="true" my="left top" trigger="languageMenuTrigger"
 					widgetVar="languageMenuWv" at="left bottom"
 					styleClass="hc-header-menu-overlay hc-header-language-menu-overlay">
 					<p:submenu label="Language Selection">
@@ -87,11 +84,8 @@
 							onclick="window.location.href = updateQueryStringParameter(window.location.href, 'lang', 'de');" />
 					</p:submenu>
 				</p:menu></li>
-		</ul>		
 		</div>
-		</nav>
-    </div>
-    </h:form>
+	</h:form>
 
 	<ui:include src="/access/fragments/signup-dialog.xhtml" />
 	<ui:include src="/access/fragments/login-dialog.xhtml" />
