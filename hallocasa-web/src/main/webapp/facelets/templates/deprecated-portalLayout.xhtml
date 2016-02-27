@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="generalLayout.xhtml">
+
+    <ui:remove>
+        <!-- Parameters: (Inherited from header)
+            header_showSubMenu : boolean, indicates if show or not show the menu
+            header_subMenuPath: String, is the path to the sub-menu 
+            header_showBanner: boolean, indicates if show or not the banner -->
+    </ui:remove>
+
+    <ui:define name="menuItemsSection">
+        <ui:include
+            src="/facelets/sections/commons/globalmenu/globalMenu.xhtml" />
+        <ui:include
+            src="/access/fragments/signup-dialog.xhtml" />
+    </ui:define>
+
+
+    <ui:define name="contentSection">
+        <div>
+        <ui:include src="../sections/commons/header.xhtml" />
+        </div>
+        <div style="position: relative;" class="portal-layout-content">
+            <ui:insert name="portalSection" />
+        </div>
+    </ui:define>
+
+</ui:composition>

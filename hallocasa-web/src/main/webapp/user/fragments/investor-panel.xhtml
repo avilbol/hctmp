@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <p:panel header="#{viewBundle['Profile.Investor.Panel.Title']}" 
+             styleClass="user-profile-panel">
+        <div class="section hc-overlay-form-fields-container clearfix">
+            <div class="col span_2_of_3">
+                <span class="hc-form-across-label">
+                    #{viewBundle['Profile.Data.Name.Label']}:
+                </span>
+                <h:outputText value="#{profileReadPage.username}" 
+                              styleClass="#{profileReadPage.usernamePending ? 'hc-gray-field' : ''}" />
+                <br/>
+                <span class="hc-form-across-label">
+                    #{viewBundle['Profile.Data.Email.Label']}:
+                </span>
+                <h:outputText styleClass="hc-form-field" 
+                              value="#{profileReadPage.user.email}"/>
+            </div>
+        </div>
+    </p:panel>
+</ui:composition>
