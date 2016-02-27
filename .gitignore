@@ -1,8 +1,0 @@
-*/target/*
-*/.settings/*
-/.metadata/*
-*.zargo~
-*.sql~
-*/nb-configuration.xml
-/hallocasa-ejb/src/main/resources/hallocasa.config.properties
-
