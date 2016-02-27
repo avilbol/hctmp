@@ -4,5 +4,5 @@
 *.zargo~
 *.sql~
 */nb-configuration.xml
-/hallocasa-ejb/src/main/hallocasa.config.properties
+/hallocasa-ejb/src/main/resources/hallocasa.config.properties
 
