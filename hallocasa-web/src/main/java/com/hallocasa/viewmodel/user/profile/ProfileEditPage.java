@@ -145,7 +145,6 @@ public class ProfileEditPage implements Serializable {
             }
             user.setImage(new ImageContainer(user.getImage().getUrl()));
             userServices.save(user);
-            userServices.testSaveEntity();
             navigationHandler.redirectToPage(HallocasaViewEnum.MY_PROFILE);
             viewContext.showGlobalInfoMessage("Hecho", "El perfil ha sido guardado satisfactoriamente");
         } catch (Exception ex) { 

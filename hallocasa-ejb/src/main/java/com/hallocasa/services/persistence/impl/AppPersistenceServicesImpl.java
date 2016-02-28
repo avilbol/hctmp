@@ -128,6 +128,7 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
     @Override
     public <T> T mergeEntity(T entity)
             throws PersistenceException {
+    	em.getEntityManagerFactory().getCache().evictAll();
         em.merge(entity);
         return entity;
     }

@@ -100,22 +100,6 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
 	public void save(UserVO userVO) throws ServiceException {
 		User user = ParsersContext.USER_VO_PARSER.toEntity(userVO, User.class);
 		appPersistenceServices.mergeEntity(user);
-		appPersistenceServices.flush();
-	}
-
-	/* Methods */
-	@Override
-	public void testSaveEntity() {
-		Long idToSearch = 1l;
-		String urlToMatch = "new image url";
-		TestEntity entity = appPersistenceServices.findEntity(TestEntity.class,
-				idToSearch);
-		entity.setImageUrl(new ImageContainer(urlToMatch));
-		entity.setOtherAttribute("value 1 modified");
-		appPersistenceServices.mergeEntity(entity);
-		Assert.assertEquals(
-				appPersistenceServices.findEntity(TestEntity.class, idToSearch)
-						.getImageUrl().getUrl(), urlToMatch);
 	}
 
 	/**

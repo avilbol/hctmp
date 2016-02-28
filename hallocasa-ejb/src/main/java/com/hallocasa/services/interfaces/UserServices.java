@@ -65,7 +65,4 @@ public interface UserServices {
 	 */
 	public void savePropertyPublisher(TemporalPublisherUser publisherUser)
 			throws ServiceException;
-
-	void testSaveEntity();
-
 }

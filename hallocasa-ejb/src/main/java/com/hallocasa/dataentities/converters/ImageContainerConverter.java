@@ -18,11 +18,10 @@ public class ImageContainerConverter implements AttributeConverter<ImageContaine
 	
     @Override
     public String convertToDatabaseColumn(ImageContainer value) {
-        /*if(value == null){
+        if(value == null){
             return null;
-        }*/
-        return "new value";
-        //return value.getUrl();
+        }
+        return value.getUrl();
     }
 
     @Override
