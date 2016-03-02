@@ -43,9 +43,7 @@ ul.hc-header-global-menu.ui-corner-all.js-header-global-menu li a{
         width: 100%;
 }
 .hc-header-global-menu .hc-header-global-menu-item a:hover {
-        color: #F8F8F8;
-    background: #1D669B;    
-    text-decoration: none;    
+	color: #1B6092;
 }
 
 
@@ -183,6 +181,10 @@ ul.hc-header-global-menu.ui-corner-all.js-header-global-menu li a{
 .password-recovery-dialog-signup-link:hover {
     background-image: url( "#{resource['images:icons/user-64-black.png']}" );
 }
+.navbar-default {
+    background-color: transparent!important;
+    border-color: transparent!important;
+}
 /* =Nav
 -------------------------------------------------------------- */
 #nav-trigger {
@@ -270,10 +272,31 @@ nav#nav-mobile {
     font-weight: 700; }
 .ui-button.ui-state-default {
        background-color: transparent;
-    color: #002D45;
-    font-size: 14px;
     font-weight: 700;
-    border:none;
+    color: #002D45;
+        border: none;
+}
+.navigor{
+    float: right!important;
+    }
+    .btn-primary{
+        margin: 10px 10px 0px 0;
+    }
+    
+ .col-md-5 {
+    width: 34.666667%!important;
+}
+
+ .menu{
+     margin: 10px 0 10px 0;
+ }
+ .con-body{
+     padding-top: 87px;
+     }
+.btn-primary:hover{
+        background-color: #000000!important;
+    background-color: rgba(0,0,0,0.35)!important;
+    color: color: #333!important;
 }
 .hc-header-menu{
     background: transparent;

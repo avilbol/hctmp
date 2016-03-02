@@ -86,9 +86,6 @@
     font-size: 1.1em;
     text-align:center;
 }
-.hc-footer-social-icons li:hover, .menu li:hover {
-    background-color:#fefefe;
-}
 .hc-footer-social-icons li:hover a, .menu li:hover a {
     color: #002d45;
 }
