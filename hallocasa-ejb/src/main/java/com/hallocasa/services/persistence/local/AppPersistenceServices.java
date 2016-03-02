@@ -7,6 +7,7 @@ package com.hallocasa.services.persistence.local;
 
 import java.util.HashMap;
 import java.util.List;
+
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -26,14 +27,14 @@ public interface AppPersistenceServices {
      * @return the merged entity
      * @throws PersistenceException when merging fails
      */
-    public <T> T mergeEntity(T entity)
+    <T> T mergeEntity(T entity)
             throws PersistenceException;
 
     /**
      * 
      * @return the transaction manager 
      */
-    public EntityTransaction loadTransaction();
+    EntityTransaction loadTransaction();
     
     /**
      * Refresh data of entity
@@ -41,7 +42,7 @@ public interface AppPersistenceServices {
      * @param entity
      * @throws PersistenceException 
      */
-    public <T> void refresh(T entity) throws PersistenceException;
+    <T> void refresh(T entity) throws PersistenceException;
     
     /**
      * Removes an entity
@@ -50,7 +51,7 @@ public interface AppPersistenceServices {
      * @param entity
      * @throws PersistenceException
      */
-    public <T> void removeEntity(T entity)
+    <T> void removeEntity(T entity)
             throws PersistenceException;
 
     /**
@@ -59,7 +60,7 @@ public interface AppPersistenceServices {
      * @return the persisted entity
      * @throws PersistenceException when persisting fails
      */
-    public <T> T persistEntity(T entity)
+    <T> T persistEntity(T entity)
             throws PersistenceException;
 
     /**
@@ -69,7 +70,7 @@ public interface AppPersistenceServices {
      * @return the found entity
      * @throws PersistenceException
      */
-    public <T> T findEntity(Class<T> entityClass, Object primaryKey)
+    <T> T findEntity(Class<T> entityClass, Object primaryKey)
             throws PersistenceException;
     
     /**
@@ -79,7 +80,7 @@ public interface AppPersistenceServices {
      * @return the found entity
      * @throws PersistenceException
      */
-    public <T> T findEntityWithRefresh(Class<T> entityClass, Object primaryKey)
+    <T> T findEntityWithRefresh(Class<T> entityClass, Object primaryKey)
             throws PersistenceException;
     
     
@@ -92,7 +93,7 @@ public interface AppPersistenceServices {
      * @param expectedClass expected class
      * @return query result
      */
-    public <T> List<T> executeNamedQuery(String queryName, Object[] params,
+    <T> List<T> executeNamedQuery(String queryName, Object[] params,
             Class<T> expectedClass);
 
     /**
@@ -100,7 +101,7 @@ public interface AppPersistenceServices {
      * @param params
      * @return the query result
      */
-    public List<?> executeNamedQuery(String queryName,
+    List<?> executeNamedQuery(String queryName,
             HashMap<String, Object> params);
 
     /**
@@ -115,7 +116,7 @@ public interface AppPersistenceServices {
      * records
      * @return query result
      */
-    public <T> List<T> executeQuery(String jpqlQuery, Object[] params,
+    <T> List<T> executeQuery(String jpqlQuery, Object[] params,
             Class<T> expectedClass, Integer startIndex, Integer endIndex);
 
     /**
@@ -124,7 +125,7 @@ public interface AppPersistenceServices {
      * @param expectedClass
      * @return the query result
      */
-    public <T> List<T> executeQuery(String jpqlQuery,
+    <T> List<T> executeQuery(String jpqlQuery,
             HashMap<String, Object> params, Class<T> expectedClass);
 
     /**
@@ -135,7 +136,7 @@ public interface AppPersistenceServices {
      * @param endIndex
      * @return the result list of the query
      */
-    public <T> List<T> executeQuery(String jpqlQuery,
+    <T> List<T> executeQuery(String jpqlQuery,
             HashMap<String, Object> params, Class<T> expectedClass,
             Integer startIndex, Integer endIndex);
 
@@ -151,7 +152,7 @@ public interface AppPersistenceServices {
      * records
      * @return query result
      */
-    public <T> List<T> executeNamedQuery(String queryName, Object[] params,
+    <T> List<T> executeNamedQuery(String queryName, Object[] params,
             Class<T> expectedClass, Integer startIndex, Integer endIndex);
 
     /**
@@ -163,7 +164,7 @@ public interface AppPersistenceServices {
      * records
      * @return The query result
      */
-    public <T> List<T> executeCriteriaQuery(CriteriaQuery<T> criteriaQuery,
+    <T> List<T> executeCriteriaQuery(CriteriaQuery<T> criteriaQuery,
             Integer startIndex, Integer endIndex);
 
     /**
@@ -172,14 +173,14 @@ public interface AppPersistenceServices {
      * parameters are needed the value can be null
      * @return query result
      */
-    public List<Object> executeNativeQuery(String sentence, Object[] params);
+    List<Object> executeNativeQuery(String sentence, Object[] params);
 
     /**
      * @param sentence
      * @param params
      * @return the update process result
      */
-    public int executeUpdate(String sentence, HashMap<String, Object> params);
+    int executeUpdate(String sentence, HashMap<String, Object> params);
 
     /**
      * Execute an updates query with enumerated parameters
@@ -188,7 +189,7 @@ public interface AppPersistenceServices {
      * @param params
      * @return the update process result
      */
-    public int executeUpdate(String sentence, Object[] params);
+    int executeUpdate(String sentence, Object[] params);
 
     /**
      * 
@@ -196,12 +197,12 @@ public interface AppPersistenceServices {
      * @param params
      * @return 
      */
-    public int executeNamedQuery(String queryName, Object[] params);
+    int executeNamedQuery(String queryName, Object[] params);
     
     /**
      * @return Entity Manager
      */
-    public EntityManager getEntityManager();
+    EntityManager getEntityManager();
 
     /**
      * Executes native query
@@ -210,10 +211,33 @@ public interface AppPersistenceServices {
      * @param params
      * @return query execution result
      */
-    public int executeNativeUpdate(String sentence, Object[] params);
+    int executeNativeUpdate(String sentence, Object[] params);
 
     /**
      * Flush entity manager
      */
-    public void flush();
+    void flush();
+
+    /**
+     * 
+     * @param sqlQuery
+     * @param params
+     * @param expectedClass
+     * @param startIndex
+     * @param endIndex
+     * @return
+     */
+	<T> List<T> executeNativeQuery(String sqlQuery, HashMap<String, Object> params,
+			Class<T> expectedClass, Integer startIndex, Integer endIndex);
+
+	/**
+	 * 
+	 * @param sqlQuery
+	 * @param expectedClass
+	 * @return
+	 */
+	<T> T executeQuery(String sqlQuery, Class<T> expectedClass);
+
+	<T> T executeQuery(String jpqlQuery, HashMap<String, Object> params,
+			Class<T> expectedClass, Integer index);
 }

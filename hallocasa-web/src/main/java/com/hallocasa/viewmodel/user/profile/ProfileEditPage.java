@@ -9,6 +9,7 @@ import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.ImageContainer;
 import com.hallocasa.commons.vo.StateVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
@@ -23,6 +24,7 @@ import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.viewmodel.security.LoginDialog;
+
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -32,11 +34,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+
 import thirdparty.org.apache.commons.io.FileUtils;
 
 /**
@@ -139,6 +143,7 @@ public class ProfileEditPage implements Serializable {
             if(this.user.getImage() != null){
             	manageUserImage();
             }
+            user.setImage(new ImageContainer(user.getImage().getUrl()));
             userServices.save(user);
             navigationHandler.redirectToPage(HallocasaViewEnum.MY_PROFILE);
             viewContext.showGlobalInfoMessage("Hecho", "El perfil ha sido guardado satisfactoriamente");

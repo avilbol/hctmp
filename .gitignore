@@ -1,11 +1,7 @@
-/hallocasa-web/target/*
-/mailchimp-api/target/*
-/hallocasa-ejb/target/*
-/hallocasa-ear/target/*
-/hallocasa-commons/target/*
-/hallocasa-theme/target/*
+*/target/*
+*/.settings/*
+/.metadata/*
 *.zargo~
 *.sql~
 */nb-configuration.xml
-/hallocasa-theme/target/
-/avilbol-theme/target/
+/hallocasa-ejb/src/main/resources/hallocasa.config.properties

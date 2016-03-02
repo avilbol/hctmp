@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:utils="http://java.sun.com/jsf/composite/components/utils"
+                template="../commons/templates/general-layout.xhtml">
+    
+    <ui:param name="header_showSubMenu" value="#{false}"></ui:param>
+    
+    <p:growl globalOnly="false" showDetail="false"/>
+    
+    <ui:define name="contentSection">
+    	
+    	<h:form id="profileBrowserForm">
+    		<div class="page">
+    			<br/><br/><br/><br/><br/>
+	            <p:panel 
+	            	header="#{viewBundle['PublicProfile.BrowseProfile.PanelTitle']}" 
+	            	styleClass="user-profile-panel">
+	            	<h:panelGroup id="profileListArea"> 
+		           	 	<ui:repeat var="profileItem" 
+		           		  value="#{profileBrowserPage.userList}">
+		           		  	<utils:profileEntry  
+		           		  		value="#{profileItem}" 
+		           		  		size="300"
+		           		  		presentation="complete"
+		           		  		language="#{profileBrowserPage.language}"
+		           		  		onClick="#{profileBrowserPage.onProfileSelect(profileItem)}"/>
+		           	 	</ui:repeat>
+		           	 	<h:commandButton 
+		           	 		styleClass="hc-basic-button"
+		           	 		actionListener="#{profileBrowserPage.onLoadMoreProfiles()}"
+		           	 		value="#{viewBundle['PublicProfile.BrowseProfile.loadMore']}" />
+	            	</h:panelGroup>
+	            </p:panel>
+	        </div>
+    	</h:form>
+    	
+    </ui:define>
+</ui:composition>
