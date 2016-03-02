@@ -5,3 +5,6 @@
 *.sql~
 */nb-configuration.xml
 /hallocasa-ejb/src/main/resources/hallocasa.config.properties
+*/bin/target/*
+*/.project/*
+*/.project

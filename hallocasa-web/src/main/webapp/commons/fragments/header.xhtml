@@ -28,23 +28,19 @@
             </div>
         </div>
     </header>
-    <ui:remove>
-        <c:if test="#{header_showBanner ne true}">
-
-
-            <!-- Sub-menu -->
-            <c:if test="#{header_showSubMenu}">
-                <div id="top-submenu-strip">
-                    <div class="container">
-                        <div class="collapse navbar-collapse"
-                             id="bs-example-navbar-collapse-1">
-                            <ui:include src="#{header_subMenuPath}" />
-                        </div>
-                    </div>
-                </div>
-            </c:if>
-        </c:if>
-    </ui:remove>    
+    <c:if test="#{header_showBanner ne true}">
+      <!-- Sub-menu -->
+      <c:if test="#{header_showSubMenu}">
+          <div id="top-submenu-strip">
+              <div class="container">
+                  <div class="collapse navbar-collapse"
+                       id="bs-example-navbar-collapse-1">
+                      <ui:include src="#{header_subMenuPath}" />
+                  </div>
+              </div>
+          </div>
+      </c:if>
+    </c:if>    
 </div>
 </ui:composition>
 

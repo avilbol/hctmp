@@ -6,7 +6,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
-                template="../../facelets/templates/portalLayout.xhtml">
+                template="../../facelets/templates/deprecated-portalLayout.xhtml">
 
     <ui:param name="header_showBanner" value="#{false}" />
     <ui:param name="header_showSubMenu" value="#{true}" />
@@ -14,7 +14,7 @@
               value="/pages/links/links-menu.xhtml" />
     
     <ui:define name="headSection">
-        <link rel="stylesheet" href="#{constants.resourcesPath}/css/links.css"/>
+        <link rel="stylesheet" href="#{constants.resourcesPath}/css/old/links.css"/>
         <script type="text/javascript" src="links.js"></script>
     </ui:define>
 

@@ -6,6 +6,7 @@
 package com.hallocasa.services;
 
 import com.hallocasa.commons.exceptions.services.ServiceException;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class FileServices implements FileServicesInterface {
 
     private static final String FILES_PATH;
     public static final String USER_IMAGES_PATH;
+    public static final String DOWNLOADS_PATH;
     private static final Logger LOG = Logger.getLogger(FileServices.class
             .getName());
     public static final String EJB_RESOURCE_NAME = "FileServices";
@@ -46,6 +48,7 @@ public class FileServices implements FileServicesInterface {
         }
         FILES_PATH = properties.getProperty("Persistance.Files.filesPath");
         USER_IMAGES_PATH = properties.getProperty("Persistance.Files.userImagesPath");
+        DOWNLOADS_PATH = properties.getProperty("Downloads.Files.downloadsPath");
     }
     
     
