@@ -25,7 +25,6 @@
             <h:outputStylesheet library="css" name="hallocasa.css"/>
             <h:outputStylesheet library="css" name="bootstrap/css/bootstrap.css"/>
             <h:outputStylesheet library="css" name="bootstrap/css/bootstrap.min.css"/>
-
             <ui:insert name="styleSheetsSection"/>
 
             <ui:insert name="messagesSection">
@@ -61,6 +60,8 @@
             <h:outputScript library="js" name="commons/google.js"/>
             <h:outputScript library="js" name="commons/header.js"/>
             <h:outputScript library="js" name="commons/utils.js"/>
+            <h:outputScript library="js" name="commons/intercom.js"/>
+            <h:outputScript>doIntercomSettings(#{globalMenuBean.jsUsername}, #{globalMenuBean.jsEmail});</h:outputScript>
             <script src="//load.sumome.com/" data-sumo-site-id="32c6496d5878bce4c57e22ef90a9ee945a6f1ab766a4aba486e93d8a00b0e287" async="async"></script>
             <ui:insert name="jsSection"/>
         </h:body>
