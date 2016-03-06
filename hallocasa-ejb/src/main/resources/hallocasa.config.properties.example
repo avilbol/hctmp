@@ -1,0 +1,7 @@
+# To change this template file, choose Tools | Templates
+# To change this license header, choose License Headers in Project Properties.
+# and open the template in the editor.
+Persistance.Files.userImagesPath=your/path/to/userImages/
+Persistance.Files.filesPath=your/path/to/filesPath
+Downloads.Files.downloadsPath=/your/path/to/repository
+
