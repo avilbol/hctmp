@@ -5,6 +5,8 @@
  */
 package com.hallocasa.viewmodel.managed.modules;
 
+import com.google.gson.Gson;
+import com.hallocasa.commons.users.UserUtils;
 import com.hallocasa.commons.vo.CredentialVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.session.LoginFailedException;
@@ -12,6 +14,7 @@ import com.hallocasa.model.session.WebSession;
 import com.hallocasa.view.context.ViewContext;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -31,10 +34,8 @@ public class GlobalMenuBean {
     private NavigationHandler navigationHandler;
     @Inject
     private WebSession webSession;
-    @Inject
-    private ViewContext viewContext;
-
-   
+    
+    private static Gson gson = new Gson();
 
     /**
      * Listener for item click
@@ -66,13 +67,28 @@ public class GlobalMenuBean {
     public boolean isLogged() {
         return webSession.isLogged();
     }
-
-    public String getUsername(){
-        UserVO userVO = webSession.getCurrentUser();
-        if(userVO.getFirstName() == null){
-            return userVO.getEmail();
-        }
-        return userVO.getFirstName();
+    
+    public String getJsEmail(){
+    	return gson.toJson(getEmail());
     }
     
+    public String getJsUsername(){
+    	return gson.toJson(getUsername());
+    }
+    
+    public String getUsername(){
+    	return UserUtils.getUsername(webSession.getCurrentUser());
+    }
+    
+    public String getFullusername(){
+    	return UserUtils.getFullUsername(webSession.getCurrentUser());
+    }
+    
+    public String getEmail(){
+    	UserVO userVO = webSession.getCurrentUser();
+    	if(userVO == null){
+    		return null;
+    	}
+    	return userVO.getEmail();
+    }
 }

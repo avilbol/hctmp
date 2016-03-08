@@ -25,7 +25,6 @@
             <h:outputStylesheet library="css" name="hallocasa.css"/>
             <h:outputStylesheet library="css" name="bootstrap/css/bootstrap.css"/>
             <h:outputStylesheet library="css" name="bootstrap/css/bootstrap.min.css"/>
-
             <ui:insert name="styleSheetsSection"/>
 
             <ui:insert name="messagesSection">
@@ -56,11 +55,25 @@
                     name="app_images/loading_spinner.gif" />
             </p:dialog>
 
-            <h:outputScript library="css/js" name="bootstrap.js"/>
-            <h:outputScript library="css/js" name="npm.js"/>
+            <h:outputScript library="css/bootstrap/js" name="bootstrap.js"/>
+            <h:outputScript library="css/bootstrap/js" name="npm.js"/>
             <h:outputScript library="js" name="commons/google.js"/>
             <h:outputScript library="js" name="commons/header.js"/>
             <h:outputScript library="js" name="commons/utils.js"/>
+            <h:outputScript rendered="#{globalMenuBean.logged}">
+            	window.intercomSettings = {
+				  app_id: "t6itp8rl",
+				  name: "#{globalMenuBean.fullusername}", 
+				  email: "#{globalMenuBean.email}", 
+				  created_at: 1457011697
+				};
+            </h:outputScript>
+            <h:outputScript rendered="#{not globalMenuBean.logged}">
+            	window.intercomSettings = {
+				  app_id: "t6itp8rl"
+				};
+            </h:outputScript>
+    		<h:outputScript library="js" name="commons/intercom.js"/>
             <script src="//load.sumome.com/" data-sumo-site-id="32c6496d5878bce4c57e22ef90a9ee945a6f1ab766a4aba486e93d8a00b0e287" async="async"></script>
             <ui:insert name="jsSection"/>
         </h:body>
