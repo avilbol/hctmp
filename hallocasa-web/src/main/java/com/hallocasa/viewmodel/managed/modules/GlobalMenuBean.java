@@ -6,6 +6,7 @@
 package com.hallocasa.viewmodel.managed.modules;
 
 import com.google.gson.Gson;
+import com.hallocasa.commons.users.UserUtils;
 import com.hallocasa.commons.vo.CredentialVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.session.LoginFailedException;
@@ -33,9 +34,7 @@ public class GlobalMenuBean {
     private NavigationHandler navigationHandler;
     @Inject
     private WebSession webSession;
-    @Inject
-    private ViewContext viewContext;
-
+    
     private static Gson gson = new Gson();
 
     /**
@@ -78,14 +77,11 @@ public class GlobalMenuBean {
     }
     
     public String getUsername(){
-        UserVO userVO = webSession.getCurrentUser();
-        if(userVO == null){
-    		return null;
-    	}
-        if(userVO.getFirstName() == null){
-            return userVO.getEmail();
-        }
-        return userVO.getFirstName();
+    	return UserUtils.getUsername(webSession.getCurrentUser());
+    }
+    
+    public String getFullusername(){
+    	return UserUtils.getFullUsername(webSession.getCurrentUser());
     }
     
     public String getEmail(){
@@ -95,5 +91,4 @@ public class GlobalMenuBean {
     	}
     	return userVO.getEmail();
     }
-    
 }

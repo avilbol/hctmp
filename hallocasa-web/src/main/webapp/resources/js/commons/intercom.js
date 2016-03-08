@@ -29,15 +29,13 @@
 		}
 	}
 	updateIntercom();
-	doIntercomSettings(null, null);
 })();
 
 function doIntercomSettings(username, email) {
-	if(username == null){
+	if(username == null || window.intercomSettings == null){
 		window.intercomSettings = { app_id: "t6itp8rl" };
 	}
 	else {
-		alert(window.intercomSettings.name);
 		if(window.intercomSettings.name == null){
 			bootIntercomUser(username, email);
 		}
@@ -45,7 +43,7 @@ function doIntercomSettings(username, email) {
 		  app_id: "t6itp8rl",
 		  name: username, 
 		  email: email, 
-		  created_at: 1312182000
+		  created_at: 1457011697
 		};
 	}
 	updateIntercom();
@@ -56,7 +54,7 @@ function bootIntercomUser(username, email){
 	  app_id: "t6itp8rl",
 	  name: username, 
 	  email: email, 
-	  created_at: 1312182000 // TODO: modify this when sign up time was developed
+	  created_at: 1457011697 // TODO: modify this when sign up time was developed
 	});
 }
 

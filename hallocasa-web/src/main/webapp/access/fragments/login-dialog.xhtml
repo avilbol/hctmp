@@ -47,6 +47,9 @@
 					oncomplete="if (args.ok ){ PF('login-dialog').hide();refreshAll();}" />
 			</div>
 			<p:remoteCommand name="refreshAll" update="@all" process="@this"  />
+			<h:outputScript rendered="#{not empty loginDialog.postScript}">
+				#{loginDialog.postScript}
+			</h:outputScript>
 		</h:form>
 	</p:dialog>
 
