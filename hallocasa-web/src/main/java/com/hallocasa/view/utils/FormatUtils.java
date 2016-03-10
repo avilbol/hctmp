@@ -10,6 +10,9 @@ package com.hallocasa.view.utils;
  * @author avillamil
  */
 public class FormatUtils {
+	
+	private static final String HTTP_PREFIX = "http://";
+	
     
     public static boolean isNumeric(String value){
         try{
@@ -31,5 +34,15 @@ public class FormatUtils {
     
     public static boolean isEmptyValue(String value){
         return value == null || value.equals("");
+    }
+    
+    public static String buildWebString(String webStr){
+    	if(webStr == null || webStr.equals("")){
+            return JSFUtils.getViewBundleString("Common.Label.NotSpecified");
+        }
+    	if(!webStr.startsWith(HTTP_PREFIX)){
+    		return HTTP_PREFIX + webStr;
+    	}
+    	return webStr;
     }
 }

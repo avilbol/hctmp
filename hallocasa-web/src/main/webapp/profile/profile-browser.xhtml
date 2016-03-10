@@ -14,7 +14,8 @@
     
     <ui:define name="contentSection">
     	
-    	<h:form id="profileBrowserForm">
+    	<h:form id="profileBrowserForm"
+    			enctype="multipart/form-data">
     		<div class="page">
     			<br/><br/><br/><br/><br/>
 	            <p:panel 
@@ -31,9 +32,14 @@
 		           		  		onClick="#{profileBrowserPage.onProfileSelect(profileItem)}"/>
 		           	 	</ui:repeat>
 		           	 	<h:commandButton 
-		           	 		styleClass="hc-basic-button"
-		           	 		actionListener="#{profileBrowserPage.onLoadMoreProfiles()}"
-		           	 		value="#{viewBundle['PublicProfile.BrowseProfile.loadMore']}" />
+		           	 		styleClass="#{profileBrowserPage.userLimitReached() ? 'hc-basic-button-disabled' : 'hc-basic-button'}"
+		           	 		action="#{profileBrowserPage.onLoadMoreProfiles()}"
+		           	 		disabled="#{profileBrowserPage.userLimitReached()}"
+		           	 		value="#{viewBundle['PublicProfile.BrowseProfile.loadMore']}">
+		           	 		<f:ajax 
+                                execute="@this"
+                                render="profileListArea" />
+		           	 	</h:commandButton>
 	            	</h:panelGroup>
 	            </p:panel>
 	        </div>

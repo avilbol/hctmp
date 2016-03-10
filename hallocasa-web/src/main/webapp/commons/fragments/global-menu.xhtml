@@ -83,11 +83,11 @@
 								styleClass="hc-header-menu-overlay hc-header-profile-menu-overlay">
 								<p:submenu label="Options">
 									<p:menuitem value="#{viewBundle['GlobalMenu.GoToProfile']}"
-										immediate="true"
-										actionListener="#{globalMenuBean.processGoToProfile}" />
+										immediate="true" ajax="false"
+										action="#{globalMenuBean.processGoToProfile}" />
 									<p:menuitem value="#{viewBundle['Header.Logout.Button']}"
-										immediate="true"
-										actionListener="#{globalMenuBean.processLogoutClick}" />
+										immediate="true" ajax="false"
+										action="#{globalMenuBean.processLogoutClick}" />
 								</p:submenu>
 							</p:menu></li>
 					</ui:fragment>

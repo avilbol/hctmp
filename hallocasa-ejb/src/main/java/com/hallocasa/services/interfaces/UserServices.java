@@ -65,4 +65,10 @@ public interface UserServices {
 	 */
 	public void savePropertyPublisher(TemporalPublisherUser publisherUser)
 			throws ServiceException;
+
+	/**
+	 * Load the number of user offering services
+	 * @return
+	 */
+	Integer loadUserVOCount();
 }

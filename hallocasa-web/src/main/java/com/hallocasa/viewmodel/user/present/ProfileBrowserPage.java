@@ -1,20 +1,17 @@
 package com.hallocasa.viewmodel.user.present;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.StrategySort;
 import com.hallocasa.commons.vo.UserVO;
-import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
@@ -40,6 +37,8 @@ public class ProfileBrowserPage {
 
 	private Language language;
 
+	private Integer userAmmount;
+	
 	private List<UserVO> userList;
     
     @Inject
@@ -53,11 +52,17 @@ public class ProfileBrowserPage {
 		this.language = webSession.getCurrentLanguage();
 		userList = userServices.loadUserVOList(USER_AMMOUNT_TO_SHOW,
 				StrategySort.RANDOM);
+		userAmmount = userServices.loadUserVOCount();
 	}
 
 	public void onLoadMoreProfiles() {
+		userAmmount = userServices.loadUserVOCount();
 		userList = userServices.loadUserVOList(userList, USER_AMMOUNT_TO_SHOW,
 				StrategySort.RANDOM);
+	}
+	
+	public boolean userLimitReached(){
+		return this.userAmmount.equals(this.userList.size());
 	}
 	
 	public void onProfileSelect(UserVO userVO){

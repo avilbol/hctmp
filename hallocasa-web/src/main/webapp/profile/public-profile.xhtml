@@ -11,7 +11,7 @@
 	<ui:param name="header_showSubMenu" value="#{false}" />
 	
 	<f:metadata>
-		<f:viewParam name="userId" value="#{publicProfilePage.userIdStr}"/>
+		<f:viewParam name="user-id" value="#{publicProfilePage.userIdStr}"/>
 		<f:event type="preRenderComponent" listener="#{publicProfilePage.initialize}"/>
 	</f:metadata>
 
@@ -22,6 +22,16 @@
 	</ui:define>
 
 	<ui:define name="contentSection">
+		<h:outputScript>alert(PF('login-dialog'));</h:outputScript>
+		<h:outputScript>PF('login-dialog').show();</h:outputScript>
+		<f:event type="postAddToView" 
+	     	listener="#{globalMenuBean.denyLoginInteract()}"
+	     	rendered="#{not globalMenuBean.logged}">
+	    	<f:ajax render="testggg"/>
+	    </f:event>
+	    <h:panelGroup id="testggg" rendered="#{not globalMenuBean.logged}">
+	    	<h:outputScript rendered="#{facesContext.postback}">alert('hi');</h:outputScript>
+	    </h:panelGroup>
 		<div class="page">
 			<br />
 			<br />
@@ -54,13 +64,26 @@
 								styleClass="hc-form-field" />
 	
 							<b><span class="hc-form-label">#{viewBundle['Profile.Data.Website.Label']}</span></b>
-							 <h:outputText value="#{publicProfilePage.websiteName}" />
-	
+			                <h:outputText value="#{publicProfilePage.websiteName}" 
+			                			  rendered="#{publicProfilePage.websitePending}"
+			                              styleClass="hc-form-field hc-gray-field"/>
+			                <h:outputLink value="#{publicProfilePage.websiteLink}" 
+			                			  rendered="#{not publicProfilePage.websitePending}"
+			                              styleClass="hc-form-field">
+			                	<h:outputText value="#{publicProfilePage.websiteName}"/>
+							</h:outputLink>
+							
 							<b><span class="hc-form-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span></b>
 							 <h:outputText value="#{publicProfilePage.linkedInName}" />
 	
 							<b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
-							 <h:outputText value="#{publicProfilePage.skypeName}" />
+							<h:outputText value="#{publicProfilePage.skypeName}" />
+							<h:outputLink value="skype:#{publicProfilePage.skypeName}?call"
+                			  rendered="#{not publicProfilePage.skypePending}">
+								<h:graphicImage library="images/icons"
+									name="skype-24.png" />
+							</h:outputLink>
+							
 						</div>
 	
 						<div class="col span_1_of_3">

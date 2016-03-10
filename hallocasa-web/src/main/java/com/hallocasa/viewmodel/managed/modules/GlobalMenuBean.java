@@ -5,20 +5,18 @@
  */
 package com.hallocasa.viewmodel.managed.modules;
 
-import com.google.gson.Gson;
-import com.hallocasa.commons.users.UserUtils;
-import com.hallocasa.commons.vo.CredentialVO;
-import com.hallocasa.commons.vo.UserVO;
-import com.hallocasa.model.session.LoginFailedException;
-import com.hallocasa.model.session.WebSession;
-import com.hallocasa.view.context.ViewContext;
-import com.hallocasa.view.navigation.HallocasaViewEnum;
-import com.hallocasa.view.navigation.NavigationHandler;
-
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
+
+import com.google.gson.Gson;
+import com.hallocasa.commons.users.UserUtils;
+import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.model.session.WebSession;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
+import com.hallocasa.view.navigation.NavigationHandler;
 
 /**
  * ViewModel of the global menu section
@@ -35,8 +33,20 @@ public class GlobalMenuBean {
     @Inject
     private WebSession webSession;
     
+    /**
+	 * Flag that indicates if it is possible to  exit of login module
+	 * and interact with the app
+	 */
+	private boolean interactWithApp;
+	
+    
     private static Gson gson = new Gson();
 
+    @PostConstruct
+    public void initialize(){
+    	interactWithApp = true;
+    }
+    
     /**
      * Listener for item click
      *
@@ -58,6 +68,10 @@ public class GlobalMenuBean {
     public void processGoToProfile() {
         navigationHandler.redirectToPage(HallocasaViewEnum.MY_PROFILE);
     }
+    
+    public void denyLoginInteract(){
+		interactWithApp = false;
+	}
     
     /**
      * Getter for showLogoutButton
@@ -91,4 +105,12 @@ public class GlobalMenuBean {
     	}
     	return userVO.getEmail();
     }
+    
+    public boolean isInteractWithApp() {
+		return interactWithApp;
+	}
+
+	public void setInteractWithApp(boolean interactWithApp) {
+		this.interactWithApp = interactWithApp;
+	}
 }

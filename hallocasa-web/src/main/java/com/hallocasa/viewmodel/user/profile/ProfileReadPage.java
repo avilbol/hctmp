@@ -8,12 +8,13 @@ package com.hallocasa.viewmodel.user.profile;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.controlaccess.ForbiddenException;
 import com.hallocasa.model.session.WebSession;
-
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.view.utils.FormatUtils;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
+
 import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -30,7 +31,12 @@ import javax.inject.Inject;
 @ViewScoped
 public class ProfileReadPage implements Serializable {
 
-    /* instance variables */
+    /**
+	 * Serialization constant
+	 */
+	private static final long serialVersionUID = -6006649582382274792L;
+
+	/* instance variables */
     private UserVO user;
 
     /* dependencies */
@@ -96,6 +102,10 @@ public class ProfileReadPage implements Serializable {
     
     public String getWebsiteName(){
         return FormatUtils.getDefensiveLabel(user.getWebSite());
+    }
+    
+    public String getWebsiteLink(){
+        return FormatUtils.buildWebString(user.getWebSite());
     }
     
     public String getSkypeName(){

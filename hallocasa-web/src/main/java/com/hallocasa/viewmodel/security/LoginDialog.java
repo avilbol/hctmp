@@ -18,6 +18,7 @@ import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.session.LoginFailedException;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.view.context.ViewContext;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
 
 /**
@@ -39,7 +40,7 @@ public class LoginDialog {
 	private ViewContext viewContext;
 	@Inject
 	private NavigationHandler navigationHandler;
-
+	
 	private String postScript;
 
 	/* instance variables */
@@ -59,19 +60,10 @@ public class LoginDialog {
 	public void processSubmitClick() {
 		try {
 			webSession.login(credentials);
-			initIntercomEnvironment();
 			viewContext.addCallBackParam("ok", true);
 		} catch (LoginFailedException ex) {
 			viewContext.showGlobalCustomErrorMessage(ex.getMessage(), "");
 		}
-	}
-
-	private void initIntercomEnvironment() {
-		UserVO user = webSession.getCurrentUser();
-		String username = UserUtils.getFullUsername(user);
-		String email = user.getEmail();
-		postScript = String.format("doIntercomSettings('%s', '%s');", username,
-				email);
 	}
 
 	/**

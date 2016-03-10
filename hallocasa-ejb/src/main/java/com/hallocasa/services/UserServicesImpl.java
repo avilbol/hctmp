@@ -5,8 +5,11 @@
  */
 package com.hallocasa.services;
 
-import com.hallocasa.commons.Language;
-import com.hallocasa.commons.StrategySort;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.ejb.EJB;
@@ -20,34 +23,19 @@ import javax.transaction.RollbackException;
 import javax.transaction.UserTransaction;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
-import org.junit.Assert;
-import org.junit.Test;
 
+import com.hallocasa.commons.StrategySort;
+import com.hallocasa.commons.exceptions.services.ServiceException;
+import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.dataentities.app.User;
 import com.hallocasa.dataentities.wcm.TemporalPublisherUser;
+import com.hallocasa.helpers.ParsersContext;
 import com.hallocasa.services.base.ServicesBase;
 import com.hallocasa.services.constants.ServiceErrorMessage;
-import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.services.interfaces.UserServices;
-import com.hallocasa.commons.exceptions.services.ServiceException;
-import com.hallocasa.commons.i18n.MultiLanguageText;
-import com.hallocasa.commons.vo.ImageContainer;
-import com.hallocasa.commons.vo.UserVO;
-import com.hallocasa.dataentities.app.TestEntity;
-import com.hallocasa.dataentities.app.User;
-import com.hallocasa.helpers.ParsersContext;
+import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.vo.MailChimpMergeVars.TypeEnum;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-import java.util.logging.Logger;
-
-import javax.persistence.PersistenceException;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.SystemException;
 
 /**
  * 
@@ -58,6 +46,7 @@ import javax.transaction.SystemException;
 public class UserServicesImpl extends ServicesBase implements UserServices {
 
 	/* constances */
+	@SuppressWarnings("unused")
 	private final static Logger LOG = Logger.getLogger(UserServicesImpl.class
 			.getName());
 
@@ -144,6 +133,12 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
 	}
 
 	@Override
+	public Integer loadUserVOCount(){
+		return appPersistenceServices.executeQuery(
+				User.QUERY_COUNT_LIST_WITH_USER_TYPES, Long.class).intValue();
+	}
+
+	@Override
 	public List<UserVO> loadUserVOList(Integer initialAmmount,
 			StrategySort strategySort) {
 		return createUserVOList(null, initialAmmount);
@@ -156,67 +151,65 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
 	}
 
 	/**
-	 * Detect the presence of users with an id duplicated in candidate
-	 * new element
+	 * Detect the presence of users with an id duplicated in candidate new
+	 * element
+	 * 
 	 * @param user
 	 * @param userList
 	 * @return
 	 */
-	private boolean duplicateUser(User user, List<User> userList){
-		for(User userItem : userList){
-			if(user.getId().equals(userItem.getId())){
+	private boolean duplicateUser(User user, List<User> userList) {
+		for (User userItem : userList) {
+			if (user.getId().equals(userItem.getId())) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	
-	private List<UserVO> toUserVOList(List<User> userList){
+
+	private List<UserVO> toUserVOList(List<User> userList) {
 		List<UserVO> userVOList = new ArrayList<UserVO>();
 		int counter = 0;
-		for(User user: userList){
+		for (User user : userList) {
 			userVOList.add(ParsersContext.USER_VO_PARSER.toValueObject(
 					userList.get(counter++), UserVO.class));
 		}
 		return userVOList;
 	}
-	
-	private List<User> toUserList(List<UserVO> userVOList){
+
+	private List<User> toUserList(List<UserVO> userVOList) {
 		List<User> userList = new ArrayList<User>();
-		for(UserVO userVO: userVOList){
-			userList.add(ParsersContext.USER_VO_PARSER.toEntity(
-					userVO, User.class));
+		for (UserVO userVO : userVOList) {
+			userList.add(ParsersContext.USER_VO_PARSER.toEntity(userVO,
+					User.class));
 		}
 		return userList;
 	}
-	
+
 	private List<UserVO> createUserVOList(List<UserVO> existingUserVOList,
-			Integer elementNumber){
+			Integer elementNumber) {
 		Integer counter = 0;
 		List<User> userList;
-		if(existingUserVOList == null){
+		if (existingUserVOList == null) {
 			userList = new ArrayList<User>();
-		}
-		else{
-			userList =  toUserList(existingUserVOList);
+		} else {
+			userList = toUserList(existingUserVOList);
 		}
 		Integer profileAmmount = appPersistenceServices.executeQuery(
 				User.QUERY_COUNT_LIST_WITH_USER_TYPES, Long.class).intValue();
 		Random random = new Random();
 		while (counter++ < elementNumber && profileAmmount > userList.size()) {
 			User userItem = new User();
-			do{
+			do {
 				Integer indexToFix = random.nextInt(profileAmmount);
 				userItem = appPersistenceServices.executeQuery(
-						User.QUERY_ALL_LIST_WITH_USER_TYPES, new HashMap<String, Object>(),
-						User.class, indexToFix);
-			} while(duplicateUser(userItem, userList));
+						User.QUERY_ALL_LIST_WITH_USER_TYPES,
+						new HashMap<String, Object>(), User.class, indexToFix);
+			} while (duplicateUser(userItem, userList));
 			userList.add(userItem);
 		}
 		return toUserVOList(userList);
 	}
-
 
 	public void setAppPersistenceServices(
 			AppPersistenceServices appPersistenceServices) {

@@ -31,7 +31,13 @@
 
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Website.Label']}</span></b>
                 <h:outputText value="#{profileReadPage.websiteName}" 
-                              styleClass="hc-form-field #{profileReadPage.websitePending ? 'hc-gray-field' : ''}"/>
+                			  rendered="#{profileReadPage.websitePending}"
+                              styleClass="hc-form-field hc-gray-field"/>
+                <h:outputLink value="#{profileReadPage.websiteLink}" 
+                			  rendered="#{not profileReadPage.websitePending}"
+                              styleClass="hc-form-field">
+                	<h:outputText value="#{profileReadPage.websiteName}"/>
+				</h:outputLink>
 
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span></b>
                 <h:outputText value="#{profileReadPage.linkedInName}"
@@ -40,6 +46,11 @@
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
                 <h:outputText value="#{profileReadPage.skypeName}"
                               styleClass="hc-form-field #{profileReadPage.skypePending ? 'hc-gray-field' : ''}"/>
+                <h:outputLink value="skype:#{profileReadPage.skypeName}?call"
+                			  rendered="#{not profileReadPage.skypePending}">
+					<h:graphicImage library="images/icons"
+						name="skype-24.png" />
+				</h:outputLink>
             </div>
 
             <div class="col span_1_of_3">

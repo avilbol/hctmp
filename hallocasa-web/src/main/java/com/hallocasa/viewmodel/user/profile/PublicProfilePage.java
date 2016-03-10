@@ -2,11 +2,9 @@ package com.hallocasa.viewmodel.user.profile;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import com.hallocasa.commons.vo.UserVO;
@@ -14,7 +12,6 @@ import com.hallocasa.model.controlaccess.ForbiddenException;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.view.utils.FormatUtils;
-import com.hallocasa.view.utils.JSFUtils;
 
 /**
  * View model for public profile page
@@ -49,6 +46,18 @@ public class PublicProfilePage implements Serializable{
 	        throw new ForbiddenException();
 	    }
 	}
+	
+	public boolean getWebsitePending(){
+        return FormatUtils.isEmptyValue(user.getWebSite());
+    }
+	
+	public boolean getSkypePending(){
+        return FormatUtils.isEmptyValue(user.getSkype());
+    }
+	
+	public boolean getLinkedInPending(){
+        return FormatUtils.isEmptyValue(user.getLinkedIn());
+    }
 
 	public String getUserIdStr() {
 		return userIdStr;
@@ -84,6 +93,10 @@ public class PublicProfilePage implements Serializable{
     
     public String getWebsiteName(){
         return FormatUtils.getDefensiveLabel(user.getWebSite());
+    }
+    
+    public String getWebsiteLink(){
+        return FormatUtils.buildWebString(user.getWebSite());
     }
     
     public String getSkypeName(){
