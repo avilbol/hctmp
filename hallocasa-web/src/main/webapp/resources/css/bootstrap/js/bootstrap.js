@@ -2363,7 +2363,6 @@ if (typeof jQuery === 'undefined') {
 }
 
 (jQuery);
-JavaScript
 
 $(document).ready(main);
 
