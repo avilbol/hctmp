@@ -9,6 +9,7 @@
 	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 
 	<ui:param name="header_showSubMenu" value="#{false}" />
+
 	
 	<f:metadata>
 		<f:viewParam name="user-id" value="#{publicProfilePage.userIdStr}"/>
@@ -19,19 +20,23 @@
 
 	<ui:define name="styleSheetsSection">
 		<h:outputStylesheet library="css" name="confirm-email.css" />
+		<style>
+			.ui-widget-overlay {
+			    filter:alpha(opacity=90);  /* works in IE 7 */
+			    opacity: 0.9;  /* works in Firefox */
+			}
+		</style>
 	</ui:define>
 
 	<ui:define name="contentSection">
-		<h:outputScript>alert(PF('login-dialog'));</h:outputScript>
-		<h:outputScript>PF('login-dialog').show();</h:outputScript>
+
 		<f:event type="postAddToView" 
 	     	listener="#{globalMenuBean.denyLoginInteract()}"
 	     	rendered="#{not globalMenuBean.logged}">
-	    	<f:ajax render="testggg"/>
 	    </f:event>
-	    <h:panelGroup id="testggg" rendered="#{not globalMenuBean.logged}">
-	    	<h:outputScript rendered="#{facesContext.postback}">alert('hi');</h:outputScript>
-	    </h:panelGroup>
+	    <h:outputScript rendered="#{not globalMenuBean.logged}">
+			$(function(){PF('login-dialog').show();})
+		</h:outputScript>
 		<div class="page">
 			<br />
 			<br />
@@ -53,7 +58,7 @@
 							<h:outputText value="#{publicProfilePage.username}" />
 							<br />
 							<b><span class="hc-form-label">#{viewBundle['Profile.Data.Country.Label']}</span></b>
-							 <h:outputText value="#{publicProfilePage.countryName}"
+							<h:outputText value="#{publicProfilePage.countryName}"
 								styleClass="hc-form-field" />
 							<br /> <b><span class="hc-form-label">#{viewBundle['Profile.Data.State.Label']}</span></b>
 							 <h:outputText value="#{publicProfilePage.stateName}"
@@ -74,16 +79,17 @@
 							</h:outputLink>
 							
 							<b><span class="hc-form-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span></b>
-							 <h:outputText value="#{publicProfilePage.linkedInName}" />
+							<h:outputText value="#{publicProfilePage.linkedInName}" 
+										  styleClass="hc-form-field #{publicProfilePage.linkedInPending ? 'hc-gray-field' : ''}"/>
 	
 							<b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
-							<h:outputText value="#{publicProfilePage.skypeName}" />
+							<h:outputText value="#{publicProfilePage.skypeName}"
+										 styleClass="hc-form-field #{publicProfilePage.skypePending ? 'hc-gray-field' : ''}" />
 							<h:outputLink value="skype:#{publicProfilePage.skypeName}?call"
                 			  rendered="#{not publicProfilePage.skypePending}">
 								<h:graphicImage library="images/icons"
 									name="skype-24.png" />
 							</h:outputLink>
-							
 						</div>
 	
 						<div class="col span_1_of_3">

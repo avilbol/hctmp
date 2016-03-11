@@ -11,11 +11,13 @@
 		closeOnEscape="#{globalMenuBean.interactWithApp}" 
 		closable="#{globalMenuBean.interactWithApp}"
 		header="#{viewBundle['Login.Dialog.Title']}"
-		resizable="false" styleClass="login-dialog" width="auto">
+		resizable="false" 
+		styleClass="login-dialog" 
+		width="auto">
 		<h:form id="login-form" styleClass="hc-form">
 			<h:outputText 
 				rendered="#{not globalMenuBean.interactWithApp}"
-				value="Para poder acceder a esta característica, debe estar logueado"/>
+				value="#{viewBundle['PublicProfile.PreAuthorize.loginNeeded']}"/>
 			<div class="hc-overlay-form-fields-container">
 				<p:outputLabel for="email" value="#{viewBundle['Login.Form.Email']}"
 					styleClass="hc-form-label hc-form-required" />
