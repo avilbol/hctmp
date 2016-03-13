@@ -46,10 +46,11 @@
 	width: 100%;
 	text-align: center;    
 	font-weight: 700;
+	text-transform: uppercase;
 }
 
 .positioning-statement .sub-title {
-	font-size: 18px;
+	font-size: 22px;
 	display: block;
 	color: #002D45;
 	width: 100%;

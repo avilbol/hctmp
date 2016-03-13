@@ -37,6 +37,7 @@
 		};
 		function myFunction() {
 		    document.getElementsByClassName("topnav")[0].classList.toggle("responsive");
+	        $('.menu ').css("float", "left!important");
 		}
 	</script>
 	<h:form id="global-menu">
@@ -95,10 +96,9 @@
 
 
 					<li
-						class="hc-header-global-menu-item hc-header-menu  btn btn-default-ini languaje"><h:panelGroup
-							id="languageMenuTrigger" styleClass="fa" class="language-link">
-							<span class="hc-simple-link">#{webSession.currentLanguage.languageName}</span>
-						</h:panelGroup> <p:menu overlay="true" my="left top"
+						class="hc-header-global-menu-item hc-header-menu  btn btn-default-languaje">
+						<h:panelGroup
+							id="languageMenuTrigger" styleClass="fa" class="language-link">#{webSession.currentLanguage.languageName}</h:panelGroup> <p:menu overlay="true" my="left top"
 							trigger="languageMenuTrigger" widgetVar="languageMenuWv"
 							at="left bottom"
 							styleClass="hc-header-menu-overlay hc-header-language-menu-overlay">

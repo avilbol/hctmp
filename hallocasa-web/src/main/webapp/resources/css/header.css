@@ -10,16 +10,18 @@ body {
 	display: table;
 	width: 100%;
 	margin: 0;	
-	background-image: url( "#{resource['images:slide-01-B.jpg']}");
+	background-image: url("#{resource['images:hc-background-1345.jpg']}");
 	background-repeat: no-repeat;
+	
 }
-
+.beta{
+	font-size: 20px;
+    color: #002D45;
+    text-align: center;
+    font-style: italic;
+}
 .head {
 	display: table-row;
-}
-
-.bottom-strip {
-	height: 200px;
 }
 
 /* header menu bar*/
@@ -154,6 +156,7 @@ section {
 
 .col-md-12.container.con-body {
 	height: 517px;
+    padding-top: 50px;
 }
 .menu{
 	float: right!important;
@@ -168,7 +171,6 @@ ul.topnav {
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	    font-weight: 700;
 }
 
 ul.topnav li {
@@ -214,14 +216,21 @@ ul.topnav li.icon {
     font-weight: 700!important;
 }
 .btn-default:hover {
-	color: #ccc;
+	color: #fff!important;
 	boder: 1px solid #fff;
 	border-radius: 3px;
 	font-size:19px!important;
-}
+	background-color: #000000!important;
+    background-color: rgba(0,0,0,0.35)!important;
 
-.languaje{
+}
+.btn-default-languaje{
 	margin: 8px 12px 0 0!important;
+	    background-color: transparent!important;
+	    border-color: transparent!important;
+		padding: 3px 12px!important;
+		color: #333;
+		font-size: 19px!important;
 }
 .btn-default-ini:hover {
     color: #002D45;
@@ -229,9 +238,6 @@ ul.topnav li.icon {
     background-color: transparent;
     boder: 1px solid #fff;
     border-radius: 3px;
-}
-.btn-default:hover {
-	color: #002D45 !important;
 }
 /* top container */
 .top-strip {
