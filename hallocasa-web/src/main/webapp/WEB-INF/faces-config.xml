@@ -10,10 +10,10 @@
             <var>viewBundle</var>
         </resource-bundle>
         
-        <!--<resource-bundle>
-                <base-name>com.hallocasa.language.BeanLabels</base-name>
-                <var>labelBundle</var>
-            </resource-bundle>-->
+        <resource-bundle>
+            <base-name>com.hallocasa.language.terms.TermsText</base-name>
+            <var>viewTermsBundle</var>
+        </resource-bundle>
         <resource-bundle>
             <base-name>com.hallocasa.language.ViewTextAndMessages</base-name>
             <var>viewBundle</var>

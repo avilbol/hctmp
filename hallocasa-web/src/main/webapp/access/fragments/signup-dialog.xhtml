@@ -11,7 +11,7 @@
               closable="#{globalMenuBean.interactWithApp}"
               header="#{viewBundle['SignUp.Dialog.Title']}" 
               resizable="false"
-              styleClass="signup-dialog" width="auto">
+              styleClass="signup-dialog" width="800">
         <h:outputScript>
         	function processSignUpFinished(args, interactWithApp){
         		if(args.ok &amp;&amp; !interactWithApp){
@@ -49,14 +49,26 @@
                             placeholder="#{viewBundle['SignUp.Form.ConfirmPassword']}"
                             styleClass="hc-form-field"
                             value="#{signUpDialog.passwordConfirm}"/>
+                
+                <h4>#{viewBundle['SignUp.Form.TermsAndConditions']}</h4>
+                <h:outputText  
+                	escape="false" 
+                	value="#{viewTermsBundle['signup']}"
+                 	styleClass="hc-form-field"/>
+                 <br/>
+                <h:selectBooleanCheckbox 
+                	value="#{signUpDialog.acceptTerms}">
+                </h:selectBooleanCheckbox>
+                &nbsp;&nbsp;
+                #{viewBundle['SignUp.Form.TermsAndConditions.Accept']}
             </div>
             <div class="hc-overlay-form-buttons-container">
                 <div> 
                     <p:commandButton value="${viewBundle['SignUp.Header.Button']}" 
-                                     styleClass="hc-form-cancel-button"
-                                     actionListener="#{signUpDialog.processSubmitClick()}"
-                                     process="@form" update="@form"
-                                     oncomplete="processSignUpFinished(args, #{globalMenuBean.interactWithApp});"/>
+                          styleClass="hc-form-cancel-button"
+                          actionListener="#{signUpDialog.processSubmitClick()}"
+                          process="@form" update="@this"
+                          oncomplete="processSignUpFinished(args, #{globalMenuBean.interactWithApp});"/>
                 </div>
             </div>
         </h:form>

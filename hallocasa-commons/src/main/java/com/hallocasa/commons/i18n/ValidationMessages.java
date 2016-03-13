@@ -45,7 +45,8 @@ public class ValidationMessages {
     public static final String GENERAL_NAME_PATTERN = "com.hallocasa.validator.constrains.GeneralNamePattern.message";
     public static final String ADDRESS_PATTERN = "com.hallocasa.validator.constrains.AddressPattern.message";
     public static final String USE_CASE_NAME_PATTERN = "com.hallocasa.validator.constrains.UseCasePattern.message";
-
+    public static final String MUST_ACCEPT_TERMS_AND_CONDITIONS = "com.hallocasa.validator.constraints.TermsAndConditions";
+    
     /* sign up dialog */
     public static final String SIGNUP_PASSWORD_CONFIRM_NOT_MATCH = "com.hallocasa.signup.password.NotMatch.summary";
     public static final String RECOVERY_PASSWORD_CONFIRM_NOT_MATCH = "com.hallocasa.signup.password.NotMatch.summary";
