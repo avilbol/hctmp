@@ -39,7 +39,7 @@
             <div class="hc-overlay-form-buttons-container">
                 <div> 
                     <p:commandButton value="${viewBundle['SignUp.Header.Button']}" 
-                                     styleClass="hc-form-cancel-button"
+                                     styleClass="btn btn-default"
                                      actionListener="#{signUpDialog.processSubmitClick()}"
                                      process="@form" update="@form"
                                      oncomplete="if (args.ok ) PF('signup-dialog').hide();"/>

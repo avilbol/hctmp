@@ -37,7 +37,7 @@
 		display: none;
 	}
 	.row.col-md-10.menu {
-		width: 88%;
+		width: 40%;
 		position: relative;
 		z-index: 1000;
 	}
@@ -59,7 +59,7 @@
 		width: 100%;
 	}
 	ul.topnav {
-		width: 49%;
+    width: 126%;
 		height: 477px;
 		float: right;
 	}
@@ -126,20 +126,32 @@
 		text-decoration: inherit !important;
 	}
 	ul
+	
+	
 	.topnavli
+	
+	
 	:not
+	
 	 
+	
 	(
 	:first-child
+	
 	 
+	
 	){
 	display
+	
+	
 	:
+	
 	 
+	
 	none
+	
+	
 	;
-	
-	
 }
 
 ul.topnav li.icon {
@@ -150,12 +162,9 @@ ul.topnav li.icon {
 
 li.hc-header-global-menu-item.hc-header-menu.btn.btn-default-languaje span
 	{
-	width: 108.6%;
-	position: relative;
-	top: -14px;
-	left: 0px;
-	height: 44px;
-	line-height: 41px;
+	    text-align: right;
+    float: right;
+    margin-right: 14px;
 }
 
 ul.topnav.responsive li.icon {
@@ -163,7 +172,6 @@ ul.topnav.responsive li.icon {
 	right: 0;
 	top: 0;
 	width: 100%;
-	border: 1px solid #fff;
 }
 
 ul.topnav.responsive li {
@@ -181,13 +189,11 @@ ul.topnav.responsive li.icon {
 }
 
 ul.topnav.responsive li a {
-	display: block;
-	margin-top: -1px;
-	color: #fff;
 	width: 100%;
-	text-align: right;
-	border-bottom: 1px solid #fff;
-	background: #002D45;
+    text-align: right;
+    border-bottom: 1px solid #fff;
+    background: #002D45;
+    color: #fff;
 }
 
 ul.topnav.responsive li button {
@@ -202,12 +208,10 @@ ul.topnav.responsive li button {
 }
 
 ul.topnav.responsive li span {
-	display: block;
-	color: #fff !important;
 	width: 100%;
-	text-align: right;
-	padding-right: 6px;
-	background: #002D45;
+    text-align: right;
+    color: #fff;
+    background: #002D45;
 }
 
 ul.topnav.responsive li .icon a {
@@ -231,29 +235,46 @@ ul.hc-footer-social-icons {
 
 }
 @media screen and (max-width:680px) {
-	.beta {
-		display: none;
+	.logo {
+		width: 25%!important;
 	}
 	ul
+	
 	 
+	
 	.topnav
+	
 	 
+	
 	li
+	
+	
 	:not
+	
 	 
+	
 	(
 	:first-child
+	
 	 
+	
 	)
 	{
 	display
+	
+	
 	:
+	
 	 
+	
 	none
+	
+	
 	;
-	
-	
 }
+.row.col-md-10.menu {
+    width: 80%;
+ }
 
 ul.topnav li.icon {
 	float: right;
@@ -265,10 +286,12 @@ ul.topnav li.icon {
 ul.topnav.responsive {
 	text-align: center;
 	background-color: #002D45;
-	height: 475px;
+	height: 338px;
 	width: 100%;
 }
-
+ul.topnav {
+    width: 49%;
+}
 ul.topnav.responsive li {
 	border: none;
 }
@@ -286,29 +309,6 @@ ul.topnav.responsive li.icon {
 	text-align: right;
 }
 
-ul.topnav.responsive li a {
-	display: block;
-	margin-top: -1px;
-	color: #fff;
-	width: 100%;
-	text-align: right;
-	border-bottom: 1px solid #fff;
-}
-
-ul.topnav.responsive li button {
-	display: block;
-	color: #fff !important;
-	width: 100%;
-	text-align: right;
-	border: 1px solid #fff !important;
-}
-
-ul.topnav.responsive li span {
-	display: block;
-	color: #fff !important;
-	width: 100%;
-	text-align: right;
-}
 
 ul.hc-footer-social-icons {
 	margin-left: 172px;
@@ -386,7 +386,9 @@ ul.hc-footer-social-icons {
 	.hc-header-logo {
 		float: left;
 	}
-
+ul.topnav.responsive {
+    height: 343px;
+}
 	/*home*/
 	.hc-home-newsletter-box {
 		font-size: 0.8em;
