@@ -5,18 +5,10 @@
  */
 package com.hallocasa.dataentities.app;
 
-import com.hallocasa.commons.Language;
-import com.hallocasa.commons.i18n.MultiLanguageText;
-import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
-import com.hallocasa.dataentities.converters.ImageContainerConverter;
-import com.hallocasa.dataentities.converters.LanguageConverter;
-import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
-import com.hallocasa.dataentities.converters.SpokenLanguagesConverter;
-import com.hallocasa.dataentities.types.LanguageList;
-import com.hallocasa.commons.vo.ImageContainer;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -30,7 +22,18 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.hallocasa.commons.Language;
+import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.ImageContainer;
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.converters.ImageContainerConverter;
+import com.hallocasa.dataentities.converters.LanguageConverter;
+import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
+import com.hallocasa.dataentities.converters.SpokenLanguagesConverter;
+import com.hallocasa.dataentities.types.LanguageList;
 
 /**
  * 
@@ -125,6 +128,10 @@ public class User implements Serializable, HallocasaEntity {
 	@JoinColumn(name = "city_id", referencedColumnName = "id")
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	private City city;
+	
+	@JoinColumn(name = "user_telephone_id", referencedColumnName = "user_id")
+	@OneToOne(optional = true, fetch = FetchType.LAZY)
+	private Telephone telephone;
 
 	@Column(name = "image_name")
 	@Convert(converter = ImageContainerConverter.class)

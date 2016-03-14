@@ -67,6 +67,14 @@
 							<b><span class="hc-form-label">#{viewBundle['Profile.Data.City.Label']}</span></b>
 							 <h:outputText value="#{publicProfilePage.cityName}"
 								styleClass="hc-form-field" />
+								
+							<b><span class="hc-form-label">Telefono</span></b>
+							 <utils:telephoneNumber value="#{publicProfilePage.user.telephone}"
+								 readOnly="true" id="tel1" />
+							 
+							  <utils:telephoneNumber value="#{publicProfilePage.user.telephone}"
+								 readOnly="false" id="tel2" />
+							 
 	
 							<b><span class="hc-form-label">#{viewBundle['Profile.Data.Website.Label']}</span></b>
 			                <h:outputText value="#{publicProfilePage.websiteName}" 

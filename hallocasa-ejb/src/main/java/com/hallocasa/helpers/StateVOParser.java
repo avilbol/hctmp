@@ -5,7 +5,7 @@ import com.hallocasa.dataentities.app.State;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Parser of countryVO to country and vice-versa
+ * Parser of stateVO to state and vice-versa
  *
  * @author David Mantilla
  * @since 1.7
@@ -31,7 +31,6 @@ public class StateVOParser extends HallocasaVOParser<State, StateVO> {
             State entity, String propertyName, Object propertyValue,
             Object[] options) throws IllegalAccessException,
             InvocationTargetException {
-
         super.copyEntityPropertyToValueObjectProperty(vo, entity,
                 propertyName, propertyValue, options);
 
@@ -41,7 +40,6 @@ public class StateVOParser extends HallocasaVOParser<State, StateVO> {
     protected void copyVOPropertyToEntityProperty(StateVO vo, State entity,
             String propertyName, Object propertyValue, Object[] options)
             throws IllegalAccessException, InvocationTargetException {
-
         super.copyVOPropertyToEntityProperty(vo, entity, propertyName,
                 propertyValue, options);
     }

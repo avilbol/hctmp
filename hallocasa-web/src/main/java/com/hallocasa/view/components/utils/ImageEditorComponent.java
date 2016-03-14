@@ -35,7 +35,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.model.CroppedImage;
 
 /**
- *
+ * Backing bean for image edition component
  * @author Alexander Villamil
  */
 @FacesComponent("imageEditorComponent")

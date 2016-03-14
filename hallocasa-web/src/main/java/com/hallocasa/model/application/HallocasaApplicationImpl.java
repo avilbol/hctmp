@@ -5,26 +5,29 @@
  */
 package com.hallocasa.model.application;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
+
 import com.hallocasa.commons.Language;
+import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.UserType;
 import com.hallocasa.helpers.ParsersContext;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-
 import com.hallocasa.services.interfaces.FileServicesInterface;
 import com.hallocasa.services.interfaces.ImageServicesInterface;
+import com.hallocasa.services.location.local.TelephoneServices;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.services.persistence.local.WcmPersistenceServices;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.ejb.EJB;
 
 /**
  *
@@ -35,7 +38,12 @@ import javax.ejb.EJB;
 public class HallocasaApplicationImpl implements HallocasaApplication, 
         Serializable {
 
-    @EJB
+    /**
+	 * Serialization constant
+	 */
+	private static final long serialVersionUID = 8457712823542185146L;
+	
+	@EJB
     @Deprecated
     private WcmPersistenceServices persistenceServices;
     @EJB
@@ -47,12 +55,16 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
     
     @EJB
     private AppPersistenceServices appPersistenceServices;
+    @EJB
+    private TelephoneServices telephoneServices;
     
     private List<Language> languages;
     
     private List<CountryVO> countries;
     
     private List<UserTypeVO> userTypes;
+    
+    private List<CountryTelephonePrefixVO> countryTelephonePrefixList;
     
     private Integer userIdInRecoveryProcess;
 
@@ -88,6 +100,7 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
                 UserType.QUERY_FIND_ALL, null, UserType.class);
         userTypes = ParsersContext.USER_TYPE_VO_PARSER.
                 toValueObjectList(rawUserTypes, UserTypeVO.class);
+        countryTelephonePrefixList = telephoneServices.getCountryPrefixList();
     }
 
     @Override
@@ -107,8 +120,16 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
     public void setUserTypes(List<UserTypeVO> userTypes) {
         this.userTypes = userTypes;
     }
-    
-    /**
+ 
+	public List<CountryTelephonePrefixVO> getCountryTelephonePrefixList() {
+		return countryTelephonePrefixList;
+	}
+
+	public void setCountryTelephonePrefixList(List<CountryTelephonePrefixVO> countryTelephonePrefixList) {
+		this.countryTelephonePrefixList = countryTelephonePrefixList;
+	}
+
+	/**
      * @return the databaseServices
      */
     @Deprecated
