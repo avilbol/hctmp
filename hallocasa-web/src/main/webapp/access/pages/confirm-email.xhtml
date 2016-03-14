@@ -13,11 +13,10 @@
     </ui:define>
 
     <ui:define name="contentSection">
-        <div class="land-page-background1"/>
+        <div class="land-page-background1">
         
         <div>#{confirmEmailPage.launch()}</div>
 
-        <br/><br/><br/><br/><br/>
         <h:form>
             <p:panel header="#{viewBundle['Email.Confirm.Panel.Title']}" 
                      styleClass="confirm-email-panel">
@@ -35,6 +34,7 @@
         </h:form>
 
         <h:outputScript library="js" name="home/background-image.js"/>
+        </div>
     </ui:define>
 
 </ui:composition>

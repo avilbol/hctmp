@@ -1,17 +1,15 @@
-.bottom-strip {
-    font-weight: lighter;
-    float:left;
-    top: auto;
-    bottom: 0;
-    width: 100%;
-    background-color: #002d45;
-    padding: 18px;
-}
+.bottom-strip{
+	 padding-right: 0px!important; 
+     padding-left: 0px!important;
+         background-color: #002D45; 
+         height: auto;
+    }
+    .content-footer{
+         margin: 20px 0;
+    }
 .bottom-strip > * {
     color: white;
-}
-.bottom-strip p {
-    margin: 0px;
+    background-color: #002d45;
 }
 .bottom-strip > a {
     text-decoration: none;
@@ -19,14 +17,12 @@
 .bottom-strip .content {
     font-size: 15px;
     margin-bottom: 0;
-    line-height: 66px;
+    background-color: #002d45;
 }
 .bottom-strip .content #backtop-btn {
     font-size: 42px;
-    position: relative;
-    text-align: center;
     display: table;
-    margin: 0 auto;
+    margin: 0 auto;    
 }
 .bottom-strip .content #backtop-btn:before {
     width: 60px;
@@ -43,68 +39,36 @@
 .bottom-strip a{
     color: #F3F3F3;
 }
-
-@media screen and ( max-width: 480px ){
-    .bottom-strip p {
-        display: block;
-        width: 100%;
-        text-align: center;
-        float: none;
-    }
+.copy-right p{
+	line-height: 25px;
+    text-align: left;
 }
-
 
 /* social icons */
-.hc-footer-social-icons {
-    float:right;
-    margin-top:12px;
+
+ul.hc-footer-social-icons {
+    display: -webkit-box;
 }
-.hc-footer-social-icons, .menu {
-    padding:0;
+ul.hc-footer-social-icons li {
+    background-color: transparent;
+    margin: 2px;
 }
 .hc-footer-social-icons li {
     padding:7px;
-    width:36px;
+    width:38px;
     height: 36px;
-
-    float:left;
-    margin-right:5px;
     border:1px solid rgba(255,255,255,0.3);
     -webkit-border-radius:100px;
     -moz-border-radius:100px;
     -ms-border-radius:100px;
     -o-border-radius:100px;
     border-radius:100px;
-    line-height:26px;
-    text-align:center;
-    transition:all 300ms ease-in-out;
-    -o-transition:all 300ms ease-in-out;
-    -moz-transition:all 300ms ease-in-out;
-    -webkit-transition:all 300ms ease-in-out;
 }
 .hc-footer-social-icons li a, .menu li a {
     font-size: 1.1em;
     text-align:center;
 }
 .hc-footer-social-icons li:hover a, .menu li:hover a {
-    color: #002d45;
-}
-
-@media screen and ( max-width: 480px ){
-    .hc-footer-social-icons {
-        display: block;
-        width: 100%;
-        text-align: center;
-        float: none;
-    }
-    .hc-footer-social-icons li {
-        display: inline-block;
-        float: none;
-        width: 30px;
-        height: 30px;
-        padding: 3px;
-    }
-    .hc-footer-social-icons .fa {
-        font-size: 1em;
-    }
+    color: #6EC1E7;
+    text-decoration: none;
 }

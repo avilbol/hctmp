@@ -27,20 +27,11 @@ body {
     padding: 0px;
     margin: 0px;
 }
-.col {
-    display: block;
-    float:left;
-    margin: 1% 0 1% 2%;
-}
 .col:first-child { margin-left: 0; }
 .group:before,
 .group:after { content:""; display:table; }
 .group:after { clear:both;}
 .group { zoom:1; /* For IE 6/7 */ }
-
-.span_3_of_3 { width: 100%; }
-.span_2_of_3 { width: 66%; }
-.span_1_of_3 { width: 32%; }
 
 
 .clearfix {

@@ -35,16 +35,17 @@
 			});
 
 		};
+		function myFunction() {
+		    document.getElementsByClassName("topnav")[0].classList.toggle("responsive");
+	        $('.menu ').css("float", "left!important");
+		}
 	</script>
 	<h:form id="global-menu">
-		<div class="row col-md-12">
-			<header>
-			<div class="menu_bar">
-				<a href="#" class="bt-menu"><span class="icon-list2"></span>☰</a>
-			</div>
-			<nav>
-			<div class="row col-md-12">
-				<ul>
+		<div class="row menu-row">
+				<ul class="topnav">
+				 <li class="icon">
+				    <a href="javascript:void(0);" class="icon-menu" onclick="myFunction()">☰</a>
+				  </li>
 					<li class="hc-header-global-menu-item"><a
 						href="#{constants.getAbsolutePageUrl('BROWSE_PROFILE')}"> <span>#{viewBundle['Common.Label.BrowseProfiles']}</span>
 					</a></li>
@@ -61,15 +62,16 @@
 					</a></li>
 					<ui:fragment rendered="#{!globalMenuBean.logged}">
 						<li class="hc-header-global-menu-item"><p:commandButton
+								class="btn btn-default-ini"
+								onclick="PF('login-dialog').show();
+                            PF('login-dialog').initPosition();"
+								type="button" value="#{viewBundle['Header.Login.Button']}" /></li>
+								
+						<li class="hc-header-global-menu-item"><p:commandButton
 								class="btn btn-default"
 								onclick="PF('signup-dialog').show();
                             PF('signup-dialog').initPosition();"
 								type="button" value="#{viewBundle['Header.SignUp.Button']}" /></li>
-						<li class="hc-header-global-menu-item"><p:commandButton
-								class="btn btn-default"
-								onclick="PF('login-dialog').show();
-                            PF('login-dialog').initPosition();"
-								type="button" value="#{viewBundle['Header.Login.Button']}" /></li>
 					</ui:fragment>
 					<ui:fragment rendered="#{globalMenuBean.logged}">
 						<li class="hc-header-global-menu-item hc-header-menu"><h:panelGroup
@@ -94,10 +96,9 @@
 
 
 					<li
-						class="hc-header-global-menu-item hc-header-menu  btn btn-default"><h:panelGroup
-							id="languageMenuTrigger" styleClass="fa" class="language-link">
-							<span class="hc-simple-link">#{webSession.currentLanguage.languageName}</span>
-						</h:panelGroup> <p:menu overlay="true" my="left top"
+						class="hc-header-global-menu-item hc-header-menu  btn btn-default-languaje">
+						<h:panelGroup
+							id="languageMenuTrigger" styleClass="fa" class="language-link">#{webSession.currentLanguage.languageName}</h:panelGroup> <p:menu overlay="true" my="left top"
 							trigger="languageMenuTrigger" widgetVar="languageMenuWv"
 							at="left bottom"
 							styleClass="hc-header-menu-overlay hc-header-language-menu-overlay">
@@ -111,8 +112,6 @@
 							</p:submenu>
 						</p:menu></li>
 				</ul>
-			</div>
-			</nav> </header>
 		</div>
 	</h:form>
 
