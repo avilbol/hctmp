@@ -42,7 +42,6 @@
 		z-index: 1000;
 	}
 	.top-strip {
-		margin-top: 9px;
 		height: 30px;
 	}
 	.hc-home-newsletter-box {
@@ -59,7 +58,7 @@
 		width: 100%;
 	}
 	ul.topnav {
-    width: 126%;
+		width: 126%;
 		height: 477px;
 		float: right;
 	}
@@ -128,27 +127,55 @@
 	ul
 	
 	
+	
+	
+	
+	
 	.topnavli
+	
+	
+	
+	
 	
 	
 	:not
 	
+	
+	
 	 
+	
+	
 	
 	(
 	:first-child
 	
+	
+	
 	 
+	
+	
 	
 	){
 	display
 	
 	
+	
+	
+	
+	
 	:
+	
+	
 	
 	 
 	
+	
+	
 	none
+	
+	
+	
+	
 	
 	
 	;
@@ -162,9 +189,12 @@ ul.topnav li.icon {
 
 li.hc-header-global-menu-item.hc-header-menu.btn.btn-default-languaje span
 	{
-	    text-align: right;
-    float: right;
-    margin-right: 14px;
+	text-align: right;
+	float: right;
+	margin-right: -23px;
+	padding: 9px 11px 9px 0;
+	width: 291px;
+	margin-top: -14px;
 }
 
 ul.topnav.responsive li.icon {
@@ -190,10 +220,10 @@ ul.topnav.responsive li.icon {
 
 ul.topnav.responsive li a {
 	width: 100%;
-    text-align: right;
-    border-bottom: 1px solid #fff;
-    background: #002D45;
-    color: #fff;
+	text-align: right;
+	border-bottom: 1px solid #fff;
+	background: #002D45;
+	color: #fff;
 }
 
 ul.topnav.responsive li button {
@@ -209,9 +239,9 @@ ul.topnav.responsive li button {
 
 ul.topnav.responsive li span {
 	width: 100%;
-    text-align: right;
-    color: #fff;
-    background: #002D45;
+	text-align: right;
+	color: #fff;
+	background: #002D45;
 }
 
 ul.topnav.responsive li .icon a {
@@ -232,49 +262,90 @@ ul.hc-footer-social-icons {
 .col-md-12.container.con-body {
 	height: 420px;
 }
-
+.ui-widget-overlay{
+	z-index:0!important;
+}
+.row.col-md-10.menu {
+    padding-top: 0px;
+}
+	.ui-dialog.ui-widget-content {
+    width: 350px!important;
+	}
 }
 @media screen and (max-width:680px) {
 	.logo {
-		width: 25%!important;
+		width: 25% !important;
 	}
 	ul
 	
+	
+	
 	 
+	
+	
 	
 	.topnav
 	
+	
+	
 	 
+	
+	
 	
 	li
 	
 	
+	
+	
+	
+	
 	:not
 	
+	
+	
 	 
+	
+	
 	
 	(
 	:first-child
 	
+	
+	
 	 
+	
+	
 	
 	)
 	{
 	display
 	
 	
+	
+	
+	
+	
 	:
 	
+	
+	
 	 
+	
+	
 	
 	none
 	
 	
+	
+	
+	
+	
 	;
 }
+
 .row.col-md-10.menu {
-    width: 80%;
- }
+	width: 80%;
+}
 
 ul.topnav li.icon {
 	float: right;
@@ -289,9 +360,11 @@ ul.topnav.responsive {
 	height: 338px;
 	width: 100%;
 }
+
 ul.topnav {
-    width: 49%;
+	width: 49%;
 }
+
 ul.topnav.responsive li {
 	border: none;
 }
@@ -308,7 +381,6 @@ ul.topnav.responsive li.icon {
 	top: 0;
 	text-align: right;
 }
-
 
 ul.hc-footer-social-icons {
 	margin-left: 172px;
@@ -351,6 +423,9 @@ ul.hc-footer-social-icons {
 		{
 		top: -22px;
 		left: -30px;
+		margin-right: 0px;
+		padding: 9px 11px 9px 0;
+		width: 271px;
 	}
 	.hc-header-global-toolbar {
 		width: 100%;
@@ -386,9 +461,9 @@ ul.hc-footer-social-icons {
 	.hc-header-logo {
 		float: left;
 	}
-ul.topnav.responsive {
-    height: 343px;
-}
+	ul.topnav.responsive {
+		height: 343px;
+	}
 	/*home*/
 	.hc-home-newsletter-box {
 		font-size: 0.8em;
@@ -413,7 +488,9 @@ ul.topnav.responsive {
 		display: block;
 		margin: 0.5em auto 0 auto;
 	}
-
+	.ui-dialog.ui-widget-content {
+    width: 350px!important;
+	}
 	/*footer*/
 	.bottom-strip p {
 		display: block;
