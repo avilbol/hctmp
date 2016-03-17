@@ -67,6 +67,10 @@ public class HomePage implements Serializable {
         // just for forcing creation
     }
 
+    public void goToExploreProfiles(){
+    	navigationHandler.redirectToPage(HallocasaViewEnum.BROWSE_PROFILE);
+    }
+    
     /**
      * Process the request of the opening for the login dialog
      */

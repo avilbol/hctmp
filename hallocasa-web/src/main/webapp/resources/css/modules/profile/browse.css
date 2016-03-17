@@ -9,9 +9,10 @@
 .hc-profile-browse-panel-lite{
 	background-color: #F5F6DD;
 	height:auto;
-	display:table;
-	margin:25px 0px;
-	width:100%;
+	display:inline-block;
+	margin:0px 0px;
+	width:30%;
+	height:170px !important;
 }
 .hc-profile-browse-cell{
 	display:inline-block;

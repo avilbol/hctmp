@@ -3,6 +3,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils"
 	template="../commons/templates/general-layout.xhtml">
 
 	<ui:param name="header_showSubMenu" value="#{false}" />
@@ -27,6 +28,22 @@
 			<div class="home-fill-extra-space" />
 
 			<h:outputScript library="js" name="home/background-image.js" />
+		</div>
+		<div class="row">
+			<h:panelGroup id="profileListArea"> 
+				<h:form id="profileBrowserForm"
+    					enctype="multipart/form-data">
+	           	 	<ui:repeat var="profileItem" 
+	           		  value="#{profileBrowserPage.userList}">
+	           		  	<utils:profileEntry  
+	           		  		value="#{profileItem}" 
+	           		  		size="300"
+	           		  		presentation="lite"
+	           		  		language="#{profileBrowserPage.language}"
+	           		  		onClick="#{homePage.goToExploreProfiles()}"/>
+	           	 	</ui:repeat>
+	           	</h:form>
+           	</h:panelGroup>
 		</div>
 	</ui:define>
 

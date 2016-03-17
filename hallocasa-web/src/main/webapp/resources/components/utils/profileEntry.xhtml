@@ -31,7 +31,7 @@
 		<f:event type="preRenderComponent" listener="#{cc.initialize}" />
 		<h:outputStylesheet library="css" name="modules/profile/browse.css" />
 
-		<h:panelGroup id="profile-entry-container" style="width:700px;">
+		<h:panelGroup id="profile-entry-container" style="width:100px;">
 
 			<h:commandLink binding="#{cc.commandLink}">
 				<f:ajax listener="#{cc.attrs.onClick}"></f:ajax>
@@ -71,7 +71,7 @@
 								rendered="#{cc.attrs.presentation.equals(cc.litePresentation)}">
 								<h:commandButton 
 		           	 				styleClass="hc-basic-button"
-		           	 				actionListener="#{profileBrowserPage.attrs.onClick}"
+		           	 				actionListener="#{cc.attrs.onClick}"
 		           	 				value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
 							</ui:fragment>
 						</div>
