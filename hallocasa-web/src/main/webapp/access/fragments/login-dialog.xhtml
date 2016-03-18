@@ -26,7 +26,7 @@
 					styleClass="hc-form-label hc-form-required" />
 				<p:password id="password"
 					placeholder="#{viewBundle['Login.Form.EnterPassword']}"
-					styleClass="hc-form-field"
+					styleClass="hc-form-field  "
 					value="#{loginDialog.credentials.password}" />
 			</div>
 			<div class="col-md-12 login-btn">
@@ -38,18 +38,18 @@
 			</div>
 			<div class="col-md-12">
 				<div class="col-md-12">
-					<p:commandLink value="#{viewBundle['Login.Link.SignUp']}"
-						process="@this" immediate="true"
-						onclick=" PF('login-dialog').hide();
-                                       PF('signup-dialog').show();"
-						styleClass="hc-link login-dialog-signup-link" />
-				</div>
-				<div class="col-md-12">
 					<p:commandLink value="#{viewBundle['ForgotPassword.forgot']}"
 						immediate="true" ajax="true" update=":password-recovery-form"
 						action="#{passwordRecoveryDialog.initialize()}"
 						oncomplete="PF('login-dialog').hide();
                                        PF('password-recovery-dialog').show();"
+						styleClass="hc-link login-dialog-signup-link" />
+				</div>
+				<div class="col-md-12">
+					<p:commandLink value="#{viewBundle['Login.Link.SignUp']}"
+						process="@this" immediate="true"
+						onclick=" PF('login-dialog').hide();
+                                       PF('signup-dialog').show();"
 						styleClass="hc-link login-dialog-signup-link" />
 				</div>
 			</div>

@@ -407,6 +407,12 @@ ul.hc-footer-social-icons {
 		background-image: url("#{resource['images:hc-background-480.jpg']}");
 		background-repeat: no-repeat;
 	}
+	.hc-header-logo {
+    background-image: url("/resources/images/icons/favicon.ico");
+    background-repeat: no-repeat;
+    width: 50%;
+    background-size: 50px 50px;
+}
 	.beta {
 		display: none;
 	}
