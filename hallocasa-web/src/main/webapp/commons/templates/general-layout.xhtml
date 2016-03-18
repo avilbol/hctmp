@@ -31,7 +31,8 @@
             <ui:insert name="messagesSection">
                 <ui:include src="../fragments/global-messages.xhtml"/>
             </ui:insert>
-
+			<div class="container">
+			<div class="col-md-12">
             <ui:insert name="headerSection">
                 <ui:include src="../fragments/header.xhtml"/>
             </ui:insert>
@@ -41,6 +42,8 @@
             <ui:insert name="footerSection">
                 <ui:include src="../fragments/footer.xhtml"/>
             </ui:insert>
+            </div>
+            </div>
             
             <p:ajaxStatus 
                 onstart="PF('statusDialog').show()" 

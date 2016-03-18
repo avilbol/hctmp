@@ -176,7 +176,15 @@ ul.topnav {
 ul.topnav li {
 	float: left;
 }
-
+.row.col-md-10.menu {
+    padding-top: 20px;
+}
+.btn.active, .btn:active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+}
 ul.topnav li a {
 	display: inline-block;
 	color: #333;
@@ -244,5 +252,4 @@ ul.topnav li.icon {
 	height: auto;
 	float: left;
 	width: 100%;
-	margin-top: 20px;
 }

@@ -19,12 +19,12 @@ body {
 
 .page {
     width: 980px;
-    margin-left: auto;
-    margin-right: auto;
+   margin: auto;
+    height: 752px;
 }
 .section {
     clear: both;
-    padding: 0px;
+    padding: 30px;
     margin: 0px;
 }
 .col:first-child { margin-left: 0; }
@@ -33,9 +33,5 @@ body {
 .group:after { clear:both;}
 .group { zoom:1; /* For IE 6/7 */ }
 
-
-.clearfix {
-    overflow: auto;
-}
 
 

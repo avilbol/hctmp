@@ -8,17 +8,14 @@
 
 	<!-- Agents-Section -->
 	<p:dialog modal="true" widgetVar="login-dialog" id="login-dialog"
-		closeOnEscape="#{globalMenuBean.interactWithApp}" 
+		closeOnEscape="#{globalMenuBean.interactWithApp}"
 		closable="#{globalMenuBean.interactWithApp}"
-		header="#{viewBundle['Login.Dialog.Title']}"
-		resizable="false" 
-		styleClass="login-dialog" 
-		width="auto">
+		header="#{viewBundle['Login.Dialog.Title']}" resizable="false"
+		styleClass="login-dialog" width="auto">
 		<h:form id="login-form" styleClass="hc-form">
-			<h:outputText 
-				rendered="#{not globalMenuBean.interactWithApp}"
-				value="#{viewBundle['PublicProfile.PreAuthorize.loginNeeded']}"/>
-			<div class="hc-overlay-form-fields-container">
+			<h:outputText rendered="#{not globalMenuBean.interactWithApp}"
+				value="#{viewBundle['PublicProfile.PreAuthorize.loginNeeded']}" />
+			<div class="hc-overlay-form-fields-container col-md-12">
 				<p:outputLabel for="email" value="#{viewBundle['Login.Form.Email']}"
 					styleClass="hc-form-label hc-form-required" />
 				<p:inputText id="email"
@@ -29,32 +26,34 @@
 					styleClass="hc-form-label hc-form-required" />
 				<p:password id="password"
 					placeholder="#{viewBundle['Login.Form.EnterPassword']}"
-					styleClass="hc-form-field"
+					styleClass="hc-form-field  "
 					value="#{loginDialog.credentials.password}" />
 			</div>
-			<div class="hc-overlay-form-additional-options">
-				<p:commandLink value="#{viewBundle['Login.Link.SignUp']}"
-					process="@this" immediate="true"
-					onclick=" PF('login-dialog').hide();
-                                       PF('signup-dialog').show();"
-					styleClass="hc-link login-dialog-signup-link" />
-				<p:commandLink value="#{viewBundle['ForgotPassword.forgot']}"
-					immediate="true" ajax="true" update=":password-recovery-form"
-					action="#{passwordRecoveryDialog.initialize()}"
-					oncomplete="PF('login-dialog').hide();
-                                       PF('password-recovery-dialog').show();"
-					styleClass="hc-link login-dialog-signup-link" />
-				<br />
-			</div>
-			<div class="hc-overlay-form-buttons-container">
+			<div class="col-md-12 login-btn">
 				<p:commandButton value="${viewBundle['Login.Submit.Button']}"
-					styleClass="hc-form-cancel-button"
+					styleClass="hc-form-cancel-btn btn-default"
 					actionListener="#{loginDialog.processSubmitClick()}"
 					process="@form" update="@form"
-					oncomplete="if (args.ok ){ PF('login-dialog').hide(); location.reload();}" />
+					oncomplete="if (args.ok ){ PF('login-dialog').hide();refreshAll();}" />
+			</div>
+			<div class="col-md-12">
+				<div class="col-md-12">
+					<p:commandLink value="#{viewBundle['ForgotPassword.forgot']}"
+						immediate="true" ajax="true" update=":password-recovery-form"
+						action="#{passwordRecoveryDialog.initialize()}"
+						oncomplete="PF('login-dialog').hide();
+                                       PF('password-recovery-dialog').show();"
+						styleClass="hc-link login-dialog-signup-link" />
+				</div>
+				<div class="col-md-12">
+					<p:commandLink value="#{viewBundle['Login.Link.SignUp']}"
+						process="@this" immediate="true"
+						onclick=" PF('login-dialog').hide();
+                                       PF('signup-dialog').show();"
+						styleClass="hc-link login-dialog-signup-link" />
+				</div>
 			</div>
 		</h:form>
 	</p:dialog>
-
 </ui:composition>
 
