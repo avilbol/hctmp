@@ -19,31 +19,35 @@
                       shortDescription="Indicates telephone only must be showed, but not edited"/>
     </cc:interface>
     <cc:implementation>
+    	<f:event type="postAddToView" listener="#{cc.onPreRender}"/>
+    		
     	<ui:fragment rendered="#{not cc.attrs.readOnly}">
     		<p:autoComplete 
-    			id="#{cc.attrs.id}-prefix-telephone" 
-        		completeMethod="#{cc.prefixList}"
-        		converter="countryTelephonePrefixConverter"
-        		var="prefixItem"
-        		binding="#{cc.telephonePrefix}"
-        		itemLabel="#{prefixItem.prefix} - #{prefixItem.name}"
-        		itemValue="#{prefixItem.id}">
-        		#{prefixItem.prefix} - #{prefixItem.name}
-        	</p:autoComplete>
+	    	 	id="#{cc.attrs.id}-prefix-telephone"
+	    	 	value="#{cc.attrs.value.countryTelephonePrefix}" 
+	    	 	completeMethod="#{cc.completeText}"
+	    	 	var="prefixItem" style="width:20%;display:inline"
+	    	 	itemLabel="#{cc.loadItemLabel(prefixItem)}"
+	    	 	itemValue="#{prefixItem}" 
+	    	 	forceSelection="true"
+	    	 	maxResults="10"
+	    	 	queryDelay="700"
+	    	 	converter="countryTelephonePrefixConverter"/>
         	<p:watermark for="#{cc.attrs.id}-prefix-telephone" 
         		value="#{viewBundle['Common.TelephoneNumber.Prefix']}" 
         		id="#{cc.attrs.id}-tnumber_watermark" />
-        	<h:inputText binding="#{cc.telephoneNumber}" ></h:inputText>
+        	<h:inputText value="#{cc.attrs.value.number}"></h:inputText>
     	</ui:fragment>
         <ui:fragment rendered="#{cc.attrs.readOnly}">
         	<h:outputText
         		value="(#{cc.attrs.value.countryTelephonePrefix.prefix} - 
         				#{cc.attrs.value.countryTelephonePrefix.name}) 
         				#{cc.attrs.value.number}"
-        		rendered="#{not cc.attrs.value eq null}"></h:outputText>
+        		rendered="#{not (cc.attrs.value eq null)}"></h:outputText>
         	<h:outputText
         		value="No establecido"
         		rendered="#{cc.attrs.value eq null}"></h:outputText>
     	</ui:fragment>
+    	
     </cc:implementation>
 </ui:composition>

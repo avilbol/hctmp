@@ -1,17 +1,21 @@
 package com.hallocasa.view.components.utils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.FacesComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 
 import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
 import com.hallocasa.commons.vo.TelephoneVO;
-import com.hallocasa.view.components.base.InputBaseComponent;
+import com.hallocasa.services.location.local.TelephoneServices;
+import com.hallocasa.view.components.base.BaseComponent;
 
 /**
  * Backing bean for tlephone number component
@@ -20,75 +24,89 @@ import com.hallocasa.view.components.base.InputBaseComponent;
  */
 @FacesComponent("telephoneNumberComponent")
 @ViewScoped
-public class TelephoneNumberComponent extends InputBaseComponent {
+public class TelephoneNumberComponent extends BaseComponent {
 
 	private enum Attributes {
 		value, readOnly
 	}
 
-	private UIInput telephonePrefix;
+	@EJB
+	TelephoneServices telephoneServices;
+	
+	List<CountryTelephonePrefixVO> prefixList;
+	
+	List<String> testList;
+	
+	TelephoneVO telephoneObj;
 
-	private UIInput telephoneNumber;
-
+	
 	@Override
 	@PostConstruct
 	protected void initialize() {
-
+		
 	}
 
 	@Override
 	protected void saveComponent(FacesContext facesContext, HashMap<String, Object> map) {
-
+		map.put("prefixList", prefixList);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void restoreComponent(FacesContext facesContext, HashMap<String, Object> map) {
-
+		prefixList = (List<CountryTelephonePrefixVO>) map.get("prefixList");
 	}
 
-	@Override
-	public void encodeBegin(FacesContext context) throws IOException {
-		TelephoneVO telephone = (TelephoneVO) getValue();
-
-		if (telephone == null) {
-			telephonePrefix.setSubmittedValue(null);
-			telephoneNumber.setSubmittedValue(null);
-		} else {
-			telephonePrefix.setSubmittedValue(telephone.getCountryTelephonePrefix());
-			telephoneNumber.setSubmittedValue(telephone.getNumber());
+	public void onPreRender() throws IOException {
+		testList = Arrays.asList(new String[]{"1","2","3"});
+		if(prefixList == null){
+			prefixList = telephoneServices.getCountryPrefixList();
 		}
-		super.encodeBegin(context);
+		telephoneObj = (TelephoneVO) getAttributes().get("value");
+		if(!(boolean)getAttributes().get("readOnly") && telephoneObj == null){
+			telephoneObj = new TelephoneVO();
+			getAttributes().put("value", telephoneObj);
+		}
+	}
+	
+	public List<CountryTelephonePrefixVO> completeText(String query) {
+        List<CountryTelephonePrefixVO> results = new ArrayList<>();
+        for(CountryTelephonePrefixVO ctpVO : prefixList){
+        	if(String.valueOf(ctpVO.getPrefix()).contains(query)){
+        		results.add(ctpVO);
+        	}
+        }
+        return results;
+    }
+	
+	public String loadItemLabel(CountryTelephonePrefixVO ctpVO){
+		if(ctpVO == null){
+			return null;
+		}
+		return ctpVO.getPrefix() + " - " + ctpVO.getName();
 	}
 
-	/**
-	 * Returns the submitted value in dd-MM-yyyy format.
-	 */
-	@Override
-	public Object getSubmittedValue() {
-		TelephoneVO telVO = new TelephoneVO();
-		telVO.setCountryTelephonePrefix((CountryTelephonePrefixVO) telephonePrefix.getSubmittedValue());
-		telVO.setNumber((String) telephoneNumber.getSubmittedValue());
-		return telVO;
+	public List<CountryTelephonePrefixVO> getPrefixList() {
+		return prefixList;
 	}
 
-	@Override
-	protected Object getConvertedValue(FacesContext context, Object submittedValue) {
-		return submittedValue;
+	public void setPrefixList(List<CountryTelephonePrefixVO> prefixList) {
+		this.prefixList = prefixList;
 	}
 
-	public UIInput getTelephonePrefix() {
-		return telephonePrefix;
+	public TelephoneVO getTelephoneObj() {
+		return telephoneObj;
 	}
 
-	public void setTelephonePrefix(UIInput telephonePrefix) {
-		this.telephonePrefix = telephonePrefix;
+	public void setTelephoneObj(TelephoneVO telephoneObj) {
+		this.telephoneObj = telephoneObj;
 	}
 
-	public UIInput getTelephoneNumber() {
-		return telephoneNumber;
+	public List<String> completeMethodAbc() {
+		return testList;
 	}
 
-	public void setTelephoneNumber(UIInput telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
-	}
+	public void setTestList(List<String> testList) {
+		this.testList = testList;
+	}	
 }

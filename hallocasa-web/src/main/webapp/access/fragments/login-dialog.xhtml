@@ -34,7 +34,7 @@
 					styleClass="hc-form-cancel-btn btn-default"
 					actionListener="#{loginDialog.processSubmitClick()}"
 					process="@form" update="@form"
-					oncomplete="if (args.ok ){ PF('login-dialog').hide();refreshAll();}" />
+				    oncomplete="if (args.ok ){ PF('login-dialog').hide(); location.reload();}" />
 			</div>
 			<div class="col-md-12">
 				<div class="col-md-12">

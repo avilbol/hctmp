@@ -106,7 +106,13 @@
                                 itemValue="#{city}"/>
                         </h:selectOneMenu>
                         <br/>
-
+	
+						<span class="hc-form-across-label">Telefono</span>
+						<br/>
+						<utils:telephoneNumber
+							value="#{profileEditPage.user.telephone}" 
+							id="telephone" />
+							
                         <b><p:outputLabel 
                             styleClass="hc-form-label"
                             value="#{viewBundle['Profile.Data.Website.Label']}" 
