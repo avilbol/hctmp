@@ -82,7 +82,6 @@
 	font-size: 0.85em;
 }
 
-
 .hc-overlay-form-buttons-container {
 	text-align: center;
 	font-size: 0.9em;
@@ -232,17 +231,47 @@ div.hc-responsive-div, div.hc-responsive-div img {
 	font-size: 14px;
 	padding: 3px 0 5px 17px;
 }
+
 .field-text label {
-    padding: 10px 0 10px 15px;
+	padding: 10px 0 10px 15px;
 }
-.hidden-btn{
+
+.hidden-btn {
 	display: none;
 	overflow: auto;
-    height: 344px;
-    width: 100%;
+	height: 344px;
+	width: 100%;
 }
-#login-dialog{ position: absolute!important;}
-.btn-close{display:none}
-.btn-open{text-align: center;}
-a.closed-tc.ui-icon.ui-icon-closethick{displat:none;text-align: right;}
-.check-tc{display: flex;}
+
+#login-dialog {
+	position: absolute !important;
+}
+
+.btn-close {
+	display: none
+}
+
+.btn-open {
+	text-align: center;
+}
+
+a.closed-tc.ui-icon.ui-icon-closethick {
+	displat: none;
+	text-align: right;
+}
+
+.check-tc {
+	display: flex;
+}
+
+.hc-page-content {
+	min-height: 415px !important;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.content-description{
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    background: #E4E4D1;
+}

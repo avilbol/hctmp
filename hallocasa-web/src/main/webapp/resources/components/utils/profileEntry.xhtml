@@ -18,7 +18,7 @@
 			default="lite" shortDescription="Mode to organize the component" />
 		<cc:attribute name="onClick" required="true"
 			method-signature="void action(com.hallocasa.commons.vo.UserVO)"
-			shortDescription="action to execute when click"/>
+			shortDescription="action to execute when click" />
 	</cc:interface>
 	<cc:implementation>
 		<h:outputScript>
@@ -31,66 +31,65 @@
 		<f:event type="preRenderComponent" listener="#{cc.initialize}" />
 		<h:outputStylesheet library="css" name="modules/profile/browse.css" />
 
-		<h:panelGroup id="profile-entry-container" style="width:100px;">
+		<h:panelGroup id="profile-entry-container">
 
 			<h:commandLink binding="#{cc.commandLink}">
 				<f:ajax listener="#{cc.attrs.onClick}"></f:ajax>
 				<f:param name="user" value="#{cc.profile}"></f:param>
 			</h:commandLink>
-			<div class="hc-profile-browse-panel-#{cc.attrs.presentation}"
-				onclick="doClick('#{cc.commandLink.clientId}')">
-				<div style="width: 30%; float: left" class="hc-profile-browse-cell">
-					<div>
+				<div class="hc-card-profile hc-profile-browse-panel-#{cc.attrs.presentation}"
+					onclick="doClick('#{cc.commandLink.clientId}')">
+			<div class="card-content hc-profile-browse-cell">
+					<div class="card-image">
+					<div class="sub-card">
 						<utils:imageEditor imageUrl="#{cc.profile.image}"
 							imageType="userImage" readOnly="true" />
 					</div>
-					<div>
-						<b> <h:outputText value="#{cc.cityName}">
-							</h:outputText>
-						</b>
 					</div>
-				</div>
-				<div style="width: 30%" class="hc-profile-browse-cell">
-					<div>
-						<b> <h:outputText
-								value="#{cc.profile.firstName} #{cc.profile.lastName}">
-							</h:outputText>
-						</b>
-					</div>
-					<div>
-						<div style="width: 50%; float: left"
-							class="hc-profile-browse-cell">
+					<div class="card-info">
+					<div class="card-info-content">
+					<div class="sub-card">
+							<b> <h:outputText value="#{cc.cityName}">
+								</h:outputText>
+							</b>
+						</div>
+					<div class="sub-card">
+							<b> <h:outputText
+									value="#{cc.profile.firstName} #{cc.profile.lastName}">
+								</h:outputText>
+							</b>
+						</div>
 							<ui:repeat value="#{cc.loadSpokenLanguageList()}"
 								var="spokenLanguage">
-								<div style="display: block">
+								<div class="sub-card">
 									#{spokenLanguage.languageName}</div>
+								<div class="sub-card">
+								#{cc.loadAdditionalLanguagesMark()}</div>
 							</ui:repeat>
-							<div style="display: block">
-									#{cc.loadAdditionalLanguagesMark()}</div>
-							<ui:fragment 
+					<div class="sub-card">
+							<ui:fragment
 								rendered="#{cc.attrs.presentation.equals(cc.litePresentation)}">
-								<h:commandButton 
-		           	 				styleClass="hc-basic-button"
-		           	 				actionListener="#{cc.attrs.onClick}"
-		           	 				value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
+								<h:commandButton styleClass="btn btn-default"
+									actionListener="#{cc.attrs.onClick}"
+									value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
 							</ui:fragment>
-						</div>
-						<div style="width: 50%; float: right"
-							class="hc-profile-browse-cell">
-							<ui:repeat value="#{cc.profile.userTypes}" var="userType">
-								<div style="display: block">#{cc.load(userType)}</div>
-							</ui:repeat>
-						</div>
+							</div>
+					<div class="sub-card">
+						<ui:repeat value="#{cc.profile.userTypes}" var="userType">
+							<div style="display: block">#{cc.load(userType)}</div>
+						</ui:repeat>
+					</div>
+					</div>
+					<div class="card-description">
+					<div class="sub-card">
+						<p><h:outputText
+							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></p>
+						<p>#{cc.loadDescription()}</p>
+					</div>
+					</div>
 					</div>
 				</div>
-				<div style="width: 40%; padding: 5px" class="hc-profile-browse-cell">
-					<h:outputText 
-						value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}"/> <br />
-					<br />
-					<p>#{cc.loadDescription()}</p>
-				</div>
 			</div>
-
 		</h:panelGroup>
 	</cc:implementation>
 </ui:composition>

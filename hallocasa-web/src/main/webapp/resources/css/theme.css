@@ -299,9 +299,9 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 /* Overlays */
 .ui-widget-overlay { background: #000000 url("#{resource['primefaces-hallocasa:images/ui-bg_flat_0_000000_40x100.png']}") 50% 50% repeat-x; opacity: .3;filter:Alpha(Opacity=30); }
 .ui-widget-shadow { margin: -4px 0 0 -4px; padding: 4px; background: #000000 url("#{resource['primefaces-hallocasa:images/ui-bg_flat_0_000000_40x100.png']}") 50% 50% repeat-x; opacity: .6;filter:Alpha(Opacity=60); -moz-border-radius: 4px; -khtml-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
-.ui-dialog .ui-dialog-content{ padding: 25px; }
-.ui-dialog .ui-dialog-titlebar{    border-radius: 0px!important; background-image: none; background-color: #fff; color: #002d45; padding: 15px 25px 15px 25px; font-size: 0.85em; }
-.ui-dialog.ui-widget-content{ border: 3px solid #002D45;width: 500px!important; }
+.ui-dialog .ui-dialog-content{ padding: 25px;}
+.ui-dialog .ui-dialog-titlebar{   border-radius: 0px!important; background-image: none; background-color: #fff; color: #002d45; padding: 15px 25px 15px 25px; font-size: 0.85em; }
+.ui-dialog.ui-widget-content{border: 3px solid #002D45;width: 500px!important; }
 .ui-dialog .ui-dialog-title{ margin: 0px; }
 
 /* Panels */
@@ -313,8 +313,17 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 /* Buttons */
 .ui-button .ui-button-text { padding: 0.6em 1.2em; }
 .ui-button-text-icon-left .ui-button-text.ui-c { margin-left: 0.7em; }
-
+.btn-disabled{    margin-bottom: 50px;background-color: #fff;border-color: #ccc!important;color:#333";}
 /* Fieldset */
 .ui-fieldset-legend {
     font-weight:bold;
+}
+.card-content{
+	    border: 1px solid #ccc;
+    padding: 20px;
+    float: left;
+    margin: 0 0px 20px 0;
+}
+.sub-card{
+	padding: 20px 0 20px 0;
 }

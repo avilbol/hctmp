@@ -1,49 +1,47 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:c="http://java.sun.com/jsp/jstl/core"
-                xmlns:utils="http://java.sun.com/jsf/composite/components/utils"
-                template="../commons/templates/general-layout.xhtml">
-    
-    <ui:param name="header_showSubMenu" value="#{false}"></ui:param>
-    
-    <p:growl globalOnly="false" showDetail="false"/>
-    
-    <ui:define name="contentSection">
-    	
-    	<h:form id="profileBrowserForm"
-    			enctype="multipart/form-data">
-    		<div class="page">
-    			<br/><br/><br/><br/><br/>
-	            <p:panel 
-	            	header="#{viewBundle['PublicProfile.BrowseProfile.PanelTitle']}" 
-	            	styleClass="user-profile-panel">
-	            	<h:panelGroup id="profileListArea"> 
-		           	 	<ui:repeat var="profileItem" 
-		           		  value="#{profileBrowserPage.userList}">
-		           		  	<utils:profileEntry  
-		           		  		value="#{profileItem}" 
-		           		  		size="300"
-		           		  		presentation="complete"
-		           		  		language="#{profileBrowserPage.language}"
-		           		  		onClick="#{profileBrowserPage.onProfileSelect(profileItem)}"/>
-		           	 	</ui:repeat>
-		           	 	<h:commandButton 
-		           	 		styleClass="#{profileBrowserPage.userLimitReached() ? 'hc-basic-button-disabled' : 'hc-basic-button'}"
-		           	 		action="#{profileBrowserPage.onLoadMoreProfiles()}"
-		           	 		disabled="#{profileBrowserPage.userLimitReached()}"
-		           	 		value="#{viewBundle['PublicProfile.BrowseProfile.loadMore']}">
-		           	 		<f:ajax 
-                                execute="@this"
-                                render="profileListArea" />
-		           	 	</h:commandButton>
-	            	</h:panelGroup>
-	            </p:panel>
-	        </div>
-    	</h:form>
-    	
-    </ui:define>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils"
+	template="../commons/templates/general-layout.xhtml">
+
+	<ui:param name="header_showSubMenu" value="#{false}"></ui:param>
+
+	<p:growl globalOnly="false" showDetail="false" />
+
+	<ui:define name="contentSection">
+		<div class="container">
+			<div class="col-md-12 hc-page-content">
+				<h:form id="profileBrowserForm" enctype="multipart/form-data">
+					<p:panel
+						header="#{viewBundle['PublicProfile.BrowseProfile.PanelTitle']}"
+						styleClass="user-profile-panel">
+						<h:panelGroup id="profileListArea">
+							<div class="col-md-12">
+								<ui:repeat var="profileItem"
+									value="#{profileBrowserPage.userList}">
+									<utils:profileEntry value="#{profileItem}" size="300"
+										presentation="complete"
+										language="#{profileBrowserPage.language}"
+										onClick="#{profileBrowserPage.onProfileSelect(profileItem)}" />
+								</ui:repeat>
+							</div>
+							<div class="col-md-12 btn-disabled">
+								<h:commandButton
+									styleClass="#{profileBrowserPage.userLimitReached() ? 'btn btn-disabled' : 'hc-basic-button'}"
+									action="#{profileBrowserPage.onLoadMoreProfiles()}"
+									disabled="#{profileBrowserPage.userLimitReached()}"
+									value="#{viewBundle['PublicProfile.BrowseProfile.loadMore']}">
+									<f:ajax execute="@this" render="profileListArea" />
+								</h:commandButton>
+							</div>
+						</h:panelGroup>
+					</p:panel>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
 </ui:composition>

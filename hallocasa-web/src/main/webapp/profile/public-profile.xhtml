@@ -133,8 +133,9 @@
 									var="lang">
 									<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Description.Label']}
 											( #{lang.languageName} )</span></div>
-									<div class="description col-md-12"><span class="hc-form-field">
-										#{publicProfilePage.user.userDescription.getText(lang)} </span></div>
+									<div class="description col-md-12">
+									<div class="content-description"><span class="hc-form-field">
+										#{publicProfilePage.user.userDescription.getText(lang)} </span></div></div>
 								</ui:repeat>
 							</div>
 						</div>

@@ -1,4 +1,6 @@
 .bottom-strip{
+	float:left;
+	    width: 100%;
 	 padding-right: 0px!important; 
      padding-left: 0px!important;
          background-color: #002D45; 

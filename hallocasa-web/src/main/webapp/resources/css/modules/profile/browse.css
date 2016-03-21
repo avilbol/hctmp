@@ -1,3 +1,5 @@
+
+/*browser-explorer*/
 .hc-profile-browse-panel-complete{
 	background-color: #F5F6DD;
 	height:auto;
@@ -5,16 +7,87 @@
 	margin:25px 0px;
 	width:100%;
 	cursor:pointer;
+	border:1px solid #ccc;
 }
+
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .card-image{
+	width:20%;
+	float:left;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .card-info{
+	width:70%;
+	float:left;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .sub-card {
+    padding: 10px;
+    display: inline-flex;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .sub-card:nth-child(1) {
+       width: 100%;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .sub-card:nth-child(2) {
+       width: 100%;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .sub-card:nth-child(3) {
+       width: 100%;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .sub-card:nth-child(4) {
+       display:none;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .sub-card:nth-child(5) {
+       width: 100%;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .sub-card:nth-child(6) {
+       display:none;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .sub-card:nth-child(7) {
+       display:none;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .sub-card:nth-child(8) {
+       width: 100%;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .sub-card:nth-child(9) {
+        width: 90%;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .card-info .card-info-content {
+        width: 30%;
+        float:left;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .card-info .card-description  {
+        width: 70%;
+        float:left;
+}
+.hc-card-profile.hc-profile-browse-panel-complete .card-content .card-info .card-description .sub-card  {
+        background: #ccc;
+    margin: 20px;
+}
+   
+
+
+/*fin browser-explorer*/
+
+
+/*index*/
 .hc-profile-browse-panel-lite{
 	background-color: #F5F6DD;
 	height:auto;
 	display:inline-block;
-	margin:0px 0px;
-	width:30%;
-	height:170px !important;
+	float:left;
+	width:20%;
 }
+
+.card-image,card-info{
+	width:100%
+}
+.hc-card-profile.hc-profile-browse-panel-lite .card-content .sub-card {
+    padding: 10px;
+    display: inline-flex;
+}
+.hc-card-profile.hc-profile-browse-panel-lite .card-content .sub-card {
+       width: 100%;
+}
+
+/*fin index*/
 .hc-profile-browse-cell{
 	display:inline-block;
-	height:350px;
 }

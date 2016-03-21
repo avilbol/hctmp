@@ -20,9 +20,6 @@ body {
     text-align: center;
     font-style: italic;
 }
-.head {
-	display: table-row;
-}
 
 /* header menu bar*/
 ul.hc-header-global-menu.ui-corner-all.js-header-global-menu li a {
@@ -155,8 +152,9 @@ section {
 
 
 .col-md-12.container.con-body {
-	height: 517px;
+	height: 300px;
     padding-top: 50px;
+    padding-bottom: 50px;
 }
 .menu{
 	float: right!important;
@@ -233,7 +231,7 @@ ul.topnav li.icon {
 
 }
 .btn-default-languaje{
-	margin: 8px 12px 0 0!important;
+	margin: 11px 12px 0 0!important;
 	    background-color: transparent!important;
 	    border-color: transparent!important;
 		padding: 3px 12px!important;
