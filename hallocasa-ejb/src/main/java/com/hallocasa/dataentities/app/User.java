@@ -130,7 +130,7 @@ public class User implements Serializable, HallocasaEntity {
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	private City city;
 	
-	@JoinColumn(name = "user_telephone_id")
+	@JoinColumn(name = "user_telephone_id", referencedColumnName = "user_id")
 	@OneToOne(optional = true, fetch = FetchType.LAZY)
 	private Telephone telephone;
 
