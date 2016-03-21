@@ -15,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.hallocasa.commons.vo.TelephoneVO;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 
 /**
@@ -51,8 +52,8 @@ public class Telephone implements Serializable, HallocasaEntity {
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	private CountryTelephonePrefix countryTelephonePrefix;
 	
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	@OneToOne(optional = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "telephone")
+	@JoinColumn(name = "user_telephone_id", referencedColumnName = "user_id")
 	private User user;
 	
 	/**
@@ -60,7 +61,20 @@ public class Telephone implements Serializable, HallocasaEntity {
 	 */
 	@Column(name = "number")
 	private String number;
+	
+	public Telephone() {
+		super();
+	}
 
+	public Telephone(TelephoneVO tvo){
+		this.setNumber(tvo.getNumber());
+		CountryTelephonePrefix ctp = new CountryTelephonePrefix();
+		ctp.setId(tvo.getCountryTelephonePrefix().getId().intValue());
+		ctp.setName(tvo.getCountryTelephonePrefix().getName());
+		ctp.setPrefix(tvo.getCountryTelephonePrefix().getPrefix());
+		this.setCountryTelephonePrefix(ctp);
+	}
+	
 	public String getNumber() {
 		return number;
 	}
@@ -75,5 +89,13 @@ public class Telephone implements Serializable, HallocasaEntity {
 
 	public void setCountryTelephonePrefix(CountryTelephonePrefix countryTelephonePrefix) {
 		this.countryTelephonePrefix = countryTelephonePrefix;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

@@ -96,14 +96,9 @@
 
 								<div class="row"><span class="hc-form-across-label">Telefono</span></div>
 								<utils:telephoneNumber
-									value="#{publicProfilePage.user.telephone}" readOnly="true"
-									id="tel1" />
-
-								<utils:telephoneNumber
-									value="#{publicProfilePage.user.telephone}" readOnly="false"
-									id="tel2" />
-
-
+									value="#{publicProfilePage.user.telephone}" 
+									readOnly="true"
+									id="telephone" />
 								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Website.Label']}</span></div>
 								<h:outputText value="#{publicProfilePage.websiteName}"
 									rendered="#{publicProfilePage.websitePending}"

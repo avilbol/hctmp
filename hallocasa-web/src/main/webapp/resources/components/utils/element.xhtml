@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
@@ -8,11 +8,14 @@
 	xmlns:cc="http://java.sun.com/jsf/composite"
 	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 	<cc:interface componentType="elementComponent">
-		<cc:attribute name="attr" type="com.hallocasa.commons.vo.UserVO"
+		<cc:attribute name="value" type="com.hallocasa.dataentities.app.TestEntity"
 			shortDescription="attr" />
 	</cc:interface>
 	<cc:implementation>
-		 <f:event listener="#{cc.initialize}" type="preRenderComponent"/>
-		 <h:outputText value="User Element: #{cc.user}"></h:outputText>
+		<f:event listener="#{cc.initialize}"
+		 		  type="postAddToView"/>
+		 		  #{cc.myText()}
+		 <h:outputText value=" #{cc.myText()}"></h:outputText>
+		 <h:inputText id="hi" binding="#{cc.input}"/>
 	</cc:implementation>
-</ui:composition>
+</ui:component>

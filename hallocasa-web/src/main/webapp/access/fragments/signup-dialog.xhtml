@@ -60,12 +60,14 @@
 					<p:commandButton value="${viewBundle['SignUp.Header.Button']}"
 						styleClass="btn btn-default"
 						actionListener="#{signUpDialog.processSubmitClick()}"
-						process="@form" update="@form"
-						oncomplete="if (args.ok ) PF('signup-dialog').hide();" />
+						process="@form" update="@this"
+						oncomplete="processSignUpFinished(args, #{globalMenuBean.interactWithApp});"/>
 				</div>
 				<div class="col-md-12 terms-conditions">
 				<div class="col-md-12 btn-open">
-					<a class="show"><h4>#{viewBundle['SignUp.Form.TermsAndConditions']}</h4></a>
+					<a class="show">
+						<h4>#{viewBundle['SignUp.Form.TermsAndConditions']}</h4>
+					</a>
 				</div>
 				<div class="col-md-12 btn-close"> 
 					<a class="closed-tc ui-icon ui-icon-closethick"></a>

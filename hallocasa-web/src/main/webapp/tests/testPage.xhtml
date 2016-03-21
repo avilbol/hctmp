@@ -4,21 +4,28 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
     <f:view id="view" locale="#{webSession.currentLanguage.locale}">
         <h:head>
             <title>.d..</title>
-            <script>
-			  window.intercomSettings = {
-			    app_id: "t6itp8rl",
-			    name: "Alexander Villamil", // Full name
-			    email: "alxvilbol@gmail.com", // Email address
-			    created_at: 1457011697
-			  };
-			</script>
+         
          </h:head>
         <h:body>       
-         	test   
+         	<h:form>
+         	<h:inputText value="#{testPage.myAttr}"></h:inputText>
+
+         		
+         		<utils:telephoneNumberEditor
+         			id="fhsjd-hfjsdhf" value="#{testPage.telephoneAttr}"/>
+
+         		
+         		<h:commandLink value="button" >
+         			<f:ajax listener="#{testPage.onAction}" 
+         				execute="@all" 
+         				render="@all"/>
+         		</h:commandLink>
+         	</h:form>
         </h:body>
     </f:view>
 </html>

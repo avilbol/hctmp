@@ -38,6 +38,12 @@ public class TelephoneVO implements Serializable, ValueObject {
 	@NotEmpty
 	private String number;
 
+	
+	
+	public TelephoneVO() {
+		super();
+	}
+	
 	public CountryTelephonePrefixVO getCountryTelephonePrefix() {
 		return countryTelephonePrefix;
 	}
