@@ -33,7 +33,9 @@
 				<span class="hc-form-field">
 					<utils:telephoneNumber
 						value="#{profileReadPage.user.telephone}" 
-						id="telephone" readOnly="true" />
+						id="telephone" 
+						readOnly="true"
+						emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" />
 				</span>
 
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Website.Label']}</span></b>

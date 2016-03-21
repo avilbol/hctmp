@@ -55,7 +55,8 @@ public class User implements Serializable, HallocasaEntity {
 	public static final String spokenLanguages_ = "spokenLanguages";
 	public static final String password_ = "password";
 	public static final String userTypes_ = "userTypes";
-
+	public static final String telephone_ = "telephone";
+	
 	/* instance variables */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -129,7 +130,7 @@ public class User implements Serializable, HallocasaEntity {
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	private City city;
 	
-	@JoinColumn(name = "user_telephone_id", referencedColumnName = "user_id")
+	@JoinColumn(name = "user_telephone_id")
 	@OneToOne(optional = true, fetch = FetchType.LAZY)
 	private Telephone telephone;
 
@@ -428,4 +429,11 @@ public class User implements Serializable, HallocasaEntity {
 		this.image = image;
 	}
 
+	public Telephone getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(Telephone telephone) {
+		this.telephone = telephone;
+	}
 }
