@@ -11,13 +11,13 @@
         rendered="#{not empty profileReadPage.user.userTypes}"
         styleClass="user-profile-panel">
         <div class="section hc-overlay-form-fields-container clearfix">
-            <div class="col span_1_of_3 hc-responsive-div">
+            <div class="col-md-4">
                 <utils:imageEditor 
                     imageUrl="#{profileReadPage.user.image}"
                     imageType="userImage"
                     readOnly="true"/>
             </div>
-            <div class="col span_1_of_3">
+            <div class="col-md-12">
                 
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Country.Label']}</span></b>
                 <h:outputText value="#{profileReadPage.countryName}" styleClass="hc-form-field"/>
@@ -62,7 +62,7 @@
 				</h:outputLink>
             </div>
 
-            <div class="col span_1_of_3">
+            <div class="col-md-12">
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Languages.Label']}</span></b>
                 <h:panelGroup >
                     <ui:repeat value="#{profileReadPage.user.spokenLanguages}" var="lang">
@@ -73,7 +73,7 @@
                 </h:panelGroup>
             </div>
 
-            <div class="col span_1_of_3">
+            <div class="col-md-12">
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Services.Label']}</span></b>
                 <h:panelGroup>
                     <ui:repeat value="#{profileReadPage.user.userTypes}" var="userType">

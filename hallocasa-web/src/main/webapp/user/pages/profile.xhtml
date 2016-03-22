@@ -15,18 +15,20 @@
     </ui:define>
 
     <ui:define name="contentSection">
-        <div class="page">
-            <br/><br/><br/><br/><br/>
+        <div class="container page">
             <h:form styleClass="hc-form"
-                    enctype="multipart/form-data">
-                <div class="hc-overlay-form-buttons-container">
-                    <p:commandButton value="#{viewBundle['Profile.Edit.Button']}" 
+                    enctype="multipart/form-data">     
+                    
+                <div class="col-md-12 content-profile">           
+                <ui:include src="../fragments/investor-panel.xhtml"/>
+                <ui:include src="../fragments/service-panel.xhtml"/>
+                </div>
+                
+                <div class="col-md-12 content-btn-edit">
+                    <p:commandButton value="#{viewBundle['Profile.Edit.Button']}" styleClass="btn btn-default"
                                      process="@this"
                                      actionListener="#{profileReadPage.processEditClick()}"/>
                 </div>
-                
-                <ui:include src="../fragments/investor-panel.xhtml"/>
-                <ui:include src="../fragments/service-panel.xhtml"/>
             </h:form>
         </div>
     </ui:define>

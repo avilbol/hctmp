@@ -236,12 +236,15 @@ ul.topnav.responsive li button {
 	color: #fff !important;
 	width: 100%;
 	text-align: right;
-	border: 1px solid #fff !important;
 	background: #002D45;
 	padding: 0px !important;
 	top: -2px;
 }
-
+.btn-default {
+	border-bottom: 1px solid #fff;
+    width: 100%;
+    float: left;
+}
 ul.topnav.responsive li span {
 	width: 100%;
 	text-align: right;
@@ -370,7 +373,6 @@ ul.topnav.responsive {
     background-color: #002D45;
     height: auto;
     width: 100%;
-    padding: 20px 20px 0px 0px;
 }
 
 ul.topnav {

@@ -7,30 +7,41 @@
     <p:panel header="#{viewBundle['Profile.General.Panel.Title']}" 
              styleClass="user-profile-panel">
         <div class="section hc-overlay-form-fields-container clearfix">
-            <div class="col">
+            <div class="content-sup-edit-info">
+            
+            <div class="col-md-12">
                 <b><p:outputLabel 
                         styleClass="hc-form-label"
                         value="#{viewBundle['Profile.Data.Name.Label']}" 
                         for="firstName" /></b>
+            </div>
+            <div class="col-md-12">
                 <h:inputText 
                     id="firstName" 
-                    styleClass="hc-form-field"
+                    styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all hc-form-field"
                     value="#{profileEditPage.user.firstName}"/>
-                <br/>
+            </div>
+            <div class="col-md-12">
                 <b><p:outputLabel 
                         styleClass="hc-form-label"
                         value="#{viewBundle['Profile.Data.LastName.Label']}" 
                         for="lastName" /></b>
+            </div>
+            <div class="col-md-12">
                 <h:inputText 
                     id="lastName"
-                    styleClass="hc-form-field"
+                    styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all hc-form-field"
                     value="#{profileEditPage.user.lastName}"/>
-                <br/>
+            </div>
+            <div class="col-md-12">
                 <span class="hc-form-label">
                     <b>#{viewBundle['Profile.Data.Email.Label']}</b>
                 </span>
+            </div>
+            <div class="col-md-12">
                 <h:outputText value="#{profileEditPage.user.email}" 
-                    styleClass="hc-form-field"/>
+                    styleClass=""/>
+            </div>
             </div>
         </div>
     </p:panel>
