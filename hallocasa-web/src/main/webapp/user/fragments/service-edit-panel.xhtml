@@ -22,6 +22,9 @@
 					</f:selectItems>
 					<p:ajax event="change" update="advanced-services-area" />
 				</p:selectManyCheckbox>
+				<p:tooltip 
+                 	id="toolTip0" for="userTypes" 
+				 	value="#{viewBundle['Tooltip.Profile.UserTypesHelp']}" />
 			</p:fieldset>
 		</div>
 
@@ -109,6 +112,9 @@
 						<div class="col-md-12">
 							<h:inputText id="lkdinName" styleClass="hc-form-field"
 								value="#{profileEditPage.user.linkedIn}" />
+							<p:tooltip 
+				               id="toolTip1" for="lkdinName" 
+				               value="#{viewBundle['Tooltip.Profile.LinkedInHelp']}" />
 						</div>
 						<div class="col-md-12">
 							<b><p:outputLabel styleClass="hc-form-label"
@@ -118,6 +124,9 @@
 						<div class="col-md-12">
 							<h:inputText id="skypeName" styleClass="hc-form-field"
 								value="#{profileEditPage.user.skype}" />
+							<p:tooltip 
+                 				id="toolTip2" for="skypeName" 
+				 				value="#{viewBundle['Tooltip.Profile.SkypeHelp']}" />
 						</div>
 					</div>
 					</div>
