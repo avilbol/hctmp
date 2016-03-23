@@ -17,6 +17,12 @@ public interface ValidationPatterns {
      * Regular expression for URL validation
      */
     public static final String URL_PATTERN = "^(((https?|ftp|file):\\/\\/)?[-a-zA-Z0-9+&@#\\/%_|!:,;]+(\\.[-a-zA-Z0-9+?:&@#\\/%=~_|]+)+)?";
+    
+    /**
+     * Regular expression for LinkedIn URL validation
+     */
+    public static final String LINKED_IN_PATTERN = "^((https:\\/\\/)?([a-z]{1,3}.)?linkedin.com\\/in\\/[-a-zA-Z0-9+&?=@#\\/%_|!:,;]+)?";
+    
     /**
      * Regular expression for Password validation
      */

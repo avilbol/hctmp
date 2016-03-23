@@ -43,6 +43,7 @@ public class ValidationMessages {
     public static final String PHONE_PATTERN = "com.hallocasa.validator.constrains.PhonePattern.message";
     public static final String PASSWORD_PATTERN = "com.hallocasa.validator.constrains.PasswordPattern.message";
     public static final String GENERAL_NAME_PATTERN = "com.hallocasa.validator.constrains.GeneralNamePattern.message";
+    public static final String LINKED_IN_PATTERN = "com.hallocasa.validator.constrains.LinkedInPattern.message";
     public static final String ADDRESS_PATTERN = "com.hallocasa.validator.constrains.AddressPattern.message";
     public static final String USE_CASE_NAME_PATTERN = "com.hallocasa.validator.constrains.UseCasePattern.message";
     public static final String MUST_ACCEPT_TERMS_AND_CONDITIONS = "com.hallocasa.validator.constraints.TermsAndConditions";

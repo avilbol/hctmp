@@ -67,8 +67,8 @@ public class UserVO implements ValueObject {
     @Size(min = 0, max = 45)
     private String skype;
 
-    @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
-            + ValidationMessages.GENERAL_NAME_PATTERN + "}")
+    @Pattern(regexp = ValidationPatterns.LINKED_IN_PATTERN, message = "{"
+            + ValidationMessages.LINKED_IN_PATTERN + "}")
     @Size(min = 0, max = 80)
     private String linkedIn;
 

@@ -13,6 +13,7 @@ public class FormatUtils {
 	
 	private static final String HTTP_PREFIX = "http://";
 	
+	private static final String HTTPS_PREFIX = "https://";
     
     public static boolean isNumeric(String value){
         try{
@@ -36,12 +37,12 @@ public class FormatUtils {
         return value == null || value.equals("");
     }
     
-    public static String buildWebString(String webStr){
+    public static String buildWebString(String webStr, boolean https){
     	if(webStr == null || webStr.equals("")){
             return JSFUtils.getViewBundleString("Common.Label.NotSpecified");
         }
     	if(!webStr.startsWith(HTTP_PREFIX)){
-    		return HTTP_PREFIX + webStr;
+    		return (https ? HTTPS_PREFIX : HTTP_PREFIX) + webStr;
     	}
     	return webStr;
     }

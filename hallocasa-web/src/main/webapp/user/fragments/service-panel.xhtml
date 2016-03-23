@@ -29,7 +29,7 @@
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.City.Label']}</span></b>
                 <h:outputText value="#{profileReadPage.cityName}" styleClass="hc-form-field"/>
 
-				<b><span class="hc-form-label">Telefono</span></b>
+				<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>
 				<span class="hc-form-field">
 					<utils:telephoneNumber
 						value="#{profileReadPage.user.telephone}" 
@@ -49,8 +49,14 @@
 				</h:outputLink>
 
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span></b>
-                <h:outputText value="#{profileReadPage.linkedInName}"
-                              styleClass="hc-form-field #{profileReadPage.linkedInPending ? 'hc-gray-field' : ''}"/>
+				<h:outputText value="#{profileReadPage.linkedInName}" 
+                			  rendered="#{profileReadPage.linkedInPending}"
+                              styleClass="hc-form-field hc-gray-field"/>
+                <h:outputLink value="#{profileReadPage.linkedInLink}" 
+                			  rendered="#{not profileReadPage.linkedInPending}"
+                              styleClass="hc-form-field">
+                	<h:outputText value="#{profileReadPage.linkedInName}"/>
+				</h:outputLink>
 
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
                 <h:outputText value="#{profileReadPage.skypeName}"

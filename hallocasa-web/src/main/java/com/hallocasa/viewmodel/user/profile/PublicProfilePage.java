@@ -96,7 +96,7 @@ public class PublicProfilePage implements Serializable{
     }
     
     public String getWebsiteLink(){
-        return FormatUtils.buildWebString(user.getWebSite());
+        return FormatUtils.buildWebString(user.getWebSite(), false);
     }
     
     public String getSkypeName(){
@@ -105,5 +105,9 @@ public class PublicProfilePage implements Serializable{
     
     public String getLinkedInName(){
         return FormatUtils.getDefensiveLabel(user.getLinkedIn());
+    }
+    
+    public String getLinkedInLink(){
+        return FormatUtils.buildWebString(user.getLinkedIn(), true);
     }
 }

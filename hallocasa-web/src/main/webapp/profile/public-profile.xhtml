@@ -94,11 +94,12 @@
 								<h:outputText value="#{publicProfilePage.cityName}"
 									styleClass="hc-form-field" />
 
-								<div class="row"><span class="hc-form-across-label">Telefono</span></div>
+								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></div>
 								<utils:telephoneNumber
 									value="#{publicProfilePage.user.telephone}" 
+									id="telephone" 
 									readOnly="true"
-									id="telephone" />
+									emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" />
 								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Website.Label']}</span></div>
 								<h:outputText value="#{publicProfilePage.websiteName}"
 									rendered="#{publicProfilePage.websitePending}"
@@ -110,8 +111,14 @@
 								</h:outputLink>
 
 								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span></div>
-								<h:outputText value="#{publicProfilePage.linkedInName}"
-									styleClass="hc-form-field #{publicProfilePage.linkedInPending ? 'hc-gray-field' : ''}" />
+								<h:outputText value="#{publicProfilePage.linkedInName}" 
+				                			  rendered="#{publicProfilePage.linkedInPending}"
+				                              styleClass="hc-form-field hc-gray-field"/>
+				                <h:outputLink value="#{publicProfilePage.linkedInLink}" 
+				                			  rendered="#{not publicProfilePage.linkedInPending}"
+				                              styleClass="hc-form-field">
+				                	<h:outputText value="#{publicProfilePage.linkedInName}"/>
+								</h:outputLink>
 
 								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Skype.Label']}</span></div>
 								<h:outputText value="#{publicProfilePage.skypeName}"

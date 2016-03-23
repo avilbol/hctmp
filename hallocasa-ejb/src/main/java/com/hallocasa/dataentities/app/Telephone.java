@@ -67,12 +67,14 @@ public class Telephone implements Serializable, HallocasaEntity {
 	}
 
 	public Telephone(TelephoneVO tvo){
-		this.setNumber(tvo.getNumber());
-		CountryTelephonePrefix ctp = new CountryTelephonePrefix();
-		ctp.setId(tvo.getCountryTelephonePrefix().getId().intValue());
-		ctp.setName(tvo.getCountryTelephonePrefix().getName());
-		ctp.setPrefix(tvo.getCountryTelephonePrefix().getPrefix());
-		this.setCountryTelephonePrefix(ctp);
+		if(tvo != null){
+			this.setNumber(tvo.getNumber());
+			CountryTelephonePrefix ctp = new CountryTelephonePrefix();
+			ctp.setId(tvo.getCountryTelephonePrefix().getId().intValue());
+			ctp.setName(tvo.getCountryTelephonePrefix().getName());
+			ctp.setPrefix(tvo.getCountryTelephonePrefix().getPrefix());
+			this.setCountryTelephonePrefix(ctp);
+		}
 	}
 	
 	public String getNumber() {

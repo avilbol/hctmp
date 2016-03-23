@@ -116,7 +116,7 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
     }
     
     private TelephoneVO parseEntityToVO(Telephone telephone){
-		if(telephone == null){
+		if(telephone == null || telephone.getNumber() == null){
 			return null;
 		}
 		TelephoneVO tvo = new TelephoneVO();
