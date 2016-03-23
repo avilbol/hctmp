@@ -14,7 +14,7 @@
 				toggleable="true" toggleSpeed="500">
 				<p:selectManyCheckbox id="userTypes" label="Servicios"
 					value="#{profileEditPage.user.userTypes}"
-					styleClass="hc-selectManyChkbox" converter="userTypeConverter">
+					styleClass="hc-selectManyChkbox" converter="userTypeConverter" layout="responsive" columns="2">
 					<f:selectItems value="#{applicationContext.userTypes}"
 						var="userType"
 						itemLabel="#{userType.userTypeName.getText(webSession.currentLanguage)}"
@@ -29,11 +29,12 @@
 			<h:panelGroup rendered="#{not empty profileEditPage.user.userTypes}">
 				<div class="section hc-overlay-form-fields-container clearfix">
 					<div class="col-md-12">
-						<div class="col-md-12">
+						<div class="col-md-3">
 							<span id="imageUrl"> <utils:imageEditor
 									imageUrl="#{profileEditPage.user.image}" imageType="userImage" />
 							</span>
 						</div>
+						<div class="col-md-9">
 						<div class="col-md-12">
 							<b><p:outputLabel styleClass="hc-form-label"
 									value="#{viewBundle['Profile.Data.Country.Label']}"
@@ -118,6 +119,7 @@
 							<h:inputText id="skypeName" styleClass="hc-form-field"
 								value="#{profileEditPage.user.skype}" />
 						</div>
+					</div>
 					</div>
 					<div class="col-md-12">
 						<p:fieldset legend="#{viewBundle['Profile.Data.Languages.Label']}"

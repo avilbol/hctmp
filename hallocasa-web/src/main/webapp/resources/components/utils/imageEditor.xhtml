@@ -25,17 +25,21 @@
     </cc:interface>
     <cc:implementation>
         <h:panelGroup id="image-editor-container">
-            <div>
+        
+            <div class="col-md-12">
+            <div class="row edit-btn-content">
                 <h:commandButton 
-                    styleClass="hc-basic-button hc-go-right"
+                    styleClass="btn btn-default"
                     rendered="#{not cc.attrs.readOnly}"
                     value="#{viewBundle['Image.Edition']}"
                     onclick="PF('upload-image-dialog').show();return false"/>
             </div>
-            <div class="hc-responsive-div">
+            <div class="row hc-responsive-div">
                 <h:graphicImage  
                     url="#{cc.attrs.imageUrl.url}"/>
             </div>
+            
+            
             <p:dialog header="#{viewBundle['Image.Edition.Header']}" 
                       position="center"
                       widgetVar="upload-image-dialog" 
@@ -116,6 +120,7 @@
                     </h:panelGroup>
                 </h:panelGroup>
             </p:dialog>
+            </div>
         </h:panelGroup>
     </cc:implementation>
 </ui:composition>
