@@ -2,6 +2,7 @@
 	body {
 		background-image: url("#{resource['images:hc-background-1345.jpg']}");
 		background-repeat: no-repeat;
+		font-size:19px!important;
 	}
 	.page {
     width: 1280px;
@@ -282,6 +283,10 @@ ul.hc-footer-social-icons {
 	.hc-profile-browse-panel-lite {
     width: 70%!important;
 }
+span.menu-link {
+    border-bottom: 1px solid;
+}
+
 }
 @media screen and (max-width:680px) {
 	.logo {
@@ -505,7 +510,7 @@ li.hc-header-global-menu-item.hc-header-menu.btn.btn-default-languaje {
 		float: left;
 	}
 	ul.topnav.responsive {
-		height: 343px;
+		height: 280px;
 	}
 	/*home*/
 	.hc-home-newsletter-box {

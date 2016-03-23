@@ -18,6 +18,11 @@
 
 @import "#{resource['css:footer.css']}";
 
+/*body*/
+.hc-content-body {
+	min-height: 640px;
+	border-bottom: 8px solid #1D5D8D;
+}
 /* sections and components */
 .hc-basic-button {
 	padding: 0.6em 1.2em;
@@ -65,7 +70,7 @@
 
 .hc-form .hc-form-field {
 	min-width: 100%;
-	background: #E4E4E4;    
+	background: #E4E4E4;
 	border: 1px solid #337ab7;
 }
 
@@ -81,7 +86,7 @@
 .hc-overlay-form-fields-container {
 	padding-bottom: 20px;
 	font-size: 0.85em;
-    border: 1px solid #002D45;
+	border: 1px solid #002D45;
 }
 
 .hc-overlay-form-buttons-container {
@@ -156,6 +161,7 @@ hc-image-container-1m {
 div.hc-responsive-div, div.hc-responsive-div img {
 	max-width: 100% !important;
 	max-height: 100% !important;
+	padding-bottom: 20px;
 }
 
 /* yellow button */
@@ -271,20 +277,28 @@ a.closed-tc.ui-icon.ui-icon-closethick {
 	margin-top: 50px;
 	margin-bottom: 50px;
 }
-.content-description{
-    width: 100%;
-    height: auto;
-    padding: 20px;
-    background: #E4E4D1;
+
+.content-description {
+	width: 100%;
+	height: auto;
+	padding: 20px;
+	background: #E4E4D1;
 }
-.content-profile{
-	    padding-bottom: 100px;
-    padding-top: 100px;
+
+.content-profile {
+	padding-bottom: 100px;
+	padding-top: 100px;
 }
-.content-btn-edit{
-	    text-align: center;
+
+.content-btn-edit {
+	text-align: center;
 }
-.content-sup-edit-info{
-	padding:20px;    
+
+.content-sup-edit-info {
+	padding: 20px;
 	width: 30%;
+}
+
+.edit-btn-content {
+	padding-bottom: 10px;
 }
