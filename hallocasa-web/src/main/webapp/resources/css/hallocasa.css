@@ -65,7 +65,8 @@
 
 .hc-form .hc-form-field {
 	min-width: 100%;
-	background: #E4E4E4;
+	background: #E4E4E4;    
+	border: 1px solid #337ab7;
 }
 
 .hc-form .hc-form-field .hc-output-text {
@@ -80,6 +81,7 @@
 .hc-overlay-form-fields-container {
 	padding-bottom: 20px;
 	font-size: 0.85em;
+    border: 1px solid #002D45;
 }
 
 .hc-overlay-form-buttons-container {
@@ -274,4 +276,15 @@ a.closed-tc.ui-icon.ui-icon-closethick {
     height: auto;
     padding: 20px;
     background: #E4E4D1;
+}
+.content-profile{
+	    padding-bottom: 100px;
+    padding-top: 100px;
+}
+.content-btn-edit{
+	    text-align: center;
+}
+.content-sup-edit-info{
+	padding:20px;    
+	width: 30%;
 }
