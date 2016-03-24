@@ -41,7 +41,8 @@ public class FormatUtils {
     	if(webStr == null || webStr.equals("")){
             return JSFUtils.getViewBundleString("Common.Label.NotSpecified");
         }
-    	if(!webStr.startsWith(HTTP_PREFIX)){
+    	String prefix = https ? HTTPS_PREFIX : HTTP_PREFIX;
+    	if(!webStr.startsWith(prefix)){
     		return (https ? HTTPS_PREFIX : HTTP_PREFIX) + webStr;
     	}
     	return webStr;
