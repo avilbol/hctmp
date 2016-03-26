@@ -294,6 +294,9 @@ div.hc-responsive-div, div.hc-responsive-div img {
 a.closed-tc.ui-icon.ui-icon-closethick {
 	displat: none;
 	text-align: right;
+	width: 100%;
+    height: 31px;    
+    text-decoration: none;
 }
 
 .check-tc {
@@ -319,7 +322,22 @@ a.closed-tc.ui-icon.ui-icon-closethick {
 .edit-btn-content {
 	padding-bottom: 10px;
 }
-ul.nav.navbar-nav.navbar-right li a:hover {
-    text-decoration: underline;
-    background: transparent;
+
+#top-submenu-strip a {
+    color: white;
+}
+#top-submenu-strip a:hover {
+    color: #606163;
+}
+#top-submenu-strip a:focus, #top-submenu-strip a:active {
+    color: #606163;    
+    background-color: #eee;
+}
+#top-submenu-strip {
+    width: 100%;
+    margin-top: 20px;
+    background: #606163;
+    font-size: 16px;
+    margin-bottom: 20px;   
+    float: left;
 }
