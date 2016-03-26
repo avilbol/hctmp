@@ -43,14 +43,10 @@
 				<p:panel header="Información del perfil"
 					styleClass="user-profile-panel">
 					<div class="section col-md-12">
-						<div class="col-md-6">
-							<div class="col-md-5">
-								<utils:imageEditor imageUrl="#{publicProfilePage.user.image}"
-									imageType="userImage" readOnly="true" />
-							</div>
-							<div class="col-md-4">
-							
-								<h:panelGroup layout="block"
+						<div class="row">
+							<div class="row">
+								<!--Lenguaje principal
+							 <h:panelGroup layout="block"
 									styleClass="row"
 									id="user-description-section">
 									<h:outputLabel styleClass="hc-form-across-label"
@@ -59,86 +55,118 @@
 										</h:outputLabel>
 									<div class="col-md-12"><span class="hc-form-label">#{publicProfilePage.user.mainSpokenLanguage.languageName} </span></div>
 								</h:panelGroup>
+								-->
+
+								<div class="col-md-2 hc-image-public-content">
+									<utils:imageEditor imageUrl="#{publicProfilePage.user.image}"
+										imageType="userImage" readOnly="true" />
+								</div>
+								<div class="col-md-3 hc-name-content-profiles" >
+									<!-- <span class="hc-form-across-label">
+										#{viewBundle['Profile.Data.Name.Label']}: </span>-->
+									<b style=" font-size: 24px;"><h:outputText value="#{publicProfilePage.username}" /></b>
+								</div>
+
+								<div class="col-md-3">
+									<!--<span class="hc-form-across-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span>-->
+									
+									<h:outputText value="#{publicProfilePage.linkedInName}"
+										rendered="#{publicProfilePage.linkedInPending}"
+										styleClass="hc-form-field hc-gray-field" />
+									<h:outputLink value="#{publicProfilePage.linkedInLink}"
+										rendered="#{not publicProfilePage.linkedInPending}"
+										styleClass="hc-form-field" target="_blanck">
+										<h:graphicImage library="images/icons" name="linkedin.png"
+										class="hc-linkedin" />
+										<!-- <h:outputText value="#{publicProfilePage.linkedInName}" /> -->
+									</h:outputLink>
+								</div>
+								<div class="col-md-3">
+									<!-- <span class="hc-form-across-label">#{viewBundle['Profile.Data.Website.Label']}</span> -->
+									<h:outputText value="#{publicProfilePage.websiteName}"
+										rendered="#{publicProfilePage.websitePending}"
+										styleClass="hc-form-field hc-gray-field" />
+									<h:outputLink value="#{publicProfilePage.websiteLink}"
+										rendered="#{not publicProfilePage.websitePending}"
+										styleClass="hc-form-field">
+										<h:outputText value="#{publicProfilePage.websiteName}" />
+									</h:outputLink>
+								</div>
 								
-								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Languages.Label']}</span></div>
-								<h:panelGroup>
-									<ui:repeat value="#{publicProfilePage.user.spokenLanguages}"
-										var="lang">
-										<span class="hc-form-field"> <h:outputText
-												value="#{lang.languageName}" /><br />
-										</span>
-									</ui:repeat>
-								</h:panelGroup>
-
-								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Services.Label']}</span></div>
-								<h:panelGroup>
-									<ui:repeat value="#{publicProfilePage.user.userTypes}"
-										var="userType">
-										<span class="hc-form-field"> <h:outputText
-												value="#{userType.userTypeName.getText(webSession.currentLanguage)}" />
-										</span>
-									</ui:repeat>
-								</h:panelGroup>
+							<div class="col-md-8" style="margin-left: -20px;padding-bottom: 10px;">
+								<div class="col-md-4">
+									<!--<span class="hc-form-across-label">#{viewBundle['Profile.Data.Languages.Label']}</span>-->
+									<h:panelGroup>
+										<ui:repeat value="#{publicProfilePage.user.spokenLanguages}"
+											var="lang">
+											<span class="hc-form-field"> <h:outputText
+													value="#{lang.languageName}" />
+											</span>
+										</ui:repeat>
+									</h:panelGroup>
+								</div>
+								<div class="col-md-4">
+									<!-- <span class="hc-form-across-label">#{viewBundle['Profile.Data.Services.Label']}</span>-->
+									<h:panelGroup>
+										<ui:repeat value="#{publicProfilePage.user.userTypes}"
+											var="userType">
+											<span class="hc-form-field"> <h:outputText
+													value="#{userType.userTypeName.getText(webSession.currentLanguage)}" />
+											</span>
+										</ui:repeat>
+									</h:panelGroup>
+								</div>
 							</div>
-							<div class="col-md-4">
-								<div class="row"><span class="hc-form-across-label">
-										#{viewBundle['Profile.Data.Name.Label']}: </span></div>
-								<h:outputText value="#{publicProfilePage.username}" />
-								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Country.Label']}</span></div>
+							</div>
+
+
+							<div class="col-md-2 hc-content-info-public">
+							<span class="hc-form-across-label">#{viewBundle['Profile.Data.Country.Label']}</span>
+								&nbsp;
 								<h:outputText value="#{publicProfilePage.countryName}"
-									styleClass="hc-form-field" />
-								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.State.Label']}</span></div>
+									styleClass="hc-form-field hc-font-field" />
+
+								<span class="hc-form-across-label">#{viewBundle['Profile.Data.State.Label']}</span>
+								&nbsp;
 								<h:outputText value="#{publicProfilePage.stateName}"
-									styleClass="hc-form-field" />
-							<div class="row"><span class="hc-form-across-labell">#{viewBundle['Profile.Data.City.Label']}</span></div>
+									styleClass="hc-form-field hc-font-field" />
+
+								<span class="hc-form-across-label">#{viewBundle['Profile.Data.City.Label']}</span>
+								&nbsp;
 								<h:outputText value="#{publicProfilePage.cityName}"
-									styleClass="hc-form-field" />
+									styleClass="hc-form-field hc-font-field" />
 
-								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></div>
+								<span class="hc-form-across-label">#{viewBundle['Profile.Data.Telephone.Label']}</span>
+								&nbsp;
 								<utils:telephoneNumber
-									value="#{publicProfilePage.user.telephone}" 
-									id="telephone" 
+									value="#{publicProfilePage.user.telephone}" id="telephone"
 									readOnly="true"
-									emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" />
-								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Website.Label']}</span></div>
-								<h:outputText value="#{publicProfilePage.websiteName}"
-									rendered="#{publicProfilePage.websitePending}"
-									styleClass="hc-form-field hc-gray-field" />
-								<h:outputLink value="#{publicProfilePage.websiteLink}"
-									rendered="#{not publicProfilePage.websitePending}"
-									styleClass="hc-form-field">
-									<h:outputText value="#{publicProfilePage.websiteName}" />
-								</h:outputLink>
+									emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" styleClass="hc-form-field hc-font-field"/>
 
-								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span></div>
-								<h:outputText value="#{publicProfilePage.linkedInName}" 
-				                			  rendered="#{publicProfilePage.linkedInPending}"
-				                              styleClass="hc-form-field hc-gray-field"/>
-				                <h:outputLink value="#{publicProfilePage.linkedInLink}" 
-				                			  rendered="#{not publicProfilePage.linkedInPending}"
-				                              styleClass="hc-form-field">
-				                	<h:outputText value="#{publicProfilePage.linkedInName}"/>
-								</h:outputLink>
-
-								<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Skype.Label']}</span></div>
+								<!-- <span class="hc-form-across-label">#{viewBundle['Profile.Data.Skype.Label']}</span></div>-->
+								<h:graphicImage library="images/icons" name="skype-24.png" />
 								<h:outputText value="#{publicProfilePage.skypeName}"
-									styleClass="hc-form-field #{publicProfilePage.skypePending ? 'hc-gray-field' : ''}" />
+									styleClass="hc-font-field hc-form-field #{publicProfilePage.skypePending ? 'hc-gray-field' : ''}" />
 								<h:outputLink value="skype:#{publicProfilePage.skypeName}?call"
 									rendered="#{not publicProfilePage.skypePending}">
-									<h:graphicImage library="images/icons" name="skype-24.png" />
 								</h:outputLink>
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="col-md-12">
-								<ui:repeat value="#{publicProfilePage.user.spokenLanguages}"
-									var="lang">
-									<div class="row"><span class="hc-form-across-label">#{viewBundle['Profile.Data.Description.Label']}
-											( #{lang.languageName} )</span></div>
-									<div class="description col-md-12">
-									<div class="content-description"><span class="hc-form-field">
-										#{publicProfilePage.user.userDescription.getText(lang)} </span></div></div>
-								</ui:repeat>
+							<div class="col-md-9">
+								<div class="col-md-12">
+									<ui:repeat value="#{publicProfilePage.user.spokenLanguages}"
+										var="lang">
+										<div class="row">
+											<span class="hc-form-across-label">#{viewBundle['Profile.Data.Description.Label']}
+												( #{lang.languageName} )</span>
+										</div>
+										<div class="description col-md-12">
+											<div class="hc-content-description">
+												<span class="hc-form-field">
+													#{publicProfilePage.user.userDescription.getText(lang)} </span>
+											</div>
+										</div>
+									</ui:repeat>
+								</div>
 							</div>
 						</div>
 					</div>

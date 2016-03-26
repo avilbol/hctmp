@@ -14,7 +14,8 @@
 				toggleable="true" toggleSpeed="500">
 				<p:selectManyCheckbox id="userTypes" label="Servicios"
 					value="#{profileEditPage.user.userTypes}"
-					styleClass="hc-selectManyChkbox" converter="userTypeConverter" layout="responsive" columns="2">
+					styleClass="hc-selectManyChkbox" converter="userTypeConverter"
+					layout="responsive" columns="2">
 					<f:selectItems value="#{applicationContext.userTypes}"
 						var="userType"
 						itemLabel="#{userType.userTypeName.getText(webSession.currentLanguage)}"
@@ -22,134 +23,137 @@
 					</f:selectItems>
 					<p:ajax event="change" update="advanced-services-area" />
 				</p:selectManyCheckbox>
-				<p:tooltip 
-                 	id="toolTip0" for="userTypes" 
-				 	value="#{viewBundle['Tooltip.Profile.UserTypesHelp']}" />
+				<p:tooltip id="toolTip0" for="userTypes"
+					value="#{viewBundle['Tooltip.Profile.UserTypesHelp']}" />
 			</p:fieldset>
 		</div>
 
 		<h:panelGroup id="advanced-services-area">
 			<h:panelGroup rendered="#{not empty profileEditPage.user.userTypes}">
 				<div class="section hc-overlay-form-fields-container clearfix">
-					<div class="col-md-12">
+					<div class="row">
 						<div class="col-md-3">
-							<span id="imageUrl"> <utils:imageEditor
-									imageUrl="#{profileEditPage.user.image}" imageType="userImage" />
-							</span>
+							<div class="row">
+								<span id="imageUrl"> <utils:imageEditor
+										imageUrl="#{profileEditPage.user.image}" imageType="userImage" />
+								</span>
+							</div>
+							<div class="row hc-info-content-profile">
+								<div class="col-md-12">
+									<b><p:outputLabel styleClass="hc-form-label"
+											value="#{viewBundle['Profile.Data.Country.Label']}"
+											for="countryName" /></b>
+								</div>
+								<div class="col-md-12">
+									<h:selectOneMenu id="countryName" styleClass="hc-form-field"
+										value="#{profileEditPage.user.country}"
+										converter="countryConverter">
+										<f:selectItem itemLabel="Select a Country" />
+										<f:selectItems value="#{applicationContext.countries}"
+											var="country"
+											itemLabel="#{profileEditPage.getCountryName(country)}"
+											itemValue="#{country}" />
+										<p:ajax event="change"
+											listener="#{profileEditPage.processCountrySelect}"
+											process="@this" update="stateName,cityName">
+										</p:ajax>
+									</h:selectOneMenu>
+								</div>
+								<div class="col-md-12">
+									<b><p:outputLabel styleClass="hc-form-label"
+											value="#{viewBundle['Profile.Data.State.Label']}"
+											for="stateName" /></b>
+								</div>
+								<div class="col-md-12">
+									<h:selectOneMenu id="stateName" styleClass="hc-form-field"
+										value="#{profileEditPage.user.state}"
+										converter="stateConverter">
+										<f:selectItems value="#{profileEditPage.states}" var="state"
+											itemLabel="#{profileEditPage.getStateName(state)}"
+											itemValue="#{state}" />
+										<p:ajax event="change"
+											listener="#{profileEditPage.processStateSelect}"
+											process="@this" update="cityName">
+										</p:ajax>
+									</h:selectOneMenu>
+								</div>
+								<div class="col-md-12">
+									<b><p:outputLabel styleClass="hc-form-label"
+											value="#{viewBundle['Profile.Data.City.Label']}"
+											for="cityName" /></b>
+								</div>
+								<div class="col-md-12">
+									<h:selectOneMenu id="cityName" styleClass="hc-form-field"
+										value="#{profileEditPage.user.city}" converter="cityConverter">
+										<f:selectItems value="#{profileEditPage.cities}" var="city"
+											itemLabel="#{profileEditPage.getCityName(city)}"
+											itemValue="#{city}" />
+									</h:selectOneMenu>
+								</div>
+								<div class="col-md-12">
+									<span class="hc-form-across-label">Telefono</span>
+								</div>
+								<div class="col-md-12">
+									<utils:telephoneNumberEditor
+										value="#{profileEditPage.user.telephone}" id="telephone" />
+								</div>
+								<div class="col-md-12">
+
+									<b><p:outputLabel styleClass="hc-form-label"
+											value="#{viewBundle['Profile.Data.Website.Label']}"
+											for="websiteName" /></b>
+								</div>
+								<div class="col-md-12">
+									<h:inputText id="websiteName" styleClass="hc-form-field"
+										value="#{profileEditPage.user.webSite}" />
+								</div>
+								<div class="col-md-12">
+									<b><p:outputLabel styleClass="hc-form-label"
+											value="#{viewBundle['Profile.Data.Linkedin.Label']}"
+											for="lkdinName" /></b>
+								</div>
+								<div class="col-md-12">
+									<h:inputText id="lkdinName" styleClass="hc-form-field"
+										value="#{profileEditPage.user.linkedIn}" />
+									<p:tooltip id="toolTip1" for="lkdinName"
+										value="#{viewBundle['Tooltip.Profile.LinkedInHelp']}" />
+								</div>
+								<div class="col-md-12">
+									<b><p:outputLabel styleClass="hc-form-label"
+											value="#{viewBundle['Profile.Data.Skype.Label']}"
+											for="skypeName" /></b>
+								</div>
+								<div class="col-md-12">
+									<h:inputText id="skypeName" styleClass="hc-form-field"
+										value="#{profileEditPage.user.skype}" />
+									<p:tooltip id="toolTip2" for="skypeName"
+										value="#{viewBundle['Tooltip.Profile.SkypeHelp']}" />
+								</div>
+							</div>
 						</div>
 						<div class="col-md-9">
-						<div class="col-md-12">
-							<b><p:outputLabel styleClass="hc-form-label"
-									value="#{viewBundle['Profile.Data.Country.Label']}"
-									for="countryName" /></b>
+							<p:fieldset
+								legend="#{viewBundle['Profile.Data.Languages.Label']}"
+								toggleable="true" toggleSpeed="500">
+								<h:panelGroup layout="block"
+									styleClass="hc-manycheckbox-three-columns hc-selectManyChkbox">
+									<p:selectManyCheckbox id="spokenLanguages" label="Lenguajes"
+										value="#{profileEditPage.user.spokenLanguages}"
+										layout="pageDirection" required="true"
+										converter="languageConverter">
+										<f:selectItems value="#{profileEditPage.languages}"
+											var="language" itemLabel="#{language.languageName}"
+											itemValue="#{language}">
+										</f:selectItems>
+										<f:ajax
+											listener="#{profileEditPage.processLanguagesSelectedChange}"
+											render="user-description-section  main-language-section"
+											immediate="true" />
+									</p:selectManyCheckbox>
+								</h:panelGroup>
+							</p:fieldset>
 						</div>
-						<div class="col-md-12">
-							<h:selectOneMenu id="countryName" styleClass="hc-form-field"
-								value="#{profileEditPage.user.country}"
-								converter="countryConverter">
-								<f:selectItem itemLabel="Select a Country" />
-								<f:selectItems value="#{applicationContext.countries}"
-									var="country"
-									itemLabel="#{profileEditPage.getCountryName(country)}"
-									itemValue="#{country}" />
-								<p:ajax event="change"
-									listener="#{profileEditPage.processCountrySelect}"
-									process="@this" update="stateName,cityName">
-								</p:ajax>
-							</h:selectOneMenu>
-						</div>
-						<div class="col-md-12">
-							<b><p:outputLabel styleClass="hc-form-label"
-									value="#{viewBundle['Profile.Data.State.Label']}"
-									for="stateName" /></b>
-						</div>
-						<div class="col-md-12">
-							<h:selectOneMenu id="stateName" styleClass="hc-form-field"
-								value="#{profileEditPage.user.state}" converter="stateConverter">
-								<f:selectItems value="#{profileEditPage.states}" var="state"
-									itemLabel="#{profileEditPage.getStateName(state)}"
-									itemValue="#{state}" />
-								<p:ajax event="change"
-									listener="#{profileEditPage.processStateSelect}"
-									process="@this" update="cityName">
-								</p:ajax>
-							</h:selectOneMenu>
-						</div>
-						<div class="col-md-12">
-							<b><p:outputLabel styleClass="hc-form-label"
-									value="#{viewBundle['Profile.Data.City.Label']}" for="cityName" /></b>
-						</div>
-						<div class="col-md-12">
-							<h:selectOneMenu id="cityName" styleClass="hc-form-field"
-								value="#{profileEditPage.user.city}" converter="cityConverter">
-								<f:selectItems value="#{profileEditPage.cities}" var="city"
-									itemLabel="#{profileEditPage.getCityName(city)}"
-									itemValue="#{city}" />
-							</h:selectOneMenu>
-						</div>
-						<div class="col-md-12">
-							<span class="hc-form-across-label">Telefono</span>
-						</div>
-						<div class="col-md-12">
-							<utils:telephoneNumberEditor
-								value="#{profileEditPage.user.telephone}" id="telephone" />
-						</div>
-						<div class="col-md-12">
 
-							<b><p:outputLabel styleClass="hc-form-label"
-									value="#{viewBundle['Profile.Data.Website.Label']}"
-									for="websiteName" /></b>
-						</div>
-						<div class="col-md-12">
-							<h:inputText id="websiteName" styleClass="hc-form-field"
-								value="#{profileEditPage.user.webSite}" />
-						</div>
-						<div class="col-md-12">
-							<b><p:outputLabel styleClass="hc-form-label"
-									value="#{viewBundle['Profile.Data.Linkedin.Label']}"
-									for="lkdinName" /></b>
-						</div>
-						<div class="col-md-12">
-							<h:inputText id="lkdinName" styleClass="hc-form-field"
-								value="#{profileEditPage.user.linkedIn}" />
-							<p:tooltip 
-				               id="toolTip1" for="lkdinName" 
-				               value="#{viewBundle['Tooltip.Profile.LinkedInHelp']}" />
-						</div>
-						<div class="col-md-12">
-							<b><p:outputLabel styleClass="hc-form-label"
-									value="#{viewBundle['Profile.Data.Skype.Label']}"
-									for="skypeName" /></b>
-						</div>
-						<div class="col-md-12">
-							<h:inputText id="skypeName" styleClass="hc-form-field"
-								value="#{profileEditPage.user.skype}" />
-							<p:tooltip 
-                 				id="toolTip2" for="skypeName" 
-				 				value="#{viewBundle['Tooltip.Profile.SkypeHelp']}" />
-						</div>
-					</div>
-					</div>
-					<div class="col-md-12">
-						<p:fieldset legend="#{viewBundle['Profile.Data.Languages.Label']}"
-							toggleable="true" toggleSpeed="500">
-							<h:panelGroup layout="block"
-								styleClass="hc-manycheckbox-three-columns hc-selectManyChkbox">
-								<p:selectManyCheckbox id="spokenLanguages" label="Lenguajes"
-									value="#{profileEditPage.user.spokenLanguages}"
-									layout="pageDirection" required="true"
-									converter="languageConverter">
-									<f:selectItems value="#{profileEditPage.languages}"
-										var="language" itemLabel="#{language.languageName}"
-										itemValue="#{language}">
-									</f:selectItems>
-									<f:ajax
-										listener="#{profileEditPage.processLanguagesSelectedChange}"
-										render="user-description-section  main-language-section"
-										immediate="true" />
-								</p:selectManyCheckbox>
-							</h:panelGroup>
-						</p:fieldset>
 					</div>
 				</div>
 				<hr />

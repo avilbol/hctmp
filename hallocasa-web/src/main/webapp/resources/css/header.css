@@ -12,7 +12,7 @@ body {
 	margin: 0;	
 	background-image: url("#{resource['images:hc-background-1345.jpg']}");
 	background-repeat: no-repeat;
-	
+	font-size: 19px!important;
 }
 .beta{
 	font-size: 20px;
@@ -20,7 +20,6 @@ body {
     text-align: center;
     font-style: italic;
 }
-
 /* header menu bar*/
 ul.hc-header-global-menu.ui-corner-all.js-header-global-menu li a {
 	padding: 19px 5px 20px 5px;
@@ -119,12 +118,12 @@ ul.hc-header-global-menu.ui-corner-all.js-header-global-menu li a {
 	background-size: 24px 24px;
 	background-position: 0% 50%;
 	background-repeat: no-repeat;
-	background-image: url( "#{resource['images:icons/user-64-gray.png']}" );
+	/*background-image: url( "#{resource['images:icons/user-64-gray.png']}" );*/
 	vertical-align: middle;
 }
 
 .login-dialog-signup-link:hover {
-	background-image: url( "#{resource['images:icons/user-64-black.png']}" );
+	/*background-image: url( "#{resource['images:icons/user-64-black.png']}" );*/
 }
 
 /* Password recovery dialog */
@@ -250,4 +249,77 @@ ul.topnav li.icon {
 	height: auto;
 	float: left;
 	width: 100%;
+}
+
+
+.card-content{
+    padding: 20px;
+    float: left;
+    margin: 0 0px 20px 0;
+}
+div.hc-responsive-div, div.hc-responsive-div img {
+	max-width: 100% !important;
+	max-height: 100% !important;
+}
+
+.login-btn {
+	text-align: center;
+	padding: 30px;
+}
+
+.register-btn {
+	text-align: center;
+	padding: 20px 0 20px 0;
+}
+
+.field-text label {
+	padding: 10px 0 10px 15px;
+}
+
+.hidden-btn {
+	display: none;
+	overflow: auto;
+	height: 344px;
+	width: 100%;
+}
+
+.btn-close {
+	display: none
+}
+
+.btn-open {
+	text-align: center;
+}
+
+a.closed-tc.ui-icon.ui-icon-closethick {
+	displat: none;
+	text-align: right;
+}
+
+.check-tc {
+	display: flex;
+}
+
+
+.content-profile {
+	padding-bottom: 30px;
+	padding-top: 100px;
+}
+
+.content-btn-edit {
+	text-align: center; 
+	padding-bottom: 40px;
+	}
+
+.content-sup-edit-info {
+	padding: 20px;
+	width: 30%;
+}
+
+.edit-btn-content {
+	padding-bottom: 10px;
+}
+ul.nav.navbar-nav.navbar-right li a:hover {
+    text-decoration: underline;
+    background: transparent;
 }

@@ -85,8 +85,8 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 ----------------------------------*/
 
 /* states and images */
-.ui-icon { width: 16px; height: 16px; background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}"); }
-.ui-widget-content .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}"); }
+.ui-icon { width: 16px; height: 16px;/* background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}");*/ }
+.ui-widget-content .ui-icon {background-image: url('../../images/icons/folder-48.png');/*background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}");*/ }
 .ui-widget-header .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_686c6f_256x240.png']}"); }
 .ui-state-default .ui-icon { background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_000000_256x240.png']}"); }
 .ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_ffffff_256x240.png']}"); }
@@ -291,7 +291,7 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 ----------------------------------*/
 
 /* Inputs */
-.ui-inputfield { border: 1px solid #686c6f; padding: 0.5em; }
+.ui-inputfield {     border: 1px solid rgba(119, 119, 119, 0.65);   width: 100%;}
 
 /* labels */
 .ui-outputlabel.ui-state-error { background: none; border: none; }
@@ -318,12 +318,4 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 .ui-fieldset-legend {
     font-weight:bold;
 }
-.card-content{
-	    border: 1px solid #ccc;
-    padding: 20px;
-    float: left;
-    margin: 0 0px 20px 0;
-}
-.sub-card{
-	padding: 20px 0 20px 0;
-}
+

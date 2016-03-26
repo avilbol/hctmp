@@ -23,6 +23,11 @@
 	min-height: 640px;
 	border-bottom: 8px solid #1D5D8D;
 }
+
+.hc-content-Profiles {
+	padding: 20px;
+	background: #fff;
+}
 /* sections and components */
 .hc-basic-button {
 	padding: 0.6em 1.2em;
@@ -60,9 +65,10 @@
 	display: inline;
 	margin-bottom: 0.2em;
 	font-weight: bold;
+	font-size: 19px;
 }
 
-.hc-form-label.hc-form-required:after, .hc-form-across-label.hc-form-required:after
+.hc-form-label.hc-form-required:after,.hc-form-across-label.hc-form-required:after
 	{
 	content: "*";
 	margin-left: 5px;
@@ -70,8 +76,8 @@
 
 .hc-form .hc-form-field {
 	min-width: 100%;
-	background: #E4E4E4;
-	border: 1px solid #337ab7;
+	/*background: #E4E4E4;
+	border: 1px solid #337ab7;*/
 }
 
 .hc-form .hc-form-field .hc-output-text {
@@ -143,25 +149,15 @@
 }
 
 .hc-300-panel {
-	width: 500px;
-	height: 500px;
 	max-width: 100%;
 	max-height: 100%;
 	overflow: scroll;
 }
-
+.hc-300-panel .col-md-12 {
+    padding-bottom: 20px;
+}
 .hc-padding-20 {
 	padding: 20px;
-}
-
-hc-image-container-1m {
-	height:
-}
-
-div.hc-responsive-div, div.hc-responsive-div img {
-	max-width: 100% !important;
-	max-height: 100% !important;
-	padding-bottom: 20px;
 }
 
 /* yellow button */
@@ -195,8 +191,7 @@ div.hc-responsive-div, div.hc-responsive-div img {
 	color: #000;
 }
 
-.hc-yellow-button-link :hover, .hc-yellow-button-link :active,
-	.hc-yellow-button-link :hover span, .hc-yellow-button-link :active span
+.hc-yellow-button-link :hover,.hc-yellow-button-link :active,.hc-yellow-button-link :hover span,.hc-yellow-button-link :active span
 	{
 	color: white;
 }
@@ -225,51 +220,9 @@ div.hc-responsive-div, div.hc-responsive-div img {
 	font-size: 20px;
 }
 
-.login-btn {
-	text-align: center;
-	padding: 30px;
-}
-
-.register-btn {
-	text-align: center;
-	padding: 20px 0 20px 0;
-}
-
 .hc-overlay-form-fields-container.col-md-12 label {
 	font-size: 14px;
 	padding: 3px 0 5px 17px;
-}
-
-.field-text label {
-	padding: 10px 0 10px 15px;
-}
-
-.hidden-btn {
-	display: none;
-	overflow: auto;
-	height: 344px;
-	width: 100%;
-}
-
-#login-dialog {
-	position: absolute !important;
-}
-
-.btn-close {
-	display: none
-}
-
-.btn-open {
-	text-align: center;
-}
-
-a.closed-tc.ui-icon.ui-icon-closethick {
-	displat: none;
-	text-align: right;
-}
-
-.check-tc {
-	display: flex;
 }
 
 .hc-page-content {
@@ -278,27 +231,55 @@ a.closed-tc.ui-icon.ui-icon-closethick {
 	margin-bottom: 50px;
 }
 
-.content-description {
+.hc-content-info-public {
+	margin-right: -14px;
+	padding-bottom: 40px;
+	line-height: 40px;
+}
+
+.hc-form .hc-form-field .hc-linkedin {
+	width: 16%;
+	height: 16%;
+}
+
+.hc-content-description {
 	width: 100%;
 	height: auto;
 	padding: 20px;
-	background: #E4E4D1;
 }
 
-.content-profile {
-	padding-bottom: 100px;
-	padding-top: 100px;
+.hc-font-field {
+	font-size: 17px;
 }
 
-.content-btn-edit {
+.hc-image-public-content img {
+	width: 150px;
+}
+
+.hc-name-content-profile {
+	margin-left: -8px;
+}
+
+.hc-responsive-div img {
+	width: 237px;
+}
+
+.hc-info-content-profile {
+	line-height: 29px;
+}
+
+.hc-box-telephone {
+	width: 100%;
+}
+
+.hc-btn-save-cancel{
 	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
-
-.content-sup-edit-info {
-	padding: 20px;
-	width: 30%;
+.hc-edit-finish-img{
+	margin-bottom:20px;
 }
-
-.edit-btn-content {
-	padding-bottom: 10px;
+.hc-content-edit-info{
+line-height:40px;	
 }

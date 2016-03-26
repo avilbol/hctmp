@@ -41,32 +41,41 @@
 					onclick="doClick('#{cc.commandLink.clientId}')">
 			<div class="card-content hc-profile-browse-cell">
 					<div class="card-image">
-					<div class="sub-card">
-						<utils:imageEditor imageUrl="#{cc.profile.image}"
+					
+					<div class="col-md-3 img-profile">
+					<utils:imageEditor imageUrl="#{cc.profile.image}"
 							imageType="userImage" readOnly="true" />
-					</div>
-					</div>
-					<div class="card-info">
-					<div class="card-info-content">
-					<div class="sub-card">
-							<b> <h:outputText value="#{cc.cityName}">
+					<h:outputText style="font-size:17px;" value="#{cc.cityName}">
 								</h:outputText>
-							</b>
-						</div>
-					<div class="sub-card">
-							<b> <h:outputText
+					</div>
+					<div class="col-md-3 content-info-init">
+					
+					<div class="row sub-card languaje-card">						
+							<b class="name-content"> <h:outputText
 									value="#{cc.profile.firstName} #{cc.profile.lastName}">
 								</h:outputText>
 							</b>
-						</div>
+							</div>
+					<div class="row sub-card">	
+					<div class="col-md-6 sub-card-languaje">	
 							<ui:repeat value="#{cc.loadSpokenLanguageList()}"
 								var="spokenLanguage">
-								<div class="sub-card">
-									#{spokenLanguage.languageName}</div>
-								<div class="sub-card">
-								#{cc.loadAdditionalLanguagesMark()}</div>
+									#{spokenLanguage.languageName}
+									
+								#{cc.loadAdditionalLanguagesMark()}
 							</ui:repeat>
-					<div class="sub-card">
+							</div>
+							
+					<div class="col-md-6 sub-card">	
+						<ui:repeat value="#{cc.profile.userTypes}" var="userType">
+							<div style="display: block">#{cc.load(userType)}</div>
+						</ui:repeat>
+							</div>
+							</div>
+							
+							
+					<div class="col-md-12">
+					<div class="col-md-6 sub-card">	
 							<ui:fragment
 								rendered="#{cc.attrs.presentation.equals(cc.litePresentation)}">
 								<h:commandButton styleClass="btn btn-default"
@@ -74,22 +83,19 @@
 									value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
 							</ui:fragment>
 							</div>
-					<div class="sub-card">
-						<ui:repeat value="#{cc.profile.userTypes}" var="userType">
-							<div style="display: block">#{cc.load(userType)}</div>
-						</ui:repeat>
-					</div>
-					</div>
-					<div class="card-description">
-					<div class="sub-card">
-						<p><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></p>
+							
+							</div>
+							</div>
+					<div class="col-md-6">
+					<div class="col-md-12 card-description">	
+						<!-- <p><b><h:outputText
+							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
 						<p>#{cc.loadDescription()}</p>
-					</div>
-					</div>
-					</div>
-				</div>
-			</div>
-		</h:panelGroup>
+							</div>
+						</div>
+						</div>
+						</div>
+						</div>
+					</h:panelGroup>
 	</cc:implementation>
 </ui:composition>
