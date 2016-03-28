@@ -11,7 +11,8 @@
 	<p:growl globalOnly="false" showDetail="false" />
 
 	<ui:define name="contentSection">
-		<div class="page container">
+		<div class="hc-content-body">
+		<div class="container">
 			<h:form styleClass="hc-form" enctype="multipart/form-data">
 				<div class="row">
 					<p:messages id="messages" showDetail="false" autoUpdate="true"
@@ -20,23 +21,24 @@
 					<ui:include src="../fragments/service-edit-panel.xhtml" />
 				</div>
 				<div class="row hc-btn-save-cancel">
-					<div class="col-md-6">
+					<div class="col-md-6 btn-save">
 						<h:commandButton value="Guardar"
 							actionListener="#{profileEditPage.processSaveClick()}"
-							styleClass="btn btn-default">
+							styleClass="btn btn-primary">
 							<f:ajax execute="@form" render="@form" />
 						</h:commandButton>
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-6 btn-cancel">
 						<h:commandButton value="#{viewBundle['Common.Label.Cancel']}"
 							actionListener="#{profileEditPage.processCancelClick()}"
-							immediate="true" styleClass="btn btn-default">
+							immediate="true" styleClass="btn btn-primary">
 							<f:ajax execute="@form" render="@form" />
 						</h:commandButton>
 					</div>
 				</div>
 			</h:form>
+		</div>
 		</div>
 	</ui:define>
 

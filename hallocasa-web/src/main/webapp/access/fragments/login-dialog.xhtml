@@ -31,7 +31,7 @@
 			</div>
 			<div class="col-md-12 login-btn">
 				<p:commandButton value="${viewBundle['Login.Submit.Button']}"
-					styleClass="hc-form-cancel-btn btn-default"
+					styleClass="hc-form-cancel-btn btn-primary"
 					actionListener="#{loginDialog.processSubmitClick()}"
 					process="@form" update="@form"
 				    oncomplete="if (args.ok ){ PF('login-dialog').hide(); location.reload();}" />

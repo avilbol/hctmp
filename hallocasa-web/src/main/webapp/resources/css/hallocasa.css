@@ -21,12 +21,16 @@
 /*body*/
 .hc-content-body {
 	min-height: 640px;
-	border-bottom: 8px solid #1D5D8D;
+	border-bottom: 2px solid #1D5D8D;
+	background-image: url("#{resource['images:hc-background-1345.jpg']}");
+	background-repeat: no-repeat;    
+	padding-top: 130px;
 }
 
 .hc-content-Profiles {
-	padding: 20px;
-	background: #fff;
+	background: rgba(1, 89, 165, 0.12);
+    height: auto;
+    float: left;
 }
 /* sections and components */
 .hc-basic-button {
@@ -153,9 +157,11 @@
 	max-height: 100%;
 	overflow: scroll;
 }
+
 .hc-300-panel .col-md-12 {
-    padding-bottom: 20px;
+	padding-bottom: 20px;
 }
+
 .hc-padding-20 {
 	padding: 20px;
 }
@@ -232,14 +238,20 @@
 }
 
 .hc-content-info-public {
-	margin-right: -14px;
-	padding-bottom: 40px;
-	line-height: 40px;
+	margin-left: 14px;
+	line-height: 30px;
+	width: 23%;
+	float: left;
+	padding-left: 16px;
 }
 
 .hc-form .hc-form-field .hc-linkedin {
-	width: 16%;
-	height: 16%;
+	width: 55%;
+}
+.hc-content-linkedin-profile{
+	width:5%;
+	float: left;
+	padding-left: 15px;
 }
 
 .hc-content-description {
@@ -272,14 +284,32 @@
 	width: 100%;
 }
 
-.hc-btn-save-cancel{
+.hc-btn-save-cancel {
 	text-align: center;
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
-.hc-edit-finish-img{
-	margin-bottom:20px;
+
+.hc-edit-finish-img {
+	margin-bottom: 20px;
 }
-.hc-content-edit-info{
-line-height:40px;	
+
+.hc-content-edit-info {
+	line-height: 40px;
+}
+
+.hc-contents-cards {
+	background: #fff;
+}
+
+.hc-phone-number {
+	font-size: 17px;
+}
+
+.hc-info-csc {
+	margin-bottom: 20px;
+}
+
+.hc-skype {
+	margin-left: 0 !important;
 }

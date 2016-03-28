@@ -10,8 +10,6 @@ body {
 	display: table;
 	width: 100%;
 	margin: 0;	
-	background-image: url("#{resource['images:hc-background-1345.jpg']}");
-	background-repeat: no-repeat;
 	font-size: 19px!important;
 }
 .beta{
@@ -151,9 +149,8 @@ section {
 
 
 .col-md-12.container.con-body {
-	height: 300px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+	    height: 510px;
+    padding-top: 70px;
 }
 .menu{
 	float: right!important;
@@ -248,12 +245,15 @@ ul.topnav li.icon {
 .top-strip {
 	height: auto;
 	float: left;
-	width: 100%;
+	width: 100%;	
+    position: fixed!important;
+    background: #fff;
+    border-bottom: 2px solid #1D5D8D;    
+    z-index: 11;
 }
 
 
 .card-content{
-    padding: 20px;
     float: left;
     margin: 0 0px 20px 0;
 }
@@ -340,4 +340,8 @@ a.closed-tc.ui-icon.ui-icon-closethick {
     font-size: 16px;
     margin-bottom: 20px;   
     float: left;
+}
+.ui-widget-overlay {
+	filter: alpha(opacity = 90); /* works in IE 7 */
+	opacity: 0.9; /* works in Firefox */
 }

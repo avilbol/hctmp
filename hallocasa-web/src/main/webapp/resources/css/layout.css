@@ -18,15 +18,13 @@ body {
 
 
 .page {
-    width: 980px;
+    width: 1343px;
    margin: auto;
     height: 752px;
 }
 .page-profile {
     width: 100%;
     margin: auto;
-    height: 638px;
-    border-bottom: 8px solid#002D45;
 }
 .section {
     clear: both;

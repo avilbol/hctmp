@@ -15,7 +15,7 @@
     </ui:define>
 
     <ui:define name="contentSection">
-        <div class="row page-profile">
+        <div class="hc-content-body">
         <div class="container">
             <h:form styleClass="hc-form"
                     enctype="multipart/form-data">     
@@ -26,7 +26,7 @@
                 </div>
                 
                 <div class="col-md-12 content-btn-edit">
-                    <p:commandButton value="#{viewBundle['Profile.Edit.Button']}" styleClass="btn btn-default"
+                    <p:commandButton value="#{viewBundle['Profile.Edit.Button']}" styleClass="btn btn-primary"
                                      process="@this"
                                      actionListener="#{profileReadPage.processEditClick()}"/>
                 </div>

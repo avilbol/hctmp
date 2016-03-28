@@ -45,19 +45,19 @@
 					<div class="col-md-3 img-profile">
 					<utils:imageEditor imageUrl="#{cc.profile.image}"
 							imageType="userImage" readOnly="true" />
-					<h:outputText style="font-size:17px;" value="#{cc.cityName}">
+					<h:outputText  styleClass="label-city" value="#{cc.cityName}">
 								</h:outputText>
 					</div>
-					<div class="col-md-3 content-info-init">
+					<div class="content-info-init">
 					
-					<div class="row sub-card languaje-card">						
+					<div class="name-card">						
 							<b class="name-content"> <h:outputText
 									value="#{cc.profile.firstName} #{cc.profile.lastName}">
 								</h:outputText>
 							</b>
-							</div>
-					<div class="row sub-card">	
-					<div class="col-md-6 sub-card-languaje">	
+					</div>
+					<div class="info-card">	
+					<div class="sub-card-languaje">	
 							<ui:repeat value="#{cc.loadSpokenLanguageList()}"
 								var="spokenLanguage">
 									#{spokenLanguage.languageName}
@@ -66,25 +66,26 @@
 							</ui:repeat>
 							</div>
 							
-					<div class="col-md-6 sub-card">	
+					<div class="sub-card-service">	
 						<ui:repeat value="#{cc.profile.userTypes}" var="userType">
 							<div style="display: block">#{cc.load(userType)}</div>
 						</ui:repeat>
 							</div>
 							</div>
+							</div>
 							
 							
-					<div class="col-md-12">
-					<div class="col-md-6 sub-card">	
+							
+					<div class="col-md-12 content-btn-more">
+					<div class="col-md-6 sub-card btn-more">	
 							<ui:fragment
 								rendered="#{cc.attrs.presentation.equals(cc.litePresentation)}">
-								<h:commandButton styleClass="btn btn-default"
+								<h:commandButton styleClass="btn btn-primary"
 									actionListener="#{cc.attrs.onClick}"
 									value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
 							</ui:fragment>
 							</div>
 							
-							</div>
 							</div>
 					<div class="col-md-6">
 					<div class="col-md-12 card-description">	

@@ -58,7 +58,7 @@
 
 				<div class="col-md-12 register-btn">
 					<p:commandButton value="${viewBundle['SignUp.Header.Button']}"
-						styleClass="btn btn-default"
+						styleClass="btn btn-primary"
 						actionListener="#{signUpDialog.processSubmitClick()}"
 						process="@form" update="@this"
 						oncomplete="processSignUpFinished(args, #{globalMenuBean.interactWithApp});"/>

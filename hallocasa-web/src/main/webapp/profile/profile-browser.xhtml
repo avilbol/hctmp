@@ -13,14 +13,15 @@
 	<p:growl globalOnly="false" showDetail="false" />
 
 	<ui:define name="contentSection">
+		<div class="hc-content-body">
 		<div class="container">
 			<div class="col-md-12 hc-page-content">
 				<h:form id="profileBrowserForm" enctype="multipart/form-data">
-					<p:panel
+					<!-- <p:panel
 						header="#{viewBundle['PublicProfile.BrowseProfile.PanelTitle']}"
-						styleClass="user-profile-panel">
+						styleClass="user-profile-panel"> -->
 						<h:panelGroup id="profileListArea">
-							<div class="col-md-12">
+							<div class="col-md-12 hc-contents-cards">
 								<ui:repeat var="profileItem"
 									value="#{profileBrowserPage.userList}">
 									<utils:profileEntry value="#{profileItem}" size="300"
@@ -39,9 +40,10 @@
 								</h:commandButton>
 							</div>
 						</h:panelGroup>
-					</p:panel>
+						<!--</p:panel> -->
 				</h:form>
 			</div>
+		</div>
 		</div>
 	</ui:define>
 </ui:composition>
