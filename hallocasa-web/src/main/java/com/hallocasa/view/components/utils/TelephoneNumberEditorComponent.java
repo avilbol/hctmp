@@ -1,5 +1,6 @@
 package com.hallocasa.view.components.utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +55,7 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 	}
 	
 	@Override
-	public void encodeBegin(FacesContext context) {
+	public void encodeBegin(FacesContext context) throws IOException {
 		if (prefixList == null) {
 			prefixList = telephoneServices.getCountryPrefixList();
 		}
@@ -63,6 +64,7 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 			countryTelephonePrefix.setValue(tvo.getCountryTelephonePrefix());
 			number.setValue(tvo.getNumber());
 		}
+		super.encodeBegin(context);
 	}
 
 	@Override
