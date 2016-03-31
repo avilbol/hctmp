@@ -55,6 +55,11 @@
 						placeholder="#{viewBundle['SignUp.Form.ConfirmPassword']}"
 						styleClass="hc-form-field" value="#{signUpDialog.passwordConfirm}" />
 				</div>
+				<div class="col-md-12 check-tc">
+					<h:selectBooleanCheckbox value="#{signUpDialog.acceptTerms}" >
+					</h:selectBooleanCheckbox>&nbsp;
+					<h4> #{viewBundle['SignUp.Form.TermsAndConditions.Accept']}</h4>
+				</div> 
 
 				<div class="col-md-12 register-btn">
 					<p:commandButton value="${viewBundle['SignUp.Header.Button']}"
@@ -77,11 +82,6 @@
 						styleClass="hc-form-field" />
 				</div>
 				</div>
-				<div class="col-md-12 check-tc">
-					<h:selectBooleanCheckbox value="#{signUpDialog.acceptTerms}" >
-					</h:selectBooleanCheckbox>
-					<div > #{viewBundle['SignUp.Form.TermsAndConditions.Accept']}</div>
-				</div> 
 			</div>
 		</h:form>
 	</p:dialog>

@@ -21,16 +21,11 @@
             <div class="col-md-8">            
             <div class="row">
             <div class="col-md-3">
-            <!-- <b><span class="hc-form-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span></b>-->
-				<h:outputText value="#{profileReadPage.linkedInName}" 
-                			  rendered="#{profileReadPage.linkedInPending}"
-                              styleClass="hc-form-field hc-gray-field"/>
                 <h:outputLink value="#{profileReadPage.linkedInLink}" 
                 			  rendered="#{not profileReadPage.linkedInPending}"
                               styleClass="hc-form-field" target="_blanck">
                              <h:graphicImage library="images/icons" name="linkedin.png"
-										class="hc-linkedin" />
-                	<!-- <h:outputText value="#{profileReadPage.linkedInName}"/> -->
+										styleClass="btn-linkedin" />
 				</h:outputLink>
             </div>
             <div class="col-md-3">
@@ -93,13 +88,14 @@
 
                
 
+                <ui:fragment rendered="#{not profileReadPage.skypePending}">
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
-            	<h:graphicImage library="images/icons" 	name="skype-24.png" />
-                <h:outputText value="#{profileReadPage.skypeName}"
-                              styleClass="hc-form-field #{profileReadPage.skypePending ? 'hc-gray-field' : ''}"/>
+                <h:outputText value="#{profileReadPage.skypeName}"/>
 			    <h:outputLink value="skype:#{profileReadPage.skypeName}?call"
                 			  rendered="#{not profileReadPage.skypePending}">
+            	<h:graphicImage library="images/icons" 	name="skype-24.png" />
 				</h:outputLink>
+				</ui:fragment>
             </div>
         </div>
         <hr/>

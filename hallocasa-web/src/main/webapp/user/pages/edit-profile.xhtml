@@ -12,33 +12,33 @@
 
 	<ui:define name="contentSection">
 		<div class="hc-content-body">
-		<div class="container">
-			<h:form styleClass="hc-form" enctype="multipart/form-data">
-				<div class="row">
-					<p:messages id="messages" showDetail="false" autoUpdate="true"
-						closable="true" />
-					<ui:include src="../fragments/investor-edit-panel.xhtml" />
-					<ui:include src="../fragments/service-edit-panel.xhtml" />
-				</div>
-				<div class="row hc-btn-save-cancel">
-					<div class="col-md-6 btn-save">
-						<h:commandButton value="Guardar"
-							actionListener="#{profileEditPage.processSaveClick()}"
-							styleClass="btn btn-primary">
-							<f:ajax execute="@form" render="@form" />
-						</h:commandButton>
+			<div class="container">
+				<h:form styleClass="hc-form" enctype="multipart/form-data">
+					<div class="row">
+						<p:messages id="messages" showDetail="false" autoUpdate="true"
+							closable="true" />
+						<ui:include src="../fragments/investor-edit-panel.xhtml" />
+						<ui:include src="../fragments/service-edit-panel.xhtml" />
 					</div>
+					<div class="row hc-btn-save-cancel">
+						<div class="col-md-6 btn-save">
+							<h:commandButton value="Guardar"
+								actionListener="#{profileEditPage.processSaveClick()}"
+								styleClass="btn btn-primary">
+								<f:ajax execute="@form" render="@form" />
+							</h:commandButton>
+						</div>
 
-					<div class="col-md-6 btn-cancel">
-						<h:commandButton value="#{viewBundle['Common.Label.Cancel']}"
-							actionListener="#{profileEditPage.processCancelClick()}"
-							immediate="true" styleClass="btn btn-primary">
-							<f:ajax execute="@form" render="@form" />
-						</h:commandButton>
+						<div class="col-md-6 btn-cancel">
+							<h:commandButton value="#{viewBundle['Common.Label.Cancel']}"
+								actionListener="#{profileEditPage.processCancelClick()}"
+								immediate="true" styleClass="btn btn-primary">
+								<f:ajax execute="@form" render="@form" />
+							</h:commandButton>
+						</div>
 					</div>
-				</div>
-			</h:form>
-		</div>
+				</h:form>
+			</div>
 		</div>
 	</ui:define>
 

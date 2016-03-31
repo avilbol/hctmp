@@ -23,14 +23,24 @@
 	min-height: 640px;
 	border-bottom: 2px solid #1D5D8D;
 	background-image: url("#{resource['images:hc-background-1345.jpg']}");
-	background-repeat: no-repeat;    
+	background-repeat: no-repeat;
 	padding-top: 130px;
 }
-
+.hc-content-body-blog {
+	min-height: 640px;
+	border-bottom: 2px solid #1D5D8D;
+	padding-top: 130px;
+}
+.hc-content-body-downloads {
+    min-height: 640px;
+    border-bottom: 2px solid #1D5D8D;
+    padding-top: 200px;
+}
 .hc-content-Profiles {
 	background: rgba(1, 89, 165, 0.12);
-    height: auto;
-    float: left;
+	height: auto;
+	float: left;
+	width: 100%;
 }
 /* sections and components */
 .hc-basic-button {
@@ -96,7 +106,7 @@
 .hc-overlay-form-fields-container {
 	padding-bottom: 20px;
 	font-size: 0.85em;
-	border: 1px solid #002D45;
+	/*border: 1px solid #002D45;*/
 }
 
 .hc-overlay-form-buttons-container {
@@ -224,10 +234,11 @@
 .ui-dialog-titlebar.ui-widget-header.ui-helper-clearfix.ui-corner-top span
 	{
 	font-size: 20px;
+	padding-top: 20px;
 }
 
 .hc-overlay-form-fields-container.col-md-12 label {
-	font-size: 14px;
+	font-size: 20px;
 	padding: 3px 0 5px 17px;
 }
 
@@ -248,8 +259,9 @@
 .hc-form .hc-form-field .hc-linkedin {
 	width: 55%;
 }
-.hc-content-linkedin-profile{
-	width:5%;
+
+.hc-content-linkedin-profile {
+	width: 5%;
 	float: left;
 	padding-left: 15px;
 }
@@ -312,4 +324,7 @@
 
 .hc-skype {
 	margin-left: 0 !important;
+}
+.btn-linkedin{
+	width:22%;
 }

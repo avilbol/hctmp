@@ -88,7 +88,7 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 .ui-icon { width: 16px; height: 16px;/* background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}");*/ }
 .ui-widget-content .ui-icon {background-image: url('../../images/icons/folder-48.png');/*background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}");*/ }
 .ui-widget-header .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_686c6f_256x240.png']}"); }
-.ui-state-default .ui-icon { background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_000000_256x240.png']}"); }
+.ui-state-default .ui-icon { background-image: /*url("#{resource['primefaces-hallocasa:images/ui-icons_000000_256x240.png']}");*/ none; }
 .ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_ffffff_256x240.png']}"); }
 .ui-state-active .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_454545_256x240.png']}"); }
 .ui-state-highlight .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_002d45_256x240.png']}"); }
@@ -305,7 +305,7 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 .ui-dialog .ui-dialog-title{ margin: 0px; }
 
 /* Panels */
-.ui-panel{ padding: 0px;float: left;width: 100%;}
+.ui-panel{ padding: 0px;float: left;width: 100%;    margin-top: 20px;}
 .ui-panel .ui-panel-titlebar{/* background-image: none; background-color: #002d45;*/ color: #002D45; padding: 12px 25px 12px 25px; font-size: 0.9em; }
 /*.ui-panel .ui-panel-content{ padding: 25px; height: 532px;}*/
 .section{	padding: 30px; }
@@ -313,7 +313,7 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 /* Buttons */
 .ui-button .ui-button-text { padding: 0.6em 1.2em; }
 .ui-button-text-icon-left .ui-button-text.ui-c { margin-left: 0.7em; }
-.btn-disabled{    margin-bottom: 50px;background-color: #fff;border-color: #ccc!important;color:#333";}
+.btn-disabled{padding-bottom: 20px;  margin-bottom: 50px;background-color: #fff;border-color: #ccc!important;color:#333";}
 /* Fieldset */
 .ui-fieldset-legend {
     font-weight:bold;
