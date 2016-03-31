@@ -10,8 +10,6 @@ body {
 	display: table;
 	width: 100%;
 	margin: 0;	
-	background-image: url("#{resource['images:hc-background-1345.jpg']}");
-	background-repeat: no-repeat;
 	font-size: 19px!important;
 }
 .beta{
@@ -151,9 +149,8 @@ section {
 
 
 .col-md-12.container.con-body {
-	height: 300px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+	    height: 510px;
+    padding-top: 70px;
 }
 .menu{
 	float: right!important;
@@ -248,12 +245,15 @@ ul.topnav li.icon {
 .top-strip {
 	height: auto;
 	float: left;
-	width: 100%;
+	width: 100%;	
+    position: fixed!important;
+    background: rgba(225,235,244,0.95);
+    border-bottom: 2px solid #1D5D8D;    
+    z-index: 11;
 }
 
 
 .card-content{
-    padding: 20px;
     float: left;
     margin: 0 0px 20px 0;
 }
@@ -294,6 +294,9 @@ div.hc-responsive-div, div.hc-responsive-div img {
 a.closed-tc.ui-icon.ui-icon-closethick {
 	displat: none;
 	text-align: right;
+	width: 100%;
+    height: 31px;    
+    text-decoration: none;
 }
 
 .check-tc {
@@ -319,7 +322,39 @@ a.closed-tc.ui-icon.ui-icon-closethick {
 .edit-btn-content {
 	padding-bottom: 10px;
 }
-ul.nav.navbar-nav.navbar-right li a:hover {
-    text-decoration: underline;
-    background: transparent;
+
+#top-submenu-strip a {
+    color: white;
+}
+#top-submenu-strip a:hover {
+    color: #606163;
+}
+#top-submenu-strip a:focus, #top-submenu-strip a:active {
+    color: #606163;    
+    background-color: #eee;
+}
+#top-submenu-strip {
+    width: 100%;
+    margin-top: 20px;
+    background: #606163;
+    font-size: 16px;
+    margin-bottom: 20px;   
+    float: left;
+}
+.ui-widget-overlay {
+	filter: alpha(opacity = 90); /* works in IE 7 */
+	opacity: 0.9; /* works in Firefox */
+}
+.check-tc{
+	    padding-top: 20px;
+}
+.check-tc h4{
+	    margin: 0px!important;
+}
+a.ui-menuitem-link.ui-corner-all {
+    width: 100%;
+}
+.ui-autocomplete-input.ui-inputfield.ui-widget.ui-state-default.ui-corner-all {
+    margin-bottom: 12px;    
+    width: 32%;
 }

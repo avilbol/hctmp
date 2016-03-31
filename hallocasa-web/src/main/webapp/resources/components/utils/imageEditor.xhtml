@@ -21,7 +21,7 @@
 		<h:panelGroup id="image-editor-container">
 
 			<div class="edit-btn-content col-md-12">
-				<h:commandButton styleClass="btn btn-default"
+				<h:commandButton styleClass="btn btn-primary"
 					rendered="#{not cc.attrs.readOnly}"
 					value="#{viewBundle['Image.Edition']}"
 					onclick="PF('upload-image-dialog').show();return false" />
@@ -75,7 +75,7 @@
 							</div>
 							<p:imageCropper id="cropper" value="#{cc.croppedImage}"
 								image="/resources/images/#{cc.uncroppedImageResourcesUrl}"
-								initialCoords="0,0,50,50" />
+								initialCoords="0,0,50,50"  />								
 						</h:panelGrid>
 					</h:panelGroup>
 				</h:panelGroup>

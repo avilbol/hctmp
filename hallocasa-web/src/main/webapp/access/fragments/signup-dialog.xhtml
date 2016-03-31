@@ -55,10 +55,15 @@
 						placeholder="#{viewBundle['SignUp.Form.ConfirmPassword']}"
 						styleClass="hc-form-field" value="#{signUpDialog.passwordConfirm}" />
 				</div>
+				<div class="col-md-12 check-tc">
+					<h:selectBooleanCheckbox value="#{signUpDialog.acceptTerms}" >
+					</h:selectBooleanCheckbox>&nbsp;
+					<h4> #{viewBundle['SignUp.Form.TermsAndConditions.Accept']}</h4>
+				</div> 
 
 				<div class="col-md-12 register-btn">
 					<p:commandButton value="${viewBundle['SignUp.Header.Button']}"
-						styleClass="btn btn-default"
+						styleClass="btn btn-primary"
 						actionListener="#{signUpDialog.processSubmitClick()}"
 						process="@form" update="@this"
 						oncomplete="processSignUpFinished(args, #{globalMenuBean.interactWithApp});"/>
@@ -70,18 +75,13 @@
 					</a>
 				</div>
 				<div class="col-md-12 btn-close"> 
-					<a class="closed-tc ui-icon ui-icon-closethick"></a>
+					<a class="closed-tc ui-icon ui-icon-closethick">x</a>
 				</div>
 				<div class="col-md-12 hidden-btn">
 					<h:outputText escape="false" value="#{viewTermsBundle['signup']}"
 						styleClass="hc-form-field" />
 				</div>
 				</div>
-				<div class="col-md-12 check-tc">
-					<h:selectBooleanCheckbox value="#{signUpDialog.acceptTerms}" >
-					</h:selectBooleanCheckbox>
-					<div > #{viewBundle['SignUp.Form.TermsAndConditions.Accept']}</div>
-				</div> 
 			</div>
 		</h:form>
 	</p:dialog>

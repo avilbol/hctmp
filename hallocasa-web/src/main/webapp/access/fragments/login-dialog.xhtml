@@ -15,7 +15,7 @@
 		<h:form id="login-form" styleClass="hc-form">
 			<h:outputText rendered="#{not globalMenuBean.interactWithApp}"
 				value="#{viewBundle['PublicProfile.PreAuthorize.loginNeeded']}" />
-			<div class="hc-overlay-form-fields-container col-md-12">
+			<div class="col-md-12">
 				<p:outputLabel for="email" value="#{viewBundle['Login.Form.Email']}"
 					styleClass="hc-form-label hc-form-required" />
 				<p:inputText id="email"
@@ -31,26 +31,26 @@
 			</div>
 			<div class="col-md-12 login-btn">
 				<p:commandButton value="${viewBundle['Login.Submit.Button']}"
-					styleClass="hc-form-cancel-btn btn-default"
+					styleClass="hc-form-cancel-btn btn-primary"
 					actionListener="#{loginDialog.processSubmitClick()}"
 					process="@form" update="@form"
 				    oncomplete="if (args.ok ){ PF('login-dialog').hide(); location.reload();}" />
 			</div>
-			<div class="col-md-12">
-				<div class="col-md-12">
-					<p:commandLink value="#{viewBundle['ForgotPassword.forgot']}"
+			<div class="row col-md-12">
+				<div class="row">
+					<h4><p:commandLink value="#{viewBundle['ForgotPassword.forgot']}"
 						immediate="true" ajax="true" update=":password-recovery-form"
 						action="#{passwordRecoveryDialog.initialize()}"
 						oncomplete="PF('login-dialog').hide();
                                        PF('password-recovery-dialog').show();"
-						styleClass="hc-link login-dialog-signup-link" />
+						styleClass="hc-link login-dialog-signup-link" /></h4>
 				</div>
-				<div class="col-md-12">
-					<p:commandLink value="#{viewBundle['Login.Link.SignUp']}"
+				<div class="row">
+						<h4><p:commandLink value="#{viewBundle['Login.Link.SignUp']}"
 						process="@this" immediate="true"
 						onclick=" PF('login-dialog').hide();
                                        PF('signup-dialog').show();"
-						styleClass="hc-link login-dialog-signup-link" />
+						styleClass="hc-link login-dialog-signup-link" /></h4>
 				</div>
 			</div>
 		</h:form>

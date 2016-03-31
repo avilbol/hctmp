@@ -139,8 +139,8 @@
 									styleClass="hc-manycheckbox-three-columns hc-selectManyChkbox">
 									<p:selectManyCheckbox id="spokenLanguages" label="Lenguajes"
 										value="#{profileEditPage.user.spokenLanguages}"
-										layout="pageDirection" required="true"
-										converter="languageConverter">
+										layout="responsive" required="true"
+										converter="languageConverter" columns="3">
 										<f:selectItems value="#{profileEditPage.languages}"
 											var="language" itemLabel="#{language.languageName}"
 											itemValue="#{language}">
@@ -158,7 +158,7 @@
 				</div>
 				<hr />
 
-				<div class="col-md-12">
+				<div class="col-md-4">
 					<h:panelGroup layout="block"
 						styleClass="section hc-overlay-form-fields-container clearfix"
 						id="main-language-section">
