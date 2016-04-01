@@ -61,7 +61,7 @@ public class ProfileEntryComponent extends BaseComponent {
 	/**
 	 * Maximum allowed of characters before description truncation
 	 */
-	private static final int MAX_SIZE_OF_CHARACTERS_IN_DESCRIPTION = 20;
+	private static final int MAX_SIZE_OF_CHARACTERS_IN_DESCRIPTION = 70;
 
 	/* dependencies */
 	@Inject
