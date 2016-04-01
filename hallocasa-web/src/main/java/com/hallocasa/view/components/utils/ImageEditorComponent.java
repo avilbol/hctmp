@@ -10,6 +10,8 @@ import com.hallocasa.utils.ApplicationFileUtils;
 import com.hallocasa.view.components.base.BaseComponent;
 import com.hallocasa.view.context.ViewContext;
 import com.hallocasa.viewmodel.security.LoginDialog;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -19,18 +21,22 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.imgscalr.Scalr;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.CroppedImage;
 
@@ -50,6 +56,10 @@ public class ImageEditorComponent extends BaseComponent {
     }
 
     private static final Integer MAX_BYTES_PART_SIZE = 5120000;
+    
+    private static final Integer MAX_IMAGE_WIDTH = 260;
+    
+    private static final Integer MAX_IMAGE_HEIGHT = 480;
     
     private Part uncroppedImagePart;
 
@@ -116,9 +126,29 @@ public class ImageEditorComponent extends BaseComponent {
             File file = loadFileTemplate();
             try (InputStream inputStream = this.uncroppedImagePart.getInputStream();
                     OutputStream o = new FileOutputStream(file);) {
-                IOUtils.copy(inputStream, o);
+            	
+            	IOUtils.copy(inputStream, o);
+            	
+            	BufferedImage image = ImageIO.read(inputStream);
+            	boolean widthExceeded = image.getWidth() > MAX_IMAGE_WIDTH;
+            	boolean heightExceeded = image.getHeight() > MAX_IMAGE_HEIGHT;
+            	
+            	if(widthExceeded && image.getWidth() >= image.getHeight()){
+            		double proportion =  MAX_IMAGE_WIDTH / image.getWidth();
+            		BufferedImage scaledImage = Scalr.resize(image, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_TO_WIDTH, 
+            				MAX_IMAGE_WIDTH, (int)(image.getHeight() * proportion));
+            		ImageIO.write(scaledImage, "jpg", o);
+            	}
+            	else if(heightExceeded){
+            		double proportion =  MAX_IMAGE_HEIGHT / image.getHeight();
+            		BufferedImage scaledImage = Scalr.resize(image, Scalr.Method.ULTRA_QUALITY, (int)(image.getWidth() * proportion), 
+            				MAX_IMAGE_HEIGHT );
+            		ImageIO.write(scaledImage, "jpg", o);
+            	}
+            	
                 inputStream.close();
                 o.close();
+                
                 this.setUncroppedImageUrl(getRelativePath() + "/" + file.getName());
                 this.setUncroppedImageResourcesUrl(file.getName());
                 createUncroppedImage();

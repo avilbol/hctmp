@@ -14,6 +14,7 @@ import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.view.components.base.BaseComponent;
+import com.hallocasa.view.utils.FormatUtils;
 
 /**
  * 
@@ -36,17 +37,17 @@ public class ProfileEntryComponent extends BaseComponent {
 	 * Component for apply command link
 	 */
 	private UIComponent commandLink;
-	
+
 	/**
 	 * Language for presentation
 	 */
 	private Language language;
-	
+
 	/**
 	 * Identifier of complete presentation
 	 */
 	public static final String COMPLETE_PRESENTATION = "complete";
-	
+
 	/**
 	 * Identifier of lite presentation
 	 */
@@ -56,21 +57,27 @@ public class ProfileEntryComponent extends BaseComponent {
 	 * Maximum allowed of languages in lite version
 	 */
 	private static final int MAX_SPOKEN_LANGUAGES_ALLOWED_IN_LITE = 4;
-	
-	/* dependencies */
-    @Inject
-    private WebSession webSession;
 
-    public String getCityName(){
-        return profile.getCity().getCityName().getText(webSession.getCurrentLanguage());
-    }
+	/**
+	 * Maximum allowed of characters before description truncation
+	 */
+	private static final int MAX_SIZE_OF_CHARACTERS_IN_DESCRIPTION = 20;
+
+	/* dependencies */
+	@Inject
+	private WebSession webSession;
+
+	public String getCityName() {
+		return profile.getCity().getCityName()
+				.getText(webSession.getCurrentLanguage());
+	}
 
 	@Override
 	public void initialize() {
-		language =  (Language) this.getAttributes().get(
+		language = (Language) this.getAttributes().get(
 				Attributes.language.toString());
-		profile = (UserVO) this.getAttributes().get(
-				Attributes.value.toString());
+		profile = (UserVO) this.getAttributes()
+				.get(Attributes.value.toString());
 	}
 
 	@Override
@@ -82,7 +89,7 @@ public class ProfileEntryComponent extends BaseComponent {
 
 	@Override
 	protected void restoreComponent(FacesContext facesContext,
-			HashMap<String, Object> map){
+			HashMap<String, Object> map) {
 		this.profile = (UserVO) map.get(Attributes.value.toString());
 		this.language = (Language) map.get(Attributes.language.toString());
 	}
@@ -92,28 +99,31 @@ public class ProfileEntryComponent extends BaseComponent {
 	}
 
 	public String loadDescription() {
-		return this.profile.getUserDescription().getLangValue(
-				this.profile.getMainSpokenLanguage());
+		return FormatUtils.truncateWithPoints(this.profile.getUserDescription()
+				.getLangValue(this.profile.getMainSpokenLanguage()),
+				MAX_SIZE_OF_CHARACTERS_IN_DESCRIPTION);
 	}
-	
-	public List<Language> loadSpokenLanguageList(){
+
+	public List<Language> loadSpokenLanguageList() {
 		List<Language> languageList = this.profile.getSpokenLanguages();
-		if(languageList.size() <= MAX_SPOKEN_LANGUAGES_ALLOWED_IN_LITE ||
-				getAttributes().get(Attributes.presentation.toString()).equals(COMPLETE_PRESENTATION)){
+		if (languageList.size() <= MAX_SPOKEN_LANGUAGES_ALLOWED_IN_LITE
+				|| getAttributes().get(Attributes.presentation.toString())
+						.equals(COMPLETE_PRESENTATION)) {
 			return languageList;
 		}
 		return languageList.subList(0, MAX_SPOKEN_LANGUAGES_ALLOWED_IN_LITE);
 	}
-	
-	public String loadAdditionalLanguagesMark(){
+
+	public String loadAdditionalLanguagesMark() {
 		List<Language> languageList = this.profile.getSpokenLanguages();
-		if(languageList.size() <= MAX_SPOKEN_LANGUAGES_ALLOWED_IN_LITE ||
-				getAttributes().get(Attributes.presentation.toString()).equals(COMPLETE_PRESENTATION)){
+		if (languageList.size() <= MAX_SPOKEN_LANGUAGES_ALLOWED_IN_LITE
+				|| getAttributes().get(Attributes.presentation.toString())
+						.equals(COMPLETE_PRESENTATION)) {
 			return "";
 		}
 		return "...";
 	}
- 
+
 	public UserVO getProfile() {
 		return profile;
 	}
@@ -137,12 +147,12 @@ public class ProfileEntryComponent extends BaseComponent {
 	public void setCommandLink(UIComponent commandLink) {
 		this.commandLink = commandLink;
 	}
-	
-	public String getLitePresentation(){
+
+	public String getLitePresentation() {
 		return LITE_PRESENTATION;
 	}
-	
-	public String getCompletePresentation(){
+
+	public String getCompletePresentation() {
 		return COMPLETE_PRESENTATION;
 	}
 }

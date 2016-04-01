@@ -12,60 +12,63 @@
         styleClass="user-profile-panel">
         <div class="section hc-overlay-form-fields-container clearfix">
             <div class="row">
-            <div class="col-md-4">
-                <utils:imageEditor 
-                    imageUrl="#{profileReadPage.user.image}"
-                    imageType="userImage"
-                    readOnly="true"/>
-            </div>            
-            <div class="col-md-8">            
-            <div class="row">
-            <div class="col-md-3">
-                <h:outputLink value="#{profileReadPage.linkedInLink}" 
-                			  rendered="#{not profileReadPage.linkedInPending}"
-                              styleClass="hc-form-field" target="_blanck">
-                             <h:graphicImage library="images/icons" name="linkedin.png"
-										styleClass="btn-linkedin" />
-				</h:outputLink>
-            </div>
-            <div class="col-md-3">
-                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Website.Label']}</span></b>
-                <h:outputText value="#{profileReadPage.websiteName}" 
-                			  rendered="#{profileReadPage.websitePending}"
-                              styleClass="hc-form-field hc-gray-field"/>
-                <h:outputLink value="#{profileReadPage.websiteLink}" 
-                			  rendered="#{not profileReadPage.websitePending}"
-                              styleClass="hc-form-field">
-                	<h:outputText value="#{profileReadPage.websiteName}"/>
-				</h:outputLink>
-            </div>
-            </div>
-            <div class="row">
-            <div class="col-md-3">
-                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Languages.Label']}</span></b>
-                <h:panelGroup >
-                    <ui:repeat value="#{profileReadPage.user.spokenLanguages}" var="lang">
-                        <span class="hc-form-field">
-                            <h:outputText value="#{lang.languageName}"/><br/>
-                        </span>
-                    </ui:repeat>
-                </h:panelGroup>
-            </div>
-            <div class="col-md-3">
-                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Services.Label']}</span></b>
-                <h:panelGroup>
-                    <ui:repeat value="#{profileReadPage.user.userTypes}" var="userType">
-                        <span class="hc-form-field">
-                            <h:outputText value="#{userType.userTypeName.getText(webSession.currentLanguage)}"/>
-                        </span><br/>
-                    </ui:repeat>
-                </h:panelGroup>
-            </div>
-            </div>
-            </div>
+	            <div class="col-md-4">
+	                <utils:imageEditor 
+	                    imageUrl="#{profileReadPage.user.image}"
+	                    imageType="userImage"
+	                    readOnly="true"/>
+	            </div>            
+	            <div class="col-md-8">            
+	            	<div class="row">
+	            		<div class="col-md-3">
+	               			<h:outputLink 
+	               				value="#{profileReadPage.linkedInLink}" 
+	                			rendered="#{not profileReadPage.linkedInPending}"
+	                            styleClass="hc-form-field" target="_blanck">
+	                        	<h:graphicImage 
+	                        		library="images/icons" 
+	                        		name="linkedin.png"
+									styleClass="btn-linkedin" />
+							</h:outputLink>
+	            		</div>
+			            <div class="col-md-3">
+			            	<ui:fragment rendered="#{not profileReadPage.websitePending}">
+			            		<b><span class="hc-form-label">
+			            			#{viewBundle['Profile.Data.Website.Label']}
+			            		</span></b>
+			                	<h:outputLink 
+			                		value="#{profileReadPage.websiteLink}" 
+			                        styleClass="hc-form-field">
+			                		<h:outputText value="#{profileReadPage.websiteName}"/>
+								</h:outputLink>
+			            	</ui:fragment>
+			            </div>
+	            	</div>
+	            	<div class="row">
+		            	<div class="col-md-3">
+		                	<b><span class="hc-form-label">#{viewBundle['Profile.Data.Languages.Label']}</span></b>
+		                	<h:panelGroup >
+		                    	<ui:repeat value="#{profileReadPage.user.spokenLanguages}" var="lang">
+		                        	<span class="hc-form-field">
+		                            	<h:outputText value="#{lang.languageName}"/><br/>
+		                        	</span>
+		                    	</ui:repeat>
+		                	</h:panelGroup>
+		            	</div>
+		            	<div class="col-md-3">
+		                	<b><span class="hc-form-label">#{viewBundle['Profile.Data.Services.Label']}</span></b>
+		                	<h:panelGroup>
+		                    	<ui:repeat value="#{profileReadPage.user.userTypes}" var="userType">
+		                        	<span class="hc-form-field">
+		                            	<h:outputText value="#{userType.userTypeName.getText(webSession.currentLanguage)}"/>
+		                        	</span><br/>
+		                    	</ui:repeat>
+		                	</h:panelGroup>
+		            	</div>
+	            	</div>
+	            </div>
             </div>
             <div class="col-md-12">
-                
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.Country.Label']}</span></b>
                 <h:outputText value="#{profileReadPage.countryName}" styleClass="hc-form-field"/>
                 <br/>
@@ -76,25 +79,23 @@
                 <b><span class="hc-form-label">#{viewBundle['Profile.Data.City.Label']}</span></b>
                 <h:outputText value="#{profileReadPage.cityName}" styleClass="hc-form-field"/>
 
-				<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>
-				<span class="hc-form-field">
-					<utils:telephoneNumber
-						value="#{profileReadPage.user.telephone}" 
-						id="telephone" 
-						readOnly="true"
-						emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" />
-				</span>
-
-
-               
-
+				<ui:fragment rendered="#{not profileReadPage.telephonePending}">
+					<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>
+					<span class="hc-form-field">
+						<utils:telephoneNumber
+							value="#{profileReadPage.user.telephone}" 
+							id="telephone" 
+							readOnly="true"
+							emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" />
+					</span>
+				</ui:fragment>
                 <ui:fragment rendered="#{not profileReadPage.skypePending}">
-                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
-                <h:outputText value="#{profileReadPage.skypeName}"/>
-			    <h:outputLink value="skype:#{profileReadPage.skypeName}?call"
+                	<b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
+                	<h:outputText value="#{profileReadPage.skypeName}"/>
+			    	<h:outputLink value="skype:#{profileReadPage.skypeName}?call"
                 			  rendered="#{not profileReadPage.skypePending}">
-            	<h:graphicImage library="images/icons" 	name="skype-24.png" />
-				</h:outputLink>
+            		<h:graphicImage library="images/icons" 	name="skype-24.png" />
+					</h:outputLink>
 				</ui:fragment>
             </div>
         </div>

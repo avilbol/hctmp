@@ -124,6 +124,11 @@ public class ProfileReadPage implements Serializable {
         return FormatUtils.isEmptyValue(user.getWebSite());
     }
     
+    public boolean getTelephonePending(){
+        return user.getTelephone() == null ||
+        		FormatUtils.isEmptyValue(user.getTelephone().getNumber());
+    }
+    
     public boolean getSkypePending(){
         return FormatUtils.isEmptyValue(user.getSkype());
     }

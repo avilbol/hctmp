@@ -55,6 +55,11 @@ public class PublicProfilePage implements Serializable{
         return FormatUtils.isEmptyValue(user.getSkype());
     }
 	
+	public boolean getTelephonePending(){
+        return user.getTelephone() == null ||
+        		FormatUtils.isEmptyValue(user.getTelephone().getNumber());
+    }
+	
 	public boolean getLinkedInPending(){
         return FormatUtils.isEmptyValue(user.getLinkedIn());
     }

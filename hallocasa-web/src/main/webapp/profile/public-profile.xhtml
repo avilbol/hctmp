@@ -62,32 +62,28 @@
 								<b style="font-size: 30px;"><h:outputText
 										value="#{publicProfilePage.username}" /></b>
 							</div>
-
-							<div class="hc-content-linkedin-profile">
-								<!--<span class="hc-form-across-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span>-->
-
-								<h:outputText value="#{publicProfilePage.linkedInName}"
-									rendered="#{publicProfilePage.linkedInPending}"
-									styleClass="hc-form-field hc-gray-field" />
-								<h:outputLink value="#{publicProfilePage.linkedInLink}"
-									rendered="#{not publicProfilePage.linkedInPending}"
-									styleClass="hc-form-field" target="_blanck">
-									<h:graphicImage library="images/icons" name="linkedin.png"
-										class="hc-linkedin" />
-									<!-- <h:outputText value="#{publicProfilePage.linkedInName}" /> -->
-								</h:outputLink>
-							</div>
-							<div class="col-md-3">
-								<!-- <span class="hc-form-across-label">#{viewBundle['Profile.Data.Website.Label']}</span> -->
-								<h:outputText value="#{publicProfilePage.websiteName}"
-									rendered="#{publicProfilePage.websitePending}"
-									styleClass="hc-form-field hc-gray-field" />
-								<h:outputLink value="#{publicProfilePage.websiteLink}"
-									rendered="#{not publicProfilePage.websitePending}"
-									styleClass="hc-form-field">
-									<h:outputText value="#{publicProfilePage.websiteName}" />
-								</h:outputLink>
-							</div>
+							
+							<ui:fragment rendered="#{not publicProfilePage.linkedInPending}">
+								<div class="hc-content-linkedin-profile">
+									<!--<span class="hc-form-across-label">#{viewBundle['Profile.Data.Linkedin.Label']}</span>-->
+									<h:outputLink value="#{publicProfilePage.linkedInLink}"
+										styleClass="hc-form-field" target="_blanck">
+										<h:graphicImage library="images/icons" name="linkedin.png"
+											class="hc-linkedin" />
+										<!-- <h:outputText value="#{publicProfilePage.linkedInName}" /> -->
+									</h:outputLink>
+								</div>
+							</ui:fragment>
+							<ui:fragment rendered="#{not publicProfilePage.websitePending}">
+								<div class="col-md-3">
+									<!-- <span class="hc-form-across-label">#{viewBundle['Profile.Data.Website.Label']}</span> -->
+									<h:outputLink value="#{publicProfilePage.websiteLink}"
+										styleClass="hc-form-field">
+										<h:outputText value="#{publicProfilePage.websiteName}" />
+									</h:outputLink>
+								</div>
+							</ui:fragment>
+							
 
 							<div class="col-md-8">
 								<div class="row col-md-6 public-languaje">
@@ -138,31 +134,32 @@
 										styleClass="hc-form-field hc-font-field" />
 								</div>
 							</div>
-							<div class="row">
-
-								<span class="hc-form-across-label">#{viewBundle['Profile.Data.Telephone.Label']}</span>
-								&nbsp;
-								<div class="hc-phone-number">
-									<utils:telephoneNumber
-										value="#{publicProfilePage.user.telephone}" id="telephone"
-										readOnly="true"
-										emptyMessage="#{viewBundle['Common.Label.NotSpecified']}"
-										styleClass="hc-form-field hc-font-field" />
+							<ui:fragment rendered="#{not publicProfilePage.telephonePending}">
+								<div class="row">
+									<span class="hc-form-across-label">#{viewBundle['Profile.Data.Telephone.Label']}</span>
+									&nbsp;
+									<div class="hc-phone-number">
+										<utils:telephoneNumber
+											value="#{publicProfilePage.user.telephone}" id="telephone"
+											readOnly="true"
+											emptyMessage="#{viewBundle['Common.Label.NotSpecified']}"
+											styleClass="hc-form-field hc-font-field" />
+									</div>
 								</div>
-							</div>
-							<div class="row">
-								<span class="hc-form-across-label">#{viewBundle['Profile.Data.Skype.Label']}</span>
-								&nbsp;
-
-								<div class="row hc-skype">
-									<h:graphicImage library="images/icons" name="skype-24.png" />
-									<h:outputText value="#{publicProfilePage.skypeName}"
-										styleClass="hc-font-field hc-form-field #{publicProfilePage.skypePending ? 'hc-gray-field' : ''}" />
-									<h:outputLink value="skype:#{publicProfilePage.skypeName}?call"
-										rendered="#{not publicProfilePage.skypePending}">
-									</h:outputLink>
+							</ui:fragment>
+							<ui:fragment rendered="#{not publicProfilePage.skypePending}">
+								<div class="row">
+									<span class="hc-form-across-label">#{viewBundle['Profile.Data.Skype.Label']}</span>
+									&nbsp;
+									<div class="row hc-skype">
+										<h:outputText value="#{publicProfilePage.skypeName}"
+											styleClass="hc-font-field hc-form-field" />
+										<h:outputLink value="skype:#{publicProfilePage.skypeName}?call">
+											<h:graphicImage library="images/icons" name="skype-24.png" />
+										</h:outputLink>
+									</div>
 								</div>
-							</div>
+							</ui:fragment>
 						</div>
 						<div class="col-md-9">
 							<div class="row">

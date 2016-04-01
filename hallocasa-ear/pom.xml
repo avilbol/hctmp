@@ -39,11 +39,6 @@
                             <artifactId>hallocasa-theme</artifactId>
                             <bundleFileName>hallocasa-theme.jar</bundleFileName>
                         </jarModule>
-                        <jarModule>
-                            <groupId>com.hallocasa</groupId>
-                            <artifactId>avilbol-theme</artifactId>
-                            <bundleFileName>avilbol-theme.jar</bundleFileName>
-                        </jarModule>
                         <webModule>
                             <groupId>com.hallocasa</groupId>
                             <artifactId>hallocasa-web</artifactId>
@@ -93,11 +88,6 @@
             <artifactId>hallocasa-theme</artifactId>
             <version>${hallocasa.portal.version}</version>
             <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>avilbol-theme</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 	
