@@ -252,14 +252,22 @@ ul.topnav li.icon {
     z-index: 11;
 }
 
+.hc-profile-browse-panel-complete .card-content{
 
-.card-content{
+    float: left;
+    margin: 0 0px 20px 0;	
+}
+.hc-profile-browse-panel-lite .card-content{
     float: left;
     margin: 0 0px 20px 0;
+    width: 466px;
+    height: auto;
+    max-width: 466px;
+	max-height: auto;
 }
 div.hc-responsive-div, div.hc-responsive-div img {
-	max-width: 100% !important;
-	max-height: 100% !important;
+	max-width: 179px !important;
+    max-height: 150px !important;
 }
 
 .login-btn {

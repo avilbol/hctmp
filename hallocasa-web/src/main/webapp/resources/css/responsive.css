@@ -452,6 +452,20 @@ li.hc-header-global-menu-item.hc-header-menu.btn.btn-default-languaje {
 .hc-card-profile.hc-profile-browse-panel-complete .content-info-init {
     width: 99% !important;
 }
+.hc-profile-browse-panel-lite .card-content {
+    float: left;
+    margin: 0 0px 20px 0;
+    width: 343px;
+    height: auto;
+    max-width: 343px;
+    max-height: auto;
+}
+div.hc-responsive-div, div.hc-responsive-div img {
+    max-width: 179px !important;
+    max-height: 150px !important;
+    width: 152px;
+    height: 121px;
+}
 }
 @media screen and (max-width: 480px) {
 	.hc-content-body {

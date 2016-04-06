@@ -13,7 +13,7 @@
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .card-description {
-	text-align: left;    
+	text-align: left;
 	margin-top: 61px;
 }
 
@@ -55,7 +55,8 @@
 	float: left;
 }
 
-.hc-card-profile.hc-profile-browse-panel-complete .sub-card-languaje, .hc-card-profile.hc-profile-browse-panel-complete .sub-card-service {
+.hc-card-profile.hc-profile-browse-panel-complete .sub-card-languaje,.hc-card-profile.hc-profile-browse-panel-complete .sub-card-service
+	{
 	width: 50% !important;
 	float: left;
 }
@@ -64,11 +65,10 @@
 	font-size: 17px;
 	margin-left: 15px;
 }
+
 .hc-card-profile.hc-profile-browse-panel-complete .content-btn-more {
-	display:none;
+	display: none;
 }
-
-
 
 /*fin browser-explorer*/
 
@@ -90,9 +90,9 @@
 }
 
 .hc-card-profile.hc-profile-browse-panel-lite .img-profile {
-	width: 48%;
-	padding: 0; 
-	text-align: left;	
+	width: 42%;
+	padding: 0;
+	text-align: left;
 }
 
 .hc-card-profile.hc-profile-browse-panel-lite .img-profile img {
@@ -113,7 +113,7 @@
 	width: 100% !important;
 	text-align: left;
 	margin-bottom: 15px;
-	font-size: 30px;
+	font-size: 25px;
 }
 
 .hc-card-profile.hc-profile-browse-panel-lite .info-card {
@@ -121,10 +121,18 @@
 	text-align: left;
 }
 
-.hc-card-profile.hc-profile-browse-panel-lite .sub-card-languaje,.hc-card-profile.hc-profile-browse-panel-lite .sub-card-service
+.hc-card-profile.hc-profile-browse-panel-lite .sub-card-languaje
+{
+	width: 46% !important;
+	float: left;
+	font-size: 17px;
+}
+
+.hc-card-profile.hc-profile-browse-panel-lite .sub-card-service
 	{
 	width: 50% !important;
 	float: left;
+	font-size: 17px;
 }
 
 .btn-more {

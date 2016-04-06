@@ -13,7 +13,8 @@
     </ui:define>
 
     <ui:define name="contentSection">
-        <div class="land-page-background1">
+        <div class="hc-content-body">
+			<div class="container hc-confirm-email">
         
         <div>#{confirmEmailPage.launch()}</div>
 
@@ -26,7 +27,7 @@
                 </div>
                 <div class="hc-overlay-form-buttons-container">
                     <p:commandButton value="#{viewBundle['Email.Confirm.Login.Button']}" 
-                                     styleClass="hc-form-cancel-button"
+                                     styleClass="btn btn-primary"
                                      process="@this" 
                                      actionListener="#{confirmEmailPage.processGoToLoginClick}"/>
                 </div>
@@ -34,6 +35,7 @@
         </h:form>
 
         <h:outputScript library="js" name="home/background-image.js"/>
+        </div>
         </div>
     </ui:define>
 
