@@ -5,12 +5,6 @@
  */
 package com.hallocasa.view.components.utils;
 
-import com.hallocasa.commons.vo.ImageContainer;
-import com.hallocasa.utils.ApplicationFileUtils;
-import com.hallocasa.view.components.base.BaseComponent;
-import com.hallocasa.view.context.ViewContext;
-import com.hallocasa.viewmodel.security.LoginDialog;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,6 +34,12 @@ import org.imgscalr.Scalr;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.CroppedImage;
 
+import com.hallocasa.commons.vo.ImageContainer;
+import com.hallocasa.utils.ApplicationFileUtils;
+import com.hallocasa.view.components.base.BaseComponent;
+import com.hallocasa.view.context.ViewContext;
+import com.hallocasa.viewmodel.security.LoginDialog;
+
 /**
  * Backing bean for image edition component
  * 
@@ -49,8 +49,7 @@ import org.primefaces.model.CroppedImage;
 @ViewScoped
 public class ImageEditorComponent extends BaseComponent {
 
-	private static final Logger LOG = Logger.getLogger(LoginDialog.class
-			.getName());
+	private static final Logger LOG = Logger.getLogger(LoginDialog.class.getName());
 
 	private enum Attributes {
 
@@ -93,14 +92,12 @@ public class ImageEditorComponent extends BaseComponent {
 	protected void initialize() {
 		this.showImageLoad = true;
 		this.showImageCrop = false;
-		String imageUrl = (String) this.getAttributes().get(
-				Attributes.imageUrl.toString());
+		String imageUrl = (String) this.getAttributes().get(Attributes.imageUrl.toString());
 		this.image = new ImageContainer(imageUrl);
 	}
 
 	@Override
-	protected void saveComponent(FacesContext facesContext,
-			HashMap<String, Object> map) {
+	protected void saveComponent(FacesContext facesContext, HashMap<String, Object> map) {
 		map.put("uncroppedImageUrl", this.uncroppedImageUrl);
 		map.put("uncroppedImageResourcesUrl", this.uncroppedImageResourcesUrl);
 		map.put("contentExt", this.contentExt);
@@ -112,11 +109,9 @@ public class ImageEditorComponent extends BaseComponent {
 	}
 
 	@Override
-	protected void restoreComponent(FacesContext facesContext,
-			HashMap<String, Object> map) {
+	protected void restoreComponent(FacesContext facesContext, HashMap<String, Object> map) {
 		this.uncroppedImageUrl = (String) map.get("uncroppedImageUrl");
-		this.uncroppedImageResourcesUrl = (String) map
-				.get("uncroppedImageResourcesUrl");
+		this.uncroppedImageResourcesUrl = (String) map.get("uncroppedImageResourcesUrl");
 		this.contentExt = (String) map.get("contentExt");
 		this.showImageLoad = (Boolean) map.get("showImageLoad");
 		this.croppedImage = (CroppedImage) map.get("croppedImage");
@@ -129,51 +124,18 @@ public class ImageEditorComponent extends BaseComponent {
 		if (this.validUpload) {
 			loadContentExt(this.uncroppedImagePart.getContentType());
 			File file = loadFileTemplate();
-			try (FileInputStream inputStream = (FileInputStream) this.uncroppedImagePart
-					.getInputStream();
+			try (FileInputStream inputStream = (FileInputStream) this.uncroppedImagePart.getInputStream();
 					OutputStream o = new FileOutputStream(file);) {
 				IOUtils.copy(inputStream, o);
 				inputStream.close();
 				o.close();
-			} catch (IOException e) {
-			}
-			try (FileInputStream inputStream = new FileInputStream(file);
-					OutputStream o = new FileOutputStream(file)) {
-				BufferedImage image = ImageIO.read(inputStream);
-				boolean widthExceeded = image.getWidth() > MAX_IMAGE_WIDTH;
-				boolean heightExceeded = image.getHeight() > MAX_IMAGE_HEIGHT;
-
-				double widthProportion = 0.0;
-				double heightProportion = 0.0;
-
-				if (widthExceeded || heightExceeded) {
-					widthProportion = ((double) MAX_IMAGE_WIDTH)
-							/ ((double) image.getWidth());
-					heightProportion = ((double) MAX_IMAGE_HEIGHT)
-							/ ((double) image.getHeight());
-					BufferedImage scaledImage = null;
-					if (widthProportion < heightProportion) {
-						scaledImage = Scalr.resize(image,
-								Scalr.Method.ULTRA_QUALITY,
-								Scalr.Mode.FIT_TO_WIDTH, MAX_IMAGE_WIDTH,
-								(int) (image.getHeight() * widthProportion));
-					} else {
-						scaledImage = Scalr.resize(image,
-								Scalr.Method.ULTRA_QUALITY,
-								Scalr.Mode.FIT_TO_HEIGHT,
-								(int) (image.getWidth() * heightProportion),
-								MAX_IMAGE_HEIGHT);
-					}
-					ImageIO.write(scaledImage, "jpg", o);
-				}
-
-				this.setUncroppedImageUrl(getRelativePath() + "/"
-						+ file.getName());
+				scaleImage(file);
+				this.setUncroppedImageUrl(getRelativePath() + "/" + file.getName());
 				this.setUncroppedImageResourcesUrl(file.getName());
 				createUncroppedImage();
 				onNextClick();
 			} catch (IOException e) {
-			} 
+			}
 		}
 	}
 
@@ -185,25 +147,45 @@ public class ImageEditorComponent extends BaseComponent {
 		File file = loadFileTemplate();
 		try {
 			imageOutput = new FileImageOutputStream(file);
-			imageOutput.write(croppedImage.getBytes(), 0,
-					croppedImage.getBytes().length);
+			imageOutput.write(croppedImage.getBytes(), 0, croppedImage.getBytes().length);
 			imageOutput.close();
 			this.image.setUrl(getRelativePath() + "/" + file.getName());
-			((ImageContainer) getAttributes().get(
-					Attributes.imageUrl.toString()))
-					.setUrl(this.image.getUrl());
+			((ImageContainer) getAttributes().get(Attributes.imageUrl.toString())).setUrl(this.image.getUrl());
 			RequestContext context = RequestContext.getCurrentInstance();
 			context.execute("PF('upload-image-dialog').hide();");
 			postCropAction();
 		} catch (Exception e) {
-			LOG.log(Level.SEVERE,
-					"Error al intentar realizar el ajuste de la imagen. {0}", e);
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-							"Cropping failed."));
+			LOG.log(Level.SEVERE, "Error al intentar realizar el ajuste de la imagen. {0}", e);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Cropping failed."));
 		}
 
+	}
+
+	private void scaleImage(File file) throws IOException {
+		BufferedImage image = ImageIO.read(file);
+		if (image != null) {
+			boolean widthExceeded = image.getWidth() > MAX_IMAGE_WIDTH;
+			boolean heightExceeded = image.getHeight() > MAX_IMAGE_HEIGHT;
+
+			double widthProportion = 0.0;
+			double heightProportion = 0.0;
+
+			if (widthExceeded || heightExceeded) {
+				widthProportion = ((double) MAX_IMAGE_WIDTH) / ((double) image.getWidth());
+				heightProportion = ((double) MAX_IMAGE_HEIGHT) / ((double) image.getHeight());
+				BufferedImage scaledImage = null;
+				if (widthProportion < heightProportion) {
+					scaledImage = Scalr.resize(image, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_TO_WIDTH,
+							MAX_IMAGE_WIDTH, (int) (image.getHeight() * widthProportion));
+				} else {
+					scaledImage = Scalr.resize(image, Scalr.Method.ULTRA_QUALITY, Scalr.Mode.FIT_TO_HEIGHT,
+							(int) (image.getWidth() * heightProportion), MAX_IMAGE_HEIGHT);
+				}
+				ImageIO.write(scaledImage, 
+						ApplicationFileUtils.getImageMimeType(file), file);
+			}
+		}
 	}
 
 	private void loadContentExt(String contentType) {
@@ -306,15 +288,12 @@ public class ImageEditorComponent extends BaseComponent {
 		this.validUpload = true;
 		String contentType = file.getContentType();
 		if (!contentType.contains("image")) {
-			viewContext.showGlobalErrorMessage(
-					"Image.Edition.Invalid.NotImage",
-					"Image.Edition.Invalid.NotImage");
+			viewContext.showGlobalErrorMessage("Image.Edition.Invalid.NotImage", "Image.Edition.Invalid.NotImage");
 			this.validUpload = false;
 			return;
 		}
 		if (file.getSize() > MAX_BYTES_PART_SIZE) {
-			viewContext.showGlobalErrorMessage("Image.Edition.Invalid.TooBig",
-					"Image.Edition.Invalid.TooBig");
+			viewContext.showGlobalErrorMessage("Image.Edition.Invalid.TooBig", "Image.Edition.Invalid.TooBig");
 			this.validUpload = false;
 		}
 	}
@@ -344,15 +323,13 @@ public class ImageEditorComponent extends BaseComponent {
 	}
 
 	private void createUncroppedImage() {
-		String fileNameSource = ApplicationFileUtils
-				.getAbsoluteUrl(getUncroppedImageUrl());
+		String fileNameSource = ApplicationFileUtils.getAbsoluteUrl(getUncroppedImageUrl());
 		try {
 			File fileSource = new File(fileNameSource);
-			ServletContext servletContext = (ServletContext) FacesContext
-					.getCurrentInstance().getExternalContext().getContext();
-			String fileNameDestiny = servletContext.getRealPath("")
-					+ File.separator + "resources" + File.separator + "images"
-					+ File.separator + getUncroppedImageResourcesUrl();
+			ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+					.getContext();
+			String fileNameDestiny = servletContext.getRealPath("") + File.separator + "resources" + File.separator
+					+ "images" + File.separator + getUncroppedImageResourcesUrl();
 			File fileDestiny = new File(fileNameDestiny);
 			InputStream i = new FileInputStream(fileSource);
 			OutputStream o = new FileOutputStream(fileDestiny);
@@ -360,46 +337,37 @@ public class ImageEditorComponent extends BaseComponent {
 			i.close();
 			o.close();
 		} catch (IOException e) {
-			viewContext.showGlobalErrorMessage("Image.Edition.Delete.Error",
-					"Image.Edition.Delete.Error");
+			viewContext.showGlobalErrorMessage("Image.Edition.Delete.Error", "Image.Edition.Delete.Error");
 		}
 
 	}
 
 	private void destroyUncroppedImage() {
-		ServletContext servletContext = (ServletContext) FacesContext
-				.getCurrentInstance().getExternalContext().getContext();
-		String fileNameToDestroy = servletContext.getRealPath("")
-				+ File.separator + "resources" + File.separator + "images"
-				+ File.separator + getUncroppedImageResourcesUrl();
+		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext()
+				.getContext();
+		String fileNameToDestroy = servletContext.getRealPath("") + File.separator + "resources" + File.separator
+				+ "images" + File.separator + getUncroppedImageResourcesUrl();
 		File file = new File(fileNameToDestroy);
 		if (!file.delete()) {
-			viewContext.showGlobalErrorMessage("Image.Edition.Delete.Error",
-					"Image.Edition.Delete.Error");
+			viewContext.showGlobalErrorMessage("Image.Edition.Delete.Error", "Image.Edition.Delete.Error");
 		}
 		;
 	}
 
 	private File loadFileTemplate() {
 		String ext = getContentExt();
-		File dir = new File(
-				ApplicationFileUtils.getAbsolutePath(getRelativePath()));
-		String name = String.format("%s.%s",
-				RandomStringUtils.randomAlphanumeric(8), ext);
+		File dir = new File(ApplicationFileUtils.getAbsolutePath(getRelativePath()));
+		String name = String.format("%s.%s", RandomStringUtils.randomAlphanumeric(8), ext);
 		return new File(dir, name);
 	}
 
 	private String getRelativePath() {
 		if (this.relativePath == null) {
-			ImageContainer iContainer = (ImageContainer) this.getAttributes()
-					.get(Attributes.imageUrl.toString());
+			ImageContainer iContainer = (ImageContainer) this.getAttributes().get(Attributes.imageUrl.toString());
 			if (iContainer == null) {
-				this.relativePath = "/"
-						+ (String) this.getAttributes().get(
-								Attributes.imageType.toString());
+				this.relativePath = "/" + (String) this.getAttributes().get(Attributes.imageType.toString());
 			} else {
-				this.relativePath = ApplicationFileUtils
-						.getRelativePath(iContainer.getUrl());
+				this.relativePath = ApplicationFileUtils.getRelativePath(iContainer.getUrl());
 			}
 		}
 		return this.relativePath;

@@ -52,8 +52,7 @@ public class Telephone implements Serializable, HallocasaEntity {
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
 	private CountryTelephonePrefix countryTelephonePrefix;
 	
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
-	@OneToOne(optional = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "telephone")
 	private User user;
 	
 	/**

@@ -162,9 +162,10 @@ public class ProfileEditPage implements Serializable {
             String mimeType = ApplicationFileUtils.getMimeType(sourceFile);
             String ext = mimeType.equals("image/png") ? "png" : "jpg";
             File destFile = new File(imagePath + "/user" + this.user.getId() + "." + ext);
-            FileUtils.deleteQuietly(destFile);
-            if(!sourceFile.getName().equals(destFile.getName()))
-            FileUtils.copyFile(sourceFile, destFile); 
+            if(!sourceFile.getName().equals(destFile.getName())){
+            	FileUtils.deleteQuietly(destFile);
+            	FileUtils.copyFile(sourceFile, destFile); 
+            }
             this.user.getImage().setUrl(ApplicationFileUtils.getRelativePath(imageUrl) 
                     + "/" + destFile.getName());
             File f = new File(FileServices.USER_IMAGES_PATH);

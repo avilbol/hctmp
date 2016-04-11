@@ -21,13 +21,15 @@
 						header="#{viewBundle['PublicProfile.BrowseProfile.PanelTitle']}"
 						styleClass="user-profile-panel"> -->
 						<h:panelGroup id="profileListArea">
-							<div class="col-md-12 hc-contents-cards">
+							<div class="col-md-12 hc-contents-cards">	
 								<ui:repeat var="profileItem"
 									value="#{profileBrowserPage.userList}">
+									 
 									<utils:profileEntry value="#{profileItem}" size="300"
 										presentation="complete"
-										language="#{profileBrowserPage.language}"
-										onClick="#{profileBrowserPage.onProfileSelect(profileItem)}" />
+										onClick="#{profileBrowserPage.onProfileSelect(profileItem)}"
+										language="#{profileBrowserPage.language}">
+									</utils:profileEntry>
 								</ui:repeat>
 							</div>
 							<div class="col-md-12 btn-disabled">

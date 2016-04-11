@@ -29,8 +29,7 @@
     	
     	<ui:fragment rendered="#{cc.attrs.readOnly}">
     		<h:outputText
-        		value="(#{cc.attrs.value.countryTelephonePrefix.prefix} - 
-        				#{cc.attrs.value.countryTelephonePrefix.name}) 
+        		value="(#{cc.attrs.value.countryTelephonePrefix.prefix}) 
         				#{cc.attrs.value.number}"
         		rendered="#{not (cc.attrs.value eq null)}">
        		</h:outputText>

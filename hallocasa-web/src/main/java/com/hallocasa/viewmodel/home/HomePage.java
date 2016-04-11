@@ -5,6 +5,7 @@
  */
 package com.hallocasa.viewmodel.home;
 
+import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.app.Token;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.services.interfaces.SecurityServices;
@@ -12,6 +13,8 @@ import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.view.navigation.ViewParamEnum;
 import java.io.Serializable;
+import java.util.HashMap;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
@@ -66,10 +69,12 @@ public class HomePage implements Serializable {
     public void launch() {
         // just for forcing creation
     }
-
-    public void goToExploreProfiles(){
-    	navigationHandler.redirectToPage(HallocasaViewEnum.BROWSE_PROFILE);
-    }
+    
+    public void goToProfile(UserVO userVO){
+		HashMap<ViewParamEnum, String> params = new HashMap<ViewParamEnum, String>();
+		params.put(ViewParamEnum.USER_ID, userVO.getId().toString());
+		navigationHandler.redirectToPage(HallocasaViewEnum.PUBLIC_PROFILE, params);
+	}
     
     /**
      * Process the request of the opening for the login dialog

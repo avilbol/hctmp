@@ -76,6 +76,9 @@ public class ProfileEntryComponent extends BaseComponent {
 	public void initialize() {
 		language = (Language) this.getAttributes().get(
 				Attributes.language.toString());
+		if(language == null){
+			language = Language.en;
+		}
 		profile = (UserVO) this.getAttributes()
 				.get(Attributes.value.toString());
 	}

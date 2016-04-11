@@ -1,0 +1,1 @@
+INSERT INTO hallocasaapp.user_type (user_type_name, user_type_tooltip) VALUES ('{''en'':''Lawyer'',''es'':''Abogado'',''de'':''Anwalt''}', null);

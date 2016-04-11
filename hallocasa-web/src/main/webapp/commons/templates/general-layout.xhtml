@@ -7,7 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
     <f:view id="view" locale="#{webSession.currentLanguage.locale}">
         <h:head>
-            <title>#{generalLayout_title eq null ? 'Hallo Casa' : generalLayout_title}</title>
+            <title>#{generalLayout_title eq null ? 'HalloCasa' : generalLayout_title}</title>
             <link rel="icon" type="image/ico" href="#{constants.resourcesPath}/images/icons/favicon.ico"/>
             <meta charset="UTF-8"/>
             <meta name="author" content="HalloCasa"/>
@@ -27,7 +27,7 @@
             <h:outputStylesheet library="css" name="responsive.css"/>
             <h:outputStylesheet library="css" name="bootstrap/css/bootstrap.css"/>
             <h:outputStylesheet library="css" name="bootstrap/css/bootstrap.min.css"/>
-            <script src="http://code.jquery.com/jquery-latest.js"></script>
+            <!-- <script src="http://code.jquery.com/jquery-latest.js"></script> -->
             <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
             <ui:insert name="styleSheetsSection"/>
 

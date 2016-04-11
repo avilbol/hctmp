@@ -14,10 +14,11 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
 import com.hallocasa.dataentities.app.TestEntity;
+import com.hallocasa.view.components.base.BaseComponent;
 
 @FacesComponent("elementComponent")
 @ViewScoped
-public class ElementComponent extends UIInput implements NamingContainer{
+public class ElementComponent extends BaseComponent implements NamingContainer{
 
 	private List<String> toyList;
 	
@@ -44,24 +45,6 @@ public class ElementComponent extends UIInput implements NamingContainer{
 			getAttributes().put("attr", newTestEntity);
 		}
 	}
-	
-	@Override
-    public void encodeBegin(FacesContext context) throws IOException {
-		if(toyList == null){
-			toyList = Arrays.asList(new String[]{"1","2","3"});
-		}
-        System.out.println("...,,,...");
-    }
-
-    @Override
-    public Object getSubmittedValue() {
-        return input.getSubmittedValue();
-    }
-    
-	@Override
-	protected Object getConvertedValue(FacesContext context, Object submittedValue) {
-		return new TestEntity();
-    }
 
 	@Override
 	public Object saveState(FacesContext context){
@@ -82,5 +65,17 @@ public class ElementComponent extends UIInput implements NamingContainer{
 
 	public void setInput(UIInput input) {
 		this.input = input;
+	}
+
+	@Override
+	protected void saveComponent(FacesContext facesContext, HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void restoreComponent(FacesContext facesContext, HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		
 	}
 }

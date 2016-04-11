@@ -1,33 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
-    <f:view id="view" locale="#{webSession.currentLanguage.locale}">
-        <h:head>
-            <title>.d..</title>
-         
-         </h:head>
-        <h:body>       
-         	<h:form>
-         	<h:inputText value="#{testPage.myAttr}"></h:inputText>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
+<f:view id="view" locale="#{webSession.currentLanguage.locale}">
+	<h:head>
+		<title>.d..</title>
 
-         		
-         		<utils:telephoneNumberEditor
-         			id="fhsjd-hfjsdhf" value="#{testPage.telephoneAttr}"/>
+	</h:head>
+	<h:body>
+		<h:form>
 
-         		
-         		<h:commandLink value="button" >
-         			<f:ajax listener="#{testPage.onAction}" 
-         				execute="@all" 
-         				render="@all"/>
-         		</h:commandLink>
-         	</h:form>
-        </h:body>
-    </f:view>
+			<ui:repeat var="item" value="#{testPage.testAttrList}">
+				<utils:element attr="#{testPage.myAttr}" />
+			</ui:repeat>
+			
+
+		</h:form>
+	</h:body>
+</f:view>
 </html>
 
 

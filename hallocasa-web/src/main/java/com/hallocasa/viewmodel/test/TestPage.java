@@ -32,7 +32,7 @@ public class TestPage {
     @EJB
     private MailServices mailServices;
     
-    private TestEntity testAttr;
+    private List<TestEntity> testAttrList;
     
     private TelephoneVO telephoneAttr;
     
@@ -44,11 +44,14 @@ public class TestPage {
     
     @PostConstruct
     public void init(){
+    	testAttrList = new ArrayList<TestEntity>();
+    	testAttrList.add(new TestEntity(1l, "hi"));
+    	testAttrList.add(new TestEntity(2l, "hi2"));
         availableElements = new ArrayList<String>();
         availableElements.add("A");
         availableElements.add("B");
         availableElements.add("C");
-        
+        myAttr="hi";
         selectedElements = new ArrayList<String>();
         //selectedElements.add("A");
         selectedElements.add("B");
@@ -56,7 +59,7 @@ public class TestPage {
     }
 
     public void onAction(){
-    	System.out.println(testAttr);
+    	
     }
 
     public void sendTestEmail(ActionEvent event) {
@@ -87,12 +90,12 @@ public class TestPage {
         this.selectedElements = selectedElements;
     }
 
-	public TestEntity getTestAttr() {
-		return testAttr;
+	public List<TestEntity> getTestAttrList() {
+		return testAttrList;
 	}
 
-	public void setTestAttr(TestEntity testAttr) {
-		this.testAttr = testAttr;
+	public void setTestAttrList(List<TestEntity> testAttrList) {
+		this.testAttrList = testAttrList;
 	}
 
 	public String getMyAttr() {

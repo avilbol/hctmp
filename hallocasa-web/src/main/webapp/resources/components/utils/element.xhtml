@@ -8,14 +8,9 @@
 	xmlns:cc="http://java.sun.com/jsf/composite"
 	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 	<cc:interface componentType="elementComponent">
-		<cc:attribute name="value" type="com.hallocasa.dataentities.app.TestEntity"
-			shortDescription="attr" />
+		<cc:attribute name="attr" type="java.lang.String" default="wow" />
 	</cc:interface>
 	<cc:implementation>
-		<f:event listener="#{cc.initialize}"
-		 		  type="postAddToView"/>
-		 		  #{cc.myText()}
-		 <h:outputText value=" #{cc.myText()}"></h:outputText>
-		 <h:inputText id="hi" binding="#{cc.input}"/>
+	#{cc.attrs.attr}
 	</cc:implementation>
 </ui:component>

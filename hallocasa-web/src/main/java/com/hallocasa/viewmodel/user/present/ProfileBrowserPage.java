@@ -70,6 +70,10 @@ public class ProfileBrowserPage {
 		params.put(ViewParamEnum.USER_ID, userVO.getId().toString());
 		navigationHandler.redirectToPage(HallocasaViewEnum.PUBLIC_PROFILE, params);
 	}
+	
+	public String testMethod(){
+		return "es";
+	}
 
 	public Language getLanguage() {
 		return language;

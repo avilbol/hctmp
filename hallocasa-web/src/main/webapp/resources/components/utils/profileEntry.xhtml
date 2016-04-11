@@ -13,7 +13,7 @@
 		<cc:attribute name="size" type="java.lang.Integer" default="200"
 			shortDescription="profile entry size" />
 		<cc:attribute name="language" type="com.hallocasa.commons.Language"
-			default="en" shortDescription="Language to view user data" />
+			 shortDescription="Language to view user data" />
 		<cc:attribute name="presentation" type="java.lang.String"
 			default="lite" shortDescription="Mode to organize the component" />
 		<cc:attribute name="onClick" required="true"
@@ -32,7 +32,7 @@
 		<h:outputStylesheet library="css" name="modules/profile/browse.css" />
 
 		<h:panelGroup id="profile-entry-container">
-
+			
 			<h:commandLink binding="#{cc.commandLink}">
 				<f:ajax listener="#{cc.attrs.onClick}"></f:ajax>
 				<f:param name="user" value="#{cc.profile}"></f:param>

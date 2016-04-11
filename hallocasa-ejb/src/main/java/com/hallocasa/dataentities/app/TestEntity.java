@@ -39,6 +39,22 @@ public class TestEntity implements Serializable, HallocasaEntity {
     @Column(name = "other_attribute")
     private String otherAttribute;
 
+    
+    
+	public TestEntity() {
+		super();
+	}
+	
+	
+
+	public TestEntity(Long id, String otherAttribute) {
+		super();
+		this.id = id;
+		this.otherAttribute = otherAttribute;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}

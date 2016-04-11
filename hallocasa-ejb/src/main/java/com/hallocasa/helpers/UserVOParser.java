@@ -84,8 +84,10 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
             }
         }
         else if (propertyName.equals(User.telephone_)){
-        	entity.setTelephone(new Telephone(vo.getTelephone()));
-        	entity.getTelephone().setUser(entity);
+        	if(vo.getTelephone() != null){
+        		entity.setTelephone(new Telephone(vo.getTelephone()));
+            	entity.getTelephone().setUser(entity);
+        	}
         }
         else{
             super.copyVOPropertyToEntityProperty(vo, entity, propertyName,

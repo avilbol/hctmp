@@ -122,8 +122,14 @@ public enum HallocasaViewEnum {
      * Blog article detail
      */
     BLOG_ARTICLE(HallocasaViewNames.BLOG_ARTICLE, "/pages/blog/article.xhtml",
-            BlogArticlePage.class, false, new ViewParamEnum[]{ARTICLE_ID});
+            BlogArticlePage.class, false, new ViewParamEnum[]{ARTICLE_ID}),
 
+	/**
+     * Blog article detail
+     */
+    BLOG_ARTICLE_EDITION(HallocasaViewNames.BLOG_ARTICLE, "/pages/blog/articleedition.xhtml",
+            BlogArticlePage.class, false, new ViewParamEnum[]{ARTICLE_ID});
+	
     /* Static */
     public static final HallocasaViewEnum DEFAULT_VIEW = HOME;
 
