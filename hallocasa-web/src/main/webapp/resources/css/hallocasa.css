@@ -209,7 +209,7 @@
 .hc-image-public-content {
 	float:left;
     width: 258px;
-    height: 160px;
+    height: 220px;
 }
 .hc-yellow-button-link :hover,.hc-yellow-button-link :active,.hc-yellow-button-link :hover span,.hc-yellow-button-link :active span
 	{
@@ -288,7 +288,8 @@
 }
 
 .hc-responsive-div img {
-	width: 237px;
+	width: 100%;
+	    height: 100%;
 }
 
 .hc-info-content-profile {

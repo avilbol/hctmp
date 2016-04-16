@@ -257,9 +257,8 @@ ul.topnav li.icon {
 }
 
 .hc-profile-browse-panel-complete .card-content{
-
-    float: left;
-    margin: 0 0px 20px 0;	
+	float: left;
+    margin: 0 0px 40px 0;	
 }
 .hc-profile-browse-panel-lite .card-content{
     float: left;
@@ -269,9 +268,10 @@ ul.topnav li.icon {
     max-width: 466px;
 	max-height: auto;
 }
-div.hc-responsive-div, div.hc-responsive-div img {
-	max-width: 179px !important;
-    max-height: 150px !important;
+div.hc-responsive-div {
+	    padding:0 10px;
+    width: 200px;
+    height: 200px;
 }
 
 .login-btn {
