@@ -311,7 +311,7 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 .section{	padding: 30px; }
 .description{pading:4px}
 /* Buttons */
-.ui-button .ui-button-text { padding: 0.6em 1.2em; }
+.ui-button .ui-button-text { padding: 0.6em 7px; }
 .ui-button-text-icon-left .ui-button-text.ui-c { margin-left: 0.7em; }
 .btn-disabled{padding-bottom: 20px;  margin-bottom: 50px;background-color: #fff;border-color: #ccc!important;color:#333";}
 /* Fieldset */

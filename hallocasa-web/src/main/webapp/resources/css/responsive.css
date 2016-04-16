@@ -30,6 +30,13 @@
 		background-image: url("#{resource['images:hc-background-1024.jpg']}");
 		background-repeat: no-repeat;
 	}
+	.btn-default-languaje{
+	margin: 0!important;
+	    background-color: #002D45;
+	    border-color: #002D45;
+	    text-align: right;
+}
+
 	.page {
     width: 100%;
 }
@@ -50,7 +57,7 @@
 		display: none;
 	}
 	.hc-header-logo {
-    height: 47px;
+    height: 76px;
 	}
 	.row.col-md-10.menu {
 		width: 40%;
@@ -58,7 +65,7 @@
 		z-index: 1000;
 	}
 	.top-strip {
-		height: 50px;
+		height: 57px;
 	}
 	.hc-home-newsletter-box {
 		margin-top: 4em;
@@ -125,10 +132,10 @@
 		font-size: 40px;
 	}
 	.hc-header-logo {
-		background-image: url("/resources/images/icons/favicon.ico");
+		background-image: url("/resources/images/logo-hallocasa.png");
 		background-repeat: no-repeat;
 		width: 228%;
-		background-size: 50px 50px;
+		background-size: 145px 107px;
 	}
 	.land-page-background {
 		height: 58%;
@@ -230,6 +237,7 @@ ul.topnav.responsive li a {
 	border-bottom: 1px solid #fff;
 	background: #002D45;
 	color: #fff;
+	padding-bottom: 2px;
 }
 
 ul.topnav.responsive li button {
@@ -239,7 +247,7 @@ ul.topnav.responsive li button {
 	text-align: right;
 	background: #002D45;
 	padding: 0px !important;
-	top: -2px;
+	top: 0;
 }
 .btn-default {
 	border-bottom: 1px solid #fff;
@@ -289,19 +297,35 @@ span.menu-link {
 .content-sup-edit-info {
     width: 100%;
 }
-
+.copy-right p {
+    line-height: 25px;
+    text-align: center;
+}
 }
 @media screen and (max-width:680px) {
 	.logo {
-		width: 25% !important;
-	}
-	.hc-icon-img{
-		background-image: url("/resources/images/icons/mobile_menu.png");
-		background-repeat: no-repeat;
-		width: 228%;
+		width: 10% !important;
 	}
 	.page {
     width: 100%;
+}
+ul.topnav.responsive li a {
+    padding-bottom: 18px;
+}
+.btn-default-ini {
+     border-color: #fff;
+}
+.bottom-strip {
+    height: 300px;
+}
+.btn-default-languaje {
+    margin: 13px 3px 13px 0!important;
+    background-color: #002D45!important;
+    border-color: #002D45!important;
+}
+.hc-card-profile.hc-profile-browse-panel-lite .img-profile {
+    width: 42%;
+    padding: 15px;
 }
 	ul
 	
@@ -397,15 +421,18 @@ ul.topnav.responsive li {
 }
 
 ul.topnav.responsive li {
-	float: none;
-	display: inline;
-	line-height: 10px;
+	    float: right;
+    display: inline;
+    line-height: 14px;
+    text-align: right;
+    position: relative;
+    top: 20px;
 }
 
 ul.topnav.responsive li.icon {
 	position: relative;
 	right: 0;
-	top: 0;
+	top: 19px;
 	text-align: right;
 }
 
@@ -468,8 +495,15 @@ li.hc-header-global-menu-item.hc-header-menu.btn.btn-default-languaje {
 div.hc-responsive-div, div.hc-responsive-div img {
     max-width: 179px !important;
     max-height: 150px !important;
-    width: 152px;
+    width: 130px;
     height: 121px;
+        float: left;
+}
+.copy-right p {
+    text-align: center;
+}
+.ui-button .ui-button-text {
+    padding: 0.6em 12px 0.6em 1.2em;
 }
 }
 @media screen and (max-width: 480px) {
@@ -482,8 +516,13 @@ div.hc-responsive-div, div.hc-responsive-div img {
 	.page {
     width: 100%;
 }
+
+.bottom-strip {
+    height: 300px;
+}
 	.hc-header-logo {
-    width: 160%;
+    width: 338%;
+        background-size: 161px 107px;
 }
 	.beta {
 		display: none;
@@ -540,7 +579,7 @@ div.hc-responsive-div, div.hc-responsive-div img {
 		float: left;
 	}
 	ul.topnav.responsive {
-		height: 331px;
+		height: 380px;
 	}
 	/*home*/
 	.hc-home-newsletter-box {
@@ -608,14 +647,18 @@ div.hc-responsive-div, div.hc-responsive-div img {
 }
 ul.topnav {
     height: 218px;
+    width: 21%;
 }	
+.row.col-md-10.menu {
+	  width: 50%;
+}
 	/*fin index*/
 	/*browser-explorer*/
 	.hc-card-profile.hc-profile-browse-panel-complete .img-profile {
     width: 100%!important;
 	}
 .hc-card-profile.hc-profile-browse-panel-lite .content-info-init {
-    width: 100% !important;
+    width: 50% !important;
 }
 .hc-card-profile.hc-profile-browse-panel-complete .card-content .card-info .card-info-content {
         width: 100%!important;
