@@ -58,9 +58,9 @@ public class ImageEditorComponent extends BaseComponent {
 
 	private static final Integer MAX_BYTES_PART_SIZE = 5120000;
 
-	private static final Integer MAX_IMAGE_WIDTH = 260;
+	private static final Integer MAX_IMAGE_WIDTH = 312;
 
-	private static final Integer MAX_IMAGE_HEIGHT = 480;
+	private static final Integer MAX_IMAGE_HEIGHT = 536;
 
 	private Part uncroppedImagePart;
 
