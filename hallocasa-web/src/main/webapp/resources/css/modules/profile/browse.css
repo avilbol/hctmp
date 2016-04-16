@@ -18,9 +18,10 @@
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .img-profile {
-	width: 25%;
-	text-align: left;
-	padding: 0;
+	    width: 244px;
+    text-align: left;
+    padding: 0px 10px 10px 10px;
+    height: 197px;
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .img-profile img {
@@ -91,8 +92,9 @@
 
 .hc-card-profile.hc-profile-browse-panel-lite .img-profile {
 	width: 42%;
-	padding: 0;
+	padding: 10px;
 	text-align: left;
+	float:left;
 }
 
 .hc-card-profile.hc-profile-browse-panel-lite .img-profile img {
@@ -100,8 +102,11 @@
 }
 
 .hc-card-profile.hc-profile-browse-panel-lite .content-info-init {
-	width: 50% !important;
-	float: left;
+	    width: 195px;
+    padding: 10px;
+    text-align: left;
+    float: left;
+    height: 200px;
 }
 
 .hc-card-profile.hc-profile-browse-panel-lite .sub-card {

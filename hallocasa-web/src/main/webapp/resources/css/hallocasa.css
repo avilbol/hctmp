@@ -37,7 +37,7 @@
     padding-top: 200px;
 }
 .hc-content-Profiles {
-	background: rgba(1, 89, 165, 0.12);
+	background: rgb(236, 236, 236);
 	height: auto;
 	float: left;
 	width: 100%;
@@ -206,7 +206,11 @@
 .hc-yellow-button-link :visited {
 	color: #000;
 }
-
+.hc-image-public-content {
+	float:left;
+    width: 258px;
+    height: 160px;
+}
 .hc-yellow-button-link :hover,.hc-yellow-button-link :active,.hc-yellow-button-link :hover span,.hc-yellow-button-link :active span
 	{
 	color: white;
@@ -215,7 +219,7 @@
 .hc-simple-link {
 	cursor: pointer;
 	display: inline-block;
-	color: #333;
+	color: #FFF;
 	text-align: center;
 	padding: 14px 10px;
 	text-decoration: none;
@@ -249,11 +253,9 @@
 }
 
 .hc-content-info-public {
-	margin-left: 14px;
 	line-height: 30px;
 	width: 23%;
 	float: left;
-	padding-left: 16px;
 }
 
 .hc-form .hc-form-field .hc-linkedin {
@@ -269,7 +271,8 @@
 .hc-content-description {
 	width: 100%;
 	height: auto;
-	padding: 20px;
+	padding: 20px;   
+	padding-left: 0px;
 }
 
 .hc-font-field {
@@ -311,7 +314,14 @@
 }
 
 .hc-contents-cards {
-	background: #fff;
+	background: #fff;  
+	margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 15px!important;
+    padding-right: 15px!important;
+}
+
+	
 }
 
 .hc-phone-number {

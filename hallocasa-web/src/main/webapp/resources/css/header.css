@@ -14,7 +14,7 @@ body {
 }
 .beta{
 	font-size: 20px;
-    color: #002D45;
+    color: #EEEEEE;
     text-align: center;
     font-style: italic;
 }
@@ -69,13 +69,15 @@ ul.hc-header-global-menu.ui-corner-all.js-header-global-menu li a {
 .hc-header-logo {
 	float: left;
 	background-image: url("#{resource['images:logo-hallocasa.png']}");
-	background-size: 200px 100px;
+	background-size: 214px 125px;
 	background-repeat: no-repeat;
-	height: 100px;
+	height: 93px;
 	width: 200px;
 	top: 30px;
 	left: 30px;
 	z-index: 1;
+	    margin-top: -26px;
+	
 }
 
 /* Language overlay menu */
@@ -164,14 +166,15 @@ ul.topnav {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	overflow: hidden;
+	overflow: hidden;    
+	height: 60px;
 }
 
 ul.topnav li {
 	float: left;
 }
 .row.col-md-10.menu {
-    padding-top: 20px;
+    padding-top: 7px;
 }
 .btn.active, .btn:active {
     background-image: none;
@@ -181,7 +184,7 @@ ul.topnav li {
 }
 ul.topnav li a {
 	display: inline-block;
-	color: #333;
+	color: #FFF;
     text-align: center;
     padding: 14px 10px;
 	text-decoration: none;
@@ -191,7 +194,7 @@ ul.topnav li a {
 
 ul.topnav li a:hover {
 	text-decoration: underline;
-	color: #002D45;
+	color: #FFFFFF;
 }
 
 ul.topnav li.icon {
@@ -199,21 +202,21 @@ ul.topnav li.icon {
 }
 .btn-default-ini{
 	    font-weight: 700!important;
-	    background-color: transparent!important;
-	    border-color: transparent!important;
+	    background-color: transparent;
+	    border-color: transparent;
 		padding: 3px 12px!important;
-		color: #333;
+		color: #FFF;
 		font-size: 19px!important;
 }
 
 .btn.focus, .btn:focus, .btn:hover {
-    color: #002D45!important;
+    color: #fff!important;
 }
 .btn-default {
-	color: #333!important;
+	color: #FFF!important;
 	font-size: 19px!important;
 	background-color: transparent!important;
-    border-color: #333!important;
+    border-color: #FFF!important;
     border-radius: 0px!important;
     font-weight: 700!important;
 }
@@ -227,11 +230,11 @@ ul.topnav li.icon {
 
 }
 .btn-default-languaje{
-	margin: 11px 12px 0 0!important;
-	    background-color: transparent!important;
-	    border-color: transparent!important;
+	margin: 11px 12px 0 0;
+	    background-color: transparent;
+	    border-color: transparent;
 		padding: 3px 12px!important;
-		color: #333;
+		color: #FFF;
 		font-size: 19px!important;
 }
 .btn-default-ini:hover {
@@ -247,7 +250,8 @@ ul.topnav li.icon {
 	float: left;
 	width: 100%;	
     position: fixed!important;
-    background: rgba(225,235,244,0.95);
+    background:#002d45;
+    /*background: rgba(225,235,244,0.95);*/
     border-bottom: 2px solid #1D5D8D;    
     z-index: 11;
 }
@@ -345,8 +349,7 @@ a.closed-tc.ui-icon.ui-icon-closethick {
     width: 100%;
     margin-top: 20px;
     background: #606163;
-    font-size: 16px;
-    margin-bottom: 20px;   
+    font-size: 16px; 
     float: left;
 }
 .ui-widget-overlay {
