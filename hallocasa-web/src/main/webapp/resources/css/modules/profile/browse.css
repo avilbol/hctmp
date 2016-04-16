@@ -91,14 +91,14 @@
 }
 
 .hc-card-profile.hc-profile-browse-panel-lite .img-profile {
-	width: 42%;
+	width: 50%;
 	padding: 10px;
 	text-align: left;
 	float:left;
 }
 
 .hc-card-profile.hc-profile-browse-panel-lite .img-profile img {
-	width: 100%;
+	width: 100%;    height: 100%;
 }
 
 .hc-card-profile.hc-profile-browse-panel-lite .content-info-init {
