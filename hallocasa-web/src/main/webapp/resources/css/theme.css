@@ -27,15 +27,7 @@ table{
 
 /* Interaction states
 ----------------------------------*/
-.ui-button.ui-state-default { border: 1px solid #fbe644; background: #fbe644 url("#{resource['primefaces-hallocasa:images/ui-bg_spotlight_0_fbe644_600x600.png']}") 50% 50% repeat-x; font-weight: normal; color: #000000; }
-.ui-button:hover,
-.ui-button.ui-state-focus,
-.ui-menuitem .ui-state-hover,
-.ui-menuitem .ui-state-hover *
-{ border: 1px solid #002d45; 
-  background: #002d45 url("#{resource['primefaces-hallocasa:images/ui-bg_spotlight_0_002d45_600x600.png']}") 50% 50% repeat-x; 
-  font-weight: normal; 
-  color: #ffffff !important; }
+
 .ui-button.ui-state-active { border: 1px solid #000000; background: #fbe644 url("#{resource['primefaces-hallocasa:images/ui-bg_spotlight_0_fbe644_600x600.png']}") 50% 50% repeat-x; font-weight: normal; color: #212121; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #000000; text-decoration: none; }
 .ui-state-hover a, .ui-state-hover a:hover, .ui-state-hover a:link, .ui-state-hover a:visited { color: #ffffff; text-decoration: none; }
@@ -79,7 +71,7 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #002d45; background: #e5eaf9 url("#{resource['primefaces-hallocasa:images/ui-bg_inset-soft_50_e5eaf9_1x100.png']}") 50% bottom repeat-x; color: #002d45; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #002d45; background: #e5eaf9 url("#{resource['primefaces-hallocasa:images/ui-bg_inset-soft_50_e5eaf9_1x100.png']}") 50% bottom repeat-x; color: #002d45; width:100%}
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #002d45; }
 .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #cd0a0a; background: #ffb6b6 url("#{resource['primefaces-hallocasa:images/ui-bg_inset-soft_50_ffb6b6_1x100.png']}") 50% bottom repeat-x; color: #cd0a0a; }
 .ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #cd0a0a; }
@@ -93,10 +85,10 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 ----------------------------------*/
 
 /* states and images */
-.ui-icon { width: 16px; height: 16px; background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}"); }
-.ui-widget-content .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}"); }
+.ui-icon { width: 16px; height: 16px;/* background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}");*/ }
+.ui-widget-content .ui-icon {background-image: url('../../images/icons/folder-48.png');/*background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}");*/ }
 .ui-widget-header .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_686c6f_256x240.png']}"); }
-.ui-state-default .ui-icon { background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_000000_256x240.png']}"); }
+.ui-state-default .ui-icon { background-image: /*url("#{resource['primefaces-hallocasa:images/ui-icons_000000_256x240.png']}");*/ none; }
 .ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_ffffff_256x240.png']}"); }
 .ui-state-active .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_454545_256x240.png']}"); }
 .ui-state-highlight .ui-icon {background-image: url("#{resource['primefaces-hallocasa:images/ui-icons_002d45_256x240.png']}"); }
@@ -299,29 +291,31 @@ ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { colo
 ----------------------------------*/
 
 /* Inputs */
-.ui-inputfield { border: 1px solid #686c6f; padding: 0.5em; }
+.ui-inputfield {     border: 1px solid rgba(119, 119, 119, 0.65);   width: 100%;}
 
 /* labels */
 .ui-outputlabel.ui-state-error { background: none; border: none; }
 
 /* Overlays */
-.ui-widget-overlay { background: #000000 url("#{resource['primefaces-hallocasa:images/ui-bg_flat_0_000000_40x100.png']}") 50% 50% repeat-x; opacity: .3;filter:Alpha(Opacity=30); }
+.ui-widget-overlay { z-index: 0!important;background: #000000 url("#{resource['primefaces-hallocasa:images/ui-bg_flat_0_000000_40x100.png']}") 50% 50% repeat-x; opacity: .3;filter:Alpha(Opacity=30); }
 .ui-widget-shadow { margin: -4px 0 0 -4px; padding: 4px; background: #000000 url("#{resource['primefaces-hallocasa:images/ui-bg_flat_0_000000_40x100.png']}") 50% 50% repeat-x; opacity: .6;filter:Alpha(Opacity=60); -moz-border-radius: 4px; -khtml-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; }
-.ui-dialog .ui-dialog-content{ padding: 25px; }
-.ui-dialog .ui-dialog-titlebar{ background-image: none; background-color: #002d45; color: white; padding: 15px 25px 15px 25px; font-size: 0.85em; }
-.ui-dialog.ui-widget-content{ border: 1px }
+.ui-dialog .ui-dialog-content{ padding: 25px;}
+.ui-dialog .ui-dialog-titlebar{   border-radius: 0px!important; background-image: none; background-color: #fff; color: #002d45; padding: 15px 25px 15px 25px; font-size: 0.85em; }
+.ui-dialog.ui-widget-content{border: 3px solid #002D45;width: 500px!important; }
 .ui-dialog .ui-dialog-title{ margin: 0px; }
 
 /* Panels */
-.ui-panel{ padding: 0px; }
-.ui-panel .ui-panel-titlebar{ background-image: none; background-color: #002d45; color: white; padding: 12px 25px 12px 25px; font-size: 0.9em; }
-.ui-panel .ui-panel-content{ padding: 25px; }
-
+.ui-panel{ padding: 0px;float: left;width: 100%;    margin-top: 20px;}
+.ui-panel .ui-panel-titlebar{/* background-image: none; background-color: #002d45;*/ color: #002D45; padding: 12px 25px 12px 25px; font-size: 0.9em; }
+/*.ui-panel .ui-panel-content{ padding: 25px; height: 532px;}*/
+.section{	padding: 30px; }
+.description{pading:4px}
 /* Buttons */
-.ui-button .ui-button-text { padding: 0.6em 1.2em; }
+.ui-button .ui-button-text { padding: 0.6em 7px; }
 .ui-button-text-icon-left .ui-button-text.ui-c { margin-left: 0.7em; }
-
+.btn-disabled{padding-bottom: 20px;  margin-bottom: 50px;background-color: #fff;border-color: #ccc!important;color:#333";}
 /* Fieldset */
 .ui-fieldset-legend {
     font-weight:bold;
 }
+

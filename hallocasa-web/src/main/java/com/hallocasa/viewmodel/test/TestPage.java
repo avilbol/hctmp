@@ -5,6 +5,8 @@
  */
 package com.hallocasa.viewmodel.test;
 
+import com.hallocasa.commons.vo.TelephoneVO;
+import com.hallocasa.dataentities.app.TestEntity;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.services.messaging.local.MailServices;
 import java.util.ArrayList;
@@ -30,23 +32,35 @@ public class TestPage {
     @EJB
     private MailServices mailServices;
     
+    private List<TestEntity> testAttrList;
+    
+    private TelephoneVO telephoneAttr;
+    
+    private String myAttr;
+    
     private List<String> availableElements;
     
     private List<String> selectedElements;
     
     @PostConstruct
     public void init(){
+    	testAttrList = new ArrayList<TestEntity>();
+    	testAttrList.add(new TestEntity(1l, "hi"));
+    	testAttrList.add(new TestEntity(2l, "hi2"));
         availableElements = new ArrayList<String>();
         availableElements.add("A");
         availableElements.add("B");
         availableElements.add("C");
-        
+        myAttr="hi";
         selectedElements = new ArrayList<String>();
         //selectedElements.add("A");
         selectedElements.add("B");
         selectedElements.add("C");
     }
 
+    public void onAction(){
+    	
+    }
 
     public void sendTestEmail(ActionEvent event) {
         try {
@@ -75,6 +89,28 @@ public class TestPage {
     public void setSelectedElements(List<String> selectedElements) {
         this.selectedElements = selectedElements;
     }
-    
-    
+
+	public List<TestEntity> getTestAttrList() {
+		return testAttrList;
+	}
+
+	public void setTestAttrList(List<TestEntity> testAttrList) {
+		this.testAttrList = testAttrList;
+	}
+
+	public String getMyAttr() {
+		return myAttr;
+	}
+
+	public void setMyAttr(String myAttr) {
+		this.myAttr = myAttr;
+	}
+
+	public TelephoneVO getTelephoneAttr() {
+		return telephoneAttr;
+	}
+
+	public void setTelephoneAttr(TelephoneVO telephoneAttr) {
+		this.telephoneAttr = telephoneAttr;
+	}
 }

@@ -1,157 +1,64 @@
-
 /* background image */
-.land-page-background {
-    background-image: url( "#{resource['images:slide-01-B.jpg']}");
-    background-size: auto 638px;
-    background-repeat: no-repeat;
-    z-index: -1000;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    background-image: url( "#{resource['images:slide-01-B.jpg']}");
-}
-@media screen and (max-width:1215px) {
-    .land-page-background {
-        background-image: url( "#{resource['images:slide-01-C.jpg']}");
-    }
-}
-@media screen and (max-width:991px) {
-    .land-page-background {
-        background-image: url( "#{resource['images:slide-01-D.jpg']}");
-    }
-}
-@media screen and (max-width:800px) {
-    .land-page-background {
-        background-image: url( "#{resource['images:slide-01-E.jpg']}");
-        background-repeat: repeat-y;
-    }
-}
+
 
 /* newsletter */
 .hc-home-newsletter-box {
-    font-size: 0.8em;
-    width: 350px;
-    left:50%;
-    top: 20em;
-    margin-left:-175px;
-    position:absolute;
+	font-size: 0.8em;
+	width: 350px;
+	left: 50%;
+	top: 20em;
+	margin-left: -175px;
+	position: absolute;
 }
-.hc-home-newsletter-box > form {
-    display: block;
-    width: 100%;
-    height: auto;
+
+.hc-home-newsletter-box>form {
+	display: block;
+	width: 100%;
+	height: auto;
 }
+
 .hc-home-newsletter-box .email-input {
-    font-size: 1.18em;
-    width: 73%;
-    display: inline-block;
-    padding: 0.55em 1.2em;
-    font-family: inherit;
+	font-size: 1.18em;
+	width: 73%;
+	display: inline-block;
+	padding: 0.55em 1.2em;
+	font-family: inherit;
 }
+
 .hc-home-newsletter-box .submit-btn {
-    width: 25%;
-    margin-left: 1%;
-
+	width: 25%;
+	margin-left: 1%;
 }
 
-@media screen and (max-width: 1280px) {
-    .hc-home-newsletter-box {
-        position: static;
-        width: 100%;
-        left: auto;
-        margin: 0;
-        text-align: center;
-        z-index: auto;
-        max-width: 350px;
-        margin-top: 2em;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-@media screen and (max-width: 480px) {
-    .hc-home-newsletter-box {
-        font-size: 0.8em;
-    }
-    .hc-home-newsletter-box > form {
-        display: block;
-        width: 100%;
-        height: auto;
-        text-align: center;
-    }
-    .hc-home-newsletter-box .email-input {
-        font-size: 1.2em;
-        width: 90%;
-        max-width: 20em;
-        display: block;
-        padding: 0.55em 1.2em;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .hc-home-newsletter-box .submit-btn {
-        width: 30%;
-        display: block;
-        margin: 0.5em auto 0 auto;
-    }
-}
-@media screen and (max-width: 768px) {
-    .hc-home-newsletter-box {
-        margin-top: 4em;
-    }
-}
+
 
 /* Investment box */
-.positioning-statement{
-    position: absolute; 
-    z-index: 10; 
-    top: 200px; 
-    left: 50px;
-    width: 400px;
-    max-width: 100%;
-}
-.positioning-statement .title {
-    padding: 10px;
-    font-size: 18px;
-    background: white;
-    border: 1px solid #666;
-    display: block;
-    color: #666;
-    width: 100%;
-    text-align: center;
-}
-.positioning-statement .sub-title {
-    padding: 10px;
-    font-size: 14px;
-    background: #002d45;
-    display: block;
-    color: white;
-    width: 100%;
-    text-align: center;
-}
-@media screen and ( max-width: 1280px ) {
-    .positioning-statement {
-        position: static;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 7em;
-    }
-}
-@media screen and ( max-width: 768px ) {
-    .positioning-statement {
-        margin-top: 1em;
-    }
-}
-@media screen and ( max-width: 480px ) {
-    .positioning-statement {
-        margin-top: 4em;
-    }
+.positioning-statement {
+	float: left;
+	width: 100%;
+	height: auto;
 }
 
-/* extra space */
-@media screen and ( max-width: 480px ) {
-    .home-fill-extra-space{
-        height: 5em;
-    }
+.positioning-statement .title {
+	font-size: 38px;
+	display: block;
+	color: #002D45;
+	width: 100%;
+	text-align: center;    
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.positioning-statement .sub-title {
+	font-size: 22px;
+	display: block;
+	color: #002D45;
+	width: 100%;
+	text-align: center;    
+	font-weight: 700;
+}
+.hc-card-profile{
+    border: 3px solid #ccc;
+    border-radius: 3px;
+    margin: 20px 20px 20px 100px;
 }

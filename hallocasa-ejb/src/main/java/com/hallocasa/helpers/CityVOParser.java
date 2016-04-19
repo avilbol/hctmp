@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hallocasa.helpers;
 
 import com.hallocasa.commons.vo.CityVO;
@@ -10,8 +5,10 @@ import com.hallocasa.dataentities.app.City;
 import java.lang.reflect.InvocationTargetException;
 
 /**
+ * Parser of cityVO to city and vice-versa
  *
  * @author Alexander Villamil
+ * @since 1.7
  */
 public class CityVOParser extends HallocasaVOParser<City, CityVO> {
 
@@ -73,5 +70,3 @@ public class CityVOParser extends HallocasaVOParser<City, CityVO> {
 
     /* Getters & Setters */
 }
-    
-

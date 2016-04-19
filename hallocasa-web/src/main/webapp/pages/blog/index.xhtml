@@ -14,8 +14,7 @@
 
     <!-- Blog content section -->
     <ui:define name="contentSection">
-        <br/><br/><br/>
-        <div id="blog-layout">
+        <div id="blog-layout" class="hc-content-body-blog">
             <h:panelGroup rendered="#{blogIndexPage.firstArticle ne null}">
                 <ui:include src="articlepreview.xhtml" >
                     <ui:param name="article" value="#{blogIndexPage.firstArticle}"/>

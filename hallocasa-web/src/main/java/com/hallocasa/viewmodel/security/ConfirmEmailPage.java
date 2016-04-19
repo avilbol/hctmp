@@ -5,21 +5,21 @@
  */
 package com.hallocasa.viewmodel.security;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.model.controlaccess.ForbiddenException;
+import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.services.user.local.SignUpServices;
 import com.hallocasa.view.context.ViewContext;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.view.navigation.ViewParamEnum;
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
 
 /**
  *
@@ -37,6 +37,10 @@ public class ConfirmEmailPage {
     private SignUpServices signUpServices;
     @EJB
     private UserServices userServices;
+    @Inject
+    private WebSession webSession;
+    
+    private UserVO user;
 
     @PostConstruct
     public void initialize() {
@@ -53,20 +57,20 @@ public class ConfirmEmailPage {
         // validates email
         Long userId;
         UserVO userVO;
-        userVO = userServices.find(email);
-        if (userVO == null) {
+        user = userServices.find(email);
+        if (user == null) {
             throw new ForbiddenException("");
         }
 
         // validates token
-        String genToken = UserActivationLinkUtils.generateActivationKey(userVO.getId(),
+        String genToken = UserActivationLinkUtils.generateActivationKey(user.getId(),
                 email);
         if (!genToken.equals(token)) {
             throw new ForbiddenException();
         }
 
         // activate user
-        signUpServices.activateUser(userVO.getId());
+        signUpServices.activateUser(user.getId());
     }
 
     /**
@@ -81,9 +85,16 @@ public class ConfirmEmailPage {
     /**
      * Process event of going to login
      */
-    public void processGoToLoginClick() {
-        Map<ViewParamEnum, String> params = new HashMap<>();
-        params.put(ViewParamEnum.LOGIN_DIALOG, "1");
-        navigationHandler.redirectToPage(HallocasaViewEnum.HOME, params);
+    public void processLoginClick() {
+    	webSession.login(user);
+        navigationHandler.redirectToPage(HallocasaViewEnum.HOME);
     }
+
+	public UserVO getUser() {
+		return user;
+	}
+
+	public void setUser(UserVO user) {
+		this.user = user;
+	}
 }

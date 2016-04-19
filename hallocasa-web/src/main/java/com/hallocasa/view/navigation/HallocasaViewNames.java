@@ -10,10 +10,13 @@ public interface HallocasaViewNames {
 	public static final String BUY_PROCESS = "buyProcessPage";
         public static final String BLOG_INDEX = "blogIndexPage";
         public static final String BLOG_ARTICLE = "blogArticlePage";
-        public static final String LINKS = "links";
+        public static final String BLOG_ARTICLE_EDITION = "blogArticleEditPage";
+        public static final String LINKS = "linksPage";
         public static final String PAGE_NOT_FOUND = "pageNotFound";
         public static final String USER_PROFILE_VIEW = "profileReadPage";
         public static final String USER_PROFILE_EDIT = "profileEditPage";
+        public static final String USER_PROFILE_BROWSER = "profileBrowserPage";
+        public static final String USER_PROFILE_PUBLIC = "publicProfilePage";
         public static final String TEST_PAGE = "testPage";
     
         // TODO: check this list

@@ -11,6 +11,7 @@ import com.hallocasa.commons.i18n.ValidationMessages;
 import com.hallocasa.commons.validation.NotEmpty;
 import com.hallocasa.commons.validation.ValidationPatterns;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,8 @@ public class UserVO implements ValueObject {
     private String editedPassword;
     
     private String password;
+    
+    private TelephoneVO telephone;
 
     @NotEmpty
     @Size(min = 0, max = 45)
@@ -64,8 +67,8 @@ public class UserVO implements ValueObject {
     @Size(min = 0, max = 45)
     private String skype;
 
-    @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
-            + ValidationMessages.GENERAL_NAME_PATTERN + "}")
+    @Pattern(regexp = ValidationPatterns.LINKED_IN_PATTERN, message = "{"
+            + ValidationMessages.LINKED_IN_PATTERN + "}")
     @Size(min = 0, max = 80)
     private String linkedIn;
 
@@ -477,6 +480,14 @@ public class UserVO implements ValueObject {
     public void setImage(ImageContainer image) {
         this.image = image;
     }
+
+	public TelephoneVO getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(TelephoneVO telephone) {
+		this.telephone = telephone;
+	}
 
     
     

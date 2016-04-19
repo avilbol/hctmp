@@ -1,52 +1,90 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui"  
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <!-- Agents-Section -->
-    <p:dialog modal="true" widgetVar="signup-dialog" id="signup-dialog"
-              closeOnEscape="true" 
-              header="#{viewBundle['SignUp.Dialog.Title']}" 
-              resizable="false"
-              styleClass="signup-dialog" width="auto">
-        <h:form id="signup-form" styleClass="hc-form">
-            <div class="hc-overlay-form-fields-container">
+	<!-- Agents-Section -->
+	<p:dialog modal="true" widgetVar="signup-dialog" id="signup-dialog"
+		closeOnEscape="#{globalMenuBean.interactWithApp}"
+		closable="#{globalMenuBean.interactWithApp}"
+		header="#{viewBundle['SignUp.Dialog.Title']}" resizable="false"
+		styleClass="signup-dialog" width="800">
+		<h:outputScript>
+        	function processSignUpFinished(args, interactWithApp){
+        		if(args.ok &amp;&amp; !interactWithApp){
+        			$("#alert-signup-dialog").fadeIn();
+        			setTimeout(function(){
+        				window.location.replace("/home/index.xhtml");
+        			}, 3000);
+        		}
+        		else if(args.ok){
+        			PF('signup-dialog').hide();
+        		}
+        	}
+        </h:outputScript>
+		<h:form id="signup-form" styleClass="hc-form">
+			<div class="-container">
+				<div class="col-md-12">
+					<p id="alert-signup-dialog" style="display: none">#{viewBundle['PublicProfile.PreAuthorize.pendingRedirect']}</p>
+				</div>
+				<div class="col-md-12 field-text">
+					<p:outputLabel for="email"
+						value="#{viewBundle['SignUp.Form.Email']}"
+						styleClass="hc-form-label hc-form-required" />
+					<p:inputText id="email"
+						placeholder="#{viewBundle['SignUp.Form.EnterEmail']}"
+						styleClass="hc-form-field"
+						value="#{signUpDialog.registerUserVO.email}" />
+				</div>
+				<div class="col-md-12 field-text">
+					<p:outputLabel for="password"
+						value="#{viewBundle['SignUp.Form.Password']}"
+						styleClass="hc-form-label hc-form-required" />
+					<p:password id="password" feedback="true" inline="true"
+						placeholder="#{viewBundle['SignUp.Form.EnterPassword']}"
+						styleClass="hc-form-field"
+						value="#{signUpDialog.registerUserVO.password}" />
+				</div>
+				<div class="col-md-12 field-text">
+					<p:outputLabel for="password-confirm"
+						value="#{viewBundle['SignUp.Form.PasswordConfirm']}"
+						styleClass="hc-form-label hc-form-required" />
+					<p:password id="password-confirm"
+						placeholder="#{viewBundle['SignUp.Form.ConfirmPassword']}"
+						styleClass="hc-form-field" value="#{signUpDialog.passwordConfirm}" />
+				</div>
+				<div class="col-md-12 check-tc">
+					<h:selectBooleanCheckbox value="#{signUpDialog.acceptTerms}" >
+					</h:selectBooleanCheckbox>&nbsp;
+					<h4> #{viewBundle['SignUp.Form.TermsAndConditions.Accept']}</h4>
+				</div> 
 
-                <p:outputLabel for="email"  value="#{viewBundle['SignUp.Form.Email']}"
-                               styleClass="hc-form-label hc-form-required"/>
-                <p:inputText id="email" placeholder="#{viewBundle['SignUp.Form.EnterEmail']}" 
-                             styleClass="hc-form-field"
-                             value="#{signUpDialog.registerUserVO.email}"/>
-
-                <p:outputLabel for="password" 
-                               value="#{viewBundle['SignUp.Form.Password']}"
-                               styleClass="hc-form-label hc-form-required"/>
-                <p:password id="password" feedback="true" inline="true" 
-                            placeholder="#{viewBundle['SignUp.Form.EnterPassword']}" 
-                            styleClass="hc-form-field"
-                            value="#{signUpDialog.registerUserVO.password}"/>
-
-                <p:outputLabel for="password-confirm" 
-                               value="#{viewBundle['SignUp.Form.PasswordConfirm']}" 
-                               styleClass="hc-form-label hc-form-required"/>
-                <p:password id="password-confirm" 
-                            placeholder="#{viewBundle['SignUp.Form.ConfirmPassword']}"
-                            styleClass="hc-form-field"
-                            value="#{signUpDialog.passwordConfirm}"/>
-            </div>
-            <div class="hc-overlay-form-buttons-container">
-                <div> 
-                    <p:commandButton value="${viewBundle['SignUp.Header.Button']}" 
-                                     styleClass="hc-form-cancel-button"
-                                     actionListener="#{signUpDialog.processSubmitClick()}"
-                                     process="@form" update="@form"
-                                     oncomplete="if (args.ok ) PF('signup-dialog').hide();"/>
-                </div>
-            </div>
-        </h:form>
-    </p:dialog>
+				<div class="col-md-12 register-btn">
+					<p:commandButton value="${viewBundle['SignUp.Header.Button']}"
+						styleClass="btn btn-primary"
+						actionListener="#{signUpDialog.processSubmitClick()}"
+						process="@form" update="@this"
+						oncomplete="processSignUpFinished(args, #{globalMenuBean.interactWithApp});"/>
+				</div>
+				<div class="col-md-12 terms-conditions">
+				<div class="col-md-12 btn-open">
+					<a class="show">
+						<h4>#{viewBundle['SignUp.Form.TermsAndConditions']}</h4>
+					</a>
+				</div>
+				<div class="col-md-12 btn-close"> 
+					<a class="closed-tc ui-icon ui-icon-closethick">x</a>
+				</div>
+				<div class="col-md-12 hidden-btn">
+					<h:outputText escape="false" value="#{viewTermsBundle['signup']}"
+						styleClass="hc-form-field" />
+				</div>
+				</div>
+			</div>
+		</h:form>
+	</p:dialog>
 
 </ui:composition>
 

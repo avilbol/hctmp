@@ -93,6 +93,7 @@
     <class>com.hallocasa.dataentities.converters.MultiLanguageTextConverter</class>
     <class>com.hallocasa.dataentities.converters.SpokenLanguagesConverter</class>
     <class>com.hallocasa.dataentities.converters.ImageContainerConverter</class>
+    <class>com.hallocasa.dataentities.converters.CountryTelephonePrefixConverter</class>
     <!-- entities -->
     <class>com.hallocasa.dataentities.app.Profile</class>
     <class>com.hallocasa.dataentities.app.UseCase</class>
@@ -102,6 +103,9 @@
     <class>com.hallocasa.dataentities.app.Country</class>
     <class>com.hallocasa.dataentities.app.City</class>
     <class>com.hallocasa.dataentities.app.Token</class>
+    <class>com.hallocasa.dataentities.app.TestEntity</class>
+    <class>com.hallocasa.dataentities.app.Telephone</class>
+    <class>com.hallocasa.dataentities.app.CountryTelephonePrefix</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.target-database" value="MySQL"/>
@@ -117,6 +121,7 @@
     <class>com.hallocasa.dataentities.converters.MultiLanguageTextConverter</class>
     <class>com.hallocasa.dataentities.converters.SpokenLanguagesConverter</class>
     <class>com.hallocasa.dataentities.converters.ImageContainerConverter</class>
+    <class>com.hallocasa.dataentities.converters.CountryTelephonePrefixConverter</class>
     <!-- entities -->
     <class>com.hallocasa.dataentities.app.Profile</class>
     <class>com.hallocasa.dataentities.app.UseCase</class>
@@ -127,6 +132,9 @@
     <class>com.hallocasa.dataentities.app.City</class>
     <class>com.hallocasa.dataentities.app.Country</class>
     <class>com.hallocasa.dataentities.app.Token</class>
+    <class>com.hallocasa.dataentities.app.TestEntity</class>
+    <class>com.hallocasa.dataentities.app.Telephone</class>
+    <class>com.hallocasa.dataentities.app.CountryTelephonePrefix</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.target-database" value="MYSQL"/>

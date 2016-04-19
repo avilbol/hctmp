@@ -5,18 +5,10 @@
  */
 package com.hallocasa.dataentities.app;
 
-import com.hallocasa.commons.Language;
-import com.hallocasa.commons.i18n.MultiLanguageText;
-import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
-import com.hallocasa.dataentities.converters.ImageContainerConverter;
-import com.hallocasa.dataentities.converters.LanguageConverter;
-import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
-import com.hallocasa.dataentities.converters.SpokenLanguagesConverter;
-import com.hallocasa.dataentities.types.LanguageList;
-import com.hallocasa.commons.vo.ImageContainer;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -30,377 +22,418 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.hallocasa.commons.Language;
+import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.ImageContainer;
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.converters.ImageContainerConverter;
+import com.hallocasa.dataentities.converters.LanguageConverter;
+import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
+import com.hallocasa.dataentities.converters.SpokenLanguagesConverter;
+import com.hallocasa.dataentities.types.LanguageList;
+
 /**
- *
+ * 
  * @author david
  */
 @Entity
 @Table(name = "user")
-@NamedQueries({
-    @NamedQuery(name = User.QUERY_FIND_BY_EMAIL,
-            query = "select u from User u where u.email = ?1"),
-})
-@SuppressWarnings({"UniqueEntityName", "ValidPrimaryTableName", "ValidAttributes"})
+@NamedQueries({ @NamedQuery(name = User.QUERY_FIND_BY_EMAIL, query = "select u from User u where u.email = ?1"), })
+@SuppressWarnings({ "UniqueEntityName", "ValidPrimaryTableName",
+		"ValidAttributes" })
 public class User implements Serializable, HallocasaEntity {
 
-    /* static fields */
-    private static final long serialVersionUID = 1L;
-    public static final String QUERY_FIND_BY_EMAIL = "User.findByEmail";
-    public static final String spokenLanguages_ = "spokenLanguages";
-    public static final String password_ = "password";
-    public static final String userTypes_ = "userTypes";
+	/* static fields */
+	private static final long serialVersionUID = 1L;
+	public static final String QUERY_FIND_BY_EMAIL = "User.findByEmail";
+	public static final String QUERY_ALL_LIST_WITH_USER_TYPES = "select u from User u WHERE size(u.userTypes) > 0";
+	public static final String QUERY_COUNT_LIST_WITH_USER_TYPES = "select count(u) from User u  WHERE size(u.userTypes) > 0";
+	public static final String QUERY_FIND_RANDOM_EXCLUDE_LIST = "select u from User u WHERE u.id NOT IN :exclList ORDER BY RAND()";
+	public static final String spokenLanguages_ = "spokenLanguages";
+	public static final String password_ = "password";
+	public static final String userTypes_ = "userTypes";
+	public static final String telephone_ = "telephone";
+	
+	/* instance variables */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    /* instance variables */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+	@Column(name = "email")
+	private String email;
 
-    @Column(name = "email")
-    private String email;
+	@Column(name = "password")
+	private String password;
 
-    @Column(name = "password")
-    private String password;
+	@Column(name = "confirmed_flag")
+	private Boolean confirmedFlag;
 
-    @Column(name = "confirmed_flag")
-    private Boolean confirmedFlag;
+	@Column(name = "language")
+	@Convert(converter = LanguageConverter.class)
+	private Language language;
 
-    @Column(name = "language")
-    @Convert(converter = LanguageConverter.class)
-    private Language language;
+	@Column(name = "first_name")
+	private String firstName;
 
-    @Column(name = "first_name")
-    private String firstName;
+	@Column(name = "last_name")
+	private String lastName;
 
-    @Column(name = "last_name")
-    private String lastName;
+	@Column(name = "web_site")
+	private String webSite;
 
-    @Column(name = "web_site")
-    private String webSite;
+	@Column(name = "linked_in")
+	private String linkedIn;
 
-    @Column(name = "linked_in")
-    private String linkedIn;
+	@Column(name = "skype")
+	private String skype;
 
-    @Column(name = "skype")
-    private String skype;
+	@Column(name = "spoken_languages")
+	@Convert(converter = SpokenLanguagesConverter.class)
+	private LanguageList spokenLanguages = new LanguageList();
 
-    @Column(name = "spoken_languages")
-    @Convert(converter = SpokenLanguagesConverter.class)
-    private LanguageList spokenLanguages = new LanguageList();
-    
-    @Column(name = "main_spoken_language", columnDefinition="Varchar(10) default 'en'")
-    @Convert(converter = LanguageConverter.class)
-    private Language mainSpokenLanguage;
-    
-    @Column(name = "user_description")
-    @Convert(converter = MultiLanguageTextConverter.class)
-    private MultiLanguageText userDescription;
+	@Column(name = "main_spoken_language", columnDefinition = "Varchar(10) default 'en'")
+	@Convert(converter = LanguageConverter.class)
+	private Language mainSpokenLanguage;
 
-    @JoinTable(name = "user_user_type", joinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "user_type_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<UserType> userTypes = new ArrayList<>();
+	@Column(name = "user_description")
+	@Convert(converter = MultiLanguageTextConverter.class)
+	private MultiLanguageText userDescription;
 
-    /*@JoinTable(name = "user_profile", joinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {
-                @JoinColumn(name = "profile_id", referencedColumnName = "id")})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Profile> profiles;*/
+	@JoinTable(name = "user_user_type", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "user_type_id", referencedColumnName = "id") })
+	@ManyToMany(fetch = FetchType.LAZY)
+	private List<UserType> userTypes = new ArrayList<>();
 
-    @JoinColumn(name = "country_id", referencedColumnName = "id")
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    private Country country;
+	/*
+	 * @JoinTable(name = "user_profile", joinColumns = {
+	 * 
+	 * @JoinColumn(name = "user_id", referencedColumnName = "id")},
+	 * inverseJoinColumns = {
+	 * 
+	 * @JoinColumn(name = "profile_id", referencedColumnName = "id")})
+	 * 
+	 * @ManyToMany(fetch = FetchType.LAZY) private List<Profile> profiles;
+	 */
 
-    @JoinColumn(name = "state_id", referencedColumnName = "id")
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    private State state;
-    
-    @JoinColumn(name = "city_id", referencedColumnName = "id")
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    private City city;
+	@JoinColumn(name = "country_id", referencedColumnName = "id")
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	private Country country;
 
-    @Column(name = "image_name")
-    @Convert(converter = ImageContainerConverter.class)
-    private ImageContainer image;
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
+	@JoinColumn(name = "state_id", referencedColumnName = "id")
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	private State state;
 
-    /**
-     * Default constructor
-     */
-    public User() {
-        this.spokenLanguages = new LanguageList();
-    }
+	@JoinColumn(name = "city_id", referencedColumnName = "id")
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	private City city;
+	
+	@JoinColumn(name = "user_telephone_id", referencedColumnName = "id")
+	@OneToOne(optional = true, fetch = FetchType.LAZY)
+	private Telephone telephone;
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
-            return false;
-        }
-        User other = (User) object;
-        return !((this.id == null && other.id != null)
-                || (this.id != null && !this.id.equals(other.id)));
-    }
+	@Column(name = "image_name")
+	@Convert(converter = ImageContainerConverter.class)
+	private ImageContainer image;
 
-    @Override
-    public String toString() {
-        return "com.hallocasa.dataentities.app.User[ id=" + id + " ]";
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (id != null ? id.hashCode() : 0);
+		return hash;
+	}
 
-    /**
-     * Getter for id
-     *
-     * @return
-     */
-    public Long getId() {
-        return id;
-    }
+	/**
+	 * Default constructor
+	 */
+	public User() {
+		this.spokenLanguages = new LanguageList();
+	}
 
-    /**
-     * Setter for Id
-     *
-     * @param id
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are
+		// not set
+		if (!(object instanceof User)) {
+			return false;
+		}
+		User other = (User) object;
+		return !((this.id == null && other.id != null) || (this.id != null && !this.id
+				.equals(other.id)));
+	}
 
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
+	@Override
+	public String toString() {
+		return "com.hallocasa.dataentities.app.User[ id=" + id + " ]";
+	}
 
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	/**
+	 * Getter for id
+	 * 
+	 * @return
+	 */
+	public Long getId() {
+		return id;
+	}
 
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
+	/**
+	 * Setter for Id
+	 * 
+	 * @param id
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
 
-    /**
-     * @return the userType
-     */
-    public List<UserType> getUserTypes() {
-        return userTypes;
-    }
+	/**
+	 * @param email
+	 *            the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    /**
-     * @param userTypes the userType to set
-     */
-    public void setUserType(List<UserType> userTypes) {
-        this.setUserTypes(userTypes);
-    }
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
 
-    /**
-     * @return the confirmedFlag
-     */
-    public Boolean getConfirmedFlag() {
-        return confirmedFlag;
-    }
+	/**
+	 * @param password
+	 *            the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    /**
-     * @param confirmedFlag the confirmedFlag to set
-     */
-    public void setConfirmedFlag(Boolean confirmedFlag) {
-        this.confirmedFlag = confirmedFlag;
-    }
+	/**
+	 * @return the userType
+	 */
+	public List<UserType> getUserTypes() {
+		return userTypes;
+	}
 
-    /**
-     * @return the language
-     */
-    public Language getLanguage() {
-        return language;
-    }
+	/**
+	 * @param userTypes
+	 *            the userType to set
+	 */
+	public void setUserType(List<UserType> userTypes) {
+		this.setUserTypes(userTypes);
+	}
 
-    /**
-     * @param language the language to set
-     */
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
+	/**
+	 * @return the confirmedFlag
+	 */
+	public Boolean getConfirmedFlag() {
+		return confirmedFlag;
+	}
 
-    public Language getMainSpokenLanguage() {
-        return mainSpokenLanguage;
-    }
+	/**
+	 * @param confirmedFlag
+	 *            the confirmedFlag to set
+	 */
+	public void setConfirmedFlag(Boolean confirmedFlag) {
+		this.confirmedFlag = confirmedFlag;
+	}
 
-    public void setMainSpokenLanguage(Language mainSpokenLanguage) {
-        this.mainSpokenLanguage = mainSpokenLanguage;
-    }
+	/**
+	 * @return the language
+	 */
+	public Language getLanguage() {
+		return language;
+	}
 
-    /**
-     * @return the firstName
-     */
-    public String getFirstName() {
-        return firstName;
-    }
+	/**
+	 * @param language
+	 *            the language to set
+	 */
+	public void setLanguage(Language language) {
+		this.language = language;
+	}
 
-    /**
-     * @param firstName the firstName to set
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public Language getMainSpokenLanguage() {
+		return mainSpokenLanguage;
+	}
 
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
+	public void setMainSpokenLanguage(Language mainSpokenLanguage) {
+		this.mainSpokenLanguage = mainSpokenLanguage;
+	}
 
-    /**
-     * @param lastName the lastName to set
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public City getCity() {
-        return city;
-    }
+	/**
+	 * @param firstName
+	 *            the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public void setCity(City city) {
-        this.city = city;
-    }
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
 
-    /**
-     * @return the webSite
-     */
-    public String getWebSite() {
-        return webSite;
-    }
+	/**
+	 * @param lastName
+	 *            the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    /**
-     * @param webSite the webSite to set
-     */
-    public void setWebSite(String webSite) {
-        this.webSite = webSite;
-    }
+	public City getCity() {
+		return city;
+	}
 
-    /**
-     * @return the linkedIn
-     */
-    public String getLinkedIn() {
-        return linkedIn;
-    }
+	public void setCity(City city) {
+		this.city = city;
+	}
 
-    /**
-     * @param linkedIn the linkedIn to set
-     */
-    public void setLinkedIn(String linkedIn) {
-        this.linkedIn = linkedIn;
-    }
+	/**
+	 * @return the webSite
+	 */
+	public String getWebSite() {
+		return webSite;
+	}
 
-    /**
-     * @return the skype
-     */
-    public String getSkype() {
-        return skype;
-    }
+	/**
+	 * @param webSite
+	 *            the webSite to set
+	 */
+	public void setWebSite(String webSite) {
+		this.webSite = webSite;
+	}
 
-    /**
-     * @param skype the skype to set
-     */
-    public void setSkype(String skype) {
-        this.skype = skype;
-    }
+	/**
+	 * @return the linkedIn
+	 */
+	public String getLinkedIn() {
+		return linkedIn;
+	}
 
-    /**
-     * @return the userDescription
-     */
-    public MultiLanguageText getUserDescription() {
-        return userDescription;
-    }
+	/**
+	 * @param linkedIn
+	 *            the linkedIn to set
+	 */
+	public void setLinkedIn(String linkedIn) {
+		this.linkedIn = linkedIn;
+	}
 
-    /**
-     * @param userDescription the userDescription to set
-     */
-    public void setUserDescription(MultiLanguageText userDescription) {
-        this.userDescription = userDescription;
-    }
+	/**
+	 * @return the skype
+	 */
+	public String getSkype() {
+		return skype;
+	}
 
-    /**
-     * @return the spokenLanguages
-     */
-    public List<Language> getSpokenLanguages() {
-        return spokenLanguages;
-    }
+	/**
+	 * @param skype
+	 *            the skype to set
+	 */
+	public void setSkype(String skype) {
+		this.skype = skype;
+	}
 
-    /**
-     * @param spokenLanguages the spokenLanguages to set
-     */
-    public void setSpokenLanguages(LanguageList spokenLanguages) {
-        this.spokenLanguages = spokenLanguages;
-    }
+	/**
+	 * @return the userDescription
+	 */
+	public MultiLanguageText getUserDescription() {
+		return userDescription;
+	}
 
-    /**
-     * @param userTypes the userTypes to set
-     */
-    public void setUserTypes(List<UserType> userTypes) {
-        this.userTypes = userTypes;
-    }
+	/**
+	 * @param userDescription
+	 *            the userDescription to set
+	 */
+	public void setUserDescription(MultiLanguageText userDescription) {
+		this.userDescription = userDescription;
+	}
 
-    /**
-     * @return the country
-     */
-    public Country getCountry() {
-        return country;
-    }
+	/**
+	 * @return the spokenLanguages
+	 */
+	public List<Language> getSpokenLanguages() {
+		return spokenLanguages;
+	}
 
-    /**
-     * @param country the country to set
-     */
-    public void setCountry(Country country) {
-        this.country = country;
-    }
+	/**
+	 * @param spokenLanguages
+	 *            the spokenLanguages to set
+	 */
+	public void setSpokenLanguages(LanguageList spokenLanguages) {
+		this.spokenLanguages = spokenLanguages;
+	}
 
-    /**
-     * @return the state
-     */
-    public State getState() {
-        return state;
-    }
+	/**
+	 * @param userTypes
+	 *            the userTypes to set
+	 */
+	public void setUserTypes(List<UserType> userTypes) {
+		this.userTypes = userTypes;
+	}
 
-    /**
-     * @param state the state to set
-     */
-    public void setState(State state) {
-        this.state = state;
-    }
-    
-    public ImageContainer getImage() {
-        return image;
-    }
+	/**
+	 * @return the country
+	 */
+	public Country getCountry() {
+		return country;
+	}
 
-    public void setImage(ImageContainer image) {
-        this.image = image;
-    }
+	/**
+	 * @param country
+	 *            the country to set
+	 */
+	public void setCountry(Country country) {
+		this.country = country;
+	}
 
+	/**
+	 * @return the state
+	 */
+	public State getState() {
+		return state;
+	}
+
+	/**
+	 * @param state
+	 *            the state to set
+	 */
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public ImageContainer getImage() {
+		return image;
+	}
+
+	public void setImage(ImageContainer image) {
+		this.image = image;
+	}
+
+	public Telephone getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(Telephone telephone) {
+		this.telephone = telephone;
+	}
 }

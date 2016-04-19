@@ -1,8 +1,12 @@
 package com.hallocasa.helpers;
 
 import com.hallocasa.commons.Language;
+import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
+import com.hallocasa.commons.vo.TelephoneVO;
 import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.dataentities.app.CountryTelephonePrefix;
+import com.hallocasa.dataentities.app.Telephone;
 import com.hallocasa.dataentities.app.User;
 import com.hallocasa.dataentities.app.UserType;
 import com.hallocasa.dataentities.types.LanguageList;
@@ -45,7 +49,11 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
                 vo.getUserTypes().add(ParsersContext.USER_TYPE_VO_PARSER
                         .toValueObject(userType, UserTypeVO.class));
             }
-        }  else {
+        }  
+        else if (propertyName.equals(User.telephone_)) {
+            vo.setTelephone(parseEntityToVO(entity.getTelephone()));
+        } 
+        else {
             super.copyEntityPropertyToValueObjectProperty(vo, entity,
                     propertyName, propertyValue, options);
         }
@@ -75,6 +83,12 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
                         .toEntity(userTypeVO, UserType.class));
             }
         }
+        else if (propertyName.equals(User.telephone_)){
+        	if(vo.getTelephone() != null){
+        		entity.setTelephone(new Telephone(vo.getTelephone()));
+            	entity.getTelephone().setUser(entity);
+        	}
+        }
         else{
             super.copyVOPropertyToEntityProperty(vo, entity, propertyName,
                 propertyValue, options);   
@@ -101,6 +115,20 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
      */
     private Object[] buildOptions(boolean excludeIpList) {
         return new Object[]{excludeIpList};
+    }
+    
+    private TelephoneVO parseEntityToVO(Telephone telephone){
+		if(telephone == null || telephone.getNumber() == null){
+			return null;
+		}
+		TelephoneVO tvo = new TelephoneVO();
+		tvo.setNumber(telephone.getNumber());
+		CountryTelephonePrefixVO ctp = new CountryTelephonePrefixVO();
+		ctp.setId(telephone.getCountryTelephonePrefix().getId().longValue());
+		ctp.setName(telephone.getCountryTelephonePrefix().getName());
+		ctp.setPrefix(telephone.getCountryTelephonePrefix().getPrefix());
+		tvo.setCountryTelephonePrefix(ctp);
+		return tvo;
     }
 
     /* Getters & Setters */

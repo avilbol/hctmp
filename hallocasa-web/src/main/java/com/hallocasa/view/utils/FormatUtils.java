@@ -10,6 +10,12 @@ package com.hallocasa.view.utils;
  * @author avillamil
  */
 public class FormatUtils {
+	
+	private static final String HTTP_PREFIX = "http://";
+	
+	private static final String HTTPS_PREFIX = "https://";
+	
+	private static final String POINTS_COMPLEMENT_TRUNC = "...";
     
     public static boolean isNumeric(String value){
         try{
@@ -29,7 +35,28 @@ public class FormatUtils {
         return value;
     }
     
+    public static String truncateWithPoints(String value, int maxCharacterNumber){
+    	if(value == null){
+    		return null;
+    	}
+    	if(value.length() <= maxCharacterNumber){
+    		return value;
+    	}
+    	return value.substring(0, maxCharacterNumber) + POINTS_COMPLEMENT_TRUNC;
+    }
+    
     public static boolean isEmptyValue(String value){
         return value == null || value.equals("");
+    }
+    
+    public static String buildWebString(String webStr, boolean https){
+    	if(webStr == null || webStr.equals("")){
+            return JSFUtils.getViewBundleString("Common.Label.NotSpecified");
+        }
+    	String prefix = https ? HTTPS_PREFIX : HTTP_PREFIX;
+    	if(!webStr.startsWith(prefix)){
+    		return (https ? HTTPS_PREFIX : HTTP_PREFIX) + webStr;
+    	}
+    	return webStr;
     }
 }

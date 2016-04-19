@@ -16,7 +16,13 @@ public interface ValidationPatterns {
     /**
      * Regular expression for URL validation
      */
-    public static final String URL_PATTERN = "^(https?:\\/\\/([\\da-z\\.-\\:]+)\\.?([a-z\\.]{2,6})?([\\/\\w%!#\\.\\-\\?\\&=])*\\/?){0,1}$";
+    public static final String URL_PATTERN = "^(((https?|ftp|file):\\/\\/)?[-a-zA-Z0-9+&@#\\/%_|!:,;]+(\\.[-a-zA-Z0-9+?:&@#\\/%=~_|]+)+)?";
+    
+    /**
+     * Regular expression for LinkedIn URL validation
+     */
+    public static final String LINKED_IN_PATTERN = "^((https:\\/\\/)?([a-z]{1,3}.)?linkedin.com\\/in\\/[-a-zA-Z0-9+&?=@#\\/%_|!:,;]+)?";
+    
     /**
      * Regular expression for Password validation
      */
@@ -28,7 +34,7 @@ public interface ValidationPatterns {
     /**
      * Regular expression for general names
      */
-    public static final String GENERAL_NAME = "^[a-zA-Z·ÈÌÛ˙¡…Õ”⁄Ò—‹¸\\s.√°√©√≠√≥√∫√±√ë√?√â√?√ì√ö√º√ú'\\-\\&0-9,]*$";
+    public static final String GENERAL_NAME = "^[a-zA-Z·ÈÌÛ˙¡…Õ”⁄Ò—‹¸_\\s.√°√©√≠√≥√∫√±√ë√?√â√?√ì√ö√º√ú'\\-\\&0-9,]*$";
     /**
      * Regular expression for street address
      */

@@ -30,7 +30,7 @@ public class CredentialVO implements ValueObject {
     private String email;
     @NotNull
     @NotEmpty
-    @Size(min = 0, max = 15)
+    @Size(min = 0, max = 80)
     private String password;
 
     /* constructors */

@@ -7,6 +7,7 @@
     <name>Hallocasa Enterprise Application</name>
 
     <build>
+    <pluginManagement>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -38,11 +39,6 @@
                             <artifactId>hallocasa-theme</artifactId>
                             <bundleFileName>hallocasa-theme.jar</bundleFileName>
                         </jarModule>
-                        <jarModule>
-                            <groupId>com.hallocasa</groupId>
-                            <artifactId>avilbol-theme</artifactId>
-                            <bundleFileName>avilbol-theme.jar</bundleFileName>
-                        </jarModule>
                         <webModule>
                             <groupId>com.hallocasa</groupId>
                             <artifactId>hallocasa-web</artifactId>
@@ -64,6 +60,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        </pluginManagement>
         <finalName>HallocasaEar</finalName>
     </build>
 
@@ -92,17 +89,12 @@
             <version>${hallocasa.portal.version}</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>avilbol-theme</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 	
     <parent>
         <groupId>com.hallocasa</groupId>
         <artifactId>hallocasa</artifactId>
-        <version>1.1.0.1-SNAPSHOT</version>
+        <version>2.0.0.1-SNAPSHOT</version>
         <relativePath>../hallocasa</relativePath>
     </parent>
 

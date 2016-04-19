@@ -8,6 +8,7 @@ package com.hallocasa.dataentities.app.test;
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.app.City;
 import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.State;
 import com.hallocasa.dataentities.app.UserType;
@@ -15,9 +16,11 @@ import com.hallocasa.dataentities.converters.LanguageConverter;
 import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import com.hallocasa.dataentities.converters.SpokenLanguagesConverter;
 import com.hallocasa.dataentities.types.LanguageList;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -76,8 +79,9 @@ public class UserTest implements Serializable, HallocasaEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "city")
-    private String city;
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    private City city;
 
     @Column(name = "web_site")
     private String webSite;
@@ -267,14 +271,14 @@ public class UserTest implements Serializable, HallocasaEntity {
     /**
      * @return the city
      */
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
     /**
      * @param city the city to set
      */
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 

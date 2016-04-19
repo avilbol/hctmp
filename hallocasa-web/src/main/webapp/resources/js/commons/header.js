@@ -1,3 +1,7 @@
+function menu() {
+    document.getElementsByClassName("topnav")[0].classList.toggle("responsive");
+}
+
 $(document).ready(function () {
     var MOBILE_MAX_WIDTH = 480;
     var MODE_DESKTOP = 'desktop';
@@ -69,5 +73,28 @@ $(document).ready(function () {
         }
     };
 
+    $(".show").click(function(){
+        $(".hidden-btn").show();
+        $(".btn-close").show();
+        $(".show").hide();
+        $(".btn-open").hide();
+        $(".field-text").hide();
+        $(".check-tc").hide();
+        $(".register-btn").hide();
+        return false;
+    });
+    $(".closed-tc").click(function(){
+        $(".hidden-btn").hide();
+        $(".btn-close").hide();
+        $(".show").show();
+        $(".check-tc").show();
+        $(".btn-open").show();
+        $(".field-text").show();
+        $(".register-btn").show();
+        return false;
+    });
+    
     globalMenu.init();
+
 });
+

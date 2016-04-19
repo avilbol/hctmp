@@ -103,6 +103,12 @@ public class WebSessionImpl extends Observable implements WebSession,
         return CDI.current().select(WebSession.class
         ).get();
     }
+    
+    @Override
+    public void login(UserVO userVO){
+    	currentUser = userVO;
+        accessValidator.clear();
+    }
 
     @Override
     public void login(CredentialVO credentialVO) throws LoginFailedException {

@@ -62,6 +62,10 @@ public class ApplicationFileUtils {
          InputStream is = new BufferedInputStream(new FileInputStream(file));
          return URLConnection.guessContentTypeFromStream(is);
     }
+     
+    public static String getImageMimeType(File file) throws IOException {
+    	return getMimeType(file).equals("image/png") ? "png" : "jpg";
+    }
     
     public static String getAbsoluteUrl(String localUrl) {
         return getAbsolutePath(localUrl) + SLASH + getFilename(localUrl);

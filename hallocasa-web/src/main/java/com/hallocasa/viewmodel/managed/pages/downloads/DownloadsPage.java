@@ -5,17 +5,13 @@
  */
 package com.hallocasa.viewmodel.managed.pages.downloads;
 
-import com.hallocasa.dataentities.wcm.BlogArticle;
-import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
-import com.hallocasa.commons.constants.SystemConstants;
-import com.hallocasa.model.session.WebSessionImpl;
-import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.el.ExpressionFactory;
@@ -24,17 +20,30 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
+
 import org.primefaces.component.filedownload.FileDownloadActionListener;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.TreeNode;
 
+import com.hallocasa.dataentities.wcm.BlogArticle;
+import com.hallocasa.model.session.WebSession;
+import com.hallocasa.services.FileServices;
+import com.hallocasa.services.interfaces.BlogArticleServicesLocal;
+import com.hallocasa.viewmodel.managed.base.BaseManagedBean;
+
 @ManagedBean(name = "downloadsPage")
 @ViewScoped
 public class DownloadsPage extends BaseManagedBean {
 
-    /* Inner Types */
+    /**
+	 * Serialization constant
+	 */
+	private static final long serialVersionUID = 5677875088805894349L;
+
+	/* Inner Types */
     class DirectoryFilter implements FilenameFilter {
 
         @Override
@@ -62,6 +71,8 @@ public class DownloadsPage extends BaseManagedBean {
     @EJB
     private BlogArticleServicesLocal blogArticleServices;
 
+    @Inject
+    private WebSession webSession;
     /**
      * Initialize
      */
@@ -72,8 +83,8 @@ public class DownloadsPage extends BaseManagedBean {
         fileFilter = new FileFilter();
         directoryFilter = new DirectoryFilter();
 
-        File fileRoot = new File(SystemConstants.DOWNLOADS_PATH + "/"
-                + WebSessionImpl.getCurrentInstance().getCurrentLanguage().name());
+        File fileRoot = new File(FileServices.DOWNLOADS_PATH + "/"
+                + webSession.getCurrentLanguage().name());
         root = new DefaultTreeNode("root", null);
         loadFolderFiles(fileRoot, root);
         

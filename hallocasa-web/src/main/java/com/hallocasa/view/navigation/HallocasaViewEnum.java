@@ -1,18 +1,24 @@
 package com.hallocasa.view.navigation;
 
+import static com.hallocasa.view.navigation.ViewParamEnum.ARTICLE_ID;
+import static com.hallocasa.view.navigation.ViewParamEnum.EMAIL;
+import static com.hallocasa.view.navigation.ViewParamEnum.TOKEN;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.model.controlaccess.UseCaseEnum;
 import com.hallocasa.viewmodel.managed.pages.blog.BlogArticlePage;
 import com.hallocasa.viewmodel.managed.pages.blog.BlogIndexPage;
 import com.hallocasa.viewmodel.managed.pages.buyprocess.BuyProcessPage;
 import com.hallocasa.viewmodel.managed.pages.links.LinksPage;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import static com.hallocasa.view.navigation.ViewParamEnum.*;
 import com.hallocasa.viewmodel.test.TestPage;
+import com.hallocasa.viewmodel.user.present.ProfileBrowserPage;
 import com.hallocasa.viewmodel.user.profile.ProfileEditPage;
 import com.hallocasa.viewmodel.user.profile.ProfileReadPage;
+import com.hallocasa.viewmodel.user.profile.PublicProfilePage;
 
 /**
  * Enumeration to control all the views in the application
@@ -69,6 +75,18 @@ public enum HallocasaViewEnum {
     EDIT_PROFILE(HallocasaViewNames.USER_PROFILE_EDIT, "/user/pages/edit-profile.xhtml",
             ProfileEditPage.class, true, null, UseCaseEnum.EDIT_MY_PROFILE),
     
+    /**
+     * Page for profile browsing
+     */
+    BROWSE_PROFILE(HallocasaViewNames.USER_PROFILE_BROWSER, "/profile/profile-browser.xhtml",
+    		ProfileBrowserPage.class, false, null, UseCaseEnum.BROWSE_PROFILES),
+        
+	/**
+     * Page for profile public
+     */
+    PUBLIC_PROFILE(HallocasaViewNames.USER_PROFILE_PUBLIC, "/profile/public-profile.xhtml",
+    		PublicProfilePage.class, false, null, UseCaseEnum.SEE_PUBLIC_PROFILE),
+    		
      /**
      * Page for tests
      */
@@ -104,8 +122,14 @@ public enum HallocasaViewEnum {
      * Blog article detail
      */
     BLOG_ARTICLE(HallocasaViewNames.BLOG_ARTICLE, "/pages/blog/article.xhtml",
-            BlogArticlePage.class, false, new ViewParamEnum[]{ARTICLE_ID});
+            BlogArticlePage.class, false, new ViewParamEnum[]{ARTICLE_ID}),
 
+	/**
+     * Blog article detail
+     */
+    BLOG_ARTICLE_EDITION(HallocasaViewNames.BLOG_ARTICLE, "/pages/blog/articleedition.xhtml",
+            BlogArticlePage.class, false, new ViewParamEnum[]{ARTICLE_ID});
+	
     /* Static */
     public static final HallocasaViewEnum DEFAULT_VIEW = HOME;
 

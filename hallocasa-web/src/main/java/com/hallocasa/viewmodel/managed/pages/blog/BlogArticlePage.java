@@ -45,7 +45,7 @@ public class BlogArticlePage extends BlogPageBase {
     public void initialize() {
         // loads article from view paramters
         String articleIdStr = navigationHandler.getPageParams().
-                get(ViewParamEnum.ARTICLE_ID.name());
+                get(ViewParamEnum.ARTICLE_ID.getParamKey());
         Integer articleId = null;
         try {
             articleId = new Integer(articleIdStr);

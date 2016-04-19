@@ -3,7 +3,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:c="http://java.sun.com/jsp/jstl/core"
-                template="generalLayout.xhtml">
+                template="../../commons/templates/general-layout.xhtml">
 
     <ui:remove>
         <!-- Parameters: (Inherited from header)
@@ -14,17 +14,17 @@
 
     <ui:define name="menuItemsSection">
         <ui:include
-            src="/facelets/sections/commons/globalmenu/globalMenu.xhtml" />
+            src="../../commons/fragments/global-menu.xhtml" />
         <ui:include
             src="/access/fragments/signup-dialog.xhtml" />
     </ui:define>
 
 
     <ui:define name="contentSection">
-        <div>
-        <ui:include src="../sections/commons/header.xhtml" />
-        </div>
-        <div style="position: relative;" class="portal-layout-content">
+        <!--<div>
+          <ui:include src="../../commons/fragments/header.xhtml" />
+        </div>-->
+        <div class="hc-content-body-downloads ">
             <ui:insert name="portalSection" />
         </div>
     </ui:define>

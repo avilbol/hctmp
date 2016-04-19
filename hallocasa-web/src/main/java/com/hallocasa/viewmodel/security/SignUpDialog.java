@@ -5,6 +5,19 @@
  */
 package com.hallocasa.viewmodel.security;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.hallocasa.commons.exceptions.services.InvalidEmailException;
 import com.hallocasa.commons.i18n.ValidationMessages;
 import com.hallocasa.commons.validation.NotEmpty;
@@ -15,19 +28,7 @@ import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.services.user.local.SignUpServices;
 import com.hallocasa.view.context.ViewContext;
 import com.hallocasa.view.i18n.Messages;
-import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.view.navigation.ViewParamEnum;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -47,8 +48,6 @@ public class SignUpDialog {
     private WebSession webSession;
     @Inject
     private ViewContext viewContext;
-    @Inject
-    private NavigationHandler navigationHandler;
 
     /* instance variables */
     private RegisterUserVO registerUserVO;
@@ -57,6 +56,8 @@ public class SignUpDialog {
     @Size(min = 0, max = 80)
     private String passwordConfirm;
 
+    // Accept terms and conditions
+    private boolean acceptTerms;
     /**
      * Initialize
      */
@@ -124,21 +125,36 @@ public class SignUpDialog {
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
+    
+    public boolean isAcceptTerms() {
+		return acceptTerms;
+	}
 
-    /**
+	public void setAcceptTerms(boolean acceptTerms) {
+		this.acceptTerms = acceptTerms;
+	}
+
+	/**
      * Execute additional validations, that means other than bean validations
      *
      * @return
      */
     private boolean validateForm() {
+    	String message = null;
+    	if(!acceptTerms){
+    		message= ValidationMessages.MUST_ACCEPT_TERMS_AND_CONDITIONS;
+    	}
         if (!passwordConfirm.equals(registerUserVO.getPassword())) {
-            viewContext.showGlobalCustomErrorMessage(
+            message = ValidationMessages.SIGNUP_PASSWORD_CONFIRM_NOT_MATCH;
+        }
+        if(message != null){
+        	viewContext.showGlobalCustomErrorMessage(
                     ValidationMessages.getString(
-                            ValidationMessages.SIGNUP_PASSWORD_CONFIRM_NOT_MATCH,
+                            message,
                             webSession.getCurrentLanguage().getLocale()),
                     null);
-            return false;
-        }
+        	return false;
+        }     
         return true;
     }
 

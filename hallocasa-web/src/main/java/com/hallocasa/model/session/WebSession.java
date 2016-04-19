@@ -30,6 +30,7 @@ public interface WebSession {
      */
     public Language getCurrentLanguage();
 
+
     /**
      * Login into the session.
      *
@@ -57,5 +58,12 @@ public interface WebSession {
      * @return current user
      */
     public UserVO getCurrentUser();
+
+    /**
+     * Login into the session with precharged user information.
+     *
+     * @param userVO
+     */
+	void login(UserVO userVO);
 
 }

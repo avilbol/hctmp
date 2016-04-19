@@ -5,17 +5,18 @@
  */
 package com.hallocasa.viewmodel.managed.modules;
 
-import com.hallocasa.commons.vo.CredentialVO;
-import com.hallocasa.commons.vo.UserVO;
-import com.hallocasa.model.session.LoginFailedException;
-import com.hallocasa.model.session.WebSession;
-import com.hallocasa.view.context.ViewContext;
-import com.hallocasa.view.navigation.HallocasaViewEnum;
-import com.hallocasa.view.navigation.NavigationHandler;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
+
+import com.google.gson.Gson;
+import com.hallocasa.commons.users.UserUtils;
+import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.model.session.WebSession;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
+import com.hallocasa.view.navigation.NavigationHandler;
 
 /**
  * ViewModel of the global menu section
@@ -31,11 +32,21 @@ public class GlobalMenuBean {
     private NavigationHandler navigationHandler;
     @Inject
     private WebSession webSession;
-    @Inject
-    private ViewContext viewContext;
+    
+    /**
+	 * Flag that indicates if it is possible to  exit of login module
+	 * and interact with the app
+	 */
+	private boolean interactWithApp;
+	
+    
+    private static Gson gson = new Gson();
 
-   
-
+    @PostConstruct
+    public void initialize(){
+    	interactWithApp = true;
+    }
+    
     /**
      * Listener for item click
      *
@@ -58,6 +69,10 @@ public class GlobalMenuBean {
         navigationHandler.redirectToPage(HallocasaViewEnum.MY_PROFILE);
     }
     
+    public void denyLoginInteract(){
+		interactWithApp = false;
+	}
+    
     /**
      * Getter for showLogoutButton
      *
@@ -66,13 +81,36 @@ public class GlobalMenuBean {
     public boolean isLogged() {
         return webSession.isLogged();
     }
-
-    public String getUsername(){
-        UserVO userVO = webSession.getCurrentUser();
-        if(userVO.getFirstName() == null){
-            return userVO.getEmail();
-        }
-        return userVO.getFirstName();
+    
+    public String getJsEmail(){
+    	return gson.toJson(getEmail());
     }
     
+    public String getJsUsername(){
+    	return gson.toJson(getUsername());
+    }
+    
+    public String getUsername(){
+    	return UserUtils.getUsername(webSession.getCurrentUser());
+    }
+    
+    public String getFullusername(){
+    	return UserUtils.getFullUsername(webSession.getCurrentUser());
+    }
+    
+    public String getEmail(){
+    	UserVO userVO = webSession.getCurrentUser();
+    	if(userVO == null){
+    		return null;
+    	}
+    	return userVO.getEmail();
+    }
+    
+    public boolean isInteractWithApp() {
+		return interactWithApp;
+	}
+
+	public void setInteractWithApp(boolean interactWithApp) {
+		this.interactWithApp = interactWithApp;
+	}
 }
