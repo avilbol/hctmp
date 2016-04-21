@@ -5,10 +5,8 @@
  */
 package com.hallocasa.dataentities.app;
 
-import com.hallocasa.commons.i18n.MultiLanguageText;
-import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
-import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -21,6 +19,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 
 /**
  *
