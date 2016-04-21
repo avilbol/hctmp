@@ -236,6 +236,7 @@ ul.topnav li.icon {
 		padding: 3px 12px!important;
 		color: #FFF;
 		font-size: 19px!important;
+		cursor: pointer;
 }
 .btn-default-ini:hover {
     color: #002D45;
@@ -368,4 +369,14 @@ a.ui-menuitem-link.ui-corner-all {
 .ui-autocomplete-input.ui-inputfield.ui-widget.ui-state-default.ui-corner-all {
     margin-bottom: 12px;    
     width: 32%;
+}
+.icon-menu{
+    width: 100px;
+    height: 50px;
+    background-size: 100% 100%;
+    background-image: url('../resources/images/icons/mobile_menu.png');
+    background-repeat: initial;
+    background-position: 24px;    
+    position: relative;
+    top: 23px;
 }

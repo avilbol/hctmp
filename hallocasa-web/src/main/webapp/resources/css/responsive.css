@@ -233,6 +233,7 @@ ul.topnav.responsive li.icon {
 
 ul.topnav.responsive li a {
 	width: 100%;
+	line-height: 21px;
 	text-align: right;
 	border-bottom: 1px solid #fff;
 	background: #002D45;
@@ -647,7 +648,7 @@ div.hc-responsive-div, div.hc-responsive-div img {
 }
 ul.topnav {
     height: 218px;
-    width: 21%;
+    width: 25%;
 }	
 .row.col-md-10.menu {
 	  width: 50%;
