@@ -231,8 +231,23 @@ ul.topnav.responsive li.icon {
 	text-align: right;
 }
 
-ul.topnav.responsive li a {
+ul.topnav.responsive li a.icon-menu {
 	width: 100%;
+	line-height: 21px;
+	text-align: right;
+	border-bottom: 1px solid #fff;
+	    height: 85px;
+    background-size: 20% 60%;
+    background-image: url('../resources/images/icons/mobile_menu.png');
+    height: 62px;
+    background-repeat: no-repeat;
+	color: #fff;
+	padding-bottom: 2px;
+	    top: -3px;
+    border: none;
+}ul.topnav.responsive li a {
+	width: 100%;
+	line-height: 21px;
 	text-align: right;
 	border-bottom: 1px solid #fff;
 	background: #002D45;
@@ -301,6 +316,17 @@ span.menu-link {
     line-height: 25px;
     text-align: center;
 }
+.icon-menu {
+    width: 70px;
+    height: 50px;
+    background-size: 100% 100%;
+    background-image: url('../resources/images/icons/mobile_menu.png');
+    background-repeat: initial;
+    background-position: 24px;
+    position: relative;
+    top: 23px;
+    background-repeat: no-repeat;
+}
 }
 @media screen and (max-width:680px) {
 	.logo {
@@ -309,8 +335,9 @@ span.menu-link {
 	.page {
     width: 100%;
 }
-ul.topnav.responsive li a {
-    padding-bottom: 18px;
+ul.topnav.responsive li a:nth-child(1) {
+ margin-top: 20px!important;
+     padding-right: 15px;
 }
 .btn-default-ini {
      border-color: #fff;
@@ -430,10 +457,9 @@ ul.topnav.responsive li {
 }
 
 ul.topnav.responsive li.icon {
-	position: relative;
-	right: 0;
-	top: 19px;
-	text-align: right;
+	    position: relative;
+    right: -133px;
+    height: 62px;
 }
 
 ul.hc-footer-social-icons {
@@ -521,8 +547,8 @@ div.hc-responsive-div, div.hc-responsive-div img {
     height: 300px;
 }
 	.hc-header-logo {
-    width: 338%;
-        background-size: 161px 107px;
+        width: 406%;
+    background-size: 166px 107px;
 }
 	.beta {
 		display: none;
@@ -577,6 +603,7 @@ div.hc-responsive-div, div.hc-responsive-div img {
 	}
 	.hc-header-logo {
 		float: left;
+    margin-left: -34px;
 	}
 	ul.topnav.responsive {
 		height: 380px;
@@ -647,7 +674,7 @@ div.hc-responsive-div, div.hc-responsive-div img {
 }
 ul.topnav {
     height: 218px;
-    width: 21%;
+    width: 30%;
 }	
 .row.col-md-10.menu {
 	  width: 50%;

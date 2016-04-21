@@ -25,16 +25,25 @@
 	background-image: url("#{resource['images:hc-background-1345.jpg']}");
 	background-repeat: no-repeat;
 	padding-top: 130px;
+    width: 100%;
+    float: left;
+    background-size: 100%;
 }
 .hc-content-body-blog {
 	min-height: 640px;
 	border-bottom: 2px solid #1D5D8D;
 	padding-top: 130px;
+    width: 100%;
+    float: left;
+    background-size: 100%;
 }
 .hc-content-body-downloads {
     min-height: 640px;
     border-bottom: 2px solid #1D5D8D;
     padding-top: 200px;
+    width: 100%;
+    float: left;
+    background-size: 100%;
 }
 .hc-content-Profiles {
 	background: rgb(236, 236, 236);
