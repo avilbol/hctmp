@@ -316,6 +316,17 @@ span.menu-link {
     line-height: 25px;
     text-align: center;
 }
+.icon-menu {
+    width: 70px;
+    height: 50px;
+    background-size: 100% 100%;
+    background-image: url('../resources/images/icons/mobile_menu.png');
+    background-repeat: initial;
+    background-position: 24px;
+    position: relative;
+    top: 23px;
+    background-repeat: no-repeat;
+}
 }
 @media screen and (max-width:680px) {
 	.logo {
