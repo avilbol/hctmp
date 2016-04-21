@@ -156,7 +156,7 @@ section {
 }
 .menu{
 	float: right!important;
-    margin-left: 70px;
+    margin-left: 30px;
 }
 .menu-row {
 	float: right;
@@ -186,7 +186,7 @@ ul.topnav li a {
 	display: inline-block;
 	color: #FFF;
     text-align: center;
-    padding: 14px 10px;
+        margin-right: 33px;
 	text-decoration: none;
 	transition: 0.3s;
 	font-size: 19px;
