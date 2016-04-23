@@ -19,6 +19,7 @@ import com.hallocasa.viewmodel.user.present.ProfileBrowserPage;
 import com.hallocasa.viewmodel.user.profile.ProfileEditPage;
 import com.hallocasa.viewmodel.user.profile.ProfileReadPage;
 import com.hallocasa.viewmodel.user.profile.PublicProfilePage;
+import com.hallocasa.viewmodel.user.properties.PropertyReadPage;
 
 /**
  * Enumeration to control all the views in the application
@@ -69,6 +70,13 @@ public enum HallocasaViewEnum {
      */
     MY_PROFILE(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/profile.xhtml",
             ProfileReadPage.class, true, null, UseCaseEnum.SEE_MY_PROFILE),
+    
+    /**
+     * Page for property list
+     */
+    MY_PROPERTIES(HallocasaViewNames.USER_PROPERTY_LIST, "/user/pages/properties/properties.xhtml",
+            PropertyReadPage.class, false, null, UseCaseEnum.SEE_MY_PROFILE),
+    
     /**
      * Page for profile editing
      */
