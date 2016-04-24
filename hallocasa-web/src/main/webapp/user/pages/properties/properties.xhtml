@@ -6,13 +6,70 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:utils="http://java.sun.com/jsf/composite/components/utils"
-	template="../commons/templates/general-layout.xhtml">
+	template="../../../commons/templates/general-layout.xhtml">
 
 	<ui:param name="header_showSubMenu" value="#{false}"></ui:param>
 
 	<p:growl globalOnly="false" showDetail="false" />
 
 	<ui:define name="contentSection">
-		This is the properties page
+
+		<div class="hc-content-body">
+			<div class="container">
+				<div class="col-md-6">
+					<div class="col-md-6 properties">
+						<div class="row properties-title">
+							<div class="col-md-12">
+								<label class="col-md-12">title 1</label>
+								<div class="col-md-12">
+									<input class="col-md-12 properties-title" type="text" />
+								</div>
+							</div>
+							<div class="col-md-4">
+								<button class="btn btn-primary btn-edit">Edit</button>
+							</div>
+							<div class="col-md-4">
+								<button class="btn btn-primary btn-save">Save</button>
+							</div>
+						</div>
+						<div class="row  properties-description">
+							<div class="description-title">
+								<div class="col-md-12">
+									<label class="col-md-12">Description</label>
+									<div class="col-md-12">
+										<textarea class="col-md-12 properties-description"></textarea>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<button class="btn btn-primary btn-edit">Edit</button>
+								</div>
+								<div class="col-md-4">
+									<button class="btn btn-primary btn-save">Save</button>
+								</div>
+							</div>
+						</div>
+						<div class="row  properties-image">
+							<div class="image-title">
+								<div class="col-md-12">
+									<label class="col-md-12">Image</label>
+									<div class="col-md-12">
+										<img src="http://www.psdgraphics.com/file/user-icon.jpg"  class="img-responsive col-md-12 properties-image" />
+									</div>
+								</div>
+								<div class="col-md-12">
+									<input type="file" class="control-form"  />
+								</div>
+								<div class="col-md-4">
+									<button class="btn btn-primary btn-save">Save</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+				<div><h1>Empty message</h1></div>
+				</div>
+			</div>
+		</div>
 	</ui:define>
 </ui:composition>
