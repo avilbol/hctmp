@@ -58,6 +58,7 @@
 					</div>
 					<div class="info-card">	
 					<div class="sub-card-languaje">	
+					<div class="col-md-md">	
 							<ui:repeat value="#{cc.loadSpokenLanguageList()}"
 								var="spokenLanguage">
 									#{spokenLanguage.languageName}
@@ -65,11 +66,14 @@
 								#{cc.loadAdditionalLanguagesMark()}
 							</ui:repeat>
 							</div>
+							</div>
 							
-					<div class="sub-card-service">	
+					<div class="sub-card-service">
+					<div class="col-md-md">		
 						<ui:repeat value="#{cc.profile.userTypes}" var="userType">
 							<div style="display: block">#{cc.load(userType)}</div>
 						</ui:repeat>
+							</div>
 							</div>
 							</div>
 							</div>

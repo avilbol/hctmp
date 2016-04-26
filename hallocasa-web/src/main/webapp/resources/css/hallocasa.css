@@ -29,6 +29,10 @@
     float: left;
     background-size: 100%;
 }
+
+.hc-li-header{
+	padding-top: 13px;
+}
 .hc-content-body-blog {
 	min-height: 640px;
 	border-bottom: 2px solid #1D5D8D;
