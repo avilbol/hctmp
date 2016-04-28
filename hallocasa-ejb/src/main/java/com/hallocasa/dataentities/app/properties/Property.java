@@ -1,5 +1,6 @@
 package com.hallocasa.dataentities.app.properties;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.User;
 
@@ -24,9 +26,14 @@ import com.hallocasa.dataentities.app.User;
 @Table(name = "property")
 @NamedQueries({
    @NamedQuery(name = Property.QUERY_FIND_BY_USER_ID,
-           query = "select p from Property p where p.user = ?1"),
+           query = "select p from Property p where p.user = ?1")
 })
-public class Property {
+public class Property implements Serializable, HallocasaEntity {
+
+	/**
+	 * Serialization constant
+	 */
+	private static final long serialVersionUID = 8086831618480962012L;
 
 	/**
 	 * Property identifier
@@ -55,7 +62,7 @@ public class Property {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Country country;
 	
-	@OneToMany(mappedBy="property")
+	@OneToMany(mappedBy="property", fetch = FetchType.EAGER)
 	private List<PropertyFieldValue> fieldValueList;
 	
 	/**

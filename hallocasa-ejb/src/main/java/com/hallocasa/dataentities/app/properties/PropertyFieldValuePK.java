@@ -1,24 +1,30 @@
 package com.hallocasa.dataentities.app.properties;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class PropertyFieldValuePK {
 
-	private PropertyField propertyField;
+	@Column(name = "property_field_id")
+	private Integer propertyFieldId;
 	
-	private Property property;
+	@Column(name = "property_id")
+	private String propertyId;
 	
-	public PropertyField getPropertyField() {
-		return propertyField;
+	public Integer getPropertyFieldId() {
+		return propertyFieldId;
 	}
 
-	public void setPropertyField(PropertyField propertyField) {
-		this.propertyField = propertyField;
+	public void setPropertyFieldId(Integer propertyFieldId) {
+		this.propertyFieldId = propertyFieldId;
 	}
 
-	public Property getProperty() {
-		return property;
+	public String getPropertyId() {
+		return propertyId;
 	}
 
-	public void setProperty(Property property) {
-		this.property = property;
+	public void setPropertyId(String propertyId) {
+		this.propertyId = propertyId;
 	}
 }

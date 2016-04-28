@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
 import org.junit.Before;
@@ -61,7 +62,7 @@ public class PropertyIT {
 		user.setId(1l);
 		propertyServices.setAppPersistenceServices(persistenceServices);
 		List<Property> properties = propertyServices.find(user);
-		Assert.assertThat(properties.size(), Matcher.);
+		Assert.assertThat(properties.size(), CoreMatchers.is(1));
 	}
 	
 }

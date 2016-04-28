@@ -1,46 +1,52 @@
 package com.hallocasa.dataentities.app.properties;
 
-import com.hallocasa.dataentities.app.Country;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class PropertyFieldRulePK {
 
-	PropertyTypeGroup propertyTypeGroup;
+	@Column(name = "property_type_group_id")
+	private Integer propertyTypeGroupId;
 	
-	PropertyLocation propertyLocation;
+	@Column(name = "property_location_id")
+	private Integer propertyLocationId;
 	
-	PropertyProposal propertyProposal;
+	@Column(name = "property_proposal_id")
+	private Integer propertyProposalId;
 	
-	Country country;
+	@Column(name = "country_id")
+	private Integer countryId;
 
-	public PropertyTypeGroup getPropertyTypeGroup() {
-		return propertyTypeGroup;
+	public Integer getPropertyTypeGroupId() {
+		return propertyTypeGroupId;
 	}
 
-	public void setPropertyTypeGroup(PropertyTypeGroup propertyTypeGroup) {
-		this.propertyTypeGroup = propertyTypeGroup;
+	public void setPropertyTypeGroupId(Integer propertyTypeGroupId) {
+		this.propertyTypeGroupId = propertyTypeGroupId;
 	}
 
-	public PropertyLocation getPropertyLocation() {
-		return propertyLocation;
+	public Integer getPropertyLocationId() {
+		return propertyLocationId;
 	}
 
-	public void setPropertyLocation(PropertyLocation propertyLocation) {
-		this.propertyLocation = propertyLocation;
+	public void setPropertyLocationId(Integer propertyLocationId) {
+		this.propertyLocationId = propertyLocationId;
 	}
 
-	public PropertyProposal getPropertyProposal() {
-		return propertyProposal;
+	public Integer getPropertyProposalId() {
+		return propertyProposalId;
 	}
 
-	public void setPropertyProposal(PropertyProposal propertyProposal) {
-		this.propertyProposal = propertyProposal;
+	public void setPropertyProposalId(Integer propertyProposalId) {
+		this.propertyProposalId = propertyProposalId;
 	}
 
-	public Country getCountry() {
-		return country;
+	public Integer getCountryId() {
+		return countryId;
 	}
 
-	public void setCountry(Country country) {
-		this.country = country;
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
 	}
 }
