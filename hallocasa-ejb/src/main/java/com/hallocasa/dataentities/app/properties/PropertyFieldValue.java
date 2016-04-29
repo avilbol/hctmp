@@ -32,6 +32,22 @@ public class PropertyFieldValue {
 	@Column(name="property_value")
 	private String value;
 	
+	public PropertyField getPropertyField() {
+		return propertyField;
+	}
+
+	public void setPropertyField(PropertyField propertyField) {
+		this.propertyField = propertyField;
+	}
+
+	public Property getProperty() {
+		return property;
+	}
+
+	public void setProperty(Property property) {
+		this.property = property;
+	}
+
 	public PropertyFieldValuePK getPropertyFieldValuePK() {
 		return propertyFieldValuePK;
 	}

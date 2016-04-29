@@ -1,5 +1,13 @@
 package com.hallocasa.helpers;
 
+import java.util.Date;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.ConvertUtilsBean;
+import org.apache.commons.beanutils.converters.BooleanConverter;
+import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.beanutils.converters.LongConverter;
+
 import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
 import com.hallocasa.commons.vo.CountryVO;
@@ -10,22 +18,12 @@ import com.hallocasa.commons.vo.helpers.GenericVOEntityConverter;
 import com.hallocasa.commons.vo.helpers.GenericVOParser;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
-import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.dataentities.app.City;
 import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.CountryTelephonePrefix;
 import com.hallocasa.dataentities.app.State;
 import com.hallocasa.dataentities.app.Telephone;
 import com.hallocasa.dataentities.app.User;
-import com.hallocasa.dataentities.app.properties.Property;
-
-import java.util.Date;
-
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.ConvertUtilsBean;
-import org.apache.commons.beanutils.converters.BooleanConverter;
-import org.apache.commons.beanutils.converters.DateConverter;
-import org.apache.commons.beanutils.converters.LongConverter;
 
 @SuppressWarnings("unchecked")
 public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject> extends GenericVOParser<T, U> {
@@ -43,7 +41,6 @@ public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject>
 		registerConverter(Country.class, CountryVO.class, CountryVOParser.class);
 		registerConverter(State.class, StateVO.class, StateVOParser.class);
 		registerConverter(City.class, CityVO.class, CityVOParser.class);
-		registerConverter(Property.class, PropertyVO.class, PropertyVOParser.class);
 		registerConverter(Telephone.class, TelephoneVO.class, StandardVOParser.class);
 		registerConverter(CountryTelephonePrefix.class, 
 				CountryTelephonePrefixVO.class, StandardVOParser.class);

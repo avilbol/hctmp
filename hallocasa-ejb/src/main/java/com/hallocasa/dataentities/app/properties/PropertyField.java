@@ -23,6 +23,9 @@ public class PropertyField {
 	@Column(name="name")
 	private String name;
 
+	@Column(name="basic")
+	private Integer basic;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -37,5 +40,13 @@ public class PropertyField {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getBasic() {
+		return basic;
+	}
+
+	public void setBasic(Integer basic) {
+		this.basic = basic;
 	}
 }

@@ -60,6 +60,9 @@ public class PropertyVO implements Serializable, ValueObject  {
 	}
 
 	public PropertyBasicInfo getPropertyBasicInfo() {
+		if(propertyBasicInfo == null){
+			propertyBasicInfo = new PropertyBasicInfo();
+		}
 		return propertyBasicInfo;
 	}
 
@@ -68,6 +71,9 @@ public class PropertyVO implements Serializable, ValueObject  {
 	}
 
 	public PropertyLocationInfo getPropertyLocationInfo() {
+		if(propertyLocationInfo == null){
+			propertyLocationInfo = new PropertyLocationInfo();
+		}
 		return propertyLocationInfo;
 	}
 
@@ -76,6 +82,9 @@ public class PropertyVO implements Serializable, ValueObject  {
 	}
 
 	public PropertyImageInfo getPropertyImageInfo() {
+		if(propertyImageInfo == null){
+			propertyImageInfo = new PropertyImageInfo();
+		}
 		return propertyImageInfo;
 	}
 

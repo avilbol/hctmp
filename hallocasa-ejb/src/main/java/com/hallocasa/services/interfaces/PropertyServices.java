@@ -2,6 +2,7 @@ package com.hallocasa.services.interfaces;
 
 import java.util.List;
 
+import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.dataentities.app.User;
 import com.hallocasa.dataentities.app.properties.Property;
 
@@ -17,6 +18,6 @@ public interface PropertyServices {
 	 * @param email
 	 * @return
 	 */
-	public List<Property> find(User user);
+	public List<PropertyVO> find(User user);
 	
 }

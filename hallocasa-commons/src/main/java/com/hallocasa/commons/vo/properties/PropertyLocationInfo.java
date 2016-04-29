@@ -1,18 +1,27 @@
 package com.hallocasa.commons.vo.properties;
 
+import com.hallocasa.commons.annotations.PropertyFieldValueParser;
 import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.Coordinate;
 import com.hallocasa.commons.vo.StateVO;
+import static com.hallocasa.commons.constants.PropertyConstants.*;
 
 public class PropertyLocationInfo {
 
+	@PropertyFieldValueParser(id = STATE_FIELD, methodToExecute = "parseToState")
 	private StateVO state;
 	
+	@PropertyFieldValueParser(id = CITY_FIELD, methodToExecute = "parseToCity")
 	private CityVO city;
 	
+	@PropertyFieldValueParser(id = ADDRESS_FIELD, methodToExecute = "parseToSingleText")
 	private String address;
 	
-	private Coordinate coordinate;
+	@PropertyFieldValueParser(id = LONGITUDE_FIELD, methodToExecute = "parseToCoordinate")
+	private Coordinate longitude;
+	
+	@PropertyFieldValueParser(id = LATITUDE_FIELD, methodToExecute = "parseToCoordinate")
+	private Coordinate latitude;
 
 	public StateVO getState() {
 		return state;
@@ -38,11 +47,4 @@ public class PropertyLocationInfo {
 		this.address = address;
 	}
 
-	public Coordinate getCoordinate() {
-		return coordinate;
-	}
-
-	public void setCoordinate(Coordinate coordinate) {
-		this.coordinate = coordinate;
-	}
 }

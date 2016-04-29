@@ -4,22 +4,33 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.hallocasa.commons.Language;
+import com.hallocasa.commons.annotations.PropertyFieldValueParser;
+import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.CurrencyVOAmmount;
+
+import static com.hallocasa.commons.constants.PropertyConstants.*;
 
 public class PropertyBasicInfo {
 
+	@PropertyFieldValueParser(id = LANGUAGES_FIELD, methodToExecute = "parseToLanguageList")
 	private List<Language> languages;
 	
-	private String title;
+	@PropertyFieldValueParser(id = TITLE_FIELD, methodToExecute = "parseToMultiLanguage")
+	private MultiLanguageText title;
 	
-	private String propertyDescription;
+	@PropertyFieldValueParser(id = PROPERTY_DESCRIPTION_FIELD, methodToExecute = "parseToMultiLanguage")
+	private MultiLanguageText propertyDescription;
 	
-	private String locationDescription;
+	@PropertyFieldValueParser(id = LOCATION_DESCRIPTION_FIELD, methodToExecute = "parseToMultiLanguage")
+	private MultiLanguageText locationDescription;
 	
+	@PropertyFieldValueParser(id = MAIN_LANGUAGE_FIELD, methodToExecute = "parseToLanguage")
 	private Language mainLanguage;
 	
+	@PropertyFieldValueParser(id = MARKET_PRICE_FIELD, methodToExecute = "parseToCurrency")
 	private CurrencyVOAmmount marketPrice;
 	
+	@PropertyFieldValueParser(id = AREA_FIELD, methodToExecute = "parseToBigDecimal")
 	private BigDecimal area;
 
 	public List<Language> getLanguages() {
@@ -30,27 +41,27 @@ public class PropertyBasicInfo {
 		this.languages = languages;
 	}
 
-	public String getTitle() {
+	public MultiLanguageText getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(MultiLanguageText title) {
 		this.title = title;
 	}
 
-	public String getPropertyDescription() {
+	public MultiLanguageText getPropertyDescription() {
 		return propertyDescription;
 	}
 
-	public void setPropertyDescription(String propertyDescription) {
+	public void setPropertyDescription(MultiLanguageText propertyDescription) {
 		this.propertyDescription = propertyDescription;
 	}
 
-	public String getLocationDescription() {
+	public MultiLanguageText getLocationDescription() {
 		return locationDescription;
 	}
 
-	public void setLocationDescription(String locationDescription) {
+	public void setLocationDescription(MultiLanguageText locationDescription) {
 		this.locationDescription = locationDescription;
 	}
 

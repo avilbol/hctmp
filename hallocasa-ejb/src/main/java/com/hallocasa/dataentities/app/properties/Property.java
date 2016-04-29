@@ -26,7 +26,9 @@ import com.hallocasa.dataentities.app.User;
 @Table(name = "property")
 @NamedQueries({
    @NamedQuery(name = Property.QUERY_FIND_BY_USER_ID,
-           query = "select p from Property p where p.user = ?1")
+           query = "select p from Property p where p.user = ?1"),
+   @NamedQuery(name = Property.QUERY_FIND_BASIC_BY_USER_ID,
+           query = "select p from Property p JOIN PropertyFieldValue pfv JOIN PropertyField pf where pf.basic = 1 AND p.user=?1")
 })
 public class Property implements Serializable, HallocasaEntity {
 
@@ -66,10 +68,16 @@ public class Property implements Serializable, HallocasaEntity {
 	private List<PropertyFieldValue> fieldValueList;
 	
 	/**
-	 * Consulta que obtiene los datos de la propiedad a trav&eacute;s del
+	 * Consulta que obtiene los datos de las propiedades a trav&eacute;s del
 	 * identificador de usuario
 	 */
 	public static final String QUERY_FIND_BY_USER_ID = "Property.findByUserId";
+	
+	/**
+	 * Consulta que obtiene los datos de la propiedad a trav&eacute;s del
+	 * identificador de usuario, con los datos básicos
+	 */
+	public static final String QUERY_FIND_BASIC_BY_USER_ID = "Property.findBasicByUserId";
 
 	public String getId() {
 		return id;
