@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils"
+	template="../../../commons/templates/general-layout.xhtml">
+
+	<ui:param name="header_showSubMenu" value="#{false}"></ui:param>
+
+	<p:growl globalOnly="false" showDetail="false" />
+
+	<ui:define name="contentSection">
+
+
+
+		<div class="hc-content-body">
+			<div class="container">
+				<h:form styleClass="hc-form" enctype="multipart/form-data">     
+                	 Here it will be listed the property user list. Coming soon :D
+                	 <br />
+					<br />
+					<br />
+					<br />
+					<br />
+					<h1>PROPERTY LIST - TASKS</h1>
+					<ul>
+						<li>Crear 5 cards que representen la vista de una propiedad
+							(ver wireframe v 1.4)</li>
+						<li>Aplicar estilos y organizar cáda área del tab conforme se
+							ve en el wireframe</li>
+						<li>Investigar acerca del tag &lt;h:commandButton&gt;</li>
+						<li>Investigar acerca de viewBundle (en el código de la
+							aplicación)</li>
+						<li>Usando &lt;h:commandButton&gt; crear los botones <i>Edit</i>
+							y <i>Delete</i> en <b>cada</b> card
+						</li>
+						<li>Usando &lt;h:commandButton&gt; crear el botó <i>Create</i></li>
+						<li>Investigar acerca de viewBundle (en el código de la
+							aplicación)</li>
+						<li>Usar el viewBundle apropiado en el atributo <i>value</i>
+							del los botones anteriormente creados
+						</li>
+						<li>Aplicar una confirmación cuando el usuario oprima el
+							botón <i>delete</i>
+						</li>
+						<li>Investigar acerca de conexión entre xhtml y ManagedBean</li>
+						<li>Conectar el botón <i>Delete</i> con el ManagedBean <i>PropertyListPage</i>
+							usando el método <i>onDeletePropertyClick</i> en el atributo <i>action</i></li>
+						<li>Investigar acerca del tag &lt;ui:fragment&gt; y su
+							atributo <b>rendered</b>
+						</li>
+						<li>Usar la anterior investigación para ocultar el botón <i>Edit</i>
+							cuando no se encuentra en modo vista (rendered="not view-mode")
+						</li>
+					</ul>
+				</h:form>
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>

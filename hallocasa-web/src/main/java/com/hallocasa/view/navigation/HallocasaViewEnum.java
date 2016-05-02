@@ -72,6 +72,12 @@ public enum HallocasaViewEnum {
             ProfileReadPage.class, true, null, UseCaseEnum.SEE_MY_PROFILE),
     
     /**
+     * Page for account information
+     */
+    MY_PROFILE_TEMP(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/new-profile.xhtml",
+            ProfileReadPage.class, true, null, UseCaseEnum.SEE_MY_PROFILE),
+    
+    /**
      * Page for property list
      */
     MY_PROPERTIES(HallocasaViewNames.USER_PROPERTY_LIST, "/user/pages/properties/properties.xhtml",
@@ -81,6 +87,12 @@ public enum HallocasaViewEnum {
      * Page for profile editing
      */
     EDIT_PROFILE(HallocasaViewNames.USER_PROFILE_EDIT, "/user/pages/edit-profile.xhtml",
+            ProfileEditPage.class, true, null, UseCaseEnum.EDIT_MY_PROFILE),
+    
+    /**
+     * Page for profile editing
+     */
+    EDIT_PROFILE_TEMP(HallocasaViewNames.USER_PROFILE_EDIT, "/user/pages/new-edit-profile.xhtml",
             ProfileEditPage.class, true, null, UseCaseEnum.EDIT_MY_PROFILE),
     
     /**

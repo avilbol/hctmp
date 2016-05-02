@@ -66,7 +66,7 @@ public class GlobalMenuBean {
     }
     
     public void processGoToProfile() {
-        navigationHandler.redirectToPage(HallocasaViewEnum.MY_PROFILE);
+        navigationHandler.redirectToPage(HallocasaViewEnum.MY_PROFILE_TEMP);
     }
     
     public void denyLoginInteract(){
