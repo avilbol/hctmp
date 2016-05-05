@@ -16,6 +16,8 @@ import com.hallocasa.helpers.test.UserTestVOParser;
 public class ParsersContext {
 
 	public static final UserVOParser USER_VO_PARSER = new UserVOParser();
+	public static final PropertyVOParser PROPERTY_VO_PARSER = new PropertyVOParser();
+	public static final PropertyTypeVOParser PROPERTY_TYPE_VO_PARSER = new PropertyTypeVOParser();
 	public static final UserTestVOParser USER_TEST_VO_PARSER = new UserTestVOParser();
 	public static final CountryVOParser COUNTRY_VO_PARSER = new CountryVOParser();
 	public static final StandardVOParser<Telephone, TelephoneVO> TELEPHONE_VO_PARSER = new StandardVOParser<>();

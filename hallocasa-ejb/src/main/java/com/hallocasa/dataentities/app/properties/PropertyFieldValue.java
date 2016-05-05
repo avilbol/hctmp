@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 /**
  * This entity represents the value of a property field in some property
+ * 
  * @author Alexander Villamil
  */
 @Entity
@@ -18,20 +19,34 @@ public class PropertyFieldValue {
 
 	@EmbeddedId
 	private PropertyFieldValuePK propertyFieldValuePK;
-	
+
 	@MapsId("propertyFieldId")
 	@JoinColumn(name = "property_field_id", referencedColumnName = "id")
-    @ManyToOne
+	@ManyToOne
 	private PropertyField propertyField;
 
 	@MapsId("propertyId")
 	@JoinColumn(name = "property_id", referencedColumnName = "property_id")
-    @ManyToOne
+	@ManyToOne
 	private Property property;
 	
-	@Column(name="property_value")
+	@Column(name = "property_value")
 	private String value;
-	
+
+	public static PropertyFieldValue loadInstance(String propertyId, 
+			Integer propertyFieldId, String value){
+		PropertyFieldValue pfv = new PropertyFieldValue();
+		pfv.setProperty(new Property());
+		pfv.getProperty().setId(propertyId);
+		pfv.setPropertyField(new PropertyField());
+		pfv.getPropertyField().setId(propertyFieldId);
+		pfv.setPropertyFieldValuePK(new PropertyFieldValuePK());
+		pfv.getPropertyFieldValuePK().setPropertyId(propertyId);
+		pfv.getPropertyFieldValuePK().setPropertyFieldId(propertyFieldId);
+		pfv.setValue(value);
+		return pfv;
+	}
+
 	public PropertyField getPropertyField() {
 		return propertyField;
 	}
@@ -52,7 +67,8 @@ public class PropertyFieldValue {
 		return propertyFieldValuePK;
 	}
 
-	public void setPropertyFieldValuePK(PropertyFieldValuePK propertyFieldValuePK) {
+	public void setPropertyFieldValuePK(
+			PropertyFieldValuePK propertyFieldValuePK) {
 		this.propertyFieldValuePK = propertyFieldValuePK;
 	}
 

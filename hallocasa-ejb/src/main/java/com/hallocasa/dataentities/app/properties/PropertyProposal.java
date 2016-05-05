@@ -1,9 +1,16 @@
 package com.hallocasa.dataentities.app.properties;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 
 /**
  * This entity represents a proposal (buy/rent f.e) of a property
@@ -11,7 +18,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "property_proposal")
-public class PropertyProposal {
+public class PropertyProposal implements Serializable, HallocasaEntity{
+
+	/**
+	 * Serialization constant
+	 */
+	private static final long serialVersionUID = -3056821182931140344L;
 
 	/**
 	 * Property proposal identifier
@@ -21,7 +33,8 @@ public class PropertyProposal {
 	private Integer id;
 	
 	@Column(name="name")
-	private String name;
+	@Convert(converter = MultiLanguageTextConverter.class)
+	private MultiLanguageText name;
 
 	public Integer getId() {
 		return id;
@@ -31,12 +44,11 @@ public class PropertyProposal {
 		this.id = id;
 	}
 
-	public String getName() {
+	public MultiLanguageText getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(MultiLanguageText name) {
 		this.name = name;
 	}
-	
 }

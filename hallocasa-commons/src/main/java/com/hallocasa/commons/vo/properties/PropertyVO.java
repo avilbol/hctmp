@@ -3,6 +3,7 @@ package com.hallocasa.commons.vo.properties;
 import java.io.Serializable;
 
 import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 
 public class PropertyVO implements Serializable, ValueObject  {
@@ -11,6 +12,8 @@ public class PropertyVO implements Serializable, ValueObject  {
 	 * Serialization constant
 	 */
 	private static final long serialVersionUID = 9217502376856053881L;
+	
+	private String id;
 
 	private PropertyTypeVO propertyType;
 	
@@ -20,6 +23,7 @@ public class PropertyVO implements Serializable, ValueObject  {
 	
 	private CountryVO country;
 	
+	private UserVO user;
 	
 	private PropertyBasicInfo propertyBasicInfo;
 	
@@ -90,5 +94,21 @@ public class PropertyVO implements Serializable, ValueObject  {
 
 	public void setPropertyImageInfo(PropertyImageInfo propertyImageInfo) {
 		this.propertyImageInfo = propertyImageInfo;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public UserVO getUser() {
+		return user;
+	}
+
+	public void setUser(UserVO user) {
+		this.user = user;
 	}
 }

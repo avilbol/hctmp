@@ -57,7 +57,7 @@ public class ConfirmEmailPage {
         // validates email
         Long userId;
         UserVO userVO;
-        user = userServices.find(email);
+        user = userServices.findBasicInfo(email);
         if (user == null) {
             throw new ForbiddenException("");
         }

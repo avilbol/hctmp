@@ -3,6 +3,7 @@ package com.hallocasa.dataentities.app.properties;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,6 +33,11 @@ import com.hallocasa.dataentities.app.User;
 })
 public class Property implements Serializable, HallocasaEntity {
 
+	/**
+	 * Query to get the number of property ocurrences with given id
+	 */
+	public static final String QUERY_FIND_COUNT_BY_ID = "SELECT COUNT(p) FROM Property p WHERE p.id = ?1";
+	
 	/**
 	 * Serialization constant
 	 */
@@ -64,7 +70,7 @@ public class Property implements Serializable, HallocasaEntity {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Country country;
 	
-	@OneToMany(mappedBy="property", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="property", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<PropertyFieldValue> fieldValueList;
 	
 	/**

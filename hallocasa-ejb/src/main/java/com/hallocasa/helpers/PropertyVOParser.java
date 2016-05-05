@@ -19,8 +19,12 @@ import com.hallocasa.commons.vo.properties.PropertyLocationVO;
 import com.hallocasa.commons.vo.properties.PropertyProposalVO;
 import com.hallocasa.commons.vo.properties.PropertyTypeVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
+import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.properties.Property;
 import com.hallocasa.dataentities.app.properties.PropertyFieldValue;
+import com.hallocasa.dataentities.app.properties.PropertyLocation;
+import com.hallocasa.dataentities.app.properties.PropertyProposal;
+import com.hallocasa.dataentities.app.properties.PropertyType;
 
 /**
  * Parser of propertyVO to property and vice-versa
@@ -36,14 +40,14 @@ public class PropertyVOParser {
 	public PropertyVOParser() {
 		super();
 	}
-	
+
 	static PropertyVOParser mainInstance;
-	
-	static{
+
+	static {
 		mainInstance = new PropertyVOParser();
 	}
-	
-	public static PropertyVOParser getInstance(){
+
+	public static PropertyVOParser getInstance() {
 		return mainInstance;
 	}
 
@@ -53,20 +57,27 @@ public class PropertyVOParser {
 
 	/* constructors */
 
-	public List<PropertyVO> toValueObject(List<Property> entityList){
+	public List<PropertyVO> toValueObject(List<Property> entityList) {
 		List<PropertyVO> propertyList = new ArrayList<>();
-		for(Property property : entityList){
+		for (Property property : entityList) {
 			propertyList.add(toValueObject(property));
 		}
 		return propertyList;
 	}
-	
+
+	public List<Property> toEntity(List<PropertyVO> voList) {
+		List<Property> propertyList = new ArrayList<>();
+		for (PropertyVO propertyVO : voList) {
+			propertyList.add(toEntity(propertyVO));
+		}
+		return propertyList;
+	}
+
 	/* Methods */
 	public PropertyVO toValueObject(Property entity) {
 		try {
 			PropertyVO vo = new PropertyVO();
 			setupKeyInfo(vo, entity);
-
 			Map<Integer, PropertyFieldValue> fieldValueList = loadFVMap(entity
 					.getFieldValueList());
 			setupBasicInfo(vo.getPropertyBasicInfo(), fieldValueList);
@@ -78,6 +89,29 @@ public class PropertyVOParser {
 				| InvocationTargetException e) {
 			throw new RuntimeException("Error when translating entity "
 					+ "property to value Object", e);
+		}
+	}
+
+	public Property toEntity(PropertyVO vo) {
+		try {
+			Property property = new Property();
+			setupKeyInfo(property, vo);
+			Map<Integer, PropertyFieldValue> fieldValueList = new HashMap<>();
+			setupBasicInfo(fieldValueList, vo.getPropertyBasicInfo(),
+					vo.getId());
+			setupLocationInfo(fieldValueList, vo.getPropertyLocationInfo(),
+					vo.getId());
+			setupImageInfo(fieldValueList, vo.getPropertyImageInfo(),
+					vo.getId());
+			property.setFieldValueList(new ArrayList<PropertyFieldValue>(
+					fieldValueList.values()));
+			return property;
+		} catch (NoSuchMethodException | SecurityException
+				| IllegalArgumentException | IllegalAccessException
+				| InvocationTargetException e) {
+			throw new RuntimeException(
+					"Error when translating property value object "
+							+ "to entity", e);
 		}
 	}
 
@@ -117,8 +151,39 @@ public class PropertyVOParser {
 				propertyBasicInfo);
 	}
 
+	private void setupImageInfo(
+			Map<Integer, PropertyFieldValue> fieldValueList,
+			PropertyImageInfo propertyImageInfo, String propertyId)
+			throws NoSuchMethodException, SecurityException,
+			IllegalArgumentException, IllegalAccessException,
+			InvocationTargetException {
+		copyVOToFValues(PropertyImageInfo.class, fieldValueList,
+				propertyImageInfo, propertyId);
+	}
+
+	private void setupLocationInfo(
+			Map<Integer, PropertyFieldValue> fieldValueList,
+			PropertyLocationInfo propertyLocationInfo, String propertyId)
+			throws NoSuchMethodException, SecurityException,
+			IllegalArgumentException, IllegalAccessException,
+			InvocationTargetException {
+		copyVOToFValues(PropertyLocationInfo.class, fieldValueList,
+				propertyLocationInfo, propertyId);
+	}
+
+	private void setupBasicInfo(
+			Map<Integer, PropertyFieldValue> fieldValueList,
+			PropertyBasicInfo propertyBasicInfo, String propertyId)
+			throws NoSuchMethodException, SecurityException,
+			IllegalArgumentException, IllegalAccessException,
+			InvocationTargetException {
+		copyVOToFValues(PropertyBasicInfo.class, fieldValueList,
+				propertyBasicInfo, propertyId);
+	}
+
 	private void setupKeyInfo(PropertyVO vo, Property entity)
 			throws IllegalAccessException, InvocationTargetException {
+		vo.setId(entity.getId());
 		vo.setCountry(new CountryVO());
 		BeanUtils.copyProperties(vo.getCountry(), entity.getCountry());
 		vo.setPropertyLocation(new PropertyLocationVO());
@@ -128,8 +193,24 @@ public class PropertyVOParser {
 		BeanUtils.copyProperties(vo.getPropertyProposal(),
 				entity.getPropertyProposal());
 		vo.setPropertyType(new PropertyTypeVO());
-		BeanUtils
-				.copyProperties(vo.getPropertyType(), entity.getPropertyType());
+		ParsersContext.PROPERTY_TYPE_VO_PARSER.copyEntityToVO(
+				entity.getPropertyType(), vo.getPropertyType());
+	}
+
+	private void setupKeyInfo(Property entity, PropertyVO vo)
+			throws IllegalAccessException, InvocationTargetException {
+		entity.setId(vo.getId());
+		entity.setCountry(new Country());
+		BeanUtils.copyProperties(entity.getCountry(), vo.getCountry());
+		entity.setPropertyLocation(new PropertyLocation());
+		BeanUtils.copyProperties(entity.getPropertyLocation(),
+				vo.getPropertyLocation());
+		entity.setPropertyProposal(new PropertyProposal());
+		BeanUtils.copyProperties(entity.getPropertyProposal(),
+				vo.getPropertyProposal());
+		entity.setPropertyType(new PropertyType());
+		ParsersContext.PROPERTY_TYPE_VO_PARSER.copyVOToEntity(
+				vo.getPropertyType(), entity.getPropertyType());
 	}
 
 	public void copyFvaluesToVO(Class<? extends Object> clazz,
@@ -138,7 +219,7 @@ public class PropertyVOParser {
 			IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException {
 		Field[] fields = clazz.getDeclaredFields();
-		MetadataPropertyParser mpparser = new MetadataPropertyParser();
+		MetadataPropertyParser mpparser = MetadataPropertyParser.getInstance();
 		for (Field field : fields) {
 			PropertyFieldValueParser ma = (PropertyFieldValueParser) field
 					.getAnnotations()[0];
@@ -148,6 +229,27 @@ public class PropertyVOParser {
 			String propertyValue = pfvalues.get(ma.id()).getValue();
 			field.setAccessible(true);
 			field.set(ob, method.invoke(mpparser, propertyValue));
+		}
+	}
+
+	public void copyVOToFValues(Class<? extends Object> clazz,
+			Map<Integer, PropertyFieldValue> pfvalues, Object ob,
+			String propertyId) throws NoSuchMethodException, SecurityException,
+			IllegalArgumentException, IllegalAccessException,
+			InvocationTargetException {
+		Field[] fields = clazz.getDeclaredFields();
+		MetadataPropertyParser mpparser = MetadataPropertyParser.getInstance();
+		for (Field field : fields) {
+			PropertyFieldValueParser ma = (PropertyFieldValueParser) field
+					.getAnnotations()[0];
+			String methodName = ma.methodToExecute();
+			Method method = MetadataPropertyParser.class.getMethod(methodName,
+					field.getType());
+			field.setAccessible(true);
+			String value = (String) method.invoke(mpparser, field.get(ob));
+			PropertyFieldValue pfv = PropertyFieldValue.loadInstance(
+					propertyId, ma.id(), value);
+			pfvalues.put(ma.id(), pfv);
 		}
 	}
 }

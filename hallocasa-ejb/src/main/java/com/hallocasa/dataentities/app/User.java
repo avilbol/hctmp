@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -22,6 +23,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,6 +31,7 @@ import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.ImageContainer;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.app.properties.Property;
 import com.hallocasa.dataentities.converters.ImageContainerConverter;
 import com.hallocasa.dataentities.converters.LanguageConverter;
 import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
@@ -41,7 +44,9 @@ import com.hallocasa.dataentities.types.LanguageList;
  */
 @Entity
 @Table(name = "user")
-@NamedQueries({ @NamedQuery(name = User.QUERY_FIND_BY_EMAIL, query = "select u from User u where u.email = ?1"), })
+@NamedQueries({ @NamedQuery(name = User.QUERY_FIND_BY_EMAIL, query = "select u from User u where u.email = ?1"),
+				@NamedQuery(name = User.QUERY_FIND_BASIC_BY_EMAIL, query = "select NEW com.hallocasa.dataentities.app.User(u.id, u.email, "
+						+ "u.password, u.language, u.confirmedFlag, u.mainSpokenLanguage) from User u where u.email = ?1")})
 @SuppressWarnings({ "UniqueEntityName", "ValidPrimaryTableName",
 		"ValidAttributes" })
 public class User implements Serializable, HallocasaEntity {
@@ -49,6 +54,7 @@ public class User implements Serializable, HallocasaEntity {
 	/* static fields */
 	private static final long serialVersionUID = 1L;
 	public static final String QUERY_FIND_BY_EMAIL = "User.findByEmail";
+	public static final String QUERY_FIND_BASIC_BY_EMAIL = "User.findBasicByEmail";
 	public static final String QUERY_ALL_LIST_WITH_USER_TYPES = "select u from User u WHERE size(u.userTypes) > 0";
 	public static final String QUERY_COUNT_LIST_WITH_USER_TYPES = "select count(u) from User u  WHERE size(u.userTypes) > 0";
 	public static final String QUERY_FIND_RANDOM_EXCLUDE_LIST = "select u from User u WHERE u.id NOT IN :exclList ORDER BY RAND()";
@@ -106,6 +112,9 @@ public class User implements Serializable, HallocasaEntity {
 	@JoinTable(name = "user_user_type", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "user_type_id", referencedColumnName = "id") })
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<UserType> userTypes = new ArrayList<>();
+	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<Property> properties = new ArrayList<>();
 
 	/*
 	 * @JoinTable(name = "user_profile", joinColumns = {
@@ -150,6 +159,21 @@ public class User implements Serializable, HallocasaEntity {
 	 */
 	public User() {
 		this.spokenLanguages = new LanguageList();
+	}
+	
+	
+
+	public User(Long id, String email, String password, 
+			Language language, 
+			Boolean confirmedFlag,
+			Language mainSpokenLanguage) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.confirmedFlag = confirmedFlag;
+		this.language = language;
+		this.mainSpokenLanguage = mainSpokenLanguage;
 	}
 
 	@Override
@@ -435,5 +459,13 @@ public class User implements Serializable, HallocasaEntity {
 
 	public void setTelephone(Telephone telephone) {
 		this.telephone = telephone;
+	}
+
+	public List<Property> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(List<Property> properties) {
+		this.properties = properties;
 	}
 }

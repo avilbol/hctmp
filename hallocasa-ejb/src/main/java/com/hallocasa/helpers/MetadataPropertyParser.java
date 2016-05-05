@@ -19,6 +19,15 @@ public class MetadataPropertyParser {
 
 	Gson gson = new GsonBuilder().create();
 	
+	static MetadataPropertyParser mpparser;
+	
+	public static MetadataPropertyParser getInstance(){
+		if(mpparser == null){
+			mpparser = new MetadataPropertyParser();
+		}
+		return mpparser;
+	}
+	
 	public MultiLanguageText parseToMultiLanguage(String text){
 		return new MultiLanguageText(text);
 	}
@@ -57,6 +66,51 @@ public class MetadataPropertyParser {
 		return gson.fromJson(text, ImageContainer.class);
 	}
 	
+	public String parseToState(StateVO stateVO){
+		return String.valueOf(stateVO.getId());
+	}
+	
+	public String parseToCity(CityVO cityVO){
+		return String.valueOf(cityVO.getId());
+	}
+	
+	public String parseToCoordinate(Coordinate coordinate){
+		return gson.toJson(coordinate, Coordinate.class);
+	}
+	
+    public String parseToMultiLanguage(MultiLanguageText mlText){
+		return mlText.toJSON();
+	}
+	
+	public String parseToLanguageList(List<Language> languageList){
+		 return gson.toJson(languageList, getLanguageListAttributeType());
+	}
+	
+	public String parseToLanguage(Language language){
+		return language.toString();
+	}
+	
+	
+	public String parseToSingleInteger(Integer integer){
+		return String.valueOf(integer);
+	}
+	
+	public String parseToBigDecimal(BigDecimal bdecimal){
+		return bdecimal.toString();
+	}
+	
+	public String parseToCurrency(CurrencyVOAmmount text){ 
+		return gson.toJson(text, CurrencyVOAmmount.class);
+	}
+	
+	public String parseToImageContainerList(List<ImageContainer> imageContainerList){	
+		return gson.toJson(imageContainerList, getImageContainerListAttributeType());
+	}
+	
+	public String parseToImageContainer(ImageContainer imageContainer){
+		return gson.toJson(imageContainer, ImageContainer.class);
+	}
+	
 	public StateVO parseToState(String text){
 		StateVO stateVO = new StateVO();
 		stateVO.setId(Long.parseLong(text));
@@ -81,5 +135,4 @@ public class MetadataPropertyParser {
     public Type getImageContainerListAttributeType() {
         return new TypeToken<List<ImageContainer>>() {}.getType();
     }
-	
 }

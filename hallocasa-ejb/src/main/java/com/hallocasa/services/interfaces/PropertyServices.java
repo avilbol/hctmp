@@ -15,9 +15,11 @@ public interface PropertyServices {
 	/**
 	 * Finds property list by user owner
 	 * 
-	 * @param email
+	 * @param user
 	 * @return
 	 */
 	public List<PropertyVO> find(User user);
+	
+	
 	
 }

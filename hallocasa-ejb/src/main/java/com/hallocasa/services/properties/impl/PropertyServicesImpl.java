@@ -1,6 +1,5 @@
 package com.hallocasa.services.properties.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;

@@ -26,6 +26,7 @@ public class PropertyField {
 	@Column(name="basic")
 	private Integer basic;
 	
+	
 	public Integer getId() {
 		return id;
 	}

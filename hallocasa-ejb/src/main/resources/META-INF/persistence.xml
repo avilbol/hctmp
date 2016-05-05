@@ -104,7 +104,10 @@
     <class>com.hallocasa.dataentities.app.Country</class>
     <class>com.hallocasa.dataentities.app.City</class>
     <class>com.hallocasa.dataentities.app.Token</class>
-    <class>com.hallocasa.dataentities.app.TestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.TestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.ChildrenTestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.ParentSpEntity</class>
+    <class>com.hallocasa.dataentities.app.test.SecondParentSpEntity</class>
     <class>com.hallocasa.dataentities.app.Telephone</class>
     <class>com.hallocasa.dataentities.app.properties.Property</class>
     <class>com.hallocasa.dataentities.app.properties.PropertyField</class>
@@ -144,7 +147,10 @@
     <class>com.hallocasa.dataentities.app.City</class>
     <class>com.hallocasa.dataentities.app.Country</class>
     <class>com.hallocasa.dataentities.app.Token</class>
-    <class>com.hallocasa.dataentities.app.TestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.TestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.ChildrenTestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.ParentSpEntity</class>
+    <class>com.hallocasa.dataentities.app.test.SecondParentSpEntity</class>
     <class>com.hallocasa.dataentities.app.Telephone</class>
     <class>com.hallocasa.dataentities.app.properties.Property</class>
     <class>com.hallocasa.dataentities.app.properties.PropertyField</class>
