@@ -1,0 +1,1 @@
+INSERT INTO `user` (`id`,`email`,`password`,`first_name`,`last_name`,`state`,`city`,`web_site`,`linked_in`,`skype`,`language`,`confirmed_flag`,`user_description`,`spoken_languages`,`country_id`,`state_id`) VALUES (1,'alxvilbol@gmail.com','d2392d23516b0ca59c4aaae13d3ddc39',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'es',1,NULL,'[]',NULL,NULL);

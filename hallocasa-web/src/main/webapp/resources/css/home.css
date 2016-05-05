@@ -1,0 +1,64 @@
+/* background image */
+
+
+/* newsletter */
+.hc-home-newsletter-box {
+	font-size: 0.8em;
+	width: 350px;
+	left: 50%;
+	top: 20em;
+	margin-left: -175px;
+	position: absolute;
+}
+
+.hc-home-newsletter-box>form {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.hc-home-newsletter-box .email-input {
+	font-size: 1.18em;
+	width: 73%;
+	display: inline-block;
+	padding: 0.55em 1.2em;
+	font-family: inherit;
+}
+
+.hc-home-newsletter-box .submit-btn {
+	width: 25%;
+	margin-left: 1%;
+}
+
+
+
+/* Investment box */
+.positioning-statement {
+	float: left;
+	width: 100%;
+	height: auto;
+}
+
+.positioning-statement .title {
+	font-size: 38px;
+	display: block;
+	color: #002D45;
+	width: 100%;
+	text-align: center;    
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.positioning-statement .sub-title {
+	font-size: 22px;
+	display: block;
+	color: #002D45;
+	width: 100%;
+	text-align: center;    
+	font-weight: 700;
+}
+.hc-card-profile{
+    border: 3px solid #ccc;
+    border-radius: 3px;
+    margin: 20px 20px 20px 100px;
+}

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="../commons/templates/general-layout.xhtml">
+
+	<ui:param name="header_showSubMenu" value="#{false}" />
+
+	<ui:define name="styleSheetsSection">
+		<h:outputStylesheet library="css" name="home.css" />
+	</ui:define>
+
+	<ui:define name="contentSection">
+		<div class="hc-content-body">
+
+			<div>#{homePage.launch()}</div>
+			<div class="col-md-12 container con-body">
+				<div class="col-md-9 col-md-offset-2">
+					<div class="positioning-statement">
+						<span class="title">#{viewBundle['PositionStatement.Title']}</span>
+						<span class="sub-title">#{viewBundle['PositionStatement.SubTitle']}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="home-fill-extra-space" />
+
+			<h:outputScript library="js" name="home/background-image.js" />
+		</div>
+		<div class="hc-content-Profiles">
+			<h:panelGroup id="profileListArea">
+					<h:form id="profileBrowserForm" enctype="multipart/form-data">
+						<ui:repeat var="profileItem"
+							value="#{profileBrowserPage.userList}">
+							<utils:profileEntry value="#{profileItem}" size="300"
+								presentation="lite" language="#{profileBrowserPage.language}"
+								onClick="#{homePage.goToProfile(profileItem)}" />
+						</ui:repeat>
+					</h:form>
+			</h:panelGroup>
+		</div>
+	</ui:define>
+
+</ui:composition>

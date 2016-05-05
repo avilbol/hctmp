@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+    <persistence-unit name="App_Test"
+                          transaction-type="RESOURCE_LOCAL">
+        <description>Hallocasa App Persistence Unit</description>
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        
+        <!-- converters -->
+        <class>com.hallocasa.dataentities.converters.LanguageConverter</class>
+        <class>com.hallocasa.dataentities.converters.MultiLanguageTextConverter</class>
+        <class>com.hallocasa.dataentities.converters.SpokenLanguagesConverter</class>
+        <class>com.hallocasa.dataentities.converters.ImageContainerConverter</class>
+        <class>com.hallocasa.dataentities.converters.CountryTelephonePrefixConverter</class>
+        <class>com.hallocasa.dataentities.converters.DatabaseBooleanConverter</class>
+        <!-- entities -->
+        <class>com.hallocasa.dataentities.app.Profile</class>
+        <class>com.hallocasa.dataentities.app.UseCase</class>
+        <class>com.hallocasa.dataentities.app.User</class>
+        <class>com.hallocasa.dataentities.app.UserType</class>
+        <class>com.hallocasa.dataentities.app.State</class>
+        <class>com.hallocasa.dataentities.app.Country</class>
+        <class>com.hallocasa.dataentities.app.City</class>
+        <class>com.hallocasa.dataentities.app.Token</class>
+        <class>com.hallocasa.dataentities.app.test.TestEntity</class>
+        <class>com.hallocasa.dataentities.app.test.ChildrenTestEntity</class>
+        <class>com.hallocasa.dataentities.app.test.ParentSpEntity</class>
+        <class>com.hallocasa.dataentities.app.Telephone</class>
+        <class>com.hallocasa.dataentities.app.properties.Property</class>
+    	<class>com.hallocasa.dataentities.app.CountryTelephonePrefix</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="connection.driver_class" value="org.h2.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:h2:mem:test" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />
+            <property name="javax.persistence.jdbc.user" value="APP" />
+            <property name="javax.persistence.jdbc.password" value="APP" />
+        </properties>
+    </persistence-unit>
+</persistence>

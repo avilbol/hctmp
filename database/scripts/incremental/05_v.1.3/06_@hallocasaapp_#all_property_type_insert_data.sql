@@ -1,0 +1,14 @@
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (1, "{'en':'Lot','de':'Grundst\u00FCck','es':'Lote'}", 1);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (2, "{'en':'Shopping Mall','de':'Einkaufszentrum','es':'Centro comercial'}", 2);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (3, "{'en':'House','de':'Haus','es':'Casa'}", 2);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (4, "{'en':'Hotel','de':'Hotel','es':'Hotel'}", 2);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (5, "{'en':'Finca','de':'Finca','es':'Finca'}", 2);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (6, "{'en':'Apartment','de':'Wohnung','es':'Apartamento'}", 3);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (7, "{'en':'Loft','de':'Dachboden','es':'Desv\u00E1n'}", 3);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (8, "{'en':'Attic','de':'M\u00E4tzchen','es':'\u00E1tico'}", 3);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (9, "{'en':'Penthouse','de':'Dachterrassenwohnung','es':'Penthouse'}", 3);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (10, "{'en':'Bodega','de':'Bodega','es':'Bodega'}", 3);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (11, "{'en':'Garage','de':'Garage','es':'Garaje'}", 3);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (12, "{'en':'Restaurant','de':'Restaurant','es':'Restaurante'}", 3);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (13, "{'en':'Room','de':'Zimmer','es':'Habitaci\u00FCn'}", 3);
+INSERT INTO hallocasaapp.property_type(id, name, group_id) VALUES (14, "{'en':'Office','de':'B\u00FCro','es':'Oficina'}", 3);
