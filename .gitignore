@@ -7,4 +7,6 @@
 /hallocasa-ejb/src/main/resources/hallocasa.config.properties
 */bin/target/*
 */.project/*
-*/.project
+/hallocasa-ear/.project
+/hallocasa-ear/.settings/*
+/hallocasa-ejb/.classpath
