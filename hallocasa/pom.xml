@@ -12,14 +12,28 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
+            	<build.profile.id>dev</build.profile.id>
+            	<context.root>app</context.root>
                 <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
                 <dbMaintainer.includedQualifiers>dev,all</dbMaintainer.includedQualifiers>
                 <dbMaintainer.excludedQualifiers>pro</dbMaintainer.excludedQualifiers>
             </properties>
         </profile>
         <profile>
+            <id>testing</id>
+            <properties>
+            	<build.profile.id>test</build.profile.id>
+            	<context.root>app</context.root>
+                <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
+                <dbMaintainer.includedQualifiers>pro,all</dbMaintainer.includedQualifiers>
+                <dbMaintainer.excludedQualifiers>dev</dbMaintainer.excludedQualifiers>
+            </properties>
+        </profile>
+        <profile>
             <id>production</id>
             <properties>
+            	<build.profile.id>prod</build.profile.id>
+            	<context.root></context.root>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
                 <dbMaintainer.includedQualifiers>pro,all</dbMaintainer.includedQualifiers>
                 <dbMaintainer.excludedQualifiers>dev</dbMaintainer.excludedQualifiers>

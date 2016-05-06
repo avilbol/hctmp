@@ -4,6 +4,9 @@
     <artifactId>hallocasa-commons</artifactId>
 
     <build>
+    	<filters>
+			<filter>profiles/${build.profile.id}/config.properties</filter>
+		</filters>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

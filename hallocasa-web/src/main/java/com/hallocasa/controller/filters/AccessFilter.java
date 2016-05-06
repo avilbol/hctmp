@@ -38,8 +38,9 @@ public class AccessFilter implements Filter {
         StringBuffer requestURL = ((HttpServletRequest) request).getRequestURL();
         HallocasaViewEnum viewEnum;
 
+        String serverAppUrl = SystemConstants.SERVER_URL + SystemConstants.APP_CONTEXT;
         // if is a resource skip filter
-        String url = requestURL.toString().replaceAll(SystemConstants.SERVER_URL, "");
+        String url = requestURL.toString().replaceAll(serverAppUrl, "");
         if (!isResource(url) && (!isDefaultView(url))) {
             // look for the page in the enum
             try {
