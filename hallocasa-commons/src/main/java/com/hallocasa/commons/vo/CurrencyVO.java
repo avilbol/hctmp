@@ -1,5 +1,10 @@
 package com.hallocasa.commons.vo;
 
+/**
+ * Value Object for currency representation
+ * @author avillamil
+ *
+ */
 public class CurrencyVO {
 
 	private Integer id;
