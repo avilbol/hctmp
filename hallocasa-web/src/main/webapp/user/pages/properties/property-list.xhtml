@@ -5,60 +5,314 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:utils="http://java.sun.com/jsf/composite/components/utils"
-	template="../../../commons/templates/general-layout.xhtml">
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 
-	<ui:param name="header_showSubMenu" value="#{false}"></ui:param>
+	<div class="hc-content-body-properties">
+		<div class="row hc-contents-cards">
+			<h:form styleClass="hc-form" enctype="multipart/form-data">
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-md-2">
+							<span class="hc-form-label name-card">#{viewBundle['Properties.title.label']}</span>
+						</div>
+					</div>
+					<div class="row hc-contents-cards-list">
+						<div class="col-md-12 hc-cards-list">
+							<div class="col-md-3 hc-content-card-image">
+								<div class="col-md-12 hc-responsive-div-properties">
+									<img src="http://weknowyourdreamz.com/images/casa/casa-09.jpg"
+										class="img-responsive" />
+								</div>
+								<div class="col-md-12 hc-cards-city">
+									<label class="control-form hc-properties-city">Bogota
+										DC</label>
+								</div>
+							</div>
+							<div class="col-md-9 hc-cards-propertie-title">
+								<strong>Propertie Title</strong>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-12">
+									<div class="col-md-12">
+										<label class="col-md-6 hc-properties-features">House</label> <label
+											class="col-md-6 hc-properties-features">buy</label>
+									</div>
+									<div class="col-md-12">
+										<label class="col-md-12 hc-properties-features" style="font-weight: 600;">$200.000</label>
+										<label class="col-md-12  hc-properties-features">200
+											m2</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 hc-cards-list">
+								<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
+								<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-8"></div>
+							<div class="col-md-2">
+								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
+									styleClass="btn btn-primary"
+									rendered="#{not profileReadPage.websitePending}"
+									action="#{ProfileReadPage.processEditClick()}" />
+							</div>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-delete"
+									data-toggle="modal" data-target="#myModal">
+									<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="row hc-contents-cards-list">
+						<div class="col-md-12 hc-cards-list">
+							<div class="col-md-3 hc-content-card-image">
+								<div class="col-md-12 hc-responsive-div-properties">
+									<img src="http://weknowyourdreamz.com/images/casa/casa-09.jpg"
+										class="img-responsive" />
+								</div>
+								<div class="col-md-12 hc-cards-city">
+									<label class="control-form hc-properties-city">Bogota
+										DC</label>
+								</div>
+							</div>
+							<div class="col-md-9 hc-cards-propertie-title">
+								<strong>Propertie Title</strong>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-12">
+									<div class="col-md-12">
+										<label class="col-md-6 hc-properties-features">House</label> <label
+											class="col-md-6 hc-properties-features">buy</label>
+									</div>
 
-	<p:growl globalOnly="false" showDetail="false" />
+									<div class="col-md-12">
+										<label class="col-md-12 hc-properties-features" style="font-weight: 600;">$200.000</label>
+										<label class="col-md-12 hc-properties-features">200 m2</label>
+									</div>
+								</div>
+							</div>
 
-	<ui:define name="contentSection">
+							<div class="col-md-6 hc-cards-list">
+								<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
+								<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="col-md-8"></div>
+							<div class="col-md-2">
+								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
+									styleClass="btn btn-primary"
+									rendered="#{not profileReadPage.websitePending}"
+									action="#{ProfileReadPage.processEditClick()}" />
+							</div>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-delete"
+									data-toggle="modal" data-target="#myModal">
+									<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="row hc-contents-cards-list">
+						<div class="col-md-12 hc-cards-list">
+							<div class="col-md-3 hc-content-card-image">
+								<div class="col-md-12 hc-responsive-div-properties">
+									<img src="http://weknowyourdreamz.com/images/casa/casa-09.jpg"
+										class="img-responsive" />
+								</div>
+								<div class="col-md-12 hc-cards-city">
+									<label class="control-form hc-properties-city">Bogota
+										DC</label>
+								</div>
+							</div>
+							<div class="col-md-9 hc-cards-propertie-title">
+								<strong>Propertie Title</strong>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-12">
+									<div class="col-md-12">
+										<label class="col-md-6 hc-properties-features">House</label> <label
+											class="col-md-6 hc-properties-features">buy</label>
+									</div>
+
+									<div class="col-md-12">
+										<label class="col-md-12 hc-properties-features" style="font-weight: 600;">$200.000</label>
+										<label class="col-md-12 hc-properties-features">200 m2</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6 hc-cards-list">
+								<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
+								<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="col-md-8"></div>
+							<div class="col-md-2">
+								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
+									styleClass="btn btn-primary"
+									rendered="#{not profileReadPage.websitePending}"
+									action="#{ProfileReadPage.processEditClick}" />
+							</div>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-delete"
+									data-toggle="modal" data-target="#myModal">
+									<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="row hc-contents-cards-list">
+
+						<div class="col-md-12 hc-cards-list">
+
+							<div class="col-md-3 hc-content-card-image">
+
+								<div class="col-md-12 hc-responsive-div-properties">
+									<img src="http://weknowyourdreamz.com/images/casa/casa-09.jpg"
+										class="img-responsive" />
+								</div>
+								<div class="col-md-12 hc-cards-city">
+									<label class="control-form hc-properties-city">Bogota
+										DC</label>
+								</div>
+							</div>
+							<div class="col-md-9 hc-cards-propertie-title">
+								<strong>Propertie Title</strong>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-12">
+									<div class="col-md-12">
+										<label class="col-md-6 hc-properties-features">House</label> <label
+											class="col-md-6 hc-properties-features">buy</label>
+									</div>
+
+									<div class="col-md-12">
+										<label class="col-md-12 hc-properties-features" style="font-weight: 600;">$200.000</label>
+										<label class="col-md-12 hc-properties-features">200 m2</label>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 hc-cards-list">
+								<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
+								<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="col-md-8"></div>
+							<div class="col-md-2">
+								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
+									styleClass="btn btn-primary"
+									rendered="#{not profileReadPage.websitePending}"
+									action="#{ProfileReadPage.processEditClick}" />
+							</div>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-delete"
+									data-toggle="modal" data-target="#myModal">
+									<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="row hc-contents-cards-list">
+
+						<div class="col-md-12 hc-cards-list">
+
+							<div class="col-md-3 hc-content-card-image">
+
+								<div class="col-md-12 hc-responsive-div-properties">
+									<img src="http://weknowyourdreamz.com/images/casa/casa-09.jpg"
+										class="img-responsive" />
+								</div>
+								<div class="col-md-12 hc-cards-city">
+									<label class="control-form hc-properties-city">Bogota
+										DC</label>
+								</div>
+							</div>
+							<div class="col-md-9 hc-cards-propertie-title">
+								<strong>Propertie Title</strong>
+							</div>
+							<div class="col-md-3">
+								<div class="col-md-12">
+									<div class="col-md-12">
+										<label class="col-md-6 hc-properties-features">House</label> <label
+											class="col-md-6 hc-properties-features">buy</label>
+									</div>
+									<div class="col-md-12">
+										<label class="col-md-12 hc-properties-features" style="font-weight: 600;">$200.000</label>
+										<label class="col-md-12 hc-properties-features">200 m2</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6 hc-cards-list">
+								<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
+								<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
+							</div>
+						</div>
+
+						<div class="col-md-12">
+							<div class="col-md-8"></div>
+							<div class="col-md-2">
+								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
+									styleClass="btn btn-primary"
+									rendered="#{not profileReadPage.websitePending}"
+									action="#{ProfileReadPage.processEditClick}" />
+							</div>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-delete"
+									data-toggle="modal" data-target="#myModal">
+									<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
+								</button>
+							</div>
+						</div>
+					</div>
 
 
 
-		<div class="hc-content-body">
-			<div class="container">
-				<h:form styleClass="hc-form" enctype="multipart/form-data">     
-                	 Here it will be listed the property user list. Coming soon :D
-                	 <br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<h1>PROPERTY LIST - TASKS</h1>
-					<ul>
-						<li>Crear 5 cards que representen la vista de una propiedad
-							(ver wireframe v 1.4)</li>
-						<li>Aplicar estilos y organizar cáda área del tab conforme se
-							ve en el wireframe</li>
-						<li>Investigar acerca del tag &lt;h:commandButton&gt;</li>
-						<li>Investigar acerca de viewBundle (en el código de la
-							aplicación)</li>
-						<li>Usando &lt;h:commandButton&gt; crear los botones <i>Edit</i>
-							y <i>Delete</i> en <b>cada</b> card
-						</li>
-						<li>Usando &lt;h:commandButton&gt; crear el botó <i>Create</i></li>
-						<li>Investigar acerca de viewBundle (en el código de la
-							aplicación)</li>
-						<li>Usar el viewBundle apropiado en el atributo <i>value</i>
-							del los botones anteriormente creados
-						</li>
-						<li>Aplicar una confirmación cuando el usuario oprima el
-							botón <i>delete</i>
-						</li>
-						<li>Investigar acerca de conexión entre xhtml y ManagedBean</li>
-						<li>Conectar el botón <i>Delete</i> con el ManagedBean <i>PropertyListPage</i>
-							usando el método <i>onDeletePropertyClick</i> en el atributo <i>action</i></li>
-						<li>Investigar acerca del tag &lt;ui:fragment&gt; y su
-							atributo <b>rendered</b>
-						</li>
-						<li>Usar la anterior investigación para ocultar el botón <i>Edit</i>
-							cuando no se encuentra en modo vista (rendered="not view-mode")
-						</li>
-					</ul>
-				</h:form>
-			</div>
+					<!-- Modal -->
+					<div class="modal fade" id="myModal" role="dialog">
+						<div class="modal-dialog">
+
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Delete Register</h4>
+								</div>
+								<div class="modal-body">
+									<p>these sure do it?</p>
+								</div>
+								<div class="modal-footer">
+
+									<p:commandButton
+										value="#{viewBundle['Properties.delete.label']}"
+										styleClass="btn btn-primary" data-toggle="modal"
+										data-target="#myModal"
+										style="margin-top: 18px!important; margin-bottom: 0!important;"
+										action="#{propertyListPage.onDeletePropertyClick()}" />
+
+
+
+									<button type="button" class="btn btn-primary btn-lg"
+										data-dismiss="modal">Cancel</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-md-2 col-md-offset-1">
+					<p:commandButton value="#{viewBundle['Properties.create.label']}"
+						styleClass="btn btn-primary col-md-12" style="margin-top: -15px!important;" />
+				</div>
+			</h:form>
 		</div>
-
-	</ui:define>
+	</div>
 </ui:composition>

@@ -8,55 +8,48 @@
 
 	<ui:param name="header_showSubMenu" value="#{false}" />
 
+	<ui:param name="header_showSubMenu" value="#{true}" />
+	<ui:param name="header_subMenuPath"
+		value="/user/pages/properties-menu.xhtml" />
+
+
 	<p:growl globalOnly="false" />
 
 	<ui:define name="styleSheetsSection">
-		<!-- TODO -->
+		<h:outputStylesheet library="css" name="properties.css" />
 	</ui:define>
-
 	<ui:define name="contentSection">
+		<h:form>
+			<div class="hc-content-body">
+				<div class="container">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="tab-content">
+								<div id="profile" class="tab-pane fade in active">
 
-		<div class="hc-content-body">
-			<div class="container">
-				<h:form styleClass="hc-form" enctype="multipart/form-data">
-					<h1>PROFILE - TASKS</h1>
-					<ul>
-						<li>Definir los archivos css que iran entre las líneas 13 y
-							15</li>
-						<li>Crear el wizard con los tabs: My Profile, y My properties
-							en este archivo</li>
-						<li>Marcar como activo por defecto el tab <i>My Profile</i></li>
-						<li>Investigar acerca del tag &lt;ui:include&gt;</li>
-						<li>Investigar acerca del tag &lt;ui:param&gt;</li>
-						<li>Usar &lt;ui:include&gt; para incluír, dentro del tab <i>My
-								properties</i> el archivo <i>property-list.xhtml</i></li>
-						<li>Usar &lt;ui:param&gt; (dentro de &lt;ui:include&gt;) para
-							crear el parámetro <b>view-mode</b>=<i>#{true}</i>
-						</li>
-						<li>Investigar acerca del tag &lt;h:commandButton&gt;</li>
-						<li>Usar &lt;h:commandButton&gt; para crear el botón <i>Edit</i>
-							que irá fuera del wizard del punto 2
-						</li>
-						<li>Investigar acerca de conexión entre xhtml y ManagedBean</li>
-						<li>Conectar el botón <i>Edit</i> con el ManagedBean <i>ProfileReadPage</i>
-							usando el método <i>processEditClick</i> en el atributo <i>action</i></li>
-						<li>Investigar acerca de viewBundle (en el código de la
-							aplicación)</li>
-						<li>Usar el viewBundle apropiado en el atributo <i>value</i>
-							del botón <i>Edit</i></li>
-						<li>Trasladar los contenidos de investor-panel.xhtml y
-							service-panel.xhtml en el tab de <i>My Profile</i>
-						</li>
-						<li>Organizar los estilos y la estética de la vista</li>
-					</ul>
+									<div class="col-md-12 content-profile">
+										<ui:include src="../fragments/investor-panel.xhtml" />
+										<ui:include src="../fragments/service-panel.xhtml" />
 
-
-					<ui:include src="properties/property-list.xhtml">
-						<ui:param name="view-mode" value="#{true}"></ui:param>
-					</ui:include>
-				</h:form>
+										<div class="col-md-12 content-btn-edit">
+											<p:commandButton value="#{viewBundle['Profile.Edit.Button']}"
+												styleClass="btn btn-primary" process="@this"
+												actionListener="#{profileReadPage.processEditClick()}" />
+										</div>
+									</div>
+								</div>
+								<div id="properties"
+									class="col-md-12 hc-content-properties tab-pane fade">
+									<ui:include src="../pages/properties/property-list.xhtml">
+										<ui:param name="view-mode" value="#{true}" />
+									</ui:include>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>
+		</h:form>
 	</ui:define>
 
 </ui:composition>

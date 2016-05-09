@@ -3,7 +3,6 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	text-align: center;
 }
 
 body {
@@ -274,6 +273,11 @@ div.hc-responsive-div {
     width: 200px;
     height: 200px;
 }
+div.hc-responsive-div-properties {
+    padding: 0 10px;
+    width: 200px;
+    height: 120px;
+}
 
 .login-btn {
 	text-align: center;
@@ -319,7 +323,7 @@ a.closed-tc.ui-icon.ui-icon-closethick {
 
 .content-profile {
 	padding-bottom: 30px;
-	padding-top: 100px;
+	padding-top: 30px;
 }
 
 .content-btn-edit {
