@@ -54,7 +54,7 @@
 							<div class="col-md-2">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary"
-									rendered="#{not profileReadPage.websitePending}"
+									rendered="#{not viewMode}"
 									action="#{ProfileReadPage.processEditClick()}" />
 							</div>
 							<div class="col-md-2">
@@ -105,7 +105,7 @@
 							<div class="col-md-2">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary"
-									rendered="#{not profileReadPage.websitePending}"
+									rendered="#{not viewMode}"
 									action="#{ProfileReadPage.processEditClick()}" />
 							</div>
 							<div class="col-md-2">
@@ -155,7 +155,7 @@
 							<div class="col-md-2">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary"
-									rendered="#{not profileReadPage.websitePending}"
+									rendered="#{not viewMode}"
 									action="#{ProfileReadPage.processEditClick}" />
 							</div>
 							<div class="col-md-2">
@@ -208,7 +208,7 @@
 							<div class="col-md-2">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary"
-									rendered="#{not profileReadPage.websitePending}"
+									rendered="#{not viewMode}"
 									action="#{ProfileReadPage.processEditClick}" />
 							</div>
 							<div class="col-md-2">
@@ -282,10 +282,10 @@
 							<!-- Modal content-->
 							<div class="modal-content">
 								<div class="modal-header">
-									<h4 class="modal-title">Delete Register</h4>
+									<h4 class="modal-title"><span class="hc-form-label">#{viewBundle['Properties.title.modal']}</span></h4>
 								</div>
 								<div class="modal-body">
-									<p>these sure do it?</p>
+									<p><span class="hc-form-label">#{viewBundle['Properties.content.modal']}</span></p>
 								</div>
 								<div class="modal-footer">
 
