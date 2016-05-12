@@ -376,7 +376,12 @@
 	padding-top: 13px;
 }
 
-.nav-tabs>li.active>a,.nav-tabs>li.active>a:focus,.nav-tabs>li.active>a:hover
+.nav-tabs>li.active>a,.nav-tabs>li.active>a:focus
+	{
+	color: #1A5783 !important;
+	background-color: #ddd !important;
+}
+.nav-tabs>li.active>a:hover
 	{
 	color: #FFF !important;
 	background-color: #1A5783 !important;
