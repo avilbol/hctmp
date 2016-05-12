@@ -18,6 +18,7 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
@@ -46,6 +47,9 @@ public class ProfileReadPage implements Serializable {
     private NavigationHandler navigationHandler;
     @EJB
     private UserServices userServices;
+    
+    @ManagedProperty(value="#{globalProfilePage}")
+    private GlobalProfilePage globalProfilePage;
 
     /**
      * Default constructor
@@ -68,7 +72,7 @@ public class ProfileReadPage implements Serializable {
      * Process click event over edit button
      */
     public void processEditClick(){
-        navigationHandler.redirectToPage(HallocasaViewEnum.EDIT_PROFILE_TEMP);
+    	globalProfilePage.goToEditProfile();
     }
 
     /**

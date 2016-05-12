@@ -74,7 +74,7 @@ public enum HallocasaViewEnum {
     /**
      * Page for account information
      */
-    MY_PROFILE_TEMP(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/new-profile.xhtml",
+    MY_PROFILE_TEMP(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/new-profile2.xhtml",
             ProfileReadPage.class, true, null, UseCaseEnum.SEE_MY_PROFILE),
     
     /**

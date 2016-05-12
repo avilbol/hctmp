@@ -8,30 +8,32 @@
 
 	<ui:param name="header_showSubMenu" value="#{false}" />
 
+	<ui:param name="header_showSubMenu" value="#{true}" />
+	<ui:param name="header_subMenuPath"
+		value="/user/pages/properties-menu.xhtml" />
+
+
 	<p:growl globalOnly="false" />
 
 	<ui:define name="styleSheetsSection">
-		<h:outputStylesheet library="css" name="confirm-email.css" />
+		<h:outputStylesheet library="css" name="properties.css" />
 	</ui:define>
-
 	<ui:define name="contentSection">
-		<div class="hc-content-body">
-			<div class="container">
-				<h:form styleClass="hc-form" enctype="multipart/form-data">
-
-					<div class="col-md-12 content-profile">
-						<ui:include src="../fragments/investor-panel.xhtml" />
-						<ui:include src="../fragments/service-panel.xhtml" />
+		<h:form>
+			<div class="hc-content-body">
+				<div class="container">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="tab-content">
+								<div id="tab-value"
+									class="col-md-12 hc-content-properties tab-pane fade">
+									<ui:include src="#{globalProfilePage.selectedOption.url}"/>
+								</div>
+							</div>
+						</div>
 					</div>
-
-					<div class="col-md-12 content-btn-edit">
-						<p:commandButton value="#{viewBundle['Profile.Edit.Button']}"
-							styleClass="btn btn-primary" process="@this"
-							actionListener="#{profileReadPage.processEditClick()}" />
-					</div>
-				</h:form>
+				</div>
 			</div>
-		</div>
+		</h:form>
 	</ui:define>
-
 </ui:composition>
