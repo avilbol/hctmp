@@ -9,12 +9,16 @@
 
 	<h:form>
 		<ul class="nav nav-tabs nav navbar-nav navbar-left">
-			<li class="active"><a data-toggle="tab" href="#profile"> <span
-					class="hc-form-label">#{viewBundle['Properties.your.profile']}</span>
-			</a></li>
-			<li><a data-toggle="tab" href="#properties"> <span
-					class="hc-form-label">#{viewBundle['Properties.your.property']}</span>
-			</a></li>
+			<li class="#{globalProfilePage.activeSectionIndex eq 0 ? 'active' : ''}">
+                <a href="#{globalProfilePage.getUrlPage('profile')}">
+                    #{viewBundle['Properties.your.profile']}
+                </a>
+            </li>
+            <li class="#{globalProfilePage.activeSectionIndex eq 1 ? 'active' : ''}">
+                <a href="#{globalProfilePage.getUrlPage('properties')}">
+                    #{viewBundle['Properties.your.property']}
+                </a>
+            </li>
 		</ul>
 	</h:form>
 </ui:composition>

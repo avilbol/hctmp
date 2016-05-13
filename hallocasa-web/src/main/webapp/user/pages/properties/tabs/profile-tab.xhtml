@@ -5,13 +5,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
 
-	<div class="hc-content-body">
-		<div class="container">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<ui:include src="#{globalProfilePage.profileTabMode.url}" />
-				</div>
-			</div>
-		</div>
-	</div>
+	<h:panelGroup id="container-profile-element">
+		<ui:include src="#{globalProfilePage.profileTabMode.url}" />
+	</h:panelGroup>
 </ui:composition>

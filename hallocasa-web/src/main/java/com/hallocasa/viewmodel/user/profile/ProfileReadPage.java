@@ -74,7 +74,7 @@ public class ProfileReadPage implements Serializable {
     public void processEditClick(){
     	globalProfilePage.goToEditProfile();
     }
-
+    
     /**
      * Getter for user
      *
@@ -140,5 +140,12 @@ public class ProfileReadPage implements Serializable {
     public boolean getLinkedInPending(){
         return FormatUtils.isEmptyValue(user.getLinkedIn());
     }
-
+    
+	public GlobalProfilePage getGlobalProfilePage() {
+		return globalProfilePage;
+	}
+	
+	public void setGlobalProfilePage(GlobalProfilePage globalProfilePage) {
+		this.globalProfilePage = globalProfilePage;
+	}
 }

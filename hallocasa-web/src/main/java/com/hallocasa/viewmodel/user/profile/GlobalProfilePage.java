@@ -1,13 +1,16 @@
 package com.hallocasa.viewmodel.user.profile;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
+import com.hallocasa.view.navigation.ViewParamEnum;
 
 /**
  * Managed bean for profile global data
@@ -68,7 +71,7 @@ public class GlobalProfilePage implements Serializable{
     public enum MenuOption {
 
         PROFILE("properties/tabs/profile-tab.xhtml"),
-        PROPERTIES("properties/tabs/properties-tab.xhtml");
+        PROPERTIES("properties/tabs/property-tab.xhtml");
         
         private final String url;
 
@@ -85,7 +88,7 @@ public class GlobalProfilePage implements Serializable{
         CREATE("../sections/property-wizard.xhtml", USE_CREATION_WIZARD),
         EDIT("../sections/property-wizard.xhtml", DO_NOT_USE_CREATION_WIZARD),
         DETAIL("../sections/property-details.xhtml", NON_OPTION),
-        VIEW("../sections/property-list.xhtml", NON_OPTION);
+        VIEW("../property-list.xhtml", NON_OPTION);
         
         private final String url;
         
@@ -132,6 +135,9 @@ public class GlobalProfilePage implements Serializable{
         	selectedOption = MenuOption.valueOf(requestedOptionStr.toUpperCase());
         } catch(IllegalArgumentException | NullPointerException e){
         	selectedOption = MenuOption.PROFILE;
+        } finally{
+        	profileTabMode = ProfileTabMode.VIEW;
+        	propertyTabMode = PropertyTabMode.VIEW;
         }
     }
     
@@ -142,11 +148,11 @@ public class GlobalProfilePage implements Serializable{
     
     public void onPropertiesMenuSelect(){
     	selectedOption = MenuOption.PROPERTIES;
-    	profileTabMode = ProfileTabMode.VIEW;
+    	propertyTabMode = PropertyTabMode.VIEW;
     } 
     
     public void goToEditProfile(){
-    	selectedOption = MenuOption.PROPERTIES;
+    	selectedOption = MenuOption.PROFILE;
     	profileTabMode = ProfileTabMode.EDIT;
     } 
     
@@ -184,5 +190,11 @@ public class GlobalProfilePage implements Serializable{
 
 	public void setProfileTabMode(ProfileTabMode profileTabMode) {
 		this.profileTabMode = profileTabMode;
+	}
+	
+	public String getUrlPage(String value){
+		HashMap<ViewParamEnum, String> params = new HashMap<>();
+		params.put(ViewParamEnum.OPTION, value);
+		return navigationHandler.buildAbsoluteUrl(HallocasaViewEnum.MY_PROFILE_TEMP, params);
 	}
 }

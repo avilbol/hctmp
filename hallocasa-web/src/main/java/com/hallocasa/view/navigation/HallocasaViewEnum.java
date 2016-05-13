@@ -2,6 +2,7 @@ package com.hallocasa.view.navigation;
 
 import static com.hallocasa.view.navigation.ViewParamEnum.ARTICLE_ID;
 import static com.hallocasa.view.navigation.ViewParamEnum.EMAIL;
+import static com.hallocasa.view.navigation.ViewParamEnum.OPTION;
 import static com.hallocasa.view.navigation.ViewParamEnum.TOKEN;
 
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public enum HallocasaViewEnum {
      * Page for account information
      */
     MY_PROFILE_TEMP(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/new-profile2.xhtml",
-            ProfileReadPage.class, true, null, UseCaseEnum.SEE_MY_PROFILE),
+            ProfileReadPage.class, true, new ViewParamEnum[]{OPTION}, UseCaseEnum.SEE_MY_PROFILE),
     
     /**
      * Page for property list

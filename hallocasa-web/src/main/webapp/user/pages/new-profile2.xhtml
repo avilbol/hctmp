@@ -19,17 +19,12 @@
 		<h:outputStylesheet library="css" name="properties.css" />
 	</ui:define>
 	<ui:define name="contentSection">
-		<h:form>
+		<h:form id="hc-profile-form">
 			<div class="hc-content-body">
 				<div class="container">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<div class="tab-content">
-								<div id="tab-value"
-									class="col-md-12 hc-content-properties tab-pane fade">
-									<ui:include src="#{globalProfilePage.selectedOption.url}"/>
-								</div>
-							</div>
+							<ui:include src="#{globalProfilePage.selectedOption.url}"/>
 						</div>
 					</div>
 				</div>
