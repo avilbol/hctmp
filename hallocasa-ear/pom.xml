@@ -43,7 +43,7 @@
 								<groupId>com.hallocasa</groupId>
 								<artifactId>hallocasa-web</artifactId>
 								<bundleFileName>hallocasa-web.war</bundleFileName>
-								<contextRoot>/${context.root}</contextRoot>
+								<contextRoot>${context.root}</contextRoot>
 							</webModule>
 						</modules>
 						<earSourceDirectory>EarContent</earSourceDirectory>

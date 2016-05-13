@@ -6,6 +6,7 @@
     <build>
     	<filters>
 			<filter>profiles/${build.profile.id}/config.properties</filter>
+			<filter>profiles/${build.profile.id}/dbmaintain.properties</filter>
 		</filters>
         <resources>
             <resource>

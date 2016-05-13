@@ -35,26 +35,28 @@ public class AccessFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        StringBuffer requestURL = ((HttpServletRequest) request).getRequestURL();
+    	HttpServletRequest httpRequest = ((HttpServletRequest) request);
+    	StringBuffer requestURL = httpRequest.getRequestURL();
+    	String contextPath = httpRequest.getContextPath();
         HallocasaViewEnum viewEnum;
-
         String serverAppUrl = SystemConstants.SERVER_URL + SystemConstants.APP_CONTEXT;
         // if is a resource skip filter
-        String url = requestURL.toString().replaceAll(serverAppUrl, "");
-        if (!isResource(url) && (!isDefaultView(url))) {
+        String urlPath = requestURL.toString().replaceAll(serverAppUrl, "");
+        if (!isResource(urlPath) && (!isDefaultView(urlPath))) {
             // look for the page in the enum
             try {
-                viewEnum = HallocasaViewEnum.findByUrl(url);
+                viewEnum = HallocasaViewEnum.findByUrl(urlPath);
             } catch (IllegalArgumentException e) {
-                redirectTo(response, HallocasaViewEnum.PAGE_NOT_FOUND);
+                redirectTo(response, contextPath, HallocasaViewEnum.PAGE_NOT_FOUND);
                 return;
+                
             }
 
             // check if the view requires logged session
             if (viewEnum.isRequiresLogin()) {
                 if ((WebSessionImpl.getCurrent() == null)
                         || (!WebSessionImpl.getCurrent().isLogged())) {
-                    redirectTo(response, HallocasaViewEnum.FORBIDDEN);
+                    redirectTo(response, contextPath,  HallocasaViewEnum.FORBIDDEN);
                     return;
                 }
             }
@@ -73,11 +75,11 @@ public class AccessFilter implements Filter {
      * @param response
      * @param hallocasaViewEnum
      */
-    private void redirectTo(ServletResponse response,
+    private void redirectTo(ServletResponse response, String contextPath,
             HallocasaViewEnum hallocasaViewEnum) {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         try {
-            httpResponse.sendRedirect(hallocasaViewEnum.getUrl());
+            httpResponse.sendRedirect(contextPath + hallocasaViewEnum.getUrl());
         } catch (IOException ex) {
             Logger.getLogger(AccessFilter.class.getName()).log(Level.SEVERE, null, ex);
         }

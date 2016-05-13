@@ -13,7 +13,9 @@
             </activation>
             <properties>
             	<build.profile.id>dev</build.profile.id>
-            	<context.root>app</context.root>
+            	<context.root>/app</context.root>
+            	<datasource.appName>jdbc/hallocasaAppDatasource</datasource.appName>
+            	<datasource.wcmName>jdbc/hallocasaDatasource</datasource.wcmName>
                 <javax.faces.PROJECT_STAGE>Development</javax.faces.PROJECT_STAGE>
                 <dbMaintainer.includedQualifiers>dev,all</dbMaintainer.includedQualifiers>
                 <dbMaintainer.excludedQualifiers>pro</dbMaintainer.excludedQualifiers>
@@ -23,7 +25,9 @@
             <id>testing</id>
             <properties>
             	<build.profile.id>test</build.profile.id>
-            	<context.root>app</context.root>
+            	<context.root>/app</context.root>
+            	<datasource.appName>jdbc/hallocasatestAppDatasource</datasource.appName>
+            	<datasource.wcmName>jdbc/hallocasatestDatasource</datasource.wcmName>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
                 <dbMaintainer.includedQualifiers>pro,all</dbMaintainer.includedQualifiers>
                 <dbMaintainer.excludedQualifiers>dev</dbMaintainer.excludedQualifiers>
@@ -33,7 +37,9 @@
             <id>production</id>
             <properties>
             	<build.profile.id>prod</build.profile.id>
-            	<context.root></context.root>
+            	<context.root>/</context.root>
+            	<datasource.appName>jdbc/hallocasaAppDatasource</datasource.appName>
+            	<datasource.wcmName>jdbc/hallocasaDatasource</datasource.wcmName>
                 <javax.faces.PROJECT_STAGE>Production</javax.faces.PROJECT_STAGE>
                 <dbMaintainer.includedQualifiers>pro,all</dbMaintainer.includedQualifiers>
                 <dbMaintainer.excludedQualifiers>dev</dbMaintainer.excludedQualifiers>
