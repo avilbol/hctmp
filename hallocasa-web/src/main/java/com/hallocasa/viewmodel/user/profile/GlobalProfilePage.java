@@ -179,6 +179,11 @@ public class GlobalProfilePage implements Serializable {
 		propertyTabMode = PropertyTabMode.VIEW;
 	}
 
+	public void goToCreateProperty() {
+		selectedOption = MenuOption.PROPERTIES;
+		propertyTabMode = PropertyTabMode.CREATE;
+	}
+	
 	public void goToEditProfile() {
 		selectedOption = MenuOption.PROFILE;
 		profileTabMode = ProfileTabMode.EDIT;

@@ -270,7 +270,7 @@
 							</div>
 						</div>
 					</div>
-						<!-- Modal -->
+					<!-- Modal -->
 					<div class="modal fade" id="myModal" role="dialog">
 
 						<div class="modal-dialog">
@@ -290,10 +290,9 @@
 								</div>
 								<div class="modal-footer">
 
-									<p:commandButton
-										data-dismiss="modal"
+									<p:commandButton data-dismiss="modal"
 										value="#{viewBundle['Properties.delete.label']}"
-										styleClass="btn btn-primary" 
+										styleClass="btn btn-primary"
 										style="margin-top: 18px!important; margin-bottom: 0!important;font-size: large;padding: 2px;"
 										action="#{propertyListPage.onDeletePropertyClick()}"
 										onclick="$('#myModal').modal('hide'); return true; " />
@@ -309,9 +308,13 @@
 					<!-- </ui:remove>-->
 				</div>
 				<div class="col-md-2 col-md-offset-1">
-					<p:commandButton value="#{viewBundle['Properties.create.label']}"
+					<h:commandButton value="#{viewBundle['Properties.create.label']}"
+						action="#{globalProfilePage.goToCreateProperty()}"
 						styleClass="btn btn-primary col-md-12"
-						style="margin-top: -15px!important;" />
+						style="margin-top: -15px!important;">
+						<f:ajax execute="@this"
+							render=":hc-profile-form:container-property-element" />
+					</h:commandButton>
 				</div>
 			</h:form>
 		</div>

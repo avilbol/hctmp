@@ -2,8 +2,13 @@ package com.hallocasa.viewmodel.user.profile;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+
+import com.hallocasa.viewmodel.user.profile.GlobalProfilePage.MenuOption;
+import com.hallocasa.viewmodel.user.profile.GlobalProfilePage.ProfileTabMode;
+import com.hallocasa.viewmodel.user.profile.GlobalProfilePage.PropertyTabMode;
 
 /**
  * Managed bean for wizard in properties
@@ -31,6 +36,14 @@ public class PropertyWizardPage implements Serializable {
 	private PropertyWizardPhase wizardPhase;
 
 	/**
+	 * Initialize
+	 */
+	@PostConstruct
+	public void initialize() {
+		
+	}
+	
+	/**
 	 * Constants to represent possible phases of process.
 	 */
 	private enum PropertyWizardPhase {
@@ -45,7 +58,7 @@ public class PropertyWizardPage implements Serializable {
 		this.wizardCreation = wizardCreation;
 	}
 
-	public boolean getShowInitialWizard() {
+	public boolean getShowInitWizard() {
 		return this.wizardCreation
 				&& this.wizardPhase.equals(PropertyWizardPhase.INIT);
 	}
