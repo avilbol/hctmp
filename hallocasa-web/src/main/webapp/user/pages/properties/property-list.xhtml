@@ -53,7 +53,10 @@
 							<div class="col-md-2">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary" rendered="#{not viewMode}"
-									action="#{ProfileReadPage.processEditClick()}" />
+									action="#{globalProfilePage.goToEditProperty(null)}">
+									<f:ajax execute="@this"
+										render=":hc-profile-form:container-property-element" />
+								</p:commandButton>
 							</div>
 							<div class="col-md-2">
 								<button type="button" class="btn btn-delete" data-toggle="modal"
@@ -104,7 +107,10 @@
 							<div class="col-md-2">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary" rendered="#{not viewMode}"
-									action="#{ProfileReadPage.processEditClick()}" />
+									action="#{globalProfilePage.goToEditProperty(null)}">
+									<f:ajax execute="@this"
+										render=":hc-profile-form:container-property-element" />
+								</p:commandButton>
 							</div>
 							<div class="col-md-2">
 								<button type="button" class="btn btn-delete" data-toggle="modal"
@@ -154,7 +160,7 @@
 							<div class="col-md-2">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary" rendered="#{not viewMode}"
-									action="#{ProfileReadPage.processEditClick}" />
+									action="#{globalProfilePage.goToEditProperty(null)}" />
 							</div>
 							<div class="col-md-2">
 								<button type="button" class="btn btn-delete" data-toggle="modal"
@@ -207,7 +213,7 @@
 							<div class="col-md-2">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary" rendered="#{not viewMode}"
-									action="#{ProfileReadPage.processEditClick}" />
+									action="#{globalProfilePage.goToEditProperty(null)}" />
 							</div>
 							<div class="col-md-2">
 								<button type="button" class="btn btn-delete" data-toggle="modal"
@@ -260,7 +266,7 @@
 							<div class="col-md-2">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary" rendered="#{not viewMode}"
-									action="#{ProfileReadPage.processEditClick}" />
+									action="#{globalProfilePage.goToEditProperty(null)}" />
 							</div>
 							<div class="col-md-2">
 								<button type="button" class="btn btn-delete" data-toggle="modal"

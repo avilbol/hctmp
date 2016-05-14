@@ -1,8 +1,14 @@
 package com.hallocasa.commons.vo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class CurrencyVOAmmount {
+public class CurrencyVOAmmount implements Serializable {
+
+	/**
+	 * Serialization constant
+	 */
+	private static final long serialVersionUID = -8419397187231387687L;
 
 	private CurrencyVO currency;
 	

@@ -6,7 +6,10 @@ import com.hallocasa.commons.vo.Coordinate;
 import com.hallocasa.commons.vo.StateVO;
 import static com.hallocasa.commons.constants.PropertyConstants.*;
 
-public class PropertyLocationInfo {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class PropertyLocationInfo implements Serializable {
 
 	@PropertyFieldValueParser(id = STATE_FIELD, methodToExecute = "parseToState")
 	private StateVO state;

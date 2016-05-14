@@ -220,7 +220,7 @@ public class GlobalProfilePage implements Serializable {
 	public void goToEditProperty(PropertyVO vo) {
 		selectedOption = MenuOption.PROPERTIES;
 		propertyTabMode = PropertyTabMode.EDIT;
-		propertyInEdition = vo;
+		propertyInEdition = new PropertyVO(); // TODO : replace for vo
 		propertyInEdition.setUser(user);
 	}
 	

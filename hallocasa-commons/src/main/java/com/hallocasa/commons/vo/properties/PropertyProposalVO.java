@@ -1,5 +1,7 @@
 package com.hallocasa.commons.vo.properties;
 
+import java.io.Serializable;
+
 import com.hallocasa.commons.i18n.MultiLanguageText;
 
 
@@ -8,7 +10,12 @@ import com.hallocasa.commons.i18n.MultiLanguageText;
  * @author avillamil
  *
  */
-public class PropertyProposalVO {
+public class PropertyProposalVO implements Serializable{
+
+	/**
+	 * Serialization constant
+	 */
+	private static final long serialVersionUID = -3721224192215566206L;
 
 	/**
 	 * Property proposal identifier

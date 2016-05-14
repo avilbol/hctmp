@@ -6,10 +6,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:form styleClass="hc-form" enctype="multipart/form-data">
-		<ui:include src="sections/basic-info.xhtml"></ui:include>
-		<ui:include src="sections/images.xhtml"></ui:include>
-		<ui:include src="sections/location.xhtml"></ui:include>
-		<ui:include src="sections/preview.xhtml"></ui:include>
-	</h:form>
+	<ui:include src="sections/basic-info.xhtml"></ui:include>
+	<ui:include src="sections/images.xhtml"></ui:include>
+	<ui:include src="sections/location.xhtml"></ui:include>
+	<ui:include src="sections/preview.xhtml"></ui:include>
+
+	<h:commandButton value="Atrás"
+		action="#{propertyWizardPage.goToInitZone}"
+		styleClass="btn btn-primary"
+		rendered="#{wizardCreation}">
+		<f:ajax execute="@form"
+			render=":hc-profile-form:container-property-element" />
+	</h:commandButton>
 </ui:composition>

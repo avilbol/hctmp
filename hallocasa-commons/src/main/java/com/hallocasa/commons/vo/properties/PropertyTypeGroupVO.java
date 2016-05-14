@@ -1,13 +1,18 @@
 package com.hallocasa.commons.vo.properties;
 
+import java.io.Serializable;
 
 /**
  * Value object for groups that surround several property types
  * @author avillamil
  *
  */
-public class PropertyTypeGroupVO {
+public class PropertyTypeGroupVO implements Serializable {
 
+	/**
+	 * Serialization constant
+	 */
+	private static final long serialVersionUID = 4120605687753609094L;
 
 	/**
 	 * Property type group identifier

@@ -3,6 +3,9 @@ package com.hallocasa.services.properties.impl;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -20,6 +23,8 @@ import com.hallocasa.services.persistence.local.AppPersistenceServices;
  * 
  * @author Alexander Villamil
  */
+@Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 public class PropertyServicesImpl implements PropertyServices {
 
 	@PersistenceContext(unitName = "RealStateDatabasePU")

@@ -1,6 +1,13 @@
 package com.hallocasa.commons.vo;
 
-public class Coordinate {
+import java.io.Serializable;
+
+public class Coordinate implements Serializable{
+
+	/**
+	 * Serialization constant
+	 */
+	private static final long serialVersionUID = 1039611321081520687L;
 
 	private Integer grades;
 	

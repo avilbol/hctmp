@@ -1,12 +1,14 @@
 package com.hallocasa.commons.vo.properties;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.hallocasa.commons.annotations.PropertyFieldValueParser;
 import com.hallocasa.commons.vo.ImageContainer;
 import static com.hallocasa.commons.constants.PropertyConstants.*;
 
-public class PropertyImageInfo {
+@SuppressWarnings("serial")
+public class PropertyImageInfo implements Serializable {
 
 	@PropertyFieldValueParser(id = IMAGES_FIELD, methodToExecute = "parseToImageContainerList")
 	private List<ImageContainer> imageContainerList;

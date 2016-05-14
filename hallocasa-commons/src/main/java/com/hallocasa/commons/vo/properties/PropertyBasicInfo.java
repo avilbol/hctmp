@@ -1,5 +1,6 @@
 package com.hallocasa.commons.vo.properties;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -10,7 +11,8 @@ import com.hallocasa.commons.vo.CurrencyVOAmmount;
 
 import static com.hallocasa.commons.constants.PropertyConstants.*;
 
-public class PropertyBasicInfo {
+@SuppressWarnings("serial")
+public class PropertyBasicInfo implements Serializable {
 
 	@PropertyFieldValueParser(id = LANGUAGES_FIELD, methodToExecute = "parseToLanguageList")
 	private List<Language> languages;

@@ -84,4 +84,12 @@ public class PropertyWizardPage implements Serializable {
 	public void onProcessInitZone(){
 		this.wizardPhase = PropertyWizardPhase.EDITION;
 	}
+
+	public GlobalProfilePage getGlobalProfilePage() {
+		return globalProfilePage;
+	}
+
+	public void setGlobalProfilePage(GlobalProfilePage globalProfilePage) {
+		this.globalProfilePage = globalProfilePage;
+	}
 }

@@ -1,9 +1,11 @@
 package com.hallocasa.commons.vo.properties;
 
+import java.io.Serializable;
+
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 
-public class PropertyLocationVO implements ValueObject{
+public class PropertyLocationVO implements Serializable, ValueObject{
 
 	/**
 	 * Serialization constant
