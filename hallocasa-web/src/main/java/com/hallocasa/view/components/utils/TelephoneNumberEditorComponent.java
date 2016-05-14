@@ -85,7 +85,7 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 	public Object getSubmittedValue() {
 		String ctpVO = (String) countryTelephonePrefix.getSubmittedValue();
 		String nmb = (String) number.getSubmittedValue();
-		if (ctpVO != null && !FormatUtils.isEmptyValue(nmb)) {
+		if (ctpVO != null && !ctpVO.trim().isEmpty() && !FormatUtils.isEmptyValue(nmb)) {
 			CountryTelephonePrefixVO ctpVOObj = new CountryTelephonePrefixVO();
 			ctpVOObj.setId(Long.parseLong(ctpVO));
 			TelephoneVO telephoneVO = new TelephoneVO();

@@ -21,7 +21,8 @@
 						itemLabel="#{userType.userTypeName.getText(webSession.currentLanguage)}"
 						itemValue="#{userType}">
 					</f:selectItems>
-					<p:ajax event="change" update="advanced-services-area" />
+					<p:ajax event="change" process="@this"
+						update="advanced-services-area" />
 				</p:selectManyCheckbox>
 				<p:tooltip id="toolTip0" for="userTypes"
 					value="#{viewBundle['Tooltip.Profile.UserTypesHelp']}" />

@@ -1,28 +1,43 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
-<f:view id="view" locale="#{webSession.currentLanguage.locale}">
-	<h:head>
-		<title>.d..</title>
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="../commons/templates/general-layout.xhtml"
+	xmlns:p="http://primefaces.org/ui">
 
-	</h:head>
-	<h:body>
-		<h:form>
 
-			<ui:repeat var="item" value="#{testPage.testAttrList}">
-				<utils:element attr="#{testPage.myAttr}" />
-			</ui:repeat>
-			
+	<ui:param name="header_showSubMenu" value="#{false}" />
 
-		</h:form>
-	</h:body>
-</f:view>
-</html>
+	<p:growl globalOnly="false" />
+
+	<ui:define name="styleSheetsSection">
+		<h:outputStylesheet library="css" name="confirm-email.css" />
+	</ui:define>
+
+	<ui:define name="contentSection">
+		<div class="hc-content-body">
+			<div class="container">
+				<h:form styleClass="hc-form" enctype="multipart/form-data">
+					<p:selectManyCheckbox id="userTypes" label="Servicios"
+							value="#{profileEditPage.user.userTypes}"
+							styleClass="hc-selectManyChkbox" converter="userTypeConverter"
+							layout="responsive" columns="2">
+							<f:selectItems value="#{applicationContext.userTypes}"
+								var="userType"
+								itemLabel="#{userType.userTypeName.getText(webSession.currentLanguage)}"
+								itemValue="#{userType}">
+							</f:selectItems>
+							<p:ajax event="change" process="@this" update="@this" />
+						</p:selectManyCheckbox>
+				</h:form>
+			</div>
+		</div>
+	</ui:define>
+
+
+</ui:composition>
 
 
 

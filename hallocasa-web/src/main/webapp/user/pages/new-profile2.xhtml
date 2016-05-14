@@ -13,13 +13,13 @@
 		value="/user/pages/properties-menu.xhtml" />
 
 
-	<p:growl globalOnly="false" />
+	<p:growl globalOnly="false" showDetail="false" />
 
 	<ui:define name="styleSheetsSection">
 		<h:outputStylesheet library="css" name="properties.css" />
 	</ui:define>
 	<ui:define name="contentSection">
-		<h:form id="hc-profile-form">
+		<h:form id="hc-profile-form" enctype="multipart/form-data">
 			<div class="hc-content-body">
 				<div class="container">
 					<div class="panel panel-default">

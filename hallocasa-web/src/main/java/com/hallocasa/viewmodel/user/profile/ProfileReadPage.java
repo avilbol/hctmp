@@ -5,14 +5,6 @@
  */
 package com.hallocasa.viewmodel.user.profile;
 
-import com.hallocasa.commons.vo.UserVO;
-import com.hallocasa.model.controlaccess.ForbiddenException;
-import com.hallocasa.model.session.WebSession;
-import com.hallocasa.services.interfaces.UserServices;
-import com.hallocasa.view.utils.FormatUtils;
-import com.hallocasa.view.navigation.HallocasaViewEnum;
-import com.hallocasa.view.navigation.NavigationHandler;
-
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
@@ -21,6 +13,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+
+import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.model.session.WebSession;
+import com.hallocasa.services.interfaces.UserServices;
+import com.hallocasa.view.utils.FormatUtils;
 
 /**
  * View model for profile page
@@ -37,14 +34,9 @@ public class ProfileReadPage implements Serializable {
 	 */
 	private static final long serialVersionUID = -6006649582382274792L;
 
-	/* instance variables */
-    private UserVO user;
-
     /* dependencies */
     @Inject
     private WebSession webSession;
-    @Inject
-    private NavigationHandler navigationHandler;
     @EJB
     private UserServices userServices;
     
@@ -61,11 +53,7 @@ public class ProfileReadPage implements Serializable {
      */
     @PostConstruct
     public void initialize() {
-        user = userServices.find(webSession.getCurrentUser().getId());
-        if ( user == null ){
-            // it should never 
-            throw new ForbiddenException();
-        }
+        // Nothing to do
     }
 
     /**
@@ -81,64 +69,64 @@ public class ProfileReadPage implements Serializable {
      * @return user
      */
     public UserVO getUser() {
-        return user;
+        return globalProfilePage.getUser();
     }
     
     public String getUsername(){
-       return FormatUtils.getDefensiveLabel(user.getFullName());
+       return FormatUtils.getDefensiveLabel(this.getUser().getFullName());
     }
     
     public boolean isUsernamePending(){
-        return user.getFullName().equals("");
+        return this.getUser().getFullName().equals("");
     }
     
     public String getCountryName(){
-        return user.getCountry().getCountryName().getText(webSession.getCurrentLanguage());
+        return this.getUser().getCountry().getCountryName().getText(webSession.getCurrentLanguage());
     }
     
     public String getStateName(){
-        return user.getState().getStateName().getText(webSession.getCurrentLanguage());
+        return this.getUser().getState().getStateName().getText(webSession.getCurrentLanguage());
     }
     
     public String getCityName(){
-        return user.getCity().getCityName().getText(webSession.getCurrentLanguage());
+        return this.getUser().getCity().getCityName().getText(webSession.getCurrentLanguage());
     }
     
     public String getWebsiteName(){
-        return FormatUtils.getDefensiveLabel(user.getWebSite());
+        return FormatUtils.getDefensiveLabel(this.getUser().getWebSite());
     }
     
     public String getWebsiteLink(){
-        return FormatUtils.buildWebString(user.getWebSite(), false);
+        return FormatUtils.buildWebString(this.getUser().getWebSite(), false);
     }
     
     public String getSkypeName(){
-        return FormatUtils.getDefensiveLabel(user.getSkype());
+        return FormatUtils.getDefensiveLabel(this.getUser().getSkype());
     }
     
     public String getLinkedInName(){
-        return FormatUtils.getDefensiveLabel(user.getLinkedIn());
+        return FormatUtils.getDefensiveLabel(this.getUser().getLinkedIn());
     }
     
     public String getLinkedInLink(){
-        return FormatUtils.buildWebString(user.getLinkedIn(), true);
+        return FormatUtils.buildWebString(this.getUser().getLinkedIn(), true);
     }
     
     public boolean getWebsitePending(){
-        return FormatUtils.isEmptyValue(user.getWebSite());
+        return FormatUtils.isEmptyValue(this.getUser().getWebSite());
     }
     
     public boolean getTelephonePending(){
-        return user.getTelephone() == null ||
-        		FormatUtils.isEmptyValue(user.getTelephone().getNumber());
+        return this.getUser().getTelephone() == null ||
+        		FormatUtils.isEmptyValue(this.getUser().getTelephone().getNumber());
     }
     
     public boolean getSkypePending(){
-        return FormatUtils.isEmptyValue(user.getSkype());
+        return FormatUtils.isEmptyValue(this.getUser().getSkype());
     }
     
     public boolean getLinkedInPending(){
-        return FormatUtils.isEmptyValue(user.getLinkedIn());
+        return FormatUtils.isEmptyValue(this.getUser().getLinkedIn());
     }
     
 	public GlobalProfilePage getGlobalProfilePage() {
