@@ -4,10 +4,9 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import com.hallocasa.viewmodel.user.profile.GlobalProfilePage.MenuOption;
-import com.hallocasa.viewmodel.user.profile.GlobalProfilePage.ProfileTabMode;
 import com.hallocasa.viewmodel.user.profile.GlobalProfilePage.PropertyTabMode;
 
 /**
@@ -30,6 +29,9 @@ public class PropertyWizardPage implements Serializable {
 	 */
 	private boolean wizardCreation;
 
+	@ManagedProperty(value="#{globalProfilePage}")
+    private GlobalProfilePage globalProfilePage;
+	
 	/**
 	 * Phase of the process in wizard
 	 */
@@ -40,7 +42,15 @@ public class PropertyWizardPage implements Serializable {
 	 */
 	@PostConstruct
 	public void initialize() {
-		
+		PropertyTabMode mode = globalProfilePage.getPropertyTabMode();
+		if(mode.equals(PropertyTabMode.CREATE)){
+			wizardPhase = PropertyWizardPhase.INIT;
+			wizardCreation = true;
+		}
+		if(mode.equals(PropertyTabMode.EDIT)){
+			wizardPhase = PropertyWizardPhase.EDITION;
+			wizardCreation = false;
+		}
 	}
 	
 	/**
@@ -61,5 +71,17 @@ public class PropertyWizardPage implements Serializable {
 	public boolean getShowInitWizard() {
 		return this.wizardCreation
 				&& this.wizardPhase.equals(PropertyWizardPhase.INIT);
+	}
+	
+	public boolean getShowEditWizard() {
+		return this.wizardPhase.equals(PropertyWizardPhase.EDITION);
+	}
+	
+	public void goToInitZone(){
+		this.wizardPhase = PropertyWizardPhase.INIT;
+	}
+	
+	public void onProcessInitZone(){
+		this.wizardPhase = PropertyWizardPhase.EDITION;
 	}
 }

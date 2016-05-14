@@ -2,9 +2,8 @@ package com.hallocasa.services.interfaces;
 
 import java.util.List;
 
+import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
-import com.hallocasa.dataentities.app.User;
-import com.hallocasa.dataentities.app.properties.Property;
 
 /**
  * Interface for the service related with properties
@@ -18,8 +17,12 @@ public interface PropertyServices {
 	 * @param user
 	 * @return
 	 */
-	public List<PropertyVO> find(User user);
+	public List<PropertyVO> find(UserVO user);
 	
-	
+	/**
+	 * Save property
+	 * @param property
+	 */
+	public void save(PropertyVO property);
 	
 }

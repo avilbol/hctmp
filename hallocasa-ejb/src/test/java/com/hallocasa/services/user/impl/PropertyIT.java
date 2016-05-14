@@ -125,7 +125,7 @@ public class PropertyIT {
 	public void testLoadProfileList() throws IllegalAccessException,
 			InvocationTargetException {
 		PropertyServicesImpl propertyServices = new PropertyServicesImpl();
-		User user = new User();
+		UserVO user = new UserVO();
 		user.setId(1l);
 		propertyServices.setAppPersistenceServices(persistenceServices);
 		List<PropertyVO> properties = propertyServices.find(user);
@@ -160,7 +160,7 @@ public class PropertyIT {
 			InvocationTargetException, ServiceException {
 		UserVO userVO = createGoodParameters();	
 		PropertyServicesImpl propertyServices = new PropertyServicesImpl();
-		User user = new User();
+		UserVO user = new UserVO();
 		user.setId(1l);
 		propertyServices.setAppPersistenceServices(persistenceServices);
 		List<PropertyVO> properties = propertyServices.find(user);

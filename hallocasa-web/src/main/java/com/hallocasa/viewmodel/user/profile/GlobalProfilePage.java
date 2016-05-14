@@ -2,6 +2,7 @@ package com.hallocasa.viewmodel.user.profile;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -10,8 +11,10 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.model.controlaccess.ForbiddenException;
 import com.hallocasa.model.session.WebSession;
+import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
@@ -54,6 +57,12 @@ public class GlobalProfilePage implements Serializable {
 	private NavigationHandler navigationHandler;
 	
 	/**
+	 * Property services
+	 */
+	@EJB
+    private PropertyServices propertyServices;
+	
+	/**
 	 * User services
 	 */
 	@EJB
@@ -78,6 +87,16 @@ public class GlobalProfilePage implements Serializable {
 	 * User to manage in global profile page
 	 */
 	private UserVO user;
+	
+	/**
+	 * Property VO list
+	 */
+	private List<PropertyVO> propertyVOList;
+	
+	/**
+	 * Target property
+	 */
+	private PropertyVO propertyInEdition;
 	
 	@Inject
     private WebSession webSession;
@@ -146,6 +165,7 @@ public class GlobalProfilePage implements Serializable {
 	@PostConstruct
 	public void initialize() {
 		refreshUser();
+		refreshProperties();
 		// select section
 		String requestedOptionStr = navigationHandler.getPageParams().get(QUERY_STRING_OPTION);
 		try {
@@ -168,6 +188,17 @@ public class GlobalProfilePage implements Serializable {
 			throw new ForbiddenException();
 		}
 	}
+	
+	/**
+	 * Do a refresh of the current property list instance
+	 */
+	public void refreshProperties(){
+		propertyVOList = propertyServices.find(user);
+		if (propertyVOList == null) {
+			// it should never
+			throw new ForbiddenException();
+		}
+	}
 
 	public void onProfileMenuSelect() {
 		selectedOption = MenuOption.PROFILE;
@@ -182,6 +213,15 @@ public class GlobalProfilePage implements Serializable {
 	public void goToCreateProperty() {
 		selectedOption = MenuOption.PROPERTIES;
 		propertyTabMode = PropertyTabMode.CREATE;
+		propertyInEdition = new PropertyVO();
+		propertyInEdition.setUser(user);
+	}
+	
+	public void goToEditProperty(PropertyVO vo) {
+		selectedOption = MenuOption.PROPERTIES;
+		propertyTabMode = PropertyTabMode.EDIT;
+		propertyInEdition = vo;
+		propertyInEdition.setUser(user);
 	}
 	
 	public void goToEditProfile() {
@@ -237,5 +277,21 @@ public class GlobalProfilePage implements Serializable {
 
 	public void setUser(UserVO user) {
 		this.user = user;
+	}
+
+	public PropertyVO getPropertyInEdition() {
+		return propertyInEdition;
+	}
+
+	public void setPropertyInEdition(PropertyVO propertyInEdition) {
+		this.propertyInEdition = propertyInEdition;
+	}
+
+	public List<PropertyVO> getPropertyVOList() {
+		return propertyVOList;
+	}
+
+	public void setPropertyVOList(List<PropertyVO> propertyVOList) {
+		this.propertyVOList = propertyVOList;
 	}
 }
