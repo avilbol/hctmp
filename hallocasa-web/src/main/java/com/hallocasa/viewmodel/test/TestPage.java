@@ -6,15 +6,17 @@
 package com.hallocasa.viewmodel.test;
 
 import com.hallocasa.commons.vo.TelephoneVO;
-import com.hallocasa.dataentities.app.TestEntity;
+import com.hallocasa.dataentities.app.test.TestEntity;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.services.messaging.local.MailServices;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;

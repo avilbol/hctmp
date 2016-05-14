@@ -26,10 +26,14 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 import com.hallocasa.commons.StrategySort;
 import com.hallocasa.commons.exceptions.services.ServiceException;
+import com.hallocasa.commons.utils.FormatUtils;
 import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.dataentities.app.User;
+import com.hallocasa.dataentities.app.properties.Property;
 import com.hallocasa.dataentities.wcm.TemporalPublisherUser;
 import com.hallocasa.helpers.ParsersContext;
+import com.hallocasa.helpers.PropertyVOParser;
 import com.hallocasa.services.base.ServicesBase;
 import com.hallocasa.services.constants.ServiceErrorMessage;
 import com.hallocasa.services.interfaces.UserServices;
@@ -62,9 +66,9 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
 
 	/* Methods */
 	@Override
-	public UserVO find(String email) {
+	public UserVO findBasicInfo(String email) {
 		List<User> users = appPersistenceServices.executeNamedQuery(
-				User.QUERY_FIND_BY_EMAIL, new Object[] { email }, User.class);
+				User.QUERY_FIND_BASIC_BY_EMAIL, new Object[] { email }, User.class);
 		if (users.isEmpty()) {
 			return null;
 		}
@@ -88,9 +92,37 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
 	@Override
 	public void save(UserVO userVO) throws ServiceException {
 		User user = ParsersContext.USER_VO_PARSER.toEntity(userVO, User.class);
+		if(userVO.getProperties() != null){
+			buildProperties(userVO, user);
+		}
 		appPersistenceServices.mergeEntity(user);
 	}
 
+	private void buildProperties(UserVO userVO, User user) {
+		for (PropertyVO property : userVO.getProperties()) 
+			if (property.getId() == null) property.setId(generatePropertyId());
+		user.setProperties(PropertyVOParser.getInstance()
+				.toEntity(userVO.getProperties()));
+		for (Property property : user.getProperties()) property.setUser(user);
+	}
+
+	/**
+	 * Method to generate a unique random property Id
+	 * @return
+	 */
+	public String generatePropertyId(){
+		Integer ocur;
+		String idCandidate = "";
+		do{
+			idCandidate = FormatUtils.randomStrId();
+			HashMap<String, Object> paramMap = new HashMap<>();
+			paramMap.put("1", idCandidate);
+			ocur = appPersistenceServices.executeQuery(
+					Property.QUERY_FIND_COUNT_BY_ID, paramMap, Integer.class, 1);
+		} while(ocur != null);
+		return idCandidate;
+	}
+	
 	/**
 	 * 
 	 * @throws ServiceException
@@ -133,7 +165,7 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
 	}
 
 	@Override
-	public Integer loadUserVOCount(){
+	public Integer loadUserVOCount() {
 		return appPersistenceServices.executeQuery(
 				User.QUERY_COUNT_LIST_WITH_USER_TYPES, Long.class).intValue();
 	}

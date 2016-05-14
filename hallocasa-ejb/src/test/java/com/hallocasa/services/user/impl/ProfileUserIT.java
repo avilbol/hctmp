@@ -15,8 +15,8 @@ import com.hallocasa.commons.vo.ImageContainer;
 import com.hallocasa.commons.vo.StateVO;
 import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
-import com.hallocasa.dataentities.app.TestEntity;
 import com.hallocasa.dataentities.app.User;
+import com.hallocasa.dataentities.app.test.TestEntity;
 import com.hallocasa.dataentities.app.test.UserTest;
 import com.hallocasa.helpers.ParsersContext;
 import com.hallocasa.services.UserServicesImpl;
@@ -40,6 +40,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -113,14 +114,14 @@ public class ProfileUserIT {
 		String urlToMatch = "new image url";
 		TestEntity entity = persistenceServices.findEntity(TestEntity.class,
 				idToSearch);
-		entity.setImageUrl(new ImageContainer(urlToMatch));
+		// entity.setImageUrl(new ImageContainer(urlToMatch));
 		entity.setOtherAttribute("value 1 modified");
 		persistenceServices.loadTransaction().begin();
 		persistenceServices.mergeEntity(entity);
 		persistenceServices.loadTransaction().commit();
-		Assert.assertEquals(
-				persistenceServices.findEntity(TestEntity.class, idToSearch)
-						.getImageUrl().getUrl(), urlToMatch);
+		// Assert.assertEquals(
+		// persistenceServices.findEntity(TestEntity.class, idToSearch)
+		// .getImageUrl().getUrl(), urlToMatch);
 	}
 
 	/* Methods */
@@ -132,8 +133,17 @@ public class ProfileUserIT {
 				StrategySort.RANDOM);
 		List<UserVO> plusUserVOList = userServices.loadUserVOList(userVOList,
 				5, StrategySort.RANDOM);
-		List<UserVO> fullUserVOList = userServices.loadUserVOList(plusUserVOList,
-				5, StrategySort.RANDOM);
+		List<UserVO> fullUserVOList = userServices.loadUserVOList(
+				plusUserVOList, 5, StrategySort.RANDOM);
+	}
+
+	@Test
+	public void testLoadBasicUser() {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("1", "alxvilbol@gmail.com");
+		List<User> users = persistenceServices.executeNamedQuery(
+				User.QUERY_FIND_BASIC_BY_EMAIL, new Object[]{"alxvilbol@gmail.com"}, User.class);
+		Assert.assertNull(((User)users.get(0)).getFirstName());
 	}
 
 	/**

@@ -24,7 +24,7 @@ public interface UserServices {
 	 * @param email
 	 * @return
 	 */
-	public UserVO find(String email);
+	public UserVO findBasicInfo(String email);
 
 	/**
 	 * Finds a user by its id

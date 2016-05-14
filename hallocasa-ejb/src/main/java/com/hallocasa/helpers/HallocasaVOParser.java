@@ -1,5 +1,13 @@
 package com.hallocasa.helpers;
 
+import java.util.Date;
+
+import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.beanutils.ConvertUtilsBean;
+import org.apache.commons.beanutils.converters.BooleanConverter;
+import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.beanutils.converters.LongConverter;
+
 import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
 import com.hallocasa.commons.vo.CountryVO;
@@ -16,14 +24,6 @@ import com.hallocasa.dataentities.app.CountryTelephonePrefix;
 import com.hallocasa.dataentities.app.State;
 import com.hallocasa.dataentities.app.Telephone;
 import com.hallocasa.dataentities.app.User;
-
-import java.util.Date;
-
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.ConvertUtilsBean;
-import org.apache.commons.beanutils.converters.BooleanConverter;
-import org.apache.commons.beanutils.converters.DateConverter;
-import org.apache.commons.beanutils.converters.LongConverter;
 
 @SuppressWarnings("unchecked")
 public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject> extends GenericVOParser<T, U> {

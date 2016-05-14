@@ -11,6 +11,7 @@ import com.hallocasa.commons.i18n.ValidationMessages;
 import com.hallocasa.commons.validation.NotEmpty;
 import com.hallocasa.commons.validation.ValidationPatterns;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
+import com.hallocasa.commons.vo.properties.PropertyVO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +96,8 @@ public class UserVO implements ValueObject {
     private Language mainSpokenLanguage;
 
     private List<Language> spokenLanguages;
+    
+    private List<PropertyVO> properties;
 
     private MultiLanguageText userDescription;
 
@@ -489,6 +492,11 @@ public class UserVO implements ValueObject {
 		this.telephone = telephone;
 	}
 
-    
-    
+	public List<PropertyVO> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(List<PropertyVO> properties) {
+		this.properties = properties;
+	}
   }

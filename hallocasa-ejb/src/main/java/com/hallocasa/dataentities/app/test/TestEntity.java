@@ -1,16 +1,17 @@
-package com.hallocasa.dataentities.app;
+package com.hallocasa.dataentities.app.test;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.Converter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.hallocasa.commons.vo.ImageContainer;
@@ -28,32 +29,24 @@ public class TestEntity implements Serializable, HallocasaEntity {
     
     /* instance variables */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     
-    @Column(name = "image_url")
-    @Convert(converter = ImageContainerConverter.class)
-    private ImageContainer imageUrl;
-    
     @Column(name = "other_attribute")
     private String otherAttribute;
-
     
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<ChildrenTestEntity> children;
     
 	public TestEntity() {
 		super();
 	}
 	
-	
-
 	public TestEntity(Long id, String otherAttribute) {
 		super();
 		this.id = id;
 		this.otherAttribute = otherAttribute;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -63,19 +56,19 @@ public class TestEntity implements Serializable, HallocasaEntity {
 		this.id = id;
 	}
 
-	public ImageContainer getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(ImageContainer imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
 	public String getOtherAttribute() {
 		return otherAttribute;
 	}
 
 	public void setOtherAttribute(String otherAttribute) {
 		this.otherAttribute = otherAttribute;
+	}
+
+	public List<ChildrenTestEntity> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<ChildrenTestEntity> children) {
+		this.children = children;
 	}
 }
