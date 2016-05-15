@@ -32,7 +32,7 @@
 			<div class="col-md-12">
 				<h:panelGroup layout="block"
 					styleClass="section hc-overlay-form-fields-container clearfix"
-					id="user-description-section">
+					id="title-section">
 					<ui:repeat
 						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
 						var="lang">
@@ -59,7 +59,7 @@
 			<div class="col-md-12">
 				<h:panelGroup layout="block"
 					styleClass="section hc-overlay-form-fields-container clearfix"
-					id="user-description-section">
+					id="property-description-section">
 					<ui:repeat
 						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
 						var="lang">
@@ -87,7 +87,7 @@
 			<div class="col-md-12">
 				<h:panelGroup layout="block"
 					styleClass="section hc-overlay-form-fields-container clearfix"
-					id="user-description-section">
+					id="location-description-section">
 					<ui:repeat
 						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
 						var="lang">
@@ -113,48 +113,7 @@
 			</div>
 		</h:panelGroup>
 
-		<div class="col-md-4">
-			<h:panelGroup layout="block"
-				styleClass="section hc-overlay-form-fields-container clearfix"
-				id="main-language-section">
-				<b> <h:outputLabel styleClass="hc-form-label"
-						for="#{mainSpokenLanguage}"
-						label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
-						value="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}">
-					</h:outputLabel>
-				</b>
-				<span> <h:selectOneMenu id="mainSpokenLanguage"
-						styleClass="hc-form-field"
-						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.mainLanguage}"
-						label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
-						converter="languageConverter">
-						<f:selectItems value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo}"
-							var="language" itemLabel="#{language.languageName}"
-							itemValue="#{language}" />
-					</h:selectOneMenu>
-				</span>
-			</h:panelGroup>
-		</div>
-
-
-		<div class="col-md-4">
-			<h:panelGroup layout="block"
-				styleClass="section hc-overlay-form-fields-container clearfix"
-				id="main-language-section">
-				
-				<span> <h:selectOneMenu id="mainSpokenLanguage"
-						styleClass="hc-form-field"
-						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.mainLanguage}"
-						label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
-						converter="languageConverter">
-						<f:selectItems value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo}"
-							var="language" itemLabel="#{language.languageName}"
-							itemValue="#{language}" />
-					</h:selectOneMenu>
-				</span>
-			</h:panelGroup>
-		</div>
-
+		
 
 
 		<div class="col-md-12 properties-title">
