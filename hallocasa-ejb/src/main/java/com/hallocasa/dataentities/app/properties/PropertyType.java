@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
@@ -21,9 +23,18 @@ import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
  */
 @Entity
 @Table(name = "property_type")
+@NamedQueries({
+    @NamedQuery(name= PropertyType.QUERY_FIND_ALL,
+            query = "select pt from PropertyType pt")
+})
 public class PropertyType implements Serializable, HallocasaEntity{
 
 	public static final String group_ = "propertyTypeGroup";
+	
+	/**
+	 * Query for search every property type
+	 */
+	public static final String QUERY_FIND_ALL = "PropertyType.findAll";
 	
 	/**
 	 * Serialization constant

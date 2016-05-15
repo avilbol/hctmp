@@ -18,12 +18,18 @@ import com.hallocasa.commons.vo.helpers.GenericVOEntityConverter;
 import com.hallocasa.commons.vo.helpers.GenericVOParser;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
+import com.hallocasa.commons.vo.properties.PropertyLocationVO;
+import com.hallocasa.commons.vo.properties.PropertyProposalVO;
+import com.hallocasa.commons.vo.properties.PropertyTypeVO;
 import com.hallocasa.dataentities.app.City;
 import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.CountryTelephonePrefix;
 import com.hallocasa.dataentities.app.State;
 import com.hallocasa.dataentities.app.Telephone;
 import com.hallocasa.dataentities.app.User;
+import com.hallocasa.dataentities.app.properties.PropertyLocation;
+import com.hallocasa.dataentities.app.properties.PropertyProposal;
+import com.hallocasa.dataentities.app.properties.PropertyType;
 
 @SuppressWarnings("unchecked")
 public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject> extends GenericVOParser<T, U> {
@@ -44,7 +50,13 @@ public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject>
 		registerConverter(Telephone.class, TelephoneVO.class, StandardVOParser.class);
 		registerConverter(CountryTelephonePrefix.class, 
 				CountryTelephonePrefixVO.class, StandardVOParser.class);
-
+		registerConverter(PropertyType.class, 
+				PropertyTypeVO.class, PropertyTypeVOParser.class);
+		registerConverter(PropertyProposal.class, 
+				PropertyProposalVO.class, PropertyProposalVOParser.class);
+		registerConverter(PropertyLocation.class, 
+				PropertyLocationVO.class, PropertyLocationVOParser.class);
+		
 		// Date (use null as null)
 		DateConverter dateConverter = new DateConverter(null);
 		convertUtilsBean.register(dateConverter, Date.class);

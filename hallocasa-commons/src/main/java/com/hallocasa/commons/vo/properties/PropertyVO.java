@@ -2,6 +2,8 @@ package com.hallocasa.commons.vo.properties;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
@@ -15,12 +17,16 @@ public class PropertyVO implements Serializable, ValueObject  {
 	
 	private String id;
 
+	@NotNull
 	private PropertyTypeVO propertyType;
 	
+	@NotNull
 	private PropertyProposalVO propertyProposal;
 	
+	@NotNull
 	private PropertyLocationVO propertyLocation;
 	
+	@NotNull
 	private CountryVO country;
 	
 	private UserVO user;

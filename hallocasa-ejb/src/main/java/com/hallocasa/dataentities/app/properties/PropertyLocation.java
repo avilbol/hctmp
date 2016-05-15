@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
@@ -18,6 +20,10 @@ import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
  */
 @Entity
 @Table(name = "property_location")
+@NamedQueries({
+    @NamedQuery(name= PropertyLocation.QUERY_FIND_ALL,
+            query = "select pl from PropertyLocation pl")
+})
 public class PropertyLocation implements Serializable, HallocasaEntity {
 
 	/**
@@ -25,6 +31,11 @@ public class PropertyLocation implements Serializable, HallocasaEntity {
 	 */
 	private static final long serialVersionUID = -418701865775757294L;
 
+	/**
+	 * Query for search every property location
+	 */
+	public static final String QUERY_FIND_ALL = "PropertyLocation.findAll";
+	
 	@Id
 	@Column(name="id")
 	private Integer id;

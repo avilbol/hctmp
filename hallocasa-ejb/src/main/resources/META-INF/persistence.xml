@@ -95,6 +95,9 @@
     <class>com.hallocasa.dataentities.converters.ImageContainerConverter</class>
     <class>com.hallocasa.dataentities.converters.CountryTelephonePrefixConverter</class>
     <class>com.hallocasa.dataentities.converters.DatabaseBooleanConverter</class>
+    <class>com.hallocasa.dataentities.converters.PropertyTypeConverter</class>
+    <class>com.hallocasa.dataentities.converters.PropertyLocationConverter</class>
+    <class>com.hallocasa.dataentities.converters.PropertyProposalConverter</class>
     <!-- entities -->
     <class>com.hallocasa.dataentities.app.Profile</class>
     <class>com.hallocasa.dataentities.app.UseCase</class>
