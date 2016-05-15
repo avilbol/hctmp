@@ -12,9 +12,9 @@
 			<h:form styleClass="hc-form" enctype="multipart/form-data">
 				<div class="col-md-9">
 					<div class="row">
-						<span class="hc-form-label name-card">#{viewBundle['Properties.none.property']}</span>
+						<span class="hc-form-label name-card alert alert-info">#{viewBundle['Properties.none.property']}</span>
 					</div>
-					<!-- <ui:remove>-->
+				 <ui:remove>
 					<div class="row hc-contents-cards-list">
 						<div class="col-md-12 hc-cards-list">
 							<div class="col-md-3 hc-content-card-image">
@@ -50,15 +50,14 @@
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-8"></div>
-							<div class="col-md-2">
+							<div class="col-md-4">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary" rendered="#{not viewMode}"
 									action="#{globalProfilePage.goToEditProperty(null)}">
 									<f:ajax execute="@this"
 										render=":hc-profile-form:container-property-element" />
 								</p:commandButton>
-							</div>
-							<div class="col-md-2">
+
 								<button type="button" class="btn btn-delete" data-toggle="modal"
 									data-target="#myModal">
 									<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
@@ -104,15 +103,14 @@
 
 						<div class="col-md-12">
 							<div class="col-md-8"></div>
-							<div class="col-md-2">
+							<div class="col-md-4">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary" rendered="#{not viewMode}"
 									action="#{globalProfilePage.goToEditProperty(null)}">
 									<f:ajax execute="@this"
 										render=":hc-profile-form:container-property-element" />
 								</p:commandButton>
-							</div>
-							<div class="col-md-2">
+
 								<button type="button" class="btn btn-delete" data-toggle="modal"
 									data-target="#myModal">
 									<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
@@ -157,12 +155,11 @@
 						</div>
 						<div class="col-md-12">
 							<div class="col-md-8"></div>
-							<div class="col-md-2">
+							<div class="col-md-4">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary" rendered="#{not viewMode}"
 									action="#{globalProfilePage.goToEditProperty(null)}" />
-							</div>
-							<div class="col-md-2">
+
 								<button type="button" class="btn btn-delete" data-toggle="modal"
 									data-target="#myModal">
 									<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
@@ -210,12 +207,11 @@
 
 						<div class="col-md-12">
 							<div class="col-md-8"></div>
-							<div class="col-md-2">
+							<div class="col-md-4">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary" rendered="#{not viewMode}"
 									action="#{globalProfilePage.goToEditProperty(null)}" />
-							</div>
-							<div class="col-md-2">
+
 								<button type="button" class="btn btn-delete" data-toggle="modal"
 									data-target="#myModal">
 									<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
@@ -263,12 +259,11 @@
 
 						<div class="col-md-12">
 							<div class="col-md-8"></div>
-							<div class="col-md-2">
+							<div class="col-md-4">
 								<p:commandButton value="#{viewBundle['Properties.edit.label']}"
 									styleClass="btn btn-primary" rendered="#{not viewMode}"
 									action="#{globalProfilePage.goToEditProperty(null)}" />
-							</div>
-							<div class="col-md-2">
+									
 								<button type="button" class="btn btn-delete" data-toggle="modal"
 									data-target="#myModal">
 									<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
@@ -311,13 +306,12 @@
 
 						</div>
 					</div>
-					<!-- </ui:remove>-->
+					</ui:remove>
 				</div>
 				<div class="col-md-2 col-md-offset-1">
 					<h:commandButton value="#{viewBundle['Properties.create.label']}"
 						action="#{globalProfilePage.goToCreateProperty()}"
-						styleClass="btn btn-primary col-md-12"
-						style="margin-top: -15px!important;">
+						styleClass="btn btn-primary col-md-12">
 						<f:ajax execute="@this"
 							render=":hc-profile-form:container-property-element" />
 					</h:commandButton>

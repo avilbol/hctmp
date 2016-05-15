@@ -28,6 +28,14 @@
 	width: 100%;
 	float: left;
 	background-size: 100%;
+}.hc-content-body-profile {
+	min-height: 640px;
+	border-bottom: 2px solid #1D5D8D;
+	background-image: url("#{resource['images:hc-background-1345.jpg']}");
+	background-repeat: no-repeat;
+	width: 100%;
+	float: left;
+	background-size: 100%;
 }.hc-content-body-properties {
 	min-height: 640px;
 	border-bottom: 2px solid #1D5D8D;
@@ -317,7 +325,7 @@
 }
 
 .hc-box-telephone {
-	width: 100%;
+	width: 84%;
 }
 
 .hc-btn-save-cancel {
@@ -413,4 +421,5 @@
     color: #fff;
     background-color: #606163;
     border-color: #606163;
+    height: 46px;   
 }
