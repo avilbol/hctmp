@@ -220,4 +220,20 @@ public class PropertyWizardPage implements Serializable {
 	public PropertyVO getPropertyInEdition() {
 		return this.getGlobalProfilePage().getPropertyInEdition();
 	}
+
+	public List<StateVO> getStates() {
+		return states;
+	}
+
+	public void setStates(List<StateVO> states) {
+		this.states = states;
+	}
+
+	public List<CityVO> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<CityVO> cities) {
+		this.cities = cities;
+	}
 }

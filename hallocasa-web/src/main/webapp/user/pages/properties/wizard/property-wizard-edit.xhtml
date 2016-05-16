@@ -11,58 +11,6 @@
 	<ui:include src="sections/location.xhtml"></ui:include>
 	<ui:include src="sections/preview.xhtml"></ui:include>
 
-	<div class="hc-content-body">
-		<div class="container">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div id="properties-list">
-						<div class="col-md-4 properties">
-							<div class="col-md-12 properties-image">
-								<div class="col-md-3 image-title">
-									<div class="col-md-12">
-										<div class="col-md-2">
-											<button class="btn btn-primary">basic information</button>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="col-md-2">
-											<button class="btn btn-primary">Location</button>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="col-md-2">
-											<button class="btn btn-primary">Images</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-						<div class="col-md-6 properties-image">
-							<div class="image-title">
-								<div class="col-md-12">
-									<label class="col-md-12">Image</label>
-									<div class="col-md-12">
-										<img src="http://www.psdgraphics.com/file/user-icon.jpg"
-											class="img-responsive col-md-12 properties-image" />
-									</div>
-								</div>
-								<div class="col-md-12">
-									<input type="file" class="control-form" />
-								</div>
-								<div class="col-md-4">
-									<button class="btn btn-primary btn-save">Save</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
 	<h:commandButton value="Atrás"
 		action="#{propertyWizardPage.goToInitZone}"
 		styleClass="btn btn-primary" rendered="#{wizardCreation}">

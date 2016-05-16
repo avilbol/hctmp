@@ -6,5 +6,32 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	Here is location data
+	<p>Location</p>
+	<div class="col-md-12">
+		<b><p:outputLabel styleClass="hc-form-label"
+				value="#{viewBundle['Profile.Data.State.Label']}" for="stateName" /></b>
+	</div>
+	<div class="col-md-12">
+		<h:selectOneMenu id="stateName" styleClass="hc-form-field"
+			value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.state}" converter="stateConverter">
+			<f:selectItems value="#{propertyWizardPage.states}" var="state"
+				itemLabel="#{propertyWizardPage.getStateName(state)}"
+				itemValue="#{state}" />
+			<p:ajax event="change"
+				listener="#{propertyWizardPage.processStateSelect}" process="@this"
+				update="cityName">
+			</p:ajax>
+		</h:selectOneMenu>
+	</div>
+	<div class="col-md-12">
+		<b><p:outputLabel styleClass="hc-form-label"
+				value="#{viewBundle['Profile.Data.City.Label']}" for="cityName" /></b>
+	</div>
+	<div class="col-md-12">
+		<h:selectOneMenu id="cityName" styleClass="hc-form-field"
+			value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.city}" converter="cityConverter">
+			<f:selectItems value="#{propertyWizardPage.cities}" var="city"
+				itemLabel="#{propertyWizardPage.getCityName(city)}" itemValue="#{city}" />
+		</h:selectOneMenu>
+	</div>
 </ui:composition>
