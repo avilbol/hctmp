@@ -6,15 +6,69 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:include src="sections/basic-info.xhtml"></ui:include>
-	<ui:include src="sections/images.xhtml"></ui:include>
-	<ui:include src="sections/location.xhtml"></ui:include>
-	<ui:include src="sections/preview.xhtml"></ui:include>
 
-	<h:commandButton value="Atrás"
-		action="#{propertyWizardPage.goToInitZone}"
-		styleClass="btn btn-primary" rendered="#{wizardCreation}">
-		<f:ajax execute="@form"
-			render=":hc-profile-form:container-property-element" />
-	</h:commandButton>
+	<div class="col-sm-12">
+		<div class="col-xs-3">
+			<!-- required for floating -->
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs tabs-left">
+				<li class="active"><a href="#basic-info" data-toggle="tab"><span
+						class="hc-form-label name-card">#{viewBundle['Property.wizard.basic']}</span>
+				</a></li>
+				<li><a href="#location" data-toggle="tab"> <span
+						class="hc-form-label name-card">#{viewBundle['Property.wizard.location']}</span></a></li>
+				<li><a href="#images" data-toggle="tab"> <span
+						class="hc-form-label name-card">#{viewBundle['Property.wizard.images']}</span></a></li>
+				<li><a href="#preview" data-toggle="tab"> <span
+						class="hc-form-label name-card">#{viewBundle['Property.wizard.preview']}</span></a></li>
+			</ul>
+		</div>
+
+		<div class="col-xs-9">
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div class="tab-pane active" id="basic-info">
+					<div class="col-md-12">
+						<ui:include src="sections/basic-info.xhtml"></ui:include>
+					</div>
+				</div>
+				<div class="tab-pane" id="location">
+					<div class="col-md-12">
+						<ui:include src="sections/location.xhtml"></ui:include>
+					</div>
+				</div>
+				<div class="tab-pane" id="images">
+					<div class="col-md-12">
+						<ui:include src="sections/images.xhtml"></ui:include>
+					</div>
+				</div>
+				<div class="tab-pane" id="preview">
+					<div class="col-md-12">
+						<ui:include src="sections/preview.xhtml"></ui:include>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="clearfix"></div>
+
+	</div>
+	<div class="col-md-12">
+	<div class="col-md-3 col-md-offset-3">
+		<h:commandButton value="#{viewBundle['property.wizard.save']}"
+			action="#{propertyWizardPage.goToInitZone}"
+			styleClass="btn btn-primary" rendered="#{wizardCreation}">
+			<f:ajax execute="@form"
+				render=":hc-profile-form:container-property-element" />
+		</h:commandButton>
+	</div>
+	<div class="col-md-3">
+		<h:commandButton value="#{viewBundle['Properties.wizard.back.label']}"
+			action="#{propertyWizardPage.goToInitZone}"
+			styleClass="btn btn-primary" rendered="#{wizardCreation}">
+			<f:ajax execute="@form"
+				render=":hc-profile-form:container-property-element" />
+		</h:commandButton>
+	</div>
+	</div>
 </ui:composition>

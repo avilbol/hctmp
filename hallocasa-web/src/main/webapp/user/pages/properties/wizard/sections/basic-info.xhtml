@@ -6,9 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p>Basic Information</p>
-	<div class="col-md-8">
-		<div class="col-md-9">
+	<div class="row">
+		<div class="col-md-12">
 			<p:fieldset legend="#{viewBundle['Profile.Data.Languages.Label']}"
 				toggleable="true" toggleSpeed="500">
 				<h:panelGroup layout="block"
@@ -30,6 +29,7 @@
 			</p:fieldset>
 		</div>
 
+		<div class="col-md-12">
 		<h:panelGroup id="data-language-section">
 			<div class="col-md-12">
 				<h:panelGroup layout="block"
@@ -114,10 +114,11 @@
 				</h:panelGroup>
 			</div>
 		</h:panelGroup>
-
-		<div class="col-md-4">
+</div>
+		<div class="col-md-6">
+		<div class="col-md-12">
 			<h:panelGroup layout="block"
-				styleClass="section hc-overlay-form-fields-container clearfix"
+				styleClass="clearfix"
 				id="main-language-section">
 				<b> <h:outputLabel styleClass="hc-form-label"
 						for="#{mainSpokenLanguage}"
@@ -126,7 +127,7 @@
 					</h:outputLabel>
 				</b>
 				<span> <h:selectOneMenu id="mainSpokenLanguage"
-						styleClass="hc-form-field"
+						styleClass="hc-form-field form-control" style="width:100%!important"
 						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.mainLanguage}"
 						label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
 						converter="languageConverter">
@@ -139,24 +140,25 @@
 			</h:panelGroup>
 		</div>
 
-		<div class="col-md-4">
+		<div class="col-md-12">
 			<b> <h:outputLabel styleClass="hc-form-label" for="market-price"
 					label="Market price" value="Market price">
 				</h:outputLabel>
 			</b> <span> <h:inputText id="market-price"
-					styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all hc-form-field"
+					styleClass="form-control"
 					value="222222" />
 			</span>
 		</div>
 		
-		<div class="col-md-4">
+		<div class="col-md-12">
 			<b> <h:outputLabel styleClass="hc-form-label" for="square-meters-total"
 					label="Square meters total" value="Square meters total">
 				</h:outputLabel>
 			</b> <span> <h:inputText id="square-meters-total"
-					styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all hc-form-field"
+					styleClass="form-control"
 					value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.area}" />
 			</span>
+		</div>
 		</div>
 	</div>
 </ui:composition>
