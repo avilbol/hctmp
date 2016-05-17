@@ -2,12 +2,14 @@ package com.hallocasa.commons.vo;
 
 import java.io.Serializable;
 
+import com.hallocasa.commons.vo.interfaces.ValueObject;
+
 /**
  * Value Object for currency representation
  * @author avillamil
  *
  */
-public class CurrencyVO  implements Serializable{
+public class CurrencyVO  implements ValueObject, Serializable{
 
 	/**
 	 * Serialization constant

@@ -45,11 +45,11 @@
 					</div>
 				</div>
 				<ui:remove>
-					<div class="tab-pane" id="preview">
-						<div class="col-md-12">
-							<ui:include src="sections/preview.xhtml"></ui:include>
-						</div>
+				<div class="tab-pane" id="preview">
+					<div class="col-md-12">
+						<ui:include src="sections/preview.xhtml"></ui:include>
 					</div>
+				</div>
 				</ui:remove>
 			</div>
 		</div>
@@ -58,6 +58,25 @@
 
 	</div>
 	<div class="col-md-12">
+<<<<<<< HEAD
+	<div class="col-md-3 col-md-offset-3">
+		<h:commandButton value="#{viewBundle['property.wizard.save']}"
+			action="#{propertyWizardPage.goToInitZone}"
+			styleClass="btn btn-primary" rendered="#{wizardCreation}">
+			<f:ajax execute="@form"
+				render=":hc-profile-form:container-property-element" />
+		</h:commandButton>
+	</div>
+	<div class="col-md-3">
+		<h:commandButton value="#{viewBundle['Properties.wizard.back.label']}"
+			action="#{propertyWizardPage.goToInitZone}"
+			immediate="true"
+			styleClass="btn btn-primary" rendered="#{wizardCreation}">
+			<f:ajax execute="@this"
+				render=":hc-profile-form:container-property-element" />
+		</h:commandButton>
+	</div>
+=======
 		<div class="col-md-3" style="margin-left: 28.5%;">
 			<h:commandButton value="#{viewBundle['property.wizard.save']}"
 				action="#{propertyWizardPage.goToInitZone}"
@@ -69,11 +88,12 @@
 		<div class="col-md-3">
 			<h:commandButton
 				value="#{viewBundle['Properties.wizard.back.label']}"
-				action="#{propertyWizardPage.goToInitZone}" immediate="true"
+				action="#{propertyWizardPage.goToInitZone}"
 				styleClass="btn btn-primary" rendered="#{wizardCreation}">
-				<f:ajax execute="@this"
+				<f:ajax execute="@form"
 					render=":hc-profile-form:container-property-element" />
 			</h:commandButton>
 		</div>
+>>>>>>> 8931550dcc2cfba77af1b4ad74eb9bea34f4e301
 	</div>
 </ui:composition>

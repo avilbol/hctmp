@@ -11,6 +11,7 @@ import org.apache.commons.beanutils.converters.LongConverter;
 import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
 import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.StateVO;
 import com.hallocasa.commons.vo.TelephoneVO;
 import com.hallocasa.commons.vo.UserVO;
@@ -24,6 +25,7 @@ import com.hallocasa.commons.vo.properties.PropertyTypeVO;
 import com.hallocasa.dataentities.app.City;
 import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.CountryTelephonePrefix;
+import com.hallocasa.dataentities.app.Currency;
 import com.hallocasa.dataentities.app.State;
 import com.hallocasa.dataentities.app.Telephone;
 import com.hallocasa.dataentities.app.User;
@@ -56,6 +58,8 @@ public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject>
 				PropertyProposalVO.class, PropertyProposalVOParser.class);
 		registerConverter(PropertyLocation.class, 
 				PropertyLocationVO.class, PropertyLocationVOParser.class);
+		registerConverter(Currency.class, 
+				CurrencyVO.class, CurrencyVOParser.class);
 		
 		// Date (use null as null)
 		DateConverter dateConverter = new DateConverter(null);

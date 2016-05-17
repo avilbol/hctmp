@@ -20,7 +20,7 @@ import com.hallocasa.services.location.local.TelephoneServices;
 import com.hallocasa.view.utils.FormatUtils;
 
 /**
- * Backing bean for tlephone number component
+ * Backing bean for telephone number component
  * 
  * @author Alexander Villamil
  */
