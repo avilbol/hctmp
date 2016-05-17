@@ -65,8 +65,9 @@
 	<div class="col-md-3">
 		<h:commandButton value="#{viewBundle['Properties.wizard.back.label']}"
 			action="#{propertyWizardPage.goToInitZone}"
+			immediate="true"
 			styleClass="btn btn-primary" rendered="#{wizardCreation}">
-			<f:ajax execute="@form"
+			<f:ajax execute="@this"
 				render=":hc-profile-form:container-property-element" />
 		</h:commandButton>
 	</div>

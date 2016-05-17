@@ -9,11 +9,13 @@
 	<p>Location</p>
 	<div class="col-md-12">
 		<b><p:outputLabel styleClass="hc-form-label"
-				value="#{viewBundle['Profile.Data.State.Label']}" for="stateName" /></b>
+				value="#{viewBundle['Profile.Data.State.Label']}" 
+				for="stateName" /></b>
 	</div>
 	<div class="col-md-12">
 		<h:selectOneMenu id="stateName" styleClass="hc-form-field"
 			value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.state}" converter="stateConverter">
+			<f:selectItem itemLabel="Select One" />	
 			<f:selectItems value="#{propertyWizardPage.states}" var="state"
 				itemLabel="#{propertyWizardPage.getStateName(state)}"
 				itemValue="#{state}" />
@@ -29,7 +31,9 @@
 	</div>
 	<div class="col-md-12">
 		<h:selectOneMenu id="cityName" styleClass="hc-form-field"
-			value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.city}" converter="cityConverter">
+			value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.city}" 
+			converter="cityConverter">
+			<f:selectItem itemLabel="Select One" />
 			<f:selectItems value="#{propertyWizardPage.cities}" var="city"
 				itemLabel="#{propertyWizardPage.getCityName(city)}" itemValue="#{city}" />
 		</h:selectOneMenu>
