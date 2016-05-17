@@ -19,12 +19,14 @@
 						class="hc-form-label name-card">#{viewBundle['Property.wizard.location']}</span></a></li>
 				<li><a href="#images" data-toggle="tab"> <span
 						class="hc-form-label name-card">#{viewBundle['Property.wizard.images']}</span></a></li>
-				<li><a href="#preview" data-toggle="tab"> <span
-						class="hc-form-label name-card">#{viewBundle['Property.wizard.preview']}</span></a></li>
+				<ui:remove>
+					<li><a href="#preview" data-toggle="tab"> <span
+							class="hc-form-label name-card">#{viewBundle['Property.wizard.preview']}</span></a></li>
+				</ui:remove>
 			</ul>
 		</div>
 
-		<div class="col-xs-9">
+		<div class="col-xs-8">
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div class="tab-pane active" id="basic-info">
@@ -42,11 +44,13 @@
 						<ui:include src="sections/images.xhtml"></ui:include>
 					</div>
 				</div>
+				<ui:remove>
 				<div class="tab-pane" id="preview">
 					<div class="col-md-12">
 						<ui:include src="sections/preview.xhtml"></ui:include>
 					</div>
 				</div>
+				</ui:remove>
 			</div>
 		</div>
 
@@ -54,21 +58,22 @@
 
 	</div>
 	<div class="col-md-12">
-	<div class="col-md-3 col-md-offset-3">
-		<h:commandButton value="#{viewBundle['property.wizard.save']}"
-			action="#{propertyWizardPage.goToInitZone}"
-			styleClass="btn btn-primary" rendered="#{wizardCreation}">
-			<f:ajax execute="@form"
-				render=":hc-profile-form:container-property-element" />
-		</h:commandButton>
-	</div>
-	<div class="col-md-3">
-		<h:commandButton value="#{viewBundle['Properties.wizard.back.label']}"
-			action="#{propertyWizardPage.goToInitZone}"
-			styleClass="btn btn-primary" rendered="#{wizardCreation}">
-			<f:ajax execute="@form"
-				render=":hc-profile-form:container-property-element" />
-		</h:commandButton>
-	</div>
+		<div class="col-md-3" style="margin-left: 28.5%;">
+			<h:commandButton value="#{viewBundle['property.wizard.save']}"
+				action="#{propertyWizardPage.goToInitZone}"
+				styleClass="btn btn-primary" rendered="#{wizardCreation}">
+				<f:ajax execute="@form"
+					render=":hc-profile-form:container-property-element" />
+			</h:commandButton>
+		</div>
+		<div class="col-md-3">
+			<h:commandButton
+				value="#{viewBundle['Properties.wizard.back.label']}"
+				action="#{propertyWizardPage.goToInitZone}"
+				styleClass="btn btn-primary" rendered="#{wizardCreation}">
+				<f:ajax execute="@form"
+					render=":hc-profile-form:container-property-element" />
+			</h:commandButton>
+		</div>
 	</div>
 </ui:composition>
