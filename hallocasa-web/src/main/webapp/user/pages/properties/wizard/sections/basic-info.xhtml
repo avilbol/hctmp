@@ -6,7 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<div class="row">
+	<div class="col-md-12 properties-basic-info">
 		<div class="col-md-12">
 			<p:fieldset legend="#{viewBundle['Profile.Data.Languages.Label']}"
 				toggleable="true" toggleSpeed="500">
@@ -15,7 +15,7 @@
 					<p:selectManyCheckbox id="spokenLanguages" label="Lenguajes"
 						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
 						layout="responsive" required="true" converter="languageConverter"
-						columns="3">
+						columns="4">
 						<f:selectItems value="#{applicationContext.languages}"
 							var="language" itemLabel="#{language.languageName}"
 							itemValue="#{language}">
@@ -30,135 +30,135 @@
 		</div>
 
 		<div class="col-md-12">
-		<h:panelGroup id="data-language-section">
-			<div class="col-md-12">
-				<h:panelGroup layout="block"
-					styleClass="section hc-overlay-form-fields-container clearfix"
-					id="title-section">
-					<ui:repeat
-						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
-						var="lang">
-						<div class="col-md-12">
-							<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-									value="Title ( #{lang.languageName} )">
-								</h:outputLabel>
-							</b>
-						</div>
-
-						<div class="col-md-12">
-							<span><p:inputTextarea rows="10" id="title-#{lang}"
-									cols="30" label="Title ( #{lang.languageName} )"
-									value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.title.langMap[lang]}"
-									maxlength="800" styleClass="hc-input-text-area"
-									counterTemplate="{0} characters remaining." autoResize="false">
-									<f:validateLength minimum="20" />
-								</p:inputTextarea> </span>
-						</div>
-					</ui:repeat>
-				</h:panelGroup>
-			</div>
-
-			<div class="col-md-12">
-				<h:panelGroup layout="block"
-					styleClass="section hc-overlay-form-fields-container clearfix"
-					id="property-description-section">
-					<ui:repeat
-						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
-						var="lang">
-						<div class="col-md-12">
-							<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-									value="Property description ( #{lang.languageName} )">
-								</h:outputLabel>
-							</b>
-						</div>
-						<div class="col-md-12">
-							<span> <p:inputTextarea rows="10"
-									id="property-description-#{lang}" cols="30"
-									label="Property description ( #{lang.languageName} )"
-									value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.propertyDescription.langMap[lang]}"
-									maxlength="800" styleClass="hc-input-text-area"
-									counterTemplate="{0} characters remaining." autoResize="false">
-									<f:validateLength minimum="20" />
-								</p:inputTextarea>
-							</span>
-						</div>
-					</ui:repeat>
-				</h:panelGroup>
-			</div>
-
-			<div class="col-md-12">
-				<h:panelGroup layout="block"
-					styleClass="section hc-overlay-form-fields-container clearfix"
-					id="location-description-section">
-					<ui:repeat
-						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
-						var="lang">
-						<div class="col-md-12">
-							<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-									value="Location description ( #{lang.languageName} )">
-								</h:outputLabel>
-							</b>
-						</div>
-						<div class="col-md-12">
-							<span> <p:inputTextarea rows="10"
-									id="location-description-#{lang}" cols="30"
-									label="Location description ( #{lang.languageName} )"
-									value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.locationDescription.langMap[lang]}"
-									maxlength="800" styleClass="hc-input-text-area"
-									counterTemplate="{0} characters remaining." autoResize="false">
-									<f:validateLength minimum="20" />
-								</p:inputTextarea>
-							</span>
-						</div>
-					</ui:repeat>
-				</h:panelGroup>
-			</div>
-		</h:panelGroup>
-</div>
-		<div class="col-md-6">
-		<div class="col-md-12">
-			<h:panelGroup layout="block"
-				styleClass="clearfix"
-				id="main-language-section">
-				<b> <h:outputLabel styleClass="hc-form-label"
-						for="#{mainSpokenLanguage}"
-						label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
-						value="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}">
-					</h:outputLabel>
-				</b>
-				<span> <h:selectOneMenu id="mainSpokenLanguage"
-						styleClass="hc-form-field form-control" style="width:100%!important"
-						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.mainLanguage}"
-						label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
-						converter="languageConverter">
-						<f:selectItems
+			<h:panelGroup id="data-language-section">
+				<div class="col-md-12">
+					<h:panelGroup layout="block"
+						styleClass="section-propertie clearfix"
+						id="title-section">
+						<ui:repeat
 							value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
-							var="language" itemLabel="#{language.languageName}"
-							itemValue="#{language}" />
-					</h:selectOneMenu>
-				</span>
+							var="lang">
+							<div class="col-md-12">
+								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
+										value="Title ( #{lang.languageName} )">
+									</h:outputLabel>
+								</b>
+							</div>
+
+							<div class="col-md-12">
+								<span> <h:inputText id="title-#{lang}"
+										label="Title ( #{lang.languageName} )"
+										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.title.langMap[lang]}"
+										styleClass="hc-input-text col-md-12 form-control">
+										<f:validateLength minimum="20" />
+									</h:inputText>
+								</span>
+							</div>
+						</ui:repeat>
+					</h:panelGroup>
+				</div>
+
+				<div class="col-md-12">
+					<h:panelGroup layout="block"
+						styleClass="section-propertie clearfix"
+						id="property-description-section">
+						<ui:repeat
+							value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
+							var="lang">
+							<div class="col-md-12">
+								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
+										value="Property description ( #{lang.languageName} )">
+									</h:outputLabel>
+								</b>
+							</div>
+							<div class="col-md-12">
+								<span> <p:inputTextarea rows="10"
+										id="property-description-#{lang}" cols="30"
+										label="Property description ( #{lang.languageName} )"
+										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.propertyDescription.langMap[lang]}"
+										maxlength="800" styleClass="hc-input-text-area form-control"
+										counterTemplate="{0} characters remaining." autoResize="false">
+										<f:validateLength minimum="20" />
+									</p:inputTextarea>
+								</span>
+							</div>
+						</ui:repeat>
+					</h:panelGroup>
+				</div>
+
+				<div class="col-md-12">
+					<h:panelGroup layout="block"
+						styleClass="section-propertie clearfix"
+						id="location-description-section">
+						<ui:repeat
+							value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
+							var="lang">
+							<div class="col-md-12">
+								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
+										value="Location description ( #{lang.languageName} )">
+									</h:outputLabel>
+								</b>
+							</div>
+							<div class="col-md-12">
+								<span> <p:inputTextarea rows="10"
+										id="location-description-#{lang}" cols="30"
+										label="Location description ( #{lang.languageName} )"
+										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.locationDescription.langMap[lang]}"
+										maxlength="800" styleClass="hc-input-text-area form-control"
+										counterTemplate="{0} characters remaining." autoResize="false">
+										<f:validateLength minimum="20" />
+									</p:inputTextarea>
+								</span>
+							</div>
+						</ui:repeat>
+					</h:panelGroup>
+				</div>
 			</h:panelGroup>
 		</div>
+		<div class="col-md-6">
+			<div class="col-md-12">
+				<h:panelGroup layout="block" styleClass="clearfix"
+					id="main-language-section">
+					<b> <h:outputLabel styleClass="hc-form-label"
+							for="#{mainSpokenLanguage}"
+							label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
+							value="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}">
+						</h:outputLabel>
+					</b>
+					<span> <h:selectOneMenu id="mainSpokenLanguage"
+							styleClass="hc-form-field form-control"
+							style="width:100%!important"
+							value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.mainLanguage}"
+							label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
+							converter="languageConverter">
+							<f:selectItems
+								value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
+								var="language" itemLabel="#{language.languageName}"
+								itemValue="#{language}" />
+						</h:selectOneMenu>
+					</span>
+				</h:panelGroup>
+			</div>
 
-		<div class="col-md-12">
-			<b> <h:outputLabel styleClass="hc-form-label" for="market-price"
-					label="Market price" value="Market price">
-				</h:outputLabel>
-			</b> <span> <h:inputText id="market-price"
-					styleClass="form-control"
-					value="222222" />
-			</span>
-		</div>
-		
-		<div class="col-md-12">
-			<b> <h:outputLabel styleClass="hc-form-label" for="square-meters-total"
-					label="Square meters total" value="Square meters total">
-				</h:outputLabel>
-			</b> <span> <h:inputText id="square-meters-total"
-					styleClass="form-control"
-					value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.area}" />
-			</span>
-		</div>
+			<div class="col-md-12">
+				<b> <h:outputLabel styleClass="hc-form-label" for="market-price"
+						label="Market price" value="Market price">
+					</h:outputLabel>
+				</b> <span> <h:inputText id="market-price"
+						styleClass="form-control" value="222222" />
+				</span>
+			</div>
+
+			<div class="col-md-12">
+				<b> <h:outputLabel styleClass="hc-form-label"
+						for="square-meters-total" label="Square meters total"
+						value="Square meters total">
+					</h:outputLabel>
+				</b> <span> <h:inputText id="square-meters-total"
+						styleClass="form-control"
+						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.area}" />
+				</span>
+			</div>
 		</div>
 	</div>
 </ui:composition>

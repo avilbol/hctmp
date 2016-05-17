@@ -423,3 +423,9 @@
     border-color: #606163;
     height: 46px;   
 }
+.properties-images,.properties-basic-info, .properties-location{
+	margin-left: 40px;
+}
+.section-propertie{
+	padding-top:30px;
+}
