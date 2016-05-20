@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 
 	<div class="col-md-12 properties-basic-info">
 		<div class="col-md-12">
@@ -33,8 +34,7 @@
 			<h:panelGroup id="data-language-section">
 				<div class="col-md-12">
 					<h:panelGroup layout="block"
-						styleClass="section-propertie clearfix"
-						id="title-section">
+						styleClass="section-propertie clearfix" id="title-section">
 						<ui:repeat
 							value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
 							var="lang">
@@ -144,8 +144,12 @@
 				<b> <h:outputLabel styleClass="hc-form-label" for="market-price"
 						label="Market price" value="Market price">
 					</h:outputLabel>
-				</b> <span> <h:inputText id="market-price"
-						styleClass="form-control" value="222222" />
+				</b> <span> <utils:currencyEditor
+						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.marketPrice}"
+						converter="currencyConverter"
+						currencies="#{applicationContext.currencies}" 
+						language="#{webSession.currentLanguage}"
+						defaultMessage="#{viewBundle['Properties.BasicInfo.SelectCurrency']}"/>
 				</span>
 			</div>
 

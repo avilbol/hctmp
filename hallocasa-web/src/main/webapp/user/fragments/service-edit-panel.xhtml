@@ -49,7 +49,7 @@
 									<h:selectOneMenu id="countryName" styleClass="hc-form-field"
 										value="#{profileEditPage.user.country}"
 										converter="countryConverter">
-										<f:selectItem itemLabel="Select a Country" />
+										<f:selectItem itemLabel="#{viewBundle['Profile.Data.SelectCountry']}" />
 										<f:selectItems value="#{applicationContext.countries}"
 											var="country"
 											itemLabel="#{profileEditPage.getCountryName(country)}"
@@ -69,6 +69,7 @@
 									<h:selectOneMenu id="stateName" styleClass="hc-form-field"
 										value="#{profileEditPage.user.state}"
 										converter="stateConverter">
+										<f:selectItem itemLabel="#{viewBundle['Profile.Data.SelectState']}" />
 										<f:selectItems value="#{profileEditPage.states}" var="state"
 											itemLabel="#{profileEditPage.getStateName(state)}"
 											itemValue="#{state}" />
@@ -86,6 +87,7 @@
 								<div class="col-md-12">
 									<h:selectOneMenu id="cityName" styleClass="hc-form-field"
 										value="#{profileEditPage.user.city}" converter="cityConverter">
+										<f:selectItem itemLabel="#{viewBundle['Profile.Data.SelectCity']}" />
 										<f:selectItems value="#{profileEditPage.cities}" var="city"
 											itemLabel="#{profileEditPage.getCityName(city)}"
 											itemValue="#{city}" />

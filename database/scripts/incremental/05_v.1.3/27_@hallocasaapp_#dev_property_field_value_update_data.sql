@@ -1,3 +1,3 @@
-UPDATE hallocasaapp.property_field_value SET property_value = "{'currency':{'id' : 3, 'name' : 'EUR'}, 'value':500000}" WHERE  property_id = 'TYrtHJI8' AND property_field_id = 5;
+UPDATE hallocasaapp.property_field_value SET property_value = "{'currency':{'id' : 3}, 'value':500000}" WHERE  property_id = 'TYrtHJI8' AND property_field_id = 5;
 UPDATE hallocasaapp.property_field_value SET property_value = "[{'url':'image1.jpg'},{'url':'image14.jpg'}, {'url':'main.jpg'}]" WHERE  property_id = 'TYrtHJI8' AND property_field_id = 12;
 UPDATE hallocasaapp.property_field_value SET property_value = "{'url':'main.jpg'}" WHERE  property_id = 'TYrtHJI8' AND property_field_id = 14;
