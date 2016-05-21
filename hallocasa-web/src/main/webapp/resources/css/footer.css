@@ -3,7 +3,8 @@
 	width: 100%;
 	padding-right: 0px !important;
 	padding-left: 0px !important;
-	background-color: #002D45;
+	background-color:#901;
+	/*background-color: #002D45;*/
 	height: 111px;
 }
 
@@ -14,7 +15,8 @@
 
 .bottom-strip>* {
 	color: white;
-	background-color: #002d45;
+	/*background-color: #002d45;*/
+	background-color:#901;
 }
 
 .bottom-strip>a {
@@ -24,7 +26,8 @@
 .bottom-strip .content {
 	font-size: 15px;
 	margin-bottom: 0;
-	background-color: #002d45;
+	/*background-color: #002d45;*/
+	background-color: #901;
 }
 
 .bottom-strip .content #backtop-btn {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
+	<cc:interface componentType="imageEditorComponent">
+		<cc:attribute name="defaultImageUrl" type="java.lang.String"
+			shortDescription="Default image URL to show when there is not image setted" />
+		<cc:attribute name="imageUrl"
+			type="com.hallocasa.commons.vo.ImageContainer" required="true"
+			shortDescription="Image URL to edit" />
+		<cc:attribute name="imageType" type="java.lang.String" default="image"
+			shortDescription="Image type as scheme to manage image files" />
+		<cc:attribute name="readOnly" type="java.lang.Boolean" default="false"
+			shortDescription="Indicates image only must be showed, but not edited" />
+	</cc:interface>
+	<cc:implementation>
+		<h:panelGroup id="multiimage-editor-container">
+			<div class="row">
+				<span id="imageUrl"> 
+					<utils:imageEditor
+						imageUrl="#{cc.imageInEdition}" 
+						imageType="userImage" />
+				</span>
+			</div>
+		</h:panelGroup>
+	</cc:implementation>
+</ui:composition>

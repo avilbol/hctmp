@@ -44,6 +44,8 @@ public class ApplicationFileUtils {
         switch (cvalue) {
             case USER_IMAGE:
                 return FileServices.USER_IMAGES_PATH;
+            case PROPERTY_IMAGE:
+            	return "";
             case DEFAULT:
                 return ""; // TODO : review
         }

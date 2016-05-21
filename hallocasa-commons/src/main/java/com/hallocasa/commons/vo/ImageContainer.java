@@ -23,6 +23,7 @@ public class ImageContainer implements Serializable {
 
     public enum ImageContainerValue{
         USER_IMAGE("/userimage"),
+        PROPERTY_IMAGE("/propertyimage"),
         DEFAULT("");
         
         private String prefix = "";

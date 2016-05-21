@@ -14,7 +14,8 @@
 
     <!-- Blog content section -->
     <ui:define name="contentSection">
-        <div id="blog-layout" class="hc-content-body-blog">
+        <div id="blog-layout" class="hc-content-body-blog">        
+			<div class="col-md-8 col-sm-offset-2 container">
             <h:panelGroup rendered="#{blogIndexPage.firstArticle ne null}">
                 <ui:include src="articlepreview.xhtml" >
                     <ui:param name="article" value="#{blogIndexPage.firstArticle}"/>
@@ -34,6 +35,7 @@
                     <hr/>
                 </ui:repeat>
             </h:panelGroup>
+        </div>
         </div>
     </ui:define>
 </ui:composition>
