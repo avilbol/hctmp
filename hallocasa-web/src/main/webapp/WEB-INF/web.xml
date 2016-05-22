@@ -25,14 +25,17 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
     
     <!-- User Image Mapping -->
     <servlet>
-        <servlet-name>userImageServlet</servlet-name>
+        <servlet-name>imageServlet</servlet-name>
         <servlet-class>com.hallocasa.servlet.ImageServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>userImageServlet</servlet-name>
+        <servlet-name>imageServlet</servlet-name>
         <url-pattern>/userimage/*</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>imageServlet</servlet-name>
+        <url-pattern>/propertyimage/*</url-pattern>
+    </servlet-mapping>
     
     <!-- context-parameter -->
     <context-param>

@@ -33,7 +33,7 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer 
 
 	List<CurrencyVO> currencyList;
 
-	CurrencyVO currencyObj;
+	CurrencyVOAmmount currencyObj;
 
 	UIInput currency;
 
@@ -79,12 +79,16 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer 
 		String crncyAmmount = (String) currencyAmmount.getSubmittedValue();
 		if (crncy != null && !crncy.trim().isEmpty()
 				&& !FormatUtils.isEmptyValue(crncyAmmount)) {
-			CurrencyVO crcyVOObj = new CurrencyVO();
-			crcyVOObj.setId(Integer.parseInt(crncy));
-			CurrencyVOAmmount cvoAmmount = new CurrencyVOAmmount();
-			cvoAmmount.setCurrency(crcyVOObj);
-			cvoAmmount.setValue(new BigDecimal(crncyAmmount));
-			return cvoAmmount;
+			try{
+				CurrencyVO crcyVOObj = new CurrencyVO();
+				crcyVOObj.setId(Integer.parseInt(crncy));
+				CurrencyVOAmmount cvoAmmount = new CurrencyVOAmmount();
+				cvoAmmount.setCurrency(crcyVOObj);
+				cvoAmmount.setValue(new BigDecimal(crncyAmmount));
+				return cvoAmmount;
+			} catch(NumberFormatException e){
+				return null;
+			}
 		} else {
 			CurrencyVOAmmount cvoAmmount = new CurrencyVOAmmount();
 			return cvoAmmount;
@@ -114,11 +118,11 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer 
 		this.currencyList = currencyList;
 	}
 
-	public CurrencyVO getCurrencyObj() {
+	public CurrencyVOAmmount getCurrencyObj() {
 		return currencyObj;
 	}
 
-	public void setCurrencyObj(CurrencyVO currencyObj) {
+	public void setCurrencyObj(CurrencyVOAmmount currencyObj) {
 		this.currencyObj = currencyObj;
 	}
 

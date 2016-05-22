@@ -1,5 +1,6 @@
 package com.hallocasa.services.properties.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -9,12 +10,14 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.hallocasa.commons.utils.FormatUtils;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.dataentities.app.User;
 import com.hallocasa.dataentities.app.properties.Property;
 import com.hallocasa.helpers.ParsersContext;
 import com.hallocasa.helpers.PropertyVOParser;
+import com.hallocasa.helpers.UserVOParser;
 import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 
@@ -33,23 +36,57 @@ public class PropertyServicesImpl implements PropertyServices {
 	@EJB
 	private AppPersistenceServices appPersistenceServices;
 
+	private UserVOParser userVOParser = ParsersContext.USER_VO_PARSER;
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public List<PropertyVO> find(UserVO userVO) {
-		User user = ParsersContext.USER_VO_PARSER.toEntity(userVO, User.class);
+		User user = userVOParser.toEntity(userVO, User.class);
 		List<Property> entityList = appPersistenceServices.executeNamedQuery(Property.QUERY_FIND_BY_USER_ID,
 				new Object[] { user }, Property.class);
 		return PropertyVOParser.getInstance().toValueObject(entityList);
 	}
 
 	@Override
+	public void add(PropertyVO propertyVO) {
+		User user = userVOParser.toEntity(propertyVO.getUser(), User.class);
+		Property property = PropertyVOParser.getInstance().toEntity(propertyVO);
+		property.setId(this.generatePropertyId(property.getId()));
+		property.setUser(user);
+		appPersistenceServices.mergeEntity(property);
+	}
+	
+	@Override
 	public void save(PropertyVO propertyVO) {
-		User user = ParsersContext.USER_VO_PARSER.toEntity(propertyVO.getUser(), User.class);
+		User user = userVOParser.toEntity(propertyVO.getUser(), User.class);
 		Property property = PropertyVOParser.getInstance().toEntity(propertyVO);
 		property.setUser(user);
-		appPersistenceServices.mergeEntity(user);
+		appPersistenceServices.mergeEntity(property);
+	}
+	
+	@Override
+	public String generatePropertyId(){
+		return generatePropertyId(null);
+	}
+	
+	/**
+	 * Method to generate a unique random property Id
+	 * @return
+	 */
+	@Override
+	public String generatePropertyId(String candidate){
+		Integer ocur;
+		String idCandidate = "";
+		do{
+			idCandidate = (candidate == null ? FormatUtils.randomStrId() : candidate);
+			HashMap<String, Object> paramMap = new HashMap<>();
+			paramMap.put("1", idCandidate);
+			ocur = appPersistenceServices.executeQuery(
+					Property.QUERY_FIND_COUNT_BY_ID, paramMap, Integer.class, 1);
+		} while(ocur != null);
+		return idCandidate;
 	}
 
 	public AppPersistenceServices getAppPersistenceServices() {

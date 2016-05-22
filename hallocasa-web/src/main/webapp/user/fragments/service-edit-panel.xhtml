@@ -35,8 +35,11 @@
 					<div class="row">
 						<div class="col-md-3">
 							<div class="row">
-								<span id="imageUrl"> <utils:imageEditor
-										imageUrl="#{profileEditPage.user.image}" imageType="userImage" />
+								<span id="imageUrl"> 
+									<utils:imageEditor
+										imageUrl="#{profileEditPage.user.image}" 
+										imageType="userImage"
+										editLabel="#{viewBundle['Image.Edition']}" />
 								</span>
 							</div>
 							<div class="row hc-info-content-profile">

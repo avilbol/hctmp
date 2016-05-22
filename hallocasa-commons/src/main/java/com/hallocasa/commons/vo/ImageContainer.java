@@ -32,6 +32,15 @@ public class ImageContainer implements Serializable {
             this.prefix = prefix;
         }
 
+        /**
+         * Determina si la ruta relativa cargada hace parte
+         * de alguno de los valores constantes de ImageContainer
+         * @param prefix
+         * 		Ruta relativa cargada
+         * @return
+         * 		El valor constante correspondiente, DEFAULT si
+         * 		no encuentra coincidencia
+         */
         public static ImageContainerValue load(String prefix){
             for(ImageContainerValue value : ImageContainerValue.values()){
                 if(prefix.equals(value.prefix)){

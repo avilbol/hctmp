@@ -1,5 +1,6 @@
 package com.hallocasa.helpers;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -221,14 +222,16 @@ public class PropertyVOParser {
 		Field[] fields = clazz.getDeclaredFields();
 		MetadataPropertyParser mpparser = MetadataPropertyParser.getInstance();
 		for (Field field : fields) {
-			PropertyFieldValueParser ma = (PropertyFieldValueParser) field
-					.getAnnotations()[0];
-			String methodName = ma.methodToExecute();
-			Method method = MetadataPropertyParser.class.getMethod(methodName,
-					String.class);
-			String propertyValue = pfvalues.get(ma.id()).getValue();
-			field.setAccessible(true);
-			field.set(ob, method.invoke(mpparser, propertyValue));
+			Annotation[] annotations = field.getAnnotations();
+			if(annotations != null && annotations.length > 0){
+				PropertyFieldValueParser ma = (PropertyFieldValueParser) annotations[0];
+				String methodName = ma.methodToExecute();
+				Method method = MetadataPropertyParser.class.getMethod(methodName,
+						String.class);
+				String propertyValue = pfvalues.get(ma.id()).getValue();
+				field.setAccessible(true);
+				field.set(ob, method.invoke(mpparser, propertyValue));
+			}
 		}
 	}
 
@@ -240,16 +243,18 @@ public class PropertyVOParser {
 		Field[] fields = clazz.getDeclaredFields();
 		MetadataPropertyParser mpparser = MetadataPropertyParser.getInstance();
 		for (Field field : fields) {
-			PropertyFieldValueParser ma = (PropertyFieldValueParser) field
-					.getAnnotations()[0];
-			String methodName = ma.methodToExecute();
-			Method method = MetadataPropertyParser.class.getMethod(methodName,
-					field.getType());
-			field.setAccessible(true);
-			String value = (String) method.invoke(mpparser, field.get(ob));
-			PropertyFieldValue pfv = PropertyFieldValue.loadInstance(
-					propertyId, ma.id(), value);
-			pfvalues.put(ma.id(), pfv);
+			Annotation[] annotations = field.getAnnotations();
+			if(annotations != null && annotations.length > 0){
+				PropertyFieldValueParser ma = (PropertyFieldValueParser) annotations[0];
+				String methodName = ma.methodToExecute();
+				Method method = MetadataPropertyParser.class.getMethod(methodName,
+						field.getType());
+				field.setAccessible(true);
+				String value = (String) method.invoke(mpparser, field.get(ob));
+				PropertyFieldValue pfv = PropertyFieldValue.loadInstance(
+						propertyId, ma.id(), value);
+				pfvalues.put(ma.id(), pfv);
+			}
 		}
 	}
 }

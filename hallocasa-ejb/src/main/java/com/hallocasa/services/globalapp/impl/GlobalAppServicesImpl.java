@@ -36,6 +36,8 @@ public class GlobalAppServicesImpl implements GlobalAppServices {
 	List<UserTypeVO> userTypes;
 
 	List<CurrencyVO> currencies;
+	
+	private static final String APP_KEY = "AIzaSyD7IPsuqw1E0L-eFGURR7GliALWgH_bJio";
 
 	@EJB
 	private AppPersistenceServices appPersistenceServices;
@@ -83,5 +85,9 @@ public class GlobalAppServicesImpl implements GlobalAppServices {
 
 	public void currencies(List<CurrencyVO> currencies) {
 		this.currencies = currencies;
+	}
+	
+	public String getGoogleMapsAppKey(){
+		return APP_KEY;
 	}
 }

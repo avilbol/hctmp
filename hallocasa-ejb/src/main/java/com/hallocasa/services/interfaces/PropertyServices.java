@@ -17,12 +17,33 @@ public interface PropertyServices {
 	 * @param user
 	 * @return
 	 */
-	public List<PropertyVO> find(UserVO user);
+	List<PropertyVO> find(UserVO user);
 	
 	/**
 	 * Save property
-	 * @param property
+	 * @param propertyVO
 	 */
-	public void save(PropertyVO property);
+	void save(PropertyVO property);
+
+	/**
+	 * Add property
+	 * @param propertyVO
+	 */
+	void add(PropertyVO propertyVO);
+
+	/**
+	 * @return
+	 * 		unique id for set in a property entity
+	 */
+	String generatePropertyId();
+	
+	/**
+	 * @return
+	 * 		unique id for set in a property entity
+	 * @param candidate
+	 * 		test candidate first. If this is unique
+	 * 		it will return it
+	 */
+	String generatePropertyId(String candidate);
 	
 }

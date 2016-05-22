@@ -1,9 +1,13 @@
 package com.hallocasa.viewmodel.user.profile;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,16 +18,22 @@ import javax.inject.Inject;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.imagemanager.UserPropertyImageManager;
 import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.ImageContainer;
 import com.hallocasa.commons.vo.StateVO;
 import com.hallocasa.commons.vo.properties.PropertyBasicInfo;
 import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.model.session.WebSession;
+import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.location.local.CountryServices;
+import com.hallocasa.view.context.ViewContext;
 import com.hallocasa.view.utils.FormatUtils;
+import com.hallocasa.viewmodel.security.LoginDialog;
 import com.hallocasa.viewmodel.user.profile.GlobalProfilePage.PropertyTabMode;
+import com.sun.mail.util.LogOutputStream;
 
 /**
  * Managed bean for wizard in properties
@@ -40,6 +50,9 @@ public class PropertyWizardPage implements Serializable {
 	 */
 	private static final long serialVersionUID = 5974980192541279963L;
 
+	/* class variables */
+	private static final Logger LOG = Logger.getLogger(PropertyWizardPage.class.getName());
+	
 	@Inject
 	private WebSession webSession;
 
@@ -47,10 +60,24 @@ public class PropertyWizardPage implements Serializable {
 	private HallocasaApplicationImpl halloCasaApplication;
 
 	/**
+	 * Id to setup in new property when saving
+	 */
+	private String propertyPotentialId;
+
+	@Inject
+	private ViewContext viewContext;
+
+	/**
 	 * Country services
 	 */
 	@EJB
 	CountryServices countryServices;
+
+	/**
+	 * Property services
+	 */
+	@EJB
+	PropertyServices propertyServices;
 
 	/**
 	 * Language list
@@ -90,6 +117,8 @@ public class PropertyWizardPage implements Serializable {
 	 */
 	private PropertyWizardPhase wizardPhase;
 
+	private List<ImageContainer> imageList = new ArrayList<ImageContainer>();
+
 	/**
 	 * Initialize
 	 */
@@ -103,6 +132,55 @@ public class PropertyWizardPage implements Serializable {
 		if (mode.equals(PropertyTabMode.EDIT)) {
 			wizardPhase = PropertyWizardPhase.EDITION;
 			wizardCreation = false;
+		}
+		if (this.getPropertyInEdition().getId() == null) {
+			this.setPropertyPotentialId(propertyServices.generatePropertyId());
+		}
+		// Setup index of main image
+		Integer indexMainImage = 0;
+		Integer counter = 0;
+		ImageContainer urlMainImage = getPropertyInEdition().getPropertyImageInfo().getMainImage();
+		for (ImageContainer imageContainer : getPropertyInEdition().getPropertyImageInfo().getImageContainerList()) {
+			if (urlMainImage.equals(imageContainer.getUrl())) {
+				indexMainImage = counter;
+			} else {
+				counter++;
+			}
+		}
+		getPropertyInEdition().getPropertyImageInfo()
+			.setIndexMainImage(new AtomicInteger(indexMainImage));
+	}
+
+	public void saveProperty() {
+		PropertyVO pvo = getPropertyInEdition();
+		try {
+			UserPropertyImageManager imageManager = null;
+			List<ImageContainer> imageContainerList = pvo.getPropertyImageInfo().getImageContainerList();
+			for (ImageContainer icontainer : imageContainerList) {
+				imageManager = new UserPropertyImageManager(icontainer, pvo.getUser().getId(), propertyPotentialId);
+				imageManager.manageImage();
+			}
+			if (imageManager != null) {
+				imageManager.clean();
+			}
+			if(!imageContainerList.isEmpty()){
+				pvo.getPropertyImageInfo()
+					.setMainImage(imageContainerList
+					.get(pvo.getPropertyImageInfo()
+					.getIndexMainImage().get()));
+			}
+			if (pvo.getId() == null) {
+				pvo.setId(propertyPotentialId);
+				propertyServices.add(pvo);
+			} else {
+				propertyServices.save(pvo);
+			}
+		} catch (IOException e) {
+			LOG.log(Level.SEVERE, "Unexpected error", e);
+			viewContext.showGlobalErrorMessage("Common.UnexpectedError.Message", null);
+		} catch (Exception e) {
+			LOG.log(Level.SEVERE, "Unexpected error", e);
+			viewContext.showGlobalErrorMessage("Common.UnexpectedError.Message", null);
 		}
 	}
 
@@ -236,4 +314,21 @@ public class PropertyWizardPage implements Serializable {
 	public void setCities(List<CityVO> cities) {
 		this.cities = cities;
 	}
+
+	public String getPropertyPotentialId() {
+		return propertyPotentialId;
+	}
+
+	public void setPropertyPotentialId(String propertyPotentialId) {
+		this.propertyPotentialId = propertyPotentialId;
+	}
+
+	public List<ImageContainer> getImageList() {
+		return imageList;
+	}
+
+	public void setImageList(List<ImageContainer> imageList) {
+		this.imageList = imageList;
+	}
+
 }

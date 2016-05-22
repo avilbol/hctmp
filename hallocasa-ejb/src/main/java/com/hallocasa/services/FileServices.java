@@ -18,6 +18,7 @@ import com.hallocasa.dataentities.wcm.File;
 import com.hallocasa.services.constants.ServiceErrorMessage;
 import com.hallocasa.services.interfaces.FileServicesInterface;
 
+
 /**
  * @author David Mantilla
  */
@@ -26,6 +27,7 @@ public class FileServices implements FileServicesInterface {
 
     private static final String FILES_PATH = null;
     public static final String USER_IMAGES_PATH = get("Persistance.Files.userImagesPath");
+    public static final String PROPERTY_IMAGES_PATH = get("Persistance.Files.propertyImagesPath");
     public static final String DOWNLOADS_PATH = get("Downloads.Files.downloadsPath");
     public static final String EJB_RESOURCE_NAME = "FileServices";    
    

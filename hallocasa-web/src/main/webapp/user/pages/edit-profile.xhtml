@@ -25,7 +25,8 @@
 							<h:commandButton value="#{viewBundle['Profile.Edit.Save']}"
 								actionListener="#{profileEditPage.processSaveClick()}"
 								styleClass="btn btn-primary">
-								<f:ajax execute="@form" render="@form"/>
+								<f:ajax execute="@form" 
+									render=":hc-profile-form:container-profile-element"/>
 							</h:commandButton>
 						</div>
 
