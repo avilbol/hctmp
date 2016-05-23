@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<div class="col-md-12 properties-images">
+		<div class="col-md-12">
+			<h2>
+				<span class="hc-form-label">#{viewBundle['Properties.title.image']}</span>
+			</h2>
+			<hr></hr>
+			<p>
+				<span class="hc-form-label">#{viewBundle['Properties.message.image']}</span>
+			</p>
+			<input type="file" />
+		</div>
+		<div class="col-md-12">
+			<section class="wrapper cl">
+			<div class="pic">
+				<h:graphicImage value="/userimage/image.jpg"
+					styleClass="pic-image">
+				</h:graphicImage> <span
+					class="pic-caption top-to-bottom">
+					<h1 class="pic-title">Imagen 1</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+
+			<!--Effect: Top to Bottom -->
+			<div class="pic">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span
+					class="pic-caption top-to-bottom">
+					<h1 class="pic-title">Imagen 2</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+			<!--Effect: Left to Right -->
+			<div class="pic">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span
+					class="pic-caption left-to-right">
+					<h1 class="pic-title">Imagen 3</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+
+			<!--Effect: Right to Left -->
+			<div class="pic">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span
+					class="pic-caption right-to-left">
+					<h1 class="pic-title">Imagen 4</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+
+			<!--Effect: Rotate More -->
+			<div class="pic">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span class="pic-caption rotate-in">
+					<h1 class="pic-title">Imagen 5</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+
+			<!--Effect: Rotate LESS -->
+			<div class="pic">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span
+					class="pic-caption rotate-out">
+					<h1 class="pic-title">Imagen 6</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+
+			<!--Effect: Open Up -->
+			<div class="pic pic-3d">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span class="pic-caption open-up">
+					<h1 class="pic-title">Imagen 7</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+
+			<!--Effect: Open Down -->
+			<div class="pic pic-3d">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span class="pic-caption open-down">
+					<h1 class="pic-title">Imagen 8</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+
+			<!--Effect: Open Left -->
+			<div class="pic pic-3d">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span class="pic-caption open-left">
+					<h1 class="pic-title">Imagen 9</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+
+			<!--Effect: Open Right -->
+			<div class="pic pic-3d">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span
+					class="pic-caption open-right">
+					<h1 class="pic-title">Imagen 10</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+
+			<!--Effect: Come Left -->
+			<div class="pic pic-3d">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span class="pic-caption come-left">
+					<h1 class="pic-title">Imagen 11</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+
+			<!--Effect: Come Right -->
+			<div class="pic pic-3d">
+				<img
+					src="http://static.srcdn.com/slir/w620-h257-q90-c620:257/wp-content/uploads/Batman-V-Superman-Trailer-Statue-False-God-Graffiti-1024x426.jpg"
+					class="pic-image" alt="Pic" /> <span
+					class="pic-caption come-right">
+					<h1 class="pic-title">Imagen 12</h1>
+					<p>¿Desea ponerla como imagen principal?</p>
+				</span>
+			</div>
+			</section>
+		</div>
+	</div>
+</ui:composition>
