@@ -13,6 +13,7 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.CurrencyVOAmmount;
 import com.hallocasa.view.utils.FormatUtils;
@@ -24,10 +25,10 @@ import com.hallocasa.view.utils.FormatUtils;
  */
 @FacesComponent("currencyEditorComponent")
 @ViewScoped
-public class CurrencyEditorComponent extends UIInput implements NamingContainer{
+public class CurrencyEditorComponent extends UIInput implements NamingContainer {
 
 	private enum Attributes {
-		currencies, converter
+		currencies, converter, language
 	}
 
 	List<CurrencyVO> currencyList;
@@ -39,15 +40,16 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer{
 	UIInput currencyAmmount;
 
 	@Override
-    public String getFamily() {
-        return UINamingContainer.COMPONENT_FAMILY;
-    }
-	
+	public String getFamily() {
+		return UINamingContainer.COMPONENT_FAMILY;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void encodeBegin(FacesContext context) throws IOException {
 		if (currencyList == null) {
-			currencyList = (List<CurrencyVO>) getAttributes().get(Attributes.currencies);
+			currencyList = (List<CurrencyVO>) getAttributes().get(
+					Attributes.currencies.name());
 		}
 		CurrencyVOAmmount currencyVoAmmount = (CurrencyVOAmmount) getValue();
 		if (currencyVoAmmount != null) {
@@ -75,15 +77,15 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer{
 	public Object getSubmittedValue() {
 		String crncy = (String) currency.getSubmittedValue();
 		String crncyAmmount = (String) currencyAmmount.getSubmittedValue();
-		if (crncy != null && !crncy.trim().isEmpty() && !FormatUtils.isEmptyValue(crncyAmmount)) {
+		if (crncy != null && !crncy.trim().isEmpty()
+				&& !FormatUtils.isEmptyValue(crncyAmmount)) {
 			CurrencyVO crcyVOObj = new CurrencyVO();
 			crcyVOObj.setId(Integer.parseInt(crncy));
 			CurrencyVOAmmount cvoAmmount = new CurrencyVOAmmount();
 			cvoAmmount.setCurrency(crcyVOObj);
 			cvoAmmount.setValue(new BigDecimal(crncyAmmount));
 			return cvoAmmount;
-		}
-		else{
+		} else {
 			CurrencyVOAmmount cvoAmmount = new CurrencyVOAmmount();
 			return cvoAmmount;
 		}
@@ -92,10 +94,16 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer{
 	@Override
 	public Object getConvertedValue(FacesContext context, Object object) {
 		CurrencyVOAmmount cvoAmmount = (CurrencyVOAmmount) object;
-		if(cvoAmmount.getValue() == null){
+		if (cvoAmmount.getValue() == null) {
 			return null;
 		}
 		return object;
+	}
+
+	public String currencyValue(CurrencyVO currency){
+		return currency.getAbbreviation() + " - " + currency.getName()
+				.getLangValue((Language)this.getAttributes()
+						.get(Attributes.language.name()));
 	}
 
 	public List<CurrencyVO> getCurrencyList() {

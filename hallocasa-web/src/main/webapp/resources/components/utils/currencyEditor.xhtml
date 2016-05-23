@@ -14,8 +14,14 @@
 			type="java.util.List"
 			shortDescription="Currency list to deploy" />
 		<cc:attribute name="converter"
-			type="java.util.String"
+			type="java.lang.String"
 			shortDescription="Converter to use" />
+		<cc:attribute name="language"
+			type="com.hallocasa.commons.Language"
+			shortDescription="Language to manage" />
+		<cc:attribute name="defaultMessage"
+			type="com.hallocasa.commons.Language"
+			shortDescription="Language to manage" />
 	</cc:interface>
 	<cc:implementation>
 		<h:inputText id="currencyValue" styleClass="hc-form-field"
@@ -23,8 +29,9 @@
 		<h:selectOneMenu id="currency" styleClass="hc-form-field"
 			value="#{cc.attrs.currencyAmmount.currency}" 
 			converter="#{cc.attrs.converter}">
+			<f:selectItem itemLabel="#{cc.attrs.defaultMessage}"/>
 			<f:selectItems value="#{cc.attrs.currencies}" var="currency"
-				itemLabel="#{currency.name}" itemValue="#{currency}" />
+				itemLabel="#{cc.currencyValue(currency)}" itemValue="#{currency}" />
 		</h:selectOneMenu>
 	</cc:implementation>
 </ui:composition>

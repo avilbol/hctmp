@@ -2,6 +2,7 @@ package com.hallocasa.commons.vo;
 
 import java.io.Serializable;
 
+import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 
 /**
@@ -18,8 +19,12 @@ public class CurrencyVO  implements ValueObject, Serializable{
 
 	private Integer id;
 	
-	private String name;
+	private MultiLanguageText name;
 
+	private String abbreviation;
+
+	private String prefix;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -28,11 +33,27 @@ public class CurrencyVO  implements ValueObject, Serializable{
 		this.id = id;
 	}
 
-	public String getName() {
+	public MultiLanguageText getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(MultiLanguageText name) {
 		this.name = name;
+	}
+
+	public String getAbbreviation() {
+		return abbreviation;
+	}
+
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
 	}
 }

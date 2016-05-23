@@ -3,13 +3,16 @@ package com.hallocasa.dataentities.app;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
+import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 
 
 /**
@@ -41,7 +44,8 @@ public class Currency implements Serializable, HallocasaEntity{
 	private Integer id;
 	
 	@Column(name = "name")
-	private String name;
+	@Convert(converter = MultiLanguageTextConverter.class)
+	private MultiLanguageText name;
 
 	@Column(name = "abbreviation")
 	private String abbreviation;
@@ -57,11 +61,11 @@ public class Currency implements Serializable, HallocasaEntity{
 		this.id = id;
 	}
 
-	public String getName() {
+	public MultiLanguageText getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(MultiLanguageText name) {
 		this.name = name;
 	}
 
@@ -71,5 +75,13 @@ public class Currency implements Serializable, HallocasaEntity{
 
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
+	}
+
+	public String getAbbreviation() {
+		return abbreviation;
+	}
+
+	public void setAbbreviation(String abbreviation) {
+		this.abbreviation = abbreviation;
 	}
 }

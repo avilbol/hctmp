@@ -9,7 +9,6 @@ import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
 import com.hallocasa.commons.vo.CurrencyVO;
-import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
 
 /**
