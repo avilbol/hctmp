@@ -24,6 +24,8 @@
 			default="#{viewBundle['Image.Edition.Upload']}" />
 		<cc:attribute name="update" type="java.lang.String"
 			default="image-editor-container" />
+		<cc:attribute name="aspectRatio" type="java.lang.String"
+			default="0"/>
 	</cc:interface>
 	<cc:implementation>
 		<h:panelGroup id="image-editor-container">
@@ -84,7 +86,7 @@
 							</div>
 							<p:imageCropper id="cropper" value="#{cc.croppedImage}"
 								image="/resources/images/#{cc.uncroppedImageResourcesUrl}"
-								initialCoords="0,0,50,50" aspectRatio="1.0" />
+								initialCoords="0,0,50,50" aspectRatio="#{cc.attrs.aspectRatio}" />
 						</h:panelGrid>
 					</h:panelGroup>
 				</h:panelGroup>
