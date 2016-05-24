@@ -33,7 +33,7 @@ public class MultiImageEditorComponent extends BaseComponent {
 	private static final Logger LOG = Logger.getLogger(LoginDialog.class.getName());
 
 	private enum Attributes {
-		imageList, imageType
+		imageList, imageType, indexMainImage
 	}
 
 	private List<ImageContainer> imageContainerList;
@@ -47,14 +47,6 @@ public class MultiImageEditorComponent extends BaseComponent {
 	@Inject
 	private ViewContext viewContext;
 
-	public void initialize() {
-		if(imageContainerList == null){
-			imageContainerList = (List<ImageContainer>) this.getAttributes()
-					.get(Attributes.imageList.toString());
-		}
-		startCurrentImgEdition();
-	}
-
 	/**
 	 * Init / restart image edition container
 	 */
@@ -64,16 +56,14 @@ public class MultiImageEditorComponent extends BaseComponent {
 
 	@Override
 	protected void saveComponent(FacesContext facesContext, HashMap<String, Object> map) {
-		map.put("imageContainerList", imageContainerList);
 	}
 
 	@Override
 	protected void restoreComponent(FacesContext facesContext, HashMap<String, Object> map) {
-		imageContainerList = (List<ImageContainer>) map.get("imageContainerList");
 	}
 
 	public void onImageUploaded() {
-		imageContainerList.add(imageInEdition);
+		getImageContainerList().add(imageInEdition);
 		startCurrentImgEdition();
 	}
 	
@@ -83,10 +73,10 @@ public class MultiImageEditorComponent extends BaseComponent {
 	 */
 	public void onDeleteImage(int index){
 		try{
-			ImageContainer imageToDelete = imageContainerList.get(index);
+			ImageContainer imageToDelete = getImageContainerList().get(index);
 			File pathToDelete = new File(ApplicationFileUtils.getAbsoluteUrl(imageToDelete.getUrl()));
 			FileUtils.forceDelete(pathToDelete);
-			imageContainerList.remove(index);
+			getImageContainerList().remove(index);
 			if(getIndexMainImageContainer().get() == index){
 				indexMainImageContainer.set(0);
 			}
@@ -111,6 +101,10 @@ public class MultiImageEditorComponent extends BaseComponent {
 	}
 
 	public List<ImageContainer> getImageContainerList() {
+		if(imageContainerList == null){
+			imageContainerList = (List<ImageContainer>) this.getAttributes()
+					.get(Attributes.imageList.toString());
+		}
 		return imageContainerList;
 	}
 
@@ -128,12 +122,17 @@ public class MultiImageEditorComponent extends BaseComponent {
 
 	public AtomicInteger getIndexMainImageContainer() {
 		if(indexMainImageContainer == null){
-			indexMainImageContainer = new AtomicInteger(0);
+			indexMainImageContainer = (AtomicInteger) this.getAttributes()
+					.get(Attributes.indexMainImage.toString());
 		}
 		return indexMainImageContainer;
 	}
 
 	public void setIndexMainImageContainer(AtomicInteger indexMainImageContainer) {
 		this.indexMainImageContainer = indexMainImageContainer;
+	}
+
+	public void initialize() {
+		startCurrentImgEdition();
 	}
 }
