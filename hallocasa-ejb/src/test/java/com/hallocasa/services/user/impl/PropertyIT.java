@@ -17,6 +17,7 @@ import com.hallocasa.commons.Language;
 import com.hallocasa.commons.codec.CodecUtils;
 import com.hallocasa.commons.exceptions.services.ServiceException;
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.utils.FormatUtils;
 import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.StateVO;
@@ -24,7 +25,6 @@ import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.properties.PropertyLocationVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
-import com.hallocasa.dataentities.app.User;
 import com.hallocasa.dataentities.app.test.ChildrenTestEntity;
 import com.hallocasa.dataentities.app.test.TestEntity;
 import com.hallocasa.services.UserServicesImpl;
@@ -45,11 +45,22 @@ public class PropertyIT {
 	private EntityManagerFactory emf;
 	private EntityManager em;
 	
+	private PropertyVO propertyWithGoodParam;
+	
+	private UserVO userWithGoodParam;
+	
+	private void createPropertyWithGoodParameters(){
+		UserServicesImpl userServices = new UserServicesImpl();
+		userServices.setAppPersistenceServices(persistenceServices);
+		UserVO userVO = userServices.find(1l);
+		propertyWithGoodParam = userVO.getProperties().get(0);
+	}
+	
 	/**
 	 * 
 	 * @return
 	 */
-	private UserVO createGoodParameters() {
+	private void createUserWithGoodParameters() {
 		UserVO userVO = new UserVO();
 		userVO.setEmail("alxvilbol@gmail.com");
 		userVO.setLanguage(Language.en);
@@ -102,7 +113,7 @@ public class PropertyIT {
 		userVO.setWebSite("");
 		userVO.setMainSpokenLanguage(Language.de);
 		userVO.setUserDescription(description);
-		return userVO;
+		userWithGoodParam = userVO;
 	}
 
 	/* constructors */
@@ -119,6 +130,8 @@ public class PropertyIT {
 
 		// services
 		persistenceServices = new AppPersistenceServicesImpl(em);
+		createPropertyWithGoodParameters();
+		createUserWithGoodParameters();
 	}
 
 	@Test
@@ -158,7 +171,6 @@ public class PropertyIT {
 	@Test
 	public void testLoadAndSaveUserWithProperties() throws IllegalAccessException,
 			InvocationTargetException, ServiceException {
-		UserVO userVO = createGoodParameters();	
 		PropertyServicesImpl propertyServices = new PropertyServicesImpl();
 		UserVO user = new UserVO();
 		user.setId(1l);
@@ -167,12 +179,25 @@ public class PropertyIT {
 		properties.get(0).getPropertyBasicInfo().setArea(new BigDecimal("194"));
 		properties.get(0).setPropertyLocation(new PropertyLocationVO());
 		properties.get(0).getPropertyLocation().setId(3);
-		userVO.setProperties(properties);
+		userWithGoodParam.setProperties(properties);
 
 		persistenceServices.loadTransaction().begin();
 		UserServicesImpl userServices = new UserServicesImpl();
 		userServices.setAppPersistenceServices(persistenceServices);
-		userServices.save(userVO);
+		userServices.save(userWithGoodParam);
+		persistenceServices.loadTransaction().commit();
+	}
+	
+	@Test
+	public void testAddProperty() throws IllegalAccessException, InvocationTargetException,
+		ServiceException {
+		PropertyVO pvo = propertyWithGoodParam;
+		pvo.setId(FormatUtils.randomStrId());
+		pvo.setUser(userWithGoodParam);
+		PropertyServicesImpl propertyServices = new PropertyServicesImpl();
+		propertyServices.setAppPersistenceServices(persistenceServices);
+		persistenceServices.loadTransaction().begin();
+		propertyServices.add(pvo);
 		persistenceServices.loadTransaction().commit();
 	}
 	
