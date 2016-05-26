@@ -24,15 +24,13 @@
 			default="#{viewBundle['Image.Edition.Upload']}" />
 		<cc:attribute name="update" type="java.lang.String"
 			default="image-editor-container" />
-		<cc:attribute name="aspectRatio" type="java.lang.String"
-			default="0"/>
+		<cc:attribute name="aspectRatio" type="java.lang.String" default="0" />
 	</cc:interface>
 	<cc:implementation>
 		<h:panelGroup id="image-editor-container">
 			<div class="edit-btn-content col-md-12">
 				<h:commandButton styleClass="btn btn-primary"
-					rendered="#{not cc.attrs.readOnly}"
-					value="#{cc.attrs.editLabel}"
+					rendered="#{not cc.attrs.readOnly}" value="#{cc.attrs.editLabel}"
 					onclick="PF('upload-image-dialog').show();return false" />
 			</div>
 			<ui:fragment rendered="#{cc.attrs.showImage}">
@@ -42,7 +40,7 @@
 			</ui:fragment>
 			<p:dialog header="#{viewBundle['Image.Edition.Header']}"
 				position="center" responsive="true" widgetVar="upload-image-dialog"
-				minHeight="40" width="800" height="500" draggable="false"
+				minHeight="40" width="800" height="auto" draggable="false"
 				resizable="false">
 				<h:panelGroup id="upload-image-bt" styleClass="row">
 				</h:panelGroup>
@@ -84,9 +82,11 @@
 									</h:commandButton>
 								</div>
 							</div>
-							<p:imageCropper id="cropper" value="#{cc.croppedImage}"
-								image="/resources/images/#{cc.uncroppedImageResourcesUrl}"
-								initialCoords="0,0,50,50" aspectRatio="#{cc.attrs.aspectRatio}" />
+							<div class="col-md-6">
+								<p:imageCropper id="cropper" value="#{cc.croppedImage}"
+									image="/resources/images/#{cc.uncroppedImageResourcesUrl}"
+									initialCoords="0,0,50,50" aspectRatio="#{cc.attrs.aspectRatio}" />
+							</div>
 						</h:panelGrid>
 					</h:panelGroup>
 				</h:panelGroup>

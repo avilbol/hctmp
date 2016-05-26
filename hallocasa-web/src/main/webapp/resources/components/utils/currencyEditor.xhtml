@@ -24,14 +24,14 @@
 			shortDescription="Default message when no currency selected" />
 	</cc:interface>
 	<cc:implementation>
-		<h:inputText id="currencyValue" styleClass="hc-form-field"
-			binding="#{cc.currencyAmmount}" />
-		<h:selectOneMenu id="currency" styleClass="hc-form-field"
+		<p><h:inputText id="currencyValue" styleClass="hc-form-field form-control"
+			binding="#{cc.currencyAmmount}" /></p><br></br>
+		<p><h:selectOneMenu id="currency" styleClass="hc-form-field form-control" style="width: 100%!important;"
 			binding="#{cc.currency}" 
 			converter="#{cc.attrs.converter}">
 			<f:selectItem itemLabel="#{cc.attrs.defaultMessage}"/>
 			<f:selectItems value="#{cc.attrs.currencies}" var="currency"
 				itemLabel="#{cc.currencyValue(currency)}" itemValue="#{currency}" />
-		</h:selectOneMenu>
+		</h:selectOneMenu></p>
 	</cc:implementation>
 </ui:composition>

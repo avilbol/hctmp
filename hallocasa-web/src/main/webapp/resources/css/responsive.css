@@ -100,6 +100,9 @@
 	#top-submenu-strip {
 		margin-top: -420px;
 	}
+	.collapse {
+    display: block!important;
+}
 	.top-strip {
 		height: 57px;
 	}
@@ -168,7 +171,6 @@
 		font-size: 40px;
 	}
 	.hc-header-logo {
-		background-image: url("/resources/images/logo-hallocasa.png");
 		background-repeat: no-repeat;
 		width: 228%;
 		background-size: 145px 107px;
@@ -411,6 +413,11 @@ span.menu-link {
 	}
 	.page {
 		width: 100%;
+	}
+	
+	#top-submenu-strip {
+		margin-top: -160px;
+		float:left;
 	}
 	ul.topnav.responsive li a:nth-child(1) {
 		margin-top: 5px !important;
