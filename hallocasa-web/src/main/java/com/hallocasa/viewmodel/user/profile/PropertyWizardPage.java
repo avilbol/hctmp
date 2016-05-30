@@ -167,7 +167,7 @@ public class PropertyWizardPage implements Serializable {
 			}
 		}
 		getPropertyInEdition().getPropertyImageInfo().setIndexMainImage(new AtomicInteger(indexMainImage));
-		evaluateGoogleMapsInit();
+		//evaluateGoogleMapsInit();
 	}
 
 	private void evaluateGoogleMapsInit() {
