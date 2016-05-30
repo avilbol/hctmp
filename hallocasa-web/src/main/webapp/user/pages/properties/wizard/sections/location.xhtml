@@ -28,7 +28,8 @@
 					styleClass="hc-form-field form-control"
 					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.state}"
 					converter="stateConverter">
-					<f:selectItem itemLabel="Select One" />
+					<f:selectItem
+						itemLabel="#{viewBundle['Common.Dropdown.SelectOne']}" />
 					<f:selectItems value="#{propertyWizardPage.states}" var="state"
 						itemLabel="#{propertyWizardPage.getStateName(state)}"
 						itemValue="#{state}" />
@@ -44,9 +45,9 @@
 					styleClass="hc-form-field form-control"
 					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.city}"
 					converter="cityConverter">
-					<f:selectItem itemLabel="Select One" />
-					<f:selectItems 
-						value="#{propertyWizardPage.cities}" var="city"
+					<f:selectItem
+						itemLabel="#{viewBundle['Common.Dropdown.SelectOne']}" />
+					<f:selectItems value="#{propertyWizardPage.cities}" var="city"
 						itemLabel="#{propertyWizardPage.getCityName(city)}"
 						itemValue="#{city}" />
 				</h:selectOneMenu>

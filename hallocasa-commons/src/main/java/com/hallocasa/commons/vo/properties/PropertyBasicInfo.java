@@ -1,18 +1,21 @@
 package com.hallocasa.commons.vo.properties;
 
+import static com.hallocasa.commons.constants.PropertyConstants.AREA_FIELD;
+import static com.hallocasa.commons.constants.PropertyConstants.LANGUAGES_FIELD;
+import static com.hallocasa.commons.constants.PropertyConstants.LOCATION_DESCRIPTION_FIELD;
+import static com.hallocasa.commons.constants.PropertyConstants.MAIN_LANGUAGE_FIELD;
+import static com.hallocasa.commons.constants.PropertyConstants.MARKET_PRICE_FIELD;
+import static com.hallocasa.commons.constants.PropertyConstants.PROPERTY_DESCRIPTION_FIELD;
+import static com.hallocasa.commons.constants.PropertyConstants.TITLE_FIELD;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.annotations.PropertyFieldValueParser;
 import com.hallocasa.commons.i18n.MultiLanguageText;
-import com.hallocasa.commons.i18n.ValidationMessages;
 import com.hallocasa.commons.vo.CurrencyVOAmmount;
-
-import static com.hallocasa.commons.constants.PropertyConstants.*;
 
 @SuppressWarnings("serial")
 public class PropertyBasicInfo implements Serializable {
@@ -30,7 +33,6 @@ public class PropertyBasicInfo implements Serializable {
 	private MultiLanguageText locationDescription;
 	
 	@PropertyFieldValueParser(id = MAIN_LANGUAGE_FIELD, methodToExecute = "parseToLanguage")
-	@NotNull(message = "{" + ValidationMessages.NOT_EMPTY + "}")
 	private Language mainLanguage;
 	
 	@PropertyFieldValueParser(id = MARKET_PRICE_FIELD, methodToExecute = "parseToCurrency")

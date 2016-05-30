@@ -4,12 +4,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<div class="col-md-12">
 		<div class="col-md-9">
-			<p:messages id="messages-wiz-edit" showDetail="false" autoUpdate="true"
-				closable="true" styleClass="label-property wrong-btn" />
+			<p:messages id="messages-wiz-edit" showDetail="false"
+				autoUpdate="true" closable="true"
+				styleClass="label-property wrong-btn" />
 		</div>
 	</div>
 
@@ -64,21 +66,32 @@
 
 	</div>
 	<div class="col-md-12">
-		<div class="col-md-3" style="margin-left: 28.5%;">
+		<div class="col-md-1" style="margin-left: 28.5%;">
 			<h:commandButton value="#{viewBundle['property.wizard.save']}"
-				action="#{propertyWizardPage.saveProperty}"
+				id="save-property" action="#{propertyWizardPage.saveProperty}"
 				styleClass="btn btn-primary" rendered="#{wizardCreation}">
 				<f:ajax execute="@form"
-					render=":hc-profile-form:container-property-element" />
+					render=":hc-profile-form:container-property-element, 
+							:hc-profile-form:varst-section" />
+				<f:param name="validate" value="#{true}" />
 			</h:commandButton>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<h:commandButton
 				value="#{viewBundle['Properties.wizard.back.label']}"
-				action="#{propertyWizardPage.saveProperty}" immediate="true"
+				action="#{propertyWizardPage.goToInitZone()}" immediate="true"
 				styleClass="btn btn-primary" rendered="#{wizardCreation}">
 				<f:ajax execute="@this"
 					render=":hc-profile-form:container-property-element" />
+			</h:commandButton>
+		</div>
+		<div class="col-md-1 btn-cancel">
+			<h:commandButton
+				value="#{viewBundle['Properties.wizard.cancel.label']}"
+				onclick="if(!confirm('Perdera todos sus cambios con esta operación. ¿Está seguro?')) return false"
+				action="#{propertyWizardPage.exit}" immediate="true"
+				styleClass="btn btn-primary">
+				<f:ajax execute="@form" render="@form" />
 			</h:commandButton>
 		</div>
 	</div>

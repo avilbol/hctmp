@@ -55,8 +55,6 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
 			super.copyEntityPropertyToValueObjectProperty(vo, entity,
 					propertyName, propertyValue, options);
 		}
-		vo.setProperties(PropertyVOParser.getInstance().toValueObject(
-				entity.getProperties()));
 	}
 
 	/*

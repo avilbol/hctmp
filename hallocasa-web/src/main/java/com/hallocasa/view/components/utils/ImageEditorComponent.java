@@ -362,4 +362,13 @@ public class ImageEditorComponent extends BaseComponent {
 		}
 		return this.relativePath;
 	}
+	
+	public ImageContainer imageToShow(){
+		ImageContainer ic = (ImageContainer) getAttributes().get("imageUrl");
+		if(ic == null){
+			String defaultIcUrl = (String) getAttributes().get("defaultImageUrl");
+			return new ImageContainer(defaultIcUrl);
+		}
+		return ic;
+	}
 }

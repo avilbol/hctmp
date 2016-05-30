@@ -21,6 +21,7 @@ import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.imagemanager.UserPropertyImageManager;
 import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.CurrencyVOAmmount;
 import com.hallocasa.commons.vo.ImageContainer;
 import com.hallocasa.commons.vo.StateVO;
 import com.hallocasa.commons.vo.properties.PropertyBasicInfo;
@@ -30,10 +31,9 @@ import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.location.local.CountryServices;
 import com.hallocasa.view.context.ViewContext;
+import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.view.utils.FormatUtils;
-import com.hallocasa.viewmodel.security.LoginDialog;
 import com.hallocasa.viewmodel.user.profile.GlobalProfilePage.PropertyTabMode;
-import com.sun.mail.util.LogOutputStream;
 
 /**
  * Managed bean for wizard in properties
@@ -52,7 +52,7 @@ public class PropertyWizardPage implements Serializable {
 
 	/* class variables */
 	private static final Logger LOG = Logger.getLogger(PropertyWizardPage.class.getName());
-	
+
 	@Inject
 	private WebSession webSession;
 
@@ -147,12 +147,15 @@ public class PropertyWizardPage implements Serializable {
 				counter++;
 			}
 		}
-		getPropertyInEdition().getPropertyImageInfo()
-			.setIndexMainImage(new AtomicInteger(indexMainImage));
+		getPropertyInEdition().getPropertyImageInfo().setIndexMainImage(new AtomicInteger(indexMainImage));
 	}
 
 	public void saveProperty() {
 		PropertyVO pvo = getPropertyInEdition();
+		if(!validateSpecificData(pvo)){
+			return;
+		}
+		String successfulMessage = null;
 		try {
 			UserPropertyImageManager imageManager = null;
 			List<ImageContainer> imageContainerList = pvo.getPropertyImageInfo().getImageContainerList();
@@ -163,17 +166,17 @@ public class PropertyWizardPage implements Serializable {
 			if (imageManager != null) {
 				imageManager.clean();
 			}
-			if(!imageContainerList.isEmpty()){
+			if (!imageContainerList.isEmpty()) {
 				pvo.getPropertyImageInfo()
-					.setMainImage(imageContainerList
-					.get(pvo.getPropertyImageInfo()
-					.getIndexMainImage().get()));
+						.setMainImage(imageContainerList.get(pvo.getPropertyImageInfo().getIndexMainImage().get()));
 			}
 			if (pvo.getId() == null) {
 				pvo.setId(propertyPotentialId);
 				propertyServices.add(pvo);
+				successfulMessage = Messages.ADD_PROPERTY_SUCCESS_MSG;
 			} else {
 				propertyServices.save(pvo);
+				successfulMessage = Messages.UPDATE_PROPERTY_SUCCESS_MSG;
 			}
 		} catch (IOException e) {
 			LOG.log(Level.SEVERE, "Unexpected error", e);
@@ -182,6 +185,21 @@ public class PropertyWizardPage implements Serializable {
 			LOG.log(Level.SEVERE, "Unexpected error", e);
 			viewContext.showGlobalErrorMessage("Common.UnexpectedError.Message", null);
 		}
+		viewContext.showGlobalInfoMessage(successfulMessage, null);
+		exit();
+	}
+
+	private boolean validateSpecificData(PropertyVO pvo) {
+		CurrencyVOAmmount cvammount = pvo.getPropertyBasicInfo().getMarketPrice();
+		if (cvammount.getCurrency() != null && cvammount.getValue() == null) {
+			viewContext.showGlobalErrorMessage("Properties.BasicInfo.MarketPrice.noammount", null);
+			return false;
+		}
+		if (cvammount.getCurrency() == null && cvammount.getValue() != null) {
+			viewContext.showGlobalErrorMessage("Properties.BasicInfo.MarketPrice.nocurrency", null);
+			return false;
+		}
+		return true;
 	}
 
 	public void exit() {
@@ -202,7 +220,7 @@ public class PropertyWizardPage implements Serializable {
 		if (pbInfo.getTitle() == null) {
 			pbInfo.setTitle(new MultiLanguageText());
 		}
-		for (Language lang : halloCasaApplication.getLanguages()) {
+		for (Language lang : pbInfo.getLanguages()) {
 			if (FormatUtils.isEmptyValue(pbInfo.getPropertyDescription().getLangValue(lang))) {
 				pbInfo.getPropertyDescription().setLangValue(lang, "");
 			}

@@ -10,28 +10,38 @@
 		<cc:attribute name="value"
 			type="com.hallocasa.commons.vo.CurrencyVOAmmount"
 			shortDescription="Currency vo ammount value" />
-		<cc:attribute name="currencies"
-			type="java.util.List"
+		<cc:attribute name="currencies" type="java.util.List"
 			shortDescription="Currency list to deploy" />
-		<cc:attribute name="converter"
-			type="java.lang.String"
+		<cc:attribute name="converter" type="java.lang.String"
 			shortDescription="Converter to use" />
-		<cc:attribute name="language"
-			type="com.hallocasa.commons.Language"
+		<cc:attribute name="language" type="com.hallocasa.commons.Language"
 			shortDescription="Language to manage" />
-		<cc:attribute name="defaultMessage"
-			type="java.lang.String"
+		<cc:attribute name="label" type="java.lang.String"
+			shortDescription="Label to show in validation error messages" />
+		<cc:attribute name="validatorMessage" type="java.lang.String"
+			shortDescription="Message to show when currency ammount is not number" />
+		<cc:attribute name="defaultMessage" type="java.lang.String"
 			shortDescription="Default message when no currency selected" />
 	</cc:interface>
 	<cc:implementation>
-		<p><h:inputText id="currencyValue" styleClass="hc-form-field form-control"
-			binding="#{cc.currencyAmmount}" /></p><br></br>
-		<p><h:selectOneMenu id="currency" styleClass="hc-form-field form-control" style="width: 100%!important;"
-			binding="#{cc.currency}" 
-			converter="#{cc.attrs.converter}">
-			<f:selectItem itemLabel="#{cc.attrs.defaultMessage}"/>
-			<f:selectItems value="#{cc.attrs.currencies}" var="currency"
-				itemLabel="#{cc.currencyValue(currency)}" itemValue="#{currency}" />
-		</h:selectOneMenu></p>
+		<p>
+			<h:inputText id="currencyValue"
+				styleClass="hc-form-field form-control"
+				binding="#{cc.currencyAmmount}"
+				label="#{cc.attrs.label}"
+				converter="javax.faces.Double">
+			</h:inputText>
+		</p>
+		<br></br>
+		<p>
+			<h:selectOneMenu id="currency"
+				styleClass="hc-form-field form-control"
+				style="width: 100%!important;" binding="#{cc.currency}"
+				converter="#{cc.attrs.converter}">
+				<f:selectItem itemLabel="#{cc.attrs.defaultMessage}" value="#{null}"/>
+				<f:selectItems value="#{cc.attrs.currencies}" var="currency"
+					itemLabel="#{cc.currencyValue(currency)}" itemValue="#{currency}" />
+			</h:selectOneMenu>
+		</p>
 	</cc:implementation>
 </ui:composition>

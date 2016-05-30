@@ -33,12 +33,15 @@ import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 @NamedQueries({
     @NamedQuery(name = City.QUERY_FIND_BY_ID,
             query = "select c from City c where c.id = ?1"),
+    @NamedQuery(name = City.QUERY_FIND_ALL,
+    		query = "select c from City c"),
     @NamedQuery(name = City.QUERY_FIND_BY_STATE,
             query = "select c from City c where c.state = ?1")
 })
 public class City implements Serializable, HallocasaEntity {
     
     public static final String QUERY_FIND_BY_ID = "City.findById";
+    public static final String QUERY_FIND_ALL = "City.findAll";
     public static final String QUERY_FIND_BY_STATE = "City.findByState";
     
     @Id

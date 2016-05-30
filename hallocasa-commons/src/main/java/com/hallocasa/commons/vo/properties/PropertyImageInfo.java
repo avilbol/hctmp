@@ -14,14 +14,14 @@ public class PropertyImageInfo implements Serializable {
 
 	@PropertyFieldValueParser(id = IMAGES_FIELD, methodToExecute = "parseToImageContainerList")
 	private List<ImageContainer> imageContainerList;
-	
+
 	@PropertyFieldValueParser(id = MAIN_IMAGE_FIELD, methodToExecute = "parseToImageContainer")
 	private ImageContainer mainImage;
 
 	private AtomicInteger indexMainImage;
-	
+
 	public List<ImageContainer> getImageContainerList() {
-		if(imageContainerList == null){
+		if (imageContainerList == null) {
 			imageContainerList = new ArrayList<ImageContainer>();
 		}
 		return imageContainerList;
@@ -32,7 +32,7 @@ public class PropertyImageInfo implements Serializable {
 	}
 
 	public ImageContainer getMainImage() {
-		if(imageContainerList != null && mainImage == null){
+		if (mainImage == null && imageContainerList != null && !imageContainerList.isEmpty()) {
 			mainImage = imageContainerList.get(indexMainImage.get());
 		}
 		return mainImage;
@@ -43,7 +43,7 @@ public class PropertyImageInfo implements Serializable {
 	}
 
 	public AtomicInteger getIndexMainImage() {
-		if(indexMainImage == null){
+		if (indexMainImage == null) {
 			return new AtomicInteger(0);
 		}
 		return indexMainImage;

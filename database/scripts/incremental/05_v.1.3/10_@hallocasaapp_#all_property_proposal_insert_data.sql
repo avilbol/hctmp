@@ -1,2 +1,2 @@
-INSERT INTO hallocasaapp.property_proposal(id, name) VALUES (1, "{'en':'Buy','de':'Kaufen','es':'Comprar'}");
-INSERT INTO hallocasaapp.property_proposal(id, name) VALUES (2, "{'en':'Rent','de':'Miete','es':'Alquilar'}");
+INSERT INTO hallocasaapp.property_proposal(id, name) VALUES (1, "{'en':'Sell','de':'Verkaufen','es':'Vender'}");
+INSERT INTO hallocasaapp.property_proposal(id, name) VALUES (2, "{'en':'Rent','de':'Miete','es':'Arrendar'}");

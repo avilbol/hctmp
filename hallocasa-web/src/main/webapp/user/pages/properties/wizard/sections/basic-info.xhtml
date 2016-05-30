@@ -7,6 +7,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 
+
 	<div class="col-md-12 properties-basic-info">
 		<div class="col-md-12">
 			<p:fieldset legend="#{viewBundle['Profile.Data.Languages.Label']}"
@@ -22,9 +23,10 @@
 							itemValue="#{language}">
 						</f:selectItems>
 						<f:ajax
+							execute="@this"
 							listener="#{propertyWizardPage.processLanguagesSelectedChange}"
-							render="data-language-section main-language-section"
-							immediate="true" />
+							render="data-language-section main-language-section" />
+						<f:param name="validate" value="#{false}"/>
 					</p:selectManyCheckbox>
 				</h:panelGroup>
 			</p:fieldset>
@@ -50,7 +52,7 @@
 										label="Title ( #{lang.languageName} )"
 										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.title.langMap[lang]}"
 										styleClass="hc-input-text col-md-12 form-control">
-										<f:validateLength minimum="20" />
+										<f:validateLength minimum="20"/>
 									</h:inputText>
 								</span>
 							</div>
@@ -78,7 +80,7 @@
 										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.propertyDescription.langMap[lang]}"
 										maxlength="800" styleClass="hc-input-text-area form-control"
 										counterTemplate="{0} characters remaining." autoResize="false">
-										<f:validateLength minimum="20" />
+										<f:validateLength minimum="20"/>
 									</p:inputTextarea>
 								</span>
 							</div>
@@ -130,7 +132,10 @@
 							style="width:100%!important"
 							value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.mainLanguage}"
 							label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
-							converter="languageConverter">
+							converter="languageConverter"
+							required="true">
+							<f:selectItem
+								itemLabel="#{viewBundle['Common.Dropdown.SelectOne']}" />
 							<f:selectItems
 								value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
 								var="language" itemLabel="#{language.languageName}"
@@ -142,24 +147,30 @@
 
 			<div class="col-md-12">
 				<b> <h:outputLabel styleClass="hc-form-label" for="market-price"
-						label="Market price" value="Market price">
+						label="#{viewBundle['Property.wizard.basic.marketprice']}" 
+						value="#{viewBundle['Property.wizard.basic.marketprice']}">
 					</h:outputLabel>
-				</b> <span> <utils:currencyEditor  styleClass="form-control"
+				</b> <span> <utils:currencyEditor id="currency-editor"
+						styleClass="form-control"
 						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.marketPrice}"
 						converter="currencyConverter"
-						currencies="#{applicationContext.currencies}" 
+						label="#{viewBundle['Property.wizard.basic.marketprice']}" 
+						validatorMessage="#{viewBundle['Property.wizard.marketprice.nonnumber']}"
+						currencies="#{applicationContext.currencies}"
 						language="#{webSession.currentLanguage}"
-						defaultMessage="#{viewBundle['Properties.BasicInfo.SelectCurrency']}"/>
+						defaultMessage="#{viewBundle['Properties.BasicInfo.SelectCurrency']}" />
 				</span>
 			</div>
 
 			<div class="col-md-12">
 				<b> <h:outputLabel styleClass="hc-form-label"
-						for="square-meters-total" label="Square meters total"
-						value="Square meters total">
+						for="square-meters-total" label="#{viewBundle['PropertyBrowse.Property.squareMetersTotal']}"
+						value="#{viewBundle['PropertyBrowse.Property.squareMetersTotal']}">
 					</h:outputLabel>
 				</b> <span> <h:inputText id="square-meters-total"
 						styleClass="form-control"
+						converter="javax.faces.Double"
+						label="#{viewBundle['PropertyBrowse.Property.squareMetersTotal']}"
 						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.area}" />
 				</span>
 			</div>

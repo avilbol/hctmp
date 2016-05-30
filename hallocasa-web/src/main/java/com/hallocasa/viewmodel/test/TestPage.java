@@ -5,11 +5,6 @@
  */
 package com.hallocasa.viewmodel.test;
 
-import com.hallocasa.commons.vo.TelephoneVO;
-import com.hallocasa.dataentities.app.test.TestEntity;
-import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
-import com.hallocasa.services.messaging.local.MailServices;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +17,14 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+
+import com.hallocasa.commons.Language;
+import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.TelephoneVO;
+import com.hallocasa.dataentities.app.test.TestEntity;
+import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
+import com.hallocasa.services.messaging.local.MailServices;
+import com.hallocasa.view.utils.FormatUtils;
 
 /**
  *
@@ -41,6 +44,10 @@ public class TestPage {
     private String myAttr;
     
     private List<String> availableElements;
+    
+    private List<Language> languages;
+    
+    private MultiLanguageText title = new MultiLanguageText();
     
     private List<String> selectedElements;
     
@@ -63,6 +70,19 @@ public class TestPage {
     public void onAction(){
     	
     }
+    
+    /**
+	 * Process change on checkboxes of languages selected
+	 */
+	public void processLanguagesSelectedChange() {
+		if (this.getTitle() == null) {
+			setTitle(new MultiLanguageText());
+		}
+		for (Language lang : this.getLanguages()) {
+			if (FormatUtils.isEmptyValue(title.getLangValue(lang))) 
+				title.setLangValue(lang, "");
+		}
+	}
 
     public void sendTestEmail(ActionEvent event) {
         try {
@@ -115,4 +135,22 @@ public class TestPage {
 	public void setTelephoneAttr(TelephoneVO telephoneAttr) {
 		this.telephoneAttr = telephoneAttr;
 	}
+
+	public List<Language> getLanguages() {
+		return languages;
+	}
+
+	public void setLanguages(List<Language> languages) {
+		this.languages = languages;
+	}
+
+	public MultiLanguageText getTitle() {
+		return title;
+	}
+
+	public void setTitle(MultiLanguageText title) {
+		this.title = title;
+	}
+	
+	
 }

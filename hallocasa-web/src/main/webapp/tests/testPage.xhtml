@@ -19,19 +19,37 @@
 	<ui:define name="contentSection">
 		<div class="hc-content-body">
 			<div class="container">
-				<h:form styleClass="hc-form" enctype="multipart/form-data">
-					<p:selectManyCheckbox id="userTypes" label="Servicios"
-							value="#{profileEditPage.user.userTypes}"
-							styleClass="hc-selectManyChkbox" converter="userTypeConverter"
-							layout="responsive" columns="2">
-							<f:selectItems value="#{applicationContext.userTypes}"
-								var="userType"
-								itemLabel="#{userType.userTypeName.getText(webSession.currentLanguage)}"
-								itemValue="#{userType}">
-							</f:selectItems>
-							<p:ajax event="change" process="@this" update="@this" />
-						</p:selectManyCheckbox>
+				<h:form id="form" styleClass="hc-form" enctype="multipart/form-data">
+					<p:inputText required="#{not empty param[save.clientId]}" />
+					<p:inputText required="#{not empty param[save.clientId]}" />
+
+					<p:commandButton binding="#{save}" value="Save" />
+					<p:commandButton binding="#{cancel}" value="Save" />
+					<p:selectManyCheckbox id="propertyLanguages" label="Lenguajes"
+						value="#{testPage.languages}"
+						layout="responsive" required="true" converter="languageConverter"
+						columns="4">
+						<f:selectItems value="#{applicationContext.languages}"
+							var="language" itemLabel="#{language.languageName}"
+							itemValue="#{language}">
+						</f:selectItems>
+						<f:ajax
+							execute="@form"
+							listener="#{testPage.processLanguagesSelectedChange()}"
+							render="@form" />
+					</p:selectManyCheckbox>
+
+					<ui:repeat value="#{testPage.languages}" var="lang">
+						<h:inputText id="title-#{lang}" 
+							value="#{testPage.title.langMap[lang]}"       
+							label="Title ( #{lang.languageName} )">
+							<f:validateLength minimum="20"
+								disabled="#{empty param[save.clientId]}" />
+						</h:inputText>
+					</ui:repeat>
 				</h:form>
+
+
 			</div>
 		</div>
 	</ui:define>

@@ -8,7 +8,9 @@ package com.hallocasa.model.application;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -17,6 +19,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import com.hallocasa.commons.Language;
+import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.CurrencyVO;
@@ -24,6 +28,7 @@ import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.properties.PropertyLocationVO;
 import com.hallocasa.commons.vo.properties.PropertyProposalVO;
 import com.hallocasa.commons.vo.properties.PropertyTypeVO;
+import com.hallocasa.dataentities.app.City;
 import com.hallocasa.dataentities.app.Country;
 import com.hallocasa.dataentities.app.Currency;
 import com.hallocasa.dataentities.app.UserType;
@@ -69,6 +74,8 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 	private List<Language> languages;
 
 	private List<CountryVO> countries;
+	
+	private Map<Long, MultiLanguageText> cityMap;
 
 	private List<UserTypeVO> userTypes;
 
@@ -128,6 +135,14 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 				CurrencyVO.class);
 		countries = ParsersContext.COUNTRY_VO_PARSER.toValueObjectList(
 				rawCountries, CountryVO.class);
+
+		List<City> cities = appPersistenceServices.executeNamedQuery(
+				City.QUERY_FIND_ALL, null, City.class);
+		cityMap = new HashMap<>();
+		for(City city : cities){
+			cityMap.put(city.getId(), city.getCityName());
+		}
+		
 		List<UserType> rawUserTypes = appPersistenceServices.executeNamedQuery(
 				UserType.QUERY_FIND_ALL, null, UserType.class);
 		userTypes = ParsersContext.USER_TYPE_VO_PARSER.toValueObjectList(
@@ -254,5 +269,9 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 
 	public void setCurrencies(List<CurrencyVO> currencies) {
 		this.currencies = currencies;
+	}
+
+	public Map<Long, MultiLanguageText> getCityMap() {
+		return cityMap;
 	}
 }

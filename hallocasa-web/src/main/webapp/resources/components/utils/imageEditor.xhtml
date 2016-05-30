@@ -12,6 +12,9 @@
 		<cc:attribute name="imageUrl"
 			type="com.hallocasa.commons.vo.ImageContainer" required="true"
 			shortDescription="Image URL to edit" />
+		<cc:attribute name="defaultImageUrl"
+			type="java.lang.String" 
+			shortDescription="Default URL to show when imageUrl is set to null" />
 		<cc:attribute name="imageType" type="java.lang.String" default="image"
 			shortDescription="Image type as scheme to manage image files" />
 		<cc:attribute name="readOnly" type="java.lang.Boolean" default="false"
@@ -22,6 +25,8 @@
 			default="#{true}" />
 		<cc:attribute name="editLabel" type="java.lang.String"
 			default="#{viewBundle['Image.Edition.Upload']}" />
+		<cc:attribute name="styleClass" type="java.lang.String"
+			default="" shortDescription="styleClass for image" />
 		<cc:attribute name="update" type="java.lang.String"
 			default="image-editor-container" />
 		<cc:attribute name="aspectRatio" type="java.lang.String" default="0" />
@@ -35,7 +40,8 @@
 			</div>
 			<ui:fragment rendered="#{cc.attrs.showImage}">
 				<div class="hc-responsive-div col-md-12">
-					<h:graphicImage url="#{cc.attrs.imageUrl.url}" />
+					<h:graphicImage url="#{cc.imageToShow().getUrl()}"
+						styleClass="#{cc.attrs.styleClass}" />
 				</div>
 			</ui:fragment>
 			<p:dialog header="#{viewBundle['Image.Edition.Header']}"

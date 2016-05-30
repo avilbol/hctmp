@@ -92,9 +92,9 @@ public class UserServicesImpl extends ServicesBase implements UserServices {
 	@Override
 	public void save(UserVO userVO) throws ServiceException {
 		User user = ParsersContext.USER_VO_PARSER.toEntity(userVO, User.class);
-		if(userVO.getProperties() != null){
+		/*if(userVO.getProperties() != null){
 			buildProperties(userVO, user);
-		}
+		}*/
 		appPersistenceServices.mergeEntity(user);
 	}
 

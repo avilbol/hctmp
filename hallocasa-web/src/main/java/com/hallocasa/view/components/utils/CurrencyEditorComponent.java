@@ -48,8 +48,7 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer 
 	@Override
 	public void encodeBegin(FacesContext context) throws IOException {
 		if (currencyList == null) {
-			currencyList = (List<CurrencyVO>) getAttributes().get(
-					Attributes.currencies.name());
+			currencyList = (List<CurrencyVO>) getAttributes().get(Attributes.currencies.name());
 		}
 		CurrencyVOAmmount currencyVoAmmount = (CurrencyVOAmmount) getValue();
 		if (currencyVoAmmount != null) {
@@ -77,37 +76,30 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer 
 	public Object getSubmittedValue() {
 		String crncy = (String) currency.getSubmittedValue();
 		String crncyAmmount = (String) currencyAmmount.getSubmittedValue();
-		if (crncy != null && !crncy.trim().isEmpty()
-				&& !FormatUtils.isEmptyValue(crncyAmmount)) {
-			try{
-				CurrencyVO crcyVOObj = new CurrencyVO();
+		CurrencyVOAmmount cvoAmmount = new CurrencyVOAmmount();
+		if ((crncy != null && !crncy.trim().isEmpty() && FormatUtils.isNumeric(crncy))
+				|| !FormatUtils.isEmptyValue(crncyAmmount)) {
+			CurrencyVO crcyVOObj = new CurrencyVO();
+			
+			if(FormatUtils.isNumeric(crncy)){
 				crcyVOObj.setId(Integer.parseInt(crncy));
-				CurrencyVOAmmount cvoAmmount = new CurrencyVOAmmount();
 				cvoAmmount.setCurrency(crcyVOObj);
-				cvoAmmount.setValue(new BigDecimal(crncyAmmount));
-				return cvoAmmount;
-			} catch(NumberFormatException e){
-				return null;
 			}
-		} else {
-			CurrencyVOAmmount cvoAmmount = new CurrencyVOAmmount();
-			return cvoAmmount;
+			if(FormatUtils.isNumeric(crncyAmmount)){
+				cvoAmmount.setValue(new BigDecimal(crncyAmmount));
+			}
 		}
+		return cvoAmmount;
 	}
 
 	@Override
 	public Object getConvertedValue(FacesContext context, Object object) {
-		CurrencyVOAmmount cvoAmmount = (CurrencyVOAmmount) object;
-		if (cvoAmmount.getValue() == null) {
-			return null;
-		}
-		return object;
+		return (CurrencyVOAmmount) object;
 	}
 
-	public String currencyValue(CurrencyVO currency){
-		return currency.getAbbreviation() + " - " + currency.getName()
-				.getLangValue((Language)this.getAttributes()
-						.get(Attributes.language.name()));
+	public String currencyValue(CurrencyVO currency) {
+		return currency.getAbbreviation() + " - "
+				+ currency.getName().getLangValue((Language) this.getAttributes().get(Attributes.language.name()));
 	}
 
 	public List<CurrencyVO> getCurrencyList() {
