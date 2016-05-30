@@ -35,6 +35,9 @@ public class UserPropertyImageManager extends ImageManager {
 	@Override
 	public String buildUserImageFilename() throws IOException {
 		File sourceFile = new File(ApplicationFileUtils.getAbsoluteUrl(imageContainer.getUrl()));
+		if(sourceFile.getName().contains("propertyu")){
+			return "/"+ sourceFile.getName();
+		}
 		String mimeType = ApplicationFileUtils.getMimeType(sourceFile);
 		String ext = mimeType.equals("image/png") ? "png" : "jpg";
 		String userNumber = params[UserPropertyImageManagerParam.USER_ID.ordinal()];

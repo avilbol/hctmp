@@ -56,9 +56,6 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 	
 	@Override
 	public void encodeBegin(FacesContext context) throws IOException {
-		if (prefixList == null) {
-			prefixList = telephoneServices.getCountryPrefixList();
-		}
 		TelephoneVO tvo = (TelephoneVO) getValue();
 		if (tvo != null) {
 			countryTelephonePrefix.setValue(tvo.getCountryTelephonePrefix());
@@ -110,7 +107,7 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 	
 	public List<CountryTelephonePrefixVO> completeText(String query) {
 		List<CountryTelephonePrefixVO> results = new ArrayList<>();
-		for (CountryTelephonePrefixVO ctpVO : prefixList) {
+		for (CountryTelephonePrefixVO ctpVO : getPrefixList()) {
 			if (String.valueOf(ctpVO.getPrefix()).contains(query)) {
 				results.add(ctpVO);
 			}
@@ -126,6 +123,9 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 	}
 
 	public List<CountryTelephonePrefixVO> getPrefixList() {
+		if (prefixList == null) {
+			prefixList = telephoneServices.getCountryPrefixList();
+		}
 		return prefixList;
 	}
 

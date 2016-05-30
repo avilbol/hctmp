@@ -17,11 +17,15 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.TelephoneVO;
 import com.hallocasa.dataentities.app.test.TestEntity;
+import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.services.messaging.local.MailServices;
 import com.hallocasa.view.utils.FormatUtils;
@@ -51,8 +55,25 @@ public class TestPage {
     
     private List<String> selectedElements;
     
+    private CurrencyVO currency;
+    
+    private List<CurrencyVO> currencies;
+    
+    private CountryVO country;
+    
+    private List<CountryVO> countries;
+    
+    @Inject
+	private HallocasaApplicationImpl halloCasaApplication;
+    
     @PostConstruct
     public void init(){
+    	currency = new CurrencyVO();
+    	country = new CountryVO();
+    	country.setId(1l);
+    	countries=halloCasaApplication.getCountries();
+    	currencies= halloCasaApplication.getCurrencies();
+    	currency.setId(1);
     	testAttrList = new ArrayList<TestEntity>();
     	testAttrList.add(new TestEntity(1l, "hi"));
     	testAttrList.add(new TestEntity(2l, "hi2"));
@@ -150,6 +171,38 @@ public class TestPage {
 
 	public void setTitle(MultiLanguageText title) {
 		this.title = title;
+	}
+
+	public CurrencyVO getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyVO currency) {
+		this.currency = currency;
+	}
+
+	public List<CurrencyVO> getCurrencies() {
+		return currencies;
+	}
+
+	public void setCurrencies(List<CurrencyVO> currencies) {
+		this.currencies = currencies;
+	}
+
+	public CountryVO getCountry() {
+		return country;
+	}
+
+	public void setCountry(CountryVO country) {
+		this.country = country;
+	}
+
+	public List<CountryVO> getCountries() {
+		return countries;
+	}
+
+	public void setCountries(List<CountryVO> countries) {
+		this.countries = countries;
 	}
 	
 	

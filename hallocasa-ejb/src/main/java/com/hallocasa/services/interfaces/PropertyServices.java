@@ -45,5 +45,22 @@ public interface PropertyServices {
 	 * 		it will return it
 	 */
 	String generatePropertyId(String candidate);
+
+	/**
+	 * delete a property 
+	 * @param propertyVO
+	 * 		property to delete
+	 * @return
+	 * 		true if successful operation
+	 */
+	boolean delete(PropertyVO propertyVO);
+
+	/**
+	 * Find property filtering by its id
+	 * @param id
+	 * @return
+	 * 		The property with id provided, null if not founf
+	 */
+	PropertyVO findByPropertyId(String id);
 	
 }

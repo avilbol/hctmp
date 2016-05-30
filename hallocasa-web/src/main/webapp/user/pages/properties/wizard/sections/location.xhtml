@@ -16,11 +16,6 @@
 				<b><p:outputLabel styleClass="hc-form-label"
 						value="#{viewBundle['Profile.Data.State.Label']}" for="stateName" /></b>
 			</div>
-			<br></br> <br></br>
-			<div class="col-md-12">
-				<b><p:outputLabel styleClass="hc-form-label"
-						value="#{viewBundle['Profile.Data.City.Label']}" for="cityName" /></b>
-			</div>
 		</div>
 		<div class="col-md-6">
 			<div class="col-md-12">
@@ -41,6 +36,10 @@
 			</div>
 			<br></br> <br></br>
 			<div class="col-md-12">
+				<b><p:outputLabel styleClass="hc-form-label"
+						value="#{viewBundle['Profile.Data.City.Label']}" for="cityName" /></b>
+			</div>
+			<div class="col-md-12">
 				<h:selectOneMenu id="cityName"
 					styleClass="hc-form-field form-control"
 					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.city}"
@@ -60,10 +59,8 @@
 					value="#{viewBundle['Properties.google.Location']}" />
 			</h3>
 			<hr></hr>
-			<iframe
-				src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d15906.779481523417!2d-74.1646002!3d4.6484075!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2ses!4v1463447146757"
-				width="600" height="450" frameborder="0" style="border: 0"></iframe>
-
+			<div id="map"></div>
+			<h:outputScript rendered="#{propertyWizardPage}">initBasicMap(null, null)</h:outputScript>
 		</div>
 	</div>
 </ui:composition>

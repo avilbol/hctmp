@@ -66,16 +66,11 @@ public enum HallocasaViewEnum {
      */
     PASSWORD_RECOVERY_REQUEST(HallocasaViewNames.PASSWORD_RECOVERY_REQUEST,
             "", null, false, null),
-    /**
-     * Page for account information
-     */
-    MY_PROFILE(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/profile.xhtml",
-            ProfileReadPage.class, true, null, UseCaseEnum.SEE_MY_PROFILE),
     
     /**
-     * Page for account information
+     * Page for profile editing and view
      */
-    MY_PROFILE_TEMP(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/new-profile2.xhtml",
+    MY_PROFILE(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/profile.xhtml",
             ProfileReadPage.class, true, new ViewParamEnum[]{OPTION}, UseCaseEnum.SEE_MY_PROFILE),
     
     /**

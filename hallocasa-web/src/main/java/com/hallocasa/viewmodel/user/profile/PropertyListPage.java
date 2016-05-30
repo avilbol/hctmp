@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
@@ -14,17 +15,12 @@ import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.CurrencyVOAmmount;
-import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
-import com.hallocasa.dataentities.app.Currency;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
-import com.hallocasa.model.controlaccess.ForbiddenException;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.view.context.ViewContext;
-import com.hallocasa.view.navigation.HallocasaViewEnum;
-import com.hallocasa.view.navigation.NavigationHandler;
 
 @ManagedBean
 @ViewScoped
@@ -35,10 +31,8 @@ public class PropertyListPage {
 	 */
 	private static final long serialVersionUID = -6006649582382274792L;
 
-	/* instance variables */
-    private UserVO user;
 
-    private static String DEFAULT_URL_IMG = "/propertyimage/propertydefault.jpg";
+    private static String DEFAULT_URL_IMG = "/propertyimage/propertyudefault.jpg";
     
 
     @Inject
@@ -47,8 +41,6 @@ public class PropertyListPage {
     /* dependencies */
     @Inject
     private WebSession webSession;
-    @Inject
-    private NavigationHandler navigationHandler;
     @EJB
     private UserServices userServices;
     @EJB
@@ -56,8 +48,9 @@ public class PropertyListPage {
     @Inject
 	private HallocasaApplicationImpl halloCasaApplication;
     
-    
-    private List<PropertyVO> propertyList;
+    @ManagedProperty(value = "#{globalProfilePage}")
+	private GlobalProfilePage globalProfilePage;
+
 
     /**
      * Default constructor
@@ -69,7 +62,7 @@ public class PropertyListPage {
      */
     @PostConstruct
     public void initialize() {
-       propertyList = propertyServices.find(webSession.getCurrentUser());
+      
     }
     
     public String getCityName(Long cityId){
@@ -119,18 +112,23 @@ public class PropertyListPage {
     /**
      * Process click event over edit button
      */
-    public void onDeletePropertyClick(){
-        viewContext.showGlobalInfoMessage("Eliminado", "Eliminado correctamente");
+    public void onDeletePropertyClick(PropertyVO propertyVO){
+    	propertyServices.delete(propertyVO);
+    	initialize();
+        viewContext.showGlobalInfoMessage("Properties.Delete.Succesful", null);
     }
-	public List<PropertyVO> getPropertyList() {
-		return propertyList;
-	}
-	
-	public void setPropertyList(List<PropertyVO> propertyList) {
-		this.propertyList = propertyList;
-	}
 	
 	public String getDefaultImageUrl(){
 		return DEFAULT_URL_IMG;
+	}
+	
+	public List<PropertyVO> getPropertyList(){
+		return globalProfilePage.getPropertyVOList();
+	}
+	public GlobalProfilePage getGlobalProfilePage() {
+		return globalProfilePage;
+	}
+	public void setGlobalProfilePage(GlobalProfilePage globalProfilePage) {
+		this.globalProfilePage = globalProfilePage;
 	}
 }

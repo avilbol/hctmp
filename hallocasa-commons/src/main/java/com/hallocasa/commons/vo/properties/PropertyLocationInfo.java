@@ -55,4 +55,19 @@ public class PropertyLocationInfo implements Serializable {
 		this.address = address;
 	}
 
+	public Coordinate getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Coordinate longitude) {
+		this.longitude = longitude;
+	}
+
+	public Coordinate getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Coordinate latitude) {
+		this.latitude = latitude;
+	}
 }

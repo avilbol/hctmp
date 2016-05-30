@@ -11,6 +11,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 

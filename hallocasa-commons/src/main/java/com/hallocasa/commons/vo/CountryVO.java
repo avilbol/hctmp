@@ -29,7 +29,7 @@ public class CountryVO implements Serializable, ValueObject {
     private Language defaultLanguage;
     private String code;
     private String countryIndicative;
-
+    
     /**
      * Constructor
      */

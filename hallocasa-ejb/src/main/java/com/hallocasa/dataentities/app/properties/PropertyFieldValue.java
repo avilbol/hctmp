@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -15,7 +17,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "property_field_value")
+@NamedQueries({
+		@NamedQuery(name = PropertyFieldValue.QUERY_DELETE_BY_PROPERTY_ID, 
+				query = "delete from PropertyFieldValue pfv where pfv.property = ?1")})
 public class PropertyFieldValue {
+
+	/**
+	 * Query that delete property register from the value data (table
+	 * property_field_value), filtering by its property id
+	 */
+	public static final String QUERY_DELETE_BY_PROPERTY_ID = "PropertyFieldValue.deleteByPropertyId";
 
 	@EmbeddedId
 	private PropertyFieldValuePK propertyFieldValuePK;
@@ -29,12 +40,11 @@ public class PropertyFieldValue {
 	@JoinColumn(name = "property_id", referencedColumnName = "property_id")
 	@ManyToOne
 	private Property property;
-	
+
 	@Column(name = "property_value")
 	private String value;
 
-	public static PropertyFieldValue loadInstance(String propertyId, 
-			Integer propertyFieldId, String value){
+	public static PropertyFieldValue loadInstance(String propertyId, Integer propertyFieldId, String value) {
 		PropertyFieldValue pfv = new PropertyFieldValue();
 		pfv.setProperty(new Property());
 		pfv.getProperty().setId(propertyId);
@@ -67,8 +77,7 @@ public class PropertyFieldValue {
 		return propertyFieldValuePK;
 	}
 
-	public void setPropertyFieldValuePK(
-			PropertyFieldValuePK propertyFieldValuePK) {
+	public void setPropertyFieldValuePK(PropertyFieldValuePK propertyFieldValuePK) {
 		this.propertyFieldValuePK = propertyFieldValuePK;
 	}
 

@@ -15,6 +15,7 @@ import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.dataentities.app.User;
 import com.hallocasa.dataentities.app.properties.Property;
+import com.hallocasa.dataentities.app.properties.PropertyFieldValue;
 import com.hallocasa.helpers.ParsersContext;
 import com.hallocasa.helpers.PropertyVOParser;
 import com.hallocasa.helpers.UserVOParser;
@@ -37,7 +38,7 @@ public class PropertyServicesImpl implements PropertyServices {
 	private AppPersistenceServices appPersistenceServices;
 
 	private UserVOParser userVOParser = ParsersContext.USER_VO_PARSER;
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -48,6 +49,33 @@ public class PropertyServicesImpl implements PropertyServices {
 				new Object[] { user }, Property.class);
 		return PropertyVOParser.getInstance().toValueObject(entityList);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public PropertyVO findByPropertyId(String id) {
+		List<Property> entityList = appPersistenceServices.executeNamedQuery(Property.QUERY_FIND_BY_ID,
+				new Object[] { id }, Property.class);
+		List<PropertyVO> voList = PropertyVOParser.getInstance().toValueObject(entityList);
+		if(voList != null && !voList.isEmpty()){
+			return voList.get(0);
+		}
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean delete(PropertyVO propertyVO) {
+		Property property = new Property();
+		property.setId(propertyVO.getId());
+		Object[] params = new Object[] { property };
+		appPersistenceServices.executeNamedQuery(Property.QUERY_DELETE_BY_ID, new Object[] { property.getId() });
+		appPersistenceServices.executeNamedQuery(PropertyFieldValue.QUERY_DELETE_BY_PROPERTY_ID, params);
+		return true;
+	}
 
 	@Override
 	public void add(PropertyVO propertyVO) {
@@ -57,7 +85,7 @@ public class PropertyServicesImpl implements PropertyServices {
 		property.setUser(user);
 		appPersistenceServices.mergeEntity(property);
 	}
-	
+
 	@Override
 	public void save(PropertyVO propertyVO) {
 		User user = userVOParser.toEntity(propertyVO.getUser(), User.class);
@@ -65,27 +93,27 @@ public class PropertyServicesImpl implements PropertyServices {
 		property.setUser(user);
 		appPersistenceServices.mergeEntity(property);
 	}
-	
+
 	@Override
-	public String generatePropertyId(){
+	public String generatePropertyId() {
 		return generatePropertyId(null);
 	}
-	
+
 	/**
 	 * Method to generate a unique random property Id
+	 * 
 	 * @return
 	 */
 	@Override
-	public String generatePropertyId(String candidate){
+	public String generatePropertyId(String candidate) {
 		Integer ocur;
 		String idCandidate = "";
-		do{
+		do {
 			idCandidate = (candidate == null ? FormatUtils.randomStrId() : candidate);
 			HashMap<String, Object> paramMap = new HashMap<>();
 			paramMap.put("1", idCandidate);
-			ocur = appPersistenceServices.executeQuery(
-					Property.QUERY_FIND_COUNT_BY_ID, paramMap, Integer.class, 1);
-		} while(ocur != null);
+			ocur = appPersistenceServices.executeQuery(Property.QUERY_FIND_COUNT_BY_ID, paramMap, Integer.class, 1);
+		} while (ocur != null);
 		return idCandidate;
 	}
 

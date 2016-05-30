@@ -102,6 +102,11 @@ public class GlobalProfilePage implements Serializable {
     private WebSession webSession;
 
 	/**
+	 * Flag for indicate that editor for wizard property is initialized
+	 */
+	private boolean initializedEditor;
+	
+	/**
 	 * Option used in query string
 	 */
 	private static final String QUERY_STRING_OPTION = "option";
@@ -211,6 +216,7 @@ public class GlobalProfilePage implements Serializable {
 	}
 
 	public void goToCreateProperty() {
+		initializedEditor = false;
 		selectedOption = MenuOption.PROPERTIES;
 		propertyTabMode = PropertyTabMode.CREATE;
 		propertyInEdition = new PropertyVO();
@@ -218,9 +224,10 @@ public class GlobalProfilePage implements Serializable {
 	}
 	
 	public void goToEditProperty(PropertyVO vo) {
+		initializedEditor = false;
 		selectedOption = MenuOption.PROPERTIES;
 		propertyTabMode = PropertyTabMode.EDIT;
-		propertyInEdition = new PropertyVO(); // TODO : replace for vo
+		propertyInEdition = propertyServices.findByPropertyId(vo.getId());
 		propertyInEdition.setUser(user);
 	}
 	
@@ -232,6 +239,10 @@ public class GlobalProfilePage implements Serializable {
 	public void goToEditView() {
 		selectedOption = MenuOption.PROPERTIES;
 		profileTabMode = ProfileTabMode.VIEW;
+	}
+	
+	public void initializeEditor(){
+		initializedEditor = true;
 	}
 
 	/**
@@ -268,7 +279,7 @@ public class GlobalProfilePage implements Serializable {
 	public String getUrlPage(String value) {
 		HashMap<ViewParamEnum, String> params = new HashMap<>();
 		params.put(ViewParamEnum.OPTION, value);
-		return navigationHandler.buildAbsoluteUrl(HallocasaViewEnum.MY_PROFILE_TEMP, params);
+		return navigationHandler.buildAbsoluteUrl(HallocasaViewEnum.MY_PROFILE, params);
 	}
 
 	public UserVO getUser() {
@@ -293,5 +304,13 @@ public class GlobalProfilePage implements Serializable {
 
 	public void setPropertyVOList(List<PropertyVO> propertyVOList) {
 		this.propertyVOList = propertyVOList;
+	}
+
+	public boolean isInitializedEditor() {
+		return initializedEditor;
+	}
+
+	public void setInitializedEditor(boolean initializedEditor) {
+		this.initializedEditor = initializedEditor;
 	}
 }

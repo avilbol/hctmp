@@ -28,6 +28,10 @@ import com.hallocasa.dataentities.app.User;
 @NamedQueries({
    @NamedQuery(name = Property.QUERY_FIND_BY_USER_ID,
            query = "select p from Property p where p.user = ?1"),
+   @NamedQuery(name = Property.QUERY_FIND_BY_ID,
+	   query = "select p from Property p where p.id = ?1"),
+   @NamedQuery(name = Property.QUERY_DELETE_BY_ID,
+   		   query = "delete from Property p where p.id = ?1"),
    @NamedQuery(name = Property.QUERY_FIND_BASIC_BY_USER_ID,
            query = "select p from Property p JOIN PropertyFieldValue pfv JOIN PropertyField pf where pf.basic = 1 AND p.user=?1")
 })
@@ -85,6 +89,16 @@ public class Property implements Serializable, HallocasaEntity {
 	 */
 	public static final String QUERY_FIND_BASIC_BY_USER_ID = "Property.findBasicByUserId";
 
+	/**
+	 * Query that find property register filtering by its id
+	 */
+	public static final String QUERY_FIND_BY_ID = "Property.findById";
+	
+	/**
+	 * Query that delete property register from the main data (table property), filtering by its id
+	 */
+	public static final String QUERY_DELETE_BY_ID = "Property.deleteById";
+	
 	public String getId() {
 		return id;
 	}

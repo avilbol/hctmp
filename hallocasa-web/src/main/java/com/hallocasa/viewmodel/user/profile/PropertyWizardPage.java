@@ -68,6 +68,21 @@ public class PropertyWizardPage implements Serializable {
 	private ViewContext viewContext;
 
 	/**
+	 * Property to indicate that google maps componente must be start in default coordinates
+	 */
+	private boolean initMapInDefaultCity;
+	
+	/**
+	 * Property to indicate that google maps componente must be start in city selected coordinates
+	 */
+	private boolean initMapInLayoutCity;
+	
+	/**
+	 * Property to indicate that google maps componente must be start in city selected coordinates
+	 */
+	private boolean initMapInMarker;
+	
+	/**
 	 * Country services
 	 */
 	@EJB
@@ -124,14 +139,18 @@ public class PropertyWizardPage implements Serializable {
 	 */
 	@PostConstruct
 	public void initialize() {
+		this.getGlobalProfilePage().initializeEditor();
 		PropertyTabMode mode = globalProfilePage.getPropertyTabMode();
 		if (mode.equals(PropertyTabMode.CREATE)) {
 			wizardPhase = PropertyWizardPhase.INIT;
 			wizardCreation = true;
 		}
 		if (mode.equals(PropertyTabMode.EDIT)) {
-			wizardPhase = PropertyWizardPhase.EDITION;
 			wizardCreation = false;
+			wizardPhase = PropertyWizardPhase.EDITION;
+			processCountrySelect();
+			cities = countryServices.getCities(getPropertyInEdition()
+					.getPropertyLocationInfo().getState().getId());
 		}
 		if (this.getPropertyInEdition().getId() == null) {
 			this.setPropertyPotentialId(propertyServices.generatePropertyId());
@@ -141,18 +160,37 @@ public class PropertyWizardPage implements Serializable {
 		Integer counter = 0;
 		ImageContainer urlMainImage = getPropertyInEdition().getPropertyImageInfo().getMainImage();
 		for (ImageContainer imageContainer : getPropertyInEdition().getPropertyImageInfo().getImageContainerList()) {
-			if (urlMainImage.equals(imageContainer.getUrl())) {
+			if (urlMainImage.getUrl().equals(imageContainer.getUrl())) {
 				indexMainImage = counter;
 			} else {
 				counter++;
 			}
 		}
 		getPropertyInEdition().getPropertyImageInfo().setIndexMainImage(new AtomicInteger(indexMainImage));
+		evaluateGoogleMapsInit();
+	}
+
+	private void evaluateGoogleMapsInit() {
+		initMapInMarker = false;
+		initMapInDefaultCity = false;
+		initMapInLayoutCity = false;
+		if(getPropertyInEdition().getPropertyLocationInfo().getLatitude() != null
+				&& getPropertyInEdition().getPropertyLocationInfo().getLongitude() != null){
+			initMapInMarker = true;
+		}
+		else if(getPropertyInEdition().getPropertyLocationInfo().getCity() != null
+				&& getPropertyInEdition().getPropertyLocationInfo().getCity().getLatCoordinate() != null
+				&& getPropertyInEdition().getPropertyLocationInfo().getCity().getLngCoordinate() != null){
+			initMapInLayoutCity = true;
+		}
+		else{
+			initMapInDefaultCity = true;
+		}
 	}
 
 	public void saveProperty() {
 		PropertyVO pvo = getPropertyInEdition();
-		if(!validateSpecificData(pvo)){
+		if (!validateSpecificData(pvo)) {
 			return;
 		}
 		String successfulMessage = null;
@@ -186,7 +224,7 @@ public class PropertyWizardPage implements Serializable {
 			viewContext.showGlobalErrorMessage("Common.UnexpectedError.Message", null);
 		}
 		viewContext.showGlobalInfoMessage(successfulMessage, null);
-		exit();
+		refreshAndExit();
 	}
 
 	private boolean validateSpecificData(PropertyVO pvo) {
@@ -203,6 +241,11 @@ public class PropertyWizardPage implements Serializable {
 	}
 
 	public void exit() {
+		globalProfilePage.onPropertiesMenuSelect();
+	}
+	
+	public void refreshAndExit() {
+		globalProfilePage.refreshProperties();
 		globalProfilePage.onPropertiesMenuSelect();
 	}
 
@@ -238,8 +281,10 @@ public class PropertyWizardPage implements Serializable {
 	 */
 	public void processCountrySelect() {
 		cities = new ArrayList<>();
-		this.getPropertyInEdition().getPropertyLocationInfo().setCity(null);
-		this.getPropertyInEdition().getPropertyLocationInfo().setState(null);
+		if (wizardCreation) {
+			this.getPropertyInEdition().getPropertyLocationInfo().setCity(null);
+			this.getPropertyInEdition().getPropertyLocationInfo().setState(null);
+		}
 		if (this.getPropertyInEdition().getCountry() != null)
 			states = countryServices.getStates(this.getPropertyInEdition().getCountry().getId());
 		else
@@ -314,6 +359,9 @@ public class PropertyWizardPage implements Serializable {
 	}
 
 	public PropertyVO getPropertyInEdition() {
+		if(!this.getGlobalProfilePage().isInitializedEditor()){
+			initialize();
+		}
 		return this.getGlobalProfilePage().getPropertyInEdition();
 	}
 
@@ -349,4 +397,27 @@ public class PropertyWizardPage implements Serializable {
 		this.imageList = imageList;
 	}
 
+	public boolean isInitMapInDefaultCity() {
+		return initMapInDefaultCity;
+	}
+
+	public void setInitMapInDefaultCity(boolean initMapInDefaultCity) {
+		this.initMapInDefaultCity = initMapInDefaultCity;
+	}
+
+	public boolean isInitMapInLayoutCity() {
+		return initMapInLayoutCity;
+	}
+
+	public void setInitMapInLayoutCity(boolean initMapInLayoutCity) {
+		this.initMapInLayoutCity = initMapInLayoutCity;
+	}
+
+	public boolean isInitMapInMarker() {
+		return initMapInMarker;
+	}
+
+	public void setInitMapInMarker(boolean initMapInMarker) {
+		this.initMapInMarker = initMapInMarker;
+	}
 }

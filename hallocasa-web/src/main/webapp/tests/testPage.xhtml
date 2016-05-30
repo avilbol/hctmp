@@ -20,28 +20,45 @@
 		<div class="hc-content-body">
 			<div class="container">
 				<h:form id="form" styleClass="hc-form" enctype="multipart/form-data">
+
+					<h:selectOneMenu id="currency"
+						styleClass="hc-form-field form-control"
+						style="width: 100%!important;" value="#{testPage.currency}"
+						converter="currencyConverter">
+						<f:selectItem itemLabel="#{cc.attrs.defaultMessage}" />
+						<f:selectItems value="#{testPage.currencies}" var="currency"
+							itemLabel="#{currency.abbreviation}" itemValue="#{currency}" />
+					</h:selectOneMenu>
+
+					<h:selectOneMenu id="country"
+						styleClass="hc-form-field form-control"
+						style="width: 100%!important;" value="#{testPage.country}"
+						converter="countryConverter">
+						<f:selectItem itemLabel="#{cc.attrs.defaultMessage}" />
+						<f:selectItems value="#{testPage.countries}" var="country"
+							itemLabel="#{country.countryName}" itemValue="#{country}" />
+					</h:selectOneMenu>
+					
 					<p:inputText required="#{not empty param[save.clientId]}" />
 					<p:inputText required="#{not empty param[save.clientId]}" />
 
 					<p:commandButton binding="#{save}" value="Save" />
 					<p:commandButton binding="#{cancel}" value="Save" />
 					<p:selectManyCheckbox id="propertyLanguages" label="Lenguajes"
-						value="#{testPage.languages}"
-						layout="responsive" required="true" converter="languageConverter"
-						columns="4">
+						value="#{testPage.languages}" layout="responsive" required="true"
+						converter="languageConverter" columns="4">
 						<f:selectItems value="#{applicationContext.languages}"
 							var="language" itemLabel="#{language.languageName}"
 							itemValue="#{language}">
 						</f:selectItems>
-						<f:ajax
-							execute="@form"
+						<f:ajax execute="@form"
 							listener="#{testPage.processLanguagesSelectedChange()}"
 							render="@form" />
 					</p:selectManyCheckbox>
 
 					<ui:repeat value="#{testPage.languages}" var="lang">
-						<h:inputText id="title-#{lang}" 
-							value="#{testPage.title.langMap[lang]}"       
+						<h:inputText id="title-#{lang}"
+							value="#{testPage.title.langMap[lang]}"
 							label="Title ( #{lang.languageName} )">
 							<f:validateLength minimum="20"
 								disabled="#{empty param[save.clientId]}" />
