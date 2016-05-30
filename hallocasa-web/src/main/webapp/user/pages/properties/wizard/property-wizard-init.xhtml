@@ -8,42 +8,21 @@
 
 
 
-	<div class="col-md-9 col-md-offset-3">
+	<div class="col-md-6 col-md-offset-4">
 		<div class="col-md-12">
 			<div class="col-md-9">
 				<p:messages id="messages" showDetail="false" autoUpdate="true"
 					closable="true" styleClass="label-property wrong-btn" />
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-12">
 			<br> </br>
 			<div class="col-md-12">
 				<h:outputLabel id="countryLabel" for="country"
 					value="#{viewBundle['Profile.Data.propertie.Country.Label']}"
 					styleClass="label-property" />
 			</div>
-			<br> </br>
-			<div class="col-md-12">
-				<h:outputLabel id="propertyTypeLabel" for="propertyType"
-					value="#{viewBundle['Profile.Data.propertype.Label']}"
-					styleClass="label-property" />
-			</div>
-			<br> </br>
-			<div class="col-md-12">
-				<h:outputLabel id="propertyLocationLabel" for="propertyLocation"
-					value="#{viewBundle['Profile.Data.location.Label']}"
-					styleClass="label-property" />
-			</div>
-			<br> </br>
-			<div class="col-md-12">
-				<h:outputLabel id="propertyProposalLabel" for="propertyProposal"
-					value="#{viewBundle['Profile.Data.buy.rent.Label']}"
-					styleClass="label-property" />
-			</div>
-		</div>
-		<!-- select drop -->
-		<div class="col-md-6">
-			<br> </br>
+			
 			<div class="col-md-12">
 				<h:selectOneMenu id="country"
 					styleClass="hc-form-field form-control" required="true"
@@ -63,6 +42,11 @@
 			</div>
 			<br> </br>
 			<div class="col-md-12">
+				<h:outputLabel id="propertyTypeLabel" for="propertyType"
+					value="#{viewBundle['Profile.Data.propertype.Label']}"
+					styleClass="label-property" />
+			</div>
+			<div class="col-md-12">
 				<h:selectOneMenu id="propertyType"
 					styleClass="hc-form-field form-control" required="true"
 					label="Property type"
@@ -76,6 +60,11 @@
 				</h:selectOneMenu>
 			</div>
 			<br> </br>
+			<div class="col-md-12">
+				<h:outputLabel id="propertyLocationLabel" for="propertyLocation"
+					value="#{viewBundle['Profile.Data.location.Label']}"
+					styleClass="label-property" />
+			</div>
 			<div class="col-md-12">
 				<h:selectOneMenu id="propertyLocation"
 					styleClass="hc-form-field form-control" required="true"
@@ -91,6 +80,11 @@
 			</div>
 			<br> </br>
 			<div class="col-md-12">
+				<h:outputLabel id="propertyProposalLabel" for="propertyProposal"
+					value="#{viewBundle['Profile.Data.buy.rent.Label']}"
+					styleClass="label-property" />
+			</div>
+			<div class="col-md-12">
 				<h:selectOneMenu id="propertyProposal" label="Buy / Rent"
 					styleClass="hc-form-field form-control" required="true"
 					value="#{propertyWizardPage.propertyInEdition.propertyProposal}"
@@ -102,6 +96,8 @@
 						itemValue="#{propertyProposal}" />
 				</h:selectOneMenu>
 			</div>
+		</div>
+			<!-- - btns create and delete -->
 			<div class="col-md-6 btn-cancel">
 				<h:commandButton
 					value="#{viewBundle['Properties.wizard.next.label']}"
@@ -120,6 +116,5 @@
 					<f:ajax execute="@form" render="@form" />
 				</h:commandButton>
 			</div>
-		</div>
 	</div>
 </ui:composition>

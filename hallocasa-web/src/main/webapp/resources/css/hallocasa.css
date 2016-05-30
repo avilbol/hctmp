@@ -444,12 +444,12 @@
 
 .hc-image-selected {
 	border: 10px solid #1D5D8D;
-	margin: 0 0 0 10px;
+	width: 100%;
 }
 
 .hc-image-unselected {
-	width: 179px;
-	height: 178px;
+	width: 100%;
+	height: 153px;
 	margin-top: 1px !important;
 	margin-right: 0px !important;
 }
@@ -459,8 +459,8 @@
 }
 
 .hc-image-selected img.hc-image-properties {
-	width: 168px;
-	height: 159px;
+	width: 249px;
+	height: 153px;
 }
 
 .hc-image-unselected img.hc-image-properties {
@@ -472,7 +472,7 @@
 	position: absolute;
 	top: -8px;
 	z-index: 1;
-	left: 163px;
+	left: 237px;
 	width: 16px;
 	height: 16px;
 	background-image:
@@ -501,4 +501,8 @@
 .hc-container-properties {
 	height: 400px;
 	overflow: auto;
+}
+
+.hc-col-md-offset-save {
+	margin-left: 28.333333%;
 }
