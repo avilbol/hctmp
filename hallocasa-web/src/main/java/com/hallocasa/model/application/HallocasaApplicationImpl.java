@@ -6,6 +6,7 @@
 package com.hallocasa.model.application;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -76,7 +77,11 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 	private List<CountryVO> countries;
 	
 	private Map<Long, MultiLanguageText> cityMap;
+	
+	private Map<Long, BigDecimal> cityLatMap;
 
+	private Map<Long, BigDecimal> cityLngMap;
+	
 	private List<UserTypeVO> userTypes;
 
 	private List<PropertyTypeVO> propertyTypes;
@@ -139,8 +144,12 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 		List<City> cities = appPersistenceServices.executeNamedQuery(
 				City.QUERY_FIND_ALL, null, City.class);
 		cityMap = new HashMap<>();
+		cityLatMap = new HashMap<>();
+		cityLngMap = new HashMap<>();
 		for(City city : cities){
 			cityMap.put(city.getId(), city.getCityName());
+			cityLatMap.put(city.getId(), city.getDefaultLatCoordinate());
+			cityLngMap.put(city.getId(), city.getDefaultLngCoordinate());
 		}
 		
 		List<UserType> rawUserTypes = appPersistenceServices.executeNamedQuery(
@@ -273,5 +282,13 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 
 	public Map<Long, MultiLanguageText> getCityMap() {
 		return cityMap;
+	}
+
+	public Map<Long, BigDecimal> getCityLatMap() {
+		return cityLatMap;
+	}
+
+	public Map<Long, BigDecimal> getCityLngMap() {
+		return cityLngMap;
 	}
 }
