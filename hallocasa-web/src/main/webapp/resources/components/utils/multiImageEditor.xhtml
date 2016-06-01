@@ -47,8 +47,7 @@
 					<div class="hc-container-properties force-overflow">
 						<ui:repeat value="#{cc.imageContainerList}" var="imageItem"
 							varStatus="vstatus" id="imageItemsList">
-							<div
-								class="col-md-3 #{cc.isMainImage(vstatus.index) ? 'hc-image-selected' : 'pic hc-image-unselected'}">
+							<div class="#{cc.isMainImage(vstatus.index) ? 'hc-image-selected' : 'pic hc-image-unselected'}">
 								<span class="hc-close ui-icon-closethick"
 									onclick="deleteImage(#{vstatus.index})"></span>
 								<h:graphicImage value="#{imageItem.url}"
@@ -61,13 +60,13 @@
 									</p>
 									<button class="btn btn-primary"
 										onclick="selectImage(#{vstatus.index})"
-										value="#{viewBundle['Properties.multi.image.button']}">Principal</button>
+										value="#{viewBundle['Properties.multi.image.button']}"><span class="hc-form-label">#{viewBundle['Properties.multi.image.button']}</span></button>
 								</span>
 							</div>
 							<div id="property-image-delete-#{vstatus.index}"
 								style="display: none">
 								<h:commandButton immediate="true"
-									onclick="if(!confirm('Are you sure?')){return false}"
+									onclick="if(!confirm('#{viewBundle['Properties.multi.image.question']}')){return false}"
 									id="property-delete-button">
 									<f:ajax execute="@this"
 										listener="#{cc.onDeleteImage(vstatus.index)}"

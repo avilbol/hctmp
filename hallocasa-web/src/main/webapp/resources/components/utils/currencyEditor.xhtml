@@ -25,19 +25,35 @@
 	</cc:interface>
 	<cc:implementation>
 		<p>
-			<h:inputText id="currencyValue"
+		<script>
+		function format(input)
+		{
+		var num = input.value.replace(/\./g,'');
+		if(!isNaN(num)){
+		num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{})/g,'$1.');
+		num = num.split('').reverse().join('').replace(/^[\.]/,'');
+		input.value = num;
+		}
+		 
+		else{ 
+		input.value = input.value.replace(/[^\d\.]*/g,'');
+		}
+		}
+		
+		</script>
+			<input type="text" onkeyup="format(this)" onchange="format(this)" />
+			<h:inputHidden id="currencyValue"
 				styleClass="hc-form-field form-control"
 				binding="#{cc.currencyAmmount}"
 				label="#{cc.attrs.label}"
-				converter="javax.faces.Double">
+				converter="javax.faces.Double" >
 				<f:convertNumber pattern="0"/>
-			</h:inputText>
+			</h:inputHidden>
 		</p>
 		<br></br>
-		<p>
+		<p style="position: absolute;">
 			<h:selectOneMenu id="currency"
-				styleClass="hc-form-field form-control"
-				style="width: 100%!important;" 
+				styleClass="hc-form-field form-control hc-select-property-basic-info"
 				binding="#{cc.currency}"
 				converter="currencyConverter">
 				<f:selectItem itemLabel="#{cc.attrs.defaultMessage}" value="#{null}"/>

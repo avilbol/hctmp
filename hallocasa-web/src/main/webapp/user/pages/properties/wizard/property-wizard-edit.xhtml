@@ -66,30 +66,33 @@
 
 	</div>
 	<div class="col-md-12">
-		<div class="col-md-1 hc-col-md-offset-save">
-			<h:commandButton value="#{viewBundle['property.wizard.save']}"
-				id="save-property" action="#{propertyWizardPage.saveProperty}"
-				styleClass="btn btn-primary col-md-btn-save">
-				<f:ajax execute="@form" render="@form" />
-			</h:commandButton>
-		</div>
-		<div class="col-md-4">
-			<h:commandButton
-				value="#{viewBundle['Properties.wizard.back.label']}"
-				action="#{propertyWizardPage.goToInitZone()}" immediate="true"
-				styleClass="btn btn-primary col-md-btn-back" rendered="#{wizardCreation}">
-				<f:ajax execute="@this"
-					render=":hc-profile-form:container-property-element" />
-			</h:commandButton>
-		</div>
-		<div class="col-md-1 btn-cancel">
-			<h:commandButton
-				value="#{viewBundle['Properties.wizard.cancel.label']}"
-				onclick="if(!confirm('Perdera todos sus cambios con esta operación. ¿Está seguro?')) return false"
-				action="#{propertyWizardPage.exit}" immediate="true"
-				styleClass="btn btn-primary">
-				<f:ajax execute="@form" render="@form" />
-			</h:commandButton>
+		<div class="col-md-9  hc-col-md-offset-save">
+			<div class="col-md-2 btn-back">
+				<h:commandButton
+					value="#{viewBundle['Properties.wizard.back.label']}"
+					action="#{propertyWizardPage.goToInitZone()}" immediate="true"
+					styleClass="btn btn-primary col-md-9 col-md-btn-back"
+					rendered="#{wizardCreation}">
+					<f:ajax execute="@this"
+						render=":hc-profile-form:container-property-element" />
+				</h:commandButton>
+			</div>
+			<div class="col-md-2 btn-cancel">
+				<h:commandButton
+					value="#{viewBundle['Properties.wizard.cancel.label']}"
+					onclick="if(!confirm('Perdera todos sus cambios con esta operación. ¿Está seguro?')) return false"
+					action="#{propertyWizardPage.exit}" immediate="true"
+					styleClass="btn btn-primary col-md-9 col-md-btn-cancel">
+					<f:ajax execute="@form" render="@form" />
+				</h:commandButton>
+			</div>
+			<div class="col-md-2 btn-save">
+				<h:commandButton value="#{viewBundle['property.wizard.save']}"
+					id="save-property" action="#{propertyWizardPage.saveProperty}"
+					styleClass="btn btn-primary col-md-9 col-md-btn-save">
+					<f:ajax execute="@form" render="@form" />
+				</h:commandButton>
+			</div>
 		</div>
 	</div>
 </ui:composition>

@@ -98,10 +98,14 @@
 		z-index: 1000;
 	}
 	#top-submenu-strip {
-		margin-top: -420px;
+		margin-top: 6px;
+		height: 50px;
 	}
 	.collapse {
 		display: block !important;
+	}
+	div#bs-example-navbar-collapse-1 {
+		margin-top: 0px !important;
 	}
 	.top-strip {
 		height: 57px;
@@ -112,6 +116,7 @@
 	.menu-row {
 		float: left;
 		width: 100%;
+		height: 50px;
 	}
 	.btn-default-ini {
 		padding: 0px 0px !important;
@@ -200,7 +205,15 @@
 	
 	
 	
+	
+	
+	
+	
 	.topnavli
+	
+	
+	
+	
 	
 	
 	
@@ -223,7 +236,11 @@
 	
 	
 	
+	
+	
 	 
+	
+	
 	
 	
 	
@@ -240,7 +257,11 @@
 	
 	
 	
+	
+	
 	 
+	
+	
 	
 	
 	
@@ -264,7 +285,13 @@
 	
 	
 	
+	
+	
+	
+	
 	:
+	
+	
 	
 	
 	
@@ -280,7 +307,13 @@
 	
 	
 	
+	
+	
 	none
+	
+	
+	
+	
 	
 	
 	
@@ -440,101 +473,94 @@ span.menu-link {
 		width: 10% !important;
 	}
 	br.top-submenu-strip {
-	display : none;
-		
+		display: none;
 	}
 	.col-md-2.col-md-offset-1 input.col-md-12 {
-    margin-top: 153px;
-    margin-left: 99px;
-}
+		margin-top: 153px;
+		margin-left: 99px;
+	}
 	.land-page-background {
 		height: 19%;
 	}
-.hc-image-unselected span.hc-close {
-    left: 255px;
-    width: 18px;
-    height: 18px;
-}
-.content-properties-basicinfo{
-	width: 100%;
-}
-.content-properties-basicinfo{
-	width: 100%!important;
-}
-.content-properties-basicinfo-btns{
-	  display: flex;
-	  width:100%!important;    
-	  margin-top: 70px;
-}
-.content-properties-location{
-width: 66.66666667%; 
-}
-.hc-col-md-offset-save {
-    margin-left: 0;
-}
-.col-md-btn-save{width: 100%;}
-.col-md-btn-back{width: 100%;}
-.hc-image-selected {
-    width: 79%;
-}
-
-    
-  .hc-image-unselected {
-    margin-top: 21px !important;
-    margin-right: 65px !important;
-}
-.page {
-	width: 100%;
-}
-
-
-
-#top-submenu-strip {
-	margin-top: -160px;
-	float: left;
-}
-
-ul.topnav.responsive li a:nth-child(1) {
-	margin-top: 5px !important;
-	padding-right: 15px;
-}
-
-.btn-default-ini {
-	border-color: #fff;
-}
-
-.bottom-strip {
-	height: 300px;
-}
-
-.btn-default-languaje {
-	margin: 13px 3px 13px 0 !important;
-	background-color: #002D45 !important;
-	border-color: #002D45 !important;
-}
-
-.hc-card-profile.hc-profile-browse-panel-lite .img-profile {
-	width: 42%;
-	padding: 15px;
-}
-
-ul
-
+	.hc-image-unselected span.hc-close {
+		left: 255px;
+		width: 18px;
+		height: 18px;
+	}
+	.content-properties-basicinfo {
+		width: 100%;
+	}
+	.hc-contents-cards-list {
+		margin-top: 50px;
+	}
+	.content-properties-basicinfo {
+		width: 100% !important;
+	}
+	.content-properties-basicinfo-btns {
+		display: flex;
+		width: 100% !important;
+		margin-top: 70px;
+	}
+	.content-properties-location {
+		width: 66.66666667%;
+	}
+	.hc-col-md-offset-save {
+		margin-left: 0;
+	}
+	.hc-select-property-basic-info {
+		margin-left: 0px;
+		width: 133% !important;
+		margin-top: -12px;
+	}
+	.col-md-btn-cancel,.col-md-btn-save,.col-md-btn-back,.col-md-btn-follow
+		{
+		width: 100%;
+	}
+	.hc-image-selected {
+		width: 86%;
+		margin: 0px;
+		margin-bottom: 19px;
+	}
+	.hc-image-selected img.hc-image-properties {
+		width: 95%;
+	}
+	.hc-image-selected span.hc-close {
+		top: 105px;
+		left: 229px;
+	}
+	.pic {
+		max-width: 271px;
+		max-height: 153px;
+	}
+	.page {
+		width: 100%;
+	}
+	#top-submenu-strip {
+		margin-top: 7px;
+		float: left;
+	}
+	ul.topnav.responsive li a:nth-child(1) {
+		margin-top: 5px !important;
+		padding-right: 15px;
+	}
+	.btn-default-ini {
+		border-color: #fff;
+	}
+	.bottom-strip {
+		height: 300px;
+	}
+	.btn-default-languaje {
+		margin: 13px 3px 13px 0 !important;
+		background-color: #002D45 !important;
+		border-color: #002D45 !important;
+	}
+	.hc-card-profile.hc-profile-browse-panel-lite .img-profile {
+		width: 42%;
+		padding: 15px;
+	}
+	ul
 	
 	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-.topnav
 
 	
 	
@@ -550,22 +576,11 @@ ul
 	
 	
 	
-li
 
 	
+	.topnav
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-:not
 
 	
 	
@@ -581,8 +596,30 @@ li
 	
 	
 	
-(
-:first-child
+
+	
+	li
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	:not
+	
+	
 
 	
 	
@@ -598,24 +635,12 @@ li
 	
 	
 	
-)
-{
-display
 
 	
+	(
+	:first-child
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-:
 
 	
 	
@@ -631,7 +656,13 @@ display
 	
 	
 	
-none
+
+	
+	)
+	{
+	display
+	
+	
 
 	
 	
@@ -646,8 +677,50 @@ none
 	
 	
 	
-;
+
+	
+	:
+	
+	
+
+	
+	
+	
+	
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+	
+
+	
+	none
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	;
 }
+
 .row.col-md-10.menu {
 	width: 80%;
 }
@@ -754,7 +827,7 @@ li.hc-header-global-menu-item.hc-header-menu.btn.btn-default-languaje {
 
 div.hc-responsive-div,div.hc-responsive-div img {
 	width: 100%;
-    height: auto;
+	height: auto;
 	float: left;
 }
 
@@ -949,10 +1022,6 @@ div.hc-responsive-div,div.hc-responsive-div img {
 	}
 	.hc-content-linkedin-profile {
 		width: 16%;
-	}
-	.btn-save,.btn-cancel {
-		margin-bottom: 37px;
-		width: 163px;
 	}
 	.hc-profile-browse-panel-complete div.hc-responsive-div,.hc-profile-browse-panel-complete div.hc-responsive-div img
 		{

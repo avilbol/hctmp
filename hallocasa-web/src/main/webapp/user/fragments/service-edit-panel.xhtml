@@ -35,12 +35,12 @@
 					<div class="row">
 						<div class="col-md-3">
 							<div class="row">
-								<span id="imageUrl"> 
-									<utils:imageEditor
-										imageUrl="#{profileEditPage.user.image}" 
-										imageType="userImage"
-										editLabel="#{viewBundle['Image.Edition']}" 
-										aspectRatio="1.0"/>
+								<span id="imageUrl">
+									<div class="hc-responsive-div col-md-12">
+										<utils:imageEditor imageUrl="#{profileEditPage.user.image}"
+											imageType="userImage"
+											editLabel="#{viewBundle['Image.Edition']}" aspectRatio="1.0" />
+									</div>
 								</span>
 							</div>
 							<div class="row hc-info-content-profile">
@@ -53,7 +53,8 @@
 									<h:selectOneMenu id="countryName" styleClass="hc-form-field"
 										value="#{profileEditPage.user.country}"
 										converter="countryConverter">
-										<f:selectItem itemLabel="#{viewBundle['Profile.Data.SelectCountry']}" />
+										<f:selectItem
+											itemLabel="#{viewBundle['Profile.Data.SelectCountry']}" />
 										<f:selectItems value="#{applicationContext.countries}"
 											var="country"
 											itemLabel="#{profileEditPage.getCountryName(country)}"
@@ -73,7 +74,8 @@
 									<h:selectOneMenu id="stateName" styleClass="hc-form-field"
 										value="#{profileEditPage.user.state}"
 										converter="stateConverter">
-										<f:selectItem itemLabel="#{viewBundle['Profile.Data.SelectState']}" />
+										<f:selectItem
+											itemLabel="#{viewBundle['Profile.Data.SelectState']}" />
 										<f:selectItems value="#{profileEditPage.states}" var="state"
 											itemLabel="#{profileEditPage.getStateName(state)}"
 											itemValue="#{state}" />
@@ -91,7 +93,8 @@
 								<div class="col-md-12">
 									<h:selectOneMenu id="cityName" styleClass="hc-form-field"
 										value="#{profileEditPage.user.city}" converter="cityConverter">
-										<f:selectItem itemLabel="#{viewBundle['Profile.Data.SelectCity']}" />
+										<f:selectItem
+											itemLabel="#{viewBundle['Profile.Data.SelectCity']}" />
 										<f:selectItems value="#{profileEditPage.cities}" var="city"
 											itemLabel="#{profileEditPage.getCityName(city)}"
 											itemValue="#{city}" />

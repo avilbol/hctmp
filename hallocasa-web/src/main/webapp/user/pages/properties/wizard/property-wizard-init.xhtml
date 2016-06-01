@@ -102,7 +102,7 @@
 				<h:commandButton
 					value="#{viewBundle['Properties.wizard.next.label']}"
 					action="#{propertyWizardPage.onProcessInitZone}"
-					styleClass="btn btn-primary">
+					styleClass="btn btn-primary col-md-btn-follow">
 					<f:ajax execute="@form"
 						render=":hc-profile-form:container-property-element" />
 				</h:commandButton>
@@ -110,9 +110,9 @@
 			<div class="col-md-6 btn-cancel">
 				<h:commandButton
 					value="#{viewBundle['Properties.wizard.cancel.label']}"
-					onclick="if(!confirm('Perdera todos sus cambios con esta operación. ¿Está seguro?')) return false"
+					onclick="if(!confirm('#{viewBundle['propertyWizardPage.propertyInEdition.propertyPopup']}')) return false"
 					action="#{propertyWizardPage.exit}" immediate="true"
-					styleClass="btn btn-primary">
+					styleClass="btn btn-primary col-md-btn-cancel">
 					<f:ajax execute="@form" render="@form" />
 				</h:commandButton>
 			</div>
