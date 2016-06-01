@@ -13,6 +13,6 @@ VALUES
 ('TYrtHJI8', 7, "5"),  
 ('TYrtHJI8', 8, "181"), 
 ('TYrtHJI8', 9, "Cr 2 este 75-23"), 
-('TYrtHJI8', 10, "{'grades':20, 'minutes':5, 'seconds':3}"),
-('TYrtHJI8', 11, "{'grades':38, 'minutes':7, 'seconds':43}"), 
-('TYrtHJI8', 12, "['image1.jpg','image14.jpg','main.png']");
+('TYrtHJI8', 10, "20.5"),
+('TYrtHJI8', 11, "38.1"), 
+('TYrtHJI8', 12, "[]");

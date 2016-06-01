@@ -49,7 +49,42 @@
 					<f:selectItems value="#{propertyWizardPage.cities}" var="city"
 						itemLabel="#{propertyWizardPage.getCityName(city)}"
 						itemValue="#{city}" />
+					<f:ajax execute="@this"
+						listener="#{propertyWizardPage.processCitySelect}"
+						render="maps-values">
+					</f:ajax>
 				</h:selectOneMenu>
+			</div>
+		
+			<div class="col-md-12">
+				<b><p:outputLabel styleClass="hc-form-label"
+						value="#{viewBundle['Properties.wizard.address']}"
+						for="property-address" /></b>
+				<h:inputText id="property-address"
+					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.address}"
+					label="#{viewBundle['Properties.wizard.address']}"></h:inputText>
+			</div>
+
+			<div class="col-md-12">
+				<b><h:outputLabel styleClass="hc-form-label"
+						value="#{viewBundle['Properties.wizard.longitude']}"
+						for="property-longitude" /></b> 
+				<span id="property-longitude-value"></span>
+				<h:inputHidden id="property-longitude"
+					converter="coordinateConverter"
+					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.longitude}">
+				</h:inputHidden>
+			</div>
+
+			<div class="col-md-12">
+				<b><h:outputLabel styleClass="hc-form-label"
+						value="#{viewBundle['Properties.wizard.latitude']}"
+						for="property-latitude" /></b> 
+				<span id="property-latitude-value"></span>
+				<h:inputHidden id="property-latitude"
+					converter="coordinateConverter"
+					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.latitude}">
+				</h:inputHidden>
 			</div>
 		</div>
 
@@ -60,7 +95,24 @@
 			</h3>
 			<hr></hr>
 			<div id="map"></div>
-			<h:outputScript rendered="#{propertyWizardPage}">initBasicMap(null, null)</h:outputScript>
+			<h:panelGroup id="maps-values">
+				<h:outputScript rendered="#{propertyWizardPage.initMapInLayoutCity}">
+					initLayoutCityMap(#{propertyWizardPage.latCityLayout}, #{propertyWizardPage.lngCityLayout})
+				</h:outputScript>
+				<h:outputScript
+					rendered="#{propertyWizardPage.initMapInDefaultCity}">
+					initDefaultCityMap()
+				</h:outputScript>
+				<h:outputScript rendered="#{propertyWizardPage.initMapInMarker}">
+					initMarkerMap(#{propertyWizardPage.propertyInEdition.propertyLocationInfo.latitude.decRepresentation.doubleValue()},
+						#{propertyWizardPage.propertyInEdition.propertyLocationInfo.longitude.decRepresentation.doubleValue()})
+				</h:outputScript>
+				<h:outputScript
+					rendered="#{propertyWizardPage.initMapMarkerAndCity}">
+					initMarkerAndLayoutCityMap(#{propertyWizardPage.latCityLayout}, 
+						#{propertyWizardPage.lngCityLayout});
+				</h:outputScript>
+			</h:panelGroup>
 		</div>
 	</div>
 </ui:composition>

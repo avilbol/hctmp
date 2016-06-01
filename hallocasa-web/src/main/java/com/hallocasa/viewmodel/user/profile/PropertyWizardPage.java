@@ -2,6 +2,7 @@ package com.hallocasa.viewmodel.user.profile;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -68,19 +69,33 @@ public class PropertyWizardPage implements Serializable {
 	private ViewContext viewContext;
 
 	/**
-	 * Property to indicate that google maps componente must be start in default coordinates
+	 * Property to indicate that google maps component must be start in default
+	 * coordinates
 	 */
 	private boolean initMapInDefaultCity;
-	
+
 	/**
-	 * Property to indicate that google maps componente must be start in city selected coordinates
+	 * Property to indicate that google maps component must be start in city
+	 * selected coordinates
 	 */
 	private boolean initMapInLayoutCity;
-	
+
 	/**
-	 * Property to indicate that google maps componente must be start in city selected coordinates
+	 * Property to indicate that google maps component must be start in city
+	 * selected coordinates
 	 */
 	private boolean initMapInMarker;
+
+	/**
+	 * Property to indicate that google maps component must be start in city
+	 * selected coordinates
+	 */
+	private boolean initMapMarkerAndCity;
+	
+	/**
+	 * Flag to indicate that city has changed in view
+	 */
+	private boolean cityChanged;
 	
 	/**
 	 * Country services
@@ -149,8 +164,7 @@ public class PropertyWizardPage implements Serializable {
 			wizardCreation = false;
 			wizardPhase = PropertyWizardPhase.EDITION;
 			processCountrySelect();
-			cities = countryServices.getCities(getPropertyInEdition()
-					.getPropertyLocationInfo().getState().getId());
+			cities = countryServices.getCities(getPropertyInEdition().getPropertyLocationInfo().getState().getId());
 		}
 		if (this.getPropertyInEdition().getId() == null) {
 			this.setPropertyPotentialId(propertyServices.generatePropertyId());
@@ -167,25 +181,25 @@ public class PropertyWizardPage implements Serializable {
 			}
 		}
 		getPropertyInEdition().getPropertyImageInfo().setIndexMainImage(new AtomicInteger(indexMainImage));
-		//evaluateGoogleMapsInit();
+		evaluateGoogleMapsInit();
 	}
 
 	private void evaluateGoogleMapsInit() {
 		initMapInMarker = false;
 		initMapInDefaultCity = false;
 		initMapInLayoutCity = false;
-		if(getPropertyInEdition().getPropertyLocationInfo().getLatitude() != null
-				&& getPropertyInEdition().getPropertyLocationInfo().getLongitude() != null){
+		CityVO city = getPropertyInEdition().getPropertyLocationInfo().getCity();
+		Map<Long, BigDecimal> latMap = halloCasaApplication.getCityLatMap();
+		Map<Long, BigDecimal> lngMap = halloCasaApplication.getCityLngMap();
+		if (getPropertyInEdition().getPropertyLocationInfo().getLatitude() != null
+				&& getPropertyInEdition().getPropertyLocationInfo().getLongitude() != null) {
 			initMapInMarker = true;
-		}
-		else if(getPropertyInEdition().getPropertyLocationInfo().getCity() != null
-				&& getPropertyInEdition().getPropertyLocationInfo().getCity().getLatCoordinate() != null
-				&& getPropertyInEdition().getPropertyLocationInfo().getCity().getLngCoordinate() != null){
+		} else if (city != null && latMap.get(city.getId()) != null && lngMap.get(city.getId()) != null) {
 			initMapInLayoutCity = true;
-		}
-		else{
+		} else {
 			initMapInDefaultCity = true;
 		}
+		cityChanged = false;
 	}
 
 	public void saveProperty() {
@@ -243,7 +257,7 @@ public class PropertyWizardPage implements Serializable {
 	public void exit() {
 		globalProfilePage.onPropertiesMenuSelect();
 	}
-	
+
 	public void refreshAndExit() {
 		globalProfilePage.refreshProperties();
 		globalProfilePage.onPropertiesMenuSelect();
@@ -302,6 +316,18 @@ public class PropertyWizardPage implements Serializable {
 		else
 			cities = new ArrayList<>();
 	}
+	
+	/**
+	 * Process country selection event
+	 */
+	public void processCitySelect() {
+		initMapInMarker = false;
+		initMapInDefaultCity = false;
+		initMapInLayoutCity = false;
+		if(getLatCityLayout() != null && getLngCityLayout() != null){
+			initMapMarkerAndCity = true;
+		}
+	}
 
 	public String getCountryName(CountryVO country) {
 		return country.getCountryName().getText(webSession.getCurrentLanguage());
@@ -335,10 +361,16 @@ public class PropertyWizardPage implements Serializable {
 	}
 
 	public boolean getShowInitWizard() {
+		if (!this.getGlobalProfilePage().isInitializedEditor()) {
+			initialize();
+		}
 		return this.wizardCreation && this.wizardPhase.equals(PropertyWizardPhase.INIT);
 	}
 
 	public boolean getShowEditWizard() {
+		if (!this.getGlobalProfilePage().isInitializedEditor()) {
+			initialize();
+		}
 		return this.wizardPhase.equals(PropertyWizardPhase.EDITION);
 	}
 
@@ -359,7 +391,7 @@ public class PropertyWizardPage implements Serializable {
 	}
 
 	public PropertyVO getPropertyInEdition() {
-		if(!this.getGlobalProfilePage().isInitializedEditor()){
+		if (!this.getGlobalProfilePage().isInitializedEditor()) {
 			initialize();
 		}
 		return this.getGlobalProfilePage().getPropertyInEdition();
@@ -419,5 +451,33 @@ public class PropertyWizardPage implements Serializable {
 
 	public void setInitMapInMarker(boolean initMapInMarker) {
 		this.initMapInMarker = initMapInMarker;
+	}
+	
+	public boolean isInitMapMarkerAndCity() {
+		return initMapMarkerAndCity;
+	}
+
+	public void setInitMapMarkerAndCity(boolean initMapMarkerAndCity) {
+		this.initMapMarkerAndCity = initMapMarkerAndCity;
+	}
+
+	public Double getLngCityLayout() {
+		Map<Long, BigDecimal> lngMap = halloCasaApplication.getCityLngMap();
+		BigDecimal vlu = lngMap.get(getPropertyInEdition().getPropertyLocationInfo()
+				.getCity().getId());
+		if(vlu == null){
+			return null;
+		}
+		return vlu.doubleValue();
+	}
+
+	public Double getLatCityLayout() {
+		Map<Long, BigDecimal> latMap = halloCasaApplication.getCityLatMap();
+		BigDecimal vlu = latMap.get(getPropertyInEdition().getPropertyLocationInfo()
+				.getCity().getId());
+		if(vlu == null){
+			return null;
+		}
+		return vlu.doubleValue();
 	}
 }
