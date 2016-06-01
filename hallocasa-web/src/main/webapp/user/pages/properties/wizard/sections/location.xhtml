@@ -71,7 +71,8 @@
 						for="property-longitude" /></b> 
 				<span id="property-longitude-value"></span>
 				<h:inputHidden id="property-longitude"
-					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.longitude.decRepresentation}">
+					converter="coordinateConverter"
+					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.longitude}">
 				</h:inputHidden>
 			</div>
 
@@ -81,7 +82,8 @@
 						for="property-latitude" /></b> 
 				<span id="property-latitude-value"></span>
 				<h:inputHidden id="property-latitude"
-					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.latitude.decRepresentation}">
+					converter="coordinateConverter"
+					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.latitude}">
 				</h:inputHidden>
 			</div>
 		</div>
@@ -107,9 +109,8 @@
 				</h:outputScript>
 				<h:outputScript
 					rendered="#{propertyWizardPage.initMapMarkerAndCity}">
-					initMarkerAndLayoutCityMap(#{propertyWizardPage.propertyInEdition.propertyLocationInfo.latitude.decRepresentation.doubleValue()},
-						#{propertyWizardPage.propertyInEdition.propertyLocationInfo.longitude.decRepresentation.doubleValue()},
-						#{propertyWizardPage.latCityLayout}, #{propertyWizardPage.lngCityLayout})
+					initMarkerAndLayoutCityMap(#{propertyWizardPage.latCityLayout}, 
+						#{propertyWizardPage.lngCityLayout});
 				</h:outputScript>
 			</h:panelGroup>
 		</div>

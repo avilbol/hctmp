@@ -13,9 +13,9 @@ function initMarkerMap(lat, lng) {
 	setTimeout('markerMap(' + lat + ',' + lng + ')', 2000);
 }
 
-function initMarkerAndLayoutCityMap(latVluMarker, lngVluMarker, latVluCity,
+function initMarkerAndLayoutCityMap(latVluCity,
 		lngVluCity) {
-	setTimeout('markerAndLayoutCityMap(' + latVluMarker + ',' + lngVluMarker
+	setTimeout('markerAndLayoutCityMap(' + getLat() + ',' + getLng()
 			+ ',' + latVluCity + ',' + lngVluCity + ')', 2000);
 }
 
@@ -91,6 +91,8 @@ function markerAndLayoutCityMap(latVluMarker, lngVluMarker, latVluCity,
 		google.maps.event.trigger(map, 'resize');
 		map.setCenter(center);
 		map.addListener("click", clickListener);
+	}
+	if(latVluMarker != null && lngVluMarker != null){
 		pointMarker({
 			lat : latVluMarker,
 			lng : lngVluMarker

@@ -361,10 +361,16 @@ public class PropertyWizardPage implements Serializable {
 	}
 
 	public boolean getShowInitWizard() {
+		if (!this.getGlobalProfilePage().isInitializedEditor()) {
+			initialize();
+		}
 		return this.wizardCreation && this.wizardPhase.equals(PropertyWizardPhase.INIT);
 	}
 
 	public boolean getShowEditWizard() {
+		if (!this.getGlobalProfilePage().isInitializedEditor()) {
+			initialize();
+		}
 		return this.wizardPhase.equals(PropertyWizardPhase.EDITION);
 	}
 
