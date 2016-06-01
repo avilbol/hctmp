@@ -30,7 +30,7 @@
 		{
 		var num = input.value.replace(/\./g,'');
 		if(!isNaN(num)){
-		num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{})/g,'$1.');
+		num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
 		num = num.split('').reverse().join('').replace(/^[\.]/,'');
 		input.value = num;
 		}
@@ -41,14 +41,13 @@
 		}
 		
 		</script>
-			<input type="text" onkeyup="format(this)" onchange="format(this)" />
-			<h:inputHidden id="currencyValue"
+			<h:inputText id="currencyValue"
 				styleClass="hc-form-field form-control"
 				binding="#{cc.currencyAmmount}"
 				label="#{cc.attrs.label}"
-				converter="javax.faces.Double" >
+				converter="javax.faces.Double" onkeyup="format(this)" onchange="format(this)" >
 				<f:convertNumber pattern="0"/>
-			</h:inputHidden>
+			</h:inputText>
 		</p>
 		<br></br>
 		<p style="position: absolute;">

@@ -11,80 +11,79 @@
 			<span class="hc-form-label">#{viewBundle['Properties.title.Location']}</span>
 		</h2>
 		<hr></hr>
-		<div class="col-md-6">
+		<div class="col-md-12">
 			<div class="col-md-12">
-				<b><p:outputLabel styleClass="hc-form-label"
-						value="#{viewBundle['Profile.Data.State.Label']}" for="stateName" /></b>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="col-md-12">
-				<h:selectOneMenu id="stateName"
-					styleClass="hc-form-field form-control"
-					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.state}"
-					converter="stateConverter">
-					<f:selectItem
-						itemLabel="#{viewBundle['Common.Dropdown.SelectOne']}" />
-					<f:selectItems value="#{propertyWizardPage.states}" var="state"
-						itemLabel="#{propertyWizardPage.getStateName(state)}"
-						itemValue="#{state}" />
-					<p:ajax event="change"
-						listener="#{propertyWizardPage.processStateSelect}"
-						process="@this" update="cityName">
-					</p:ajax>
-				</h:selectOneMenu>
-			</div>
-			<br></br> <br></br>
-			<div class="col-md-12">
-				<b><p:outputLabel styleClass="hc-form-label"
-						value="#{viewBundle['Profile.Data.City.Label']}" for="cityName" /></b>
-			</div>
-			<div class="col-md-12">
-				<h:selectOneMenu id="cityName"
-					styleClass="hc-form-field form-control"
-					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.city}"
-					converter="cityConverter">
-					<f:selectItem
-						itemLabel="#{viewBundle['Common.Dropdown.SelectOne']}" />
-					<f:selectItems value="#{propertyWizardPage.cities}" var="city"
-						itemLabel="#{propertyWizardPage.getCityName(city)}"
-						itemValue="#{city}" />
-					<f:ajax execute="@this"
-						listener="#{propertyWizardPage.processCitySelect}"
-						render="maps-values">
-					</f:ajax>
-				</h:selectOneMenu>
-			</div>
-		
-			<div class="col-md-12">
-				<b><p:outputLabel styleClass="hc-form-label"
-						value="#{viewBundle['Properties.wizard.address']}"
-						for="property-address" /></b>
-				<h:inputText id="property-address"
-					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.address}"
-					label="#{viewBundle['Properties.wizard.address']}"></h:inputText>
-			</div>
+				<div class="col-md-6" style="margin: 20px 0;">
+					<b><p:outputLabel styleClass="hc-form-label"
+							value="#{viewBundle['Profile.Data.State.Label']}" for="stateName" /></b>
+				</div>
 
-			<div class="col-md-12">
-				<b><h:outputLabel styleClass="hc-form-label"
-						value="#{viewBundle['Properties.wizard.longitude']}"
-						for="property-longitude" /></b> 
-				<span id="property-longitude-value"></span>
-				<h:inputHidden id="property-longitude"
-					converter="coordinateConverter"
-					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.longitude}">
-				</h:inputHidden>
-			</div>
+				<div class="col-md-6" style="margin: 20px 0;">
+					<h:selectOneMenu id="stateName"
+						styleClass="hc-form-field form-control"
+						value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.state}"
+						converter="stateConverter">
+						<f:selectItem
+							itemLabel="#{viewBundle['Common.Dropdown.SelectOne']}" />
+						<f:selectItems value="#{propertyWizardPage.states}" var="state"
+							itemLabel="#{propertyWizardPage.getStateName(state)}"
+							itemValue="#{state}" />
+						<p:ajax event="change"
+							listener="#{propertyWizardPage.processStateSelect}"
+							process="@this" update="cityName">
+						</p:ajax>
+					</h:selectOneMenu>
+				</div>
 
-			<div class="col-md-12">
+				<div class="col-md-6" style="margin: 20px 0;">
+					<b><p:outputLabel styleClass="hc-form-label"
+							value="#{viewBundle['Profile.Data.City.Label']}" for="cityName" /></b>
+				</div>
+				<div class="col-md-6" style="margin: 20px 0;">
+					<h:selectOneMenu id="cityName"
+						styleClass="hc-form-field form-control"
+						value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.city}"
+						converter="cityConverter">
+						<f:selectItem
+							itemLabel="#{viewBundle['Common.Dropdown.SelectOne']}" />
+						<f:selectItems value="#{propertyWizardPage.cities}" var="city"
+							itemLabel="#{propertyWizardPage.getCityName(city)}"
+							itemValue="#{city}" />
+						<f:ajax execute="@this"
+							listener="#{propertyWizardPage.processCitySelect}"
+							render="maps-values">
+						</f:ajax>
+					</h:selectOneMenu>
+				</div>
+				<div class="col-md-12" style="margin: 20px 0;">					
+				<div class="col-md-6"><b><p:outputLabel styleClass="hc-form-label"
+							value="#{viewBundle['Properties.wizard.address']}"
+							for="property-address" /></b>
+				</div>				
+				<div class="col-md-6">
+					<h:inputText id="property-address" styleClass="form-control hc-btn-location"
+						value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.address}"
+						label="#{viewBundle['Properties.wizard.address']}"></h:inputText>
+				</div>
+				</div>
+				<div class="col-md-6" style="margin: 20px 0;">
+					<b><h:outputLabel styleClass="hc-form-label"
+							value="#{viewBundle['Properties.wizard.longitude']}"
+							for="property-longitude" /></b> <span id="property-longitude-value"></span>
+					<h:inputHidden id="property-longitude"
+						converter="coordinateConverter"
+						value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.longitude}">
+					</h:inputHidden>
+				</div>			
+			<div class="col-md-6" style="margin: 20px 0;">
 				<b><h:outputLabel styleClass="hc-form-label"
 						value="#{viewBundle['Properties.wizard.latitude']}"
-						for="property-latitude" /></b> 
-				<span id="property-latitude-value"></span>
+						for="property-latitude" /></b> <span id="property-latitude-value"></span>
 				<h:inputHidden id="property-latitude"
 					converter="coordinateConverter"
 					value="#{propertyWizardPage.propertyInEdition.propertyLocationInfo.latitude}">
 				</h:inputHidden>
+			</div>
 			</div>
 		</div>
 
