@@ -22,11 +22,10 @@
 							var="language" itemLabel="#{language.languageName}"
 							itemValue="#{language}">
 						</f:selectItems>
-						<f:ajax
-							execute="@this"
+						<f:ajax execute="@this"
 							listener="#{propertyWizardPage.processLanguagesSelectedChange}"
 							render="data-language-section main-language-section" />
-						<f:param name="validate" value="#{false}"/>
+						<f:param name="validate" value="#{false}" />
 					</p:selectManyCheckbox>
 				</h:panelGroup>
 			</p:fieldset>
@@ -42,17 +41,18 @@
 							var="lang">
 							<div class="col-md-12">
 								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-										value="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.title.langMap']}">
+										value="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.title']} (#{lang.languageName})">
 									</h:outputLabel>
 								</b>
 							</div>
 
 							<div class="col-md-12">
-								<span> <h:inputText id="title-#{lang}"
-										label="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.title.langMap']}"
-										value=""
-										styleClass="hc-input-text col-md-12 form-control">
-										<f:validateLength minimum="20"/>
+								<span> 
+									<h:inputText 
+										 	label="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.title']} (#{lang.languageName})"
+											value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.title.langMap[lang]}"
+											styleClass="hc-input-text col-md-12 form-control">
+										<f:validateLength minimum="20" />
 									</h:inputText>
 								</span>
 							</div>
@@ -65,22 +65,23 @@
 						styleClass="section-propertie clearfix"
 						id="property-description-section">
 						<ui:repeat
-							value="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.languages']}"
+							value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
 							var="lang">
 							<div class="col-md-12">
 								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-										value="#{viewBundle['propertyWizardPage.property.description']}">
+										 value="#{viewBundle['propertyWizardPage.property.description']}(#{lang.languageName})">
 									</h:outputLabel>
 								</b>
 							</div>
 							<div class="col-md-12">
-								<span> <p:inputTextarea rows="10"
-										id="property-description-#{lang}" cols="30"
-										label="Property description ( #{lang.languageName} )"
-										value=""
+								<span> 
+									<p:inputTextarea rows="10"
+										cols="30"
+										label="#{viewBundle['propertyWizardPage.property.description']} ( #{lang.languageName} )"
+										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.propertyDescription.langMap[lang]}"
 										maxlength="800" styleClass="hc-input-text-area form-control"
 										counterTemplate="{0} characters remaining." autoResize="false">
-										<f:validateLength minimum="20"/>
+										<f:validateLength minimum="20" />
 									</p:inputTextarea>
 								</span>
 							</div>
@@ -93,18 +94,18 @@
 						styleClass="section-propertie clearfix"
 						id="location-description-section">
 						<ui:repeat
-							value="#{viewBundle['propertyWizardPage.property.Location']}"
+							value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
 							var="lang">
 							<div class="col-md-12">
 								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-										value="#{viewBundle['propertyWizardPage.property.LocationDescription']}">
+										 value="#{viewBundle['propertyWizardPage.property.LocationDescription']} ( #{lang.languageName} )">
 									</h:outputLabel>
 								</b>
 							</div>
 							<div class="col-md-12">
 								<span> <p:inputTextarea rows="10"
-										id="location-description-#{lang}" cols="30"
-										label="Location description ( #{lang.languageName} )"
+										cols="30"
+										label="#{viewBundle['propertyWizardPage.property.LocationDescription']} ( #{lang.languageName} )"
 										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.locationDescription.langMap[lang]}"
 										maxlength="800" styleClass="hc-input-text-area form-control"
 										counterTemplate="{0} characters remaining." autoResize="false">
@@ -132,8 +133,7 @@
 							style="width:100%!important"
 							value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.mainLanguage}"
 							label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
-							converter="languageConverter"
-							required="true">
+							converter="languageConverter" required="true">
 							<f:selectItem
 								itemLabel="#{viewBundle['Common.Dropdown.SelectOne']}" />
 							<f:selectItems
@@ -147,14 +147,14 @@
 
 			<div class="col-md-12" style="padding: 36px 0px;">
 				<b> <h:outputLabel styleClass="hc-form-label" for="market-price"
-						label="#{viewBundle['Property.wizard.basic.marketprice']}" 
+						label="#{viewBundle['Property.wizard.basic.marketprice']}"
 						value="#{viewBundle['Property.wizard.basic.marketprice']}">
 					</h:outputLabel>
 				</b> <span> <utils:currencyEditor id="currency-editor"
 						styleClass="form-control"
 						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.marketPrice}"
 						converter="currencyConverter"
-						label="#{viewBundle['Property.wizard.basic.marketprice']}" 
+						label="#{viewBundle['Property.wizard.basic.marketprice']}"
 						validatorMessage="#{viewBundle['Property.wizard.marketprice.nonnumber']}"
 						currencies="#{applicationContext.currencies}"
 						language="#{webSession.currentLanguage}"
@@ -164,12 +164,12 @@
 
 			<div class="col-md-12">
 				<b> <h:outputLabel styleClass="hc-form-label"
-						for="square-meters-total" label="#{viewBundle['PropertyBrowse.Property.squareMetersTotal']}"
+						for="square-meters-total"
+						label="#{viewBundle['PropertyBrowse.Property.squareMetersTotal']}"
 						value="#{viewBundle['PropertyBrowse.Property.squareMetersTotal']}">
 					</h:outputLabel>
 				</b> <span> <h:inputText id="square-meters-total"
-						styleClass="form-control"
-						converter="javax.faces.Double"
+						styleClass="form-control" converter="javax.faces.Double"
 						label="#{viewBundle['PropertyBrowse.Property.squareMetersTotal']}"
 						value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.area}" />
 				</span>

@@ -188,6 +188,7 @@ public class PropertyWizardPage implements Serializable {
 		initMapInMarker = false;
 		initMapInDefaultCity = false;
 		initMapInLayoutCity = false;
+		initMapMarkerAndCity = false;
 		CityVO city = getPropertyInEdition().getPropertyLocationInfo().getCity();
 		Map<Long, BigDecimal> latMap = halloCasaApplication.getCityLatMap();
 		Map<Long, BigDecimal> lngMap = halloCasaApplication.getCityLngMap();

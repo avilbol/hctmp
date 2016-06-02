@@ -114,7 +114,7 @@ public class PropertyListPage {
      */
     public void onDeletePropertyClick(PropertyVO propertyVO){
     	propertyServices.delete(propertyVO);
-    	initialize();
+    	globalProfilePage.refreshProperties();
         viewContext.showGlobalInfoMessage("Properties.Delete.Succesful", null);
     }
 	

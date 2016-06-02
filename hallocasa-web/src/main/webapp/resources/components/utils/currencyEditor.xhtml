@@ -45,7 +45,8 @@
 				styleClass="hc-form-field form-control"
 				binding="#{cc.currencyAmmount}"
 				label="#{cc.attrs.label}"
-				converter="javax.faces.Double" onkeyup="format(this)" onchange="format(this)" >
+				required="true"
+				converter="javax.faces.Double">
 				<f:convertNumber pattern="0"/>
 			</h:inputText>
 		</p>
