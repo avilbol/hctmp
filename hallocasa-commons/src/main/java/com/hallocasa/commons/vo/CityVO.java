@@ -28,6 +28,8 @@ public class CityVO implements Serializable, ValueObject {
     private Long id;
     private MultiLanguageText cityName;
     private StateVO state;
+    private Coordinate latCoordinate;
+    private Coordinate lngCoordinate;
 
     /**
      * Constructor
@@ -127,5 +129,21 @@ public class CityVO implements Serializable, ValueObject {
 
     public void setState(StateVO state) {
         this.state = state;
-    }    
+    }
+
+	public Coordinate getLatCoordinate() {
+		return latCoordinate;
+	}
+
+	public void setLatCoordinate(Coordinate latCoordinate) {
+		this.latCoordinate = latCoordinate;
+	}
+
+	public Coordinate getLngCoordinate() {
+		return lngCoordinate;
+	}
+
+	public void setLngCoordinate(Coordinate lngCoordinate) {
+		this.lngCoordinate = lngCoordinate;
+	}
 }

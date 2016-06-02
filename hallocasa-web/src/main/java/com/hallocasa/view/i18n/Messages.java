@@ -28,7 +28,9 @@ public class Messages {
     public static final String SIGNUP_EMAIL_EXIST = "SignUp.EmailExist.Message.Summary";
     public static final String SIGNUP_SUCCESS = "SignUp.Form.Success.Message";
     public static final String SIGNUP_EMAIL_SENT = "SignUp.Form.Success.EmailSent";
-    
+    // property wizard
+    public static final String ADD_PROPERTY_SUCCESS_MSG = "property.wizard.create.succesful";
+    public static final String UPDATE_PROPERTY_SUCCESS_MSG = "property.wizard.save.succesful";
     // newsletter
     public static final String MESSAGE_NEWSLETTER_THANKS = "Message.Newsletter.Thanks";
     /* old */

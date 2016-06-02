@@ -20,7 +20,12 @@ public class LanguageConverter implements Converter {
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        return Language.valueOf(value);
+    	try{
+    		return Language.valueOf(value);
+    	} catch(IllegalArgumentException e){
+    		return null;
+    	}
+        
     }
 
     @Override

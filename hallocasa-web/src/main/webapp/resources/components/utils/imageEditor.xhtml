@@ -12,31 +12,44 @@
 		<cc:attribute name="imageUrl"
 			type="com.hallocasa.commons.vo.ImageContainer" required="true"
 			shortDescription="Image URL to edit" />
+		<cc:attribute name="defaultImageUrl"
+			type="java.lang.String" 
+			shortDescription="Default URL to show when imageUrl is set to null" />
 		<cc:attribute name="imageType" type="java.lang.String" default="image"
 			shortDescription="Image type as scheme to manage image files" />
 		<cc:attribute name="readOnly" type="java.lang.Boolean" default="false"
 			shortDescription="Indicates image only must be showed, but not edited" />
+		<cc:attribute name="postUploadAction" method-signature="void action()"
+			shortDescription="Method to execute when upload and crop have finished" />
+		<cc:attribute name="showImage" type="java.lang.Boolean"
+			default="#{true}" />
+		<cc:attribute name="editLabel" type="java.lang.String"
+			default="#{viewBundle['Image.Edition.Upload']}" />
+		<cc:attribute name="styleClass" type="java.lang.String"
+			default="" shortDescription="styleClass for image" />
+		<cc:attribute name="update" type="java.lang.String"
+			default="image-editor-container" />
+		<cc:attribute name="aspectRatio" type="java.lang.String" default="0" />
 	</cc:interface>
 	<cc:implementation>
 		<h:panelGroup id="image-editor-container">
-
 			<div class="edit-btn-content col-md-12">
 				<h:commandButton styleClass="btn btn-primary"
-					rendered="#{not cc.attrs.readOnly}"
-					value="#{viewBundle['Image.Edition']}"
+					rendered="#{not cc.attrs.readOnly}" value="#{cc.attrs.editLabel}"
 					onclick="PF('upload-image-dialog').show();return false" />
 			</div>
-			<div class="hc-responsive-div col-md-12">
-				<h:graphicImage url="#{cc.attrs.imageUrl.url}" />
-			</div>
-
-
+			<ui:fragment rendered="#{cc.attrs.showImage}">
+					<h:graphicImage url="#{cc.imageToShow().getUrl()}"
+						styleClass="#{cc.attrs.styleClass}" />
+			</ui:fragment>
 			<p:dialog header="#{viewBundle['Image.Edition.Header']}"
-				position="center" responsive="true" widgetVar="upload-image-dialog" minHeight="40"
-				width="800" height="500" draggable="false" resizable="false">
+				position="center" responsive="true" fitViewport="true" widgetVar="upload-image-dialog"
+				minHeight="40" width="800" height="auto" draggable="false"
+				resizable="false">
 				<h:panelGroup id="upload-image-bt" styleClass="row">
 				</h:panelGroup>
-				<h:panelGroup id="upload-image-pg" styleClass="row hc-content-edit-info">
+				<h:panelGroup id="upload-image-pg"
+					styleClass="row hc-content-edit-info">
 					<h:panelGroup rendered="#{cc.showImageLoad}">
 						<h:outputText value="#{viewBundle['Image.Edition.Header.Detail']}" />
 						<h:inputFile id="file" value="#{cc.uncroppedImagePart}"
@@ -52,30 +65,32 @@
 						<h:outputText value="#{viewBundle['Image.Edition.Crop']}" />
 						<h:panelGrid columns="2">
 							<div class="row">
-							<div class="col-md-6">
-								<h:commandButton
-									value="#{viewBundle['Image.Edition.FinishCrop']}"
-									action="#{cc.onImageCrop}" style="float:left"
-									styleClass="btn btn-primary hc-edit-finish-img">
-									<f:ajax execute="cropper" render="image-editor-container" />
-								</h:commandButton>
+								<div class="col-md-6">
+									<h:commandButton
+										value="#{viewBundle['Image.Edition.FinishCrop']}"
+										action="#{cc.onImageCrop}" style="float:left"
+										styleClass="btn btn-primary hc-edit-finish-img">
+										<f:ajax execute="cropper" render="#{cc.attrs.update}" />
+									</h:commandButton>
+								</div>
+								<div class="col-md-6">
+									<h:commandButton value="#{viewBundle['Common.Label.Back']}"
+										action="#{cc.onBackClick}" rendered="#{cc.showBackButton}"
+										styleClass="btn btn-primary">
+										<f:ajax render="upload-image-pg upload-image-bt" />
+									</h:commandButton>
+									<h:commandButton value="#{viewBundle['Common.Label.Next']}"
+										action="#{cc.onNextClick}" rendered="#{cc.showNextButton}"
+										styleClass="btn btn-primary">
+										<f:ajax render="upload-image-pg upload-image-bt" />
+									</h:commandButton>
+								</div>
 							</div>
 							<div class="col-md-6">
-								<h:commandButton value="#{viewBundle['Common.Label.Back']}"
-									action="#{cc.onBackClick}" rendered="#{cc.showBackButton}"
-									styleClass="btn btn-primary">
-									<f:ajax render="upload-image-pg upload-image-bt" />
-								</h:commandButton>
-								<h:commandButton value="#{viewBundle['Common.Label.Next']}"
-									action="#{cc.onNextClick}" rendered="#{cc.showNextButton}"
-									styleClass="btn btn-primary">
-									<f:ajax render="upload-image-pg upload-image-bt" />
-								</h:commandButton>
+								<p:imageCropper id="cropper" value="#{cc.croppedImage}"
+									image="/resources/images/#{cc.uncroppedImageResourcesUrl}"
+									initialCoords="0,0,50,50" aspectRatio="#{cc.attrs.aspectRatio}" />
 							</div>
-							</div>
-							<p:imageCropper id="cropper" value="#{cc.croppedImage}"
-								image="/resources/images/#{cc.uncroppedImageResourcesUrl}"
-								initialCoords="0,0,50,50" aspectRatio="1.0" />								
 						</h:panelGrid>
 					</h:panelGroup>
 				</h:panelGroup>

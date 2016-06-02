@@ -4,6 +4,10 @@
     <artifactId>hallocasa-commons</artifactId>
 
     <build>
+    	<filters>
+			<filter>profiles/${build.profile.id}/config.properties</filter>
+			<filter>profiles/${build.profile.id}/dbmaintain.properties</filter>
+		</filters>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

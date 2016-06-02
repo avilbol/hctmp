@@ -33,6 +33,8 @@ public class GlobalMenuBean {
     @Inject
     private WebSession webSession;
     
+    private String gmapsApiKey = "AIzaSyD7IPsuqw1E0L-eFGURR7GliALWgH_bJio";
+    
     /**
 	 * Flag that indicates if it is possible to  exit of login module
 	 * and interact with the app
@@ -112,5 +114,13 @@ public class GlobalMenuBean {
 
 	public void setInteractWithApp(boolean interactWithApp) {
 		this.interactWithApp = interactWithApp;
+	}
+
+	public String getGmapsApiKey() {
+		return gmapsApiKey;
+	}
+
+	public void setGmapsApiKey(String gmapsApiKey) {
+		this.gmapsApiKey = gmapsApiKey;
 	}
 }

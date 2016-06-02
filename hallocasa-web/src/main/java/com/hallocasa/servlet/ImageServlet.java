@@ -6,6 +6,8 @@
 package com.hallocasa.servlet;
 
 import com.hallocasa.services.FileServices;
+import com.hallocasa.utils.ApplicationFileUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -51,8 +53,12 @@ public class ImageServlet extends HttpServlet {
         ServletContext cntx= getServletContext();
 
         String filename = request.getPathInfo();
+        String filePath = request.getServletPath();
         
-        File file = new File(this.imagePath, URLDecoder.decode(filename, "UTF-8"));
+        String fileFullName = filePath + filename;
+        
+        File file = new File(ApplicationFileUtils.getAbsolutePath(fileFullName), 
+        		URLDecoder.decode(filename, "UTF-8"));
         
         response.setContentType(cntx.getMimeType(file.getName()));
         response.setContentLength((int)file.length());

@@ -20,6 +20,8 @@ import org.dbmaintain.DbMaintainer;
 import org.dbmaintain.MainFactory;
 import org.dbmaintain.script.executedscriptinfo.ExecutedScriptInfoSource;
 
+import com.hallocasa.commons.system.SystemProperty;
+
 /**
  *
  * @author david
@@ -35,10 +37,8 @@ public class DatabaseUpdater {
      */
     @PostConstruct
     public void initialize() {
-        Properties properties = new Properties();
-        try (InputStream is = DatabaseUpdater.class.getResourceAsStream("/dbmaintain.properties")) {
-            properties.load(is);
-            MainFactory mainFactory = new MainFactory(properties);
+        try {
+            MainFactory mainFactory = new MainFactory(SystemProperty.dbMaintainProperties); 
             DbMaintainer dbMaintainer = mainFactory.createDbMaintainer();
             //ExecutedScriptInfoSource exScriptInfoSource = mainFactory.createExecutedScriptInfoSource();
             //exScriptInfoSource.clearAllExecutedScripts();

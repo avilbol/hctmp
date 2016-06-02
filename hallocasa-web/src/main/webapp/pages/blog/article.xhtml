@@ -32,15 +32,11 @@
 
     <ui:define name="contentSection">
         <br/><br/><br/><br/><br/><br/><br/>
-        <script type="text/javascript" 
-                src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-552fd9640c844a85" async="async">
-        </script>
         <div id="blog-layout">
             <article class="ui-article-prev-cont">
                 <h1 class="ui-title">#{blogArticlePage.article.titleTransalation.getText(webSession.currentLanguage)}</h1>
                 <h:outputText value="#{blogArticlePage.article.bodyTransalation.getText(webSession.currentLanguage)}" escape="false"/>
             </article>
-            <div class="addthis_sharing_toolbox"></div>
         </div>
     </ui:define>
 </ui:composition>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<div class="hc-content-body-profile">
+		<div class="row">
+		
+				<div class="col-md-12 content-profile">
+					<ui:include src="../../../fragments/investor-panel.xhtml" />
+					<ui:include src="../../../fragments/service-panel.xhtml" />
+				</div>
+
+				<div class="col-md-12 content-btn-edit">
+					<h:commandButton value="#{viewBundle['Profile.Edit.Button']}"
+						styleClass="btn btn-primary" process="@this"
+						update=":hc-profile-form:container-profile-element"
+						action="#{profileReadPage.processEditClick()}">
+						<f:ajax 
+							process="@this" 
+							render=":hc-profile-form:container-profile-element"/>
+					</h:commandButton>
+				</div>
+		
+		</div>
+	</div>
+</ui:composition>

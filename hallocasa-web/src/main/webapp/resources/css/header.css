@@ -3,7 +3,6 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	text-align: center;
 }
 
 body {
@@ -251,7 +250,8 @@ ul.topnav li.icon {
 	float: left;
 	width: 100%;	
     position: fixed!important;
-    background:#002d45;
+    /*background:#002d45;*/
+    background:#901;
     /*background: rgba(225,235,244,0.95);*/
     border-bottom: 2px solid #1D5D8D;    
     z-index: 11;
@@ -273,6 +273,11 @@ div.hc-responsive-div {
 	    padding:0 10px;
     width: 200px;
     height: 200px;
+}
+div.hc-responsive-div-properties {
+    padding: 0 10px;
+    width: 200px;
+    height: 120px;
 }
 
 .login-btn {
@@ -319,7 +324,7 @@ a.closed-tc.ui-icon.ui-icon-closethick {
 
 .content-profile {
 	padding-bottom: 30px;
-	padding-top: 100px;
+	padding-top: 30px;
 }
 
 .content-btn-edit {
