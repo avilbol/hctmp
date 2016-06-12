@@ -209,7 +209,11 @@
 	
 	
 	
+	
+	
 	.topnavli
+	
+	
 	
 	
 	
@@ -238,7 +242,9 @@
 	
 	
 	
+	
 	 
+	
 	
 	
 	
@@ -259,7 +265,9 @@
 	
 	
 	
+	
 	 
+	
 	
 	
 	
@@ -289,7 +297,10 @@
 	
 	
 	
+	
+	
 	:
+	
 	
 	
 	
@@ -309,7 +320,10 @@
 	
 	
 	
+	
 	none
+	
+	
 	
 	
 	
@@ -467,6 +481,14 @@ span.menu-link {
 	background-repeat: no-repeat;
 }
 
+.hc-contents-cards {
+	margin-top: 100px;
+}
+
+.btn-responsive {
+	width: 100% !important;
+}
+
 }
 @media screen and (max-width:680px) {
 	.logo {
@@ -512,9 +534,12 @@ span.menu-link {
 		width: 133% !important;
 		margin-top: -12px;
 	}
-	.col-md-btn-cancel,.col-md-btn-save,.col-md-btn-back,.col-md-btn-follow
+		.col-md-btn-cancel,.col-md-btn-save,.col-md-btn-back,.col-md-btn-follow
 		{
-		width: 100%;
+		width: 40%;
+	}
+	.hc-col-md-offset-save {
+		margin-left: 40px;
 	}
 	.hc-image-selected {
 		width: 86%;
@@ -561,6 +586,7 @@ span.menu-link {
 	ul
 	
 	
+	
 
 	
 	
@@ -577,10 +603,12 @@ span.menu-link {
 	
 	
 
+	
 	
 	.topnav
 	
 	
+	
 
 	
 	
@@ -597,27 +625,31 @@ span.menu-link {
 	
 	
 
+	
 	
 	li
 	
 	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
 	
 	:not
+	
 	
 	
 
@@ -636,11 +668,13 @@ span.menu-link {
 	
 	
 
+	
 	
 	(
 	:first-child
 	
 	
+	
 
 	
 	
@@ -657,29 +691,33 @@ span.menu-link {
 	
 	
 
+	
 	
 	)
 	{
 	display
 	
 	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
 	
 	:
+	
 	
 	
 
@@ -699,24 +737,27 @@ span.menu-link {
 	
 
 	
+	
 	none
 	
 	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
 	
 	;
 }
