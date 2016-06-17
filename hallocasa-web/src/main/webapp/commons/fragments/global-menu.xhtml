@@ -42,7 +42,7 @@
 		}
 	</script>
 	<h:form id="global-menu">
-		<div class="row menu-row">
+		<div class="col-md-10 menu-row">
 			<ul class="topnav">
 				<li class="icon">
 					<!-- <a href="javascript:void(0);" class="icon-menu" onclick="myFunction()">☰</a> -->
@@ -56,10 +56,6 @@
 
 				<li class="hc-header-global-menu-item hc-li-header"><a
 					href="#{constants.getAbsolutePageUrl('BLOG_INDEX')}"> <span>#{viewBundle['Common.Label.Blog']}</span>
-				</a></li>
-
-				<li class="hc-header-global-menu-item hc-li-header"><a
-					href="#{constants.getAbsolutePageUrl('LINKS')}"> <span>#{viewBundle['Common.Label.Links']}</span>
 				</a></li>
 				<li class="hc-header-global-menu-item hc-li-header"><a
 					href="#{constants.getAbsolutePageUrl('BUYING_PROCESS')}"> <span>#{viewBundle['Common.Label.BuyingProcess']}</span>
@@ -117,6 +113,32 @@
 					</p:menu>
 				</li>
 			</ul>
+		</div>
+		
+		<div class="row col-md-1">
+		<div class="dropdown hc-form-field form-control hc-select-property-basic-info">
+			<button class="btn btn-primary dropdown-toggle" type="button"
+				data-toggle="dropdown" value="Currency"></button>
+			<ul class="dropdown-menu">
+				<li><a href="#">COP</a></li>
+				<li><a href="#">EUR</a></li>
+				<li><a href="#">USD</a></li>
+				<li><a href="#">CAD</a></li>
+				<li><a href="#">CSS</a></li>
+				<li><a href="#">GBP</a></li>
+				<li><a href="#">CHF</a></li>
+				<li><a href="#">AUD</a></li>
+			</ul>
+		</div>
+		
+			<h:selectOneMenu id="currency"
+				styleClass="hc-form-field form-control hc-select-property-basic-info"
+				binding="#{cc.currency}"
+				converter="currencyConverter">
+				<f:selectItem itemLabel="#{cc.attrs.defaultMessage}" value="#{null}"/>
+				<f:selectItems value="#{cc.attrs.currencies}" var="currency"
+					itemLabel="#{cc.currencyValue(currency)}" itemValue="#{currency}" />
+			</h:selectOneMenu>
 		</div>
 	</h:form>
 
