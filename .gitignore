@@ -10,3 +10,4 @@
 /hallocasa-ear/.project
 /hallocasa-ear/.settings/*
 /hallocasa-ejb/.classpath
+/hallocasa-commons/profiles/dev/config.properties

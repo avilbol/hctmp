@@ -1,6 +1,9 @@
 package com.hallocasa.services.interfaces;
 
-import com.hallocasa.commons.vo.UserVO;
+import java.util.List;
+import java.util.Map;
+
+import com.hallocasa.commons.vo.CurrencyVO;
 
 /**
  * Service for provide currency functionality
@@ -12,6 +15,12 @@ public interface CurrencyServices {
 	/**
 	 * Finds currency list
 	 */
-	public UserVO find();
+	public List<CurrencyVO> find();
 	
+	/**
+	 * Persist the info about data exchange
+	 * @param exchangeDataMap
+	 */
+	public void persistExchangeData(Map<String, Object> exchangeDataMap);
+	 
 }
