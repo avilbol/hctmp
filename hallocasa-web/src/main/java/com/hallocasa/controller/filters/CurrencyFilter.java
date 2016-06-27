@@ -36,7 +36,7 @@ public class CurrencyFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         // this code only applies for GET requeset
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        if (!httpServletRequest.getMethod().equals("GET")) {
+        if (!httpServletRequest.getMethod().equals("GET") || httpServletRequest.getRequestURI().contains("javax.faces.resource")) {
             chain.doFilter(request, response);
             return;
         }
