@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -29,6 +30,7 @@ import com.hallocasa.services.persistence.local.AppPersistenceServices;
  * @author Alexander Villamil
  *
  */
+@Stateless
 public class CurrencyExchangeDataServices {
 
 	/**

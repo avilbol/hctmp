@@ -11,16 +11,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
 * This entity class represents a rate exchange between two currencies
 * @author Alexander Villamil
 */
 @Entity
-@Table(name = "property")
+@Table(name = "currency_exchange_data")
 @NamedQueries({
    @NamedQuery(name = CurrencyExchangeData.QUERY_FIND_BY_CURRENCY_FROM,
-           query = "select ce from CurrencyExchangeData ce where p.currency_from_id = ?1"),
+           query = "select ce from CurrencyExchangeData ce where ce.currencyFrom = ?1"),
    @NamedQuery(name = CurrencyExchangeData.QUERY_FIND_ALL,
    		   query = "select ce from CurrencyExchangeData ce"),
    @NamedQuery(name = CurrencyExchangeData.QUERY_LAST_UPDATE,
@@ -55,6 +57,7 @@ public class CurrencyExchangeData {
 	@Column(name = "rate_exchange")
 	private Double rateExchange;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "update_date")
 	private Date updateDate;
 	

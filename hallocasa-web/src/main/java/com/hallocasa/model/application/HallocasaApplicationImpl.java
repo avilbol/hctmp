@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,14 +19,10 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
-import org.joda.time.DateTimeComparator;
-
 import com.hallocasa.commons.Language;
-import com.hallocasa.commons.exceptions.services.ErrorJsonResponseException;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
 import com.hallocasa.commons.vo.CountryVO;
-import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.properties.PropertyLocationVO;
 import com.hallocasa.commons.vo.properties.PropertyProposalVO;
@@ -39,8 +34,6 @@ import com.hallocasa.dataentities.app.properties.PropertyLocation;
 import com.hallocasa.dataentities.app.properties.PropertyProposal;
 import com.hallocasa.dataentities.app.properties.PropertyType;
 import com.hallocasa.helpers.ParsersContext;
-import com.hallocasa.services.interfaces.CurrencyExchangeDataServices;
-import com.hallocasa.services.interfaces.CurrencyServices;
 import com.hallocasa.services.interfaces.FileServicesInterface;
 import com.hallocasa.services.interfaces.ImageServicesInterface;
 import com.hallocasa.services.location.local.TelephoneServices;
@@ -75,12 +68,6 @@ public class HallocasaApplicationImpl implements HallocasaApplication, Serializa
 	@EJB
 	private TelephoneServices telephoneServices;
 
-	@EJB
-	private CurrencyServices currencyServices;
-
-	@EJB
-	private CurrencyExchangeDataServices currencyExchangeDataServices;
-
 	private List<Language> languages;
 
 	private List<CountryVO> countries;
@@ -95,15 +82,11 @@ public class HallocasaApplicationImpl implements HallocasaApplication, Serializa
 
 	private List<PropertyTypeVO> propertyTypes;
 
-	private List<CurrencyVO> currencies;
-
 	private List<PropertyLocationVO> propertyLocations;
 
 	private List<PropertyProposalVO> propertyProposals;
 
 	private List<CountryTelephonePrefixVO> countryTelephonePrefixList;
-
-	private Map<String, Object> conversionExchangeRateList;
 
 	private Integer userIdInRecoveryProcess;
 
@@ -270,17 +253,6 @@ public class HallocasaApplicationImpl implements HallocasaApplication, Serializa
 		this.propertyProposals = propertyProposals;
 	}
 
-	public List<CurrencyVO> getCurrencies() {
-		if (currencies == null || currencies.isEmpty()) {
-			currencies = currencyServices.find();
-		}
-		return currencies;
-	}
-
-	public void setCurrencies(List<CurrencyVO> currencies) {
-		this.currencies = currencies;
-	}
-
 	public Map<Long, MultiLanguageText> getCityMap() {
 		return cityMap;
 	}
@@ -292,80 +264,4 @@ public class HallocasaApplicationImpl implements HallocasaApplication, Serializa
 	public Map<Long, BigDecimal> getCityLngMap() {
 		return cityLngMap;
 	}
-
-	public Map<String, Object> getConversionExchangeRateList() {
-		Date lastUpdate = currencyExchangeDataServices.findLastUpdate();
-		int compareResult = -1;
-		if(lastUpdate != null){
-			compareResult = DateTimeComparator.getDateOnlyInstance().compare(lastUpdate, new Date());
-		}
-		if (compareResult < 0) {
-			try {
-				conversionExchangeRateList = currencyExchangeDataServices.refreshWithLiveRates();
-			} catch (ErrorJsonResponseException e) {
-				// TODO: set error here
-			}
-		}
-		if (conversionExchangeRateList == null || conversionExchangeRateList.isEmpty()){
-			conversionExchangeRateList = currencyExchangeDataServices.find();
-		}
-		return conversionExchangeRateList;
-	}
-
-	public void setConversionExchangeRateList(Map<String, Object> conversionExchangeRateList) {
-		this.conversionExchangeRateList = conversionExchangeRateList;
-	}
-	
-	/**
-	 * Get the exchange rate between two currencies
-	 * @param currencyFrom
-	 * @param currencyTo
-	 * @return
-	 */
-	public Double getRateExchange(CurrencyVO currencyFrom, CurrencyVO currencyTo){
-		Map<Integer, CurrencyVO> currencyMap = new HashMap<>();
-		for(CurrencyVO cvo : getCurrencies()){
-			currencyMap.put(cvo.getId(), cvo);
-		}
-		Integer idCurrencyFrom = currencyFrom.getId();
-		Integer idCurrencyTo = currencyTo.getId();
-		String currencyFromAb = currencyMap.get(idCurrencyFrom).getAbbreviation();
-		String currencyToAb = currencyMap.get(idCurrencyTo).getAbbreviation();
-		String fullAb = currencyFromAb.trim() + currencyToAb.trim();
-		Map<String, Object> conversionExchangeRateList = getConversionExchangeRateList();
-		return (Double) conversionExchangeRateList.get(fullAb);
-	}
-	
-	/**
-	 * Get converted value of a currency value
-	 * @param value
-	 * 		The value to convert
-	 * @param currencyFrom
-	 * 		Currency source
-	 * @param currencyTo
-	 * 		Currency destiny
-	 * @return
-	 * 		The value expressed in currency destiny
-	 */
-	public Double getConvertedValue(BigDecimal value, CurrencyVO currencyFrom, CurrencyVO currencyTo){
-		if(currencyTo.getAbbreviation().equals("USD")){
-			Double rate = getRateExchange(currencyTo, currencyFrom);
-			return value.multiply(new BigDecimal(1/rate)).doubleValue();
-		}
-		Double rate = getRateExchange(currencyFrom, currencyTo);
-		if(rate != null){
-			return value.multiply(new BigDecimal(rate)).doubleValue();
-		}
-		Map<String, CurrencyVO> currencyMap = new HashMap<>();
-		for(CurrencyVO cvo : getCurrencies()){
-			currencyMap.put(cvo.getAbbreviation(), cvo);
-		}
-		CurrencyVO usdCurrency = currencyMap.get("USD");
-		Double rateBridge = getRateExchange(usdCurrency, currencyFrom);
-		Double rateFinal = getRateExchange(usdCurrency, currencyTo);
-		BigDecimal intermediaryValue = value.multiply(new BigDecimal(1/rateBridge));
-		BigDecimal finalValue = intermediaryValue.multiply(new BigDecimal(rateFinal));
-		return finalValue.doubleValue();
-	}
-
 }

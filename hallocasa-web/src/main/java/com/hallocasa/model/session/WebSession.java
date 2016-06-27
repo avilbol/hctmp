@@ -7,6 +7,7 @@ package com.hallocasa.model.session;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.vo.CredentialVO;
+import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.UserVO;
 
 /**
@@ -30,7 +31,13 @@ public interface WebSession {
      */
     public Language getCurrentLanguage();
 
-
+    /**
+     * Returns the current currency
+     *
+     * @return
+     */
+    public CurrencyVO getCurrentCurrency();
+    
     /**
      * Login into the session.
      *
@@ -65,5 +72,7 @@ public interface WebSession {
      * @param userVO
      */
 	void login(UserVO userVO);
+
+	public void changeCurrency(String currencyParameter);
 
 }

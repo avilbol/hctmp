@@ -116,6 +116,24 @@
 						</p:submenu>
 					</p:menu>
 				</li>
+				
+				<li
+					class="hc-header-global-menu-item hc-header-menu  btn-default-languaje">
+					<h:panelGroup id="currencyMenuTrigger" styleClass="fa"
+						class="language-link">#{webSession.currentCurrencyName}</h:panelGroup>
+						Hola :p
+					<p:menu overlay="true" my="left top" trigger="currencyMenuTrigger"
+						widgetVar="currencyMenuWv" at="left bottom"
+						styleClass="hc-header-menu-overlay hc-header-language-menu-overlay">
+						<p:submenu label="Currency Selection">
+							<c:forEach items="#{currencyContext.currencies}" var="currency">
+								<p:menuitem value="#{webSession.getCurrencyName(currency.name)}" 
+									immediate="true"
+									onclick="window.location.href = updateQueryStringParameter(window.location.href, 'crcy', #{currency.abbreviation});" />
+							</c:forEach>
+						</p:submenu>
+					</p:menu>
+				</li>
 			</ul>
 		</div>
 	</h:form>
