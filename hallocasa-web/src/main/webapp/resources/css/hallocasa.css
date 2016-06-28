@@ -20,7 +20,7 @@
 
 /*body*/
 .hc-content-body {
-	min-height: 640px;
+	min-height: 599px;
 	border-bottom: 2px solid #1D5D8D;
 	background-image: url("#{resource['images:hc-background-1345.jpg']}");
 	background-repeat: no-repeat;
@@ -534,11 +534,13 @@
 	margin-left: 28.333333%;
 }
 
-.hc-responsive-div-properties img {
+.hc-responsive-div-properties img, .hc-card-properties img {
 	width: 172px;
 	height: 121px;
 }
-
+.col-md-offset-container-properties{
+	margin-left: 5.333333%;
+}
 .hc-cards-city {
 	padding-left: 10px !important;
 }
@@ -550,4 +552,16 @@
 }
 .hc-btn-location{
 	    width: 85%!important;
+}
+.hc-currency{
+	color:#000;
+	width:100%;
+}
+.hc-card-properties{
+	border: 3px solid #ccc;
+    border-radius: 3px;
+    padding: 30px;
+    margin: 20px;
+    width: 38.2%!important;
+    padding-left: 30px!important;
 }

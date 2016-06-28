@@ -42,13 +42,21 @@
 		}
 	</script>
 	<h:form id="global-menu">
-		<div class="col-md-10 menu-row">
+		<div class="col-md-12 menu-row">
 			<ul class="topnav">
 				<li class="icon">
 					<!-- <a href="javascript:void(0);" class="icon-menu" onclick="myFunction()">☰</a> -->
 					<a href="javascript:void(0);" class="icon-menu"
 					onclick="myFunction()"></a>
 
+				</li>
+				<li class="hc-header-global-menu-item hc-li-header">
+				<!-- <a
+					href="#{constants.getAbsolutePageUrl('BROWSE_PROFILE')}"> <span>#{viewBundle['Common.Label.BrowseProperty']}</span>
+				</a>-->
+				<a
+					href="#"> <span>Browser Property</span>
+				</a>
 				</li>
 				<li class="hc-header-global-menu-item hc-li-header"><a
 					href="#{constants.getAbsolutePageUrl('BROWSE_PROFILE')}"> <span>#{viewBundle['Common.Label.BrowseProfiles']}</span>
@@ -112,33 +120,22 @@
 						</p:submenu>
 					</p:menu>
 				</li>
+				<li>
+					<div class="col-md-1">
+						<button class="btn btn-default" type="button"
+							data-toggle="dropdown" value="Currency">COP</button>
+						<ul class="dropdown-menu col-md-12">
+							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">COP</a></li>
+							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">EUR</a></li>
+							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">USD</a></li>
+							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">CAD</a></li>
+							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">GBP</a></li>
+							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">CHF</a></li>
+							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">AUD</a></li>
+						</ul>
+					</div>
+				</li>
 			</ul>
-		</div>
-		
-		<div class="row col-md-1">
-		<div class="dropdown hc-form-field form-control hc-select-property-basic-info">
-			<button class="btn btn-primary dropdown-toggle" type="button"
-				data-toggle="dropdown" value="Currency"></button>
-			<ul class="dropdown-menu">
-				<li><a href="#">COP</a></li>
-				<li><a href="#">EUR</a></li>
-				<li><a href="#">USD</a></li>
-				<li><a href="#">CAD</a></li>
-				<li><a href="#">CSS</a></li>
-				<li><a href="#">GBP</a></li>
-				<li><a href="#">CHF</a></li>
-				<li><a href="#">AUD</a></li>
-			</ul>
-		</div>
-		
-			<h:selectOneMenu id="currency"
-				styleClass="hc-form-field form-control hc-select-property-basic-info"
-				binding="#{cc.currency}"
-				converter="currencyConverter">
-				<f:selectItem itemLabel="#{cc.attrs.defaultMessage}" value="#{null}"/>
-				<f:selectItems value="#{cc.attrs.currencies}" var="currency"
-					itemLabel="#{cc.currencyValue(currency)}" itemValue="#{currency}" />
-			</h:selectOneMenu>
 		</div>
 	</h:form>
 

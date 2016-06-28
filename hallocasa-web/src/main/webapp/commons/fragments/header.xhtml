@@ -15,19 +15,19 @@
 	</ui:remove>
 	<div class="top-strip">
 		<header id="top " class="header">
-		<div class="row col-lg-1 col-xs-1 logo">
-			<div class="col-md-12">
-				<div class="hc-header-logo">
-					<ui:include src="logo.xhtml" />
+			<div class="row col-lg-2 col-xs-2 logo">
+				<div class="col-md-12">
+					<div class="hc-header-logo">
+						<ui:include src="logo.xhtml" />
+					</div>
+				</div>
+				<!--<div class="col-md-12 beta">BETA</div>-->
+			</div>
+			<div class="row col-md-10 menu">
+				<div class="col-md-12">
+					<ui:include src="global-menu.xhtml" />
 				</div>
 			</div>
-			<!--<div class="col-md-12 beta">BETA</div>-->
-		</div>
-		<div class="row col-md-10 menu">
-			<div class="col-md-12">
-				<ui:include src="global-menu.xhtml" />
-			</div>
-		</div>
 		</header>
 		<c:if test="#{header_showBanner ne true}">
 			<!-- Sub-menu -->
@@ -39,17 +39,6 @@
 							<ui:include src="#{header_subMenuPath}" />
 						</div>
 					</div>
-				</div>
-				<div class="dropdown">
-					<button class="btn btn-primary dropdown-toggle" type="button"
-						data-toggle="dropdown">
-						Dropdown Example <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li><a href="#">HTML</a></li>
-						<li><a href="#">CSS</a></li>
-						<li><a href="#">JavaScript</a></li>
-					</ul>
 				</div>
 			</c:if>
 		</c:if>
