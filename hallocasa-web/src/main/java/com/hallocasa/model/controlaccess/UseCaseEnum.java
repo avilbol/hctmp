@@ -19,7 +19,8 @@ public enum UseCaseEnum {
     EDIT_MY_PROFILE("/hallocasa/user/my profile/edit", FULL_ACCESS),
     EDIT_MY_PROFILE_TEMP("/hallocasa/user/my profile/edit-temp", FULL_ACCESS),
     BROWSE_PROFILES("/hallocasa/profile/browse", FULL_ACCESS),
-    SEE_PUBLIC_PROFILE("/hallocasa/profile/public", FULL_ACCESS);
+    SEE_PUBLIC_PROFILE("/hallocasa/profile/public", FULL_ACCESS),
+    SEE_MY_PROPERTY("/hallocasa/property/view", FULL_ACCESS);
     
     private static final HashMap<String, UseCaseEnum> findMap;
     private final String useCaseName;

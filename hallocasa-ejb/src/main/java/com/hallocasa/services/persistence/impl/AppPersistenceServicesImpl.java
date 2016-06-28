@@ -136,13 +136,11 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
     
     @Override
     public <T> void mergeEntityList(List<T> entityList){
-    	em.getTransaction().begin();
 		for (T entity : entityList) {
 			em.merge(entity);
 			em.flush();
 			em.clear();
 		}
-		em.getTransaction().commit();
     }
 
     /*

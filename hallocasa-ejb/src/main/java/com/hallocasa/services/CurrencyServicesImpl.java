@@ -32,7 +32,7 @@ public class CurrencyServicesImpl implements CurrencyServices {
 	private PropertyServices propertyServices;
 
 	@EJB
-	private CurrencyExchangeDataServices currencyExchangeDataServices;
+	private CurrencyExchangeDataServices currencyExchangeDataServices; 
 
 	@Override
 	public List<CurrencyVO> find() {

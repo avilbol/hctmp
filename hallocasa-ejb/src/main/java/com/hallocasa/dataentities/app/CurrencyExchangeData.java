@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,9 +26,7 @@ import javax.persistence.TemporalType;
    @NamedQuery(name = CurrencyExchangeData.QUERY_FIND_BY_CURRENCY_FROM,
            query = "select ce from CurrencyExchangeData ce where ce.currencyFrom = ?1"),
    @NamedQuery(name = CurrencyExchangeData.QUERY_FIND_ALL,
-   		   query = "select ce from CurrencyExchangeData ce"),
-   @NamedQuery(name = CurrencyExchangeData.QUERY_LAST_UPDATE,
-	   query = "select max(ce.updateDate) from CurrencyExchangeData ce")
+   		   query = "select ce from CurrencyExchangeData ce")
 })
 public class CurrencyExchangeData {
 
@@ -38,18 +38,21 @@ public class CurrencyExchangeData {
 	public static final String QUERY_FIND_ALL = "CurrencyExchange.Data.QueryFindAll";
 	
 	/**
-	 * Query the last update of @CurrencyExchangeData
+	 * Native query the last update of @CurrencyExchangeData
 	 */
-	public static final String QUERY_LAST_UPDATE = "CurrencyExchange.Data.QueryLastUpdate";
+	public static final String QUERY_LAST_UPDATE = "SELECT MAX(ce.updateDate) FROM CurrencyExchangeData ce";
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	
+	@Id
 	@JoinColumn(name = "currency_from_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Currency currencyFrom;
 	
+	@Id
 	@JoinColumn(name = "currency_to_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Currency currencyTo;

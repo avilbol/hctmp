@@ -80,10 +80,18 @@ public enum HallocasaViewEnum {
             PropertyReadPage.class, false, null, UseCaseEnum.SEE_MY_PROFILE),
     
     /**
+     * Page for property detail
+     */
+    PROPERTY_DETAIL(HallocasaViewNames.PROPERTY_DETAIL, "/user/pages/properties/property-view.xhtml",
+    		PropertyReadPage.class, false, null, UseCaseEnum.SEE_MY_PROPERTY),
+            
+    /**
      * Page for profile editing
      */
     EDIT_PROFILE(HallocasaViewNames.USER_PROFILE_EDIT, "/user/pages/edit-profile.xhtml",
             ProfileEditPage.class, true, null, UseCaseEnum.EDIT_MY_PROFILE),
+            
+            
     
     /**
      * Page for profile editing
