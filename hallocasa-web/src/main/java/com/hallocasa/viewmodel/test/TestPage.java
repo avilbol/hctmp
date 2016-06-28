@@ -25,6 +25,7 @@ import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.TelephoneVO;
 import com.hallocasa.dataentities.app.test.TestEntity;
+import com.hallocasa.model.application.CurrencyGlobalApplication;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.services.messaging.local.MailServices;
@@ -66,13 +67,16 @@ public class TestPage {
     @Inject
 	private HallocasaApplicationImpl halloCasaApplication;
     
+    @Inject
+   	private CurrencyGlobalApplication currencyGlobal;
+    
     @PostConstruct
     public void init(){
     	currency = new CurrencyVO();
     	country = new CountryVO();
     	country.setId(1l);
     	countries=halloCasaApplication.getCountries();
-    	currencies= halloCasaApplication.getCurrencies();
+    	currencies= currencyGlobal.getCurrencies();
     	currency.setId(1);
     	testAttrList = new ArrayList<TestEntity>();
     	testAttrList.add(new TestEntity(1l, "hi"));

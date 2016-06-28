@@ -1,6 +1,7 @@
 package com.hallocasa.viewmodel.user.profile;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.CurrencyVOAmmount;
 import com.hallocasa.commons.vo.properties.PropertyVO;
+import com.hallocasa.model.application.CurrencyGlobalApplication;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.PropertyServices;
@@ -47,6 +49,8 @@ public class PropertyListPage {
     private PropertyServices propertyServices;
     @Inject
 	private HallocasaApplicationImpl halloCasaApplication;
+    @Inject
+   	private CurrencyGlobalApplication currencyGlobal;
     
     @ManagedProperty(value = "#{globalProfilePage}")
 	private GlobalProfilePage globalProfilePage;
@@ -86,16 +90,11 @@ public class PropertyListPage {
     	if(ammount == null || ammount.getValue() == null){
     		return null;
     	}
-    	NumberFormat formatter = NumberFormat.getCurrencyInstance();
-    	CurrencyVO selectedCurrencyVO = null;
-    	for(CurrencyVO currency : halloCasaApplication.getCurrencies()){
-    		if(currency.getId().equals(ammount.getCurrency().getId())){
-    			selectedCurrencyVO = currency;
-    			break;
-    		}
-    	}
-    	return formatter.format(ammount.getValue()) + " " + 
-    			selectedCurrencyVO.getAbbreviation();
+    	DecimalFormat formatter = new DecimalFormat("#,###");
+    	BigDecimal exchangedValue = new BigDecimal(currencyGlobal.rateExchange(ammount.getValue(), 
+    			ammount.getCurrency(), webSession.getCurrentCurrency()));
+    	return formatter.format(exchangedValue) + " " + 
+    			webSession.getCurrentCurrency().getAbbreviation();
     }
     
     public String squareMetersValue(BigDecimal sqValue){

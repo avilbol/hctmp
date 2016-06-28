@@ -21,17 +21,14 @@ import javax.faces.context.FacesContext;
 
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
-import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
 import com.hallocasa.commons.vo.CountryVO;
-import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.properties.PropertyLocationVO;
 import com.hallocasa.commons.vo.properties.PropertyProposalVO;
 import com.hallocasa.commons.vo.properties.PropertyTypeVO;
 import com.hallocasa.dataentities.app.City;
 import com.hallocasa.dataentities.app.Country;
-import com.hallocasa.dataentities.app.Currency;
 import com.hallocasa.dataentities.app.UserType;
 import com.hallocasa.dataentities.app.properties.PropertyLocation;
 import com.hallocasa.dataentities.app.properties.PropertyProposal;
@@ -49,8 +46,7 @@ import com.hallocasa.services.persistence.local.WcmPersistenceServices;
  */
 @ManagedBean(name = "applicationContext", eager = true)
 @ApplicationScoped
-public class HallocasaApplicationImpl implements HallocasaApplication,
-		Serializable {
+public class HallocasaApplicationImpl implements HallocasaApplication, Serializable {
 
 	/**
 	 * Serialization constant
@@ -75,18 +71,16 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 	private List<Language> languages;
 
 	private List<CountryVO> countries;
-	
+
 	private Map<Long, MultiLanguageText> cityMap;
-	
+
 	private Map<Long, BigDecimal> cityLatMap;
 
 	private Map<Long, BigDecimal> cityLngMap;
-	
+
 	private List<UserTypeVO> userTypes;
 
 	private List<PropertyTypeVO> propertyTypes;
-
-	private List<CurrencyVO> currencies;
 
 	private List<PropertyLocationVO> propertyLocations;
 
@@ -111,8 +105,7 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 	 * @return
 	 */
 	public static HallocasaApplicationImpl getInstance(FacesContext facesContext) {
-		return facesContext.getApplication().evaluateExpressionGet(
-				facesContext, "#{applicationContext}",
+		return facesContext.getApplication().evaluateExpressionGet(facesContext, "#{applicationContext}",
 				HallocasaApplicationImpl.class);
 	}
 
@@ -120,42 +113,32 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 	public void initialize() {
 		languages = new ArrayList<>();
 		languages.addAll(Arrays.asList(Language.values()));
-		List<Country> rawCountries = appPersistenceServices.executeNamedQuery(
-				Country.QUERY_FIND_ALL, null, Country.class);
-		propertyTypes = ParsersContext.PROPERTY_TYPE_VO_PARSER
-				.toValueObjectList(appPersistenceServices.executeNamedQuery(
-						PropertyType.QUERY_FIND_ALL, null, PropertyType.class),
-						PropertyTypeVO.class);
-		propertyProposals = ParsersContext.PROPERTY_PROPOSAL_VO_PARSER
-				.toValueObjectList(appPersistenceServices.executeNamedQuery(
-						PropertyProposal.QUERY_FIND_ALL, null,
-						PropertyProposal.class), PropertyProposalVO.class);
-		propertyLocations = ParsersContext.PROPERTY_LOCATION_VO_PARSER
-				.toValueObjectList(appPersistenceServices.executeNamedQuery(
-						PropertyLocation.QUERY_FIND_ALL, null,
-						PropertyLocation.class), PropertyLocationVO.class);
-		currencies = ParsersContext.CURRENCY_VO_PARSER.toValueObjectList(
-				appPersistenceServices.executeNamedQuery(
-						Currency.QUERY_FIND_ALL, null, Currency.class),
-				CurrencyVO.class);
-		countries = ParsersContext.COUNTRY_VO_PARSER.toValueObjectList(
-				rawCountries, CountryVO.class);
+		List<Country> rawCountries = appPersistenceServices.executeNamedQuery(Country.QUERY_FIND_ALL, null,
+				Country.class);
+		propertyTypes = ParsersContext.PROPERTY_TYPE_VO_PARSER.toValueObjectList(
+				appPersistenceServices.executeNamedQuery(PropertyType.QUERY_FIND_ALL, null, PropertyType.class),
+				PropertyTypeVO.class);
+		propertyProposals = ParsersContext.PROPERTY_PROPOSAL_VO_PARSER.toValueObjectList(
+				appPersistenceServices.executeNamedQuery(PropertyProposal.QUERY_FIND_ALL, null, PropertyProposal.class),
+				PropertyProposalVO.class);
+		propertyLocations = ParsersContext.PROPERTY_LOCATION_VO_PARSER.toValueObjectList(
+				appPersistenceServices.executeNamedQuery(PropertyLocation.QUERY_FIND_ALL, null, PropertyLocation.class),
+				PropertyLocationVO.class);
+		countries = ParsersContext.COUNTRY_VO_PARSER.toValueObjectList(rawCountries, CountryVO.class);
 
-		List<City> cities = appPersistenceServices.executeNamedQuery(
-				City.QUERY_FIND_ALL, null, City.class);
+		List<City> cities = appPersistenceServices.executeNamedQuery(City.QUERY_FIND_ALL, null, City.class);
 		cityMap = new HashMap<>();
 		cityLatMap = new HashMap<>();
 		cityLngMap = new HashMap<>();
-		for(City city : cities){
+		for (City city : cities) {
 			cityMap.put(city.getId(), city.getCityName());
 			cityLatMap.put(city.getId(), city.getDefaultLatCoordinate());
 			cityLngMap.put(city.getId(), city.getDefaultLngCoordinate());
 		}
-		
-		List<UserType> rawUserTypes = appPersistenceServices.executeNamedQuery(
-				UserType.QUERY_FIND_ALL, null, UserType.class);
-		userTypes = ParsersContext.USER_TYPE_VO_PARSER.toValueObjectList(
-				rawUserTypes, UserTypeVO.class);
+
+		List<UserType> rawUserTypes = appPersistenceServices.executeNamedQuery(UserType.QUERY_FIND_ALL, null,
+				UserType.class);
+		userTypes = ParsersContext.USER_TYPE_VO_PARSER.toValueObjectList(rawUserTypes, UserTypeVO.class);
 		countryTelephonePrefixList = telephoneServices.getCountryPrefixList();
 	}
 
@@ -181,8 +164,7 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 		return countryTelephonePrefixList;
 	}
 
-	public void setCountryTelephonePrefixList(
-			List<CountryTelephonePrefixVO> countryTelephonePrefixList) {
+	public void setCountryTelephonePrefixList(List<CountryTelephonePrefixVO> countryTelephonePrefixList) {
 		this.countryTelephonePrefixList = countryTelephonePrefixList;
 	}
 
@@ -235,8 +217,7 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 		return appPersistenceServices;
 	}
 
-	public void setAppPersistenceServices(
-			AppPersistenceServices appPersistenceServices) {
+	public void setAppPersistenceServices(AppPersistenceServices appPersistenceServices) {
 		this.appPersistenceServices = appPersistenceServices;
 	}
 
@@ -270,14 +251,6 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 
 	public void setPropertyProposals(List<PropertyProposalVO> propertyProposals) {
 		this.propertyProposals = propertyProposals;
-	}
-
-	public List<CurrencyVO> getCurrencies() {
-		return currencies;
-	}
-
-	public void setCurrencies(List<CurrencyVO> currencies) {
-		this.currencies = currencies;
 	}
 
 	public Map<Long, MultiLanguageText> getCityMap() {

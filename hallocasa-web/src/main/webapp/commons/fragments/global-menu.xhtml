@@ -42,7 +42,7 @@
 		}
 	</script>
 	<h:form id="global-menu">
-		<div class="col-md-12 menu-row">
+		<div class="row menu-row">
 			<ul class="topnav">
 				<li class="icon">
 					<!-- <a href="javascript:void(0);" class="icon-menu" onclick="myFunction()">☰</a> -->
@@ -50,20 +50,16 @@
 					onclick="myFunction()"></a>
 
 				</li>
-				<li class="hc-header-global-menu-item hc-li-header">
-				<!-- <a
-					href="#{constants.getAbsolutePageUrl('BROWSE_PROFILE')}"> <span>#{viewBundle['Common.Label.BrowseProperty']}</span>
-				</a>-->
-				<a
-					href="#"> <span>Browser Property</span>
-				</a>
-				</li>
 				<li class="hc-header-global-menu-item hc-li-header"><a
 					href="#{constants.getAbsolutePageUrl('BROWSE_PROFILE')}"> <span>#{viewBundle['Common.Label.BrowseProfiles']}</span>
 				</a></li>
 
 				<li class="hc-header-global-menu-item hc-li-header"><a
 					href="#{constants.getAbsolutePageUrl('BLOG_INDEX')}"> <span>#{viewBundle['Common.Label.Blog']}</span>
+				</a></li>
+
+				<li class="hc-header-global-menu-item hc-li-header"><a
+					href="#{constants.getAbsolutePageUrl('LINKS')}"> <span>#{viewBundle['Common.Label.Links']}</span>
 				</a></li>
 				<li class="hc-header-global-menu-item hc-li-header"><a
 					href="#{constants.getAbsolutePageUrl('BUYING_PROCESS')}"> <span>#{viewBundle['Common.Label.BuyingProcess']}</span>
@@ -102,7 +98,6 @@
 						</p:menu></li>
 				</ui:fragment>
 
-
 				<li
 					class="hc-header-global-menu-item hc-header-menu  btn-default-languaje">
 					<h:panelGroup id="languageMenuTrigger" styleClass="fa"
@@ -120,20 +115,22 @@
 						</p:submenu>
 					</p:menu>
 				</li>
-				<li>
-					<div class="col-md-1">
-						<button class="btn btn-default" type="button"
-							data-toggle="dropdown" value="Currency">COP</button>
-						<ul class="dropdown-menu col-md-12">
-							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">COP</a></li>
-							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">EUR</a></li>
-							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">USD</a></li>
-							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">CAD</a></li>
-							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">GBP</a></li>
-							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">CHF</a></li>
-							<li style="width: 100%;"><a href="#" style="color:#000;" class="hc-currency">AUD</a></li>
-						</ul>
-					</div>
+				
+				<li
+					class="hc-header-global-menu-item hc-header-menu  btn-default-languaje">
+					<h:panelGroup id="currencyMenuTrigger" styleClass="fa"
+						class="language-link">#{webSession.currentCurrency.abbreviation}</h:panelGroup>
+					<p:menu overlay="true" my="left top" trigger="currencyMenuTrigger"
+						widgetVar="currencyMenuWv" at="left bottom"
+						styleClass="hc-header-menu-overlay hc-header-language-menu-overlay">
+						<p:submenu label="Currency Selection">
+							<c:forEach items="#{currencyContext.currencies}" var="currency">
+								<p:menuitem value="#{currency.abbreviation}" 
+									immediate="true"
+									onclick="window.location.href = updateQueryStringParameter(window.location.href, 'crcy', '#{currency.abbreviation}');" />
+							</c:forEach>
+						</p:submenu>
+					</p:menu>
 				</li>
 			</ul>
 		</div>

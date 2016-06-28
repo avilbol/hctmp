@@ -57,9 +57,6 @@ public class HomePage implements Serializable {
                         .setUserIdInRecoveryProcess(token.getIdAssociated());
                 processPasswordRecoveryDialogRequest();
             }
-            else{
-                navigationHandler.redirectToPage(HallocasaViewEnum.FORBIDDEN);
-            }
         }
     }
 
