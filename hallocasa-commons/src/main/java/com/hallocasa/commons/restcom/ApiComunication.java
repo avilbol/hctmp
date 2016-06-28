@@ -76,4 +76,8 @@ public class ApiComunication {
 		return null;
 	}
 	
+	
+	public static void main(String[] args) throws IOException{
+		ApiComunication.call();
+	}
 }

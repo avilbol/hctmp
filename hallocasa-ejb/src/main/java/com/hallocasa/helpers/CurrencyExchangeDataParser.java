@@ -1,6 +1,7 @@
 package com.hallocasa.helpers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class CurrencyExchangeDataParser {
 	/**
 	 * End of "currency to" position in abbr
 	 */
-	private static final int END_ABBR_CURRENCY_TO_POSITION = 0;
+	private static final int END_ABBR_CURRENCY_TO_POSITION = 6; 
 
 	/**
 	 * Process the conversion exchange map in order to generate a simple list of
@@ -55,16 +56,19 @@ public class CurrencyExchangeDataParser {
 		for (CurrencyVO cvo : currencies) {
 			currenciesByAbr.put(cvo.getAbbreviation(), cvo);
 		}
-		for (String key : keySet) {
-			CurrencyExchangeData cedata = new CurrencyExchangeData();
+		for (String key : keySet) { 
 			String currencyFromAb = key.substring(INIT_ABBR_CURRENCY_FROM_POSITION, END_ABBR_CURRENCY_FROM_POSITION);
 			String currencyToAb = key.substring(INIT_ABBR_CURRENCY_TO_POSITION, END_ABBR_CURRENCY_TO_POSITION);
 			CurrencyVO currencyFrom = currenciesByAbr.get(currencyFromAb);
 			CurrencyVO currencyTo = currenciesByAbr.get(currencyToAb);
-			cedata.setCurrencyFrom(new CurrencyVOParser().toEntity(currencyFrom, Currency.class));
-			cedata.setCurrencyTo(new CurrencyVOParser().toEntity(currencyTo, Currency.class));
-			cedata.setRateExchange((Double) conversionExchangeMap.get(key));
-			cedataList.add(cedata);
+			if(currencyTo != null){
+				CurrencyExchangeData cedata = new CurrencyExchangeData();
+				cedata.setCurrencyFrom(new CurrencyVOParser().toEntity(currencyFrom, Currency.class));
+				cedata.setCurrencyTo(new CurrencyVOParser().toEntity(currencyTo, Currency.class));
+				cedata.setRateExchange((Double) conversionExchangeMap.get(key));
+				cedata.setUpdateDate(new Date());
+				cedataList.add(cedata);
+			}
 		}
 		return cedataList;
 	}

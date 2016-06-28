@@ -1,6 +1,7 @@
 package com.hallocasa.viewmodel.user.profile;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -8,9 +9,13 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.model.controlaccess.ForbiddenException;
 import com.hallocasa.model.session.WebSession;
+import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.interfaces.UserServices;
+import com.hallocasa.view.navigation.HallocasaViewEnum;
+import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.view.utils.FormatUtils;
 
 /**
@@ -34,10 +39,18 @@ public class PublicProfilePage implements Serializable{
 	
 	@EJB
     private UserServices userServices;
+	
+	@EJB
+    private PropertyServices propertyServices;
 
+	@Inject
+    private NavigationHandler navigationHandler;
+	
 	private String userIdStr;
 	
 	private UserVO user;
+	
+	private List<PropertyVO> propertyList;
 	
 	public void initialize(){
 		user = userServices.find(Integer.parseInt(this.getUserIdStr()));
@@ -45,6 +58,15 @@ public class PublicProfilePage implements Serializable{
 	        // it should never 
 	        throw new ForbiddenException();
 	    }
+	    propertyList = propertyServices.find(user);
+		if (propertyList == null) {
+			// it should never
+			throw new ForbiddenException();
+		}
+	}
+	
+	public void goToViewProperty(){
+		navigationHandler.redirectToPage(HallocasaViewEnum.PROPERTY_DETAIL);
 	}
 	
 	public boolean getWebsitePending(){
@@ -115,4 +137,12 @@ public class PublicProfilePage implements Serializable{
     public String getLinkedInLink(){
         return FormatUtils.buildWebString(user.getLinkedIn(), true);
     }
+
+	public List<PropertyVO> getPropertyList() {
+		return propertyList;
+	}
+
+	public void setPropertyList(List<PropertyVO> propertyList) {
+		this.propertyList = propertyList;
+	}
 }

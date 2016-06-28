@@ -3,16 +3,11 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	template="../../commons/templates/general-layout.xhtml"
+	template="../../../commons/templates/general-layout.xhtml"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:param name="header_showSubMenu" value="#{false}" />
-
-	<ui:param name="header_showSubMenu" value="#{true}" />
-	<ui:param name="header_subMenuPath"
-		value="/user/pages/properties-menu.xhtml" />
-
 
 	<p:growl globalOnly="false" showDetail="false" />
 
@@ -28,20 +23,36 @@
 		<h:outputScript library="js" name="maps.js"/>
 	</ui:define>
 	<ui:define name="contentSection">
-		<h:form id="hc-profile-form" enctype="multipart/form-data">
-			<div class="hc-content-body">
-				<div class="container"> 
-					<h:panelGroup id="vars-section">
-						<c:set var="savePropertyButtonPressed"
-							value="#{not empty param['hc-profile-form:save-property']}" />
-					</h:panelGroup>
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<ui:include src="#{globalProfilePage.selectedOption.url}" />
-						</div>
-					</div>
-				</div>
-			</div>
-		</h:form>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<ui:include src="sections/property-details.xhtml"/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
 	</ui:define>
 </ui:composition>

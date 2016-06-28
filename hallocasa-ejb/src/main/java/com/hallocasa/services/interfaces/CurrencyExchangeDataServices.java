@@ -20,7 +20,6 @@ import com.hallocasa.commons.exceptions.services.ErrorJsonResponseException;
 import com.hallocasa.commons.jsonmanager.JsonManager;
 import com.hallocasa.commons.restcom.ApiComunication;
 import com.hallocasa.dataentities.app.CurrencyExchangeData;
-import com.hallocasa.dataentities.app.User;
 import com.hallocasa.helpers.CurrencyExchangeDataParser;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 
@@ -63,7 +62,9 @@ public class CurrencyExchangeDataServices {
 			String response = ApiComunication.callMethod(CURRENCY_LAYER_API_URL, 
 					CURRENCY_LAYER_API_RESOURCE, data);
 			Map<String, Object> currencyExchangeData = JsonManager.fromJson(response, QUOTES_PROPERTY_NAME);
-			currencyServices.persistExchangeData(currencyExchangeData);
+			if(currencyExchangeData != null){
+				currencyServices.persistExchangeData(currencyExchangeData);
+			}
 			return currencyExchangeData;
 		} catch(IOException e){
 			throw new RuntimeException("Problem with trying to get new rates data.", e);

@@ -12,16 +12,23 @@
 			<h:form styleClass="hc-form" enctype="multipart/form-data">
 				<p:messages id="messages" showDetail="false" autoUpdate="true"
 					closable="true" />
-					<div class="col-md-10">
-					</div><div class="col-md-2 btn-responsive">
+				<div class="col-md-10"></div>
+				<div class="col-md-2 btn-responsive">
 					<h:commandButton value="#{viewBundle['Properties.create.label']}"
 						action="#{globalProfilePage.goToCreateProperty()}"
+						disabled="#{propertyListPage.inhabilitedUser}"
 						styleClass="btn btn-primary btn-responsive col-md-12" immediate="true">
 						<f:ajax execute="@this"
 							render=":hc-profile-form:container-property-element" />
 					</h:commandButton>
 				</div>
 				<div class="col-md-9">
+				    <ui:fragment rendered="#{propertyListPage.inhabilitedUser}">
+						<div class="row" style="text-align: center;">
+							<span class="hc-form-label hc-without-properties alert-info">
+								#{viewBundle['Properties.warning.usertypes']} </span>
+						</div>
+					</ui:fragment>
 					<ui:fragment rendered="#{propertyListPage.propertyList.isEmpty()}">
 						<div class="row" style="text-align: center;">
 							<span class="hc-form-label hc-without-properties alert-info">
@@ -37,41 +44,41 @@
 											url="#{property.propertyImageInfo.mainImage.url}"
 											rendered="#{property.propertyImageInfo.mainImage != null}"
 											styleClass="img-responsive" />
-										<h:graphicImage url="#{propertyListPage.defaultImageUrl}"
+										<h:graphicImage url="#{propertyPresentationPage.defaultImageUrl}"
 											rendered="#{property.propertyImageInfo.mainImage == null}"
 											styleClass="img-responsive" />
 									</div>
 									<div class="col-md-12 hc-cards-city">
 										<label class="control-form hc-properties-city">
-											#{propertyListPage.getCityName(property.propertyLocationInfo.city.id)}
+											#{propertyPresentationPage.getCityName(property.propertyLocationInfo.city.id)}
 										</label>
 									</div>
 								</div>
 								<div class="col-md-9 hc-cards-propertie-title">
-									<strong>#{propertyListPage.titleValue(property)}</strong>
+									<strong>#{propertyPresentationPage.titleValue(property)}</strong>
 								</div>
 								<div class="col-md-3">
 									<div class="col-md-12">
 										<div class="col-md-12">
 											<label class="col-md-6 hc-properties-features">
-												#{propertyListPage.langValue(property.propertyType.name)} </label> <label
+												#{propertyPresentationPage.langValue(property.propertyType.name)} </label> <label
 												class="col-md-6 hc-properties-features">
-												#{propertyListPage.langValue(property.propertyProposal.name)}
+												#{propertyPresentationPage.langValue(property.propertyProposal.name)}
 											</label>
 										</div>
 
 										<div class="col-md-12">
 											<label class="col-md-12 hc-properties-features"
 												style="font-weight: 600;">
-												#{propertyListPage.currencyValue(property.propertyBasicInfo.marketPrice)}
+												#{propertyPresentationPage.currencyValue(property.propertyBasicInfo.marketPrice)}
 											</label> <label class="col-md-12 hc-properties-features">
-												#{propertyListPage.squareMetersValue(property.propertyBasicInfo.area)}
+												#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}
 											</label>
 										</div>
 									</div>
 								</div>
 								<div class="col-md-6 hc-cards-list">
-									#{propertyListPage.propertyDescriptionValue(property)}</div>
+									#{propertyPresentationPage.propertyDescriptionValue(property)}</div>
 							</div>
 							<div class="col-md-12">
 								<div class="col-md-8"></div>
@@ -125,268 +132,6 @@
 							</div>
 						</div>
 					</ui:repeat>
-
-
-
-					<ui:remove>
-						<div class="row hc-contents-cards-list">
-							<div class="col-md-12 hc-cards-list">
-								<div class="col-md-3 hc-content-card-image">
-									<div class="col-md-12 hc-responsive-div-properties">
-										<img src="http://weknowyourdreamz.com/images/casa/casa-09.jpg"
-											class="img-responsive" />
-									</div>
-									<div class="col-md-12 hc-cards-city">
-										<label class="control-form hc-properties-city">Bogota
-											DC</label>
-									</div>
-								</div>
-								<div class="col-md-9 hc-cards-propertie-title">
-									<strong>Propertie Title</strong>
-								</div>
-								<div class="col-md-3">
-									<div class="col-md-12">
-										<div class="col-md-12">
-											<label class="col-md-6 hc-properties-features">House</label>
-											<label class="col-md-6 hc-properties-features">buy</label>
-										</div>
-										<div class="col-md-12">
-											<label class="col-md-12 hc-properties-features"
-												style="font-weight: 600;">$200.000</label> <label
-												class="col-md-12  hc-properties-features">200 m2</label>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6 hc-cards-list">
-									<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
-									<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="col-md-8"></div>
-								<div class="col-md-4">
-									<p:commandButton value="#{viewBundle['Properties.edit.label']}"
-										styleClass="btn btn-primary" rendered="#{not viewMode}"
-										action="#{globalProfilePage.goToEditProperty(null)}">
-										<f:ajax execute="@this"
-											render=":hc-profile-form:container-property-element" />
-									</p:commandButton>
-
-									<button type="button" class="btn btn-delete"
-										data-toggle="modal" data-target="#myModal">
-										<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
-									</button>
-								</div>
-							</div>
-						</div>
-						<div class="row hc-contents-cards-list">
-							<div class="col-md-12 hc-cards-list">
-								<div class="col-md-3 hc-content-card-image">
-									<div class="col-md-12 hc-responsive-div-properties">
-										<img src="http://weknowyourdreamz.com/images/casa/casa-09.jpg"
-											class="img-responsive" />
-									</div>
-									<div class="col-md-12 hc-cards-city">
-										<label class="control-form hc-properties-city">Bogota
-											DC</label>
-									</div>
-								</div>
-								<div class="col-md-9 hc-cards-propertie-title">
-									<strong>Propertie Title</strong>
-								</div>
-								<div class="col-md-3">
-									<div class="col-md-12">
-										<div class="col-md-12">
-											<label class="col-md-6 hc-properties-features">House</label>
-											<label class="col-md-6 hc-properties-features">buy</label>
-										</div>
-
-										<div class="col-md-12">
-											<label class="col-md-12 hc-properties-features"
-												style="font-weight: 600;">$200.000</label> <label
-												class="col-md-12 hc-properties-features">200 m2</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6 hc-cards-list">
-									<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
-									<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
-								</div>
-							</div>
-
-							<div class="col-md-12">
-								<div class="col-md-8"></div>
-								<div class="col-md-4">
-									<p:commandButton value="#{viewBundle['Properties.edit.label']}"
-										styleClass="btn btn-primary" rendered="#{not viewMode}"
-										action="#{globalProfilePage.goToEditProperty(null)}">
-										<f:ajax execute="@this"
-											render=":hc-profile-form:container-property-element" />
-									</p:commandButton>
-
-									<button type="button" class="btn btn-delete"
-										data-toggle="modal" data-target="#myModal">
-										<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
-									</button>
-								</div>
-							</div>
-						</div>
-						<div class="row hc-contents-cards-list">
-							<div class="col-md-12 hc-cards-list">
-								<div class="col-md-3 hc-content-card-image">
-									<div class="col-md-12 hc-responsive-div-properties">
-										<img src="http://weknowyourdreamz.com/images/casa/casa-09.jpg"
-											class="img-responsive" />
-									</div>
-									<div class="col-md-12 hc-cards-city">
-										<label class="control-form hc-properties-city">Bogota
-											DC</label>
-									</div>
-								</div>
-								<div class="col-md-9 hc-cards-propertie-title">
-									<strong>Propertie Title</strong>
-								</div>
-								<div class="col-md-3">
-									<div class="col-md-12">
-										<div class="col-md-12">
-											<label class="col-md-6 hc-properties-features">House</label>
-											<label class="col-md-6 hc-properties-features">buy</label>
-										</div>
-
-										<div class="col-md-12">
-											<label class="col-md-12 hc-properties-features"
-												style="font-weight: 600;">$200.000</label> <label
-												class="col-md-12 hc-properties-features">200 m2</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6 hc-cards-list">
-									<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
-									<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="col-md-8"></div>
-								<div class="col-md-4">
-									<p:commandButton value="#{viewBundle['Properties.edit.label']}"
-										styleClass="btn btn-primary" rendered="#{not viewMode}"
-										action="#{globalProfilePage.goToEditProperty(null)}" />
-
-									<button type="button" class="btn btn-delete"
-										data-toggle="modal" data-target="#myModal">
-										<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
-									</button>
-								</div>
-							</div>
-						</div>
-						<div class="row hc-contents-cards-list">
-
-							<div class="col-md-12 hc-cards-list">
-
-								<div class="col-md-3 hc-content-card-image">
-
-									<div class="col-md-12 hc-responsive-div-properties">
-										<img src="http://weknowyourdreamz.com/images/casa/casa-09.jpg"
-											class="img-responsive" />
-									</div>
-									<div class="col-md-12 hc-cards-city">
-										<label class="control-form hc-properties-city">Bogota
-											DC</label>
-									</div>
-								</div>
-								<div class="col-md-9 hc-cards-propertie-title">
-									<strong>Propertie Title</strong>
-								</div>
-								<div class="col-md-3">
-									<div class="col-md-12">
-										<div class="col-md-12">
-											<label class="col-md-6 hc-properties-features">House</label>
-											<label class="col-md-6 hc-properties-features">buy</label>
-										</div>
-
-										<div class="col-md-12">
-											<label class="col-md-12 hc-properties-features"
-												style="font-weight: 600;">$200.000</label> <label
-												class="col-md-12 hc-properties-features">200 m2</label>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6 hc-cards-list">
-									<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
-									<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
-								</div>
-							</div>
-
-							<div class="col-md-12">
-								<div class="col-md-8"></div>
-								<div class="col-md-4">
-									<p:commandButton value="#{viewBundle['Properties.edit.label']}"
-										styleClass="btn btn-primary" rendered="#{not viewMode}"
-										action="#{globalProfilePage.goToEditProperty(null)}" />
-
-									<button type="button" class="btn btn-delete"
-										data-toggle="modal" data-target="#myModal">
-										<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
-									</button>
-								</div>
-							</div>
-						</div>
-						<div class="row hc-contents-cards-list">
-
-							<div class="col-md-12 hc-cards-list">
-
-								<div class="col-md-3 hc-content-card-image">
-
-									<div class="col-md-12 hc-responsive-div-properties">
-										<img src="http://weknowyourdreamz.com/images/casa/casa-09.jpg"
-											class="img-responsive" />
-									</div>
-									<div class="col-md-12 hc-cards-city">
-										<label class="control-form hc-properties-city">Bogota
-											DC</label>
-									</div>
-								</div>
-								<div class="col-md-9 hc-cards-propertie-title">
-									<strong>Propertie Title</strong>
-								</div>
-								<div class="col-md-3">
-									<div class="col-md-12">
-										<div class="col-md-12">
-											<label class="col-md-6 hc-properties-features">House</label>
-											<label class="col-md-6 hc-properties-features">buy</label>
-										</div>
-										<div class="col-md-12">
-											<label class="col-md-12 hc-properties-features"
-												style="font-weight: 600;">$200.000</label> <label
-												class="col-md-12 hc-properties-features">200 m2</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-6 hc-cards-list">
-									<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
-									<p>lorem ir as aras asda et r as dassasdasdasfsdf</p>
-								</div>
-							</div>
-
-							<div class="col-md-12">
-								<div class="col-md-8"></div>
-								<div class="col-md-4">
-									<p:commandButton value="#{viewBundle['Properties.edit.label']}"
-										styleClass="btn btn-primary" rendered="#{not viewMode}"
-										action="#{globalProfilePage.goToEditProperty(null)}" />
-
-									<button type="button" class="btn btn-delete"
-										data-toggle="modal" data-target="#myModal">
-										<span class="hc-form-label">#{viewBundle['Properties.delete.label']}</span>
-									</button>
-								</div>
-							</div>
-						</div>
-
-					</ui:remove>
 				</div>
 			</h:form>
 		</div>

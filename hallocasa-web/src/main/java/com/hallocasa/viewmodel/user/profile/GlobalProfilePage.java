@@ -179,7 +179,7 @@ public class GlobalProfilePage implements Serializable {
 			selectedOption = MenuOption.PROFILE;
 		} finally {
 			profileTabMode = ProfileTabMode.VIEW;
-			propertyTabMode = PropertyTabMode.VIEW;
+			propertyTabMode = PropertyTabMode.DETAIL;
 		}
 	}
 	
