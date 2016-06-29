@@ -104,6 +104,12 @@ public enum HallocasaViewEnum {
      */
     BROWSE_PROFILE(HallocasaViewNames.USER_PROFILE_BROWSER, "/profile/profile-browser.xhtml",
     		ProfileBrowserPage.class, false, null, UseCaseEnum.BROWSE_PROFILES),
+    
+    /**
+     * Page for profile browsing
+     */
+    BROWSE_PROPERTY(HallocasaViewNames.USER_PROPERTY_BROWSER, "/properties/property-browser.xhtml",
+    		ProfileBrowserPage.class, false, null, UseCaseEnum.BROWSE_PROPERTIES),
         
 	/**
      * Page for profile public
