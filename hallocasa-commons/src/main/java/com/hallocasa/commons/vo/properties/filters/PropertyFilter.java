@@ -14,47 +14,48 @@ import com.hallocasa.commons.vo.properties.PropertyTypeVO;
 public class PropertyFilter {
 
 	/**
-	 * Type of property
+	 * Property types
 	 */
-	private PropertyTypeVO propertyType;
+	private List<PropertyTypeVO> propertyTypeList;
 	
 	/**
-	 * Proposal of property
+	 * Property proposals
 	 */
-	private PropertyProposalVO propertyProposal;
+	private List<PropertyProposalVO> propertyProposalList;
 	
 	/**
-	 * Location of property
+	 * Property locations
 	 */
-	private PropertyLocationVO propertyLocation;
+	private List<PropertyLocationVO> propertyLocationList;
 	
 	/**
 	 * Specific filters by property field value
 	 */
 	private List<PropertyFieldFilter> propertyFieldFilters;
 
-	public PropertyTypeVO getPropertyType() {
-		return propertyType;
+
+	public List<PropertyTypeVO> getPropertyTypeList() {
+		return propertyTypeList;
 	}
 
-	public void setPropertyType(PropertyTypeVO propertyType) {
-		this.propertyType = propertyType;
+	public void setPropertyTypeList(List<PropertyTypeVO> propertyTypeList) {
+		this.propertyTypeList = propertyTypeList;
 	}
 
-	public PropertyProposalVO getPropertyProposal() {
-		return propertyProposal;
+	public List<PropertyProposalVO> getPropertyProposalList() {
+		return propertyProposalList;
 	}
 
-	public void setPropertyProposal(PropertyProposalVO propertyProposal) {
-		this.propertyProposal = propertyProposal;
+	public void setPropertyProposalList(List<PropertyProposalVO> propertyProposalList) {
+		this.propertyProposalList = propertyProposalList;
 	}
 
-	public PropertyLocationVO getPropertyLocation() {
-		return propertyLocation;
+	public List<PropertyLocationVO> getPropertyLocationList() {
+		return propertyLocationList;
 	}
 
-	public void setPropertyLocation(PropertyLocationVO propertyLocation) {
-		this.propertyLocation = propertyLocation;
+	public void setPropertyLocationList(List<PropertyLocationVO> propertyLocationList) {
+		this.propertyLocationList = propertyLocationList;
 	}
 
 	public List<PropertyFieldFilter> getPropertyFieldFilters() {
