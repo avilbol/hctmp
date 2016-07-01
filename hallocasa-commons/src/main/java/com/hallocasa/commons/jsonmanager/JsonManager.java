@@ -1,13 +1,18 @@
 package com.hallocasa.commons.jsonmanager;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.hallocasa.commons.exceptions.services.ErrorJsonResponseException;
+import com.hallocasa.commons.vo.properties.filters.ComparatorType;
 
 /**
  * Manager for specific operations between json and java objects
@@ -37,4 +42,29 @@ public class JsonManager {
 			throw new ErrorJsonResponseException(e);
 		}
 	}
+	
+	public static String loadProperty(String json, String propertyName){
+		String[] propertyAccessValues = propertyName.split("\\.");
+		JsonElement result = new JsonParser().parse(json);
+		for(String propertyAccessValue : propertyAccessValues){
+			result = result.getAsJsonObject().get(propertyAccessValue);
+		}
+		return result.getAsString();
+	}
+	
+	public static Object loadValue(String json, ComparatorType comparatorType, String propertyName){
+		if(comparatorType.equals(ComparatorType.VALUE))
+			return json;
+		if(comparatorType.equals(ComparatorType.OBJECT_PROPERTY))
+			return loadProperty(json, propertyName);
+		if(comparatorType.equals(ComparatorType.LIST_OBJECT_PROPERTY)){
+			List<String> resultList = new ArrayList<String>();
+			JsonArray jsonParsedArray = new JsonParser().parse(json).getAsJsonArray();
+			for(JsonElement element : jsonParsedArray)
+				resultList.add(loadProperty(element.toString(), propertyName));
+			return resultList;
+		}
+		return null;
+	}
+	
 }

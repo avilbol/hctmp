@@ -2,8 +2,8 @@ package com.hallocasa.services.interfaces;
 
 import java.util.List;
 
+import com.hallocasa.commons.vo.properties.filters.PropertyFieldFilter;
 import com.hallocasa.commons.vo.properties.filters.PropertyFilter;
-import com.hallocasa.dataentities.app.properties.PropertyFieldValue;
 
 /**
  * Interface for the service related with filters of properties
@@ -21,6 +21,7 @@ public interface PropertyFilteringServices {
 	public List<String> loadIdsForFiltering(PropertyFilter filter);
 	
 	
-	public List<PropertyFieldValue> loadPropertyFieldValues(List<Integer> propertyIdList);
+	public List<Object[]> loadPropertyFieldEligible(List<String> propertyIdList
+			, List<PropertyFieldFilter> pfFilter);
 	
 }

@@ -3,6 +3,7 @@ package com.hallocasa.commons.vo.properties.filters;
 import java.io.Serializable;
 import java.util.List;
 
+import com.hallocasa.commons.filters.FieldFilterType;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 import com.hallocasa.commons.vo.properties.PropertyFieldVO;
 
@@ -20,7 +21,7 @@ public class PropertyFieldFilter implements Serializable, ValueObject {
 
 	private PropertyFieldVO propertyField;
 	
-	private PropertyFieldFilterType type;
+	private FieldFilterType type;
 	
 	private Integer valueFrom;
 	
@@ -46,11 +47,11 @@ public class PropertyFieldFilter implements Serializable, ValueObject {
 		this.propertyField = propertyField;
 	}
 
-	public PropertyFieldFilterType getType() {
+	public FieldFilterType getType() {
 		return type;
 	}
 
-	public void setType(PropertyFieldFilterType type) {
+	public void setType(FieldFilterType type) {
 		this.type = type;
 	}
 
