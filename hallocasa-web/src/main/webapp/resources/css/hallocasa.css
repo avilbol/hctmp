@@ -540,6 +540,8 @@
 }
 .col-md-offset-container-properties{
 	margin-left: 5.333333%;
+	float:left;
+	width:100%;
 }
 .hc-cards-city {
 	padding-left: 10px !important;
@@ -565,3 +567,6 @@
     width: 38.2%!important;
     padding-left: 30px!important;
 }
+.col-md-offset-propertie-public-profile{
+	 margin-left: 24%;
+}   

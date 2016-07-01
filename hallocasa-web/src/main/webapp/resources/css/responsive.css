@@ -489,8 +489,14 @@ span.menu-link {
 	width: 100% !important;
 }
 
+	.hc-card-properties{
+		width: 100% !important;
+	}
 }
 @media screen and (max-width:680px) {
+	.hc-card-properties{
+		width: 100% !important;
+	}
 	.logo {
 		width: 10% !important;
 	}
