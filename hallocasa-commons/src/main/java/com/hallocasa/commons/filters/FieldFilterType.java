@@ -1,13 +1,14 @@
-package com.hallocasa.commons.vo.properties.filters;
+package com.hallocasa.commons.filters;
 
 /**
  * Value object for type of property filters
  * @author Alexander Villamil
  */
-public enum PropertyFieldFilterType {
+public enum FieldFilterType {
 	RANGE,
 	UNIQUE_SELECT,
-	MULTIPLE_SELECT,
+	MULTIPLE_SELECT_OR,
+	MULTIPLE_SELECT_AND,
 	BOOLEAN,
 	CUSTOM
 }

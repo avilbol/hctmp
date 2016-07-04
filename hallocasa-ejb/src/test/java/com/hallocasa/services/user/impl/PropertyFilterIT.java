@@ -1,6 +1,8 @@
 package com.hallocasa.services.user.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,10 +11,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.commons.vo.properties.PropertyFieldVO;
 import com.hallocasa.commons.vo.properties.PropertyLocationVO;
 import com.hallocasa.commons.vo.properties.PropertyTypeVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
+import com.hallocasa.commons.vo.properties.filters.PropertyFieldFilter;
 import com.hallocasa.commons.vo.properties.filters.PropertyFilter;
+import com.hallocasa.dataentities.app.properties.PropertyField;
 import com.hallocasa.services.UserServicesImpl;
 import com.hallocasa.services.persistence.impl.AppPersistenceServicesImpl;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
@@ -48,20 +53,43 @@ private AppPersistenceServices persistenceServices;
 		persistenceServices = new AppPersistenceServicesImpl(em);
 	}
 	
-	@Test
-	public void testGetIdsFromKeys(){
-		PropertyServicesImpl psimpl = new PropertyServicesImpl();
-		psimpl.setEm(em);
+	public PropertyFilter basicFilter(){
 		PropertyFilter filter = new PropertyFilter();
 		PropertyTypeVO ptype = new PropertyTypeVO();
-		ptype.setId(1);
+		ptype.setId(2);
 		PropertyTypeVO ptype2 = new PropertyTypeVO();
 		ptype2.setId(2);
 		filter.setPropertyTypeList(Arrays.asList(new PropertyTypeVO[]{ptype,ptype2}));
 		PropertyLocationVO plocation1 = new PropertyLocationVO();
-		plocation1.setId(2);
+		plocation1.setId(1);
 		filter.setPropertyLocationList(Arrays.asList(new PropertyLocationVO[]{plocation1}));
-		psimpl.find(filter);
+		return filter;
+	}
+	
+	public PropertyFilter fullFilter(){
+		PropertyFilter filter = basicFilter();
+	    PropertyFieldFilter fieldFilter1 = new PropertyFieldFilter();
+	    PropertyFieldVO field = new PropertyFieldVO();
+	    field.setId(1);
+	    fieldFilter1.setPropertyField(field);
+	    List<PropertyFieldFilter> filters = new ArrayList<PropertyFieldFilter>();
+	    filters.add(fieldFilter1);
+	    
+	    PropertyFieldFilter fieldFilter2 = new PropertyFieldFilter();
+	    field = new PropertyFieldVO();
+	    field.setId(2);
+	    fieldFilter2.setPropertyField(field);
+	    filters.add(fieldFilter2);
+	    
+	    filter.setPropertyFieldFilters(filters);
+	    return filter;
+	}
+	
+	@Test
+	public void testGetIdsFromKeys(){
+		PropertyFilteringServicesImpl psimpl = new PropertyFilteringServicesImpl();
+		psimpl.setEm(em);
+		psimpl.loadIdsForFiltering(basicFilter());
 	}
 	
 	
@@ -69,8 +97,10 @@ private AppPersistenceServices persistenceServices;
 	public void testGetPropertyFieldValueFromIds(){
 		PropertyFilteringServicesImpl psimpl = new PropertyFilteringServicesImpl();
 		psimpl.setEm(em);
-		psimpl.loadPropertyFieldValues(null);
+		psimpl.loadPropertyFieldEligible(psimpl.loadIdsForFiltering(basicFilter()), 
+				fullFilter().getPropertyFieldFilters());
 	}
 	
+
 	
 }
