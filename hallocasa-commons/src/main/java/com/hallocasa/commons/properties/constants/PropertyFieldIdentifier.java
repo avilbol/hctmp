@@ -1,14 +1,22 @@
 package com.hallocasa.commons.properties.constants;
 
-public class PropertyFieldIdentifier {
 
-	public static final Integer LANGUAGES = 1;
+
+public enum PropertyFieldIdentifier {
+
+	LANGUAGES(1),
+	MARKET_PRICE(5),
+	AREA(6),
+	STATE(7),
+	CITY(8);
 	
-	public static final Integer MARKET_PRICE = 5;
-	
-	public static final Integer AREA = 6;
-	
-	public static final Integer STATE = 7;
-	
-	public static final Integer CITY = 8;
+	Integer id;
+
+	private PropertyFieldIdentifier(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getId() {
+		return id;
+	}
 }

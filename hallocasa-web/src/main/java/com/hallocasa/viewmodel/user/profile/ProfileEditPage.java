@@ -34,7 +34,6 @@ import com.hallocasa.services.location.local.CountryServices;
 import com.hallocasa.view.context.ViewContext;
 import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.view.utils.FormatUtils;
-import com.hallocasa.viewmodel.security.LoginDialog;
 
 /**
  * View model for profile page

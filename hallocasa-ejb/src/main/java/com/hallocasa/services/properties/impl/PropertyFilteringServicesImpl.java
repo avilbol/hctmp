@@ -63,18 +63,12 @@ public class PropertyFilteringServicesImpl implements
 	 */
 	private static final Integer PROPERTY_VALUE_POS = 2;
 
-	@PersistenceContext(unitName = "RealStateDatabasePU")
+	@PersistenceContext(unitName = "App")
 	private EntityManager em;
 
 	@Override
 	public PropertyFilter getFilterScheme() {
 		PropertyFilter filter = new PropertyFilter();
-		PropertyTypeVO ptype = new PropertyTypeVO();
-		ptype.setId(2);
-		PropertyTypeVO ptype2 = new PropertyTypeVO();
-		ptype2.setId(2);
-		PropertyLocationVO plocation1 = new PropertyLocationVO();
-		plocation1.setId(1);
 		PropertyFieldFilter fieldFilter1 = new PropertyFieldFilter();
 		PropertyFieldVO field = new PropertyFieldVO();
 		field.setId(1);
@@ -85,11 +79,7 @@ public class PropertyFilteringServicesImpl implements
 		fieldFilter1.setType(FieldFilterType.MULTIPLE_SELECT_OR);
 		List<PropertyFieldFilter> filters = new ArrayList<PropertyFieldFilter>();
 		filters.add(fieldFilter1);
-		
-		List<String> values = new ArrayList<String>();
-		values.add("de");
-		values.add("en");
-		fieldFilter1.setStringValues(values);
+	
 
 		// Price filter
 		PropertyFieldFilter fieldFilter2 = new PropertyFieldFilter();
@@ -98,8 +88,6 @@ public class PropertyFilteringServicesImpl implements
 		fieldFilter2.setPropertyField(field);
 		fieldFilter2.setComparatorType(ComparatorType.OBJECT_PROPERTY);
 		fieldFilter2.setObjectProperty("value");
-		//fieldFilter2.setValueFrom(00000);
-		fieldFilter2.setValueTo(1000000.0);
 		fieldFilter2.setType(FieldFilterType.RANGE);
 		filters.add(fieldFilter2);
 		
@@ -110,8 +98,6 @@ public class PropertyFilteringServicesImpl implements
 		field.setId(6);
 		fieldFilter3.setPropertyField(field);
 		fieldFilter3.setComparatorType(ComparatorType.VALUE);
-		fieldFilter3.setValueFrom(40.0);
-		fieldFilter3.setValueTo(60.0);
 		fieldFilter3.setType(FieldFilterType.RANGE);
 		filters.add(fieldFilter3);
 
@@ -126,11 +112,6 @@ public class PropertyFilteringServicesImpl implements
 		fieldFilter4.setType(FieldFilterType.MULTIPLE_SELECT_OR);
 		filters.add(fieldFilter4);
 		
-		List<Integer> valuesInteger = new ArrayList<>();
-		valuesInteger.add(5);
-		valuesInteger.add(6);
-		valuesInteger.add(7);
-		fieldFilter4.setIntValues(valuesInteger);
 
 		// City filter
 		PropertyFieldFilter fieldFilter5 = new PropertyFieldFilter();
@@ -138,15 +119,8 @@ public class PropertyFilteringServicesImpl implements
 		field.setId(8);
 		fieldFilter5.setPropertyField(field);
 		fieldFilter5.setComparatorType(ComparatorType.VALUE);
-		fieldFilter5.setIntValue(181);
 		fieldFilter5.setType(FieldFilterType.MULTIPLE_SELECT_OR);
 		filters.add(fieldFilter5);
-		
-		valuesInteger = new ArrayList<>();
-		valuesInteger.add(181);
-		valuesInteger.add(182);
-		valuesInteger.add(183);
-		fieldFilter5.setIntValues(valuesInteger);
 		
 		
 		filter.setPropertyFieldFilters(filters);

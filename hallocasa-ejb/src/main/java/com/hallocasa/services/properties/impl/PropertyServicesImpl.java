@@ -134,7 +134,6 @@ public class PropertyServicesImpl implements PropertyServices {
 
 	@Override
 	public List<PropertyVO> find(PropertyFilter propertyFilter) {
-		// TODO Auto-generated method stub
-		return null;
+		return propertyFilteringServices.loadProperties(propertyFilter);
 	}
 }

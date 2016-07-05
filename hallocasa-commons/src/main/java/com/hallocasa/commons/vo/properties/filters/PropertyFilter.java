@@ -66,4 +66,13 @@ public class PropertyFilter {
 			List<PropertyFieldFilter> propertyFieldFilters) {
 		this.propertyFieldFilters = propertyFieldFilters;
 	}
+	
+	public PropertyFieldFilter getPropertyFieldFilter(Integer propertyFieldId){
+		if(propertyFieldFilters == null)
+			return null;
+		for(PropertyFieldFilter filter : propertyFieldFilters)
+			if(filter.getPropertyField().getId().equals(propertyFieldId))
+				return filter;
+		return null;
+	}
 }

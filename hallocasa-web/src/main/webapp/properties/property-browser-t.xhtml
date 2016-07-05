@@ -19,8 +19,172 @@
 					<h:form styleClass="hc-form" enctype="multipart/form-data">
 						<p:messages id="messages" showDetail="false" autoUpdate="true"
 							closable="true" />
-						<div class="col-md-10"></div>
+						<div class="col-md-1"></div>
+						<div class="col-md-2">
+							<br /> <br /> <br />
+
+							<h4>Lenguajes</h4>
+							<h:commandButton value="Añadir"
+								action="#{propertyBrowsePage.activateFilter('LANGUAGES')}"
+								rendered="#{not propertyBrowsePage.isFilterActive('LANGUAGES')}">
+								<f:ajax render="@form" update="@form" />
+							</h:commandButton>
+							<ui:fragment
+								rendered="#{propertyBrowsePage.isFilterActive('LANGUAGES')}">
+								<h:commandButton value="Quitar"
+									action="#{propertyBrowsePage.deactivateFilter('LANGUAGES')}">
+									<f:ajax render="@form" update="@form" />
+								</h:commandButton>
+								<p:selectManyMenu id="languages"
+									value="#{propertyBrowsePage.selectedLanguages}"
+									converter="languageConverter" var="language" filter="true"
+									filterMatchMode="contains" showCheckbox="true">
+									<f:selectItems value="#{propertyBrowsePage.languageList}"
+										var="language" itemLabel="#{language.languageName}"
+										itemValue="#{language}" />
+									<p:column>
+										<h:outputText value="#{language.languageName}" />
+									</p:column>
+									<f:ajax render="@form" listener="#{propertyBrowsePage.reloadProperties}"
+										update="@form"/>
+								</p:selectManyMenu>
+							</ui:fragment>
+
+							<h4>Estados</h4>
+							<h:commandButton value="Añadir"
+								action="#{propertyBrowsePage.activateFilter('STATE')}"
+								rendered="#{not propertyBrowsePage.isFilterActive('STATE')}">
+								<f:ajax render="@form" update="@form" />
+							</h:commandButton>
+							<ui:fragment
+								rendered="#{propertyBrowsePage.isFilterActive('STATE')}">
+								<h:commandButton value="Quitar"
+									action="#{propertyBrowsePage.deactivateFilter('STATE')}">
+									<f:ajax render="@form" update="@form" />
+								</h:commandButton>
+								<p:selectManyMenu id="states"
+									value="#{propertyBrowsePage.selectedStates}"
+									converter="stateConverter" var="state" filter="true"
+									filterMatchMode="contains" showCheckbox="true">
+									<f:selectItems value="#{propertyBrowsePage.states}" var="state"
+										itemLabel="#{propertyBrowsePage.getName(state.stateName)}"
+										itemValue="#{state}" />
+									<p:column>
+										<h:outputText
+											value="#{propertyBrowsePage.getName(state.stateName)}" />
+									</p:column>
+									<f:ajax render="@form" listener="#{propertyBrowsePage.reloadProperties}"
+										update="@form"/>
+								</p:selectManyMenu>
+							</ui:fragment>
+							<h4>Ciudades</h4>
+							<h:commandButton value="Añadir"
+								action="#{propertyBrowsePage.activateFilter('CITY')}"
+								rendered="#{not propertyBrowsePage.isFilterActive('CITY')}">
+								<f:ajax render="@form" update="@form" />
+							</h:commandButton>
+							<ui:fragment
+								rendered="#{propertyBrowsePage.isFilterActive('CITY')}">
+								<h:commandButton value="Quitar"
+									action="#{propertyBrowsePage.deactivateFilter('CITY')}">
+									<f:ajax render="@form" update="@form" />
+								</h:commandButton>
+								<p:selectManyMenu id="cities"
+									value="#{propertyBrowsePage.selectedCities}"
+									converter="cityConverter" var="city" filter="true"
+									filterMatchMode="contains" showCheckbox="true">
+									<f:selectItems value="#{propertyBrowsePage.cities}" var="city"
+										itemLabel="#{propertyBrowsePage.getName(city.cityName)}"
+										itemValue="#{city}" />
+									<p:column>
+										<h:outputText
+											value="#{propertyBrowsePage.getName(city.cityName)}" />
+									</p:column>
+									<f:ajax render="@form" listener="#{propertyBrowsePage.reloadProperties}"
+										update="@form"/>
+								</p:selectManyMenu>
+							</ui:fragment>
+							<h4>Tipo de propiedad</h4>
+							<h:commandButton value="Añadir"
+								action="#{propertyBrowsePage.setPropertyTypeFilterState(true)}"
+								rendered="#{not propertyBrowsePage.propertyTypeFilterState}">
+								<f:ajax render="@form" update="@form" />
+							</h:commandButton>
+							
+							<ui:fragment
+								rendered="#{propertyBrowsePage.propertyTypeFilterState}">
+								<h:commandButton value="Quitar"
+									action="#{propertyBrowsePage.setPropertyTypeFilterState(false)}">
+									<f:ajax render="@form" update="@form" />
+								</h:commandButton>
+								<p:selectManyMenu id="property_types"
+									value="#{propertyBrowsePage.selectedPropertyTypes}"
+									converter="propertyTypeConverter" var="ptype" filter="true"
+									filterMatchMode="contains" showCheckbox="true">
+									<f:selectItems value="#{propertyBrowsePage.propertyTypes}" var="ptype"
+										itemLabel="#{propertyBrowsePage.getName(ptype.name)}"
+										itemValue="#{ptype}" />
+									<p:column>
+										<h:outputText
+											value="#{propertyBrowsePage.getName(ptype.name)}" />
+									</p:column>
+									<f:ajax render="@form" listener="#{propertyBrowsePage.reloadProperties}"
+										update="@form"/>
+								</p:selectManyMenu>
+							</ui:fragment>
+							
+							<h4>Precio</h4>
+							<h:commandButton value="Añadir"
+								action="#{propertyBrowsePage.activateFilter('MARKET_PRICE')}"
+								rendered="#{not propertyBrowsePage.isFilterActive('MARKET_PRICE')}">
+								<f:ajax render="@form" update="@form" />
+							</h:commandButton>
+							<ui:fragment
+								rendered="#{propertyBrowsePage.isFilterActive('MARKET_PRICE')}">
+								<h:commandButton value="Quitar"
+									action="#{propertyBrowsePage.deactivateFilter('MARKET_PRICE')}">
+									<f:ajax render="@form" update="@form" />
+								</h:commandButton>
+								Desde:
+								<h:inputText value="#{propertyBrowsePage.getSchemeFilter('MARKET_PRICE').valueFrom}"/> 
+								Hasta:
+								<f:ajax render="@form" listener="#{propertyBrowsePage.reloadProperties}"
+										update="@form"/>
+							</ui:fragment>
+							
+							<h4>Área</h4>
+							<h:commandButton value="Añadir"
+								action="#{propertyBrowsePage.activateFilter('CITY')}"
+								rendered="#{not propertyBrowsePage.isFilterActive('CITY')}">
+								<f:ajax render="@form" update="@form" />
+							</h:commandButton>
+							<ui:fragment
+								rendered="#{propertyBrowsePage.isFilterActive('CITY')}">
+								<h:commandButton value="Quitar"
+									action="#{propertyBrowsePage.deactivateFilter('CITY')}">
+									<f:ajax render="@form" update="@form" />
+								</h:commandButton>
+								<p:selectManyMenu id="cities"
+									value="#{propertyBrowsePage.selectedCities}"
+									converter="cityConverter" var="city" filter="true"
+									filterMatchMode="contains" showCheckbox="true">
+									<f:selectItems value="#{propertyBrowsePage.cities}" var="city"
+										itemLabel="#{propertyBrowsePage.getName(city.cityName)}"
+										itemValue="#{city}" />
+									<p:column>
+										<h:outputText
+											value="#{propertyBrowsePage.getName(city.cityName)}" />
+									</p:column>
+									<f:ajax render="@form" listener="#{propertyBrowsePage.reloadProperties}"
+										update="@form"/>
+								</p:selectManyMenu>
+							</ui:fragment>
+							
+							
+							
+						</div>
 						<div class="col-md-9">
+							<br /> <br /> <br />
 							<ui:fragment
 								rendered="#{propertyBrowsePage.propertyList.isEmpty()}">
 								<div class="row" style="text-align: center;">
@@ -29,7 +193,7 @@
 								</div>
 							</ui:fragment>
 							<ui:repeat var="property"
-								value="#{propertyListPage.propertyList}">
+								value="#{propertyBrowsePage.propertyList}">
 								<div class="row hc-contents-cards-list">
 									<div class="col-md-12 hc-cards-list">
 										<div class="col-md-3 hc-content-card-image">
@@ -80,8 +244,10 @@
 										<div class="col-md-4">
 											<p:commandButton
 												value="#{viewBundle['Properties.view.label']}"
-												styleClass="btn btn-primary" 
+												styleClass="btn btn-primary"
 												action="#{propertyBrowsePage.goToViewProperty(property)}">
+												<f:ajax execute="@this"
+													render=":hc-profile-form:container-property-element" />
 											</p:commandButton>
 										</div>
 									</div>
