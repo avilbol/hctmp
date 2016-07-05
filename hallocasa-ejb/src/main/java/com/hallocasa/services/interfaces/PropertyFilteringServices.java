@@ -2,6 +2,7 @@ package com.hallocasa.services.interfaces;
 
 import java.util.List;
 
+import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.commons.vo.properties.filters.PropertyFieldFilter;
 import com.hallocasa.commons.vo.properties.filters.PropertyFilter;
 
@@ -23,5 +24,20 @@ public interface PropertyFilteringServices {
 	
 	public List<Object[]> loadPropertyFieldEligible(List<String> propertyIdList
 			, List<PropertyFieldFilter> pfFilter);
+	
+	/**
+	 * Load the properties applying a filter before
+	 * @param propertyFilter
+	 * 		Filter that properties that match in order to be returned
+	 * @return
+	 * 		Property list that match the filter proposed
+	 */
+	public List<PropertyVO> loadProperties(PropertyFilter propertyFilter);
+	
+	/**
+	 * Load Scheme for property filter
+	 * @return
+	 */
+	public PropertyFilter getFilterScheme();
 	
 }

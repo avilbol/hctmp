@@ -64,6 +64,9 @@ public class JsonManager {
 				resultList.add(loadProperty(element.toString(), propertyName));
 			return resultList;
 		}
+		if(comparatorType.equals(ComparatorType.LIST)){
+			return new Gson().fromJson(json, List.class);
+		}
 		return null;
 	}
 	

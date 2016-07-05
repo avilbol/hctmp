@@ -20,6 +20,7 @@ import com.hallocasa.dataentities.app.properties.PropertyFieldValue;
 import com.hallocasa.helpers.ParsersContext;
 import com.hallocasa.helpers.PropertyVOParser;
 import com.hallocasa.helpers.UserVOParser;
+import com.hallocasa.services.interfaces.PropertyFilteringServices;
 import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 
@@ -37,6 +38,9 @@ public class PropertyServicesImpl implements PropertyServices {
 
 	@EJB
 	private AppPersistenceServices appPersistenceServices;
+	
+	@EJB
+	PropertyFilteringServices propertyFilteringServices;
 
 	private UserVOParser userVOParser = ParsersContext.USER_VO_PARSER;
 
@@ -50,9 +54,7 @@ public class PropertyServicesImpl implements PropertyServices {
 				new Object[] { user }, Property.class);
 		return PropertyVOParser.getInstance().toValueObject(entityList);
 	}
-	
-	
-	
+
 	/**
 	 * {@inheritDoc}
 	 */

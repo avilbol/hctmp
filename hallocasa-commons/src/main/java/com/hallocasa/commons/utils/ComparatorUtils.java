@@ -5,14 +5,21 @@ import java.util.List;
 
 public class ComparatorUtils {
 
-	public static boolean inRange(Object attributeToCompare, BigDecimal from,
-			BigDecimal to){
+	public static boolean inRange(Object attributeToCompare, Double from,
+			Double to){
+		if(from == null && to == null){
+			throw new RuntimeException("Unsupported operation with from and to attributes not setted");
+		}
 		if(attributeToCompare instanceof List){
 			throw new RuntimeException("Funcion no soportada por el comparador de rangos");
 		}
 		BigDecimal sAttr = new BigDecimal((String) attributeToCompare);
-		return from.doubleValue() <= sAttr.doubleValue() 
-				&& to.doubleValue() >= sAttr.doubleValue();
+		if(from == null)
+			return to >= sAttr.doubleValue();
+		if(to == null)
+			return from <= sAttr.doubleValue();
+		return from <= sAttr.doubleValue() 
+				&& to >= sAttr.doubleValue();
 	}
 	
 	

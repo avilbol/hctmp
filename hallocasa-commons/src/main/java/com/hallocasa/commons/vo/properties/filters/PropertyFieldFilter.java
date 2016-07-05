@@ -1,6 +1,7 @@
 package com.hallocasa.commons.vo.properties.filters;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hallocasa.commons.filters.FieldFilterType;
@@ -23,9 +24,9 @@ public class PropertyFieldFilter implements Serializable, ValueObject {
 	
 	private FieldFilterType type;
 	
-	private Integer valueFrom;
+	private Double valueFrom;
 	
-	private Integer valueTo;
+	private Double valueTo;
 	
 	private List<Integer> intValues;
 	
@@ -55,19 +56,19 @@ public class PropertyFieldFilter implements Serializable, ValueObject {
 		this.type = type;
 	}
 
-	public Integer getValueFrom() {
+	public Double getValueFrom() {
 		return valueFrom;
 	}
 
-	public void setValueFrom(Integer valueFrom) {
+	public void setValueFrom(Double valueFrom) {
 		this.valueFrom = valueFrom;
 	}
 
-	public Integer getValueTo() {
+	public Double getValueTo() {
 		return valueTo;
 	}
 
-	public void setValueTo(Integer valueTo) {
+	public void setValueTo(Double valueTo) {
 		this.valueTo = valueTo;
 	}
 
@@ -80,6 +81,11 @@ public class PropertyFieldFilter implements Serializable, ValueObject {
 	}
 
 	public List<String> getStringValues() {
+		if(stringValues == null && intValues != null){
+			stringValues = new ArrayList<String>();
+			for(Integer intValue : intValues)
+				stringValues.add(String.valueOf(intValue));
+		}
 		return stringValues;
 	}
 
@@ -96,6 +102,9 @@ public class PropertyFieldFilter implements Serializable, ValueObject {
 	}
 
 	public String getStringValue() {
+		if(stringValue == null && intValue != null){
+			stringValue = String.valueOf(intValue);
+		}
 		return stringValue;
 	}
 

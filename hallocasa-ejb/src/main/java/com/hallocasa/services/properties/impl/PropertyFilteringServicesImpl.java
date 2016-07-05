@@ -1,7 +1,9 @@
 package com.hallocasa.services.properties.impl;
 
+import static com.hallocasa.commons.utils.ComparatorUtils.inRange;
+import static com.hallocasa.commons.utils.ComparatorUtils.select;
+
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,17 +18,20 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.hallocasa.commons.filters.FieldFilterType;
 import com.hallocasa.commons.jsonmanager.JsonManager;
-import com.hallocasa.commons.utils.ComparatorUtils;
+import com.hallocasa.commons.vo.properties.PropertyFieldVO;
 import com.hallocasa.commons.vo.properties.PropertyLocationVO;
 import com.hallocasa.commons.vo.properties.PropertyProposalVO;
 import com.hallocasa.commons.vo.properties.PropertyTypeVO;
+import com.hallocasa.commons.vo.properties.PropertyVO;
+import com.hallocasa.commons.vo.properties.filters.ComparatorType;
 import com.hallocasa.commons.vo.properties.filters.PropertyFieldFilter;
 import com.hallocasa.commons.vo.properties.filters.PropertyFilter;
 import com.hallocasa.dataentities.app.properties.Property;
 import com.hallocasa.dataentities.app.properties.PropertyFieldValue;
+import com.hallocasa.helpers.ParsersContext;
 import com.hallocasa.services.interfaces.PropertyFilteringServices;
-import static com.hallocasa.commons.utils.ComparatorUtils.*;
 
 /**
  * Service for property filtering
@@ -61,6 +66,93 @@ public class PropertyFilteringServicesImpl implements
 	@PersistenceContext(unitName = "RealStateDatabasePU")
 	private EntityManager em;
 
+	@Override
+	public PropertyFilter getFilterScheme() {
+		PropertyFilter filter = new PropertyFilter();
+		PropertyTypeVO ptype = new PropertyTypeVO();
+		ptype.setId(2);
+		PropertyTypeVO ptype2 = new PropertyTypeVO();
+		ptype2.setId(2);
+		PropertyLocationVO plocation1 = new PropertyLocationVO();
+		plocation1.setId(1);
+		PropertyFieldFilter fieldFilter1 = new PropertyFieldFilter();
+		PropertyFieldVO field = new PropertyFieldVO();
+		field.setId(1);
+		
+		// Languages filter
+		fieldFilter1.setPropertyField(field);
+		fieldFilter1.setComparatorType(ComparatorType.LIST);
+		fieldFilter1.setType(FieldFilterType.MULTIPLE_SELECT_OR);
+		List<PropertyFieldFilter> filters = new ArrayList<PropertyFieldFilter>();
+		filters.add(fieldFilter1);
+		
+		List<String> values = new ArrayList<String>();
+		values.add("de");
+		values.add("en");
+		fieldFilter1.setStringValues(values);
+
+		// Price filter
+		PropertyFieldFilter fieldFilter2 = new PropertyFieldFilter();
+		field = new PropertyFieldVO();
+		field.setId(5);
+		fieldFilter2.setPropertyField(field);
+		fieldFilter2.setComparatorType(ComparatorType.OBJECT_PROPERTY);
+		fieldFilter2.setObjectProperty("value");
+		//fieldFilter2.setValueFrom(00000);
+		fieldFilter2.setValueTo(1000000.0);
+		fieldFilter2.setType(FieldFilterType.RANGE);
+		filters.add(fieldFilter2);
+		
+		
+		// Square meters area filter
+		PropertyFieldFilter fieldFilter3 = new PropertyFieldFilter();
+		field = new PropertyFieldVO();
+		field.setId(6);
+		fieldFilter3.setPropertyField(field);
+		fieldFilter3.setComparatorType(ComparatorType.VALUE);
+		fieldFilter3.setValueFrom(40.0);
+		fieldFilter3.setValueTo(60.0);
+		fieldFilter3.setType(FieldFilterType.RANGE);
+		filters.add(fieldFilter3);
+
+		
+		
+		// State filter
+		PropertyFieldFilter fieldFilter4 = new PropertyFieldFilter();
+		field = new PropertyFieldVO();
+		field.setId(7);
+		fieldFilter4.setPropertyField(field);
+		fieldFilter4.setComparatorType(ComparatorType.VALUE);
+		fieldFilter4.setType(FieldFilterType.MULTIPLE_SELECT_OR);
+		filters.add(fieldFilter4);
+		
+		List<Integer> valuesInteger = new ArrayList<>();
+		valuesInteger.add(5);
+		valuesInteger.add(6);
+		valuesInteger.add(7);
+		fieldFilter4.setIntValues(valuesInteger);
+
+		// City filter
+		PropertyFieldFilter fieldFilter5 = new PropertyFieldFilter();
+		field = new PropertyFieldVO();
+		field.setId(8);
+		fieldFilter5.setPropertyField(field);
+		fieldFilter5.setComparatorType(ComparatorType.VALUE);
+		fieldFilter5.setIntValue(181);
+		fieldFilter5.setType(FieldFilterType.MULTIPLE_SELECT_OR);
+		filters.add(fieldFilter5);
+		
+		valuesInteger = new ArrayList<>();
+		valuesInteger.add(181);
+		valuesInteger.add(182);
+		valuesInteger.add(183);
+		fieldFilter5.setIntValues(valuesInteger);
+		
+		
+		filter.setPropertyFieldFilters(filters);
+		return filter;
+	}
+	
 	@Override
 	public List<String> loadIdsForFiltering(PropertyFilter filter) {
 		// Build query base
@@ -109,7 +201,8 @@ public class PropertyFilteringServicesImpl implements
 		}
 		Expression<String> propertyFieldId = c.get("propertyField").get("id");
 		Expression<String> propertyId = c.get("property").get("id");
-		q.where(cb.and(propertyFieldId.in(fieldsToApply),
+		if(!fieldsToApply.isEmpty())
+			q.where(cb.and(propertyFieldId.in(fieldsToApply),
 				propertyId.in(propertyIdList)));
 		q.multiselect(propertyId, propertyFieldId, c.get("value"));
 
@@ -130,6 +223,34 @@ public class PropertyFilteringServicesImpl implements
 		overallPropertyIdSet.removeAll(rejectedPropertyIdSet);
 		return new ArrayList<String>(overallPropertyIdSet);
 	}
+	
+
+	@Override
+	public List<PropertyVO> loadProperties(PropertyFilter propertyFilter) {
+		List<PropertyFieldFilter> fieldFilters = propertyFilter.getPropertyFieldFilters();
+		// Apply key property filters
+		List<String> idsForFiltering = loadIdsForFiltering(propertyFilter);
+		// Load the property field values that are eligible to validate in filtering
+		List<Object[]> propertyFieldObjEligibleList = loadPropertyFieldEligible(idsForFiltering, fieldFilters);
+		// Apply property field value filters
+		List<String> filteredIds = approvedPropertyIds(propertyFieldObjEligibleList, fieldFilters);
+		// Return properties filtered
+		return propertiesInIdList(filteredIds);
+	}
+	
+	public List<PropertyVO> propertiesInIdList(List<String> propertyIdList){
+		if(propertyIdList == null || propertyIdList.isEmpty()){
+			return new ArrayList<PropertyVO>();
+		}
+		CriteriaBuilder cb = this.em.getCriteriaBuilder();
+		CriteriaQuery<Property> q = cb.createQuery(Property.class);
+		Root<Property> c = q.from(Property.class);
+		Expression<String> propertyId = c.get("id");
+		q.where(propertyId.in(propertyIdList));
+		q.select(c);
+		List<Property> propertyList = em.createQuery(q).getResultList();
+		return ParsersContext.PROPERTY_VO_PARSER.toValueObject(propertyList);
+	}
 
 	private boolean match(Object[] pfValue,
 			List<PropertyFieldFilter> pfFilterList) {
@@ -140,20 +261,16 @@ public class PropertyFilteringServicesImpl implements
 				Object propertyFieldAttr = JsonManager.loadValue(
 						propertyFieldValue, pffilter.getComparatorType(),
 						pffilter.getObjectProperty());
-				List<?> filterList = coalesce(pffilter.getIntValues(),
-						pffilter.getStringValues());
-				Object filterUnique = coalesce(pffilter.getIntValue(), pffilter.getStringValue());
 				switch (pffilter.getType()) {
 				case RANGE:
 					return (inRange(propertyFieldAttr,
-							new BigDecimal(pffilter.getValueFrom()),
-							new BigDecimal(pffilter.getValueTo())));
+							pffilter.getValueFrom(), pffilter.getValueTo()));
 				case MULTIPLE_SELECT_OR:
-					return select(propertyFieldAttr, filterList, false);
+					return select(propertyFieldAttr, pffilter.getStringValues(), false);
 				case MULTIPLE_SELECT_AND:
-					return select(propertyFieldAttr, filterList, false);
+					return select(propertyFieldAttr, pffilter.getStringValues(), false);
 				case UNIQUE_SELECT:
-					return select(propertyFieldAttr, filterUnique, false);
+					return select(propertyFieldAttr, pffilter.getStringValue(), false);
 				case BOOLEAN:
 					//TODO: Write the implementation for this
 					return false;

@@ -7,5 +7,6 @@ package com.hallocasa.commons.vo.properties.filters;
 public enum ComparatorType {
 	OBJECT_PROPERTY,
 	VALUE,
-	LIST_OBJECT_PROPERTY
+	LIST_OBJECT_PROPERTY,
+	LIST
 }
