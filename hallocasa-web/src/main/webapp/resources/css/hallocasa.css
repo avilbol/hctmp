@@ -20,7 +20,7 @@
 
 /*body*/
 .hc-content-body {
-	min-height: 599px;
+	min-height: 540px;
 	border-bottom: 2px solid #1D5D8D;
 	background-image: url("#{resource['images:hc-background-1345.jpg']}");
 	background-repeat: no-repeat;
@@ -559,7 +559,14 @@
     border-radius: 3px;
     padding: 30px;
     margin: 20px;
-    width: 38.2%!important;
+    width: 35%!important;
+    padding-left: 30px!important;
+}
+.hc-card-properties-details{
+	border: 3px solid #ccc;
+    border-radius: 3px;
+    padding: 30px;
+    margin: 20px;
     padding-left: 30px!important;
 }
 .col-md-offset-propertie-public-profile{
@@ -567,7 +574,7 @@
 }  
 
 .col-md-offset-container-properties{
-	margin-left: 5.333333%;
+	margin-left: 15.333333%;
 	float:left;
 	width:100%;
 }
@@ -583,10 +590,31 @@ margin-top:20px;
 .hc-next-img{	
 	background-image: url("#{resource['images:next.png']}");
 	background-repeat: no-repeat;
+	    width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    font-size: 30px;
+    right: 50%;
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+    margin-right: -15px;
 }
 .hc-back-img{	
 	background-image: url("#{resource['images:back.png']}");
-	background-repeat: no-repeat;
+	background-repeat: no-repeat;    
+	width: 30px;
+    height: 30px;
+    margin-top: -15px;
+    font-size: 30px;
+    margin-left: -15px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+    margin-right: -15px;
 	}
 
 .hide-bullets-properties {

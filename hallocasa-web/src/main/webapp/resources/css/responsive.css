@@ -211,7 +211,11 @@
 	
 	
 	
+	
+	
 	.topnavli
+	
+	
 	
 	
 	
@@ -243,7 +247,9 @@
 	
 	
 	
+	
 	 
+	
 	
 	
 	
@@ -266,7 +272,9 @@
 	
 	
 	
+	
 	 
+	
 	
 	
 	
@@ -299,7 +307,10 @@
 	
 	
 	
+	
+	
 	:
+	
 	
 	
 	
@@ -321,7 +332,10 @@
 	
 	
 	
+	
 	none
+	
+	
 	
 	
 	
@@ -489,14 +503,23 @@ span.menu-link {
 	width: 100% !important;
 }
 
-	.hc-card-properties{
-		width: 100% !important;
-	}
+.hc-card-properties {
+	width: 100% !important;
 }
-@media screen and (max-width:680px) {
-	.hc-card-properties{
+.container-fluid{width:100%}
+}
+@media screen and (max-width:650px) {
+	.hc-card-properties {
 		width: 100% !important;
 	}
+	.col-md-offset-container-properties {
+		margin-left: 0%;
+	}
+	.hc-card-properties {
+		margin: 20px 0;
+	}
+	.container-fluid{
+	width: 398px;}
 	.logo {
 		width: 10% !important;
 	}
@@ -540,7 +563,7 @@ span.menu-link {
 		width: 133% !important;
 		margin-top: -12px;
 	}
-		.col-md-btn-cancel,.col-md-btn-save,.col-md-btn-back,.col-md-btn-follow
+	.col-md-btn-cancel,.col-md-btn-save,.col-md-btn-back,.col-md-btn-follow
 		{
 		width: 40%;
 	}
@@ -593,6 +616,7 @@ span.menu-link {
 	
 	
 	
+	
 
 	
 	
@@ -609,12 +633,14 @@ span.menu-link {
 	
 	
 
+	
 	
 	
 	.topnav
 	
 	
 	
+	
 
 	
 	
@@ -631,30 +657,34 @@ span.menu-link {
 	
 	
 
+	
 	
 	
 	li
 	
 	
 	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
 	
 	
 	:not
+	
 	
 	
 	
@@ -674,6 +704,7 @@ span.menu-link {
 	
 	
 
+	
 	
 	
 	(
@@ -681,6 +712,7 @@ span.menu-link {
 	
 	
 	
+	
 
 	
 	
@@ -697,6 +729,7 @@ span.menu-link {
 	
 	
 
+	
 	
 	
 	)
@@ -705,24 +738,27 @@ span.menu-link {
 	
 	
 	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
 	
 	
 	:
+	
 	
 	
 	
@@ -744,25 +780,28 @@ span.menu-link {
 
 	
 	
+	
 	none
 	
 	
 	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
 	
 	
 	;
