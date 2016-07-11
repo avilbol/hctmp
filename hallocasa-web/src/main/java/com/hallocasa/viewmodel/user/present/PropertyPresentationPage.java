@@ -41,6 +41,11 @@ public class PropertyPresentationPage {
     	MultiLanguageText mtValue = halloCasaApplication.getCityMap().get(cityId);
     	return mtValue.getLangValue(webSession.getCurrentLanguage());
     }
+	
+	public String getStateName(Long cityId){
+    	MultiLanguageText mtValue = halloCasaApplication.getStateMap().get(cityId);
+    	return mtValue.getLangValue(webSession.getCurrentLanguage());
+    }
     
     public String titleValue(PropertyVO property){
     	Language mainLang = property.getPropertyBasicInfo().getMainLanguage();

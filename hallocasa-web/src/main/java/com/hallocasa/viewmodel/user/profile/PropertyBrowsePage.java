@@ -28,6 +28,7 @@ import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.location.local.CountryServices;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
+import com.hallocasa.view.navigation.ViewParamEnum;
 
 @ManagedBean
 @ViewScoped
@@ -191,7 +192,9 @@ public class PropertyBrowsePage implements Serializable {
 	 * Process click event over edit button
 	 */
 	public void goToViewProperty(PropertyVO propertyVO) {
-		navigationHandler.redirectToPage(HallocasaViewEnum.PROPERTY_DETAIL);
+		HashMap<ViewParamEnum, String> params = new HashMap<ViewParamEnum, String>();
+		params.put(ViewParamEnum.PROPERTY_ID, propertyVO.getId().toString());
+		navigationHandler.redirectToPage(HallocasaViewEnum.PROPERTY_DETAIL, params);
 	}
 
 	public void reloadProperties() {

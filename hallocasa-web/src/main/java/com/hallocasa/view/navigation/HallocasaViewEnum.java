@@ -4,6 +4,7 @@ import static com.hallocasa.view.navigation.ViewParamEnum.ARTICLE_ID;
 import static com.hallocasa.view.navigation.ViewParamEnum.EMAIL;
 import static com.hallocasa.view.navigation.ViewParamEnum.OPTION;
 import static com.hallocasa.view.navigation.ViewParamEnum.TOKEN;
+import static com.hallocasa.view.navigation.ViewParamEnum.PROPERTY_ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.model.controlaccess.UseCaseEnum;
+import com.hallocasa.view.components.utils.ProfileEntryComponent;
 import com.hallocasa.viewmodel.managed.pages.blog.BlogArticlePage;
 import com.hallocasa.viewmodel.managed.pages.blog.BlogIndexPage;
 import com.hallocasa.viewmodel.managed.pages.buyprocess.BuyProcessPage;
@@ -20,6 +22,7 @@ import com.hallocasa.viewmodel.user.present.ProfileBrowserPage;
 import com.hallocasa.viewmodel.user.profile.ProfileEditPage;
 import com.hallocasa.viewmodel.user.profile.ProfileReadPage;
 import com.hallocasa.viewmodel.user.profile.PublicProfilePage;
+import com.hallocasa.viewmodel.user.properties.PropertyDetailPage;
 import com.hallocasa.viewmodel.user.properties.PropertyReadPage;
 
 /**
@@ -71,19 +74,19 @@ public enum HallocasaViewEnum {
      * Page for profile editing and view
      */
     MY_PROFILE(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/profile.xhtml",
-            ProfileReadPage.class, true, new ViewParamEnum[]{OPTION}, UseCaseEnum.SEE_MY_PROFILE),
+            ProfileEntryComponent.class, true, new ViewParamEnum[]{OPTION}, UseCaseEnum.SEE_MY_PROFILE),
     
     /**
      * Page for property list
      */
     MY_PROPERTIES(HallocasaViewNames.USER_PROPERTY_LIST, "/user/pages/properties/properties.xhtml",
-            PropertyReadPage.class, false, null, UseCaseEnum.SEE_MY_PROFILE),
+            ProfileEntryComponent.class, false, null, UseCaseEnum.SEE_MY_PROFILE),
     
     /**
      * Page for property detail
      */
     PROPERTY_DETAIL(HallocasaViewNames.PROPERTY_DETAIL, "/user/pages/properties/property-view.xhtml",
-    		PropertyReadPage.class, false, null, UseCaseEnum.SEE_MY_PROPERTY),
+    		PropertyDetailPage.class, false, null, UseCaseEnum.SEE_MY_PROPERTY),
             
     /**
      * Page for profile editing

@@ -73,6 +73,8 @@ public class HallocasaApplicationImpl implements HallocasaApplication, Serializa
 	private List<CountryVO> countries;
 
 	private Map<Long, MultiLanguageText> cityMap;
+	
+	private Map<Long, MultiLanguageText> stateMap;
 
 	private Map<Long, BigDecimal> cityLatMap;
 
@@ -128,10 +130,12 @@ public class HallocasaApplicationImpl implements HallocasaApplication, Serializa
 
 		List<City> cities = appPersistenceServices.executeNamedQuery(City.QUERY_FIND_ALL, null, City.class);
 		cityMap = new HashMap<>();
+		stateMap = new HashMap<>();
 		cityLatMap = new HashMap<>();
 		cityLngMap = new HashMap<>();
 		for (City city : cities) {
 			cityMap.put(city.getId(), city.getCityName());
+			stateMap.put(city.getState().getId(), city.getState().getStateName());
 			cityLatMap.put(city.getId(), city.getDefaultLatCoordinate());
 			cityLngMap.put(city.getId(), city.getDefaultLngCoordinate());
 		}
@@ -255,6 +259,14 @@ public class HallocasaApplicationImpl implements HallocasaApplication, Serializa
 
 	public Map<Long, MultiLanguageText> getCityMap() {
 		return cityMap;
+	}
+	
+	public Map<Long, MultiLanguageText> getStateMap() {
+		return stateMap;
+	}
+
+	public void setStateMap(Map<Long, MultiLanguageText> stateMap) {
+		this.stateMap = stateMap;
 	}
 
 	public Map<Long, BigDecimal> getCityLatMap() {
