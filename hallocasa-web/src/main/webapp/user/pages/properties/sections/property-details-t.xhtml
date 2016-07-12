@@ -77,15 +77,84 @@
 		<div id="map"></div>
 		<h:panelGroup id="maps-values">
 			<h:outputScript rendered="#{propertyDetailPage.initMapInLayoutCity}">
+				$(function () {
 					initLayoutCityMap(#{propertyDetailPage.latCityLayout}, #{propertyDetailPage.lngCityLayout})
-				</h:outputScript>
+				});
+			</h:outputScript>
 			<h:outputScript rendered="#{propertyDetailPage.initMapInDefaultCity}">
-					initDefaultCityMap()
-				</h:outputScript>
+				$(function (){
+					initDefaultCityMap();
+				});	
+			</h:outputScript>
 			<h:outputScript rendered="#{propertyDetailPage.initMapInMarker}">
+				$(function(){
 					initMarkerMap(#{propertyDetailPage.property.propertyLocationInfo.latitude.decRepresentation.doubleValue()},
 						#{propertyDetailPage.property.propertyLocationInfo.longitude.decRepresentation.doubleValue()})
+				});
 			</h:outputScript>
 		</h:panelGroup>
 	</div>
+
+	<!-- Property owner -->
+	<div class="card-image">
+
+		<div class="col-md-3 img-profile">
+			<utils:imageEditor imageUrl="#{propertyDetailPage.property.user.image}"
+				imageType="userImage" readOnly="true" />
+			<h:outputText styleClass="label-city" value="#{propertyDetailPage.cityName}">
+			</h:outputText>
+		</div>
+		<div class="content-info-init">
+
+			<div class="name-card">
+				<b class="name-content"> <h:outputText
+						value="#{propertyDetailPage.property.user.firstName} #{propertyDetailPage.property.user.lastName}">
+					</h:outputText>
+				</b>
+			</div>
+			<div class="info-card">
+				<div class="sub-card-languaje">
+					<div class="col-md-md">
+						<ui:repeat value="#{cc.loadSpokenLanguageList()}"
+							var="spokenLanguage">
+									#{spokenLanguage.languageName}
+								#{propertyDetailPage.loadAdditionalLanguagesMark()}
+						</ui:repeat>
+					</div>
+				</div>
+
+				<div class="sub-card-service">
+					<div class="col-md-md">
+						<ui:repeat value="#{cc.profile.userTypes}" var="userType">
+							<div style="display: block">#{cc.load(userType)}</div>
+						</ui:repeat>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="col-md-12 content-btn-more">
+			<div class="col-md-6 sub-card btn-more">
+				<ui:fragment
+					rendered="#{cc.attrs.presentation.equals(cc.litePresentation)}">
+					<h:commandButton styleClass="btn btn-primary"
+						actionListener="#{cc.attrs.onClick}"
+						value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
+				</ui:fragment>
+			</div>
+
+		</div>
+		<div class="col-md-6">
+			<div class="col-md-12 card-description">
+				<!-- <p><b><h:outputText
+							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
+				<p>#{cc.loadDescription()}</p>
+			</div>
+		</div>
+	</div>
+
+
+
 </ui:composition>

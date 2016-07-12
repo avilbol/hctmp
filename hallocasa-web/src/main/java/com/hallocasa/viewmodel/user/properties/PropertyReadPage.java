@@ -173,4 +173,9 @@ public class PropertyReadPage implements Serializable {
 	public String getName(MultiLanguageText name) {
 		return name.getText(webSession.getCurrentLanguage());
 	}
+	
+	public String getUserCityName() {
+		return getUser().getCity().getCityName()
+				.getText(webSession.getCurrentLanguage());
+	}
 }
