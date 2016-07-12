@@ -492,8 +492,23 @@ span.menu-link {
 	.hc-card-properties{
 		width: 100% !important;
 	}
+	
+.hc-content-filters {
+	height: 70px;
+}
+	.ui-selectlistbox-filter-container {
+    width: 100%;
+}
+	
 }
 @media screen and (max-width:680px) {
+	
+.hc-content-filters {
+	height: 50px;
+}
+	.ui-selectlistbox-filter-container {
+    width: 100%;
+}
 	.hc-card-properties{
 		width: 100% !important;
 	}
