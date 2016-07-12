@@ -13,6 +13,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import com.hallocasa.commons.annotations.PropertyFieldValueParser;
 import com.hallocasa.commons.vo.CountryVO;
+import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.properties.PropertyBasicInfo;
 import com.hallocasa.commons.vo.properties.PropertyImageInfo;
 import com.hallocasa.commons.vo.properties.PropertyLocationInfo;
@@ -158,6 +159,8 @@ public class PropertyVOParser {
 		BeanUtils.copyProperties(vo.getPropertyLocation(), entity.getPropertyLocation());
 		vo.setPropertyProposal(new PropertyProposalVO());
 		BeanUtils.copyProperties(vo.getPropertyProposal(), entity.getPropertyProposal());
+		vo.setUser(new UserVO());
+		ParsersContext.USER_VO_PARSER.copyEntityToVO(entity.getUser(), vo.getUser());
 		vo.setPropertyType(new PropertyTypeVO());
 		ParsersContext.PROPERTY_TYPE_VO_PARSER.copyEntityToVO(entity.getPropertyType(), vo.getPropertyType());
 	}

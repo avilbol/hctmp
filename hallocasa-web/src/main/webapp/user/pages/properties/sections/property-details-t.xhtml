@@ -97,15 +97,15 @@
 
 	<!-- Property owner -->
 	<div class="card-image">
-
 		<div class="col-md-3 img-profile">
-			<utils:imageEditor imageUrl="#{propertyDetailPage.property.user.image}"
+			<utils:imageEditor
+				imageUrl="#{propertyDetailPage.property.user.image}"
 				imageType="userImage" readOnly="true" />
-			<h:outputText styleClass="label-city" value="#{propertyDetailPage.cityName}">
+			<h:outputText styleClass="label-city"
+				value="#{propertyDetailPage.cityName}">
 			</h:outputText>
 		</div>
 		<div class="content-info-init">
-
 			<div class="name-card">
 				<b class="name-content"> <h:outputText
 						value="#{propertyDetailPage.property.user.firstName} #{propertyDetailPage.property.user.lastName}">
@@ -115,46 +115,76 @@
 			<div class="info-card">
 				<div class="sub-card-languaje">
 					<div class="col-md-md">
-						<ui:repeat value="#{cc.loadSpokenLanguageList()}"
+						<ui:repeat value="#{propertyDetailPage.loadSpokenLanguageList()}"
 							var="spokenLanguage">
-									#{spokenLanguage.languageName}
-								#{propertyDetailPage.loadAdditionalLanguagesMark()}
+							#{spokenLanguage.languageName}
 						</ui:repeat>
+						#{propertyDetailPage.loadAdditionalLanguagesMark()}
 					</div>
 				</div>
-
 				<div class="sub-card-service">
 					<div class="col-md-md">
-						<ui:repeat value="#{cc.profile.userTypes}" var="userType">
-							<div style="display: block">#{cc.load(userType)}</div>
+						<ui:repeat value="#{propertyDetailPage.property.user.userTypes}"
+							var="userType">
+							<div style="display: block">#{propertyDetailPage.getName(userType.userTypeName)}</div>
 						</ui:repeat>
 					</div>
 				</div>
-			</div>
-		</div>
-
-
-
-		<div class="col-md-12 content-btn-more">
-			<div class="col-md-6 sub-card btn-more">
-				<ui:fragment
-					rendered="#{cc.attrs.presentation.equals(cc.litePresentation)}">
-					<h:commandButton styleClass="btn btn-primary"
-						actionListener="#{cc.attrs.onClick}"
-						value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
-				</ui:fragment>
-			</div>
-
-		</div>
-		<div class="col-md-6">
-			<div class="col-md-12 card-description">
-				<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-				<p>#{cc.loadDescription()}</p>
 			</div>
 		</div>
 	</div>
 
+
+
+	<div class="col-md-12">
+		<ui:fragment rendered="#{not propertyDetailPage.skypePending}">
+			<div class="col-md-3 skype-info">
+				<h:outputLink value="skype:#{propertyDetailPage.skypeName}?call">
+					<h:graphicImage library="images/icons" name="skype-24.png" />
+				</h:outputLink>
+			</div>
+		</ui:fragment>
+		<ui:fragment rendered="#{not profileDetailPage.linkedInPending}">
+			<div class="col-md-3 linkedIn-info">
+				<h:outputLink value="#{profileDetailPage.linkedInLink}"
+					styleClass="hc-form-field" target="_blanck">
+					<h:graphicImage library="images/icons" name="linkedin.png"
+						styleClass="btn-linkedin" />
+				</h:outputLink>
+			</div>
+		</ui:fragment>
+
+		<ui:fragment rendered="#{not profileDetailPage.telephonePending}">
+			<div class="col-md-3 telephone-info">
+				<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>&nbsp;
+				<span class="hc-form-field"> <utils:telephoneNumber
+						value="#{propertyDetailPage.property.user.telephone}"
+						id="telephone" readOnly="true"
+						emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" />
+				</span>
+			</div>
+		</ui:fragment>
+	</div>
+
+	<div class="col-md-12">
+		<div class="email-info">
+			<h:outputText value="#{propertyDetailPage.property.user.telephone}"/>
+		</div>
+	</div>
+
+
+	<ui:remove>
+		<div class="col-md-3">
+			<ui:fragment rendered="#{not profileDetailPage.websitePending}">
+				<b><span class="hc-form-label">
+						#{viewBundle['Profile.Data.Website.Label']} </span></b>
+				<h:outputLink value="#{profileDetailPage.websiteLink}"
+					styleClass="hc-form-field">
+					<h:outputText value="#{profileDetailPage.websiteName}" />
+				</h:outputLink>
+			</ui:fragment>
+		</div>
+	</ui:remove>
 
 
 </ui:composition>

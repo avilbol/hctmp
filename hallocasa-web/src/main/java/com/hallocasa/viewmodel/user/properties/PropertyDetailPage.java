@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.CityVO;
+import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
@@ -221,7 +222,6 @@ public class PropertyDetailPage implements Serializable{
 	public boolean getLinkedInPending() {
 		return FormatUtils.isEmptyValue(this.getUser().getLinkedIn());
 	}
-
 
 	public PropertyVO getProperty() {
 		return property;
