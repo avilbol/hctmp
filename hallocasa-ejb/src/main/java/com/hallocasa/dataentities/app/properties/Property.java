@@ -43,6 +43,16 @@ public class Property implements Serializable, HallocasaEntity {
 	public static final String QUERY_FIND_COUNT_BY_ID = "SELECT COUNT(p) FROM Property p WHERE p.id = ?1";
 	
 	/**
+	 * Query to get the number of property ocurrences 
+	 */
+	public static final String QUERY_FIND_COUNT = "SELECT COUNT(p) FROM Property p";
+	
+	/**
+	 * Query to find properties
+	 */
+	public static final String QUERY_FIND_ALL = "SELECT p FROM Property p";
+	
+	/**
 	 * Serialization constant
 	 */
 	private static final long serialVersionUID = 8086831618480962012L;
