@@ -41,7 +41,7 @@
 										action="#{propertyBrowsePage.deactivateFilter('LANGUAGES')}">
 										<f:ajax render="@form" update="@form" />
 									</h:commandButton>
-									<p:selectManyMenu id="languages"
+									<p:selectManyMenu id="languages" styleClass="filter-container"
 										value="#{propertyBrowsePage.selectedLanguages}"
 										converter="languageConverter" var="language" filter="true"
 										filterMatchMode="contains" showCheckbox="true">
@@ -76,7 +76,7 @@
 										action="#{propertyBrowsePage.deactivateFilter('STATE')}">
 										<f:ajax render="@form" update="@form" />
 									</h:commandButton>
-									<p:selectManyMenu id="states"
+									<p:selectManyMenu id="states" styleClass="filter-container"
 										value="#{propertyBrowsePage.selectedStates}"
 										converter="stateConverter" var="state" filter="true"
 										filterMatchMode="contains" showCheckbox="true">
@@ -112,7 +112,7 @@
 										action="#{propertyBrowsePage.deactivateFilter('CITY')}">
 										<f:ajax render="@form" update="@form" />
 									</h:commandButton>
-									<p:selectManyMenu id="cities"
+									<p:selectManyMenu id="cities" styleClass="filter-container"
 										value="#{propertyBrowsePage.selectedCities}"
 										converter="cityConverter" var="city" filter="true"
 										filterMatchMode="contains" showCheckbox="true">
@@ -148,7 +148,7 @@
 										action="#{propertyBrowsePage.setPropertyTypeFilterState(false)}">
 										<f:ajax render="@form" update="@form" />
 									</h:commandButton>
-									<p:selectManyMenu id="property_types"
+									<p:selectManyMenu id="property_types" styleClass="filter-container"
 										value="#{propertyBrowsePage.selectedPropertyTypes}"
 										converter="propertyTypeConverter" var="ptype" filter="true"
 										filterMatchMode="contains" showCheckbox="true">
