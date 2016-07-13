@@ -12,7 +12,8 @@
 
 
 	<f:metadata>
-		<f:viewParam name="property-id" value="#{propertyDetailPage.propertyIdStr}" />
+		<f:viewParam name="property-id"
+			value="#{propertyDetailPage.propertyIdStr}" />
 		<f:event type="preRenderComponent"
 			listener="#{propertyDetailPage.initialize}" />
 	</f:metadata>
@@ -21,15 +22,24 @@
 
 	<ui:define name="styleSheetsSection">
 		<h:outputStylesheet library="css" name="confirm-email.css" />
+		<h:outputStylesheet library="css" name="maps.css" />
 	</ui:define>
-	
+
+
+
 	<ui:define name="jsSection">
 		<script async="async" defer="defer"
 			src="https://maps.googleapis.com/maps/api/js?key=#{globalMenuBean.gmapsApiKey}&amp;signed_in=true&amp;v=3.20"></script>
-		<h:outputScript library="js" name="maps.js"/>
+		<h:outputScript library="js" name="maps.js" />
 	</ui:define>
 
 	<ui:define name="contentSection">
-		<ui:include src="sections/property-details-t.xhtml"/>
+		<h:form id="hc-profile-form" enctype="multipart/form-data">
+			<div class="hc-content-body">
+				<div class="container">
+					<ui:include src="sections/property-details-t.xhtml" />
+				</div>
+			</div>
+		</h:form>
 	</ui:define>
 </ui:composition>

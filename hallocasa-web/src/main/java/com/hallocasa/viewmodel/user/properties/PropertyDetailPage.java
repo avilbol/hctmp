@@ -3,6 +3,7 @@ package com.hallocasa.viewmodel.user.properties;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
@@ -10,8 +11,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.CityVO;
+import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
@@ -141,6 +144,14 @@ public class PropertyDetailPage implements Serializable{
 		}
 		return vlu.doubleValue();
 	}
+	
+	public List<Language> loadSpokenLanguageList() {
+		List<Language> languageList = getUser().getSpokenLanguages();
+		if (languageList.size() <= 4) {
+			return languageList;
+		}
+		return languageList.subList(0, 4);
+	}
 
 	/**
 	 * Getter for user
@@ -212,7 +223,6 @@ public class PropertyDetailPage implements Serializable{
 		return FormatUtils.isEmptyValue(this.getUser().getLinkedIn());
 	}
 
-
 	public PropertyVO getProperty() {
 		return property;
 	}
@@ -255,5 +265,13 @@ public class PropertyDetailPage implements Serializable{
 
 	public void setInitMapInMarker(boolean initMapInMarker) {
 		this.initMapInMarker = initMapInMarker;
+	}
+	
+	public String loadAdditionalLanguagesMark() {
+		List<Language> languageList = this.getUser().getSpokenLanguages();
+		if (languageList.size() <= 4) {
+			return "";
+		}
+		return "...";
 	}
 }
