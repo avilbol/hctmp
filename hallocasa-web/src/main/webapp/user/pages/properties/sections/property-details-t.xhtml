@@ -7,9 +7,12 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 
-	<p>
-		<br /> <br /> <br />This is the view page
-	</p>
+	<h:outputScript>
+    	function doClick(id){
+    		$('#' + id.split(':').join('\\:')).click();
+    	}
+   	</h:outputScript>
+
 	<!-- Property Title -->
 	<p class="property-title">
 		#{propertyPresentationPage.titleValue(propertyDetailPage.property)}</p>
@@ -116,8 +119,10 @@
 				<div class="sub-card-languaje">
 					<div class="col-md-md">
 						<ui:repeat value="#{propertyDetailPage.loadSpokenLanguageList()}"
-							var="spokenLanguage">
-							#{spokenLanguage.languageName}
+							var="spokenLanguage" varStatus="id">
+							<div class="user-language-#{id.index} block">
+								#{spokenLanguage.languageName}
+							</div> 
 						</ui:repeat>
 						#{propertyDetailPage.loadAdditionalLanguagesMark()}
 					</div>
@@ -125,8 +130,8 @@
 				<div class="sub-card-service">
 					<div class="col-md-md">
 						<ui:repeat value="#{propertyDetailPage.property.user.userTypes}"
-							var="userType">
-							<div style="display: block">#{propertyDetailPage.getName(userType.userTypeName)}</div>
+							var="userType" varStatus="id">
+							<div class="usertype-#{id.index}" style="display: block">#{propertyDetailPage.getName(userType.userTypeName)}</div>
 						</ui:repeat>
 					</div>
 				</div>
@@ -144,9 +149,9 @@
 				</h:outputLink>
 			</div>
 		</ui:fragment>
-		<ui:fragment rendered="#{not profileDetailPage.linkedInPending}">
+		<ui:fragment rendered="#{not propertyDetailPage.linkedInPending}">
 			<div class="col-md-3 linkedIn-info">
-				<h:outputLink value="#{profileDetailPage.linkedInLink}"
+				<h:outputLink value="#{propertyDetailPage.linkedInLink}"
 					styleClass="hc-form-field" target="_blanck">
 					<h:graphicImage library="images/icons" name="linkedin.png"
 						styleClass="btn-linkedin" />
@@ -154,7 +159,7 @@
 			</div>
 		</ui:fragment>
 
-		<ui:fragment rendered="#{not profileDetailPage.telephonePending}">
+		<ui:fragment rendered="#{not propertyDetailPage.telephonePending}">
 			<div class="col-md-3 telephone-info">
 				<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>&nbsp;
 				<span class="hc-form-field"> <utils:telephoneNumber
@@ -168,7 +173,7 @@
 
 	<div class="col-md-12">
 		<div class="email-info">
-			<h:outputText value="#{propertyDetailPage.property.user.telephone}"/>
+			<h:outputText value="#{propertyDetailPage.property.user.email}" />
 		</div>
 	</div>
 
@@ -176,8 +181,6 @@
 	<ui:remove>
 		<div class="col-md-3">
 			<ui:fragment rendered="#{not profileDetailPage.websitePending}">
-				<b><span class="hc-form-label">
-						#{viewBundle['Profile.Data.Website.Label']} </span></b>
 				<h:outputLink value="#{profileDetailPage.websiteLink}"
 					styleClass="hc-form-field">
 					<h:outputText value="#{profileDetailPage.websiteName}" />
@@ -186,5 +189,7 @@
 		</div>
 	</ui:remove>
 
-
+	<h:commandButton styleClass="btn btn-primary"
+		actionListener="#{propertyDetailPage.goToPublicProfile()}"
+		value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
 </ui:composition>
