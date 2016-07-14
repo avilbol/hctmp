@@ -23,7 +23,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
@@ -83,9 +83,9 @@ public class HomePage implements Serializable {
         // just for forcing creation
     }
     
-    public void goToProperty(PropertyVO propertyVO){
+    public void goToProperty(String id){
 		HashMap<ViewParamEnum, String> params = new HashMap<ViewParamEnum, String>();
-		params.put(ViewParamEnum.PROPERTY_ID, propertyVO.getId().toString());
+		params.put(ViewParamEnum.PROPERTY_ID, id);
 		navigationHandler.redirectToPage(HallocasaViewEnum.PROPERTY_DETAIL, params);
 	}
     

@@ -16,7 +16,6 @@
 
 	<ui:define name="contentSection">
 		<div class="hc-content-body">
-
 			<div>#{homePage.launch()}</div>
 			<div class="col-md-12 container con-body">
 				<div class="col-md-9 col-md-offset-2">
@@ -26,9 +25,7 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="home-fill-extra-space" />
-
 			<h:outputScript library="js" name="home/background-image.js" />
 		</div>
 
@@ -36,345 +33,58 @@
 		<div
 			class="hc-content-Properties col-md-11 col-md-offset-container-properties">
 			<div class="hc-card">
-				<ui:repeat var="property" value="#{homePage.propertyList}">
-					<div class="col-md-5 hc-card-properties">
-						<div class="col-md-5 img-profile">
-							<h:graphicImage url="#{property.propertyImageInfo.mainImage.url}"
-								rendered="#{property.propertyImageInfo.mainImage != null}"
-								styleClass="img-responsive" />
-							<h:graphicImage url="#{propertyPresentationPage.defaultImageUrl}"
-								rendered="#{property.propertyImageInfo.mainImage == null}"
-								styleClass="img-responsive" />
-						</div>
-						<div class="col-md-6 content-info-init">
-							<div class="name-card">
-								<b class="name-content">
-									#{propertyPresentationPage.titleValue(property)} </b>
+				<h:form id="propertyBrowserForm" enctype="multipart/form-data">
+					<ui:repeat var="property" value="#{homePage.propertyList}">
+						<div class="col-md-5 hc-card-properties">
+							<div class="col-md-5 img-profile">
+								<h:graphicImage
+									url="#{property.propertyImageInfo.mainImage.url}"
+									rendered="#{property.propertyImageInfo.mainImage != null}"
+									styleClass="img-responsive" />
+								<h:graphicImage
+									url="#{propertyPresentationPage.defaultImageUrl}"
+									rendered="#{property.propertyImageInfo.mainImage == null}"
+									styleClass="img-responsive" />
 							</div>
-							<div class="info-card">
-								<div class="sub-card-languaje">
-									<div class="col-md-6">
-										<div class="">
-											#{propertyPresentationPage.langValue(property.propertyType.name)}
+							<div class="col-md-6 content-info-init">
+								<div class="name-card">
+									<b class="name-content">
+										#{propertyPresentationPage.titleValue(property)} </b>
+								</div>
+								<div class="info-card">
+									<div class="sub-card-languaje">
+										<div class="col-md-6">
+											<div class="">
+												#{propertyPresentationPage.langValue(property.propertyType.name)}
+											</div>
+										</div>
+										<div class="col-md-6">
+											#{propertyPresentationPage.langValue(property.propertyProposal.name)}
 										</div>
 									</div>
-									<div class="col-md-6">
-										#{propertyPresentationPage.langValue(property.propertyProposal.name)}
-									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-md-12 card-city">
-							<p>#{propertyPresentationPage.getCityName(property.propertyLocationInfo.city.id)}</p>
-						</div>
-						<div class="col-md-12">
-							#{propertyPresentationPage.currencyValue(property.propertyBasicInfo.marketPrice)}
-						</div>
-						<div class="col-md-12">
-							#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}
-						</div>
-						<div class="col-md-12 content-btn-more text-center">
-							<h:commandButton value="#{viewBundle['Properties.view.label']}"
-								styleClass="btn btn-primary"
-								action="#{homePage.goToProperty(property)}">
-								<f:ajax execute="@this"
-									render=":hc-profile-form:container-property-element" />
-							</h:commandButton>
-						</div>
-					</div>
-				</ui:repeat>
-				<!-- 1 card -->
-				<div class="col-md-5 hc-card-properties">
-
-					<div class="col-md-5 img-profile">
-						<img
-							src="https://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701"
-							class="img-responsive"></img>
-					</div>
-					<div class="col-md-6 content-info-init">
-
-						<div class="name-card">
-							<b class="name-content"> nombre card </b>
-						</div>
-						<div class="info-card">
-							<div class="sub-card-languaje">
-								<div class="col-md-6">
-									<div class="">lenguaje</div>
-								</div>
-								<div class="col-md-6">servicio</div>
+							<div class="col-md-12 card-city">
+								<p>#{propertyPresentationPage.getCityName(property.propertyLocationInfo.city.id)}</p>
+							</div>
+							<div class="col-md-12">
+								#{propertyPresentationPage.currencyValue(property.propertyBasicInfo.marketPrice)}
+							</div>
+							<div class="col-md-12">
+								#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}
+							</div>
+							<div class="col-md-12 content-btn-more text-center">
+								<h:commandButton value="#{viewBundle['Properties.view.label']}"
+									styleClass="btn btn-primary"
+									action="#{homePage.goToProperty(property.id)}">
+								</h:commandButton>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-12 card-city">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-						<p>Bogota D.c</p>
-					</div>
-					<div class="col-md-12 content-btn-more text-center">
-						<button class="btn btn-primary" value="Send">Send</button>
-					</div>
-					<div class="col-md-12 card-description">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-					</div>
-				</div>
-
-				<!-- 2 card -->
-				<div class="col-md-5 hc-card-properties">
-
-					<div class="col-md-5 img-profile">
-						<img
-							src="https://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701"
-							class="img-responsive"></img>
-					</div>
-					<div class="col-md-6 content-info-init">
-
-						<div class="name-card">
-							<b class="name-content"> nombre card </b>
-						</div>
-						<div class="info-card">
-							<div class="sub-card-languaje">
-								<div class="col-md-6">
-									<div class="">lenguaje</div>
-								</div>
-								<div class="col-md-6">servicio</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12 card-city">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-						<p>Bogota D.c</p>
-					</div>
-					<div class="col-md-12 content-btn-more text-center">
-						<button class="btn btn-primary" value="Send">Send</button>
-					</div>
-					<div class="col-md-12 card-description">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-					</div>
-				</div>
-				<!-- 3 card -->
-
-				<div class="col-md-5 hc-card-properties">
-
-					<div class="col-md-5 img-profile">
-						<img
-							src="https://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701"
-							class="img-responsive"></img>
-					</div>
-					<div class="col-md-6 content-info-init">
-
-						<div class="name-card">
-							<b class="name-content"> nombre card </b>
-						</div>
-						<div class="info-card">
-							<div class="sub-card-languaje">
-								<div class="col-md-6">
-									<div class="">lenguaje</div>
-								</div>
-								<div class="col-md-6">servicio</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12 card-city">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-						<p>Bogota D.c</p>
-					</div>
-					<div class="col-md-12 content-btn-more text-center">
-						<button class="btn btn-primary" value="Send">Send</button>
-					</div>
-					<div class="col-md-12 card-description">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-					</div>
-				</div>
-				<!-- 4 card -->
-
-				<div class="col-md-5 hc-card-properties">
-
-					<div class="col-md-6 img-profile">
-						<img
-							src="https://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701"
-							class="img-responsive"></img>
-					</div>
-					<div class="col-md-6 content-info-init">
-
-						<div class="name-card">
-							<b class="name-content"> nombre card </b>
-						</div>
-						<div class="info-card">
-							<div class="sub-card-languaje">
-								<div class="col-md-6">
-									<div class="">lenguaje</div>
-								</div>
-								<div class="col-md-6">servicio</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12 card-city">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-						<p>Bogota D.c</p>
-					</div>
-					<div class="col-md-12 content-btn-more text-center">
-						<button class="btn btn-primary" value="Send">Send</button>
-					</div>
-					<div class="col-md-12 card-description">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-					</div>
-				</div>
-				<!-- 5 card -->
-
-				<div class="col-md-5 hc-card-properties">
-
-					<div class="col-md-5 img-profile">
-						<img
-							src="https://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701"
-							class="img-responsive"></img>
-					</div>
-					<div class="col-md-6 content-info-init">
-
-						<div class="name-card">
-							<b class="name-content"> nombre card </b>
-						</div>
-						<div class="info-card">
-							<div class="sub-card-languaje">
-								<div class="col-md-6">
-									<div class="">lenguaje</div>
-								</div>
-								<div class="col-md-6">servicio</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12 card-city">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-						<p>Bogota D.c</p>
-					</div>
-					<div class="col-md-12 content-btn-more text-center">
-						<button class="btn btn-primary" value="Send">Send</button>
-					</div>
-					<div class="col-md-12 card-description">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-					</div>
-				</div>
-				<!-- 6 card -->
-
-				<div class="col-md-5 hc-card-properties">
-
-					<div class="col-md-5 img-profile">
-						<img
-							src="https://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701"
-							class="img-responsive"></img>
-					</div>
-					<div class="col-md-6 content-info-init">
-
-						<div class="name-card">
-							<b class="name-content"> nombre card </b>
-						</div>
-						<div class="info-card">
-							<div class="sub-card-languaje">
-								<div class="col-md-6">
-									<div class="">lenguaje</div>
-								</div>
-								<div class="col-md-6">servicio</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12 card-city">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-						<p>Bogota D.c</p>
-					</div>
-					<div class="col-md-12 content-btn-more text-center">
-						<button class="btn btn-primary" value="Send">Send</button>
-					</div>
-					<div class="col-md-12 card-description">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-					</div>
-				</div>
-				<!-- 7 card -->
-
-				<div class="col-md-5 hc-card-properties">
-
-					<div class="col-md-5 img-profile">
-						<img
-							src="https://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701"
-							class="img-responsive"></img>
-					</div>
-					<div class="col-md-6 content-info-init">
-
-						<div class="name-card">
-							<b class="name-content"> nombre card </b>
-						</div>
-						<div class="info-card">
-							<div class="sub-card-languaje">
-								<div class="col-md-6">
-									<div class="">lenguaje</div>
-								</div>
-								<div class="col-md-6">servicio</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12 card-city">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-						<p>Bogota D.c</p>
-					</div>
-					<div class="col-md-12 content-btn-more text-center">
-						<button class="btn btn-primary" value="Send">Send</button>
-					</div>
-					<div class="col-md-12 card-description">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-					</div>
-				</div>
-				<!-- 8 card -->
-
-				<div class="col-md-5 hc-card-properties">
-
-					<div class="col-md-5 img-profile">
-						<img
-							src="https://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701"
-							class="img-responsive"></img>
-					</div>
-					<div class="col-md-6 content-info-init">
-
-						<div class="name-card">
-							<b class="name-content"> nombre card </b>
-						</div>
-						<div class="info-card">
-							<div class="sub-card-languaje">
-								<div class="col-md-6">
-									<div class="">lenguaje</div>
-								</div>
-								<div class="col-md-6">servicio</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12 card-city">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-						<p>Bogota D.c</p>
-					</div>
-					<div class="col-md-12 content-btn-more text-center">
-						<button class="btn btn-primary" value="Send">Send</button>
-					</div>
-					<div class="col-md-12 card-description">
-						<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-					</div>
-				</div>
-
+					</ui:repeat>
+				</h:form>
 			</div>
 		</div>
 		<!-- end Container property cards-->
-
 
 		<div class="hc-content-Profiles">
 			<h:panelGroup id="profileListArea">
