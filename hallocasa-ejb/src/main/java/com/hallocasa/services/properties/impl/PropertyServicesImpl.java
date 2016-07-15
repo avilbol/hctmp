@@ -1,7 +1,9 @@
 package com.hallocasa.services.properties.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -10,6 +12,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.hallocasa.commons.StrategySort;
 import com.hallocasa.commons.utils.FormatUtils;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
@@ -54,6 +57,8 @@ public class PropertyServicesImpl implements PropertyServices {
 				new Object[] { user }, Property.class);
 		return PropertyVOParser.getInstance().toValueObject(entityList);
 	}
+	
+	
 
 	/**
 	 * {@inheritDoc}
@@ -135,5 +140,48 @@ public class PropertyServicesImpl implements PropertyServices {
 	@Override
 	public List<PropertyVO> find(PropertyFilter propertyFilter) {
 		return propertyFilteringServices.loadProperties(propertyFilter);
+	}
+
+
+
+	@Override
+	public List<PropertyVO> find(Integer propertyNumberToShow,
+			StrategySort strategySort) {
+		Integer counter = 0;
+		List<Property> propertyList = new ArrayList<>();
+		
+		Integer propertyAmmount = appPersistenceServices.executeQuery(
+				Property.QUERY_FIND_COUNT, Long.class).intValue();
+		Random random = new Random();
+		while (counter++ < propertyNumberToShow && propertyAmmount > propertyList.size()) {
+			Property propertyItem = new Property();
+			do {
+				Integer indexToFix = random.nextInt(propertyAmmount);
+				propertyItem = appPersistenceServices.executeQuery(
+						Property.QUERY_FIND_ALL,
+						new HashMap<String, Object>(), Property.class, indexToFix);
+			} while (duplicateProperty(propertyItem, propertyList));
+			propertyList.add(propertyItem);
+		}
+		return ParsersContext.PROPERTY_VO_PARSER.toValueObject(propertyList);
+		
+		
+	}
+	
+	/**
+	 * Detect the presence of users with an id duplicated in candidate new
+	 * element
+	 * 
+	 * @param user
+	 * @param propertyList
+	 * @return
+	 */
+	private boolean duplicateProperty(Property property, List<Property> propertyList) {
+		for (Property propertyItem : propertyList) {
+			if (property.getId().equals(propertyItem.getId())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
