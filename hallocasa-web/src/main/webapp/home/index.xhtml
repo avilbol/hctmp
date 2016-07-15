@@ -32,7 +32,7 @@
 		</div>
 		
 		<!-- Container property cards-->
-		<div class="hc-content-Properties col-md-11 col-md-offset-container-properties">
+		<div class="hc-content-Properties col-md-12 col-md-offset-container-properties">
 			<div class="hc-card">
 			<!-- 1 card -->
 					<div class="col-md-5 hc-card-properties">
@@ -343,7 +343,8 @@
 		<!-- end Container property cards-->
 		
 		
-		<div class="hc-content-Profiles">
+		<div class="hc-content-Profiles ">
+		<div class="col-md-12 col-md-offset-container-properties">
 			<h:panelGroup id="profileListArea">
 				<h:form id="profileBrowserForm" enctype="multipart/form-data">
 					<ui:repeat var="profileItem" value="#{profileBrowserPage.userList}">
@@ -353,6 +354,7 @@
 					</ui:repeat>
 				</h:form>
 			</h:panelGroup>
+		</div>
 		</div>
 	</ui:define>
 

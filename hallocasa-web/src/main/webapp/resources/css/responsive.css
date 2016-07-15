@@ -190,159 +190,8 @@
 		font-size: 40px !important;
 		text-decoration: inherit !important;
 	}
-	ul
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	.topnavli
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	:not
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	(
-	:first-child
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	){
-	display
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	:
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	none
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	;
+ul.topnavli:not(:first-child){
+	display:none;
 }
 
 ul.topnav li.icon {
@@ -489,28 +338,38 @@ span.menu-link {
 	width: 100% !important;
 }
 
-	.hc-card-properties{
-		width: 100% !important;
-	}
-	
+	.hc-card-properties {
+	width: 100% !important;
+}
+
 .hc-content-filters {
 	height: 70px;
 }
-	.ui-selectlistbox-filter-container {
-    width: 100%;
+
+.ui-selectlistbox-filter-container {
+	width: 100%;
 }
+
+	.container-fluid {
+		width: 100%
+	}
+}
+@media screen and (max-width:650px) {
 	
-}
-@media screen and (max-width:680px) {
-	
-.hc-content-filters {
-	height: 50px;
-}
+	.hc-content-filters {
+		height: 50px;
+	}
 	.ui-selectlistbox-filter-container {
-    width: 100%;
-}
-	.hc-card-properties{
-		width: 100% !important;
+		width: 100%;
+	}
+	.col-md-offset-container-properties {
+		margin-left: 0%;
+	}
+	.hc-card-properties {
+		margin: 20px 0;
+	}
+	.container-fluid {
+		width: 398px;
 	}
 	.logo {
 		width: 10% !important;
@@ -555,7 +414,7 @@ span.menu-link {
 		width: 133% !important;
 		margin-top: -12px;
 	}
-		.col-md-btn-cancel,.col-md-btn-save,.col-md-btn-back,.col-md-btn-follow
+	.col-md-btn-cancel,.col-md-btn-save,.col-md-btn-back,.col-md-btn-follow
 		{
 		width: 40%;
 	}
@@ -604,183 +463,7 @@ span.menu-link {
 		width: 42%;
 		padding: 15px;
 	}
-	ul
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	.topnav
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	li
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	:not
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	(
-	:first-child
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	)
-	{
-	display
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	:
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	none
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	;
+	ul.topnavli:not(:first-child)	{	display:none;
 }
 
 .row.col-md-10.menu {

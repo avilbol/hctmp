@@ -6,6 +6,210 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="hc-property-detail-form" enctype="multipart/form-data">
-		<h1>Coming soon...</h1>
+		<div class="container hc-view-properties">
+			<!-- propertie attribute -->
+			<div class="hc-properties-list">
+				<div class="col-md-6">
+					<div class="col-md-12">
+						<div class="col-md-6">
+							<strong>Property Title</strong>
+						</div>
+						<div class="col-md-2">$200.000</div>
+						<div class="col-md-2">Buy</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-6">Bogota, cundinamarca</div>
+						<div class="col-md-2">house</div>
+						<div class="col-md-2">200 m2</div>
+					</div>
+					<div class="col-md-12">calle 94 # 50-30</div>
+				</div>
+			</div>
+			<!-- end attribute -->
+
+			<!-- propertie slider-->
+			<div class="col-md-12 hc-properties-big-image">
+				<script type="text/javascript">
+					jQuery(document).ready(
+							function($) {
+
+								$('#myCarousel').carousel({
+									interval : 5000
+								});
+
+								$('#carousel-text').html(
+										$('#slide-content-0').html());
+
+								//Handles the carousel thumbnails
+								$('[id^=carousel-selector-]').click(
+										function() {
+											var id = this.id.substr(this.id
+													.lastIndexOf("-") + 1);
+											var id = parseInt(id);
+											$('#myCarousel').carousel(id);
+										});
+
+								// When the carousel slides, auto update the text
+								$('#myCarousel').on(
+										'slid.bs.carousel',
+										function(e) {
+											var id = $('.item.active').data(
+													'slide-number');
+											$('#carousel-text').html(
+													$('#slide-content-' + id)
+															.html());
+										});
+							});
+				</script>
+				<div id="main_area" class="col-md-6">
+					<!-- Slider -->
+					<div class="row">
+						<div class="col-xs-12" id="slider">
+							<!-- Top part of the slider -->
+							<div class="row">
+								<div class="col-sm-12" id="carousel-bounding-box">
+									<div class="carousel slide" id="myCarousel">
+										<ui:repeat
+											value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
+											var="imageItem" varStatus="id">
+											<!-- Carousel items -->
+											<div class="carousel-inner">
+												<div class="#{id.index == 0 ? 'active':''} item"
+													data-slide-number="#{id.index}">
+													<h:graphicImage styleClass="img-responsive"
+														value="#{imageItem.url}">
+													</h:graphicImage>
+												</div>
+											</div>
+										</ui:repeat>
+										<!-- Carousel nav -->
+										<a class="left carousel-control" href="#myCarousel"
+											role="button" data-slide="prev"> <span
+											class="hc-back-img"></span>
+										</a> <a class="right carousel-control" href="#myCarousel"
+											role="button" data-slide="next"> <span
+											class="hc-next-img"></span>
+										</a>
+									</div>
+								</div>
+
+								<div class="col-sm-4" id="carousel-text"></div>
+							</div>
+						</div>
+					</div>
+					<!--/Slider-->
+
+					<!-- propertie carrousel-->
+					<div class="col-md-12 hidden-xs hc-properties-carrusel"
+						id="slider-thumbs">
+						<!-- Bottom switcher of slider -->
+						<ul class="hide-bullets-properties">
+
+							<ui:repeat
+								value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
+								var="imageItem" varStatus="id">
+								<li class="col-sm-2"><a class="thumbnail"
+									id="carousel-selector-#{id.index}"> <h:graphicImage
+											value="#{imageItem.url}">
+										</h:graphicImage></a></li>
+
+							</ui:repeat>
+
+
+						</ul>
+					</div>
+					<!-- end carrusel -->
+				</div>
+
+				<!-- end slider -->
+
+				<!-- propertie tab-->
+
+				<div class="col-md-5 col-md-offset-1">
+					<div class="hc-properties-tabs">
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#home">Description</a></li>
+							<li><a data-toggle="tab" href="#menu1">maps</a></li>
+							<li><a data-toggle="tab" href="#menu2">Contact</a></li>
+						</ul>
+
+						<div class="tab-content">
+							<div id="home" class="tab-pane fade in active">
+								<h3>Property Description (English)</h3>
+								<p>blabalabbasfkljasñdkfjasñlkdfjñak sljdflkajds
+									fkasdfjasfdk asfbasfklja sñdkfjasñlkdfjña ksljd flkajd sfkasd
+									fjasfd kasfbasfkljasñdkf jasñlkdfjña ksljdflka jdsfkasdfj
+									asfdkasfbasfklj asñdkfjasñ lkdfjñaksljdf lkajdsfkasd fja sfdk
+									asfbalabal basfkljasñ dkfjasñ lkdfjñaksljdfl
+									kajdsfkasdfjasfdkasf</p>
+								<h3>Location Description (English)</h3>
+								<p>blabala bbasfkljasñdkfjasñlkdfjñaksljdfl kajd sfkas dfjas
+									fdkasfbasfk ljasñdkfjasñl kdfjñaksljdflkajdsfka sdfjasfdkasfba
+									sfkljasñ dkfja sñlkdf jñaksljdflkajdsfkasd fjasfd kasfbas
+									fkljasñdkfjas ñlkdfjñaksljdflkajdsfkasdfjasfdkasfbalabalbas
+									fkljasñdkfjasñlkd fjñaksljdflkajdsfkasdfjasfdkasf</p>
+							</div>
+							<div id="menu1" class="tab-pane fade">
+								<h3>Google Maps</h3>
+								<p>
+									<iframe
+										src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d7953.366345621598!2d-74.1674676257649!3d4.65047985213266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x8e3f9c491528f0bf%3A0x4c60208c6e0c96ae!2sCarrera+94A%2C+Bogot%C3%A1%2C+Colombia!3m2!1d4.652368699999999!2d-74.16359369999999!5e0!3m2!1ses-419!2ses!4v1467670055187"
+										width="400" height="250" frameborder="0" style="border: 0"></iframe>
+								</p>
+							</div>
+							<div id="menu2" class="tab-pane fade">
+								<p>
+
+									<div class="row hc-card-properties-details">
+
+										<div class="col-md-5 img-profile">
+											<img
+												src="https://cdn.theatlantic.com/assets/media/img/photo/2015/11/images-from-the-2016-sony-world-pho/s01_130921474920553591/main_900.jpg?1448476701"
+												class="img-responsive"></img>
+										</div>
+										<div class="col-md-6 content-info-init">
+
+											<div class="name-card">
+												<b class="name-content"> nombre card </b>
+											</div>
+											<div class="info-card">
+												<div class="sub-card-languaje">
+													<div class="col-md-6">
+														<div class="">lenguaje</div>
+													</div>
+													<div class="col-md-6">servicio</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12 card-city">
+											<!-- <p><b><h:outputText
+							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
+											<p>Bogota D.c</p>
+										</div>
+										<div class="col-md-12 card-email">
+											<!-- <p><b><h:outputText
+							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
+											<p>Faavhyan@gmail.com</p>
+										</div>
+										<div class="col-md-12 card-phone">
+											<!-- <p><b><h:outputText
+							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
+											<p>+57 3182617901</p>
+										</div>
+										<div class="col-md-12 card-description">
+											<!-- <p><b><h:outputText
+							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
+										</div>
+									</div>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- end tab -->
+			</div>
+
+
+		</div>
 	</h:form>
 </ui:composition>

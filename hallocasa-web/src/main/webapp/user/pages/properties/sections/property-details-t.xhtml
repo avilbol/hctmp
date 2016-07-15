@@ -13,183 +13,293 @@
     	}
    	</h:outputScript>
 
-	<!-- Property Title -->
-	<p class="property-title">
-		#{propertyPresentationPage.titleValue(propertyDetailPage.property)}</p>
-	<!-- Property City Name -->
-	<p class="property-city-name">
-		#{propertyPresentationPage.getCityName(propertyDetailPage.property.propertyLocationInfo.city.id)}
-	</p>
-	<!-- Property State Name -->
-	<p class="property-state-name">
-		#{propertyPresentationPage.getStateName(propertyDetailPage.property.propertyLocationInfo.state.id)}
-	</p>
-	<!-- Property Market Price -->
-	<p class="property-market-price">
-		#{propertyPresentationPage.currencyValue(propertyDetailPage.property.propertyBasicInfo.marketPrice)}
-	</p>
-	<!-- Property Type -->
-	<p class="property-type">
-		#{propertyPresentationPage.langValue(propertyDetailPage.property.propertyType.name)}
-	</p>
-	<!-- Property Proposal -->
-	<p class="property-proposal">
-		#{propertyPresentationPage.langValue(propertyDetailPage.property.propertyProposal.name)}
-	</p>
-	<!-- Property Proposal -->
-	<p class="property-area">
-		#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}
-	</p>
-	<!-- Images -->
-	<ui:repeat
-		value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
-		var="imageItem" varStatus="id">
-		<h:graphicImage styleClass="property-image#{id.index}"
-			value="#{imageItem.url}">
-		</h:graphicImage>
-	</ui:repeat>
 
-
-
-	<!-- Property description -->
-	<ui:repeat
-		value="#{propertyDetailPage.property.propertyBasicInfo.languages}"
-		var="lang" varStatus="id">
-		<div class="property-description-label-#{id.index}">
-			#{viewBundle['propertyWizardPage.property.description']} (
-			#{lang.languageName} )</div>
-		<div class="property-description-value-#{id.index}">
-			#{propertyDetailPage.property.propertyBasicInfo.propertyDescription.langMap[lang]}
-		</div>
-	</ui:repeat>
-
-	<!-- Property location description  -->
-	<ui:repeat
-		value="#{propertyDetailPage.property.propertyBasicInfo.languages}"
-		var="lang" varStatus="id">
-		<div class="property-location-description-label-#{id.index}">
-			#{viewBundle['propertyWizardPage.property.LocationDescription']} (
-			#{lang.languageName} )</div>
-		<div class="property-location-description-value-#{id.index}">
-			#{propertyDetailPage.property.propertyBasicInfo.locationDescription.langMap[lang]}
-		</div>
-	</ui:repeat>
-
-	<!-- Location in Google Maps -->
-	<div class="col-md-12">
-		<div id="map"></div>
-		<h:panelGroup id="maps-values">
-			<h:outputScript rendered="#{propertyDetailPage.initMapInLayoutCity}">
-				$(function () {
-					initLayoutCityMap(#{propertyDetailPage.latCityLayout}, #{propertyDetailPage.lngCityLayout})
-				});
-			</h:outputScript>
-			<h:outputScript rendered="#{propertyDetailPage.initMapInDefaultCity}">
-				$(function (){
-					initDefaultCityMap();
-				});	
-			</h:outputScript>
-			<h:outputScript rendered="#{propertyDetailPage.initMapInMarker}">
-				$(function(){
-					initMarkerMap(#{propertyDetailPage.property.propertyLocationInfo.latitude.decRepresentation.doubleValue()},
-						#{propertyDetailPage.property.propertyLocationInfo.longitude.decRepresentation.doubleValue()})
-				});
-			</h:outputScript>
-		</h:panelGroup>
-	</div>
-
-	<!-- Property owner -->
-	<div class="card-image">
-		<div class="col-md-3 img-profile">
-			<utils:imageEditor
-				imageUrl="#{propertyDetailPage.property.user.image}"
-				imageType="userImage" readOnly="true" />
-			<h:outputText styleClass="label-city"
-				value="#{propertyDetailPage.cityName}">
-			</h:outputText>
-		</div>
-		<div class="content-info-init">
-			<div class="name-card">
-				<b class="name-content"> <h:outputText
-						value="#{propertyDetailPage.property.user.firstName} #{propertyDetailPage.property.user.lastName}">
-					</h:outputText>
-				</b>
+	<div class="container hc-view-properties">
+		<!-- propertie attribute -->
+		<div class="hc-properties-list">
+			<div class="col-md-6">
+				<div class="col-md-12">
+					<div class="col-md-6">
+						<strong>#{propertyPresentationPage.titleValue(propertyDetailPage.property)}</strong>
+					</div>
+					<div class="col-md-2">#{propertyPresentationPage.currencyValue(propertyDetailPage.property.propertyBasicInfo.marketPrice)}</div>
+					<div class="col-md-2">#{propertyPresentationPage.langValue(propertyDetailPage.property.propertyProposal.name)}</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-6">#{propertyPresentationPage.getCityName(propertyDetailPage.property.propertyLocationInfo.city.id)}</div>
+					<div class="col-md-2">#{propertyPresentationPage.langValue(propertyDetailPage.property.propertyType.name)}</div>
+					<div class="col-md-2">#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}</div>
+				</div>
+				<div class="col-md-12">#{propertyPresentationPage.getStateName(propertyDetailPage.property.propertyLocationInfo.state.id)}</div>
 			</div>
-			<div class="info-card">
-				<div class="sub-card-languaje">
-					<div class="col-md-md">
-						<ui:repeat value="#{propertyDetailPage.loadSpokenLanguageList()}"
-							var="spokenLanguage" varStatus="id">
-							<div class="user-language-#{id.index} block">
-								#{spokenLanguage.languageName}
-							</div> 
-						</ui:repeat>
-						#{propertyDetailPage.loadAdditionalLanguagesMark()}
+		</div>
+		<!-- end attribute -->
+
+		<!-- propertie slider-->
+		<div class="col-md-12 hc-properties-big-image">
+			<script type="text/javascript">
+				jQuery(document).ready(
+						function($) {
+
+							$('#myCarousel').carousel({
+								interval : 5000
+							});
+
+							$('#carousel-text').html(
+									$('#slide-content-0').html());
+
+							//Handles the carousel thumbnails
+							$('[id^=carousel-selector-]').click(
+									function() {
+										var id = this.id.substr(this.id
+												.lastIndexOf("-") + 1);
+										var id = parseInt(id);
+										$('#myCarousel').carousel(id);
+									});
+
+							// When the carousel slides, auto update the text
+							$('#myCarousel').on(
+									'slid.bs.carousel',
+									function(e) {
+										var id = $('.item.active').data(
+												'slide-number');
+										$('#carousel-text').html(
+												$('#slide-content-' + id)
+														.html());
+									});
+						});
+			</script>
+			<div id="main_area" class="col-md-6">
+				<!-- Slider -->
+				<div class="row">
+					<div class="col-xs-12" id="slider">
+						<!-- Top part of the slider -->
+						<div class="row">
+							<div class="col-sm-12" id="carousel-bounding-box">
+								<div class="carousel slide" id="myCarousel">
+									<ui:repeat
+										value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
+										var="imageItem" varStatus="id">
+										<!-- Carousel items -->
+										<div class="carousel-inner">
+											<div class="#{id.index == 0 ? 'active':''} item"
+												data-slide-number="#{id.index}">
+												<h:graphicImage styleClass="img-responsive"
+													value="#{imageItem.url}">
+												</h:graphicImage>
+											</div>
+										</div>
+									</ui:repeat>
+									<!-- Carousel nav -->
+									<a class="left carousel-control" href="#myCarousel"
+										role="button" data-slide="prev"> <span class="hc-back-img"></span>
+									</a> <a class="right carousel-control" href="#myCarousel"
+										role="button" data-slide="next"> <span class="hc-next-img"></span>
+									</a>
+								</div>
+							</div>
+
+							<div class="col-sm-4" id="carousel-text"></div>
+						</div>
 					</div>
 				</div>
-				<div class="sub-card-service">
-					<div class="col-md-md">
-						<ui:repeat value="#{propertyDetailPage.property.user.userTypes}"
-							var="userType" varStatus="id">
-							<div class="usertype-#{id.index}" style="display: block">#{propertyDetailPage.getName(userType.userTypeName)}</div>
+				<!--/Slider-->
+
+				<!-- propertie carrousel-->
+				<div class="col-md-12 hidden-xs hc-properties-carrusel"
+					id="slider-thumbs">
+					<!-- Bottom switcher of slider -->
+					<ul class="hide-bullets-properties">
+
+						<ui:repeat
+							value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
+							var="imageItem" varStatus="id">
+							<li class="col-sm-2"><a class="thumbnail"
+								id="carousel-selector-#{id.index}"> <h:graphicImage
+										value="#{imageItem.url}">
+									</h:graphicImage></a></li>
+
 						</ui:repeat>
+					</ul>
+				</div>
+				<!-- end carrusel -->
+			</div>
+
+			<!-- end slider -->
+
+			<!-- propertie tab-->
+
+			<div class="col-md-5 col-md-offset-1">
+				<div class="hc-properties-tabs">
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#home">Description</a></li>
+						<li><a data-toggle="tab" href="#menu1">maps</a></li>
+						<li><a data-toggle="tab" href="#menu2">Contact</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div id="home" class="tab-pane fade in active">
+							<ui:repeat
+								value="#{propertyDetailPage.property.propertyBasicInfo.languages}"
+								var="lang" varStatus="id">
+								<h3>
+									#{viewBundle['propertyWizardPage.property.description']} (
+									#{lang.languageName} )</h3>
+								<p>
+									#{propertyDetailPage.property.propertyBasicInfo.propertyDescription.langMap[lang]}
+								</p>
+								<!-- Property location description  -->
+								<h3>
+									#{viewBundle['propertyWizardPage.property.LocationDescription']}
+									( #{lang.languageName} )</h3>
+								<p>
+									#{propertyDetailPage.property.propertyBasicInfo.locationDescription.langMap[lang]}
+								</p>
+							</ui:repeat>
+						</div>
+						<div id="menu1" class="tab-pane fade">
+							<h3>Google Maps</h3>
+							<p>
+								<!-- Location in Google Maps -->
+								<div class="col-md-12">
+									<div id="map"></div>
+									<h:panelGroup id="maps-values">
+										<h:outputScript
+												rendered="#{propertyDetailPage.initMapInLayoutCity}">
+											$(function () {
+												initLayoutCityMap(#{propertyDetailPage.latCityLayout}, #{propertyDetailPage.lngCityLayout})
+											});
+										</h:outputScript>
+										<h:outputScript
+											rendered="#{propertyDetailPage.initMapInDefaultCity}">
+											$(function (){
+												initDefaultCityMap();
+											});	
+										</h:outputScript>
+										<h:outputScript
+											rendered="#{propertyDetailPage.initMapInMarker}">
+											$(function(){
+												initMarkerMap(#{propertyDetailPage.property.propertyLocationInfo.latitude.decRepresentation.doubleValue()},
+													#{propertyDetailPage.property.propertyLocationInfo.longitude.decRepresentation.doubleValue()})
+											});
+										</h:outputScript>
+									</h:panelGroup>
+								</div>
+							</p>
+						</div>
+						<div id="menu2" class="tab-pane fade">
+							<p>
+								<div class="row hc-card-properties-details">
+									<div class="col-md-7 img-profile">
+										<div class="img-profile">
+											<utils:imageEditor
+												imageUrl="#{propertyDetailPage.property.user.image}"
+												imageType="userImage" readOnly="true" />
+											<h:outputText styleClass="label-city"
+												value="#{propertyDetailPage.cityName}">
+											</h:outputText>
+										</div>
+									</div>
+									<div class="col-md-5 content-info-init">
+										<div class="name-card">
+											<b class="name-content">
+												<div class="name-card">
+													<b class="name-content"> <h:outputText
+															value="#{propertyDetailPage.property.user.firstName} #{propertyDetailPage.property.user.lastName}">
+														</h:outputText>
+													</b>
+												</div>
+											</b>
+										</div>
+										<div class="info-card">
+											<div class="sub-card-languaje">
+												<div class="col-md-7">
+													<div class="">
+														<ui:repeat
+															value="#{propertyDetailPage.loadSpokenLanguageList()}"
+															var="spokenLanguage" varStatus="id">
+															<div class="user-language-#{id.index} block">
+																#{spokenLanguage.languageName}</div>
+														</ui:repeat>
+														#{propertyDetailPage.loadAdditionalLanguagesMark()}
+													</div>
+												</div>
+												<div class="col-md-5">
+													<ui:repeat
+														value="#{propertyDetailPage.property.user.userTypes}"
+														var="userType" varStatus="id">
+														<div class="usertype-#{id.index}" style="display: block">#{propertyDetailPage.getName(userType.userTypeName)}</div>
+													</ui:repeat>
+												</div>
+											</div>
+										</div>
+									</div>
+									<ui:fragment rendered="#{not propertyDetailPage.skypePending}">
+										<div class="col-md-12 skype-info">
+											<h:outputLink
+												value="skype:#{propertyDetailPage.skypeName}?call">
+												<h:graphicImage library="images/icons" name="skype-24.png" />
+											</h:outputLink>
+										</div>
+									</ui:fragment>
+									<ui:fragment
+										rendered="#{not propertyDetailPage.linkedInPending}">
+										<div class="col-md-12 linkedIn-info">
+											<h:outputLink value="#{propertyDetailPage.linkedInLink}"
+												styleClass="hc-form-field" target="_blanck">
+												<h:graphicImage library="images/icons" name="linkedin.png"
+													styleClass="btn-linkedin" />
+											</h:outputLink>
+										</div>
+									</ui:fragment>
+
+									<ui:fragment
+										rendered="#{not propertyDetailPage.telephonePending}">
+										<div class="col-md-12 telephone-info">
+											<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>&nbsp;
+											<span class="hc-form-field"> <utils:telephoneNumber
+													value="#{propertyDetailPage.property.user.telephone}"
+													id="telephone" readOnly="true"
+													emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" />
+											</span>
+										</div>
+									</ui:fragment>
+									<div class="col-md-12 card-email">
+										<div class="col-md-12">
+											<div class="email-info">
+												<h:outputText
+													value="#{propertyDetailPage.property.user.email}" />
+											</div>
+										</div>
+										<ui:remove>
+											<div class="col-md-12">
+												<ui:fragment
+													rendered="#{not profileDetailPage.websitePending}">
+													<h:outputLink value="#{profileDetailPage.websiteLink}"
+														styleClass="hc-form-field">
+														<h:outputText value="#{profileDetailPage.websiteName}" />
+													</h:outputLink>
+												</ui:fragment>
+											</div>
+										</ui:remove>
+
+									</div>
+									<div class="col-md-3">
+										<h:commandButton styleClass="btn btn-primary"
+											actionListener="#{propertyDetailPage.goToPublicProfile()}"
+											value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
+									</div>
+									<div class="col-md-12 card-description">
+										<!-- <p><b><h:outputText
+							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
+									</div>
+								</div>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
+			<!-- end tab -->
 		</div>
 	</div>
-
-
-
-	<div class="col-md-12">
-		<ui:fragment rendered="#{not propertyDetailPage.skypePending}">
-			<div class="col-md-3 skype-info">
-				<h:outputLink value="skype:#{propertyDetailPage.skypeName}?call">
-					<h:graphicImage library="images/icons" name="skype-24.png" />
-				</h:outputLink>
-			</div>
-		</ui:fragment>
-		<ui:fragment rendered="#{not propertyDetailPage.linkedInPending}">
-			<div class="col-md-3 linkedIn-info">
-				<h:outputLink value="#{propertyDetailPage.linkedInLink}"
-					styleClass="hc-form-field" target="_blanck">
-					<h:graphicImage library="images/icons" name="linkedin.png"
-						styleClass="btn-linkedin" />
-				</h:outputLink>
-			</div>
-		</ui:fragment>
-
-		<ui:fragment rendered="#{not propertyDetailPage.telephonePending}">
-			<div class="col-md-3 telephone-info">
-				<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>&nbsp;
-				<span class="hc-form-field"> <utils:telephoneNumber
-						value="#{propertyDetailPage.property.user.telephone}"
-						id="telephone" readOnly="true"
-						emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" />
-				</span>
-			</div>
-		</ui:fragment>
-	</div>
-
-	<div class="col-md-12">
-		<div class="email-info">
-			<h:outputText value="#{propertyDetailPage.property.user.email}" />
-		</div>
-	</div>
-
-
-	<ui:remove>
-		<div class="col-md-3">
-			<ui:fragment rendered="#{not profileDetailPage.websitePending}">
-				<h:outputLink value="#{profileDetailPage.websiteLink}"
-					styleClass="hc-form-field">
-					<h:outputText value="#{profileDetailPage.websiteName}" />
-				</h:outputLink>
-			</ui:fragment>
-		</div>
-	</ui:remove>
-
-	<h:commandButton styleClass="btn btn-primary"
-		actionListener="#{propertyDetailPage.goToPublicProfile()}"
-		value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
 </ui:composition>
