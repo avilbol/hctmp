@@ -1,4 +1,4 @@
-package com.hallocasa.commons.vo.properties.filters;
+package com.hallocasa.filters.converters;
 
 import java.util.List;
 

@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
@@ -48,6 +49,10 @@ public class TestPage {
     
     private String myAttr;
     
+    private Double valueFrom;
+    
+    private String valueTo;
+    
     private List<String> availableElements;
     
     private List<Language> languages;
@@ -65,7 +70,7 @@ public class TestPage {
     private List<CountryVO> countries;
     
     @Inject
-	private HallocasaApplicationImpl halloCasaApplication;
+	private HallocasaApplicationImpl  halloCasaApplication;
     
     @Inject
    	private CurrencyGlobalApplication currencyGlobal;
@@ -121,6 +126,16 @@ public class TestPage {
         }
     }
 
+    public void sayHi(){
+    	int a = 2;
+    	System.out.println(a);
+    }
+    
+    public void change(){
+    	int a = 2;
+    	System.out.println(a);
+    }
+    
     public List<String> getAvailableElements() {
         return availableElements;
     }
@@ -208,6 +223,20 @@ public class TestPage {
 	public void setCountries(List<CountryVO> countries) {
 		this.countries = countries;
 	}
-	
-	
+
+	public Double getValueFrom() {
+		return valueFrom;
+	}
+
+	public void setValueFrom(Double valueFrom) {
+		this.valueFrom = valueFrom;
+	}
+
+	public String getValueTo() {
+		return valueTo;
+	}
+
+	public void setValueTo(String valueTo) {
+		this.valueTo = valueTo;
+	}
 }

@@ -1,6 +1,7 @@
 package com.hallocasa.viewmodel.user.profile;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -16,6 +17,7 @@ import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.interfaces.UserServices;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
+import com.hallocasa.view.navigation.ViewParamEnum;
 import com.hallocasa.view.utils.FormatUtils;
 
 /**
@@ -53,20 +55,22 @@ public class PublicProfilePage implements Serializable{
 	private List<PropertyVO> propertyList;
 	
 	public void initialize(){
-		user = userServices.find(Integer.parseInt(this.getUserIdStr()));
+		user = userServices.find(Integer.parseInt(this.getUserIdStr())); 
 	    if (user == null){
 	        // it should never 
 	        throw new ForbiddenException();
 	    }
-	    propertyList = propertyServices.find(user);
+	    propertyList = propertyServices.find(user); 
 		if (propertyList == null) {
 			// it should never
 			throw new ForbiddenException();
 		}
 	}
 	
-	public void goToViewProperty(){
-		navigationHandler.redirectToPage(HallocasaViewEnum.PROPERTY_DETAIL);
+	public void goToViewProperty(PropertyVO propertyVO) { 
+		HashMap<ViewParamEnum, String> params = new HashMap<ViewParamEnum, String>();
+		params.put(ViewParamEnum.PROPERTY_ID, propertyVO.getId().toString());
+		navigationHandler.redirectToPage(HallocasaViewEnum.PROPERTY_DETAIL, params);
 	}
 	
 	public boolean getWebsitePending(){

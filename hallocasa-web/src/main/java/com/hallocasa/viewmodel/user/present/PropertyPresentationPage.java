@@ -64,7 +64,7 @@ public class PropertyPresentationPage {
     		return null;
     	}
     	DecimalFormat formatter = new DecimalFormat("#,###");
-    	BigDecimal exchangedValue = new BigDecimal(currencyGlobal.rateExchange(ammount.getValue(), 
+    	BigDecimal exchangedValue = new BigDecimal(currencyGlobal.exchange(ammount.getValue(), 
     			ammount.getCurrency(), webSession.getCurrentCurrency()));
     	return formatter.format(exchangedValue) + " " + 
     			webSession.getCurrentCurrency().getAbbreviation();

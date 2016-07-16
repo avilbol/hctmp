@@ -15,8 +15,8 @@ import com.hallocasa.commons.vo.properties.PropertyLocationVO;
 import com.hallocasa.commons.vo.properties.PropertyTypeVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.commons.vo.properties.filters.ComparatorType;
-import com.hallocasa.commons.vo.properties.filters.PropertyFieldFilter;
-import com.hallocasa.commons.vo.properties.filters.PropertyFilter;
+import com.hallocasa.filters.converters.PropertyFieldFilter;
+import com.hallocasa.filters.converters.PropertyFilter;
 import com.hallocasa.services.properties.impl.PropertyFilteringServicesImpl;
 import com.hallocasa.tests.database.DatabaseUtils;
 

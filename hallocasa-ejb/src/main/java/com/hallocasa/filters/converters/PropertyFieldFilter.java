@@ -1,4 +1,4 @@
-package com.hallocasa.commons.vo.properties.filters;
+package com.hallocasa.filters.converters;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.List;
 import com.hallocasa.commons.filters.FieldFilterType;
 import com.hallocasa.commons.vo.interfaces.ValueObject;
 import com.hallocasa.commons.vo.properties.PropertyFieldVO;
+import com.hallocasa.commons.vo.properties.filters.ComparatorType;
 
 /**
  * Value Object that represents a filter sent by user in application
@@ -39,6 +40,8 @@ public class PropertyFieldFilter implements Serializable, ValueObject {
 	private ComparatorType comparatorType;
 	
 	private String objectProperty;
+	
+	private FilterConverter filterConverter;
 
 	public PropertyFieldVO getPropertyField() {
 		return propertyField;
@@ -81,7 +84,7 @@ public class PropertyFieldFilter implements Serializable, ValueObject {
 	}
 
 	public List<String> getStringValues() {
-		if(stringValues == null && intValues != null){
+		if(intValues != null){
 			stringValues = new ArrayList<String>();
 			for(Integer intValue : intValues)
 				stringValues.add(String.valueOf(intValue));
@@ -126,5 +129,13 @@ public class PropertyFieldFilter implements Serializable, ValueObject {
 
 	public void setObjectProperty(String objectProperty) {
 		this.objectProperty = objectProperty;
+	}
+
+	public FilterConverter getFilterConverter() {
+		return filterConverter;
+	}
+
+	public void setFilterConverter(FilterConverter filterConverter) {
+		this.filterConverter = filterConverter;
 	}
 }

@@ -13,6 +13,17 @@
 	<p:growl globalOnly="false" showDetail="false" />
 
 	<ui:define name="contentSection">
+		<script>
+			function format(input) {
+				var inputVal = input.value.replace(/\./g, '');
+				if (!isNaN(inputVal))
+					input.value = parseInt(inputVal).toLocaleString();
+				else
+					input.value = input.value.replace(/[^\d\.]*/g, '');
+				if (input.value == "NaN")
+					input.value = "";
+			}
+		</script>
 		<h:panelGroup id="container-property-element">
 			<div class="hc-content-body-properties">
 				<div class="row hc-contents-cards">
@@ -90,6 +101,9 @@
 										</p:column>
 										<f:ajax render="@form"
 											listener="#{propertyBrowsePage.reloadProperties}"
+											update="@form" />
+										<f:ajax render="@form"
+											listener="#{propertyBrowsePage.processStateSelect}"
 											update="@form" />
 									</p:selectManyMenu>
 								</ui:fragment>
@@ -175,7 +189,7 @@
 									styleClass="btn btn-primary hc-primary"
 									action="#{propertyBrowsePage.activateFilter('MARKET_PRICE')}"
 									rendered="#{not propertyBrowsePage.isFilterActive('MARKET_PRICE')}">
-									<f:ajax render="@form" update="@form" />
+									<f:ajax execute="@form" render="@form" />
 								</h:commandButton>
 								<ui:fragment
 									rendered="#{propertyBrowsePage.isFilterActive('MARKET_PRICE')}">
@@ -183,23 +197,33 @@
 										value="#{viewBundle['Properties.browser.button.quit']}"
 										styleClass="btn btn-primary hc-primary"
 										action="#{propertyBrowsePage.deactivateFilter('MARKET_PRICE')}">
-										<f:ajax render="@form" update="@form" />
+										<f:ajax execute="@form" render="@form" />
 									</h:commandButton>
 									<span class="hc-form-label">
 										#{viewBundle['Properties.browser.since']} :</span>
-									<h:inputText
-										value="#{propertyBrowsePage.getSchemeFilter('MARKET_PRICE').valueFrom}" />
+									<h:inputText styleClass="currency" onkeyup="format(this)"
+										value="#{propertyBrowsePage.getSchemeFilter('MARKET_PRICE').valueFrom}">
+										<f:convertNumber groupingUsed="false" locale="es_PE" />
+									</h:inputText>
 									<span class="hc-form-label">
 										#{viewBundle['Properties.browser.until']} :</span>
-									<h:inputText
-										value="#{propertyBrowsePage.getSchemeFilter('MARKET_PRICE').valueTo}" />
+									<h:inputText styleClass="currency" onkeyup="format(this)"
+										value="#{propertyBrowsePage.getSchemeFilter('MARKET_PRICE').valueTo}">
+										<f:convertNumber groupingUsed="false" locale="es_PE" />
+									</h:inputText>
 										<br></br>
+									<h:outputScript>
+										$("input[type='text'].currency ").each(function(i){
+											var obj = $("input[type='text'].currency:eq(" + i + ")");
+											if(obj.val() != null)
+												format(obj[0]);
+										});
+									</h:outputScript>
 									<h:commandButton
 										value="#{viewBundle['Properties.browser.button.search']}"
-										styleClass="btn btn-primary hc-primary-search">
-										<f:ajax render="@form"
-											listener="#{propertyBrowsePage.reloadProperties}"
-											update="@form" />
+										styleClass="btn btn-primary hc-primary-search"
+										action="#{propertyBrowsePage.reloadProperties}">
+										<f:ajax execute="@form" render="@form" />
 									</h:commandButton>
 								</ui:fragment>
 								<h4>
@@ -211,7 +235,7 @@
 									styleClass="btn btn-primary hc-primary"
 									action="#{propertyBrowsePage.activateFilter('AREA')}"
 									rendered="#{not propertyBrowsePage.isFilterActive('AREA')}">
-									<f:ajax render="@form" update="@form" />
+									<f:ajax execute="@form" render="@form" />
 								</h:commandButton>
 								<ui:fragment
 									rendered="#{propertyBrowsePage.isFilterActive('AREA')}">
@@ -219,9 +243,23 @@
 										value="#{viewBundle['Properties.browser.button.quit']}"
 										styleClass="btn btn-primary hc-primary"
 										action="#{propertyBrowsePage.deactivateFilter('AREA')}">
-										<f:ajax render="@form" update="@form" />
+										<f:ajax execute="@form" render="@form" />
 									</h:commandButton>
-
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.since']} :</span>
+									<h:inputText styleClass="currency"
+										value="#{propertyBrowsePage.getSchemeFilter('AREA').valueFrom}"/>
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.until']} :</span>
+									<h:inputText styleClass="currency" 
+										value="#{propertyBrowsePage.getSchemeFilter('AREA').valueTo}"/>
+									<h:commandButton
+										value="#{viewBundle['Properties.browser.button.search']}"
+										styleClass="btn btn-primary hc-primary-search"
+										action="#{propertyBrowsePage.reloadProperties}">
+										<f:ajax execute="@form" render="@form" />
+									</h:commandButton>
+									<br></br>
 								</ui:fragment>
 							</div>
 							<div class="col-md-offset-1 col-md-8">

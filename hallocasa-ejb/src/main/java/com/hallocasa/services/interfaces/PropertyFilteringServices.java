@@ -3,8 +3,8 @@ package com.hallocasa.services.interfaces;
 import java.util.List;
 
 import com.hallocasa.commons.vo.properties.PropertyVO;
-import com.hallocasa.commons.vo.properties.filters.PropertyFieldFilter;
-import com.hallocasa.commons.vo.properties.filters.PropertyFilter;
+import com.hallocasa.filters.converters.PropertyFieldFilter;
+import com.hallocasa.filters.converters.PropertyFilter;
 
 /**
  * Interface for the service related with filters of properties

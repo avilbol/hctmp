@@ -26,30 +26,32 @@
 	<cc:implementation>
 		<p>
 		<script>
-		function format(input)
-		{
-		var num = input.value.replace(/\./g,'');
-		if(!isNaN(num)){
-		num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
-		num = num.split('').reverse().join('').replace(/^[\.]/,'');
-		input.value = num;
-		}
-		 
-		else{ 
-		input.value = input.value.replace(/[^\d\.]*/g,'');
-		}
-		}
-		
+			function format(input) {
+				var inputVal = input.value.replace(/\./g, '');
+				if (!isNaN(inputVal))
+					input.value = parseInt(inputVal).toLocaleString();
+				else
+					input.value = input.value.replace(/[^\d\.]*/g, '');
+				if (input.value == "NaN")
+					input.value = "";
+			}
 		</script>
 			<h:inputText id="currencyValue"
-				styleClass="hc-form-field form-control"
+				styleClass="hc-form-field form-control currency"
 				binding="#{cc.currencyAmmount}"
 				label="#{cc.attrs.label}"
-				required="true"
+				required="true" onkeyup="format(this)"
 				converter="javax.faces.Double">
-				<f:convertNumber pattern="0"/>
+				<f:convertNumber groupingUsed="false" locale="es_PE" />
 			</h:inputText>
 		</p>
+		<h:outputScript>
+			$("input[type='text'].currency").each(function(i){
+				var obj = $("input[type='text'].currency:eq(" + i + ")");
+				if(obj.val() != null)
+					format(obj[0]);
+			});
+		</h:outputScript>
 		<br></br>
 		<p style="position: absolute;">
 			<h:selectOneMenu id="currency"

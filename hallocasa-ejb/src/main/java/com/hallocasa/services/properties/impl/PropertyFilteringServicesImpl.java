@@ -26,10 +26,10 @@ import com.hallocasa.commons.vo.properties.PropertyProposalVO;
 import com.hallocasa.commons.vo.properties.PropertyTypeVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.commons.vo.properties.filters.ComparatorType;
-import com.hallocasa.commons.vo.properties.filters.PropertyFieldFilter;
-import com.hallocasa.commons.vo.properties.filters.PropertyFilter;
 import com.hallocasa.dataentities.app.properties.Property;
 import com.hallocasa.dataentities.app.properties.PropertyFieldValue;
+import com.hallocasa.filters.converters.PropertyFieldFilter;
+import com.hallocasa.filters.converters.PropertyFilter;
 import com.hallocasa.helpers.ParsersContext;
 import com.hallocasa.services.interfaces.PropertyFilteringServices;
 
@@ -170,16 +170,18 @@ public class PropertyFilteringServicesImpl implements
 		CriteriaQuery<Object[]> q = cb.createQuery(Object[].class);
 		Root<PropertyFieldValue> c = q.from(PropertyFieldValue.class);
 		List<Integer> fieldsToApply = new ArrayList<Integer>();
+		List<Predicate> predicates = new ArrayList<Predicate>();
 		for (PropertyFieldFilter pfv : pfFilterList) {
 			fieldsToApply.add(pfv.getPropertyField().getId());
 		}
 		Expression<String> propertyFieldId = c.get("propertyField").get("id");
 		Expression<String> propertyId = c.get("property").get("id");
+		
+		predicates.add(propertyId.in(propertyIdList));
 		if(!fieldsToApply.isEmpty())
-			q.where(cb.and(propertyFieldId.in(fieldsToApply),
-				propertyId.in(propertyIdList)));
+			predicates.add(propertyFieldId.in(fieldsToApply));
+		q.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
 		q.multiselect(propertyId, propertyFieldId, c.get("value"));
-
 		List<Object[]> resultList = em.createQuery(q).getResultList();
 		return resultList;
 	}
@@ -235,6 +237,13 @@ public class PropertyFilteringServicesImpl implements
 				Object propertyFieldAttr = JsonManager.loadValue(
 						propertyFieldValue, pffilter.getComparatorType(),
 						pffilter.getObjectProperty());
+				if(pffilter.getFilterConverter() != null){
+					String helper = (String) JsonManager.loadValue(
+							propertyFieldValue, ComparatorType.OBJECT_PROPERTY,
+							pffilter.getFilterConverter().getObjectProperty());
+					propertyFieldAttr = pffilter.getFilterConverter().transform(
+							propertyFieldAttr, new String[]{helper});
+				}
 				switch (pffilter.getType()) {
 				case RANGE:
 					return (inRange(propertyFieldAttr,

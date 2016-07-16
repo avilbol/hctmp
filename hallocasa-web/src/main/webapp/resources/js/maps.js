@@ -1,6 +1,18 @@
 var map;
 var markers = [];
 
+$("a[data-toggle='tab']").on("shown.bs.tab", function (e){
+	initialize();
+});
+
+function initialize(){
+	map.setTilt(45);	
+	var center = map.getCenter();
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(center);
+	map.addListener("click", clickListener);
+}
+
 function initDefaultCityMap() {
 	setTimeout('defaultCityMap()', 2000);
 }
@@ -68,12 +80,9 @@ function markerMap(latVlu, lngVlu) {
 		},
 		zoom : 18
 	});
-	map.setTilt(45);
 	var center = map.getCenter();
-	google.maps.event.trigger(map, 'resize');
-	map.setCenter(center);
-	map.addListener("click", clickListener);
 	pointMarker(center);
+	setTimeout('initialize()', 1000);
 }
 
 function markerAndLayoutCityMap(latVluMarker, lngVluMarker, latVluCity,

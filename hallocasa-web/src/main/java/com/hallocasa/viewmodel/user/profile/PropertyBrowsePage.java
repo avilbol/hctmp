@@ -19,8 +19,10 @@ import com.hallocasa.commons.vo.CityVO;
 import com.hallocasa.commons.vo.StateVO;
 import com.hallocasa.commons.vo.properties.PropertyTypeVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
-import com.hallocasa.commons.vo.properties.filters.PropertyFieldFilter;
-import com.hallocasa.commons.vo.properties.filters.PropertyFilter;
+import com.hallocasa.filters.converters.CurrencyFilterConverter;
+import com.hallocasa.filters.converters.PropertyFieldFilter;
+import com.hallocasa.filters.converters.PropertyFilter;
+import com.hallocasa.model.application.CurrencyGlobalApplication;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.PropertyFilteringServices;
@@ -52,7 +54,9 @@ public class PropertyBrowsePage implements Serializable {
 	private WebSession webSession;
 
 	@Inject
-	private HallocasaApplicationImpl halloCasaApplication;
+	private CurrencyGlobalApplication currencyGlobalApplication;
+
+	private HallocasaApplicationImpl halloCasaApplication = HallocasaApplicationImpl.getInstance();;
 
 	/**
 	 * States list
@@ -134,8 +138,7 @@ public class PropertyBrowsePage implements Serializable {
 		states = countryServices.getStates(1l);
 		cities = new ArrayList<CityVO>();
 		propertyFilterScheme = propertyFilteringServices.getFilterScheme();
-		propertyList = propertyServices
-				.find(processFilter(propertyFilterScheme));
+		propertyList = propertyServices.find(processFilter(propertyFilterScheme));
 		languageList = halloCasaApplication.getLanguages();
 		propertyTypes = halloCasaApplication.getPropertyTypes();
 		activateFilterStateMap = new HashMap<>();
@@ -146,12 +149,12 @@ public class PropertyBrowsePage implements Serializable {
 	 * Process country selection event
 	 */
 	public void processStateSelect() {
-		if (selectedStates.isEmpty())
+		if (selectedStates.isEmpty() || selectedCities == null)
 			selectedCities = new ArrayList<CityVO>();
 		else {
 			cities = new ArrayList<CityVO>();
-			for (CityVO city : selectedCities)
-				cities.addAll(countryServices.getCities(city.getId()));
+			for (StateVO state : selectedStates)
+				cities.addAll(countryServices.getCities(state.getId()));
 			List<CityVO> cityListToDelete = new ArrayList<CityVO>();
 			for (CityVO cityA : selectedCities) {
 				boolean foundCityvalue = false;
@@ -169,21 +172,19 @@ public class PropertyBrowsePage implements Serializable {
 	}
 
 	public void activateFilter(String propertyField) {
-		PropertyFieldIdentifier identifier = PropertyFieldIdentifier
-				.valueOf(propertyField);
+		PropertyFieldIdentifier identifier = PropertyFieldIdentifier.valueOf(propertyField);
 		activateFilterStateMap.put(identifier.getId(), true);
+		reloadProperties();
 	}
 
 	public void deactivateFilter(String propertyField) {
-		PropertyFieldIdentifier identifier = PropertyFieldIdentifier
-				.valueOf(propertyField);
+		PropertyFieldIdentifier identifier = PropertyFieldIdentifier.valueOf(propertyField);
 		activateFilterStateMap.put(identifier.getId(), false);
 		reloadProperties();
 	}
 
 	public boolean isFilterActive(String propertyField) {
-		PropertyFieldIdentifier identifier = PropertyFieldIdentifier
-				.valueOf(propertyField);
+		PropertyFieldIdentifier identifier = PropertyFieldIdentifier.valueOf(propertyField);
 		Boolean state = activateFilterStateMap.get(identifier.getId());
 		return state != null && state;
 	}
@@ -198,46 +199,56 @@ public class PropertyBrowsePage implements Serializable {
 	}
 
 	public void reloadProperties() {
-		propertyFilterScheme = propertyFilteringServices.getFilterScheme();
+		//propertyFilterScheme = propertyFilteringServices.getFilterScheme();
 		PropertyFilter filter = new PropertyFilter();
-		if (selectedPropertyTypes != null && !selectedPropertyTypes.isEmpty()) {
+		if (propertyTypeFilterState && selectedPropertyTypes != null && !selectedPropertyTypes.isEmpty()) {
 			filter.setPropertyTypeList(selectedPropertyTypes);
 		}
 		filter.setPropertyFieldFilters(new ArrayList<PropertyFieldFilter>());
-		if (selectedLanguages != null && !selectedLanguages.isEmpty()) {
+		if (isFilterActive("LANGUAGES") && selectedLanguages != null && !selectedLanguages.isEmpty()) {
 			PropertyFieldFilter selectedFilter = propertyFilterScheme
-					.getPropertyFieldFilter(PropertyFieldIdentifier.LANGUAGES
-							.getId());
+					.getPropertyFieldFilter(PropertyFieldIdentifier.LANGUAGES.getId());
 			filter.getPropertyFieldFilters().add(selectedFilter);
 			selectedFilter.setStringValues(new ArrayList<String>());
 			for (Language language : selectedLanguages)
 				selectedFilter.getStringValues().add(language.toString());
 		}
-		if (selectedStates != null && !selectedStates.isEmpty()) {
+		if (isFilterActive("STATE") && selectedStates != null && !selectedStates.isEmpty()) {
 			PropertyFieldFilter selectedFilter = propertyFilterScheme
-					.getPropertyFieldFilter(PropertyFieldIdentifier.STATE
-							.getId());
+					.getPropertyFieldFilter(PropertyFieldIdentifier.STATE.getId());
 			filter.getPropertyFieldFilters().add(selectedFilter);
 			selectedFilter.setIntValues(new ArrayList<Integer>());
 			for (StateVO state : selectedStates)
 				selectedFilter.getIntValues().add(state.getId().intValue());
 		}
-		if (selectedCities != null && !selectedCities.isEmpty()) {
+		if (isFilterActive("CITY") && selectedCities != null && !selectedCities.isEmpty()) {
 			PropertyFieldFilter selectedFilter = propertyFilterScheme
-					.getPropertyFieldFilter(PropertyFieldIdentifier.CITY
-							.getId());
+					.getPropertyFieldFilter(PropertyFieldIdentifier.CITY.getId());
 			filter.getPropertyFieldFilters().add(selectedFilter);
 			selectedFilter.setIntValues(new ArrayList<Integer>());
 			for (CityVO city : selectedCities)
 				selectedFilter.getIntValues().add(city.getId().intValue());
 		}
 		PropertyFieldFilter selectedFilter = getSchemeFilter("MARKET_PRICE");
-		if(selectedFilter.getValueFrom() != null || selectedFilter.getValueTo() != null)
+		if (isFilterActive("MARKET_PRICE")
+				&& (selectedFilter.getValueFrom() != null || selectedFilter.getValueTo() != null)){
+			setupFilterConverter(selectedFilter);
 			filter.getPropertyFieldFilters().add(selectedFilter);
+		}
 		selectedFilter = getSchemeFilter("AREA");
-		if(selectedFilter.getValueFrom() != null || selectedFilter.getValueTo() != null)
+		if (isFilterActive("AREA") && (selectedFilter.getValueFrom() != null || selectedFilter.getValueTo() != null)){
 			filter.getPropertyFieldFilters().add(selectedFilter);
+		}
 		propertyList = propertyServices.find(filter);
+	}
+
+	private void setupFilterConverter(PropertyFieldFilter selectedFilter) {
+		CurrencyFilterConverter crcyFilterConverter = new CurrencyFilterConverter();
+		crcyFilterConverter.setConversionExchangeRateList(currencyGlobalApplication.getConversionExchangeRateList());
+		crcyFilterConverter.setCurrencies(currencyGlobalApplication.getCurrencies());
+		crcyFilterConverter.setMoneyTo(webSession.getCurrentCurrency());
+		crcyFilterConverter.setObjectProperty("currency.id");
+		selectedFilter.setFilterConverter(crcyFilterConverter);
 	}
 
 	public List<PropertyVO> getPropertyList() {
@@ -331,26 +342,20 @@ public class PropertyBrowsePage implements Serializable {
 		return selectedPropertyTypes;
 	}
 
-	public void setSelectedPropertyTypes(
-			List<PropertyTypeVO> selectedPropertyTypes) {
+	public void setSelectedPropertyTypes(List<PropertyTypeVO> selectedPropertyTypes) {
 		this.selectedPropertyTypes = selectedPropertyTypes;
 	}
 
 	public PropertyFieldFilter getSchemeFilter(String key) {
-		return propertyFilterScheme
-				.getPropertyFieldFilter(PropertyFieldIdentifier.valueOf(key)
-						.getId());
+		return propertyFilterScheme.getPropertyFieldFilter(PropertyFieldIdentifier.valueOf(key).getId());
 	}
 
 	private PropertyFilter processFilter(PropertyFilter filter) {
 		PropertyFilter filterResult = new PropertyFilter();
-		filterResult
-				.setPropertyFieldFilters(new ArrayList<PropertyFieldFilter>());
+		filterResult.setPropertyFieldFilters(new ArrayList<PropertyFieldFilter>());
 		for (PropertyFieldFilter fieldFilter : filter.getPropertyFieldFilters()) {
-			if (fieldFilter.getStringValue() != null
-					|| fieldFilter.getStringValues() != null
-					|| fieldFilter.getValueFrom() != null
-					|| fieldFilter.getValueTo() != null)
+			if (fieldFilter.getStringValue() != null || fieldFilter.getStringValues() != null
+					|| fieldFilter.getValueFrom() != null || fieldFilter.getValueTo() != null)
 				filterResult.getPropertyFieldFilters().add(fieldFilter);
 		}
 		return filterResult;
