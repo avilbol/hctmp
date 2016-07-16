@@ -14,6 +14,20 @@
 		<h:outputStylesheet library="css" name="home.css" />
 	</ui:define>
 
+	<ui:define name="jsSection">
+		<script type="text/javascript">
+						jQuery(document).ready(function() {
+							$("b[id^='name-content-id']").each(function(i){
+								var propertyContent = $("b[id^='name-content-id']:eq(" + i + ")");
+								var title =  propertyContent.val();
+								var shortText = jQuery.trim(title).substring(0, 40)
+							    .split(" ").slice(0, -1).join(" ") + "...";
+								propertyContent.val(shortText);
+							});
+								});
+					</script>
+	</ui:define>
+
 	<ui:define name="contentSection">
 		<div class="hc-content-body">
 			<div>#{homePage.launch()}</div>
@@ -33,6 +47,9 @@
 
 		<div
 			class="hc-content-Properties col-md-11 col-md-offset-container-properties">
+			<div class="col-md-10 text-center">
+				<h1><strong> <span>#{viewBundle['Common.Label.BrowseProperties']}</span></strong></h1>
+			</div>
 			<div class="hc-card">
 				<h:form id="propertyBrowserForm" enctype="multipart/form-data">
 					<ui:repeat var="property" value="#{homePage.propertyList}">
@@ -49,7 +66,7 @@
 							</div>
 							<div class="col-md-6 content-info-init">
 								<div class="name-card">
-									<b class="name-content">
+									<b class="name-content" id="name-content-id-#{property.id}">
 										#{propertyPresentationPage.titleValue(property)} </b>
 								</div>
 								<div class="info-card">
@@ -94,6 +111,9 @@
 
 		<div class="hc-content-Profiles">
 			<div class="col-md-offset-container-properties">
+				<div class="col-md-9 text-center">
+					<h1><strong> <span>#{viewBundle['Common.Label.BrowseProfiles']}</span></strong></h1>
+				</div>
 				<h:panelGroup id="profileListArea">
 					<h:form id="profileBrowserForm" enctype="multipart/form-data">
 						<ui:repeat var="profileItem"

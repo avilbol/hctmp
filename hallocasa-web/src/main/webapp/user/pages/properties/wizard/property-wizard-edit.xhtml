@@ -67,6 +67,7 @@
 	</div>
 	<div class="col-md-12">
 		<div class="col-md-9  hc-col-md-offset-save">
+		<ui:fragment rendered="#{wizardCreation}">
 			<div class="col-md-2 btn-back">
 				<h:commandButton
 					value="#{viewBundle['Properties.wizard.back.label']}"
@@ -77,6 +78,7 @@
 						render=":hc-profile-form:container-property-element" />
 				</h:commandButton>
 			</div>
+			</ui:fragment>
 			<div class="col-md-2"></div>
 			<div class="col-md-2 btn-cancel">
 				<h:commandButton

@@ -497,9 +497,9 @@
 
 .hc-image-selected span.hc-close {
 	position: absolute;
-	top: 201px;
-	z-index: 1;
-	left: 259px;
+	top: 232px;
+    z-index: 1;
+    left: 279px;
 	width: 16px;
 	height: 16px;
 	background-image:
@@ -668,7 +668,7 @@ margin-top:20px;
     width: 100% !important;
     text-align: left;
     margin-bottom: 15px;
-    font-size: 25px;
+    font-size: 22px;
 }
 .img-profile img{
 	width:230px;

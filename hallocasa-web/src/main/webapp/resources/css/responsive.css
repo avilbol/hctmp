@@ -350,12 +350,20 @@ span.menu-link {
 	width: 100%;
 }
 
-	.container-fluid {
-		width: 100%
-	}
+.container-fluid {
+	width: 100%
+}
+	
+.hc-card-properties-details .btn-linkedin{
+	width: 4%;
+}
 }
 @media screen and (max-width:650px) {
 	
+	
+.hc-card-properties-details .btn-linkedin{
+	width: 9%;
+}
 	.hc-content-filters {
 		height: 50px;
 	}
@@ -665,7 +673,7 @@ div.hc-responsive-div,div.hc-responsive-div img {
 		margin-left: -34px;
 	}
 	ul.topnav.responsive {
-		height: 430px;
+		height: 492px;
 	}
 	/*home*/
 	.hc-home-newsletter-box {
