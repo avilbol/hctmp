@@ -75,10 +75,14 @@
 								#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}
 							</div>
 							<div class="col-md-12 content-btn-more text-center">
-								<h:commandButton value="#{viewBundle['Properties.view.label']}"
-									styleClass="btn btn-primary"
-									action="#{homePage.goToProperty(property.id)}">
-								</h:commandButton>
+								<div class="col-md-4"></div>
+								<div class="col-md-4">
+									<h:commandButton value="#{viewBundle['Properties.view.label']}"
+										styleClass="btn btn-primary"
+										action="#{homePage.goToProperty(property.id)}">
+									</h:commandButton>
+								</div>
+								<div class="col-md-4"></div>
 							</div>
 						</div>
 					</ui:repeat>
@@ -89,15 +93,18 @@
 
 
 		<div class="hc-content-Profiles">
-			<h:panelGroup id="profileListArea">
-				<h:form id="profileBrowserForm" enctype="multipart/form-data">
-					<ui:repeat var="profileItem" value="#{profileBrowserPage.userList}">
-						<utils:profileEntry value="#{profileItem}" size="300"
-							presentation="lite" language="#{profileBrowserPage.language}"
-							onClick="#{homePage.goToProfile(profileItem)}" />
-					</ui:repeat>
-				</h:form>
-			</h:panelGroup>
+			<div class="col-md-offset-container-properties">
+				<h:panelGroup id="profileListArea">
+					<h:form id="profileBrowserForm" enctype="multipart/form-data">
+						<ui:repeat var="profileItem"
+							value="#{profileBrowserPage.userList}">
+							<utils:profileEntry value="#{profileItem}" size="300"
+								presentation="lite" language="#{profileBrowserPage.language}"
+								onClick="#{homePage.goToProfile(profileItem)}" />
+						</ui:repeat>
+					</h:form>
+				</h:panelGroup>
+			</div>
 		</div>
 	</ui:define>
 

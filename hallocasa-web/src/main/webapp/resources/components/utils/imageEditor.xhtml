@@ -12,8 +12,7 @@
 		<cc:attribute name="imageUrl"
 			type="com.hallocasa.commons.vo.ImageContainer" required="true"
 			shortDescription="Image URL to edit" />
-		<cc:attribute name="defaultImageUrl"
-			type="java.lang.String" 
+		<cc:attribute name="defaultImageUrl" type="java.lang.String"
 			shortDescription="Default URL to show when imageUrl is set to null" />
 		<cc:attribute name="imageType" type="java.lang.String" default="image"
 			shortDescription="Image type as scheme to manage image files" />
@@ -25,27 +24,32 @@
 			default="#{true}" />
 		<cc:attribute name="editLabel" type="java.lang.String"
 			default="#{viewBundle['Image.Edition.Upload']}" />
-		<cc:attribute name="styleClass" type="java.lang.String"
-			default="" shortDescription="styleClass for image" />
+		<cc:attribute name="styleClass" type="java.lang.String" default=""
+			shortDescription="styleClass for image" />
 		<cc:attribute name="update" type="java.lang.String"
 			default="image-editor-container" />
 		<cc:attribute name="aspectRatio" type="java.lang.String" default="0" />
 	</cc:interface>
 	<cc:implementation>
 		<h:panelGroup id="image-editor-container">
-			<div class="edit-btn-content col-md-12">
-				<h:commandButton styleClass="btn btn-primary"
-					rendered="#{not cc.attrs.readOnly}" value="#{cc.attrs.editLabel}"
-					onclick="PF('upload-image-dialog').show();return false" />
-			</div>
+			<div class="edit-btn-content col-md-12 hc-img-profile-card">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<h:commandButton styleClass="btn btn-primary"
+						rendered="#{not cc.attrs.readOnly}" value="#{cc.attrs.editLabel}"
+						onclick="PF('upload-image-dialog').show();return false" />
+				</div>
+				<div class="col-md-4"></div>
+				
 			<ui:fragment rendered="#{cc.attrs.showImage}">
-					<h:graphicImage url="#{cc.imageToShow().getUrl()}"
-						styleClass="#{cc.attrs.styleClass}" />
+				<h:graphicImage url="#{cc.imageToShow().getUrl()}"
+					styleClass="#{cc.attrs.styleClass}" />
 			</ui:fragment>
+			</div>
 			<p:dialog header="#{viewBundle['Image.Edition.Header']}"
-				position="center" responsive="true" fitViewport="true" widgetVar="upload-image-dialog"
-				minHeight="40" width="800" height="auto" draggable="false"
-				resizable="false">
+				position="center" responsive="true" fitViewport="true"
+				widgetVar="upload-image-dialog" minHeight="40" width="800"
+				height="auto" draggable="false" resizable="false">
 				<h:panelGroup id="upload-image-bt" styleClass="row">
 				</h:panelGroup>
 				<h:panelGroup id="upload-image-pg"
@@ -55,11 +59,15 @@
 						<h:inputFile id="file" value="#{cc.uncroppedImagePart}"
 							styleClass="" validator="#{cc.validateFile}">
 						</h:inputFile>
-						<h:commandButton
-							value="#{viewBundle['Image.Edition.Header.Upload']}"
-							action="#{cc.onFileUpload}" styleClass="btn btn-primary">
-							<f:ajax execute="file" render="upload-image-pg upload-image-bt" />
-						</h:commandButton>
+						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<h:commandButton
+								value="#{viewBundle['Image.Edition.Header.Upload']}"
+								action="#{cc.onFileUpload}" styleClass="btn btn-primary">
+								<f:ajax execute="file" render="upload-image-pg upload-image-bt" />
+							</h:commandButton>
+						</div>
+						<div class="col-md-4"></div>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{cc.showImageCrop}">
 						<h:outputText value="#{viewBundle['Image.Edition.Crop']}" />

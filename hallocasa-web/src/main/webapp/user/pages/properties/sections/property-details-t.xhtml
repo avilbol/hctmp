@@ -22,13 +22,13 @@
 					<div class="col-md-6">
 						<strong>#{propertyPresentationPage.titleValue(propertyDetailPage.property)}</strong>
 					</div>
-					<div class="col-md-2">#{propertyPresentationPage.currencyValue(propertyDetailPage.property.propertyBasicInfo.marketPrice)}</div>
-					<div class="col-md-2">#{propertyPresentationPage.langValue(propertyDetailPage.property.propertyProposal.name)}</div>
+					<div class="col-md-3">#{propertyPresentationPage.currencyValue(propertyDetailPage.property.propertyBasicInfo.marketPrice)}</div>
+					<div class="col-md-3">#{propertyPresentationPage.langValue(propertyDetailPage.property.propertyProposal.name)}</div>
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-6">#{propertyPresentationPage.getCityName(propertyDetailPage.property.propertyLocationInfo.city.id)}</div>
-					<div class="col-md-2">#{propertyPresentationPage.langValue(propertyDetailPage.property.propertyType.name)}</div>
-					<div class="col-md-2">#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}</div>
+					<div class="col-md-3">#{propertyPresentationPage.langValue(propertyDetailPage.property.propertyType.name)}</div>
+					<div class="col-md-3">#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}</div>
 				</div>
 				<div class="col-md-12">#{propertyPresentationPage.getStateName(propertyDetailPage.property.propertyLocationInfo.state.id)}</div>
 			</div>
@@ -37,94 +37,101 @@
 
 		<!-- propertie slider-->
 		<div class="col-md-12 hc-properties-big-image">
-			<script type="text/javascript">
-				jQuery(document).ready(
-						function($) {
-
-							$('#myCarousel').carousel({
-								interval : 5000
-							});
-
-							$('#carousel-text').html(
-									$('#slide-content-0').html());
-
-							//Handles the carousel thumbnails
-							$('[id^=carousel-selector-]').click(
-									function() {
-										var id = this.id.substr(this.id
-												.lastIndexOf("-") + 1);
-										var id = parseInt(id);
-										$('#myCarousel').carousel(id);
-									});
-
-							// When the carousel slides, auto update the text
-							$('#myCarousel').on(
-									'slid.bs.carousel',
-									function(e) {
-										var id = $('.item.active').data(
-												'slide-number');
-										$('#carousel-text').html(
-												$('#slide-content-' + id)
-														.html());
-									});
-						});
-			</script>
 			<div id="main_area" class="col-md-6">
-				<!-- Slider -->
-				<div class="row">
-					<div class="col-xs-12" id="slider">
-						<!-- Top part of the slider -->
-						<div class="row">
-							<div class="col-sm-12" id="carousel-bounding-box">
-								<div class="carousel slide" id="myCarousel">
-									<ui:repeat
-										value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
-										var="imageItem" varStatus="id">
-										<!-- Carousel items -->
-										<div class="carousel-inner">
-											<div class="#{id.index == 0 ? 'active':''} item"
-												data-slide-number="#{id.index}">
-												<h:graphicImage styleClass="img-responsive"
-													value="#{imageItem.url}">
-												</h:graphicImage>
-											</div>
-										</div>
-									</ui:repeat>
-									<!-- Carousel nav -->
-									<a class="left carousel-control" href="#myCarousel"
-										role="button" data-slide="prev"> <span class="hc-back-img"></span>
-									</a> <a class="right carousel-control" href="#myCarousel"
-										role="button" data-slide="next"> <span class="hc-next-img"></span>
-									</a>
-								</div>
-							</div>
+				<ui:fragment
+					rendered="#{not empty propertyDetailPage.property.propertyImageInfo.imageContainerList}">
+					<script type="text/javascript">
+						jQuery(document).ready(
+								function($) {
 
-							<div class="col-sm-4" id="carousel-text"></div>
+									$('#myCarousel').carousel({
+										interval : 5000
+									});
+
+									$('#carousel-text').html(
+											$('#slide-content-0').html());
+
+									//Handles the carousel thumbnails
+									$('[id^=carousel-selector-]').click(
+											function() {
+												var id = this.id.substr(this.id
+														.lastIndexOf("-") + 1);
+												var id = parseInt(id);
+												$('#myCarousel').carousel(id);
+											});
+
+									// When the carousel slides, auto update the text
+									$('#myCarousel').on(
+											'slid.bs.carousel',
+											function(e) {
+												var id = $('.item.active')
+														.data('slide-number');
+												$('#carousel-text').html(
+														$(
+																'#slide-content-'
+																		+ id)
+																.html());
+											});
+								});
+					</script>
+
+					<!-- Slider -->
+					<div class="row">
+						<div class="col-xs-12" id="slider">
+							<!-- Top part of the slider -->
+							<div class="row">
+								<div class="col-sm-12" id="carousel-bounding-box">
+									<div class="carousel slide" id="myCarousel">
+										<ui:repeat
+											value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
+											var="imageItem" varStatus="id">
+											<!-- Carousel items -->
+											<div class="carousel-inner">
+												<div class="#{id.index == 0 ? 'active':''} item"
+													data-slide-number="#{id.index}">
+													<h:graphicImage styleClass="img-responsive"
+														value="#{imageItem.url}">
+													</h:graphicImage>
+												</div>
+											</div>
+										</ui:repeat>
+										<!-- Carousel nav -->
+										<a class="left carousel-control" href="#myCarousel"
+											role="button" data-slide="prev"> <span
+											class="hc-back-img"></span>
+										</a> <a class="right carousel-control" href="#myCarousel"
+											role="button" data-slide="next"> <span
+											class="hc-next-img"></span>
+										</a>
+									</div>
+								</div>
+
+								<div class="col-sm-4" id="carousel-text"></div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<!--/Slider-->
+					<!--/Slider-->
 
-				<!-- propertie carrousel-->
-				<div class="col-md-12 hidden-xs hc-properties-carrusel"
-					id="slider-thumbs">
-					<!-- Bottom switcher of slider -->
-					<ul class="hide-bullets-properties">
+					<!-- propertie carrousel-->
+					<div class="col-md-12 hidden-xs hc-properties-carrusel"
+						id="slider-thumbs">
+						<!-- Bottom switcher of slider -->
+						<ul class="hide-bullets-properties">
 
-						<ui:repeat
-							value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
-							var="imageItem" varStatus="id">
-							<li class="col-sm-2"><a class="thumbnail"
-								id="carousel-selector-#{id.index}"> <h:graphicImage
-										value="#{imageItem.url}">
-									</h:graphicImage></a></li>
+							<ui:repeat
+								value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
+								var="imageItem" varStatus="id">
+								<li class="col-sm-2"><a class="thumbnail"
+									id="carousel-selector-#{id.index}"> <h:graphicImage
+											value="#{imageItem.url}">
+										</h:graphicImage></a></li>
 
-						</ui:repeat>
-					</ul>
-				</div>
+							</ui:repeat>
+						</ul>
+					</div>
+				</ui:fragment>
 				<!-- end carrusel -->
 			</div>
-
 			<!-- end slider -->
 
 			<!-- propertie tab-->
@@ -165,7 +172,7 @@
 									<div id="map"></div>
 									<h:panelGroup id="maps-values">
 										<h:outputScript
-												rendered="#{propertyDetailPage.initMapInLayoutCity}">
+											rendered="#{propertyDetailPage.initMapInLayoutCity}">
 											$(function () {
 												initLayoutCityMap(#{propertyDetailPage.latCityLayout}, #{propertyDetailPage.lngCityLayout})
 											});
@@ -234,24 +241,28 @@
 											</div>
 										</div>
 									</div>
-									<ui:fragment rendered="#{not propertyDetailPage.skypePending}">
-										<div class="col-md-12 skype-info">
-											<h:outputLink
-												value="skype:#{propertyDetailPage.skypeName}?call">
-												<h:graphicImage library="images/icons" name="skype-24.png" />
-											</h:outputLink>
+									<div class="col-md-12">
+										<div class="col-md-1 skype-info">
+											<ui:fragment
+												rendered="#{not propertyDetailPage.skypePending}">
+												<h:outputLink
+													value="skype:#{propertyDetailPage.skypeName}?call">
+													<h:graphicImage library="images/icons" name="skype-24.png" />
+												</h:outputLink>
+											</ui:fragment>
 										</div>
-									</ui:fragment>
-									<ui:fragment
-										rendered="#{not propertyDetailPage.linkedInPending}">
-										<div class="col-md-12 linkedIn-info">
-											<h:outputLink value="#{propertyDetailPage.linkedInLink}"
-												styleClass="hc-form-field" target="_blanck">
-												<h:graphicImage library="images/icons" name="linkedin.png"
-													styleClass="btn-linkedin" />
-											</h:outputLink>
+
+										<div class="col-md-3 linkedIn-info">
+											<ui:fragment
+												rendered="#{not propertyDetailPage.linkedInPending}">
+												<h:outputLink value="#{propertyDetailPage.linkedInLink}"
+													styleClass="hc-form-field" target="_blanck">
+													<h:graphicImage library="images/icons" name="linkedin.png"
+														styleClass="btn-linkedin" />
+												</h:outputLink>
+											</ui:fragment>
 										</div>
-									</ui:fragment>
+									</div>
 
 									<ui:fragment
 										rendered="#{not propertyDetailPage.telephonePending}">
@@ -284,15 +295,13 @@
 										</ui:remove>
 
 									</div>
-									<div class="col-md-3">
+									<div class="col-md-4"></div>
+									<div class="col-md-4">
 										<h:commandButton styleClass="btn btn-primary"
 											actionListener="#{propertyDetailPage.goToPublicProfile()}"
 											value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
 									</div>
-									<div class="col-md-12 card-description">
-										<!-- <p><b><h:outputText
-							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-									</div>
+									<div class="col-md-4"></div>
 								</div>
 							</p>
 						</div>

@@ -663,3 +663,19 @@ margin-top:20px;
 	    background: #fff;
     padding: 25px!important;
 }
+
+.content-info-init .name-card {
+    width: 100% !important;
+    text-align: left;
+    margin-bottom: 15px;
+    font-size: 25px;
+}
+.img-profile img{
+	width:230px;
+}
+.hc-card-properties-details .btn-linkedin{
+	width: 26%;
+}
+.hc-img-profile-card img{	
+	width:230px;
+}
