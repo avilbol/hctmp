@@ -613,8 +613,7 @@ input{
 	float:left;
 	width:100%;
 }
-.carousel-inner .item {
-    width: 586px;
+.carousel-inner .item {	
     height: 395px;
 }
 .hide-bullets {
@@ -682,4 +681,20 @@ margin-top:20px;
 .col-md-offset-property-thumbnail {
     margin-left: 0.001%;
     Width: 50.333333%
+}
+.item img{
+position: absolute;
+    height: 50%!important;
+    width: 100%;
+    top: 89px;
+}
+.item{
+	position: absolute;
+top:0;
+left:0;
+right:0;
+bottom:0;
+margin: auto;
+height: 100px;
+width: 200px;
 }

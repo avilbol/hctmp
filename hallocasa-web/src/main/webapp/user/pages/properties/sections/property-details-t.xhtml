@@ -35,95 +35,100 @@
 		</div>
 		<!-- end attribute -->
 
-		
+
 		<!-- propertie slider-->
 		<div class="col-md-12 hc-properties-big-image">
 			<div class="col-md-6">
 				<ui:fragment
 					rendered="#{not empty propertyDetailPage.property.propertyImageInfo.imageContainerList}">
 					<script type="text/javascript">
-					jQuery(document).ready(function($) {
+						jQuery(document).ready(
+								function($) {
 
-						$('#myCarousel').carousel({
-							interval : 5000
-						});
+									$('#myCarousel').carousel({
+										interval : 5000
+									});
 
+									//Handles the carousel thumbnails
+									$('[id^=carousel-selector-]').click(
+											function() {
+												var id = this.id.substr(this.id
+														.lastIndexOf("-") + 1);
+												var id = parseInt(id);
+												$('#myCarousel').carousel(id);
+											});
 
-						//Handles the carousel thumbnails
-						$('[id^=carousel-selector-]').click(function() {
-							var id = this.id.substr(this.id.lastIndexOf("-") + 1);
-							var id = parseInt(id);
-							$('#myCarousel').carousel(id);
-						});
-
-						// When the carousel slides, auto update the text
-						$('#myCarousel').on('slid.bs.carousel', function(e) {
-							var id = $('.item.active').data('slide-number');
-						});
-					});
+									// When the carousel slides, auto update the text
+									$('#myCarousel').on(
+											'slid.bs.carousel',
+											function(e) {
+												var id = $('.item.active')
+														.data('slide-number');
+											});
+								});
 					</script>
 
 					<!-- Slider -->
-				<div class="container">
-			<div id="main_area">
-				<!-- Slider -->
-				<div class="col-md-6">
-					<div class="col-xs-12" id="slider">
-						<!-- Top part of the slider -->
-						<div class="row">
-							<div class="col-sm-12" id="carousel-bounding-box">
-								<div class="carousel slide" id="myCarousel">
-									<!-- Carousel items -->
-									<div class="carousel-inner">
-											<ui:repeat
-												value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
-												var="imageItem" varStatus="id">
-												<div class="#{id.index == 0 ? 'active':''} item"
-													data-slide-number="#{id.index}">
-													<h:graphicImage styleClass="img-responsive"
-														value="#{imageItem.url}">
-													</h:graphicImage>
+					<div class="container">
+						<div id="main_area">
+							<!-- Slider -->
+							<div class="col-md-6">
+								<div class="col-xs-12" id="slider">
+									<!-- Top part of the slider -->
+									<div class="row">
+										<div class="col-sm-12" id="carousel-bounding-box">
+											<div class="carousel slide" id="myCarousel">
+												<!-- Carousel items -->
+												<div class="carousel-inner">
+													<ui:repeat
+														value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
+														var="imageItem" varStatus="id">
+														<div class="#{id.index == 0 ? 'active':''} item"
+															data-slide-number="#{id.index}">
+															<h:graphicImage styleClass="img-responsive"
+																value="#{imageItem.url}">
+															</h:graphicImage>
+														</div>
+													</ui:repeat>
 												</div>
-											</ui:repeat>
+												<!-- Carousel nav -->
+
+												<a class="left carousel-control" href="#myCarousel"
+													role="button" data-slide="prev"> <span
+													class="hc-back-img"></span>
+												</a> <a class="right carousel-control" href="#myCarousel"
+													role="button" data-slide="next"> <span
+													class="hc-next-img"></span>
+												</a>
+											</div>
+										</div>
+
+										<div class="col-sm-4" id="carousel-text"></div>
+
+
 									</div>
-									<!-- Carousel nav -->
-									
-										<a class="left carousel-control" href="#myCarousel"
-											role="button" data-slide="prev"> <span
-											class="hc-back-img"></span>
-										</a> <a class="right carousel-control" href="#myCarousel"
-											role="button" data-slide="next"> <span
-											class="hc-next-img"></span>
-										</a>
 								</div>
 							</div>
+							<!--/Slider-->
 
-							<div class="col-sm-4" id="carousel-text"></div>
+							<div class="hc-property-thumb hidden-xs" id="slider-thumbs">
+								<!-- Bottom switcher of slider -->
+								<ul class="hide-bullets col-md-offset-property-thumbnail">
 
-							
+
+									<ui:repeat
+										value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
+										var="imageItem" varStatus="id">
+										<li class="col-sm-2"><a class="thumbnail"
+											id="carousel-selector-#{id.index}"> <h:graphicImage
+													value="#{imageItem.url}">
+												</h:graphicImage></a></li>
+
+									</ui:repeat>
+								</ul>
+							</div>
 						</div>
 					</div>
-				</div>
-				<!--/Slider-->
-
-				<div class="hc-property-thumb hidden-xs" id="slider-thumbs">
-					<!-- Bottom switcher of slider -->
-					<ul class="hide-bullets col-md-offset-property-thumbnail">
-						
-
-							<ui:repeat
-								value="#{propertyDetailPage.property.propertyImageInfo.imageContainerList}"
-								var="imageItem" varStatus="id">
-								<li class="col-sm-2"><a class="thumbnail"
-									id="carousel-selector-#{id.index}"> <h:graphicImage
-											value="#{imageItem.url}">
-										</h:graphicImage></a></li>
-
-							</ui:repeat>
-					</ul>
-				</div>
-			</div>
-		</div>
 				</ui:fragment>
 				<!-- end carrusel -->
 			</div>
@@ -134,9 +139,9 @@
 			<div class="col-md-5 col-md-offset-1">
 				<div class="hc-properties-tabs">
 					<ul class="nav nav-tabs">
-						<li class="active"><a data-toggle="tab" href="#home">Description</a></li>
-						<li><a data-toggle="tab" href="#menu1">maps</a></li>
-						<li><a data-toggle="tab" href="#menu2">Contact</a></li>
+						<li class="active"><a data-toggle="tab" href="#home"> <span>#{viewBundle['propertytab.property.description']}</span></a></li>
+						<li><a data-toggle="tab" href="#menu1"> <span>#{viewBundle['propertytab.property.maps']}</span></a></li>
+						<li><a data-toggle="tab" href="#menu2"> <span>#{viewBundle['propertytab.property.contact']}</span></a></li>
 					</ul>
 
 					<div class="tab-content">
@@ -160,7 +165,9 @@
 							</ui:repeat>
 						</div>
 						<div id="menu1" class="tab-pane fade">
-							<h3>Google Maps</h3>
+							<h3>
+								<span>#{viewBundle['propertytab.property.googleMaps']}</span>
+							</h3>
 							<p>
 								<!-- Location in Google Maps -->
 								<div class="col-md-12">

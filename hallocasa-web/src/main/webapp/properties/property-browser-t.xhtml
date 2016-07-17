@@ -10,6 +10,33 @@
 
 	<ui:param name="header_showSubMenu" value="#{false}"></ui:param>
 
+		<ui:define name="jsSection">
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				$("strong[id^='title-content-id']").each(function(i){
+					var obj = $("[id^='title-content-id']:eq(" + i + ")");
+					var propertyContent = obj[0];
+					var title =  propertyContent.textContent;
+					var titleClear = jQuery.trim(title);
+					var comp = titleClear.length > 60 ? "..." : "";
+					var shortText = titleClear.substring(0, 60)
+				      .split(" ").slice().join(" ") + comp;
+					propertyContent.textContent = shortText;
+				});
+
+				$("div[id^='description-content-id']").each(function(i){
+					var obj = $("[id^='description-content-id']:eq(" + i + ")");
+					var propertyContent = obj[0];
+					var title =  propertyContent.textContent;
+					var titleClear = jQuery.trim(title);
+					var comp = titleClear.length > 160 ? "..." : "";
+					var shortText = titleClear.substring(0, 160)
+				      .split(" ").slice().join(" ") + comp;
+					propertyContent.textContent = shortText;
+				});
+			});
+		</script>
+	</ui:define>
 	<p:growl globalOnly="false" showDetail="false" />
 
 	<ui:define name="contentSection">
@@ -292,7 +319,7 @@
 												</div>
 											</div>
 											<div class="col-md-9 hc-cards-propertie-title">
-												<strong>#{propertyPresentationPage.titleValue(property)}</strong>
+												<strong id="title-content-id-#{property.id}">#{propertyPresentationPage.titleValue(property)}</strong>
 											</div>
 											<div class="col-md-3">
 												<div class="col-md-12">
@@ -314,7 +341,7 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-md-6 hc-cards-list">
+											<div class="col-md-6 hc-cards-list" id="description-content-id-#{property.id}">
 												#{propertyPresentationPage.propertyDescriptionValue(property)}</div>
 										</div>
 										<div class="col-md-12">
