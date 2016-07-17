@@ -33,13 +33,11 @@
 	<cc:implementation>
 		<h:panelGroup id="image-editor-container">
 			<div class="edit-btn-content col-md-12 hc-img-profile-card">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<h:commandButton styleClass="btn btn-primary"
 						rendered="#{not cc.attrs.readOnly}" value="#{cc.attrs.editLabel}"
 						onclick="PF('upload-image-dialog').show();return false" />
 				</div>
-				<div class="col-md-4"></div>
 				
 			<ui:fragment rendered="#{cc.attrs.showImage}">
 				<h:graphicImage url="#{cc.imageToShow().getUrl()}"
