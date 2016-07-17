@@ -1,9 +1,18 @@
 var map;
 var markers = [];
 
-$("a[data-toggle='tab']").on("shown.bs.tab", function (e){
-	initialize();
+
+$(function(){
+	$("a[data-toggle='tab']").on("shown.bs.tab", function(e) {
+		initialize();
+	});
 });
+
+function clean(){
+	map = null;
+	markers = [];
+}
+
 
 function initialize(){
 	map.setTilt(45);	
@@ -14,19 +23,23 @@ function initialize(){
 }
 
 function initDefaultCityMap() {
+	clean();
 	setTimeout('defaultCityMap()', 2000);
 }
 
 function initLayoutCityMap(lat, lng) {
+	clean();
 	setTimeout('layoutCityMap(' + lat + ',' + lng + ')', 2000);
 }
 
 function initMarkerMap(lat, lng) {
+	clean();
 	setTimeout('markerMap(' + lat + ',' + lng + ')', 2000);
 }
 
 function initMarkerAndLayoutCityMap(latVluCity,
 		lngVluCity) {
+	clean();
 	setTimeout('markerAndLayoutCityMap(' + getLat() + ',' + getLng()
 			+ ',' + latVluCity + ',' + lngVluCity + ')', 2000);
 }
@@ -50,10 +63,7 @@ function defaultCityMap() {
 		},
 		zoom : 10
 	});
-	map.setTilt(45);
-	var center = map.getCenter();
-	google.maps.event.trigger(map, 'resize');
-	map.setCenter(center);
+	setupInput();
 	map.addListener("click", clickListener);
 }
 
@@ -65,10 +75,7 @@ function layoutCityMap(latVlu, lngVlu) {
 		},
 		zoom : 10
 	});
-	map.setTilt(45);
-	var center = map.getCenter();
-	google.maps.event.trigger(map, 'resize');
-	map.setCenter(center);
+	setupInput();
 	map.addListener("click", clickListener);
 }
 
@@ -262,12 +269,14 @@ function setLngDms() {
 
 function setInputLongitude() {
 	var rawId = "hc-profile-form:property-longitude";
-	$('#' + rawId.split(':').join('\\:')).val(getLng());
+	if(getLng() != null)
+		$('#' + rawId.split(':').join('\\:')).val(getLng());
 }
 
 function setInputLatitude() {
 	var rawId = "hc-profile-form:property-latitude";
-	$('#' + rawId.split(':').join('\\:')).val(getLat());
+	if(getLat() != null)
+		$('#' + rawId.split(':').join('\\:')).val(getLat());
 }
 
 function setupInput() {

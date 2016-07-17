@@ -28,10 +28,15 @@
 				if (input.value == "NaN")
 					input.value = "";
 			}
+			$(function(){
+				$("a[data-toggle='tab']").on("shown.bs.tab", function(e) {
+					alert("tab changed!");
+				});
+			});
 		</script>
 		<div class="hc-content-body">
 			<div class="container">
-				
+
 				<h:form id="form" styleClass="hc-form" enctype="multipart/form-data">
 					v5
 					<p:commandButton value="#{viewBundle['Properties.view.label']}"
@@ -62,46 +67,20 @@
 
 
 
+					<div class="container">
+						<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#home">Description</a></li>
+						<li><a data-toggle="tab" href="#maps">maps</a></li>
+						<li><a data-toggle="tab" href="#contact">Contact</a></li>
+					</ul>
 
-
-
-
-
-
-					<h:panelGroup id="container-property-element">
-						<div class="hc-content-body-properties">
-							<div class="row hc-contents-cards">
-								<div class="col-md-12 hc-content-filters"></div>
-								<div class="container">
-									<div class="col-md-2">
-										<ui:remove>
-
-											<p:selectManyMenu id="languages"
-												styleClass="filter-container"
-												value="#{propertyBrowsePage.selectedLanguages}"
-												converter="languageConverter" var="language" filter="true"
-												filterMatchMode="contains" showCheckbox="true">
-												<f:selectItems value="#{propertyBrowsePage.languageList}"
-													var="language" itemLabel="#{language.languageName}"
-													itemValue="#{language}" />
-												<p:column>
-													<h:outputText value="#{language.languageName}" />
-												</p:column>
-												<f:ajax render="@form"
-													listener="#{propertyBrowsePage.reloadProperties}"
-													update="@form" />
-											</p:selectManyMenu>
-										</ui:remove>
-
-									</div>
-								</div>
-								<div class="col-md-12 hc-content-filters"></div>
-							</div>
-						</div>
-					</h:panelGroup>
-
-
-
+					<div class="tab-content">
+						<div id="home" class="tab-pane fade in active">home</div>
+						<div id="maps" class="tab-pane fade">maps</div>
+						<div id="contact" class="tab-pane fade">contact</div>
+					</div>
+					</div>
+					
 
 
 

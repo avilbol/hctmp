@@ -16,16 +16,19 @@
 
 	<ui:define name="jsSection">
 		<script type="text/javascript">
-						jQuery(document).ready(function() {
-							$("b[id^='name-content-id']").each(function(i){
-								var propertyContent = $("b[id^='name-content-id']:eq(" + i + ")");
-								var title =  propertyContent.val();
-								var shortText = jQuery.trim(title).substring(0, 40)
-							    .split(" ").slice(0, -1).join(" ") + "...";
-								propertyContent.val(shortText);
-							});
-								});
-					</script>
+			jQuery(document).ready(function() {
+				$("b[id^='name-content-id']").each(function(i){
+					var obj = $("b[id^='name-content-id']:eq(" + i + ")");
+					var propertyContent = obj[0];
+					var title =  propertyContent.textContent;
+					var titleClear = jQuery.trim(title);
+					var comp = titleClear.length > 40 ? "..." : "";
+					var shortText = titleClear.substring(0, 40)
+				      .split(" ").slice().join(" ") + comp;
+					propertyContent.textContent = shortText;
+				});
+			});
+		</script>
 	</ui:define>
 
 	<ui:define name="contentSection">

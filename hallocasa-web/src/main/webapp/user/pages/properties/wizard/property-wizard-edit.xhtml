@@ -7,6 +7,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
+	<script type="text/javascript">
+		$(function(){
+			$("a[data-toggle='tab']").on("shown.bs.tab", function(e) {
+				initialize();
+			});
+		});
+	</script>
 	<div class="col-md-12">
 		<div class="col-md-9">
 			<p:messages id="messages-wiz-edit" showDetail="false"
@@ -24,7 +31,7 @@
 						class="hc-form-label name-card">#{viewBundle['Property.wizard.basic']}</span>
 				</a></li>
 				<li><a href="#location" data-toggle="tab"> <span
-						class="hc-form-label name-card">#{viewBundle['Property.wizard.location']}</span></a></li>
+						class="hc-form-label name-card location">#{viewBundle['Property.wizard.location']}</span></a></li>
 				<li><a href="#images" data-toggle="tab"> <span
 						class="hc-form-label name-card">#{viewBundle['Property.wizard.images']}</span></a></li>
 				<ui:remove>
