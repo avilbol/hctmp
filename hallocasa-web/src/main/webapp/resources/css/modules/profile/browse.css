@@ -79,7 +79,7 @@
 	height: auto;
 	display: inline-block;
 	float: left;
-	width: 35%;
+	width: 42%;
 }
 
 .card-image,card-info {
@@ -128,7 +128,7 @@
 
 .hc-card-profile.hc-profile-browse-panel-lite .sub-card-languaje
 {
-	width: 50% !important;
+	width: 50%;
 	float: left;
 	font-size: 17px;
 }

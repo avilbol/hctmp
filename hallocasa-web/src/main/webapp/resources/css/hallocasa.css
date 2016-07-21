@@ -538,11 +538,6 @@
 	width: 172px;
 	height: 121px;
 }
-.col-md-offset-container-properties {
-	margin-left: 5.333333%;
-	float: left;
-	width: 100%;
-}
 
 .hc-cards-city {
 	padding-left: 10px !important;
@@ -566,10 +561,10 @@
 .hc-card-properties {
 	border: 3px solid #ccc;
 	border-radius: 3px;
-	padding: 30px;
+	padding: 10px;
 	margin: 20px;
-	width: 38.2% !important;
-	padding-left: 30px !important;
+	width: 42% !important;
+	padding-left: 10px !important;
 }
 
 .hc-card-properties-details{
@@ -611,7 +606,6 @@ input{
 .col-md-offset-container-properties{
 	margin-left: 15.333333%;
 	float:left;
-	width:100%;
 }
 .carousel-inner .item {	
     height: 395px;
@@ -697,4 +691,7 @@ bottom:0;
 margin: auto;
 height: 100px;
 width: 200px;
+}
+.content-info-init{
+	    margin-left: 20px;
 }
