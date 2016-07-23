@@ -49,8 +49,8 @@
 		<!-- Container property cards-->
 
 		<div
-			class="hc-content-Properties col-md-11 col-md-offset-container-properties">
-			<div class="col-md-10 text-center">
+			class="hc-content-Properties col-md-10 col-md-offset-container-properties">
+			<div class="col-md-11 text-center">
 				<h1><strong> <span>#{viewBundle['Common.Label.BrowseProperties']}</span></strong></h1>
 			</div>
 			<div class="hc-card">
@@ -66,6 +66,16 @@
 									url="#{propertyPresentationPage.defaultImageUrl}"
 									rendered="#{property.propertyImageInfo.mainImage == null}"
 									styleClass="img-responsive" />
+									
+							<div class="col-md-12 card-city">
+								<p>#{propertyPresentationPage.getCityName(property.propertyLocationInfo.city.id)}</p>
+							</div>
+							<div class="col-md-12">
+								#{propertyPresentationPage.currencyValue(property.propertyBasicInfo.marketPrice)}
+							</div>
+							<div class="col-md-12">
+								#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}
+							</div>
 							</div>
 							<div class="col-md-6 content-info-init">
 								<div class="name-card">
@@ -84,15 +94,6 @@
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-12 card-city">
-								<p>#{propertyPresentationPage.getCityName(property.propertyLocationInfo.city.id)}</p>
-							</div>
-							<div class="col-md-12">
-								#{propertyPresentationPage.currencyValue(property.propertyBasicInfo.marketPrice)}
-							</div>
-							<div class="col-md-12">
-								#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}
 							</div>
 							<div class="col-md-12 content-btn-more text-center">
 								<div class="col-md-4"></div>
@@ -113,8 +114,8 @@
 
 
 		<div class="hc-content-Profiles">
-			<div class="col-md-offset-container-properties">
-				<div class="col-md-9 text-center">
+			<div class="col-md-10 col-md-offset-container-properties">
+				<div class="col-md-11 text-center">
 					<h1><strong> <span>#{viewBundle['Common.Label.BrowseProfiles']}</span></strong></h1>
 				</div>
 				<h:panelGroup id="profileListArea">
