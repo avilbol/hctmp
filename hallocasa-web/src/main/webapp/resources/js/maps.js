@@ -42,7 +42,6 @@ function initLastMap() {
 
 function initMarkerAndLayoutCityMap(latVluCity,
 		lngVluCity) {
-	clean();
 	setTimeout('markerAndLayoutCityMap(' + getLat() + ',' + getLng()
 			+ ',' + latVluCity + ',' + lngVluCity + ')', 2000);
 }
