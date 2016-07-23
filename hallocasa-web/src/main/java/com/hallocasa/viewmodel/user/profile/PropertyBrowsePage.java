@@ -174,12 +174,12 @@ public class PropertyBrowsePage implements Serializable {
 	public void activateFilter(String propertyField) {
 		PropertyFieldIdentifier identifier = PropertyFieldIdentifier.valueOf(propertyField);
 		activateFilterStateMap.put(identifier.getId(), true);
-		reloadProperties();
 	}
 
 	public void deactivateFilter(String propertyField) {
 		PropertyFieldIdentifier identifier = PropertyFieldIdentifier.valueOf(propertyField);
 		activateFilterStateMap.put(identifier.getId(), false);
+		cleanFilter(propertyField);
 		reloadProperties();
 	}
 
@@ -359,5 +359,35 @@ public class PropertyBrowsePage implements Serializable {
 				filterResult.getPropertyFieldFilters().add(fieldFilter);
 		}
 		return filterResult;
+	}
+	
+	public void cleanPropertyTypeFilter(){
+		propertyTypeFilterState = false;
+		selectedPropertyTypes.clear();
+		reloadProperties();
+	}
+	
+	private void cleanFilter(String propertyField) {
+		PropertyFieldIdentifier identifier = PropertyFieldIdentifier.valueOf(propertyField);
+		switch(identifier){
+			case AREA:
+				getSchemeFilter("AREA").setValueFrom(null);
+				getSchemeFilter("AREA").setValueTo(null);
+				break;
+			case CITY:
+				selectedCities.clear();
+				break;
+			case LANGUAGES:
+				selectedLanguages.clear();
+				break;
+			case MARKET_PRICE:
+				getSchemeFilter("MARKET_PRICE").setValueFrom(null);
+				getSchemeFilter("MARKET_PRICE").setValueTo(null);
+				break;
+			case STATE:
+				selectedStates.clear();
+				selectedCities.clear();
+				break;
+		}
 	}
 }

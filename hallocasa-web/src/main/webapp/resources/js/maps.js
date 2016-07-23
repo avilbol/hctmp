@@ -13,7 +13,6 @@ function clean(){
 	markers = [];
 }
 
-
 function initialize(){
 	map.setTilt(45);	
 	var center = map.getCenter();
@@ -35,6 +34,10 @@ function initLayoutCityMap(lat, lng) {
 function initMarkerMap(lat, lng) {
 	clean();
 	setTimeout('markerMap(' + lat + ',' + lng + ')', 2000);
+}
+
+function initLastMap() {
+	setTimeout('lastMap()', 2000);
 }
 
 function initMarkerAndLayoutCityMap(latVluCity,
@@ -67,6 +70,16 @@ function defaultCityMap() {
 	map.addListener("click", clickListener);
 }
 
+function lastMap() {
+	map = new google.maps.Map(document.getElementById('map'), {
+		center : map.getCenter(),
+		zoom : map.getZoom()
+	});
+	setupInput();
+	if(markers.length > 0)
+		pointMarker(markers[0].getPosition());
+}
+
 function layoutCityMap(latVlu, lngVlu) {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center : {
@@ -89,7 +102,6 @@ function markerMap(latVlu, lngVlu) {
 	});
 	var center = map.getCenter();
 	pointMarker(center);
-	setTimeout('initialize()', 1000);
 }
 
 function markerAndLayoutCityMap(latVluMarker, lngVluMarker, latVluCity,

@@ -38,11 +38,12 @@
 						rendered="#{not cc.attrs.readOnly}" value="#{cc.attrs.editLabel}"
 						onclick="PF('upload-image-dialog').show();return false" />
 				</div>
-				
-			<ui:fragment rendered="#{cc.attrs.showImage}">
-				<h:graphicImage url="#{cc.imageToShow().getUrl()}"
-					styleClass="#{cc.attrs.styleClass}" />
-			</ui:fragment>
+
+				<ui:fragment rendered="#{cc.attrs.showImage}">
+					<span><h:graphicImage url="#{cc.imageToShow().getUrl()}"
+							styleClass="#{cc.attrs.styleClass}" /></span>
+
+				</ui:fragment>
 			</div>
 			<p:dialog header="#{viewBundle['Image.Edition.Header']}"
 				position="center" responsive="true" fitViewport="true"

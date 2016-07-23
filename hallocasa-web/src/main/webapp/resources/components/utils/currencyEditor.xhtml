@@ -27,13 +27,15 @@
 		<p>
 		<script>
 			function format(input) {
-				var inputVal = input.value.replace(/\./g, '');
-				if (!isNaN(inputVal))
-					input.value = parseInt(inputVal).toLocaleString();
-				else
-					input.value = input.value.replace(/[^\d\.]*/g, '');
-				if (input.value == "NaN")
-					input.value = "";
+				var inputVal = parseInt(input.value.replace(/\./g, ''));
+			    var numericVal = (isNaN(inputVal) ? "" : inputVal).toString();
+			    var cnt = 0;
+			    for(var i = numericVal.length - 1; i >= 0 ; i--){
+			      cnt++;
+			      if(cnt%3 == 0 &amp;&amp; i > 0)
+			        numericVal = numericVal.substring(0, i)+ "." + numericVal.substring(i);
+			    }
+			    input.value = numericVal;
 			}
 		</script>
 			<h:inputText id="currencyValue"

@@ -10,31 +10,49 @@
 
 	<ui:param name="header_showSubMenu" value="#{false}"></ui:param>
 
-		<ui:define name="jsSection">
+	<ui:define name="jsSection">
 		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				$("strong[id^='title-content-id']").each(function(i){
-					var obj = $("[id^='title-content-id']:eq(" + i + ")");
-					var propertyContent = obj[0];
-					var title =  propertyContent.textContent;
-					var titleClear = jQuery.trim(title);
-					var comp = titleClear.length > 60 ? "..." : "";
-					var shortText = titleClear.substring(0, 60)
-				      .split(" ").slice().join(" ") + comp;
-					propertyContent.textContent = shortText;
-				});
+			jQuery(document)
+					.ready(
+							function() {
+								$("strong[id^='title-content-id']")
+										.each(
+												function(i) {
+													var obj = $("[id^='title-content-id']:eq("
+															+ i + ")");
+													var propertyContent = obj[0];
+													var title = propertyContent.textContent;
+													var titleClear = jQuery
+															.trim(title);
+													var comp = titleClear.length > 60 ? "..."
+															: "";
+													var shortText = titleClear
+															.substring(0, 60)
+															.split(" ").slice()
+															.join(" ")
+															+ comp;
+													propertyContent.textContent = shortText;
+												});
 
-				$("div[id^='description-content-id']").each(function(i){
-					var obj = $("[id^='description-content-id']:eq(" + i + ")");
-					var propertyContent = obj[0];
-					var title =  propertyContent.textContent;
-					var titleClear = jQuery.trim(title);
-					var comp = titleClear.length > 160 ? "..." : "";
-					var shortText = titleClear.substring(0, 160)
-				      .split(" ").slice().join(" ") + comp;
-					propertyContent.textContent = shortText;
-				});
-			});
+								$("div[id^='description-content-id']")
+										.each(
+												function(i) {
+													var obj = $("[id^='description-content-id']:eq("
+															+ i + ")");
+													var propertyContent = obj[0];
+													var title = propertyContent.textContent;
+													var titleClear = jQuery
+															.trim(title);
+													var comp = titleClear.length > 160 ? "..."
+															: "";
+													var shortText = titleClear
+															.substring(0, 160)
+															.split(" ").slice()
+															.join(" ")
+															+ comp;
+													propertyContent.textContent = shortText;
+												});
+							});
 		</script>
 	</ui:define>
 	<p:growl globalOnly="false" showDetail="false" />
@@ -42,13 +60,15 @@
 	<ui:define name="contentSection">
 		<script>
 			function format(input) {
-				var inputVal = input.value.replace(/\./g, '');
-				if (!isNaN(inputVal))
-					input.value = parseInt(inputVal).toLocaleString();
-				else
-					input.value = input.value.replace(/[^\d\.]*/g, '');
-				if (input.value == "NaN")
-					input.value = "";
+				var inputVal = parseInt(input.value.replace(/\./g, ''));
+			    var numericVal = (isNaN(inputVal) ? "" : inputVal).toString();
+			    var cnt = 0;
+			    for(var i = numericVal.length - 1; i >= 0 ; i--){
+			      cnt++;
+			      if(cnt%3 == 0 &amp;&amp; i > 0)
+			        numericVal = numericVal.substring(0, i)+ "." + numericVal.substring(i);
+			    }
+			    input.value = numericVal;
 			}
 		</script>
 		<h:panelGroup id="container-property-element">
@@ -134,40 +154,43 @@
 											update="@form" />
 									</p:selectManyMenu>
 								</ui:fragment>
-								<h4>
-									<span class="hc-form-label">
-										#{viewBundle['Properties.browser.city']} </span>
-								</h4>
-								<h:commandButton
-									value="#{viewBundle['Properties.browser.button']}"
-									styleClass="btn btn-primary hc-primary"
-									action="#{propertyBrowsePage.activateFilter('CITY')}"
-									rendered="#{not propertyBrowsePage.isFilterActive('CITY')}">
-									<f:ajax render="@form" update="@form" />
-								</h:commandButton>
-								<ui:fragment
-									rendered="#{propertyBrowsePage.isFilterActive('CITY')}">
+								<ui:fragment rendered="#{not empty propertyBrowsePage.selectedStates}">
+									<h4>
+										<span class="hc-form-label">
+											#{viewBundle['Properties.browser.city']} </span>
+									</h4>
 									<h:commandButton
-										value="#{viewBundle['Properties.browser.button.quit']}"
+										value="#{viewBundle['Properties.browser.button']}"
 										styleClass="btn btn-primary hc-primary"
-										action="#{propertyBrowsePage.deactivateFilter('CITY')}">
+										action="#{propertyBrowsePage.activateFilter('CITY')}"
+										rendered="#{not propertyBrowsePage.isFilterActive('CITY')}">
 										<f:ajax render="@form" update="@form" />
 									</h:commandButton>
-									<p:selectManyMenu id="cities" styleClass="filter-container"
-										value="#{propertyBrowsePage.selectedCities}"
-										converter="cityConverter" var="city" filter="true"
-										filterMatchMode="contains" showCheckbox="true">
-										<f:selectItems value="#{propertyBrowsePage.cities}" var="city"
-											itemLabel="#{propertyBrowsePage.getName(city.cityName)}"
-											itemValue="#{city}" />
-										<p:column>
-											<h:outputText
-												value="#{propertyBrowsePage.getName(city.cityName)}" />
-										</p:column>
-										<f:ajax render="@form"
-											listener="#{propertyBrowsePage.reloadProperties}"
-											update="@form" />
-									</p:selectManyMenu>
+									<ui:fragment
+										rendered="#{propertyBrowsePage.isFilterActive('CITY')}">
+										<h:commandButton
+											value="#{viewBundle['Properties.browser.button.quit']}"
+											styleClass="btn btn-primary hc-primary"
+											action="#{propertyBrowsePage.deactivateFilter('CITY')}">
+											<f:ajax render="@form" update="@form" />
+										</h:commandButton>
+										<p:selectManyMenu id="cities" styleClass="filter-container"
+											value="#{propertyBrowsePage.selectedCities}"
+											converter="cityConverter" var="city" filter="true"
+											filterMatchMode="contains" showCheckbox="true">
+											<f:selectItems value="#{propertyBrowsePage.cities}"
+												var="city"
+												itemLabel="#{propertyBrowsePage.getName(city.cityName)}"
+												itemValue="#{city}" />
+											<p:column>
+												<h:outputText
+													value="#{propertyBrowsePage.getName(city.cityName)}" />
+											</p:column>
+											<f:ajax render="@form"
+												listener="#{propertyBrowsePage.reloadProperties}"
+												update="@form" />
+										</p:selectManyMenu>
+									</ui:fragment>
 								</ui:fragment>
 								<h4>
 									<span class="hc-form-label">
@@ -183,13 +206,14 @@
 
 								<ui:fragment
 									rendered="#{propertyBrowsePage.propertyTypeFilterState}">
-									<h:commandButton 
+									<h:commandButton
 										value="#{viewBundle['Properties.browser.button.quit']}"
 										styleClass="btn btn-primary hc-primary"
-										action="#{propertyBrowsePage.setPropertyTypeFilterState(false)}">
+										action="#{propertyBrowsePage.cleanPropertyTypeFilter()}">
 										<f:ajax render="@form" update="@form" />
 									</h:commandButton>
-									<p:selectManyMenu id="property_types" styleClass="filter-container"
+									<p:selectManyMenu id="property_types"
+										styleClass="filter-container"
 										value="#{propertyBrowsePage.selectedPropertyTypes}"
 										converter="propertyTypeConverter" var="ptype" filter="true"
 										filterMatchMode="contains" showCheckbox="true">
@@ -238,7 +262,7 @@
 										value="#{propertyBrowsePage.getSchemeFilter('MARKET_PRICE').valueTo}">
 										<f:convertNumber groupingUsed="false" locale="es_PE" />
 									</h:inputText>
-										<br></br>
+									<br></br>
 									<h:outputScript>
 										$("input[type='text'].currency ").each(function(i){
 											var obj = $("input[type='text'].currency:eq(" + i + ")");
@@ -275,11 +299,15 @@
 									<span class="hc-form-label">
 										#{viewBundle['Properties.browser.since']} :</span>
 									<h:inputText styleClass="currency"
-										value="#{propertyBrowsePage.getSchemeFilter('AREA').valueFrom}"/>
+										value="#{propertyBrowsePage.getSchemeFilter('AREA').valueFrom}">
+										<f:convertNumber maxFractionDigits="0" />
+									</h:inputText>
 									<span class="hc-form-label">
 										#{viewBundle['Properties.browser.until']} :</span>
-									<h:inputText styleClass="currency" 
-										value="#{propertyBrowsePage.getSchemeFilter('AREA').valueTo}"/>
+									<h:inputText styleClass="currency"
+										value="#{propertyBrowsePage.getSchemeFilter('AREA').valueTo}">
+										<f:convertNumber maxFractionDigits="0" />
+									</h:inputText>
 									<h:commandButton
 										value="#{viewBundle['Properties.browser.button.search']}"
 										styleClass="btn btn-primary hc-primary-search"
@@ -341,7 +369,8 @@
 													</div>
 												</div>
 											</div>
-											<div class="col-md-6 hc-cards-list" id="description-content-id-#{property.id}">
+											<div class="col-md-6 hc-cards-list"
+												id="description-content-id-#{property.id}">
 												#{propertyPresentationPage.propertyDescriptionValue(property)}</div>
 										</div>
 										<div class="col-md-12">

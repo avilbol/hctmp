@@ -90,7 +90,7 @@
 
 		<div class="col-md-12">
 			<div id="map"></div>
-			<h:panelGroup id="maps-values">
+			<h:panelGroup id="maps-values" rendered="#{not facesContext.validationFailed}">
 				<h:outputScript rendered="#{propertyWizardPage.initMapInLayoutCity}">
 					initLayoutCityMap(#{propertyWizardPage.latCityLayout}, #{propertyWizardPage.lngCityLayout})
 				</h:outputScript>
@@ -106,6 +106,11 @@
 					rendered="#{propertyWizardPage.initMapMarkerAndCity}">
 					initMarkerAndLayoutCityMap(#{propertyWizardPage.latCityLayout}, 
 						#{propertyWizardPage.lngCityLayout});
+				</h:outputScript>
+			</h:panelGroup>
+			<h:panelGroup id="maps-default" rendered="#{facesContext.validationFailed}">
+				<h:outputScript>
+					initLastMap();
 				</h:outputScript>
 			</h:panelGroup>
 		</div>
