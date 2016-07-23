@@ -369,6 +369,7 @@ input.btn.btn-primary{
 }
 @media screen and (max-width:650px) {
 	
+	
 input.btn.btn-primary{
 	width: 51%!important;
 }	
@@ -388,7 +389,11 @@ input.btn.btn-primary{
 		margin: 20px 0;
 	}
 	.container-fluid {
-		width: 398px;
+	 width: 100%;
+    float: left;
+	}
+	.top-strip {
+    width: 100%;
 	}
 	.logo {
 		width: 10% !important;
