@@ -696,3 +696,10 @@ width: 200px;
 .content-info-init{
 	    margin-left: 20px;
 }
+.check-tc input{
+	width:10%;
+}
+.check-tc h4{
+	width:80%;
+	
+}
