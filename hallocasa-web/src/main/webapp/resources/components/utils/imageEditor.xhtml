@@ -69,7 +69,7 @@
 						</div>
 						<div class="col-md-4"></div>
 					</h:panelGroup>
-					<h:panelGroup rendered="#{cc.showImageCrop}">
+					<h:panelGroup rendered="#{cc.showImageCrop}" id="crop-panel-group">
 						<h:outputText value="#{viewBundle['Image.Edition.Crop']}" />
 						<h:panelGrid columns="2">
 							<div class="row">
@@ -95,9 +95,34 @@
 								</div>
 							</div>
 							<div class="col-md-6">
-								<p:imageCropper id="cropper" value="#{cc.croppedImage}"
-									image="/resources/images/#{cc.uncroppedImageResourcesUrl}"
-									initialCoords="0,0,50,50" aspectRatio="#{cc.attrs.aspectRatio}" />
+								<h:outputScript library="js" name="cropper.js"/>
+								<h:outputStylesheet library="css" name="cropper.css"/>
+								<script type="text/javascript">
+								$(function(){
+									window.Cropper;
+									var rawId = "hc-profile-form:multiImageEditor:#{cc.id}:crop-image";
+									var image = document.getElementById(rawId);
+									alert(image);
+									var cropper = new Cropper(image, {
+									  crop: function(e) {
+									    console.log(e.detail.x);
+									    console.log(e.detail.y);
+									    console.log(e.detail.width);
+									    console.log(e.detail.height);
+									    console.log(e.detail.rotate);
+									    console.log(e.detail.scaleX);
+									    console.log(e.detail.scaleY);
+									  }
+									});
+								});
+								</script>
+								<h:outputStylesheet>
+								img {
+								  max-width: 100%;
+								}
+								</h:outputStylesheet>
+								<h:graphicImage id="crop-image" 
+									url="/resources/images/#{cc.uncroppedImageResourcesUrl}"/>
 							</div>
 						</h:panelGrid>
 					</h:panelGroup>
