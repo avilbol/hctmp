@@ -78,14 +78,10 @@
 }
 /* sections and components */
 .hc-basic-button {
-	padding: 0.6em 1.2em;
-	line-height: 1.4;
-	box-sizing: border-box;
-	cursor: pointer;
-	text-align: center;
-	border: 1px solid #FBE644;
-	background: #FBE644;
-	border-radius: 6px;
+	    margin: 20px 0;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
 }
 
 .hc-basic-button:hover {
@@ -695,4 +691,11 @@ width: 200px;
 }
 .content-info-init{
 	    margin-left: 20px;
+}
+.check-tc input{
+	width:10%;
+}
+.check-tc h4{
+	width:80%;
+	
 }
