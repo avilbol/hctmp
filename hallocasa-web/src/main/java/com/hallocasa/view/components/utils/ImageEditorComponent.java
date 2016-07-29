@@ -56,8 +56,8 @@ public class ImageEditorComponent extends BaseComponent {
 	}
 
 	private static final Integer MAX_BYTES_PART_SIZE = 5120000;
-	private static final Integer MAX_IMAGE_WIDTH = 312;
-	private static final Integer MAX_IMAGE_HEIGHT = 536;
+	private static final Integer MAX_IMAGE_WIDTH = 936;
+	private static final Integer MAX_IMAGE_HEIGHT = 1608;
 	private Part uncroppedImagePart;
 	private Part ppl;
 	private String contentExt;
@@ -69,6 +69,11 @@ public class ImageEditorComponent extends BaseComponent {
 	private Boolean validUpload;
 	private CroppedImage croppedImage;
 	private String relativePath;
+	
+	private Double imageDimX;
+	private Double imageDimY;
+	private Double imageCropWidth;
+	private Double imageCropHeight;
 
 	@Inject
 	private ViewContext viewContext;
@@ -370,5 +375,37 @@ public class ImageEditorComponent extends BaseComponent {
 			return new ImageContainer(defaultIcUrl);
 		}
 		return ic;
+	}
+
+	public Double getImageDimX() {
+		return imageDimX;
+	}
+
+	public void setImageDimX(Double imageDimX) {
+		this.imageDimX = imageDimX;
+	}
+
+	public Double getImageDimY() {
+		return imageDimY;
+	}
+
+	public void setImageDimY(Double imageDimY) {
+		this.imageDimY = imageDimY;
+	}
+
+	public Double getImageCropWidth() {
+		return imageCropWidth;
+	}
+
+	public void setImageCropWidth(Double imageCropWidth) {
+		this.imageCropWidth = imageCropWidth;
+	}
+
+	public Double getImageCropHeight() {
+		return imageCropHeight;
+	}
+
+	public void setImageCropHeight(Double imageCropHeight) {
+		this.imageCropHeight = imageCropHeight;
 	}
 }
