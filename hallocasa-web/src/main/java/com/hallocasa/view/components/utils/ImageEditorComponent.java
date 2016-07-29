@@ -133,25 +133,26 @@ public class ImageEditorComponent extends BaseComponent {
 	}
 
 	public void onImageCrop() {
-		if (croppedImage == null) {
-			return;
-		}
-		FileImageOutputStream imageOutput;
-		File file = loadFileTemplate();
-		try {
-			imageOutput = new FileImageOutputStream(file);
-			imageOutput.write(croppedImage.getBytes(), 0, croppedImage.getBytes().length);
-			imageOutput.close();
+		try{
+			String fileNameSource = ApplicationFileUtils.getAbsoluteUrl(getUncroppedImageUrl());
+			File file = new File(fileNameSource);
+			BufferedImage image = ImageIO.read(file);
+			int x = (int) Math.round(imageDimX);
+			int y = (int) Math.round(imageDimY);
+			int width = (int) Math.round(imageCropWidth);
+			int height = (int) Math.round(imageCropHeight);
+			if(x + width > image.getWidth())
+				width = image.getWidth() - x;
+			if(y + height > image.getHeight())
+				height = image.getHeight() - y;
+			BufferedImage subImage = image.getSubimage(x, y, width, height);
+			ImageIO.write(subImage, 
+					ApplicationFileUtils.getImageMimeType(file), file);
 			this.image.setUrl(getRelativePath() + "/" + file.getName());
-			((ImageContainer) getAttributes().get(Attributes.imageUrl.toString())).setUrl(this.image.getUrl());
-			RequestContext context = RequestContext.getCurrentInstance();
-			context.execute("PF('upload-image-dialog').hide();");
-			postCropAction();
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error al intentar realizar el ajuste de la imagen. {0}", e);
 			viewContext.showGlobalErrorMessage(Messages.UNEXPECTED_ERROR, null);
 		}
-
 	}
 
 	private void scaleImage(File file) throws IOException {
