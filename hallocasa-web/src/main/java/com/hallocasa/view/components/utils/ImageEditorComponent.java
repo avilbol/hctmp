@@ -149,6 +149,8 @@ public class ImageEditorComponent extends BaseComponent {
 			ImageIO.write(subImage, 
 					ApplicationFileUtils.getImageMimeType(file), file);
 			this.image.setUrl(getRelativePath() + "/" + file.getName());
+			((ImageContainer) getAttributes().get(Attributes.imageUrl.toString())).setUrl(this.image.getUrl());
+			postCropAction();
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error al intentar realizar el ajuste de la imagen. {0}", e);
 			viewContext.showGlobalErrorMessage(Messages.UNEXPECTED_ERROR, null);
@@ -192,7 +194,7 @@ public class ImageEditorComponent extends BaseComponent {
 	}
 
 	private void postCropAction() {
-		destroyUncroppedImage();
+		//destroyUncroppedImage();
 		this.validUpload = false;
 		this.uncroppedImageResourcesUrl = null;
 		this.uncroppedImageUrl = null;

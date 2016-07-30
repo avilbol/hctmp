@@ -28,9 +28,10 @@
 			shortDescription="styleClass for image" />
 		<cc:attribute name="update" type="java.lang.String"
 			default="image-editor-container" />
-		<cc:attribute name="aspectRatio" type="java.lang.String" default="0" />
+		<cc:attribute name="aspectRatio" type="java.lang.String" default="auto" />
 	</cc:interface>
 	<cc:implementation>
+		<h:outputStylesheet library="css" name="cropper.css"/>
 		<style>
 			.cropper-container {
 			  max-width: 720px;
@@ -107,9 +108,11 @@
 												<h:commandButton
 													value="#{viewBundle['Image.Edition.FinishCrop']}"
 													action="#{cc.onImageCrop}" style="float:left"
+													onclick="$('#image-edition-modal').modal('hide'); return true; "
 													styleClass="btn btn-primary hc-edit-finish-img">
 													<f:ajax execute="cropper" render="#{cc.attrs.update}" />
 												</h:commandButton>
+												
 											</div>
 											<div class="col-md-6">
 												<h:commandButton value="#{viewBundle['Common.Label.Back']}"
@@ -126,7 +129,6 @@
 										</div>
 										<h:panelGroup styleClass="col-md-12" id="cropper">
 											<h:outputScript library="js" name="cropper/cropper.js"/>
-											<h:outputStylesheet library="css" name="cropper.css"/>
 											<script type="text/javascript">
 											$(function(){
 												var $image = $('.cropper-img-container > img');
@@ -147,7 +149,8 @@
 													  movable: true,
 													  zoomable: false,
 											          rotatable: false,
-											          scalable: false
+											          scalable: false,
+											          aspectRatio: "#{cc.attrs.aspectRatio}"
 												}).on('dragend.cropper dragmove.cropper built.cropper', updateData);
 												
 											});
