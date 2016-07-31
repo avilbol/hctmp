@@ -53,17 +53,15 @@
 	   	</style>
 		<h:panelGroup id="image-editor-container">
 			<div class="edit-btn-content col-md-12 hc-img-profile-card">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<ui:fragment rendered="#{not cc.attrs.readOnly}">
-						<button type="button" class="btn btn-primary"
+						<button type="button" class="btn btn-primary center-block"
 							data-toggle="modal" data-target="#image-edition-modal">
 							<span class="hc-form-label">#{cc.attrs.editLabel}</span>
 						</button>
 					</ui:fragment>
 					
 				</div>
-				<div class="col-md-4"></div>
 				<ui:fragment rendered="#{cc.attrs.showImage}">
 					<span><h:graphicImage url="#{cc.imageToShow().getUrl()}"
 							styleClass="#{cc.attrs.styleClass}" /></span>
@@ -104,7 +102,8 @@
 								<h:panelGroup rendered="#{cc.showImageCrop}" id="crop-panel-group">
 									<h:outputText value="#{viewBundle['Image.Edition.Crop']}" />
 										<div class="row">
-											<div class="col-md-6">
+										<div class="col-md-1"></div>
+											<div class="col-md-4">
 												<h:commandButton
 													value="#{viewBundle['Image.Edition.FinishCrop']}"
 													action="#{cc.onImageCrop}" style="float:left"
@@ -114,7 +113,8 @@
 												</h:commandButton>
 												
 											</div>
-											<div class="col-md-6">
+										<div class="col-md-2"></div>
+											<div class="col-md-4">
 												<h:commandButton value="#{viewBundle['Common.Label.Back']}"
 													action="#{cc.onBackClick}" rendered="#{cc.showBackButton}"
 													styleClass="btn btn-primary">

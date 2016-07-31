@@ -475,8 +475,7 @@
 }
 
 .hc-image-unselected img.hc-image-properties {
-	width: 271px;
-	height: 153px;
+		height: 153px;
 }
 
 .hc-select-property-basic-info {
@@ -484,7 +483,6 @@
 	margin-left: 420px;
 	margin-top: -61px;
 	height: 35px !important;
-	"
 }
 
 .hc-price-number {
@@ -673,12 +671,7 @@ margin-top:20px;
     margin-left: 0.001%;
     Width: 50.333333%
 }
-.item img{
-position: absolute;
-    height: 50%!important;
-    width: 100%;
-    top: 89px;
-}
+
 .item{
 	position: absolute;
 top:0;
@@ -686,8 +679,6 @@ left:0;
 right:0;
 bottom:0;
 margin: auto;
-height: 100px;
-width: 200px;
 }
 .content-info-init{
 	    margin-left: 20px;
