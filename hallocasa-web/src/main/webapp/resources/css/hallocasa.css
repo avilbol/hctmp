@@ -439,7 +439,7 @@
 }
 
 .hc-image-selected {
-	border: 10px solid #1D5D8D;
+	border: 3px solid #1D5D8D;
 	width: 100%;
 }
 
@@ -455,6 +455,7 @@
 	width: 100%;
 	height: auto;
 	margin: 5px;
+	background-color: #ddd;
 }
 
 .hc-image-selected {
@@ -462,6 +463,7 @@
 	height: 153px;
 	float: left;
 	margin: 5px;
+	background-color: #ddd;
 }
 
 .hc-image-selected span.top-to-bottom {
@@ -469,9 +471,7 @@
 }
 
 .hc-image-selected img.hc-image-properties {
-	width: 239px;
-	height: 133px;
-	margin-left: 5px;
+	height: 133px;    margin-top: 7px;
 }
 
 .hc-image-unselected img.hc-image-properties {
@@ -485,32 +485,26 @@
 	height: 35px !important;
 }
 
-.hc-price-number {
-	
-}
+
 
 .hc-image-selected span.hc-close {
 	position: absolute;
-	top: 232px;
     z-index: 1;
-    left: 279px;
 	width: 16px;
 	height: 16px;
 	background-image:
 		url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}");
-	background-color: #1D5D8D;
+	background-color: #1D5D8D;margin-left: 251px;
 }
 
 .hc-image-unselected span.hc-close {
 	position: absolute;
-	top: 0px;
 	z-index: 1;
-	left: 255px;
 	width: 16px;
 	height: 16px;
 	background-image:
 		url("#{resource['primefaces-hallocasa:images/ui-icons_222222_256x240.png']}");
-	background-color: #1D5D8D;
+	background-color: #1D5D8D;margin-left: 255px;
 }
 
 .hc-container-main-properties {
@@ -529,8 +523,8 @@
 }
 
 .hc-responsive-div-properties img,.hc-card-properties img {
-	width: 172px;
 	height: 121px;
+	background-color: #ddd;
 }
 
 .hc-cards-city {
@@ -671,9 +665,9 @@ margin-top:20px;
     margin-left: 0.001%;
     Width: 50.333333%
 }
-
+ 
 .item{
-	position: absolute;
+position: absolute;
 top:0;
 left:0;
 right:0;
