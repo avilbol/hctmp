@@ -62,7 +62,7 @@
 									<div class="col-md-md">
 										<ui:repeat value="#{cc.loadSpokenLanguageList()}"
 											var="spokenLanguage">
-									#{spokenLanguage.languageName}
+									#{viewBundle['Language.' += spokenLanguage.toString()]}
 									
 								#{cc.loadAdditionalLanguagesMark()}
 							</ui:repeat>

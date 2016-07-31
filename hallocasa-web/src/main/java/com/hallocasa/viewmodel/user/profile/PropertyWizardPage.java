@@ -1,5 +1,6 @@
 package com.hallocasa.viewmodel.user.profile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -17,6 +18,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import org.apache.commons.io.FileUtils;
+
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.imagemanager.UserPropertyImageManager;
@@ -31,6 +34,7 @@ import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.model.session.WebSession;
 import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.location.local.CountryServices;
+import com.hallocasa.utils.ApplicationFileUtils;
 import com.hallocasa.view.context.ViewContext;
 import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.view.utils.FormatUtils;
@@ -211,7 +215,18 @@ public class PropertyWizardPage implements Serializable {
 		String successfulMessage = null;
 		try {
 			UserPropertyImageManager imageManager = null;
-			List<ImageContainer> imageContainerList = pvo.getPropertyImageInfo().getImageContainerList();
+			List<ImageContainer> imageContainerList = pvo.getPropertyImageInfo().getCacheImageContainerList();
+			for (ImageContainer icontainer : pvo.getPropertyImageInfo().getImageContainerList()) {
+				boolean match = false;
+				for(ImageContainer jcontainer : imageContainerList)
+					if(icontainer.getUrl().equals(jcontainer.getUrl())) match = true;
+				if(!match){
+					ImageContainer imageToDelete = icontainer;
+					File pathToDelete = new File(ApplicationFileUtils.getAbsoluteUrl(imageToDelete.getUrl()));
+					FileUtils.forceDelete(pathToDelete);
+				}
+			}
+			pvo.getPropertyImageInfo().setImageContainerList(imageContainerList);
 			for (ImageContainer icontainer : imageContainerList) {
 				imageManager = new UserPropertyImageManager(icontainer, pvo.getUser().getId(), propertyPotentialId);
 				imageManager.manageImage();

@@ -1,6 +1,6 @@
 var map;
 var markers = [];
-
+var enableMarkerChange = true;
 
 $(function(){
 	$("a[data-toggle='tab']").on("shown.bs.tab", function(e) {
@@ -56,6 +56,14 @@ function changeCityMap(latValue, lngValue) {
 	}
 }
 
+function enableMarkerChangeOpt(){
+	enableMarkerChange = true;
+}
+
+function disableMarkerChangeOpt(){
+	enableMarkerChange = false;
+}
+
 function defaultCityMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		// Bogota coordinates
@@ -97,7 +105,7 @@ function markerMap(latVlu, lngVlu) {
 			lat : latVlu,
 			lng : lngVlu
 		},
-		zoom : 18
+		zoom : 10
 	});
 	var center = map.getCenter();
 	pointMarker(center);
@@ -186,8 +194,10 @@ function initMap() {
 
 function clickListener(e) {
 	// lat and lng is available in e object
-	var position = e.latLng;
-	pointMarker(position);
+	if(enableMarkerChange){
+		var position = e.latLng;
+		pointMarker(position);
+	}
 }
 
 // Adds a marker to the map and push to the array.

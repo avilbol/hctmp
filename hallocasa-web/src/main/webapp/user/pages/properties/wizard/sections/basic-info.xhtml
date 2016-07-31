@@ -23,7 +23,7 @@
 						layout="responsive" required="true" converter="languageConverter"
 						columns="4">
 						<f:selectItems value="#{applicationContext.languages}"
-							var="language" itemLabel="#{language.languageName}"
+							var="language" itemLabel="#{viewBundle['Language.' += language.toString()]}"
 							itemValue="#{language}">
 						</f:selectItems>
 						<f:ajax execute="@this"
@@ -45,7 +45,7 @@
 							var="lang">
 							<div class="col-md-12">
 								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-										value="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.title']} (#{lang.languageName})">
+										value="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.title']} (#{viewBundle['Language.' += lang.toString()]})">
 									</h:outputLabel>
 								</b>
 							</div>
@@ -53,10 +53,10 @@
 							<div class="col-md-12">
 								<span> 
 									<h:inputText 
-										 	label="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.title']} (#{lang.languageName})"
+										 	label="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.title']} (#{viewBundle['Language.' += lang.toString()]})"
 											value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.title.langMap[lang]}"
 											styleClass="hc-input-text col-md-12 form-control">
-										<f:validateLength minimum="20" />
+										<f:validateLength minimum="5" />
 									</h:inputText>
 								</span>
 							</div>
@@ -73,7 +73,7 @@
 							var="lang">
 							<div class="col-md-12">
 								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-										 value="#{viewBundle['propertyWizardPage.property.description']}(#{lang.languageName})">
+										 value="#{viewBundle['propertyWizardPage.property.description']}(#{viewBundle['Language.' += lang.toString()]})">
 									</h:outputLabel>
 								</b>
 							</div>
@@ -81,7 +81,7 @@
 								<span> 
 									<p:inputTextarea rows="10"
 										cols="30"
-										label="#{viewBundle['propertyWizardPage.property.description']} ( #{lang.languageName} )"
+										label="#{viewBundle['propertyWizardPage.property.description']} ( #{viewBundle['Language.' += lang.toString()]} )"
 										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.propertyDescription.langMap[lang]}"
 										maxlength="800" styleClass="hc-input-text-area form-control"
 										counterTemplate="{0} characters remaining." autoResize="false">
@@ -102,14 +102,14 @@
 							var="lang">
 							<div class="col-md-12">
 								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-										 value="#{viewBundle['propertyWizardPage.property.LocationDescription']} ( #{lang.languageName} )">
+										 value="#{viewBundle['propertyWizardPage.property.LocationDescription']} ( #{viewBundle['Language.' += lang.toString()]} )">
 									</h:outputLabel>
 								</b>
 							</div>
 							<div class="col-md-12">
 								<span> <p:inputTextarea rows="10"
 										cols="30"
-										label="#{viewBundle['propertyWizardPage.property.LocationDescription']} ( #{lang.languageName} )"
+										label="#{viewBundle['propertyWizardPage.property.LocationDescription']} ( #{viewBundle['Language.' += lang.toString()]} )"
 										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.locationDescription.langMap[lang]}"
 										maxlength="800" styleClass="hc-input-text-area form-control"
 										counterTemplate="{0} characters remaining." autoResize="false">
@@ -142,7 +142,7 @@
 								itemLabel="#{viewBundle['Common.Dropdown.SelectOne']}" />
 							<f:selectItems
 								value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
-								var="language" itemLabel="#{language.languageName}"
+								var="language" itemLabel="#{viewBundle['Language.' += language.toString()]}"
 								itemValue="#{language}" />
 						</h:selectOneMenu>
 					</span>

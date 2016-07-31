@@ -104,10 +104,10 @@
 										converter="languageConverter" var="language" filter="true"
 										filterMatchMode="contains" showCheckbox="true">
 										<f:selectItems value="#{propertyBrowsePage.languageList}"
-											var="language" itemLabel="#{language.languageName}"
+											var="language" itemLabel="#{viewBundle['Language.' += language.toString()]}"
 											itemValue="#{language}" />
 										<p:column>
-											<h:outputText value="#{language.languageName}" />
+											<h:outputText value="#{viewBundle['Language.' += language.toString()]}" />
 										</p:column>
 										<f:ajax render="@form"
 											listener="#{propertyBrowsePage.reloadProperties}"
