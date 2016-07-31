@@ -88,10 +88,12 @@
 									<div class="col-md-12">
 										<div class="col-md-12">
 											<label class="col-md-6 hc-properties-features">
-												#{propertyPresentationPage.langValue(property.propertyType.name)} </label> <label
-												class="col-md-6 hc-properties-features">
+												#{propertyPresentationPage.langValue(property.propertyType.name)} </label> 
+											<ui:remove>
+											<label class="col-md-6 hc-properties-features">
 												#{propertyPresentationPage.langValue(property.propertyProposal.name)}
 											</label>
+											</ui:remove>
 										</div>
 
 										<div class="col-md-12">

@@ -58,7 +58,6 @@ public enum Language {
     sl("Slovakian"),
     sv("Slovene"),
     sw("Swedish"),
-    sf("Swiss French"),
     sg("Swiss German"),
     th("Thai"),
     tu("Tunisian"),

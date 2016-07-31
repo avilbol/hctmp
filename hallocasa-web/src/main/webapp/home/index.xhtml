@@ -89,9 +89,11 @@
 												#{propertyPresentationPage.langValue(property.propertyType.name)}
 											</div>
 										</div>
-										<div class="col-md-6">
-											#{propertyPresentationPage.langValue(property.propertyProposal.name)}
-										</div>
+										<ui:remove>
+											<div class="col-md-6">
+												#{propertyPresentationPage.langValue(property.propertyProposal.name)}
+											</div>
+										</ui:remove>
 									</div>
 								</div>
 							</div>

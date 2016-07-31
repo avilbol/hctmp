@@ -151,14 +151,14 @@
 								var="lang" varStatus="id">
 								<h3>
 									#{viewBundle['propertyWizardPage.property.description']} (
-									#{lang.languageName} )</h3>
+									#{viewBundle['Language.' += lang.toString()]} )</h3>
 								<p>
 									#{propertyDetailPage.property.propertyBasicInfo.propertyDescription.langMap[lang]}
 								</p>
 								<!-- Property location description  -->
 								<h3>
 									#{viewBundle['propertyWizardPage.property.LocationDescription']}
-									( #{lang.languageName} )</h3>
+									( #{viewBundle['Language.' += lang.toString()]} )</h3>
 								<p>
 									#{propertyDetailPage.property.propertyBasicInfo.locationDescription.langMap[lang]}
 								</p>
@@ -191,6 +191,9 @@
 												initMarkerMap(#{propertyDetailPage.property.propertyLocationInfo.latitude.decRepresentation.doubleValue()},
 													#{propertyDetailPage.property.propertyLocationInfo.longitude.decRepresentation.doubleValue()})
 											});
+										</h:outputScript>
+										<h:outputScript>
+										$(function(){disableMarkerChangeOpt()});
 										</h:outputScript>
 									</h:panelGroup>
 								</div>
@@ -228,7 +231,7 @@
 															value="#{propertyDetailPage.loadSpokenLanguageList()}"
 															var="spokenLanguage" varStatus="id">
 															<div class="user-language-#{id.index} block">
-																#{spokenLanguage.languageName}</div>
+																#{viewBundle['Language.' += spokenLanguage.toString()]}</div>
 														</ui:repeat>
 														#{propertyDetailPage.loadAdditionalLanguagesMark()}
 													</div>

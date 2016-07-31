@@ -15,6 +15,9 @@ public class PropertyImageInfo implements Serializable {
 	@PropertyFieldValueParser(id = IMAGES_FIELD, methodToExecute = "parseToImageContainerList")
 	private List<ImageContainer> imageContainerList;
 
+	@PropertyFieldValueParser(id = IMAGES_FIELD, methodToExecute = "parseToImageContainerList")
+	private List<ImageContainer> cacheImageContainerList;
+	
 	@PropertyFieldValueParser(id = MAIN_IMAGE_FIELD, methodToExecute = "parseToImageContainer")
 	private ImageContainer mainImage;
 
@@ -29,6 +32,17 @@ public class PropertyImageInfo implements Serializable {
 
 	public void setImageContainerList(List<ImageContainer> imageContainerList) {
 		this.imageContainerList = imageContainerList;
+	}
+
+	public List<ImageContainer> getCacheImageContainerList() {
+		if (cacheImageContainerList == null) {
+			cacheImageContainerList = new ArrayList<ImageContainer>();
+		}
+		return cacheImageContainerList;
+	}
+
+	public void setCacheImageContainerList(List<ImageContainer> cacheImageContainerList) {
+		this.cacheImageContainerList = cacheImageContainerList;
 	}
 
 	public ImageContainer getMainImage() {

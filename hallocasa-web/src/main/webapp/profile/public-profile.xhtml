@@ -48,7 +48,7 @@
 											for="#{mainSpokenLanguage}"
 											value="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}">
 										</h:outputLabel>
-									<div class="col-md-12"><span class="hc-form-label">#{publicProfilePage.user.mainSpokenLanguage.languageName} </span></div>
+									<div class="col-md-12"><span class="hc-form-label">#{viewBundle['Language.' += publicProfilePage.user.mainSpokenLanguage.toString()]} </span></div>
 								</h:panelGroup>
 								-->
 
@@ -92,7 +92,7 @@
 											<ui:repeat value="#{publicProfilePage.user.spokenLanguages}"
 												var="lang">
 												<span class="row hc-form-field"> <h:outputText
-														value="#{lang.languageName}" />
+														value="#{viewBundle['Language.' += lang.toString()]}" />
 												</span>
 											</ui:repeat>
 										</h:panelGroup>
@@ -169,7 +169,7 @@
 										var="lang">
 										<div class="row">
 											<span class="hc-form-across-label">#{viewBundle['Profile.Data.Description.Label']}
-												( #{lang.languageName} )</span>
+												( #{viewBundle['Language.' += lang.toString()]} )</span>
 										</div>
 										<div class="description col-md-12">
 											<div class="hc-content-description">
