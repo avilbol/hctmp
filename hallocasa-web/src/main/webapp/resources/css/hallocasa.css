@@ -664,16 +664,13 @@ margin-top:20px;
     margin-bottom: 15px;
     font-size: 22px;
 }
-.img-profile img{
-	width:230px;
+.img-profile{	
+	background-color: #ddd;
 }
 .hc-card-properties-details .btn-linkedin{
 	width: 26%;
 }
-.hc-img-profile-card img{	
-	width:200px;
-	height:200px;
-}
+
 .col-md-offset-property-thumbnail {
     margin-left: 0.001%;
     Width: 50.333333%
@@ -688,7 +685,8 @@ bottom:0;
 margin: auto;
 }
 .content-info-init{
-	    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .check-tc input{
 	width:10%;

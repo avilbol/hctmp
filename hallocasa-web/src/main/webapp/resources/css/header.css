@@ -260,7 +260,8 @@ ul.topnav li.icon {
 
 .hc-profile-browse-panel-complete .card-content {
 	float: left;
-	margin: 0 0px 40px 0;
+	margin: 0 0px 40px 0;    
+	width: 100%;
 }
 
 .hc-profile-browse-panel-lite .card-content {
@@ -339,10 +340,6 @@ a.closed-tc.ui-icon.ui-icon-closethick {
 .content-sup-edit-info {
 	padding: 20px;
 	width: 30%;
-}
-
-.edit-btn-content {
-	padding-bottom: 10px;
 }
 
 #top-submenu-strip a {

@@ -360,6 +360,12 @@ span.menu-link {
 input.btn.btn-primary{
 	width: 51%!important;
 }
+.hc-basic-button{
+	width: 51%!important;	
+}
+.hc-card-profile.hc-profile-browse-panel-complete .img-profile img {
+    width: 194px!important;
+}
 .col-md-offset-propertie-public-profile {
     margin-left: 0%;
 }

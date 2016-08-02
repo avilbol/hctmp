@@ -57,16 +57,17 @@
 				<h:form id="propertyBrowserForm" enctype="multipart/form-data">
 					<ui:repeat var="property" value="#{homePage.propertyList}">
 						<div class="col-md-5 hc-card-properties">
-							<div class="col-md-5 img-profile">
+							<div class="col-md-5">
+							<div class=" img-profile">
 								<h:graphicImage
 									url="#{property.propertyImageInfo.mainImage.url}"
 									rendered="#{property.propertyImageInfo.mainImage != null}"
-									styleClass="img-responsive" />
+									styleClass="img-responsive center-block" />
 								<h:graphicImage
 									url="#{propertyPresentationPage.defaultImageUrl}"
 									rendered="#{property.propertyImageInfo.mainImage == null}"
-									styleClass="img-responsive" />
-									
+									styleClass="img-responsive center-block" />
+							</div>
 							<div class="col-md-12 card-city">
 								<p>#{propertyPresentationPage.getCityName(property.propertyLocationInfo.city.id)}</p>
 							</div>
@@ -101,7 +102,7 @@
 								<div class="col-md-4"></div>
 								<div class="col-md-4">
 									<h:commandButton value="#{viewBundle['Properties.view.label']}"
-										styleClass="btn btn-primary"
+										styleClass="btn btn-primary" style="width:53px"
 										action="#{homePage.goToProperty(property.id)}">
 									</h:commandButton>
 								</div>

@@ -43,15 +43,16 @@
 				<div class="card-content hc-profile-browse-cell">
 					<div class="card-image">
 
-						<div class="col-md-3 img-profile">
+						<div class="col-md-3" style="padding:10px;float:left;width: 200px;">
+						<div class="img-profile">
 							<utils:imageEditor imageUrl="#{cc.profile.image}"
 								imageType="userImage" readOnly="true" />
+						</div>
 							<h:outputText styleClass="label-city" value="#{cc.cityName}">
 							</h:outputText>
 						</div>
-						<div class="content-info-init">
-
-							<div class="name-card">
+						<div class="content-info-init">						
+						<div class="name-card" >
 								<b class="name-content"> <h:outputText
 										value="#{cc.profile.firstName} #{cc.profile.lastName}">
 									</h:outputText>
@@ -86,7 +87,7 @@
 							<div class="col-md-4 ">
 								<ui:fragment
 									rendered="#{cc.attrs.presentation.equals(cc.litePresentation)}">
-									<h:commandButton styleClass="btn btn-primary"
+									<h:commandButton styleClass="btn btn-primary" style="width:53px"
 										actionListener="#{cc.attrs.onClick}"
 										value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
 								</ui:fragment>
@@ -94,7 +95,7 @@
 							<div class="col-md-4"></div>
 
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-5">
 							<div class="col-md-12 card-description">
 								<!-- <p><b><h:outputText
 							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
