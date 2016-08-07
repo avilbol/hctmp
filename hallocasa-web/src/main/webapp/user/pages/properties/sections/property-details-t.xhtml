@@ -23,7 +23,9 @@
 						<strong>#{propertyPresentationPage.titleValue(propertyDetailPage.property)}</strong>
 					</div>
 					<div class="col-md-3">#{propertyPresentationPage.currencyValue(propertyDetailPage.property.propertyBasicInfo.marketPrice)}</div>
-					<div class="col-md-3">#{propertyPresentationPage.langValue(propertyDetailPage.property.propertyProposal.name)}</div>
+					<ui:remove>
+						<div class="col-md-3">#{propertyPresentationPage.langValue(propertyDetailPage.property.propertyProposal.name)}</div>
+					</ui:remove>
 				</div>
 				<div class="col-md-12">
 					<div class="col-md-6">#{propertyPresentationPage.getCityName(propertyDetailPage.property.propertyLocationInfo.city.id)}</div>

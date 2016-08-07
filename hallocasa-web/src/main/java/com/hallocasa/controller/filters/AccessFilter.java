@@ -86,9 +86,17 @@ public class AccessFilter implements Filter {
 		blogSectionMap.put("buyprocess-faq-es", "proceso-de-compra-fincaraiz-colombia");
 		blogSectionMap.put("buyprocess-faq-de", "kaufprozess-immobilien-kolumbien");
 
+		blogSectionMap.put("links-en", "buying-process-real-estate-colombia");
+		blogSectionMap.put("links-es", "proceso-de-compra-fincaraiz-colombia");
+		blogSectionMap.put("links-de", "kaufprozess-immobilien-kolumbien");
+		
 		blogSectionMap.put("buyprocess-downloads-en", "downloads-real-estate-colombia");
 		blogSectionMap.put("buyprocess-downloads-es", "descargas-fincaraiz-colombia");
 		blogSectionMap.put("buyprocess-downloads-de", "downloads-dokumente-immobilien-kolumbien");
+		
+		blogSectionMap.put("default-en", "real-estate-marketplace-colombia");
+		blogSectionMap.put("default-es", "articulos-fincaraiz-colombia");
+		blogSectionMap.put("default-de", "artikel-immobilien-kolumbien");
 	}
 
 	@Override
@@ -101,7 +109,7 @@ public class AccessFilter implements Filter {
 		String serverAppUrl = SystemConstants.SERVER_URL + SystemConstants.APP_CONTEXT;
 		// if is a resource skip filter
 		String urlPath = requestURL.toString().replaceAll(serverAppUrl, "");
-		if (isBlogUrl(urlPath) || isBuyProcessUrl(urlPath)) {
+		if (isBlogUrl(urlPath) || isBuyProcessUrl(urlPath) || isLinksUrl(urlPath)) {
 			redirectToBlogSubDomain(request, response);
 		}
 		if (!isResource(urlPath) && (!isDefaultView(urlPath))) {
@@ -143,14 +151,21 @@ public class AccessFilter implements Filter {
 			String strToSearch = "article-" + articleId + "-" + languageId;
 			pageResoluted = blogSectionMap.get(strToSearch);
 		}
-		if (urlPath.contains("buyprocess")) {
+		else if (urlPath.contains("buyprocess")) {
 			String optionId = request.getParameter("option");
 			optionId = (optionId == null) ? "content" : optionId;
 			String strToSearch = "buyprocess-" + optionId + "-" + languageId;
 			pageResoluted = blogSectionMap.get(strToSearch);
 		}
+		else if (urlPath.contains("links")) {
+			String strToSearch = "links-" + languageId;
+			pageResoluted = blogSectionMap.get(strToSearch);
+		}
+		if(pageResoluted == null){
+			pageResoluted = "";
+		}
 		try {
-			String spageToRedirect = (pageResoluted != null) ? languageId + "/" + pageResoluted + "/" : languageId;
+			String spageToRedirect =  languageId + "/" + pageResoluted;
 			HttpServletResponse httpResponse = (HttpServletResponse) response;
 			httpResponse.sendRedirect(contextPath + spageToRedirect);
 		} catch (IOException ex) {
@@ -164,6 +179,10 @@ public class AccessFilter implements Filter {
 
 	private boolean isBuyProcessUrl(String urlPath) {
 		return urlPath.contains("pages/buyprocess/");
+	}
+	
+	private boolean isLinksUrl(String urlPath) {
+		return urlPath.contains("pages/links/");
 	}
 
 	@Override
