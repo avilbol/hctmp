@@ -108,7 +108,7 @@
 						#{propertyWizardPage.lngCityLayout});
 				</h:outputScript>
 			</h:panelGroup>
-			<h:panelGroup id="maps-default" rendered="#{facesContext.validationFailed}">
+			<h:panelGroup id="maps-default" rendered="#{facesContext.validationFailed or propertyWizardPage.initLastMap}">
 				<h:outputScript>
 					initLastMap();
 				</h:outputScript>

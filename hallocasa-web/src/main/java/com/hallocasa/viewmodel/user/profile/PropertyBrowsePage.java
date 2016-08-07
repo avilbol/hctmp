@@ -61,37 +61,37 @@ public class PropertyBrowsePage implements Serializable {
 	/**
 	 * States list
 	 */
-	private List<StateVO> states;
+	private List<StateVO> states = new ArrayList<>();
 
 	/**
 	 * States list
 	 */
-	private List<CityVO> cities;
+	private List<CityVO> cities = new ArrayList<>();
 
 	/**
 	 * States list
 	 */
-	private List<StateVO> selectedStates;
+	private List<StateVO> selectedStates = new ArrayList<>();
 
 	/**
 	 * States list
 	 */
-	private List<CityVO> selectedCities;
+	private List<CityVO> selectedCities = new ArrayList<>();
 
 	/**
 	 * Language list
 	 */
-	private List<Language> selectedLanguages;
+	private List<Language> selectedLanguages = new ArrayList<>();
 
 	/**
 	 * Property type list
 	 */
-	private List<PropertyTypeVO> propertyTypes;
+	private List<PropertyTypeVO> propertyTypes = new ArrayList<>();
 
 	/**
 	 * Selected property type list
 	 */
-	private List<PropertyTypeVO> selectedPropertyTypes;
+	private List<PropertyTypeVO> selectedPropertyTypes = new ArrayList<>();
 
 	/**
 	 * Property type filter state

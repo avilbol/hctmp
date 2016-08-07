@@ -87,7 +87,7 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer 
 				crcyVOObj.setId(Integer.parseInt(crncy));
 				cvoAmmount.setCurrency(crcyVOObj);
 			}
-			if(FormatUtils.isNumeric(crncyAmmount)){
+			if(FormatUtils.isLongNumeric(crncyAmmount)){
 				cvoAmmount.setValue(new BigDecimal(crncyAmmount));
 			}
 		}

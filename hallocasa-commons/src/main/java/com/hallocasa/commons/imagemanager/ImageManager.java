@@ -44,7 +44,7 @@ public abstract class ImageManager {
 		File destFile = new File(userRelativePath + userImageFilename);
 		if (!sourceFile.getName().equals(destFile.getName())) {
 			FileUtils.deleteQuietly(destFile);
-			FileUtils.copyFile(sourceFile, destFile);
+			FileUtils.copyFile(sourceFile, destFile); 
 		}
 		String newImageUrl = ApplicationFileUtils.getRelativePath(imageUrl) 
 				+ "/" + destFile.getName();

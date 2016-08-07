@@ -7,6 +7,33 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
 
+	<script>
+		var langData = null;
+		
+		function transferLangData() {
+			langData = {};
+			$.each($("span[id*='-lang-']"), function() {
+				var inpt = $(this).find('input');
+				var txtarea = $(this).find("textarea");
+				var txtareaNull = (txtarea == null || txtarea.val() == null);
+				var objToInspect = txtareaNull ? inpt : txtarea;
+				langData[$(this).attr("id")] = objToInspect.val();
+				console.log("setting id: " + $(this).attr("id") + " value: " + langData[$(this).attr("id")]);
+			});
+		}
+		
+		function recoverLangData() {
+			if(langData == null) return;
+			$.each($("span[id*='-lang-']"), function() {
+				var inpt = $(this).find('input');
+				var txtarea = $(this).find("textarea");
+				var txtareaNull = (txtarea == null || txtarea.val() == null);
+				var objToInspect = txtareaNull ? inpt : txtarea;
+				console.log("recovering  id: " + $(this).attr("id") + " value:" + langData[$(this).attr("id")]);
+				objToInspect.val(langData[$(this).attr("id")]);
+			});	
+		}
+	</script>
 
 	<div class="col-md-12 properties-basic-info">
 		<div class="col-md-12">
@@ -23,10 +50,11 @@
 						layout="responsive" required="true" converter="languageConverter"
 						columns="4">
 						<f:selectItems value="#{applicationContext.languages}"
-							var="language" itemLabel="#{viewBundle['Language.' += language.toString()]}"
+							var="language"
+							itemLabel="#{viewBundle['Language.' += language.toString()]}"
 							itemValue="#{language}">
 						</f:selectItems>
-						<f:ajax execute="@this"
+						<f:ajax execute="@this" onevent="transferLangData()"
 							listener="#{propertyWizardPage.processLanguagesSelectedChange}"
 							render="data-language-section main-language-section" />
 						<f:param name="validate" value="#{false}" />
@@ -51,11 +79,10 @@
 							</div>
 
 							<div class="col-md-12">
-								<span> 
-									<h:inputText 
-										 	label="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.title']} (#{viewBundle['Language.' += lang.toString()]})"
-											value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.title.langMap[lang]}"
-											styleClass="hc-input-text col-md-12 form-control">
+								<span id="title-lang-#{lang}"> <h:inputText
+										label="#{viewBundle['propertyWizardPage.propertyInEdition.propertyBasicInfo.title']} (#{viewBundle['Language.' += lang.toString()]})"
+										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.title.langMap[lang]}"
+										styleClass="hc-input-text col-md-12 form-control">
 										<f:validateLength minimum="5" />
 									</h:inputText>
 								</span>
@@ -73,14 +100,13 @@
 							var="lang">
 							<div class="col-md-12">
 								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-										 value="#{viewBundle['propertyWizardPage.property.description']}(#{viewBundle['Language.' += lang.toString()]})">
+										value="#{viewBundle['propertyWizardPage.property.description']}(#{viewBundle['Language.' += lang.toString()]})">
 									</h:outputLabel>
 								</b>
 							</div>
 							<div class="col-md-12">
-								<span> 
-									<p:inputTextarea rows="10"
-										cols="30"
+								<span id="propdesc-lang-#{lang}"> <p:inputTextarea
+										rows="10" cols="30"
 										label="#{viewBundle['propertyWizardPage.property.description']} ( #{viewBundle['Language.' += lang.toString()]} )"
 										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.propertyDescription.langMap[lang]}"
 										maxlength="800" styleClass="hc-input-text-area form-control"
@@ -102,13 +128,13 @@
 							var="lang">
 							<div class="col-md-12">
 								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-										 value="#{viewBundle['propertyWizardPage.property.LocationDescription']} ( #{viewBundle['Language.' += lang.toString()]} )">
+										value="#{viewBundle['propertyWizardPage.property.LocationDescription']} ( #{viewBundle['Language.' += lang.toString()]} )">
 									</h:outputLabel>
 								</b>
 							</div>
 							<div class="col-md-12">
-								<span> <p:inputTextarea rows="10"
-										cols="30"
+								<span id="proplocdesc-lang-#{lang.toString()}"> <p:inputTextarea
+										rows="10" cols="30"
 										label="#{viewBundle['propertyWizardPage.property.LocationDescription']} ( #{viewBundle['Language.' += lang.toString()]} )"
 										value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.locationDescription.langMap[lang]}"
 										maxlength="800" styleClass="hc-input-text-area form-control"
@@ -120,6 +146,11 @@
 						</ui:repeat>
 					</h:panelGroup>
 				</div>
+				<h:outputScript>
+				$(function(){
+					recoverLangData();
+				});
+				</h:outputScript>
 			</h:panelGroup>
 		</div>
 		<div class="col-md-6">
@@ -142,7 +173,8 @@
 								itemLabel="#{viewBundle['Common.Dropdown.SelectOne']}" />
 							<f:selectItems
 								value="#{propertyWizardPage.propertyInEdition.propertyBasicInfo.languages}"
-								var="language" itemLabel="#{viewBundle['Language.' += language.toString()]}"
+								var="language"
+								itemLabel="#{viewBundle['Language.' += language.toString()]}"
 								itemValue="#{language}" />
 						</h:selectOneMenu>
 					</span>

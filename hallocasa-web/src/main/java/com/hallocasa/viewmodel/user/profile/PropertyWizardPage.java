@@ -89,6 +89,12 @@ public class PropertyWizardPage implements Serializable {
 	 * selected coordinates
 	 */
 	private boolean initMapInMarker;
+	
+	/**
+	 * Property to indicate that google maps component must be start with last
+	 * map generated
+	 */
+	private boolean initLastMap;
 
 	/**
 	 * Property to indicate that google maps component must be start in city
@@ -170,9 +176,9 @@ public class PropertyWizardPage implements Serializable {
 			processCountrySelect();
 			cities = countryServices.getCities(getPropertyInEdition().getPropertyLocationInfo().getState().getId());
 		}
-		if (this.getPropertyInEdition().getId() == null) {
-			this.setPropertyPotentialId(propertyServices.generatePropertyId());
-		}
+		String propId = this.getPropertyInEdition().getId();
+		boolean nullId = propId == null;
+		this.setPropertyPotentialId(nullId ? propertyServices.generatePropertyId() : propId);
 		// Setup index of main image
 		Integer indexMainImage = 0;
 		Integer counter = 0;
@@ -340,9 +346,10 @@ public class PropertyWizardPage implements Serializable {
 		initMapInMarker = false;
 		initMapInDefaultCity = false;
 		initMapInLayoutCity = false;
-		if(getLatCityLayout() != null && getLngCityLayout() != null){
+		if(getLatCityLayout() != null && getLngCityLayout() != null)
 			initMapMarkerAndCity = true;
-		}
+		else
+			initLastMap = true;
 	}
 
 	public String getCountryName(CountryVO country) {
@@ -475,6 +482,14 @@ public class PropertyWizardPage implements Serializable {
 
 	public void setInitMapMarkerAndCity(boolean initMapMarkerAndCity) {
 		this.initMapMarkerAndCity = initMapMarkerAndCity;
+	}
+
+	public boolean isInitLastMap() {
+		return initLastMap;
+	}
+
+	public void setInitLastMap(boolean initLastMap) {
+		this.initLastMap = initLastMap;
 	}
 
 	public Double getLngCityLayout() {
