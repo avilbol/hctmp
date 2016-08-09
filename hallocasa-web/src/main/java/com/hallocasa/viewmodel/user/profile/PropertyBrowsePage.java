@@ -169,6 +169,7 @@ public class PropertyBrowsePage implements Serializable {
 			}
 			selectedCities.removeAll(cityListToDelete);
 		}
+		reloadProperties();
 	}
 
 	public void activateFilter(String propertyField) {

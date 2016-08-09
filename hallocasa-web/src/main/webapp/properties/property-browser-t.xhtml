@@ -147,9 +147,6 @@
 												value="#{propertyBrowsePage.getName(state.stateName)}" />
 										</p:column>
 										<f:ajax render="@form"
-											listener="#{propertyBrowsePage.reloadProperties}"
-											update="@form" />
-										<f:ajax render="@form"
 											listener="#{propertyBrowsePage.processStateSelect}"
 											update="@form" />
 									</p:selectManyMenu>
