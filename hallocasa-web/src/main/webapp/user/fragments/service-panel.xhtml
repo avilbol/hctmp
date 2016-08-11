@@ -90,7 +90,7 @@
                 </div>
                 
             <div class="col-md-12">
-            <div class="col-md-3">
+            <div class="col-md-12">
 				<ui:fragment rendered="#{not profileReadPage.telephonePending}">
 					<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>&nbsp; 
 					<span class="hc-form-field">
@@ -100,12 +100,7 @@
 							readOnly="true"
 							emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" />
 					</span>
-				</ui:fragment>
-                </div>
-                </div>
-                
-            <div class="col-md-12">
-            <div class="col-md-3">
+				</ui:fragment><br></br>
                 <ui:fragment rendered="#{not profileReadPage.skypePending}">
                 	<b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
                 	<h:outputText value="#{profileReadPage.skypeName}"/>
