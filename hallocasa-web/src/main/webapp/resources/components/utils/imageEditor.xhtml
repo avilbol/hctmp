@@ -52,7 +52,7 @@
 			}
 	   	</style>
 		<h:panelGroup id="image-editor-container">
-			<div class="edit-btn-content col-md-12 hc-img-profile-card">
+		
 				<div class="col-md-12">
 					<ui:fragment rendered="#{not cc.attrs.readOnly}">
 						<button type="button" class="btn btn-primary center-block"
@@ -61,6 +61,7 @@
 						</button>
 					</ui:fragment>					
 				</div>
+			<div class="edit-btn-content col-md-12 hc-img-profile-card">
 				<ui:fragment rendered="#{cc.attrs.showImage}">
 					<span><h:graphicImage url="#{cc.imageToShow().getUrl()}"
 							styleClass="#{cc.attrs.styleClass}" /></span>

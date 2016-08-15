@@ -319,10 +319,6 @@
 	margin-left: -8px;
 }
 
-.hc-responsive-div img {
-	width: 100%;
-	height: 100%;
-}
 
 .hc-info-content-profile {
 	line-height: 29px;
@@ -694,4 +690,15 @@ margin: auto;
 .check-tc h4{
 	width:80%;
 	
+}
+.edit-btn-content.hc-img-profile-card {
+    width: 200px;
+    height: 200px;
+    margin:0px auto;
+    text-align:center;
+    background-color:#CCCCCC;
+}
+.edit-btn-content img{
+     vertical-align:middle;
+     
 }
