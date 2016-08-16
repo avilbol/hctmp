@@ -202,7 +202,11 @@ public class WebSessionImpl extends Observable implements WebSession,
         return currentUser;
     }
 
-    @Override
+    public void setCurrentUser(UserVO currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	@Override
 	public CurrencyVO getCurrentCurrency() {
 		return currentCurrency;
 	}

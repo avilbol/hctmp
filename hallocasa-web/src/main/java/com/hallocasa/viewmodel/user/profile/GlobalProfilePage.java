@@ -188,6 +188,7 @@ public class GlobalProfilePage implements Serializable {
 	 */
 	public void refreshUser(){
 		user = userServices.find(webSession.getCurrentUser().getId());
+		webSession.setCurrentUser(user);
 		if (user == null) {
 			// it should never
 			throw new ForbiddenException();

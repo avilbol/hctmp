@@ -67,6 +67,13 @@ public interface WebSession {
     public UserVO getCurrentUser();
 
     /**
+     * Setter for current user
+     *
+     * @param userVO
+     */
+    public void setCurrentUser(UserVO currentUser);
+    
+    /**
      * Login into the session with precharged user information.
      *
      * @param userVO
