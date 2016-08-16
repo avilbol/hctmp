@@ -102,8 +102,8 @@
 					</span>
 				</ui:fragment><br></br>
                 <ui:fragment rendered="#{not profileReadPage.skypePending}">
-                	<b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
-                	<h:outputText value="#{profileReadPage.skypeName}"/>
+                	<b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>&nbsp;
+                	<h:outputText value="#{profileReadPage.skypeName}"/>&nbsp;
 			    	<h:outputLink value="skype:#{profileReadPage.skypeName}?call"
                 			  rendered="#{not profileReadPage.skypePending}">
             		<h:graphicImage library="images/icons" 	name="skype-24.png" />
