@@ -533,7 +533,6 @@
 
 .hc-responsive-div-properties img,.hc-card-properties img {
 	height: 121px;
-	background-color: #ddd;
 }
 
 .hc-cards-city {
@@ -660,8 +659,9 @@ margin-top:20px;
     margin-bottom: 15px;
     font-size: 22px;
 }
-.img-profile{	
-	background-color: #ddd;
+.img-profile-home{
+	background:#d6d6d6;   
+	width: 89%;
 }
 .hc-card-properties-details .btn-linkedin{
 	width: 26%;
@@ -697,8 +697,19 @@ margin: auto;
     margin:0px auto;
     text-align:center;
     background-color:#CCCCCC;
+    display: flex;
+    justify-content: center;
+}
+.edit-btn-content.hc-img-profile-card span {
+        display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .edit-btn-content img{
      vertical-align:middle;
      
+}
+
+.ui-menu.ui-menu-dynamic{
+	position:fixed;
 }

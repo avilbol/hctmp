@@ -17,15 +17,13 @@
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .img-profile {
-	       width: 188px;
+	width: 188px;
     text-align: left;
     padding: 0px 10px 10px 10px;
-    height: 198px;
+    height: 203px;
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .img-profile img {
-	    width: 224px;
-    height: 195px;
         display: block;
     margin-right: auto;
     margin-left: auto;
@@ -64,7 +62,9 @@
 	width: 50% !important;
 	float: left;
 }
-
+.hc-profile-browse-panel-lite .col-md-3{
+	width: 200px;
+}
 .hc-card-profile.hc-profile-browse-panel-complete .label-city {
 	font-size: 17px;
 	margin-left: 15px;
