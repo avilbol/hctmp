@@ -481,7 +481,11 @@
 }
 
 .hc-image-selected img.hc-image-properties {
-	height: 133px;    margin-top: 7px;
+    height: 133px;
+    margin: auto;
+    position: relative;
+    top: -9px;
+    left: 12px;
 }
 
 .hc-image-unselected img.hc-image-properties {
@@ -496,8 +500,9 @@
 
 
 
-.hc-image-selected span.hc-close {
-	position: absolute;
+.hc-image-selected span.hc-close {   
+	position: relative;
+	float:right;
     z-index: 1;
 	width: 16px;
 	height: 16px;
@@ -695,8 +700,8 @@ margin: auto;
     width: 200px;
     height: 200px;
     margin:0px auto;
+    background:#ccc;
     text-align:center;
-    background-color:#CCCCCC;
     display: flex;
     justify-content: center;
 }

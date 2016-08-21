@@ -372,6 +372,19 @@ input.btn.btn-primary{
 .hc-image-public-content {
     width: 330px;
 }
+.filters-properties{
+   width: 50%;
+    float: left;
+}
+.list-card-porperties{
+   float: left;
+   width: 50%;
+}.hc-card-profile.hc-profile-browse-panel-complete .label-city {
+    margin-left: 0px!important;
+}
+.card-description p{
+	margin-left:10px;
+}
 }
 @media screen and (max-width:650px) {
 	
