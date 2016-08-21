@@ -26,6 +26,7 @@ import com.hallocasa.commons.vo.properties.PropertyProposalVO;
 import com.hallocasa.commons.vo.properties.PropertyTypeVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.commons.vo.properties.filters.ComparatorType;
+import com.hallocasa.dataentities.app.UserType;
 import com.hallocasa.dataentities.app.properties.Property;
 import com.hallocasa.dataentities.app.properties.PropertyFieldValue;
 import com.hallocasa.filters.converters.PropertyFieldFilter;
@@ -222,8 +223,11 @@ public class PropertyFilteringServicesImpl implements
 		CriteriaQuery<Property> q = cb.createQuery(Property.class);
 		Root<Property> c = q.from(Property.class);
 		Expression<String> propertyId = c.get("id");
-		q.where(propertyId.in(propertyIdList));
-		q.select(c);
+		Expression<List<String>> userTypes = c.get("user").get("userTypes");
+		Predicate notEmptyUserList = cb.ge(cb.size(userTypes), 1);
+		Predicate idInApprIds = propertyId.in(propertyIdList);
+		q.where(cb.and(notEmptyUserList, idInApprIds));
+		q.select(c).distinct(true);
 		List<Property> propertyList = em.createQuery(q).getResultList();
 		return ParsersContext.PROPERTY_VO_PARSER.toValueObject(propertyList);
 	}
