@@ -74,7 +74,8 @@
 	background: rgb(236, 236, 236);
 	height: auto;
 	float: left;
-	width: 100%;
+	width: 100%;    
+	border-top: 2px solid#337ABA;
 }
 /* sections and components */
 .hc-basic-button {
@@ -565,7 +566,8 @@
 	padding: 10px;
 	margin: 20px;
 	width: 42% !important;
-	padding-left: 10px !important;
+	padding-left: 10px !important;    
+	background: #fff;
 }
 
 .hc-card-properties-details{
@@ -717,4 +719,11 @@ margin: auto;
 
 .ui-menu.ui-menu-dynamic{
 	position:fixed;
+}
+.hc-content-Properties{
+	background: #ececec;
+    border-bottom: #1d5d8d;
+}
+body {
+    background-color: #ececec!important;
 }
