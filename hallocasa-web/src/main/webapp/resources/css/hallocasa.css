@@ -484,8 +484,8 @@
     height: 133px;
     margin: auto;
     position: relative;
-    top: -9px;
-    left: 12px;
+    top: -9px;    
+    transform: initial;
 }
 
 .hc-image-unselected img.hc-image-properties {

@@ -373,12 +373,12 @@ input.btn.btn-primary{
     width: 330px;
 }
 .filters-properties{
-   width: 50%;
+   width: 100%;
     float: left;
 }
 .list-card-porperties{
    float: left;
-   width: 50%;
+   width: 100%;
 }.hc-card-profile.hc-profile-browse-panel-complete .label-city {
     margin-left: 0px!important;
 }
