@@ -8,6 +8,7 @@
 	<description>Capa de servicios para la aplicación hallocasamig</description>
 	<properties>
 		<hallocasa.portal.version>1.1.0</hallocasa.portal.version>
+		<javaee.version>7.0</javaee.version>
 	</properties>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -48,6 +49,13 @@
             <artifactId>hallocasamig-jpa</artifactId>
             <version>${hallocasa.portal.version}</version>
             <type>jar</type>
+        </dependency>
+         <!-- Java EE -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee.version}</version>
+            <scope>provided</scope>
         </dependency>
 	</dependencies>
 </project>

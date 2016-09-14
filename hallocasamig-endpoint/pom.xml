@@ -1,22 +1,82 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>hallocasamig-endpoint</groupId>
-  <artifactId>hallocasamig-endpoint</artifactId>
-  <version>1.1.0</version>
-  <packaging>war</packaging>
-  <name>hallocasamig-endpoint</name>
-  <description>API para la aplicación hallocasa</description>
-  <build>
-    <sourceDirectory>src</sourceDirectory>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.5.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>hallocasamig-endpoint</groupId>
+	<artifactId>hallocasamig-endpoint</artifactId>
+	<version>1.1.0</version>
+	<packaging>war</packaging>
+	<name>hallocasamig-endpoint</name>
+	<description>API para la aplicación hallocasa</description>
+	<properties>
+		<hallocasa.portal.version>1.1.0</hallocasa.portal.version>
+		<javaee.version>7.0</javaee.version>
+	</properties>
+	<dependencies>
+		<!-- hallocasa -->
+		<dependency>
+			<groupId>com.hallocasa</groupId>
+			<artifactId>hallocasamig-service</artifactId>
+			<version>${hallocasa.portal.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<!-- swagger -->
+		<dependency>
+	  		<groupId>io.swagger</groupId>
+	  		<artifactId>swagger-jersey-jaxrs</artifactId>
+	  		<version>1.5.0</version>
+	  	</dependency>
+		<dependency>
+	  		<groupId>org.json</groupId>
+	  		<artifactId>json</artifactId>
+  			<version>20140107</version>
+  		</dependency>
+  		 <!-- Java EE -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javaee.version}</version>
+            <scope>provided</scope>
+        </dependency>
+	</dependencies>
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.10</version>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <failOnMissingWebXml>true</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp/WEB-INF</directory>
+                            <targetPath>WEB-INF</targetPath>
+                            <includes>
+                                <include>web.xml</include>
+                            </includes>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
 </project>
