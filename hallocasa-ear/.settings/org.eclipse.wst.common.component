@@ -20,7 +20,7 @@
         <dependent-module archiveName="ant-1.6.5.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/ant/ant/1.6.5/ant-1.6.5.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ecwid-mailchimp-2.0.1.1-SNAPSHOT.jar" deploy-path="/lib" handle="module:/resource/ecwid-mailchimp/ecwid-mailchimp">
+        <dependent-module archiveName="ecwid-mailchimp-2.0.1.1-SNAPSHOT.jar" deploy-path="/lib" handle="module:/resource/mailchimp-api/mailchimp-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="httpclient-4.2.5.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/httpcomponents/httpclient/4.2.5/httpclient-4.2.5.jar">
