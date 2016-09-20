@@ -1,4 +1,4 @@
-package com.hallocasa.rs.example;
+package com.hallocasa.rs;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
