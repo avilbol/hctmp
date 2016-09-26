@@ -1,0 +1,42 @@
+<md-content>
+
+  <header class="header-image">
+    <div class="intro-content">
+      <h1 class="md-display-1">
+        {{'PositionStatement.Title' | translate}}
+      </h1>
+      <hr>
+      <h1 class="md-headline">
+        {{'PositionStatement.SubTitle' | translate}}
+      </h1>
+    </div>
+  </header>
+
+  <div layout="row" layout-sm="column" layout-wrap layout-align="center">
+    <md-card ng-repeat="profile in vm.profiles" flex-gt-sm="30" flex-gt-xs="45" flex-xs="100">
+      <md-card-title layout="row" layout-align="space-between start">
+        <md-card-title-media>
+          <div class="md-media-md card-media">
+            <img ng-src="assets/images/user_avatar/{{ profile.avatarURL }}" alt="{{ profile.name }}">
+          </div>
+          <span flex></span>
+        </md-card-title-media>
+        <md-card-title-text>
+          <span class="md-headline">{{profile.name}}</span>
+          <span class="md-subhead">{{profile.city}}</span>
+          <div layout="row" layout-align="space-between">
+            <div layout="column">
+              <span ng-repeat="languaje in profile.languages">{{languaje}}</span>
+            </div>
+            <div layout="column">
+              <span ng-repeat="profession in profile.profession">{{profession}}</span>
+            </div>
+          </div>
+        </md-card-title-text>
+      </md-card-title>
+      <md-card-actions layout="row" layout-align="start center">
+        <md-button>{{'PublicProfile.Widget.ViewMore' | translate}}</md-button>
+      </md-card-actions>
+    </md-card>
+  </div>
+</md-content>

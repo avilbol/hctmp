@@ -1,0 +1,17 @@
+.ng-invalid-require-once.ng-touched .checkbox-container,
+.ng-invalid-require-all.ng-touched .checkbox-container{
+  border-bottom: solid;
+  border-color: rgb(221,44,0);
+  color: rgb(221,44,0);
+}
+
+.ng-invalid-require-once.ng-touched .checkbox-container .md-icon,
+.ng-invalid-require-all.ng-touched .checkbox-container .md-icon{
+  border-color: rgb(221,44,0);
+}
+
+
+[ng-message=requireOnce], [ng-message=requireAll]{
+  color: rgb(221,44,0);
+  font-size: 12px;
+}

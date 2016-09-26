@@ -1,0 +1,38 @@
+<div ng-messages="form[inputName].$error" ng-if="form[inputName].$touched || form.$submitted">
+  <div ng-message="required" ng-if="messages.required">
+    {{'constraints.NotEmpty' | translate}}
+  </div>
+  <div ng-message="minlength" ng-if="messages.minlength">
+    {{'constraints.Size' | translate}} {{messagesParams.minlength}}
+  </div>
+  <div ng-message="maxlength" ng-if="messages.maxlength">
+    {{'constraints.Size' | translate}} {{messagesParams.maxlength}}
+  </div>
+  <div ng-message="url" ng-if="messages.url">
+    {{'constraints.UrlPattern' | translate}}
+  </div>
+  <div ng-message="url" ng-if="messages.linkedInPattern">
+    {{'constrains.LinkedInPattern' | translate}}
+  </div>
+  <div ng-message="email" ng-if="messages.email">
+    {{'constraints.Email' | translate}}
+  </div>
+  <div ng-message="required" ng-if="messages.enterEmail">
+    {{'Login.Form.EnterEmail' | translate}}
+  </div>
+  <div ng-message="required" ng-if="messages.enterPassword">
+    {{'Login.Form.EnterPassword' | translate}}
+  </div>
+  <div ng-message="required" ng-if="messages.confirmPassword">
+    {{'SignUp.Form.ConfirmPassword' | translate}}
+  </div>
+  <div ng-message="required" ng-if="messages.termsAndConditions">
+    {{'SignUp.Form.TermsAndConditions' | translate}}
+  </div>
+  <div ng-message="requireOnce" ng-if="messages.requireOnce">
+    {{'constraints.NotNull' | translate}}
+  </div>
+  <div ng-message="requireAll" ng-if="messages.requireAll">
+    {{'constraints.NotNull' | translate}}
+  </div>
+</div>

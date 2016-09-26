@@ -1,0 +1,64 @@
+<div ng-if="!vm.userData.profile.services || vm.userData.profile.services.length === 0">
+  <md-card>
+    <md-card-content>
+      <h1>
+        {{'Profile.Message.noServices' | translate}}
+      </h1>
+    </md-card-content>
+  </md-card>
+</div>
+
+<div ng-if="vm.userData.profile.services.length > 0">
+  <div layout="row" layout-align="end center">
+    <md-button class="md-raised" ng-click="vm.createProperty($event)">
+      {{'Properties.add.label' | translate}}
+    </md-button>
+  </div>
+  <md-card>
+    <md-card-content>
+      <h1 ng-if="vm.userData.properties.length === 0">
+        {{'Properties.none.property' | translate}}
+      </h1>
+
+      <div ng-if="vm.userData.properties.length > 0">
+        <div layout="row" layout-sm="column" layout-wrap>
+          <md-card dir-paginate="property in vm.userData.properties | itemsPerPage: 12" flex-gt-sm="30" flex-gt-xs="45" flex-xs="100">
+            <md-card-title layout="row" layout-align="space-between start">
+              <md-card-title-media>
+                <div class="md-media-lg card-media">
+                  <img flex ng-src="{{ vm.validateImage(property.images[0]) || 'assets/images/property/default.jpg' }}" alt="{{ property.name }}">
+                </div>
+                <span flex></span>
+              </md-card-title-media>
+              <md-card-title-text>
+                <span class="md-headline">
+                  <b>{{property[property.mainLanguage].title}}</b>
+                </span>
+                <span class="md-subhead">
+                  {{property.propertyType}}
+                </span>
+                <span>
+                  <b>{{property.price | number}} {{property.currency}}</b>
+                </span>
+                <span class="md-subhead">
+                  {{property.meters}} m²
+                </span>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <p>
+                {{property.description[property.mainLanguage].propertyDescription}}
+              </p>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="start center">
+              <md-button ng-click="vm.viewProperty($event, property)">{{'Properties.view.label' | translate}}</md-button>
+              <md-button ng-click="vm.editProperty($event, property)">{{'Properties.edit.label' | translate}}</md-button>
+              <md-button ng-click="vm.deleteProperty($event, property)">{{'Properties.delete.label' | translate}}</md-button>
+            </md-card-actions>
+          </md-card>
+        </div>
+        <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+      </div>
+    </md-card-content>
+  </md-card>
+</div>

@@ -1,0 +1,68 @@
+<ng-form name="propertyInfoForm">
+  <div layout="column">
+    <div layout-gt-sm="row" layout-gt-xs="row" layout-xs="column">
+      <md-input-container class="md-block" flex>
+        <label>{{'Profile.Data.Country.Label' | translate}}</label>
+        <md-select name="country" ng-model="vm.property.country" required>
+          <md-option ng-repeat="country in vm.countries" value="{{country.id}}" ng-disabled="vm.isReadOnly">
+            {{country.name}}
+          </md-option>
+        </md-select>
+        <ng-messages-generator
+          form="propertyInfoForm"
+          input-name="country"
+          validators="required"
+        ></ng-messages-generator>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex>
+        <label>{{'PropertyBrowse.Property.propertyType' | translate}}</label>
+        <md-select name="propertyTypes" ng-model="vm.property.propertyType" required>
+          <md-option ng-repeat="propertyTypes in vm.propertyTypes" value="{{propertyTypes.name}}" ng-disabled="vm.isReadOnly">
+            {{propertyTypes.name}}
+          </md-option>
+        </md-select>
+        <ng-messages-generator
+          form="propertyInfoForm"
+          input-name="propertyTypes"
+          validators="required"
+        ></ng-messages-generator>
+      </md-input-container>
+    </div>
+    <div layout-gt-sm="row" layout-gt-xs="row" layout-xs="column">
+      <md-input-container class="md-block" flex>
+        <label>{{'PropertyBrowse.Property.location' | translate}}</label>
+        <md-select name="propertyLocation" ng-model="vm.property.propertyLocation" required>
+          <md-option ng-repeat="location in vm.locations" value="{{location.id}}" ng-disabled="vm.isReadOnly">
+            {{location.name}}
+          </md-option>
+        </md-select>
+        <ng-messages-generator
+          form="propertyInfoForm"
+          input-name="propertyLocation"
+          validators="required"
+        ></ng-messages-generator>
+      </md-input-container>
+
+      <md-input-container class="md-block" flex>
+        <label>{{'Profile.Data.buy.rent.Label' | translate}}</label>
+        <md-select name="buyRent" ng-model="vm.property.buyRent" required>
+          <md-option ng-repeat="buyRent in vm.buyRent" value="{{buyRent.id}}" ng-disabled="vm.isReadOnly">
+            {{buyRent.name}}
+          </md-option>
+        </md-select>
+        <ng-messages-generator
+          form="propertyInfoForm"
+          input-name="buyRent"
+          validators="required"
+        ></ng-messages-generator>
+      </md-input-container>
+    </div>
+  </div>
+  <div>
+    <md-button ng-click="vm.closeDialog()">{{'Properties.wizard.cancel.label' | translate}}</md-button>
+    <md-button ng-click="vm.changeState(vm.state.WIZARD_2)" ng-disabled="!propertyInfoForm.$valid">
+      {{'Properties.wizard.next.label' | translate}}
+    </md-button>
+  </div>
+</ng-form>

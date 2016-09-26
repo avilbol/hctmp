@@ -1,0 +1,24 @@
+<md-dialog aria-label="edit image">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{'Image.Edition.Header' | translate}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+        <i class="material-icons">close</i>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <form name="loginForm" novalidate>
+    <md-dialog-content>
+      <md-content class="md-padding">
+        {{'Image.Edition.Header.Detail' | translate}}
+
+        <div>{{'Image.Edition.Header.Upload' | translate}}: <input type="file" on-change="vm.handleFileSelect" /></div>
+        <div class="cropArea">
+          <img-crop image="myImage" result-image="vm.myCroppedImage"></img-crop>
+        </div>
+        <md-button ng-click="vm.imageLoaded()">{{'Image.Edition.Header.Upload' | translate}}</md-button>
+      </md-content>
+    </md-dialog-content>
+  </form>
+</md-dialog>

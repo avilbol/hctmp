@@ -1,0 +1,72 @@
+<md-dialog aria-label="property form" flex="80">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button
+        class="md-icon-button"
+        aria-label="menu"
+        hide-gt-sm
+        ng-click="vm.toggleMenu()"
+        ng-show="vm.currentState === vm.state.WIZARD_2"
+      >
+        <i class="material-icons">menu</i>
+      </md-button>
+      <h2>{{vm.title | translate}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+        <i class="material-icons">close</i>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="addPropertyMenu">
+    <md-toolbar class="md-whiteframe-4dp md-tall">
+      <h1 class="md-toolbar-tools">Hallo Casa</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+      <md-list flex>
+        <md-subheader class="md-no-sticky">{{vm.title | translate}} {{'Properties.cancel.label' | translate}}</md-subheader>
+        <md-list-item md-ink-ripple ng-click="vm.changeTemplate('basic-information')">
+          <p> {{'Property.wizard.basic' | translate}}</p>
+        </md-list-item>
+        <md-list-item md-ink-ripple ng-click="vm.changeTemplate('location')">
+          <p> {{'Property.wizard.location' | translate}}</p>
+        </md-list-item>
+        <md-list-item md-ink-ripple ng-click="vm.changeTemplate('images')">
+          <p> {{'Property.wizard.images' | translate}}</p>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </md-sidenav>
+
+  <form name="createPropertyForm" novalidate ng-submit="createPropertyForm.$valid && vm.save()">
+    <md-dialog-content>
+      <md-content class="md-padding">
+        <div ng-show="vm.currentState === vm.state.WIZARD_1">
+          <ng-include src="'app/property/form/tabs/property-information.html'"></ng-include>
+        </div>
+
+        <div ng-show="vm.currentState === vm.state.WIZARD_2">
+          <div ng-if="vm.smallDevice">
+            <ng-include src="vm.templateURL"></ng-include>
+          </div>
+          <md-tabs md-dynamic-height md-border-bottom ng-if="!vm.smallDevice">
+            <md-tab label="{{'Property.wizard.basic' | translate}}">
+              <ng-include src="'app/property/form/tabs/basic-information.html'"></ng-include>
+            </md-tab>
+            <md-tab label="{{'Property.wizard.location' | translate}}" ng-click="vm.startMap()">
+              <ng-include src="'app/property/form/tabs/location.html'"></ng-include>
+            </md-tab>
+            <md-tab label="{{'Property.wizard.images' | translate}}">
+              <ng-include src="'app/property/form/tabs/images.html'"></ng-include>
+            </md-tab>
+          </md-tabs>
+          <div>
+            <md-button ng-click="vm.changeState(vm.state.WIZARD_1)">{{'Properties.wizard.back.label' | translate}}</md-button>
+            <md-button ng-click="vm.closeDialog()">{{'Properties.wizard.cancel.label' | translate}}</md-button>
+            <md-button type="submit" ng-if="!vm.isReadOnly">{{'property.wizard.save' | translate}}</md-button>
+          </div>
+        </div>
+      </md-content>
+    </md-dialog-content>
+  </form>
+</md-dialog>

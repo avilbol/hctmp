@@ -1,0 +1,10 @@
+<div layout="row" layout-wrap flex class="checkbox-container">
+  <div flex-gt-sm="{{flexLaptop}}" flex-gt-xs="{{flexTablet}}" flex-xs="{{flexMobile}}" ng-repeat="element in data">
+    <md-checkbox
+      ng-checked="exists(element)"
+      ng-click="toggle(element)"
+    >
+      {{element[dataLabel] || element}}
+    </md-checkbox>
+  </div>
+</div>

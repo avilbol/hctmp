@@ -1,0 +1,112 @@
+<div layout="column" layout-fill ng-controller="MainController as MainCtrl">
+  <md-toolbar class="md-hue-2 md-medium-tall" layout-align="center center" layout="row">
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" aria-label="menu" hide-gt-sm ng-click="MainCtrl.toggleMenu()">
+        <i class="material-icons">menu</i>
+      </md-button>
+      <md-button aria-label="main">
+        <img class="png-icon main-logo" flex src="./assets/images/logo-hallocasa.png">
+      </md-button>
+      <span flex></span>
+      <div layout-wrap hide-sm hide-xs layout="row" layout-align="end">
+        <md-button>
+          {{'Common.Label.BrowseProfiles' | translate}}
+        </md-button>
+        <md-button>
+          {{'Common.Label.Blog' | translate}}
+        </md-button>
+        <md-button>
+          {{'Common.Label.Links' | translate}}
+        </md-button>
+        <md-button>
+          {{'BuyProcessPage.Menu.Label.Content' | translate}}
+        </md-button>
+        <md-button ng-click="MainCtrl.launchLoginDialog($event)">
+          {{'Header.Login.Button' | translate}}
+        </md-button>
+        <md-button class="md-primary white-border-button" ng-click="MainCtrl.launchRegisterDialog($event)">
+          {{'Header.SignUp.Button' | translate}}
+        </md-button>
+        <div ng-translate-language-select></div>
+      </div>
+    </div>
+  </md-toolbar>
+  <loading></loading>
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+    <md-toolbar class="md-whiteframe-4dp md-tall">
+      <h1 class="md-toolbar-tools">Hallo Casa</h1>
+    </md-toolbar>
+    <md-content layout-padding>
+      <md-list flex>
+        <md-subheader class="md-no-sticky">{{'Label.Menu' | translate}}</md-subheader>
+        <md-list-item md-ink-ripple>
+          <p> {{'Common.Label.BrowseProfiles' | translate}}</p>
+        </md-list-item>
+        <md-list-item md-ink-ripple>
+          <p> {{'Common.Label.Blog' | translate}}</p>
+        </md-list-item>
+        <md-list-item md-ink-ripple>
+          <p> {{'Common.Label.Links' | translate}}</p>
+        </md-list-item>
+        <md-list-item md-ink-ripple>
+          <p> {{'BuyProcessPage.Menu.Label.Content' | translate}}</p>
+        </md-list-item>
+        <md-list-item md-ink-ripple ng-click="MainCtrl.launchLoginDialog($event)">
+          <p> {{'ForgotPassword.recovery.goLogin' | translate}}</p>
+        </md-list-item>
+        <md-list-item>
+          <md-button flex class="md-raised" >
+            {{'Header.SignUp.Button' | translate}}
+          </md-button>
+        </md-list-item>
+        <md-list-item layout="row" layout-align="center center" ng-translate-language-select>
+        </md-list-item>
+      </md-list>
+    </md-content>
+  </md-sidenav>
+  <md-content flex>
+    <md-content ng-view layout="column"></md-content>
+    <md-toolbar class="md-hue-2" ng-class="{'md-medium-tall': !MainCtrl.screenIsSmall, 'md-xl': MainCtrl.screenIsSmall}">
+      <div layout="column" layout-gt-sm="row" flex layout-align="center center">
+        <span layout-margin></span>
+        <div flex layout="column" class="md-subhead" flex-order-sm="1" flex-order-xs="1">
+          <span> © 2016 HalloCasa, All Rights Reserved</span>
+          <span>{{'Common.Label.PrivacyStatement' | translate}}</span>
+        </div>
+        <md-button class="md-icon-button" aria-label="go up" flex-order-sm="0" flex-order-xs="0">
+          <i class="material-icons">arrow_upward</i>
+        </md-button>
+        <div flex layout="column" flex-order-sm="2" flex-order-xs="2">
+          <div layout="row" layout-align="end center">
+            <md-button class="md-icon-button" aria-label="social">
+              <i class="fa fa-google-plus" aria-hidden="true"></i>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="social">
+              <i class="fa fa-twitter" aria-hidden="true"></i>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="social">
+              <i class="fa fa-pinterest" aria-hidden="true"></i>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="social">
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="social">
+              <i class="fa fa-facebook" aria-hidden="true"></i>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="social">
+              <i class="fa fa-youtube" aria-hidden="true"></i>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="social">
+              <md-icon md-svg-icon="flipboard">
+            </md-button>
+          </div>
+          <div layout="row" layout-align="end center" layout-align-sm="center center" layout-align-xs="center center">
+            <md-button aria-label="go up">
+              Contáctenos
+            </md-button>
+          </div>
+        </div>
+      </div>
+    </md-toolbar>
+  </md-content>
+</div>

@@ -1,0 +1,206 @@
+<form name="editProfileForm" novalidate ng-submit="editProfileForm.$valid && vm.save('profileForm', 'profile')">
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{'Profile.General.Panel.Title' | translate}}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content flex-gt-sm="50" flex-gt-xs="50" flex-xs="100">
+      <md-input-container class="md-block">
+        <label>{{'Profile.Data.Name.Label' | translate}}</label>
+        <input name="name" ng-model="vm.profileForm.name" type="text" ng-required="true" ng-minlength="2" ng-maxlength="45">
+        <ng-messages-generator
+          form="editProfileForm"
+          input-name="name"
+          validators="required, minlength, maxlength"
+          messages-params="{ minlength: '2 - 45', maxlength: '2 - 45'}"
+        ></ng-messages-generator>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>{{'Profile.Data.LastName.Label' | translate}}</label>
+        <input name="lastName" ng-model="vm.profileForm.lastName" type="text" ng-required="true" ng-minlength="2" ng-maxlength="45">
+        <ng-messages-generator
+          form="editProfileForm"
+          input-name="lastName"
+          validators="required, minlength, maxlength"
+          messages-params="{ minlength: '2 - 45', maxlength: '2 - 45'}"
+        ></ng-messages-generator>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>{{'Profile.Data.Email.Label' | translate}}</label>
+        <input name="email" ng-model="vm.profileForm.email" type="email" ng-required="true">
+        <ng-messages-generator
+          form="editProfileForm"
+          input-name="email"
+          validators="required, email"
+        ></ng-messages-generator>
+      </md-input-container>
+    </md-card-content>
+  </md-card>
+
+  <md-card>
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{'Profile.Service.Panel.Title' | translate}}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+      <v-accordion class="vAccordion--default">
+        <v-pane expanded>
+          <v-pane-header>
+            {{'Profile.Data.Services.Label' | translate}}
+          </v-pane-header>
+
+          <v-pane-content>
+            <checkbox-list data="vm.services" ng-model="vm.profileForm.services"></checkbox-list>
+          </v-pane-content>
+        </v-pane>
+
+        <div layout="row" layout-wrap flex ng-if="vm.profileForm.services.length > 0">
+          <div layout="column" layout-align="center center" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100" class="img-profile">
+            <md-button ng-click="vm.launchLoadImageDialog()">{{'Image.Edition' | translate}}</md-button>
+            <img ng-src="{{ vm.profileForm.avatarURL || 'assets/images/user_avatar/user0.jpg'}}" alt="{{ profile.name }}">
+          </div>
+          <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
+            <md-input-container class="md-block">
+              <label>{{'Profile.Data.Country.Label' | translate}}</label>
+              <md-select name="country" ng-model="vm.profileForm.country" ng-change="vm.loadStates()" required>
+                <md-option ng-repeat="country in vm.countries" value="{{country.id}}">
+                  {{country.name}}
+                </md-option>
+              </md-select>
+              <ng-messages-generator
+                form="editProfileForm"
+                input-name="country"
+                validators="required"
+              ></ng-messages-generator>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+              <label>{{'Profile.Data.State.Label' | translate}}</label>
+              <md-select
+                name="state"
+                ng-model="vm.profileForm.state"
+                ng-change="vm.loadCities()"
+                ng-disabled="!vm.profileForm.country"
+                required
+              >
+                <md-option ng-repeat="state in vm.states" value="{{state.id}}">
+                  {{state.name}}
+                </md-option>
+              </md-select>
+              <ng-messages-generator
+                form="editProfileForm"
+                input-name="state"
+                validators="required"
+              ></ng-messages-generator>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+              <label>{{'Profile.Data.City.Label' | translate}}</label>
+              <md-select
+                name="city"
+                ng-model="vm.profileForm.city"
+                ng-disabled="!vm.profileForm.state"
+                required
+              >
+                <md-option ng-repeat="city in vm.cities" value="{{city.id}}">
+                  {{city.name}}
+                </md-option>
+              </md-select>
+              <ng-messages-generator
+                form="editProfileForm"
+                input-name="city"
+                validators="required"
+              ></ng-messages-generator>
+            </md-input-container>
+          </div>
+          <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
+            <telephone layout="row" ng-model="vm.profileForm.telephone" label="{{'Profile.Data.Telephone.Label' | translate}}"></telephone>
+            <md-input-container class="md-block">
+              <label>{{'Profile.Data.Website.Label' | translate}}</label>
+              <input name="website" ng-model="vm.profileForm.website" type="url">
+              <ng-messages-generator
+                form="editProfileForm"
+                input-name="website"
+                validators="url"
+              ></ng-messages-generator>
+            </md-input-container>
+          </div>
+          <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
+            <md-input-container class="md-block">
+              <label>{{'Profile.Data.Linkedin.Label' | translate}}</label>
+              <input name="linkedin" ng-model="vm.profileForm.linkedin" type="url">
+              <ng-messages-generator
+                form="editProfileForm"
+                input-name="linkedin"
+                validators="linkedInPattern"
+              ></ng-messages-generator>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label>{{'Profile.Data.Skype.Label' | translate}}</label>
+              <input name="skype" ng-model="vm.profileForm.skype" type="text">
+            </md-input-container>
+          </div>
+        </div>
+
+
+        <v-pane ng-if="vm.profileForm.services.length > 0">
+          <v-pane-header>
+            {{'Profile.Data.Languages.Label' | translate}}
+          </v-pane-header>
+
+          <v-pane-content>
+            <checkbox-list name="languages" data="vm.languages" ng-model="vm.profileForm.languages" laptop-cols=5 require-once="true"></checkbox-list>
+            <ng-messages-generator
+              form="editProfileForm"
+              input-name="languages"
+              validators="requireOnce"
+            ></ng-messages-generator>
+          </v-pane-content>
+        </v-pane>
+
+        <v-pane ng-if="vm.profileForm.languages.length > 0">
+          <v-pane-header>
+            {{'Profile.Data.Description.Label' | translate}}
+          </v-pane-header>
+
+          <v-pane-content>
+            <md-input-container class="md-block" flex-gt-sm="50" flex-gt-xs="50" flex-xs="100">
+              <label>{{'Profile.Data.Languages.MainLanguage.Label' | translate}}</label>
+              <md-select name="mainLanguage" ng-model="vm.profileForm.mainLanguage" required>
+                <md-option ng-repeat="language in vm.profileForm.languages" value="{{language}}">
+                  {{language}}
+                </md-option>
+              </md-select>
+              <ng-messages-generator
+                form="editProfileForm"
+                input-name="mainLanguage"
+                validators="required"
+              ></ng-messages-generator>
+            </md-input-container>
+            <div layout="row" layout-wrap flex >
+              <div flex-gt-sm="50" flex-gt-xs="50" flex-xs="100" ng-repeat="description in vm.profileForm.languages">
+                <md-input-container class="md-block">
+                  <label>{{'Profile.Data.Description.Label' | translate}} ({{description}})</label>
+                  <textarea name="description" ng-model="vm.profileForm.description[description]" md-maxlength="500" md-minlength="20" rows="5" required></textarea>
+                  <ng-messages-generator
+                    form="editProfileForm"
+                    input-name="description"
+                    validators="required"
+                  ></ng-messages-generator>
+                </md-input-container>
+              </div>
+            </div>
+          </v-pane-content>
+        </v-pane>
+      </v-accordion>
+    </md-card-content>
+  </md-card>
+  <md-button class="md-raised" aria-label="cancel" ng-click="vm.goBack()">
+    {{'Properties.cancel.label' | translate}}
+  </md-button>
+  <md-button class="md-raised" aria-label="save" type="submit">
+    {{'Profile.Edit.Save' | translate}}
+  </md-button>
+</form>

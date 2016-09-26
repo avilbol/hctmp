@@ -1,0 +1,65 @@
+﻿<md-dialog aria-label="login">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{'SignUp.Dialog.Title' | translate}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+        <i class="material-icons">close</i>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <form name="loginForm" novalidate ng-submit="loginForm.$valid && true">
+    <md-dialog-content>
+      <md-content class="md-padding">
+        <md-input-container  class="md-block">
+          <label>{{'SignUp.Form.Email' | translate}}</label>
+          <input name="email" ng-model="vm.userData.email" type="text" ng-required="true">
+          <ng-messages-generator
+            form="loginForm"
+            input-name="email"
+            validators="enterEmail"
+          ></ng-messages-generator>
+        </md-input-container>
+        <md-input-container  class="md-block">
+          <label>{{'SignUp.Form.Password' | translate}}</label>
+          <input name="password" ng-model="vm.userData.password" type="password" ng-required="true">
+          <ng-messages-generator
+            form="loginForm"
+            input-name="password"
+            validators="enterPassword"
+          ></ng-messages-generator>
+        </md-input-container>
+        <md-input-container  class="md-block">
+          <label>{{'SignUp.Form.PasswordConfirm' | translate}}</label>
+          <input name="confPassword" ng-model="vm.userData.confPassword" type="password" ng-required="true">
+          <ng-messages-generator
+            form="loginForm"
+            input-name="confPassword"
+            validators="confirmPassword"
+          ></ng-messages-generator>
+        </md-input-container>
+
+        <md-input-container layout="column" layout-align="center start">
+          <md-checkbox ng-model="vm.userData.TermsAndConditions" name="TermsAndConditions" ng-required="true">
+            {{'SignUp.Form.TermsAndConditions.Accept' | translate}}
+          </md-checkbox>
+          <ng-messages-generator
+            form="loginForm"
+            input-name="TermsAndConditions"
+            validators="termsAndConditions"
+          ></ng-messages-generator>
+        </md-input-container>
+
+
+        <md-input-container layout="column" layout-align="center center">
+          <md-button class="md-primary md-raised" type="submit">
+            {{'SignUp.Header.Button' | translate}}
+          </md-button>
+          <md-button>
+            {{'SignUp.Form.TermsAndConditions' | translate}}
+          </md-button>
+        </md-input-container>
+      </md-content>
+    </md-dialog-content>
+  </form>
+</md-dialog>

@@ -1,0 +1,78 @@
+
+<div layout-gt-sm="row" layout-gt-xs="column" layout-xs="column">
+  <md-input-container class="md-block" flex>
+    <label>{{'Profile.Data.Country.Label' | translate}}</label>
+    <md-select name="country" ng-model="vm.property.location.country" ng-change="vm.loadStates()" required>
+      <md-option ng-repeat="country in vm.countries" value="{{country.id}}" ng-disabled="vm.isReadOnly">
+        {{country.name}}
+      </md-option>
+    </md-select>
+    <ng-messages-generator
+      form="createPropertyForm"
+      input-name="country"
+      validators="required"
+    ></ng-messages-generator>
+  </md-input-container>
+
+  <md-input-container class="md-block" flex>
+    <label>{{'Profile.Data.State.Label' | translate}}</label>
+    <md-select
+      name="state"
+      ng-model="vm.property.location.state"
+      ng-change="vm.loadCities()"
+      ng-disabled="!vm.property.location.country"
+      required
+    >
+      <md-option ng-repeat="state in vm.states" value="{{state.id}}" ng-disabled="vm.isReadOnly">
+        {{state.name}}
+      </md-option>
+    </md-select>
+    <ng-messages-generator
+      form="createPropertyForm"
+      input-name="state"
+      validators="required"
+    ></ng-messages-generator>
+  </md-input-container>
+
+  <md-input-container class="md-block" flex>
+    <label>{{'Profile.Data.City.Label' | translate}}</label>
+    <md-select
+      name="city"
+      ng-model="vm.property.location.city"
+      ng-disabled="!vm.property.location.state"
+      ng-change="vm.updateMapLocation()"
+      required
+    >
+      <md-option ng-repeat="city in vm.cities" value="{{city.id}}" ng-disabled="vm.isReadOnly">
+        {{city.name}}
+      </md-option>
+    </md-select>
+    <ng-messages-generator
+      form="createPropertyForm"
+      input-name="city"
+      validators="required"
+    ></ng-messages-generator>
+  </md-input-container>
+</div>
+<div layout-gt-sm="row" layout-gt-xs="column" layout-xs="column">
+  <md-input-container class="md-block" flex>
+    <label>{{'Properties.wizard.latitude' | translate}}</label>
+    <input ng-model="vm.property.location.latitude" aria-label="latitude" type="number" readonly ng-readonly="vm.isReadOnly">
+  </md-input-container>
+
+  <md-input-container class="md-block" flex>
+    <label>{{'Properties.wizard.longitude' | translate}}</label>
+    <input ng-model="vm.property.location.longitude" aria-label="longitude" type="number" readonly ng-readonly="vm.isReadOnly">
+  </md-input-container>
+</div>
+
+<div class="angular-google-map-container">
+  <ui-gmap-google-map
+    center="vm.map.center"
+    zoom="vm.map.zoom"
+    options="vm.map.options"
+    ng-if="vm.currentTemplate === 'location'"
+  >
+    <ui-gmap-marker coords="vm.map.center" idkey="'locationMarker'">
+  </ui-gmap-google-map>
+</div>
