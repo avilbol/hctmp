@@ -5,14 +5,16 @@
   <persistence-unit name="App" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/hallocasaAppDatasource</jta-data-source>
+    <class>com.hallocasa.entities.EntityExample</class>
     <!-- converters -->
     <!-- entities -->
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.target-database" value="MySQL"/>
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.ddl-generation" value="none"/>
       <property name="eclipselink.weaving" value="false"/>
     </properties>
+    
   </persistence-unit>
 </persistence>

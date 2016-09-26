@@ -127,6 +127,7 @@ limitations under the License.
 						<java.util.logging.config.file>${project.build.testOutputDirectory}/logging.properties</java.util.logging.config.file>
 					</systemPropertyVariables>
 					<systemPropertiesFile>${test.properties.file}</systemPropertiesFile>
+					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
 			<plugin>

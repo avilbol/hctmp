@@ -19,10 +19,10 @@ import com.hallocasa.utils.constants.Tables;
 @Entity
 @Table(name = Tables.EXAMPLE)
 @NamedQueries({ @NamedQuery(name = EntityExample.QUERY_FIND_BY_IDENTIFIER, 
-	query = "select e from EntityExample e where e.identifier = ?1"), })
+	query = "select e from EntityExample e where e.identifier = ?1")})
 public class EntityExample implements HallocasaEntity {
 
-	public static final String QUERY_FIND_BY_IDENTIFIER = "EntityExample.queryFindByIdentifier";
+	public static final String QUERY_FIND_BY_IDENTIFIER = "EntityExample.queryFFindByIdentifier";
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
