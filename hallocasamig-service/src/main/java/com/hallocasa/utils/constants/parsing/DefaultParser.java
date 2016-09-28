@@ -33,7 +33,7 @@ public class DefaultParser<U, V> implements Parser<U,V> {
 	public U toValueObject(V entity, Class<U> clazz){
 		try{
 			U valueObject = clazz.newInstance();
-			copyProperties(entity, valueObject);
+			copyProperties(valueObject, entity);
 			return valueObject;
 		} catch(Exception e){
 			throw new FatalException("Ha ocurrido un error inesperado", e);

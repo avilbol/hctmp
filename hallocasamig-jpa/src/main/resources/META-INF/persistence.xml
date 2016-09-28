@@ -2,19 +2,18 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="App" transaction-type="JTA">
+  <persistence-unit name="MyApp" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/hallocasaAppDatasource</jta-data-source>
     <class>com.hallocasa.entities.EntityExample</class>
     <!-- converters -->
     <!-- entities -->
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.target-database" value="MySQL"/>
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="eclipselink.ddl-generation" value="none"/>
       <property name="eclipselink.weaving" value="false"/>
     </properties>
-    
   </persistence-unit>
 </persistence>
