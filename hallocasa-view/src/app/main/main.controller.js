@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document) {
+  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
@@ -14,6 +14,7 @@
     //Menu elements handlers
     vm.launchLoginDialog = launchLoginDialog;
     vm.launchRegisterDialog = launchRegisterDialog;
+    vm.goTo = goTo;
 
     $scope.$watch(function() { return $mdMedia('sm') || $mdMedia('xs'); }, function(small) {
       vm.screenIsSmall = small;
@@ -47,6 +48,10 @@
         clickOutsideToClose:true,
         fullscreen: useFullScreen
       });
+    }
+
+    function goTo(url) {
+      $location.url(url);
     }
   }
 })();

@@ -6,7 +6,7 @@
     .service('ImageValidatorService', ImageValidatorService);
 
   /** @ngInject */
-  function ImageValidatorService ($log) {
+  function ImageValidatorService ($log, $document) {
     var service = {
       validateBase64: validateBase64
     };
@@ -31,7 +31,7 @@
 
       var blockSize = 1, // visit every pixels
         defaultRGB = {r:255,g:255,b:255}, // for non-supporting envs
-        canvas = document.createElement('canvas'),
+        canvas = $document[0].createElement('canvas'),
         context = canvas.getContext && canvas.getContext('2d'),
         data, width, height,
         i = -4,

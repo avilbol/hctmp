@@ -16,6 +16,11 @@
         templateUrl: 'app/profiles/edit/edit-profile.html',
         controller: 'EditProfileController',
         controllerAs: 'vm'
+      })
+      .when('/profile/browser', {
+        templateUrl: 'app/profiles/public/public-profile.html',
+        controller: 'PublicProfileController',
+        controllerAs: 'vm'
       });
   }
 

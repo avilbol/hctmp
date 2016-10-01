@@ -160,3 +160,16 @@ header .intro-content {
 	border-color: white;
     border: 1px solid;
 }
+
+@media (min-width: 960px) {
+  .ng-view-container {
+    min-height: calc(100% - 88px);
+  }
+}
+
+@media (max-width: 960px) {
+  .ng-view-container {
+    min-height: calc(100% - 204px);
+  }
+}
+

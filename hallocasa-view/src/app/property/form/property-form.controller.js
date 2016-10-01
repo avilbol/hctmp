@@ -7,8 +7,8 @@
 		.controller('PropertyFormController', PropertyFormController);
 
   /** @ngInject */
-  function PropertyFormController($mdDialog, LocationService, LanguageService, PropertyService, toastr, $mdSidenav, $mdMedia, 
-                                  GeolocationService, $timeout, FileReaderService, $log, title, property, readonly, 
+  function PropertyFormController($mdDialog, LocationService, LanguageService, PropertyService, toastr, $mdSidenav, $mdMedia,
+                                  GeolocationService, $timeout, FileReaderService, $log, title, property, readonly,
                                   $mdToast, translateFilter) {
 
 		var vm = this;
@@ -37,18 +37,13 @@
     vm.loadCountries = loadCountries;
     vm.loadStates = loadStates;
     vm.loadCities = loadCities;
-    vm.startMap = startMap;
+    vm.handleTemplateLocation = handleTemplateLocation;
     vm.updateMapLocation = updateMapLocation;
 
     vm.smallDevice = ($mdMedia('sm') || $mdMedia('xs'));
 
     vm.templateURL = "app/property/form/tabs/basic-information.html";
-    vm.map = {
-      center: { latitude: 45, longitude: -73 },
-      zoom: 1,
-      options:{ scrollwheel: false},
-      draggable: !vm.isReadOnly
-    };
+
 
     function closeDialog(){
       if(vm.isReadOnly){
@@ -170,50 +165,18 @@
 
     function changeTemplate(template){
       handleTemplateLocation(template);
-      vm.currentTemplate = template;
       vm.templateURL = "app/property/form/tabs/" + template + ".html";
       toggleMenu();
-    }
-
-    function handleTemplateLocation(templateURL) {
-      switch (templateURL){
-        case "location":
-          getUserLocation();
-          break;
-      }
     }
 
     function toggleMenu() {
       $mdSidenav('addPropertyMenu').toggle();
     }
 
-    function updateMapLocation(){
-      var city = _.find(vm.cities, function (city) {
-        return city.id === Number(vm.property.location.city);
-      });
-      vm.map.center.latitude = city.lat;
-      vm.map.center.longitude = city.lng;
-      vm.map.zoom = city.zoom;
-      vm.property.location.latitude = vm.map.center.latitude;
-      vm.property.location.longitude = vm.map.center.longitude;
-    }
-
-    function getUserLocation() {
-      if(vm.property.location.latitude && vm.property.location.longitude){
-        vm.map.center.latitude = vm.property.location.latitude;
-        vm.map.center.longitude = vm.property.location.longitude;
-        vm.map.zoom = 16;
-        return;
-      }
-      GeolocationService.getCurrentPosition()
-        .then(function (position) {
-          vm.map.center.latitude = position.coords.latitude;
-          vm.map.center.longitude = position.coords.longitude;
-          vm.map.zoom = 16;
-        })
-        .finally(function () {
-          vm.property.location = vm.map.center;
-        });
+    function updateMapLocation(city){
+      vm.property.location.center.latitude = city.lat;
+      vm.property.location.center.longitude = city.lng;
+      vm.property.location.zoom = city.zoom;
     }
 
     function loadCities() {
@@ -239,12 +202,16 @@
       //TODO: Cargar imágenes guardadas
     }
 
-    function startMap() {
-      $timeout(function () {
-        vm.currentTemplate = "location";
-      },300);
-
-      getUserLocation();
+    function handleTemplateLocation(templateURL) {
+      switch (templateURL){
+        case "location":
+          $timeout(function () {
+            vm.refresh = true;
+          },300);
+          break;
+        default:
+          vm.refresh = false;
+      }
     }
 
     loadCountries();
