@@ -1,0 +1,9 @@
+<a ng-style="linkStyle" ng-click="showList($event)">
+  <ng-pluralize count="list.length" offset=2
+                when="{
+                         '1': '{{list[0]}}',
+                         '2': '{{list[0]}}, {{list[1]}}',
+                         'one': '{{list[0]}}, {{list[1]}}, ... +1',
+                         'other': '{{list[0]}}, {{list[1]}}, ... +{}'}">
+  </ng-pluralize>
+</a>

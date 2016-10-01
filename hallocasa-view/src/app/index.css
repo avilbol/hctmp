@@ -77,6 +77,15 @@ md-card-title-media{
   height: calc(70vh - 88px);
 }
 
+.header-background > header{
+  position: absolute;
+  z-index: 0;
+}
+
+.header-background > div{
+  z-index: 1
+}
+
 header {
   position: relative;
   display: block;
@@ -100,7 +109,7 @@ header .intro-content {
 
 @media (min-width: 1024px) {
   .header-image{
-	background-position-y: -260px;
+	  background-position-y: -199px;
   }
 }
 

@@ -6,9 +6,13 @@
     .controller('PublicProfileController', PublicProfileController);
 
   /** @ngInject */
-  function PublicProfileController(LandingService) {
+  function PublicProfileController(ProfilesService, ImageValidatorService) {
     var vm = this;
+    vm.validateImage = ImageValidatorService.validateBase64;
 
-    vm.profiles = LandingService.getProfiles();
+    ProfilesService.loadPublicProfile()
+      .then(function (profiles) {
+        vm.profiles = profiles;
+      });
   }
 })();
