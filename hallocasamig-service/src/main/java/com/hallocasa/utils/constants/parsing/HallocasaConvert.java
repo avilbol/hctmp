@@ -44,6 +44,9 @@ public class HallocasaConvert <U, V> {
 	
 	@SuppressWarnings("unchecked")
 	public static <U, V> U toValueObject(V entity){
+		if (entity == null){
+			return null;
+		}
 		Class<U> voEquivalence = null;
 		for(Class<?> valueObject : clazzEquivalenceMap.keySet()){
 			Class<U> value = (Class<U>) valueObject;

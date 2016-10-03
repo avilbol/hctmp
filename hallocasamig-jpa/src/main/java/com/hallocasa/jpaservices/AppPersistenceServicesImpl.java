@@ -37,7 +37,7 @@ import com.hallocasa.jpaservices.i.AppPersistenceServices;
 @Stateless
 public class AppPersistenceServicesImpl implements AppPersistenceServices {
 
-    @PersistenceContext(unitName = "App")
+    @PersistenceContext(unitName = "MyApp")
     private EntityManager em;
     private static final Logger LOG = Logger.getLogger(AppPersistenceServicesImpl.class.getName());
 
