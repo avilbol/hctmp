@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.hallocasa.entities.EntityExample;
+import com.hallocasa.entities.security.EntityAuthorizationCode;
 import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.utils.constants.parsing.i.Parser;
 import com.hallocasa.vo.Example;
+import com.hallocasa.vo.security.AuthorizationCode;
 
 public class HallocasaConvert <U, V> {
 
@@ -19,6 +21,7 @@ public class HallocasaConvert <U, V> {
 	 */
 	static{
 		 clazzEquivalenceMap.put(Example.class, EntityExample.class);
+		 clazzEquivalenceMap.put(AuthorizationCode.class, EntityAuthorizationCode.class);
 	}
 	
 	/**
