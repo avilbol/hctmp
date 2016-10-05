@@ -9,7 +9,7 @@ public class SecurityToken {
 	
 	private String tokenValue;
 	private Date registered;
-	private int expiresIn;
+	private long expiresIn;
 
 	public String getTokenValue() {
 		return tokenValue;
@@ -27,11 +27,11 @@ public class SecurityToken {
 		this.registered = registered;
 	}
 
-	public int getExpiresIn() {
+	public long getExpiresIn() {
 		return expiresIn;
 	}
 
-	public void setExpiresIn(int expiresIn) {
+	public void setExpiresIn(long expiresIn) {
 		this.expiresIn = expiresIn;
 	}
 }

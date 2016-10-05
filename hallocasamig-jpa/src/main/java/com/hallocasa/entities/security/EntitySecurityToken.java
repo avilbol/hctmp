@@ -38,7 +38,7 @@ public class EntitySecurityToken implements HallocasaEntity{
 	private Date registered;
 	
 	@Column(name = "expires_in")
-	private int expiresIn;
+	private long expiresIn;
 
 	public int getId() {
 		return id;
@@ -64,11 +64,11 @@ public class EntitySecurityToken implements HallocasaEntity{
 		this.registered = registered;
 	}
 
-	public int getExpiresIn() {
+	public long getExpiresIn() {
 		return expiresIn;
 	}
 
-	public void setExpiresIn(int expiresIn) {
+	public void setExpiresIn(long expiresIn) {
 		this.expiresIn = expiresIn;
 	}
 }

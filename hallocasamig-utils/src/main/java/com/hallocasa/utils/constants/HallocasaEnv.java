@@ -9,4 +9,6 @@ public class HallocasaEnv {
 	
 	public static final Integer SECURITY_TOKEN_LENGTH = 32;
 	
+	public static final Long MILISECONDS_TOKEN_EXPIRES_IN = 900000l;
+	
 }

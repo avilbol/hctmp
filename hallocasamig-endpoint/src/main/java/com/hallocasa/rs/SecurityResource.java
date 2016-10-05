@@ -32,7 +32,9 @@ import org.apache.oltu.oauth2.common.message.types.ResponseType;
 import org.apache.oltu.oauth2.common.utils.OAuthUtils;
 
 import com.hallocasa.services.security.AuthorizationCodeService;
+import com.hallocasa.services.security.SecurityTokenService;
 import com.hallocasa.vo.security.AuthorizationCode;
+import com.hallocasa.vo.security.SecurityToken;
 
 import io.swagger.annotations.OAuth2Definition;
 
@@ -41,7 +43,10 @@ public class SecurityResource {
 
 	@EJB
 	AuthorizationCodeService authCodeService;
-	
+
+	@EJB
+	SecurityTokenService securityTokenService;
+
 	@GET
 	@Path("/auth")
 	@Produces("application/json")
@@ -75,56 +80,41 @@ public class SecurityResource {
 	@POST
 	@Path("/token")
 	@Consumes("application/x-www-form-urlencoded")
-    @Produces("application/json")
+	@Produces("application/json")
 	public Response loadToken(@Context HttpServletRequest request) throws URISyntaxException, OAuthSystemException {
-		  OAuthTokenRequest oauthRequest = null;
+		OAuthTokenRequest oauthRequest = null;
+		OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
+		oauthIssuerImpl.accessToken();
+		try {
+			oauthRequest = new OAuthTokenRequest(request);
+			String authCode = oauthRequest.getParam(OAuth.OAUTH_CODE);
+			String clientId = oauthRequest.getParam(OAuth.OAUTH_CLIENT_ID);
+			// check if client id and authorization code is valid
+			if (!authCodeService.find(clientId, authCode).isPresent()) {
+				OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
+						.setError(OAuthError.TokenResponse.INVALID_CLIENT)
+						.setErrorDescription("client_id or authorization code not found").buildJSONMessage();
+				return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
+			}
+			// check username and password
+			// TODO : create integration with service that validates user and password
+			if (!"admin".equals(oauthRequest.getPassword()) || !"admin".equals(oauthRequest.getUsername())) {
+				OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
+						.setError(OAuthError.TokenResponse.INVALID_GRANT)
+						.setErrorDescription("invalid username or password").buildJSONMessage();
+				return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
+			}
+			SecurityToken token = securityTokenService.generate();
+			OAuthResponse response = OAuthASResponse.tokenResponse(HttpServletResponse.SC_OK)
+					.setAccessToken(token.getTokenValue()).setExpiresIn(String.valueOf(token.getExpiresIn()))
+					.buildJSONMessage();
+			return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
+		} catch (OAuthProblemException e) {
+			OAuthResponse res = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST).error(e)
+					.buildJSONMessage();
+			return Response.status(res.getResponseStatus()).entity(res.getBody()).build();
+		}
 
-	        OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
-
-	        try {
-	            oauthRequest = new OAuthTokenRequest(request);
-	            
-	            //check if clientid is valid
-	            if (!"abcdef".equals(oauthRequest.getParam(OAuth.OAUTH_CLIENT_ID))) {
-	                OAuthResponse response =
-	                    OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-	                        .setError(OAuthError.TokenResponse.INVALID_CLIENT).setErrorDescription("client_id not found")
-	                        .buildJSONMessage();
-	                return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
-	            }
-
-	
-	            
-	            OAuthError error = new OAuthError.TokenResponse().
-	            
-	            //do checking for different grant types
-	            if (oauthRequest.getParam(OAuth.OAUTH_GRANT_TYPE)
-	                .equals(GrantType.PASSWORD.toString())) {
-	                if (!"cde".equals(oauthRequest.getPassword())
-	                    || !"fgh".equals(oauthRequest.getUsername())) {
-	                    OAuthResponse response = OAuthASResponse
-	                        .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-	                        .setError(OAuthError.TokenResponse.INVALID_GRANT)
-	                        .setErrorDescription("invalid username or password")
-	                        .buildJSONMessage();
-	                    return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
-	                }
-	            } 
-
-	            OAuthResponse response = OAuthASResponse
-	                .tokenResponse(HttpServletResponse.SC_OK)
-	                .setAccessToken(oauthIssuerImpl.accessToken())
-	                .setExpiresIn("3600")
-	                .buildJSONMessage();
-
-	            return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
-	        } catch (OAuthProblemException e) {
-	            OAuthResponse res = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST).error(e)
-	                .buildJSONMessage();
-	            return Response.status(res.getResponseStatus()).entity(res.getBody()).build();
-	        }
-			
-			
 	}
 
 }

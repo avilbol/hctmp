@@ -1,17 +1,22 @@
 package com.hallocasa.services.security.imp;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 import javax.ejb.EJB;
 
+import org.apache.oltu.oauth2.as.issuer.MD5Generator;
+import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
+import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
+import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
+
 import com.hallocasa.dao.i.security.IDAOSecurityToken;
 import com.hallocasa.entities.security.EntitySecurityToken;
 import com.hallocasa.services.security.SecurityTokenService;
+import com.hallocasa.utils.constants.HallocasaEnv;
 import com.hallocasa.utils.constants.errormessages.SecurityTokenError;
 import com.hallocasa.utils.constants.exceptions.SecurityException;
+import com.hallocasa.utils.constants.parsing.HallocasaConvert;
 import com.hallocasa.vo.security.SecurityToken;
 
 public class SecurityTokenImp implements SecurityTokenService {
@@ -36,12 +41,22 @@ public class SecurityTokenImp implements SecurityTokenService {
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * {@inheritDoc} 
 	 */
 	@Override
-	public SecurityToken generate() {
-		// TODO Auto-generated method stub
-		return null;
+	public SecurityToken generate() throws OAuthSystemException {
+		OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
+        String candidateToken = null;
+        do{
+        	candidateToken = oauthIssuerImpl.accessToken();
+        }
+        while(daoSecurityToken.find(candidateToken).isPresent());
+        EntitySecurityToken entSecToken = new EntitySecurityToken();
+        entSecToken.setTokenValue(candidateToken);
+        entSecToken.setRegistered(new Date());
+        entSecToken.setExpiresIn(HallocasaEnv.MILISECONDS_TOKEN_EXPIRES_IN);
+        daoSecurityToken.save(entSecToken);
+        return HallocasaConvert.<SecurityToken, EntitySecurityToken>toValueObject(entSecToken);
 	}
 
 }

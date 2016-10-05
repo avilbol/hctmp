@@ -1,5 +1,7 @@
 package com.hallocasa.services.security;
 
+import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
+
 import com.hallocasa.utils.constants.exceptions.SecurityException;
 import com.hallocasa.vo.security.SecurityToken;
 
@@ -21,6 +23,8 @@ public interface SecurityTokenService {
 	 * Creates new token and assign a time of expiration
 	 * @return
 	 * 		The token generated
+	 * @throws OAuthSystemException
+	 * 		If there are problems when generating token
 	 */
-	SecurityToken generate();
+	SecurityToken generate() throws OAuthSystemException;
 }
