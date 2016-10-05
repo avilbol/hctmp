@@ -34,6 +34,8 @@ import org.apache.oltu.oauth2.common.utils.OAuthUtils;
 import com.hallocasa.services.security.AuthorizationCodeService;
 import com.hallocasa.vo.security.AuthorizationCode;
 
+import io.swagger.annotations.OAuth2Definition;
+
 @Path("/security")
 public class SecurityResource {
 
@@ -91,18 +93,12 @@ public class SecurityResource {
 	                return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
 	            }
 
+	
+	            
+	            OAuthError error = new OAuthError.TokenResponse().
+	            
 	            //do checking for different grant types
 	            if (oauthRequest.getParam(OAuth.OAUTH_GRANT_TYPE)
-	                .equals(GrantType.AUTHORIZATION_CODE.toString())) {
-	                if (!"234".equals(oauthRequest.getParam(OAuth.OAUTH_CODE))) {
-	                    OAuthResponse response = OAuthASResponse
-	                        .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-	                        .setError(OAuthError.TokenResponse.INVALID_GRANT)
-	                        .setErrorDescription("invalid authorization code")
-	                        .buildJSONMessage();
-	                    return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
-	                }
-	            } else if (oauthRequest.getParam(OAuth.OAUTH_GRANT_TYPE)
 	                .equals(GrantType.PASSWORD.toString())) {
 	                if (!"cde".equals(oauthRequest.getPassword())
 	                    || !"fgh".equals(oauthRequest.getUsername())) {
@@ -113,15 +109,7 @@ public class SecurityResource {
 	                        .buildJSONMessage();
 	                    return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
 	                }
-	            } else if (oauthRequest.getParam(OAuth.OAUTH_GRANT_TYPE)
-	                .equals(GrantType.REFRESH_TOKEN.toString())) {
-	                OAuthResponse response = OAuthASResponse
-	                    .errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-	                    .setError(OAuthError.TokenResponse.INVALID_GRANT)
-	                    .setErrorDescription("invalid username or password")
-	                    .buildJSONMessage();
-	                return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
-	            }
+	            } 
 
 	            OAuthResponse response = OAuthASResponse
 	                .tokenResponse(HttpServletResponse.SC_OK)
