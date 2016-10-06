@@ -17,11 +17,11 @@ public class ExampleServiceImp implements ExampleService {
 
 	@Override
 	public Example findById(Integer code) {
-		return HallocasaConvert.<Example, EntityExample>toValueObject(daoExampler.findByCode(code));
+		return (Example) HallocasaConvert.toValueObject(daoExampler.findByCode(code));
 	}
 
 	@Override
 	public boolean save(Example example) {
-		return daoExampler.saveExample(HallocasaConvert.<Example, EntityExample>toEntity(example));
+		return daoExampler.saveExample((EntityExample) HallocasaConvert.toEntity(example));
 	}
 }

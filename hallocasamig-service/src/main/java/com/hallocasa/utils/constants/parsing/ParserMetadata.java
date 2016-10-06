@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.hallocasa.entities.EntityExample;
+import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.entities.security.EntityAuthorizationCode;
 import com.hallocasa.utils.constants.parsing.i.Parser;
 import com.hallocasa.vo.Example;
+import com.hallocasa.vo.i.ValueObject;
 import com.hallocasa.vo.security.AuthorizationCode;
 
 public class ParserMetadata {
@@ -27,8 +29,21 @@ public class ParserMetadata {
 	 * Place here customized parsers
 	 */
 	static{
-		// TODO : Place here customized parsers
-		parserMap.put(Example.class, new DeeperParser<Example, EntityExample>());
+		parserMap.put(Example.class, new DeeperParser());
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static <U,V> Parser<U, V> getParser(Class clazz){
+		Parser<U, V> parser = (Parser<U, V>) parserMap.get(clazz);
+		return parser != null ? parser : (Parser<U, V>) new DefaultParser();
+	}
+	
+	public static void main(String[] args){
+		Parser<ValueObject, HallocasaEntity> parser = ParserMetadata.<ValueObject, HallocasaEntity>getParser(Example.class);
+		Example example = new Example();
+		example.setDescription("desc");
+		example.setIdentifier(2);
+		EntityExample entityExample = (EntityExample) parser.toEntity((ValueObject)new Example(), EntityExample.class);
+		System.out.println(entityExample.getDescription());
+	}
 }

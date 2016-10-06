@@ -2,8 +2,10 @@ package com.hallocasa.utils.constants.parsing;
 
 import static org.apache.commons.beanutils.BeanUtils.copyProperties;
 
+import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.utils.constants.parsing.i.Parser;
+import com.hallocasa.vo.i.ValueObject;
 
 /**
  * Class to implement the parse between vo's and entities
@@ -12,29 +14,26 @@ import com.hallocasa.utils.constants.parsing.i.Parser;
  * @param <U>
  * @param <V>
  */
-public class DefaultParser<U, V> implements Parser<U,V> {
+public class DefaultParser implements Parser<ValueObject, HallocasaEntity> {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public V toEntity(U valueObject, Class<V> clazz){
+	@Override
+	public ValueObject toValueObject(HallocasaEntity entity, Class<?> clazz) {
 		try{
-			V entity = clazz.newInstance();
-			copyProperties(entity, valueObject);
-			return entity;
+			ValueObject valueObject = (ValueObject) clazz.newInstance();
+			copyProperties(valueObject, entity);
+			return valueObject;
 		} catch(Exception e){
 			throw new FatalException("Ha ocurrido un error inesperado", e);
 		} 
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	public U toValueObject(V entity, Class<U> clazz){
+
+	@Override
+	public HallocasaEntity toEntity(ValueObject valueObject, Class<?> clazz) {
 		try{
-			U valueObject = clazz.newInstance();
-			copyProperties(valueObject, entity);
-			return valueObject;
+			HallocasaEntity entity = clazz.newInstance();
+			System.out.println(valueObject.);
+			copyProperties(entity, valueObject);
+			return entity;
 		} catch(Exception e){
 			throw new FatalException("Ha ocurrido un error inesperado", e);
 		} 

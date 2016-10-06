@@ -56,7 +56,7 @@ public class SecurityTokenImp implements SecurityTokenService {
         entSecToken.setRegistered(new Date());
         entSecToken.setExpiresIn(HallocasaEnv.MILISECONDS_TOKEN_EXPIRES_IN);
         daoSecurityToken.save(entSecToken);
-        return HallocasaConvert.<SecurityToken, EntitySecurityToken>toValueObject(entSecToken);
+        return (SecurityToken) HallocasaConvert.toValueObject(entSecToken);
 	}
 
 }

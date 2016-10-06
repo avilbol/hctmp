@@ -5,7 +5,7 @@ import java.util.Optional;
 import com.hallocasa.vo.security.AuthorizationCode;
 
 /**
- * Contract to class {@link AuthorizationCode}
+ * Contract of class {@link AuthorizationCode}
  */
 public interface AuthorizationCodeService {
 

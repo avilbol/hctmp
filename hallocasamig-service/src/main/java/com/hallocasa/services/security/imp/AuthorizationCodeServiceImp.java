@@ -29,7 +29,7 @@ public class AuthorizationCodeServiceImp implements AuthorizationCodeService {
 	@Override
 	public Optional<AuthorizationCode> find(String clientId, String authorizationCode) {
 		EntityAuthorizationCode antAuthCode =  daoAuthorizationCode.find(clientId, authorizationCode).get();
-		AuthorizationCode authCode = HallocasaConvert.<AuthorizationCode, EntityAuthorizationCode>toValueObject(antAuthCode);
+		AuthorizationCode authCode = (AuthorizationCode) HallocasaConvert.toValueObject(antAuthCode);
 		return Optional.of(authCode);
 	}
 
@@ -47,14 +47,14 @@ public class AuthorizationCodeServiceImp implements AuthorizationCodeService {
 		} while(authCodeIncompatible);
 		EntityAuthorizationCode clientAuthCode = buildAuthCode(clientId, authCodeCandidate);
 		daoAuthorizationCode.save(clientAuthCode);
-		return HallocasaConvert.<AuthorizationCode, EntityAuthorizationCode>toValueObject(clientAuthCode);
+		return (AuthorizationCode) HallocasaConvert.toValueObject(clientAuthCode);
 	}
 	
 	private EntityAuthorizationCode buildAuthCode(String clientId, String authCodeCandidate){
 		Optional<EntityAuthorizationCode> optClientAuthCode = daoAuthorizationCode.find(clientId, null);
 		if(!optClientAuthCode.isPresent()){
 			AuthorizationCode authCode = new AuthorizationCode(clientId, authCodeCandidate);
-			return HallocasaConvert.<AuthorizationCode, EntityAuthorizationCode>toEntity(authCode);
+			return (EntityAuthorizationCode) HallocasaConvert.toEntity(authCode);
 		}
 		else{
 			return optClientAuthCode.get();

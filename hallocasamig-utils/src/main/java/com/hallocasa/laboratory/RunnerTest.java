@@ -15,15 +15,19 @@ public class RunnerTest {
 		BeanUtilsBean bub = new BeanUtilsBean();
 		bub.setProperty(parentTransform, "description", parent.getDescription());
 		
+		//Field[] fields = ParentTransform.class.getDeclaredFields();
+		
 		Map<String, Object> voProperties = PropertyUtils.describe(parent);
-		Map<String, Object> entityProperties = PropertyUtils.getMappedPropertyDescriptors(parent);
+		//Map<String, Object> entityProperties = PropertyUtils.getMappedPropertyDescriptors(parent);
 
+		PropertyUtils propertyUtils = new PropertyUtils();
+		String entityClass = propertyUtils.getPropertyType(parentTransform, "identifier").toString();
 		for (String propertyName : voProperties.keySet()) {
 			System.out.println(voProperties.get(propertyName).getClass());
-			System.out.println(entityProperties.get(propertyName).getClass());
-			if(!voProperties.get(propertyName).getClass().equals(entityProperties.get(propertyName).getClass())){
+			//System.out.println(entityProperties.get(propertyName).getClass());
+			/*if(!voProperties.get(propertyName).getClass().equals(entityProperties.get(propertyName).getClass())){
 				System.out.println("diff!!");
-			}
+			}*/
 		}
 	}
 	
