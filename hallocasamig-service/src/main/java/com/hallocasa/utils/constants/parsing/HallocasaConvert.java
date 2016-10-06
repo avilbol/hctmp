@@ -3,7 +3,6 @@ package com.hallocasa.utils.constants.parsing;
 import static com.hallocasa.utils.constants.parsing.ParserMetadata.clazzEquivalenceMap;
 import static com.hallocasa.utils.constants.parsing.ParserMetadata.parserMap;
 
-import com.hallocasa.entities.EntityExample;
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.utils.constants.parsing.i.Parser;
@@ -47,9 +46,4 @@ public class HallocasaConvert {
 		}
 		return parser.toValueObject(entity, voEquivalence);
 	}
-	
-	public static void main(String[] args){
-		HallocasaConvert.toValueObject(new EntityExample());
-	}
-	
 }
