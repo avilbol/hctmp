@@ -5,11 +5,13 @@
 		.module('HalloCasa.session')
 		.controller('LoginController', LoginController);
 
-	function LoginController(LoginService, toastr, $mdDialog, $log) {
+	function LoginController(LoginService, toastr, $mdDialog, $log, textArea, allowClose) {
 		var vm = this;
 		vm.userData = {};
 		vm.login = login;
     vm.closeDialog = closeDialog;
+    vm.textArea = textArea;
+    vm.allowClose = allowClose;
 
 		function login(){
 			LoginService.makeLogin(vm.userData)

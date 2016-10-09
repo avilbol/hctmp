@@ -2,7 +2,7 @@
   <div layout="row" layout-align="center" class="header-background">
     <header class="header-image"></header>
     <div flex-gt-sm="70" flex-gt-xs="80" flex-xs="100">
-      <md-card ng-repeat="profile in vm.profiles">
+      <md-card ng-repeat="profile in vm.profiles" ng-click="vm.viewProfile(profile.id)">
         <md-card-title layout="row" layout-align="space-between start">
           <md-card-title-media>
             <div class="md-media-md card-media">

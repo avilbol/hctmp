@@ -3,7 +3,7 @@
     <div class="md-toolbar-tools">
       <h2>{{'Login.Dialog.Title' | translate}}</h2>
       <span flex></span>
-      <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+      <md-button class="md-icon-button" ng-click="vm.closeDialog()" ng-if="vm.allowClose">
         <i class="material-icons">close</i>
       </md-button>
     </div>
@@ -11,6 +11,7 @@
   <form name="loginForm" novalidate ng-submit="editProfileForm.$valid && true">
     <md-dialog-content>
       <md-content class="md-padding">
+        <span>{{vm.textArea}}</span>
         <md-input-container  class="md-block">
           <label>{{'Login.Form.Email' | translate}}</label>
           <input name="email" ng-model="vm.userData.email" type="email" ng-required="true">

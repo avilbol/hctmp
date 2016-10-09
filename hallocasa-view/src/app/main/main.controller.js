@@ -31,6 +31,10 @@
         controllerAs: "vm",
         templateUrl: 'app/session/login/login.html',
         parent: $document.body,
+        locals: {
+          textArea: "",
+          allowClose: true
+        },
         targetEvent: ev,
         clickOutsideToClose:true,
         fullscreen: useFullScreen
