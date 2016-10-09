@@ -12,19 +12,31 @@
           </md-card-title-media>
           <md-card-title-text>
             <span class="md-headline">{{profile.name}}</span>
-            <span class="md-subhead">{{profile.country}}, {{profile.state}}, {{profile.city}}</span>
-            <span class="md-subhead" ng-if="profile.telephone">
-              +{{profile.telephone.extension}} {{profile.telephone.number}}
+
+            <span class="md-subhead" hide-gt-sm hide-xs>
+              {{profile.city}}, {{profile.country}}
             </span>
-            <div layout="column" layout-align="space-between" class="md-subhead">
-                <pluralize list="profile.languages" title="{{'Profile.Data.Languages.Label' | translate}}"></pluralize>
-                <pluralize list="profile.profession" title="{{'Profile.Data.Services.Label' | translate}}"></pluralize>
+
+            <div layout="row" class="md-subhead" hide-sm>
+              <item-list tablet-items="2" desktop-items="3" list="profile.languages"></item-list>
             </div>
+            <div layout="row">
+              <div class="md-subhead" flex-gt-sm="20" flex-gt-xs="30" flex-xs="50">
+                <item-list tablet-items="2" desktop-items="3" list="profile.profession" display="column"></item-list>
+              </div>
+              <div class="md-subhead" flex-gt-sm="20" flex-gt-xs="30" flex-xs="50" hide-gt-sm hide-xs>
+                <item-list tablet-items="2" desktop-items="3" list="profile.languages" display="column"></item-list>
+              </div>
+              <div layout="column" hide-sm flex>
+                <text-limiter text="profile.description" tablet-limit="200"></text-limiter>
+              </div>
+            </div>
+
           </md-card-title-text>
         </md-card-title>
         <div class="md-padding">
-          {{profile.description | limitTo : 200}}
-          {{profile.description.length > 200 ? '...' : ''}}
+          <span class="md-subhead" hide-sm>{{profile.city}}, {{profile.country || 'N/A'}}</span>
+          <text-limiter flex hide-gt-sm hide-xs text="profile.description" tablet-limit="200"></text-limiter>
         </div>
       </md-card>
     </div>

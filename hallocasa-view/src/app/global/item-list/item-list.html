@@ -1,0 +1,25 @@
+<div layout="row" ng-if="display === 'row'">
+  <div ng-repeat="itemList in viewList track by $index">
+    <span>{{itemList}}</span>
+    <span ng-if="$index < viewList.length - 1 ">,&nbsp;</span>
+  </div>
+  <span ng-repeat-end ng-if="list.length > maxItems">
+    , {{'PublicProfile.Widget.ViewMore'| translate}}
+  </span>
+</div>
+
+<div ng-if="display === 'column'" layout="column">
+  <span ng-repeat="itemList in viewList track by $index">&#8259; {{itemList}}</span>
+  <span ng-repeat-end ng-if="list.length > maxItems">
+    &#8259; {{'PublicProfile.Widget.ViewMore'| translate}}
+  </span>
+</div>
+
+<md-tooltip>
+  <div layout="row">
+    <div ng-repeat="itemList in list">
+      <span>{{itemList}}</span>
+      <span ng-if="$index < list.length - 1 ">,&nbsp;</span>
+    </div>
+  </div>
+</md-tooltip>
