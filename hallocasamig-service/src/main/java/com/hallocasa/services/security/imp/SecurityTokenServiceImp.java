@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
@@ -19,7 +20,8 @@ import com.hallocasa.utils.constants.exceptions.SecurityException;
 import com.hallocasa.utils.constants.parsing.HallocasaConvert;
 import com.hallocasa.vo.security.SecurityToken;
 
-public class SecurityTokenImp implements SecurityTokenService {
+@Stateless
+public class SecurityTokenServiceImp implements SecurityTokenService {
 
 	@EJB
 	private IDAOSecurityToken daoSecurityToken;

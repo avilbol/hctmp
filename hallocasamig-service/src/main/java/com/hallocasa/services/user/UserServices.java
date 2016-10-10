@@ -11,8 +11,6 @@ import com.hallocasa.utils.constants.exceptions.ServiceException;
 import com.hallocasa.utils.strategies.StrategySort;
 import com.hallocasa.vo.User;
 
-
-
 /**
  * Service class for users of system hallocasa
  */

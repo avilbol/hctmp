@@ -9,11 +9,13 @@ import com.hallocasa.entities.EntityComposedExample;
 import com.hallocasa.entities.EntityExample;
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.i.HallocasaEntity;
+import com.hallocasa.entities.security.EntityAuthorizationCode;
 import com.hallocasa.utils.constants.parsing.i.Parser;
 import com.hallocasa.vo.ComposedExample;
 import com.hallocasa.vo.Example;
 import com.hallocasa.vo.User;
 import com.hallocasa.vo.i.ValueObject;
+import com.hallocasa.vo.security.AuthorizationCode;
 
 public class ParserMetadata {
 
@@ -26,6 +28,7 @@ public class ParserMetadata {
 	 */
 	static {
 		clazzEquivalenceMap.put(Example.class, EntityExample.class);
+		clazzEquivalenceMap.put(AuthorizationCode.class, EntityAuthorizationCode.class);
 		clazzEquivalenceMap.put(ComposedExample.class, EntityComposedExample.class);
 		clazzEquivalenceMap.put(User.class, EntityUser.class);
 	}

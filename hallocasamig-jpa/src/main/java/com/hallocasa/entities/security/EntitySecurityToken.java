@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.utils.constants.Tables;
@@ -35,6 +37,7 @@ public class EntitySecurityToken implements HallocasaEntity{
 	private String tokenValue;
 	
 	@Column(name = "registered")
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date registered;
 	
 	@Column(name = "expires_in")

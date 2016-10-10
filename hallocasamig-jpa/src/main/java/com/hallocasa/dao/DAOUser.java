@@ -3,6 +3,7 @@ package com.hallocasa.dao;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import com.hallocasa.dao.i.IDAOUser;
 import com.hallocasa.entities.EntityUser;
@@ -10,6 +11,7 @@ import com.hallocasa.jpaservices.i.AppPersistenceServices;
 import com.hallocasa.utils.constants.exceptions.ServiceException;
 import com.hallocasa.utils.strategies.StrategySort;
 
+@Stateless
 public class DAOUser implements IDAOUser {
 
 	@EJB

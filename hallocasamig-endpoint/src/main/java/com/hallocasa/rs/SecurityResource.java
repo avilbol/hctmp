@@ -1,5 +1,6 @@
 package com.hallocasa.rs;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -15,28 +16,32 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
+import org.apache.http.HttpStatus;
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
 import org.apache.oltu.oauth2.as.request.OAuthAuthzRequest;
 import org.apache.oltu.oauth2.as.request.OAuthTokenRequest;
 import org.apache.oltu.oauth2.as.response.OAuthASResponse;
-import org.apache.oltu.oauth2.as.response.OAuthASResponse.OAuthAuthorizationResponseBuilder;
 import org.apache.oltu.oauth2.common.OAuth;
 import org.apache.oltu.oauth2.common.error.OAuthError;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 import org.apache.oltu.oauth2.common.message.OAuthResponse;
-import org.apache.oltu.oauth2.common.message.types.GrantType;
-import org.apache.oltu.oauth2.common.message.types.ResponseType;
 import org.apache.oltu.oauth2.common.utils.OAuthUtils;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
+import com.hallocasa.rs.response.ExceptionResponse;
+import com.hallocasa.services.security.AuthenticationService;
 import com.hallocasa.services.security.AuthorizationCodeService;
-import com.hallocasa.services.security.SecurityTokenService;
+import com.hallocasa.utils.constants.exceptions.FatalException;
+import com.hallocasa.utils.constants.exceptions.InvalidEmailException;
+import com.hallocasa.utils.constants.exceptions.InvalidPasswordLoginException;
+import com.hallocasa.vo.security.AuthInfo;
 import com.hallocasa.vo.security.AuthorizationCode;
-import com.hallocasa.vo.security.SecurityToken;
-
-import io.swagger.annotations.OAuth2Definition;
+import com.hallocasa.vo.security.UserCredentials;
 
 @Path("/security")
 public class SecurityResource {
@@ -45,7 +50,7 @@ public class SecurityResource {
 	AuthorizationCodeService authCodeService;
 
 	@EJB
-	SecurityTokenService securityTokenService;
+	AuthenticationService authenticationService;
 
 	@GET
 	@Path("/auth")
@@ -55,21 +60,22 @@ public class SecurityResource {
 		try {
 			oauthRequest = new OAuthAuthzRequest(request);
 			String clientId = oauthRequest.getParam(OAuth.OAUTH_CLIENT_ID);
+			String redirectUri = oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI);
+			final Response.ResponseBuilder responseBuilder = Response.status(HttpServletResponse.SC_FOUND);
+			if (OAuthUtils.isEmpty(redirectUri)) {
+				throw new WebApplicationException(
+						responseBuilder.entity("OAuth callback url needs to be provided by client!!!").build());
+			}
 			AuthorizationCode authCode = authCodeService.generate(clientId);
 			OAuthASResponse.OAuthAuthorizationResponseBuilder builder = OAuthASResponse.authorizationResponse(request,
 					HttpServletResponse.SC_FOUND);
 			builder.setCode(authCode.getAuthCode());
-			String redirectURI = oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI);
-			final OAuthResponse response = builder.location(redirectURI).buildQueryMessage();
+			final OAuthResponse response = builder.location(redirectUri).buildQueryMessage();
 			URI url = new URI(response.getLocationUri());
 			return Response.status(response.getResponseStatus()).location(url).build();
 		} catch (OAuthProblemException e) {
 			final Response.ResponseBuilder responseBuilder = Response.status(HttpServletResponse.SC_FOUND);
 			String redirectUri = e.getRedirectUri();
-			if (OAuthUtils.isEmpty(redirectUri)) {
-				throw new WebApplicationException(
-						responseBuilder.entity("OAuth callback url needs to be provided by client!!!").build());
-			}
 			final OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_FOUND).error(e)
 					.location(redirectUri).buildQueryMessage();
 			final URI location = new URI(response.getLocationUri());
@@ -81,7 +87,8 @@ public class SecurityResource {
 	@Path("/token")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public Response loadToken(@Context HttpServletRequest request) throws URISyntaxException, OAuthSystemException {
+	public Response loadToken(@Context HttpServletRequest request) throws URISyntaxException, OAuthSystemException,
+			JsonGenerationException, JsonMappingException, IOException {
 		OAuthTokenRequest oauthRequest = null;
 		OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
 		oauthIssuerImpl.accessToken();
@@ -96,25 +103,21 @@ public class SecurityResource {
 						.setErrorDescription("client_id or authorization code not found").buildJSONMessage();
 				return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
 			}
-			// check username and password
-			// TODO : create integration with service that validates user and password
-			if (!"admin".equals(oauthRequest.getPassword()) || !"admin".equals(oauthRequest.getUsername())) {
-				OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-						.setError(OAuthError.TokenResponse.INVALID_GRANT)
-						.setErrorDescription("invalid username or password").buildJSONMessage();
-				return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
-			}
-			SecurityToken token = securityTokenService.generate();
-			OAuthResponse response = OAuthASResponse.tokenResponse(HttpServletResponse.SC_OK)
-					.setAccessToken(token.getTokenValue()).setExpiresIn(String.valueOf(token.getExpiresIn()))
-					.buildJSONMessage();
-			return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
+			// validate username and password
+			String email = oauthRequest.getUsername();
+			String password = oauthRequest.getPassword();
+			UserCredentials credentials = new UserCredentials(email, password);
+			AuthInfo authInfo = authenticationService.authenticate(credentials);
+			return Response.status(HttpStatus.SC_ACCEPTED).entity(authInfo).build();
 		} catch (OAuthProblemException e) {
 			OAuthResponse res = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST).error(e)
 					.buildJSONMessage();
 			return Response.status(res.getResponseStatus()).entity(res.getBody()).build();
+		} catch (InvalidEmailException e) {
+			return Response.status(HttpStatus.SC_UNAUTHORIZED)
+					.entity(ExceptionResponse.error(e)).build();
+		} catch (InvalidPasswordLoginException e) {
+			return Response.status(HttpStatus.SC_UNAUTHORIZED).entity(e).build();
 		}
-
 	}
-
 }

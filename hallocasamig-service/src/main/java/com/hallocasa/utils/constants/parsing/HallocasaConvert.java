@@ -3,6 +3,8 @@ package com.hallocasa.utils.constants.parsing;
 import static com.hallocasa.utils.constants.parsing.ParserMetadata.clazzEquivalenceMap;
 import static com.hallocasa.utils.constants.parsing.ParserMetadata.parserMap;
 
+import java.util.Optional;
+
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.utils.constants.parsing.i.Parser;
@@ -22,6 +24,13 @@ public class HallocasaConvert {
 			parser = new DefaultParser();
 		}
 		return parser.toEntity(vo, entityEquivalence);
+	}
+	
+	public static Optional<?> toValueObject(Optional<?> entity){
+		if(!entity.isPresent()){
+			return Optional.empty();
+		}
+		return Optional.of(toValueObject((HallocasaEntity)entity.get()));
 	}
 	
 	@SuppressWarnings("unchecked")
