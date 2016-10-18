@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
-                  $mdDateLocaleProvider, paginationTemplateProvider) {
+                  $mdDateLocaleProvider, paginationTemplateProvider, $compileProvider) {
     // Pagination template
     paginationTemplateProvider.setPath('app/global/pagination/pagination.html');
     // Enable log
@@ -37,6 +37,9 @@
     //Icons configuration
     $mdIconProvider
       .icon("flipboard", "assets/icons/Logomark_DIGITAL_White_500X500.svg", 24);
+
+    //URL Sanitization
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype|chrome-extension):/);
 
 
     $mdDateLocaleProvider.months = [

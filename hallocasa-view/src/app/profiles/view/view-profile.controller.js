@@ -6,11 +6,10 @@
     .controller('ViewProfileController', ViewProfileController);
 
   /** @ngInject */
-  function ViewProfileController(ProfilesService, $location, SessionService) {
+  function ViewProfileController(ProfilesService, $location, SessionService, ImageValidatorService, LocationService) {
     var vm = this;
 
-    vm.view = "view-profile";
-
+    vm.validateImage = ImageValidatorService.validateBase64;
 
     function loadProfile() {
       var profileID = $location.search().id;
@@ -19,14 +18,52 @@
       }
       else{
         ProfilesService.loadProfile(profileID)
-          .then(function (profile) {
-            vm.profile = profile;
+          .then(function (userData) {
+            vm.userData = userData;
+            loadStates();
+            loadCities();
           });
       }
+    }
+
+    function loadCities() {
+      var id = vm.userData.profile.state;
+      LocationService.getCityByID(id)
+        .then(function (cities) {
+          vm.cities = cities;
+        })
+        .catch(function (error) {
+          //TODO: Traducción de mensaje de error
+          toastr.info(error, "Error al cargar ciudades");
+        });
+    }
+
+    function loadCountries() {
+      LocationService.getCountries()
+        .then(function (countries) {
+          vm.countries = countries;
+        })
+        .catch(function (error) {
+          //TODO: Traducción de mensaje de error
+          toastr.info(error, "Error al cargar países");
+        });
+    }
+
+    function loadStates() {
+      var id = vm.userData.profile.country;
+      LocationService.getStateByID(id)
+        .then(function (states) {
+          vm.states = states;
+        })
+        .catch(function (error) {
+          //TODO: Traducción de mensaje de error
+          toastr.info(error, "Error al cargar Estados");
+        });
     }
 
     SessionService.validateActiveSession("PublicProfile.PreAuthorize.loginNeeded");
 
     loadProfile();
+    loadCountries();
   }
 })();

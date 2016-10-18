@@ -20,6 +20,7 @@
     vm.deleteProperty = deleteProperty;
     vm.goBack = goBack;
     vm.save = save;
+    vm.propertyShowOptions = {view: true, edit: true, delete: true};
 
     function loadProfile(){
       var profileID = 0;
