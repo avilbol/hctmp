@@ -10,7 +10,7 @@
       getServices: getServices,
       saveProfile: saveProfile,
       loadProfile: loadProfile,
-      loadPublicProfile: loadPublicProfile
+      loadPublicProfiles: loadPublicProfiles
     };
 
     var resources = {
@@ -45,7 +45,8 @@
       return resources.profileLoad.show().$promise;
     }
 
-    function loadPublicProfile() {
+    function loadPublicProfiles(start, finish) {
+      $log.log("Cargar rango de perfiles: ("+start+" - "+finish+")");
       return resources.profilePublic.query().$promise;
     }
   }
