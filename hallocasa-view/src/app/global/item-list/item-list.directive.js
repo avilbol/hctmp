@@ -37,7 +37,9 @@
           if($mdMedia('gt-sm')){ //Desktop
             scope.maxItems = scope.desktopItems;
           }
-          cropList();
+          if(scope.list){
+            cropList();
+          }
         }
 
         function cropList() {
