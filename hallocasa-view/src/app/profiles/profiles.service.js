@@ -10,7 +10,8 @@
       getServices: getServices,
       saveProfile: saveProfile,
       loadProfile: loadProfile,
-      loadPublicProfiles: loadPublicProfiles
+      loadPublicProfiles: loadPublicProfiles,
+      loadPublicProfile: loadPublicProfile
     };
 
     var resources = {
@@ -43,6 +44,10 @@
     function loadProfile(profileID) {
       $log.log("Cargar perfil: (ID: "+profileID+")");
       return resources.profileLoad.show().$promise;
+    }
+
+    function loadPublicProfile() {
+      return resources.profilePublic.query().$promise;
     }
 
     function loadPublicProfiles(start, finish) {

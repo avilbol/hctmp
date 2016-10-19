@@ -16,7 +16,7 @@
                 <i class="fa fa-linkedin" aria-hidden="true"></i>
               </md-button>
               <a ng-if="vm.userData.profile.website" ng-href="{{vm.userData.profile.website}}">
-                {{vm.userData.profile.website}}
+                {{'Profile.Data.Website.Label' | translate}}
               </a>
             </div>
             <div layout="row" layout-align="space-between">
@@ -64,7 +64,7 @@
               <div layout="row" layout-align="start center" ng-if="vm.userData.profile.skype">
                 {{vm.userData.profile.skype}}
                 <md-button class="md-icon-button md-primary" aria-label="social" ng-href="skype:{{vm.userData.profile.skype}}?call">
-                  <i class="fa fa-skype" aria-hidden="true"></i>
+                  <i class="fa fa-skype fa-2x" aria-hidden="true"></i>
                 </md-button>
               </div>
             </div>

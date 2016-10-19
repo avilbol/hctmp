@@ -1,5 +1,5 @@
-@import url(//fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
-/*@import url(//fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext);*/
+/*@import url(//fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);*/
+@import url(//fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext);
 
 @font-face {
   font-family: 'Material Icons';
@@ -34,7 +34,7 @@
 }
 
 html {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Lato', serif;
 }
 
 [layout=row] {
