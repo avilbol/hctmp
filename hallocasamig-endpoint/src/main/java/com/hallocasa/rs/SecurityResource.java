@@ -31,14 +31,13 @@ import org.apache.oltu.oauth2.common.message.OAuthResponse;
 import org.apache.oltu.oauth2.common.utils.OAuthUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 
 import com.hallocasa.rs.response.ExceptionResponse;
 import com.hallocasa.services.security.AuthenticationService;
 import com.hallocasa.services.security.AuthorizationCodeService;
-import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.utils.constants.exceptions.InvalidEmailException;
 import com.hallocasa.utils.constants.exceptions.InvalidPasswordLoginException;
+import com.hallocasa.utils.security.EncryptionUtils;
 import com.hallocasa.vo.security.AuthInfo;
 import com.hallocasa.vo.security.AuthorizationCode;
 import com.hallocasa.vo.security.UserCredentials;
@@ -96,6 +95,12 @@ public class SecurityResource {
 			oauthRequest = new OAuthTokenRequest(request);
 			String authCode = oauthRequest.getParam(OAuth.OAUTH_CODE);
 			String clientId = oauthRequest.getParam(OAuth.OAUTH_CLIENT_ID);
+			if(authCode == null){
+				OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
+						.setError(OAuthError.TokenResponse.INVALID_CLIENT)
+						.setErrorDescription("authorization code not supplied").buildJSONMessage();
+				return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
+			}
 			// check if client id and authorization code is valid
 			if (!authCodeService.find(clientId, authCode).isPresent()) {
 				OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)

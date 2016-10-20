@@ -1,7 +1,9 @@
 package com.hallocasa.utils.constants.parsing;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -130,7 +132,7 @@ public class DefaultParser implements Parser<ValueObject, HallocasaEntity> {
 		Object propertyToSet = null;
 		Class<?> voClazz = getPropertyType(vo, propertyName);
 		Class<?> entClazz = getPropertyType(entity, propertyName);
-		boolean equalClazz = voClazz.equals(entClazz);
+		boolean equalClazz = voClazz != null && entClazz != null && voClazz.equals(entClazz);
 		Class<?> parserEntClazz = clazzEquivalenceMap.get(voClazz);
 		boolean parserExistent = parserEntClazz != null && parserEntClazz.equals(entClazz);
 		boolean allowCasting = getWrapperTypes().contains(voClazz) && getWrapperTypes().contains(entClazz);
