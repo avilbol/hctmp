@@ -28,6 +28,7 @@
 	"Common.UnexpectedError.Message":"Unexpected error",
 	"Common.TelephoneNumber.Prefix":"Country Code",
 	"GlobalMenu.GoToProfile":"My Profile",
+  "GlobalMenu.GoToProperties":"My Properties",
 	"Header.SignUp.Button":"Publish your profile",
 	"Header.Login.Button":"Login",
 	"Header.Logout.Button":"Logout",

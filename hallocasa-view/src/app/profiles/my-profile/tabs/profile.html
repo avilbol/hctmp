@@ -20,7 +20,7 @@
         </md-card-content>
       </md-card>
 
-      <md-card>
+      <md-card ng-if="vm.userData.profile.services.length > 0">
         <md-card-title layout="row" layout-align="center center">
           <md-card-title-media>
             <span class="md-headline">{{'Profile.Service.Panel.Title' | translate}}</span>
