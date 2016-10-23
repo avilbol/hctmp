@@ -6,7 +6,7 @@
     .controller('ViewProfileController', ViewProfileController);
 
   /** @ngInject */
-  function ViewProfileController(ProfilesService, $location, SessionService, ImageValidatorService, LocationService) {
+  function ViewProfileController(ProfilesService, $location, SessionService, ImageValidatorService, LocationService, toastr) {
     var vm = this;
 
     vm.validateImage = ImageValidatorService.validateBase64;

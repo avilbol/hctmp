@@ -18,33 +18,13 @@
       $location.search('id', id);
     }
 
-
-
-    // vm.profiles = {
-    //   getItemAtIndex: function(index) {
-    //     var profilesLoaded = vm.loadedProfiles.length;
-    //     if (index > profilesLoaded) {
-    //       ProfilesService.loadPublicProfiles(profilesLoaded, profilesLoaded + 10)
-    //         .then(function (profiles) {
-    //           vm.loadedProfiles= _.union(vm.loadedProfiles, profiles);
-    //         });
-    //       return null;
-    //     }
-    //
-    //     return vm.loadedProfiles[index];
-    //   },
-    //   getLength: function() {
-    //     return vm.loadedProfiles.length + 5;
-    //   }
-    // };
-
     vm.profiles = {
       toLoad_: 0,
 
       // Required.
       getItemAtIndex: function(index) {
         if (index > vm.loadedProfiles.length) {
-          this.fetchMoreItems_(index);
+          vm.profiles.fetchMoreItems_(index);
           return null;
         }
 
