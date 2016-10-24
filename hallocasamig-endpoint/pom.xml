@@ -2,10 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>com.hallocasa</groupId>
 	<artifactId>hallocasamig-endpoint</artifactId>
-	<version>1.1.0</version>
 	<packaging>war</packaging>
 
 	<name>hallocasamig-endpoint</name>
@@ -13,6 +10,7 @@
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<war.name>${war.location}/${project.build.finalName}.war</war.name>
 	</properties>
 
 	<dependencies>
@@ -56,34 +54,45 @@
 
 	<build>
 		<plugins>
-
-
 			<plugin>
-				<groupId>org.glassfish.maven.plugin</groupId>
-				<artifactId>maven-glassfish-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<glassfishDirectory>${local.glassfish.home}</glassfishDirectory>
-					<user>admin</user>
-					<passwordFile>${local.glassfish.passfile}</passwordFile>
-					<domain>
-						<name>domain1</name>
-						<httpPort>8080</httpPort>
-						<adminPort>4848</adminPort>
-					</domain>
-					<components>
-						<component>
-							<name>${project.artifactId}</name>
-							<artifact>target/${project.build.finalName}.war</artifact>
-						</component>
-					</components>
-					<debug>true</debug>
-					<terse>false</terse>
-					<echo>true</echo>
-				</configuration>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>start-domain</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>install</phase>
+						<configuration>
+							<executable>sdomain</executable>
+							<arguments>
+								<argument>${local.glassfish.base}/bin</argument>
+								<argument>${local.glassfish.domain}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>redeploy</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>install</phase>
+						<configuration>
+							<executable>${local.glassfish.base}/bin/asadmin.bat</executable>
+							<arguments>
+								<argument>redeploy</argument>
+								<argument>--name=${project.build.finalName}</argument>
+								<argument>--user=${local.glassfish.user}</argument>
+								<argument>--passwordfile=${local.glassfish.passfile}</argument>
+								<argument>--port=${local.glassfish.port}</argument>
+								<argument>--host=localhost</argument>
+								<argument>${war.name}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
-
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -101,7 +110,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.3</version>
 				<configuration>
-					<outputDirectory>D:/development/hallocasa-portal-utils/war</outputDirectory>
+					<outputDirectory>${war.location}</outputDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
@@ -156,4 +165,10 @@
 			</plugin>
 		</plugins>
 	</build>
+	<parent>
+		<artifactId>hallocasamig</artifactId>
+		<groupId>com.hallocasa</groupId>
+		<relativePath>../hallocasamig</relativePath>
+		<version>1.1.0</version>
+	</parent>
 </project>

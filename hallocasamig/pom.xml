@@ -58,12 +58,15 @@
         <messagebox.version>2.0.7</messagebox.version>
         <scripts.location>${project.basedir}/../database/scripts</scripts.location>
         <netbeans.compile.on.save>all</netbeans.compile.on.save>
-        <local.glassfish.home>D:/development/hc/utils/glassfish-4.1/glassfish</local.glassfish.home>
+        <local.glassfish.base>${glassfish.base}</local.glassfish.base>
+        <local.glassfish.home>${local.glassfish.base}/glassfish</local.glassfish.home>
         <local.glassfish.user>admin</local.glassfish.user>
-        <local.glassfish.domain>hallocasamig</local.glassfish.domain>
+        <local.glassfish.domain>${glassfish.domain}</local.glassfish.domain>
         <local.glassfish.passfile>
-            ${local.glassfish.home}\\domains\\${local.glassfish.domain}\\config\\domain-passwords
+            ${local.glassfish.home}/domains/${local.glassfish.domain}/config/domain-passwords
          </local.glassfish.passfile>
+         <local.glassfish.port>${glassfish.admin.port}</local.glassfish.port>
+         <war.location>${war.location}</war.location>
     </properties>
 
     <modules>

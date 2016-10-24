@@ -8,8 +8,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
 
-import org.apache.oltu.oauth2.as.request.OAuthAuthzRequest;
-
 import com.hallocasa.services.example.ExampleService;
 import com.hallocasa.vo.Example;
 
