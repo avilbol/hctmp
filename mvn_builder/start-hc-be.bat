@@ -7,4 +7,4 @@ For /F "tokens=1* delims==" %%A IN (my-hc-settings.properties) DO (
     IF "%%A"=="hc_home" set hc_home=%%B
 )
 IF NOT "%hc_java_home%" == "" set JAVA_HOME=%hc_java_home%
-mvn -f %hc_home%/hallocasamig-endpoint/pom.xml clean install -Dwar.output.location=%war_location% -Dglassfish.base=%glassfish_base% -Dglassfish.domain=%glassfish_domain% -Dglassfish.admin.port=%glassfish_admin_port%
+mvn -f %hc_home%/hallocasamig/pom.xml clean install -Dwar.output.location=%war_location% -Dglassfish.base=%glassfish_base% -Dglassfish.domain=%glassfish_domain% -Dglassfish.admin.port=%glassfish_admin_port%

@@ -62,7 +62,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
 
 		// creates result object
 		User user = (User) toValueObject(entUser);
-		AuthInfo authInfo = new AuthInfo(user, securityTokenService.generate());
+		AuthInfo authInfo = new AuthInfo(user, securityTokenService.generate(user));
 		LOG.info("User logged: " + user.getFirstName() + user.getLastName());
 		return authInfo;
 	}

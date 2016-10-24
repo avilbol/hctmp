@@ -78,7 +78,6 @@
     </modules>
 
     <dependencies>
-
         <!-- Java EE -->
         <dependency>
             <groupId>javax</groupId>
@@ -120,7 +119,5 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
 </project>

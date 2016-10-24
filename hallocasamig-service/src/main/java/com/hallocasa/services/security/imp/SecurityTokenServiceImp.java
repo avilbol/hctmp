@@ -18,6 +18,7 @@ import com.hallocasa.utils.constants.HallocasaEnv;
 import com.hallocasa.utils.constants.errormessages.SecurityTokenError;
 import com.hallocasa.utils.constants.exceptions.SecurityException;
 import com.hallocasa.utils.constants.parsing.HallocasaConvert;
+import com.hallocasa.vo.User;
 import com.hallocasa.vo.security.SecurityToken;
 
 @Stateless
@@ -46,13 +47,14 @@ public class SecurityTokenServiceImp implements SecurityTokenService {
 	 * {@inheritDoc} 
 	 */
 	@Override
-	public SecurityToken generate() throws OAuthSystemException {
+	public SecurityToken generate(User user) throws OAuthSystemException {
 		OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
         String candidateToken = null;
         do{
         	candidateToken = oauthIssuerImpl.accessToken();
         }
         while(daoSecurityToken.find(candidateToken).isPresent());
+        candidateToken = user.getEmail() + ":" + candidateToken;
         EntitySecurityToken entSecToken = new EntitySecurityToken();
         entSecToken.setTokenValue(candidateToken);
         entSecToken.setRegistered(new Date());
