@@ -66,7 +66,7 @@
             ${local.glassfish.home}/domains/${local.glassfish.domain}/config/domain-passwords
          </local.glassfish.passfile>
          <local.glassfish.port>${glassfish.admin.port}</local.glassfish.port>
-         <war.location>${war.location}</war.location>
+         <war.location>${war.output.location}</war.location>
     </properties>
 
     <modules>

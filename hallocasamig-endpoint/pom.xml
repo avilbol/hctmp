@@ -81,7 +81,8 @@
 						<configuration>
 							<executable>${local.glassfish.base}/bin/asadmin.bat</executable>
 							<arguments>
-								<argument>redeploy</argument>
+								<argument>deploy</argument>
+								<argument>--force</argument>
 								<argument>--name=${project.build.finalName}</argument>
 								<argument>--user=${local.glassfish.user}</argument>
 								<argument>--passwordfile=${local.glassfish.passfile}</argument>
