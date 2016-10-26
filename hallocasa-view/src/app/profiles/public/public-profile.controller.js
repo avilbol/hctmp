@@ -6,7 +6,7 @@
     .controller('PublicProfileController', PublicProfileController);
 
   /** @ngInject */
-  function PublicProfileController(ProfilesService, ImageValidatorService, $location) {
+  function PublicProfileController(ProfilesService, ImageValidatorService, $location, $window, $scope) {
     var vm = this;
     vm.validateImage = ImageValidatorService.validateBase64;
     vm.viewProfile = viewProfile;
@@ -17,6 +17,19 @@
       $location.url("/profile");
       $location.search('id', id);
     }
+
+    vm.getListHeight = function() {
+      //TODO: ajustar calculo
+      //document.getElementsByClassName("container")[0].clientHeight
+      return {height: '' + ($window.innerHeight - 72) + 'px'};
+    };
+    $window.addEventListener('resize', onResize);
+    function onResize() {
+      $scope.$digest();
+    }
+    $scope.$on('$destroy', function() {
+      $window.removeEventListener('resize', onResize);
+    });
 
     vm.profiles = {
       toLoad_: 0,
@@ -52,6 +65,6 @@
         }
       }
     };
-
+    //vm.profiles.fetchMoreItems_(10);
   }
 })();
