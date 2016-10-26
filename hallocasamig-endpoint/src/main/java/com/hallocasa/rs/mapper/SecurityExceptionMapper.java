@@ -19,8 +19,13 @@ public class SecurityExceptionMapper implements ExceptionMapper<SecurityExceptio
 	@Override
 	public Response toResponse(SecurityException exception) {
 		int httpStatus = translateExceptionCodeToHTTPCode(exception.getStatus());
+		ErrorMessage errorMessage = new ErrorMessage();
+		errorMessage.setCode(httpStatus);
+		errorMessage.setStatus(httpStatus);
+		errorMessage.setDeveloperMessage(exception.getMessage());
+		errorMessage.setMessage(exception.getMessage());
 		Response response = Response.status(httpStatus)
-				.entity(exception)
+				.entity(errorMessage)
 				.type(MediaType.APPLICATION_JSON).
 				build();
 		LOG.error(response, exception);
@@ -40,6 +45,9 @@ public class SecurityExceptionMapper implements ExceptionMapper<SecurityExceptio
 			httpStatus = Response.Status.UNAUTHORIZED.getStatusCode();
 			break;
 		case SecurityException.EXPIRED_TOKEN:
+			httpStatus = Response.Status.UNAUTHORIZED.getStatusCode();
+			break;
+		case SecurityException.INVALID_AUTH_CODE:
 			httpStatus = Response.Status.UNAUTHORIZED.getStatusCode();
 			break;
 		default:

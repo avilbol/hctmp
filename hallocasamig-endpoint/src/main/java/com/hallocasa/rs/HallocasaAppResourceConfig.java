@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.glassfish.jersey.server.ResourceConfig;
 
-@ApplicationPath("resources")
+@ApplicationPath("/")
 public class HallocasaAppResourceConfig extends ResourceConfig {
 
 	/**
@@ -23,10 +23,15 @@ public class HallocasaAppResourceConfig extends ResourceConfig {
 		super();
 		LOG.info("Inicio de la configuraci\u00F3n de la aplicaci\u00F3n.");
 		LOG.info("Registrando recursos..");
+		register(com.hallocasa.rs.ExampleResource.class);
+		register(com.hallocasa.rs.SecurityResource.class);
 		LOG.info("Registrando filtros...");
+		register(com.hallocasa.rs.security.AuthenticationFilter.class);
+		register(com.hallocasa.rs.security.AuthorizationFilter.class);
 		LOG.info("Registrando exception mappers...");
 		// Exception mappers
 		register(com.hallocasa.rs.mapper.SecurityExceptionMapper.class);
+		register(com.hallocasa.rs.mapper.GenericExceptionMapper.class);
 		LOG.info("Registrando features...");
 		// Features
 		LOG.info("Aplicaci\u00F3n configurada correctamente.");

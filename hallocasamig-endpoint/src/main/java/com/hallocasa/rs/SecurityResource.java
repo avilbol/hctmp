@@ -12,7 +12,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
@@ -35,9 +34,9 @@ import org.codehaus.jackson.map.JsonMappingException;
 import com.hallocasa.rs.response.ExceptionResponse;
 import com.hallocasa.services.security.AuthenticationService;
 import com.hallocasa.services.security.AuthorizationCodeService;
+import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.utils.constants.exceptions.InvalidEmailException;
 import com.hallocasa.utils.constants.exceptions.InvalidPasswordLoginException;
-import com.hallocasa.utils.security.EncryptionUtils;
 import com.hallocasa.vo.security.AuthInfo;
 import com.hallocasa.vo.security.AuthorizationCode;
 import com.hallocasa.vo.security.UserCredentials;
@@ -60,10 +59,8 @@ public class SecurityResource {
 			oauthRequest = new OAuthAuthzRequest(request);
 			String clientId = oauthRequest.getParam(OAuth.OAUTH_CLIENT_ID);
 			String redirectUri = oauthRequest.getParam(OAuth.OAUTH_REDIRECT_URI);
-			final Response.ResponseBuilder responseBuilder = Response.status(HttpServletResponse.SC_FOUND);
 			if (OAuthUtils.isEmpty(redirectUri)) {
-				throw new WebApplicationException(
-						responseBuilder.entity("OAuth callback url needs to be provided by client!!!").build());
+				throw new FatalException("OAuth callback url needs to be provided by client!!!");
 			}
 			AuthorizationCode authCode = authCodeService.generate(clientId);
 			OAuthASResponse.OAuthAuthorizationResponseBuilder builder = OAuthASResponse.authorizationResponse(request,

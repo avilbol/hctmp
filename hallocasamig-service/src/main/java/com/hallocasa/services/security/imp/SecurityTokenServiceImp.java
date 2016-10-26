@@ -1,5 +1,8 @@
 package com.hallocasa.services.security.imp;
 
+import static com.hallocasa.utils.constants.errormessages.SecurityTokenError.TOKEN_NOT_REGISTERED;
+import static com.hallocasa.utils.constants.exceptions.SecurityException.UNEXISTENT_TOKEN;
+
 import java.util.Date;
 import java.util.Optional;
 
@@ -34,12 +37,12 @@ public class SecurityTokenServiceImp implements SecurityTokenService {
 	public void validate(String tokenValue) throws SecurityException {
 		Optional<EntitySecurityToken> optEntSecToken = daoSecurityToken.find(tokenValue);
 		if (!optEntSecToken.isPresent()) {
-			throw new SecurityException(SecurityTokenError.TOKEN_NOT_REGISTERED);
+			throw new SecurityException(TOKEN_NOT_REGISTERED, UNEXISTENT_TOKEN);
 		}
 		EntitySecurityToken entSecToken = optEntSecToken.get();
 		Long totalMilliesPassed = entSecToken.getRegistered().getTime() + entSecToken.getExpiresIn();
 		if(totalMilliesPassed <= System.currentTimeMillis()){
-			throw new SecurityException(SecurityTokenError.EXPIRED_TOKEN);
+			throw new SecurityException(SecurityTokenError.EXPIRED_TOKEN, SecurityException.EXPIRED_TOKEN);
 		}
 	}
 

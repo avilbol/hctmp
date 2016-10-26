@@ -15,6 +15,6 @@ public class AppConstants {
 	/**
 	 * Url
 	 */
-	public static final String BLOG_POST_URL = "http://www.lacadenaretail.com";
+	public static final String BLOG_POST_URL = "http://www.hallocasa.com";
 
 }

@@ -13,11 +13,12 @@ import javax.ws.rs.core.SecurityContext;
 
 import org.apache.http.HttpStatus;
 
+import com.hallocasa.rs.security.Auth;
 import com.hallocasa.rs.security.Secured;
 import com.hallocasa.services.example.ExampleService;
 import com.hallocasa.vo.Example;
 
-@Path("/secured/example")
+@Path("/example")
 public class ExampleResource {
 
 	@EJB
@@ -27,9 +28,15 @@ public class ExampleResource {
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Secured
 	public Response sayHello(@Context SecurityContext sc) {
-		return Response.status(HttpStatus.SC_ACCEPTED).entity(exampleService.findById(5)).build();
-		//return Response.status(Response.Status.OK).entity(new GenericEntity<Example>(exampleService.findById(5)) {
-		//	}).header("Access-Control-Allow-Headers", "X-extra-header").build();
+		return Response.status(HttpStatus.SC_OK).entity(exampleService.findById(5)).build();
+	}
+	
+	@GET
+	@Path("/free")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Auth
+	public Response sayHelloFree(@Context SecurityContext sc) {
+		return Response.status(HttpStatus.SC_OK).entity(exampleService.findById(5)).build();
 	}
 
 	@POST

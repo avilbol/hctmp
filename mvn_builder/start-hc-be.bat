@@ -1,3 +1,4 @@
+echo @off
 For /F "tokens=1* delims==" %%A IN (my-hc-settings.properties) DO (
     IF "%%A"=="war_location" set war_location=%%B
     IF "%%A"=="glassfish_base" set glassfish_base=%%B
