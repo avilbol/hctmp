@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" name="XMLConfigTest"
+	packages="org.apache.logging.log4j.test">
+	<Properties>
+		<Property name="filename-info">C:/logs/rolling/test.log</Property>
+		<Property name="filename-debug">C:/logs/rolling/test-debug.log</Property>
+	</Properties>
+
+	<Appenders>
+		<RollingFile name="main-log" fileName="${filename-info}"
+			filePattern="${filename-info}.%d{ddMMyyyy}">
+			<PatternLayout pattern="%d{dd-MMM-yyyy HH:mm:ss} %p %l %m %n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="debug-log" fileName="${filename-debug}"
+			filePattern="${filename-debug}.%d{ddMMyyyy}">
+			<PatternLayout pattern="%d{dd-MMM-yyyy HH:mm:ss} %p %l %m %n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	
+	<Loggers>
+		<Logger name="fff.fff" 
+			additivity="false" level="info">
+			<AppenderRef ref="main-log" level="info"/>
+			<AppenderRef ref="debug-log" level="debug"/>
+		</Logger>
+	</Loggers>
+
+</Configuration>
+
