@@ -52,11 +52,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>2.7</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
@@ -89,6 +84,21 @@
 							<arguments>
 								<argument>${local.glassfish.base}/bin</argument>
 								<argument>${local.glassfish.domain}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>create-system-properties</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>install</phase>
+						<configuration>
+							<executable>${local.glassfish.base}/bin/asadmin.bat</executable>
+							<arguments>
+								<argument>create-system-properties</argument>
+								<argument>logsdir='${logsdir}'</argument>
+								<argument>--port=${local.glassfish.port}</argument>
 							</arguments>
 						</configuration>
 					</execution>
