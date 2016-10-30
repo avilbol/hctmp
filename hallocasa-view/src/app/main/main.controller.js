@@ -54,8 +54,11 @@
       });
     }
 
-    function goTo(url) {
+    function goTo(url, closeMenu) {
       $location.url(url);
+      if(closeMenu){
+        toggleMenu();
+      }
     }
   }
 })();

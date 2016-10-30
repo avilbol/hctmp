@@ -9,6 +9,9 @@
       </md-button>
       <span flex></span>
       <div layout-wrap hide-sm hide-xs layout="row" layout-align="end">
+        <md-button ng-click="MainCtrl.goTo('/property/browser')">
+          {{'Properties.title.label' | translate}}
+        </md-button>
         <md-button ng-click="MainCtrl.goTo('/profile/browser')">
           {{'Common.Label.BrowseProfiles' | translate}}
         </md-button>
@@ -39,7 +42,10 @@
     <md-content layout-padding>
       <md-list flex>
         <md-subheader class="md-no-sticky">{{'Label.Menu' | translate}}</md-subheader>
-        <md-list-item md-ink-ripple ng-click="MainCtrl.goTo('/profile/browser')">
+        <md-list-item md-ink-ripple ng-click="MainCtrl.goTo('/property/browser', true)">
+          <p> {{'Properties.title.label' | translate}}</p>
+        </md-list-item>
+        <md-list-item md-ink-ripple ng-click="MainCtrl.goTo('/profile/browser', true)">
           <p> {{'Common.Label.BrowseProfiles' | translate}}</p>
         </md-list-item>
         <md-list-item md-ink-ripple>
