@@ -20,10 +20,20 @@
 			<version>1.1.0</version>
 		</dependency>
 		<dependency>
+			<groupId>com.hallocasa</groupId>
+			<artifactId>hallocasamig-api</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-web-api</artifactId>
 			<version>7.0</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-jersey-jaxrs</artifactId>
+			<version>1.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -78,7 +88,7 @@
 						<goals>
 							<goal>exec</goal>
 						</goals>
-						<phase>install</phase>
+						<phase>package</phase>
 						<configuration>
 							<executable>sdomain</executable>
 							<arguments>
@@ -88,26 +98,11 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>create-system-properties</id>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<phase>install</phase>
-						<configuration>
-							<executable>${local.glassfish.base}/bin/asadmin.bat</executable>
-							<arguments>
-								<argument>create-system-properties</argument>
-								<argument>logsdir='${logsdir}'</argument>
-								<argument>--port=${local.glassfish.port}</argument>
-							</arguments>
-						</configuration>
-					</execution>
-					<execution>
 						<id>redeploy</id>
 						<goals>
 							<goal>exec</goal>
 						</goals>
-						<phase>install</phase>
+						<phase>package</phase>
 						<configuration>
 							<executable>${local.glassfish.base}/bin/asadmin.bat</executable>
 							<arguments>
@@ -143,6 +138,23 @@
 				<configuration>
 					<outputDirectory>${war.location}</outputDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>**/web.xml</include>
+							</includes>
+						</resource>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/resources</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<includes>
+								<include>log4j2.xml</include>
+							</includes>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 			<plugin>

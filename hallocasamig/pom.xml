@@ -65,6 +65,7 @@
 		<local.glassfish.passfile>
 			${local.glassfish.home}/domains/${local.glassfish.domain}/config/domain-passwords
 		</local.glassfish.passfile>
+		<local.app.path>http://localhost:${glassfish.app.port}/hallocasa-api</local.app.path>
 		<local.glassfish.port>${glassfish.admin.port}</local.glassfish.port>
 		<war.location>${war.output.location}</war.location>
 		<log4j.version>2.6.2</log4j.version>
@@ -75,6 +76,7 @@
 		<module>../hallocasamig-endpoint</module>
 		<module>../hallocasamig-utils</module>
 		<module>../hallocasamig-service</module>
+		<module>../hallocasamig-api</module>
 		<module>../hallocasamig-domain</module>
 	</modules>
 

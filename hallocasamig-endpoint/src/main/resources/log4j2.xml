@@ -5,7 +5,7 @@
 	<Properties>
 		<Property name="filename-info">hallocasa.log</Property>
 		<Property name="filename-debug">hallocasa-debug.log</Property>
-		<Property name="logspath">${sys:logsdir}</Property>
+		<Property name="logspath">${logsdir}</Property>
 	</Properties>
 	<Appenders>
 		<RollingFile name="main-log" fileName="${logspath}/${filename-info}"
@@ -16,7 +16,7 @@
 			</Policies>
 		</RollingFile>
 		<RollingFile name="debug-log" fileName="${logspath}/${filename-debug}"
-			filePattern="${logspath}/%d${MMMM}/${filename-debug}.%d{ddMMyyyy}">
+			filePattern="${logspath}/%d{MMMM}/${filename-debug}.%d{ddMMyyyy}">
 			<PatternLayout pattern="%d{dd-MMM-yyyy HH:mm:ss} %p %l %m %n" />
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" />

@@ -1,5 +1,7 @@
 package com.hallocasa.rs.security;
 
+import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_TOKEN_HEADER;
+
 import java.io.IOException;
 
 import javax.annotation.Priority;
@@ -10,8 +12,6 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.ext.Provider;
 
 import com.hallocasa.services.security.SecurityTokenService;
-import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_TOKEN_HEADER;
-
 
 @Secured
 @Provider
@@ -20,9 +20,9 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
 	@EJB
 	SecurityTokenService securityTokenService;
-	
-    @Override
-    public void filter(ContainerRequestContext requestContext) throws IOException {
-    	securityTokenService.validate(requestContext.getHeaders().getFirst(O_AUTH_TOKEN_HEADER));
-    }
+
+	@Override
+	public void filter(ContainerRequestContext requestContext) throws IOException {
+		securityTokenService.validate(requestContext.getHeaders().getFirst(O_AUTH_TOKEN_HEADER));
+	}
 }

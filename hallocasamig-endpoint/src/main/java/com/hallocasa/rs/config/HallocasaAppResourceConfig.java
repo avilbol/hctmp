@@ -1,4 +1,4 @@
-package com.hallocasa.rs;
+package com.hallocasa.rs.config;
 
 import java.util.Set;
 
@@ -21,10 +21,11 @@ public class HallocasaAppResourceConfig extends ResourceConfig {
 	 */
 	public HallocasaAppResourceConfig() {
 		super();
+		packages("io.swagger.jaxrs.json");
+        packages("io.swagger.jaxrs.listing");
 		LOG.info("Inicio de la configuraci\u00F3n de la aplicaci\u00F3n.");
 		LOG.info("Registrando recursos..");
-		register(com.hallocasa.rs.ExampleResource.class);
-		register(com.hallocasa.rs.SecurityResource.class);
+		packages("com.hallocasa.rs");
 		LOG.info("Registrando filtros...");
 		register(com.hallocasa.rs.security.AuthenticationFilter.class);
 		register(com.hallocasa.rs.security.AuthorizationFilter.class);

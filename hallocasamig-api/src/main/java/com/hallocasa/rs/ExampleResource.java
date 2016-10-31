@@ -18,7 +18,13 @@ import com.hallocasa.rs.security.Secured;
 import com.hallocasa.services.example.ExampleService;
 import com.hallocasa.vo.Example;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @Path("/example")
+@Api(value="/example", tags = "samples")
 public class ExampleResource {
 
 	@EJB
@@ -27,6 +33,15 @@ public class ExampleResource {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Secured
+	@ApiOperation( 
+		    value = "Obtiene un recurso de ejemplo, el cual requiere de autenticación", 
+		    notes = "Consulta en la base de datos un recurso de ejemplo"
+		)
+		@ApiResponses( {
+		    @ApiResponse( code = 401, message = "Si el usuario no está autorizado" ),
+		    @ApiResponse( code = 500, message = "Error interno del servidor" ),
+		    @ApiResponse( code = 200, message = "Recurso generado" )
+		} )
 	public Response sayHello(@Context SecurityContext sc) {
 		return Response.status(HttpStatus.SC_OK).entity(exampleService.findById(5)).build();
 	}
@@ -35,6 +50,15 @@ public class ExampleResource {
 	@Path("/free")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Auth
+	@ApiOperation( 
+		    value = "Obtiene un recurso de ejemplo, el cual no requiere de autenticación", 
+		    notes = "Consulta en la base de datos un recurso de ejemplo"
+		)
+		@ApiResponses( {
+		    @ApiResponse( code = 401, message = "Si el usuario no está autorizado" ),
+		    @ApiResponse( code = 500, message = "Error interno del servidor" ),
+		    @ApiResponse( code = 200, message = "Recurso generado" )
+		} )
 	public Response sayHelloFree(@Context SecurityContext sc) {
 		return Response.status(HttpStatus.SC_OK).entity(exampleService.findById(5)).build();
 	}
