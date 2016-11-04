@@ -83,22 +83,33 @@
               </v-accordion>
             </div>
           </div>
-          <div>
-            <h1 ng-if="vm.userData.properties.length === 0">
-              {{'Properties.none.property' | translate}}
-            </h1>
 
-            <div ng-if="vm.userData.properties.length > 0">
-              <div layout="row" layout-sm="column" layout-wrap>
-                <div dir-paginate="property in vm.userData.properties | itemsPerPage: 12" flex-gt-sm="50" flex-gt-xs="100" flex-xs="100">
-                  <div ng-include="'app/property/templates/properties-card.html'"></div>
-                </div>
+        </md-card-content>
+      </md-card>
+
+
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{'Properties.title.label' | translate}}</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <h1 ng-if="vm.userData.properties.length === 0">
+            {{'Properties.none.property' | translate}}
+          </h1>
+
+          <div ng-if="vm.userData.properties.length > 0">
+            <div layout="row" layout-sm="column" layout-wrap>
+              <div dir-paginate="property in vm.userData.properties | itemsPerPage: 12" flex-gt-sm="50" flex-gt-xs="100" flex-xs="100">
+                <div ng-include="'app/property/templates/properties-card.html'"></div>
               </div>
-              <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
             </div>
+            <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
           </div>
         </md-card-content>
       </md-card>
+
     </div>
   </div>
 </md-content>
