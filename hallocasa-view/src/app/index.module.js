@@ -10,7 +10,8 @@
       'HalloCasa.global',
       'HalloCasa.session',
       'HalloCasa.profiles',
-      'HalloCasa.property'
+      'HalloCasa.property',
+      'HalloCasa.protractor'
     ]);
 
 })();

@@ -1,0 +1,49 @@
+<md-content>
+  <form name="testForm" ng-submit="vm.operate(firstValue, operation, secondValue)" novalidate>
+    <div layout="column">
+      <div layout="row">
+        <md-input-container class="md-block">
+          <label>Operando 1</label>
+          <input name="firstValue" ng-model="firstValue" type="number" required>
+          <div ng-messages="testForm.firstValue.$error" ng-if="testForm.firstValue.$touched">
+            <div ng-message="required">
+              Ingrese el primer operador
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Operación</label>
+          <md-select name="operation" ng-model="operation" required>
+            <md-option ng-repeat="operator in vm.operations" value="{{operator}}">
+              {{operator}}
+            </md-option>
+          </md-select>
+          <div ng-messages="testForm.operation.$error" ng-if="testForm.operation.$touched">
+            <div ng-message="required">
+              Seleccione una operación
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Operando 2</label>
+          <input name="secondValue" ng-model="secondValue" type="number" required>
+          <div ng-messages="testForm.secondValue.$error" ng-if="testForm.secondValue.$touched">
+            <div ng-message="required">
+              Ingrese el segundo operador
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-button name="submit" type="submit" ng-disabled="!testForm.$valid">Calcular</md-button>
+      </div>
+      <div layout="row">
+        <md-input-container class="md-block">
+          <label>Resultado</label>
+          <input name="result" ng-model="vm.result" type="number" readonly>
+        </md-input-container>
+      </div>
+    </div>
+  </form>
+</md-content>
