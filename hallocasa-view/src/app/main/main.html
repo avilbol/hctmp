@@ -36,8 +36,12 @@
   </md-toolbar>
   <loading></loading>
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-    <md-toolbar class="md-whiteframe-4dp md-tall">
+    <md-toolbar class="md-whiteframe-4dp md-tall" layout="row">
       <h1 class="md-toolbar-tools">Hallo Casa</h1>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="MainCtrl.toggleMenu()">
+        <i class="fa fa-close"></i>
+      </md-button>
     </md-toolbar>
     <md-content layout-padding>
       <md-list flex>

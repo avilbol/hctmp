@@ -34,12 +34,17 @@
 
 
 <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="propertyFilters">
-  <md-toolbar class="md-whiteframe-4dp md-tall">
-    <h1 class="md-toolbar-tools">Hallo Casa</h1>
+  <md-toolbar class="md-whiteframe-4dp">
+    <h1 class="md-toolbar-tools">
+      <span>{{'PropertyBrowse.Filters' | translate}}</span>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.toggleFilters()">
+        <i class="fa fa-close"></i>
+      </md-button>
+    </h1>
   </md-toolbar>
   <md-content layout-padding>
-    <md-list flex>
-      <md-subheader class="md-no-sticky">{{'PropertyBrowse.Filters' | translate}}</md-subheader>
+
   </md-content>
 </md-sidenav>
 
