@@ -11,11 +11,13 @@
       getLocation: getLocation,
       getBuyRent: getBuyRent,
       getCurrencies: getCurrencies,
-      loadPublicProperties: loadPublicProperties
+      loadPublicProperties: loadPublicProperties,
+      loadProperty: loadProperty
     };
 
     var resources = {
-      propertiesPublic: $resource("/mocks/property/publicProperties.json", {}, GenericRESTResource)
+      propertiesPublic: $resource("/mocks/property/publicProperties.json", {}, GenericRESTResource),
+      propertyLoad: $resource("/mocks/property/loadProperty.json", {}, GenericRESTResource)
     };
 
     return service;
@@ -82,6 +84,11 @@
     function loadPublicProperties(start, finish) {
       $log.log("Cargar rango de propiedades: ("+start+" - "+finish+")");
       return resources.propertiesPublic.get().$promise;
+    }
+
+    function loadProperty(profileID) {
+      $log.log("Cargar propiedad: (ID: "+profileID+")");
+      return resources.propertyLoad.show().$promise;
     }
   }
 })();

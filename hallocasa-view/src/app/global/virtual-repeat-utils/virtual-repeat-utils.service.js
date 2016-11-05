@@ -61,6 +61,8 @@
         }
       };
 
+      instance.fetchMoreItems_(itemsToLoad);
+
       return instance;
     }
 

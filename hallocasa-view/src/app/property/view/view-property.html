@@ -1,0 +1,106 @@
+<md-content>
+  <div layout="row" layout-align="center" class="header-background">
+    <header class="header-image"></header>
+    <div flex-gt-sm="90" flex-gt-xs="90" flex-xs="100">
+      <md-card>
+        <md-card-content>
+
+          <div layout="row" layout-align="space-between">
+            <div layout="column" flex>
+              <b>{{vm.property.description[vm.property.mainLanguage].title}}</b>
+            </div>
+            <div layout="column" flex>
+              {{vm.property.price | currency:"":0}}<br>
+              {{vm.property.currency}}
+            </div>
+            <span flex-gt-sm="50" flex-gt-xs="30" flex-xs="0"></span>
+          </div>
+          <br>
+          <div layout="row" layout-align="space-between">
+            <div layout="column" flex>
+              {{vm.property.location.city}}<br>
+              {{vm.property.location.state}}
+            </div>
+            <div layout="column" flex>
+              {{vm.property.propertyType}}
+            </div>
+            <span flex-gt-sm="50" flex-gt-xs="30" flex-xs="0"></span>
+          </div>
+
+          <div layout="row" layout-wrap>
+            <div layout="column" flex-gt-sm="45" flex-gt-xs="100" flex-xs="100">
+              <carousel3d
+                ng-model="vm.property.images"
+                options="vm.optionsCarousel">
+                <carousel3d-slide ng-repeat="slide in vm.property.images" class="vertical-center">
+                  <img ng-src="{{slide.src}}" class="image-responsive">
+                </carousel3d-slide>
+              </carousel3d>
+            </div>
+            <span flex></span>
+            <div layout="column" flex-gt-sm="45" flex-gt-xs="100" flex-xs="100">
+              <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="{{'PropertyBrowse.Property.description' | translate}}">
+                  <md-content class="md-padding">
+                    <div layout="column">
+                      <b>{{'propertyWizardPage.property.description' | translate}} ({{vm.property.mainLanguage}})</b>
+                      {{vm.property.description[vm.property.mainLanguage].propertyDescription}}
+                    </div>
+                    <br>
+                    <div layout="column">
+                      <b>{{'propertyWizardPage.property.LocationDescription' | translate}} ({{vm.property.mainLanguage}})</b>
+                      {{vm.property.description[vm.property.mainLanguage].location}}
+                    </div>
+                  </md-content>
+                </md-tab>
+                <md-tab label="{{'Properties.title.Location' | translate}}">
+                  <md-content class="md-padding">
+                    <geolocation
+                      location="vm.property.location"
+                      refresh="true"
+                      readonly="true"
+                    ></geolocation>
+                  </md-content>
+                </md-tab>
+                <md-tab label="{{'PropertyBrowse.Property.contacts' | translate}}">
+                  <md-card ng-click="vm.viewProfile()">
+                    <md-card-title layout="row" layout-align="center center">
+                      <md-card-title-media>
+                        <div class="md-media-lg card-media">
+                          <img ng-src="{{vm.validateImage('assets/images/user_avatar/' + vm.property.contact.avatarURL) || 'assets/images/user_avatar/user0.jpg'}}" alt="{{ vm.property.contact.name }}">
+                        </div>
+                      </md-card-title-media>
+                      <md-card-title-text hide-xs>
+                        <span class="md-headline">{{vm.property.contact.name}}</span>
+                        <div layout="row" layout-align="space-between">
+                          <div class="md-subhead" layout="column">
+                            <item-list tablet-items="2" desktop-items="3" list="vm.property.contact.languages" display="column"></item-list>
+                          </div>
+                          <div class="md-subhead" layout="column">
+                            <item-list tablet-items="2" desktop-items="3" list="vm.property.contact.services" display="column"></item-list>
+                          </div>
+                          <span flex-gt-sm="50" flex-gt-xs="30" flex-xs="0"></span>
+                        </div>
+                      </md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                      <b>{{'Profile.Data.City.Label' | translate}}: </b> {{vm.property.contact.city}}
+
+                      <div ng-if="vm.property.contact.telephone.extension">
+                        <b>{{'Profile.Data.Telephone.Label' | translate}}: </b>
+                        ({{vm.property.contact.telephone.extension}}) {{vm.property.contact.telephone.number}}
+                      </div>
+                      <b>{{'PropertyBrowse.Property.email' |  translate}}: </b> {{vm.property.contact.email}}
+                    </md-card-content>
+                  </md-card>
+                </md-tab>
+              </md-tabs>
+            </div>
+          </div>
+
+        </md-card-content>
+      </md-card>
+
+    </div>
+  </div>
+</md-content>

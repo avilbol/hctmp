@@ -182,9 +182,23 @@ header .intro-content {
   }
 }
 
-
 v-pane {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
   margin-bottom: 10px;
   padding: 5px;
+}
+
+.image-responsive {
+  width: 100%;
+  height: auto;
+}
+
+.vertical-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-3d-loader-circle div {
+  display: none;
 }

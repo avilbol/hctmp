@@ -26,9 +26,13 @@
     "underscore": "1.8.3",
     "v-accordion": "1.6.0",
     "lf-ng-md-file-input": "^1.4.8",
-    "angularUtils-pagination": "angular-utils-pagination#^0.11.1"
+    "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
+    "angular-carousel-3d": "*"
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"
+  },
+  "resolutions": {
+    "angular": "1.5.8"
   }
 }
