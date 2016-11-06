@@ -111,7 +111,7 @@ public class SignUpServicesImpl extends ServicesBase implements SignUpServices {
         // search an existing email with the given user
         List<User> usersWithEmail
                 = appPersistenceServices.executeNamedQuery(
-                        User.QUERY_FIND_BY_EMAIL, new Object[]{
+                        User.QUERY_FIND_BASIC_BY_EMAIL, new Object[]{
                             registerUserVO.getEmail()}, User.class);
         if (!usersWithEmail.isEmpty()) {
             throw new InvalidEmailException();

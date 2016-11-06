@@ -69,18 +69,27 @@
 	            </div>
             </div>
             <div class="col-md-12">
-                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Country.Label']}</span></b>
+            <div class="col-md-12">
+            <div class="col-md-3">
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Country.Label']}</span></b>&nbsp; 
                 <h:outputText value="#{profileReadPage.countryName}" styleClass="hc-form-field"/>
                 <br/>
-
-                <b><span class="hc-form-label">#{viewBundle['Profile.Data.State.Label']}</span></b>
+                </div>
+                </div>
+            <div class="col-md-12">
+            <div class="col-md-3">
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.State.Label']}</span></b>&nbsp; 
                 <h:outputText value="#{profileReadPage.stateName}" styleClass="hc-form-field"/>
-
-                <b><span class="hc-form-label">#{viewBundle['Profile.Data.City.Label']}</span></b>
+                </div>
+                </div>
+            <div class="col-md-12">
+            <div class="col-md-3">
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.City.Label']}</span></b>&nbsp; 
                 <h:outputText value="#{profileReadPage.cityName}" styleClass="hc-form-field"/>
-
+                </div>
+                </div>
 				<ui:fragment rendered="#{not profileReadPage.telephonePending}">
-					<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>
+					<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>&nbsp; 
 					<span class="hc-form-field">
 						<utils:telephoneNumber
 							value="#{profileReadPage.user.telephone}" 

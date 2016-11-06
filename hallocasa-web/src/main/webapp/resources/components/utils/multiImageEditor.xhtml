@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
+	<cc:interface componentType="multiImageEditorComponent">
+		<cc:attribute name="imageList" type="java.util.List" required="true"
+			shortDescription="List of images" />
+		<cc:attribute name="indexMainImage"
+			type="java.util.concurrent.atomic.AtomicInteger" required="true"
+			shortDescription="Image selected as main" />
+		<cc:attribute name="imageType" type="java.lang.String" default="image"
+			shortDescription="Image type as scheme to manage image files" />
+		<cc:attribute name="update" type="java.lang.String"
+			default="multiimage-editor-container" />
+	</cc:interface>
+	<cc:implementation>
+		<f:event listener="#{cc.initialize()}" type="postAddToView"></f:event>
+		<h:outputScript>
+			function deleteImage(index){
+				var rawId = "hc-profile-form:multiImageEditor:imageItemsList:" 
+					+ index + ":property-delete-button";
+				$('#' + rawId.split(':').join('\\:')).click();
+	    		return false;
+			}
+			function selectImage(index){
+				var rawId = "hc-profile-form:multiImageEditor:imageItemsList:" 
+					+ index + ":property-select-button";
+				$('#' + rawId.split(':').join('\\:')).click();
+	    		return false;
+			}
+		</h:outputScript>
+		<h:panelGroup id="multiimage-editor-container">
+			<div class="row">
+				<span id="imageUrl"> <utils:imageEditor
+						imageUrl="#{cc.imageInEdition}" imageType="#{cc.attrs.imageType}"
+						postUploadAction="#{cc.onImageUploaded}" showImage="#{false}"
+						update="#{cc.attrs.update}" />
+				</span>
+			</div>
+			<div class="row">
+				<section class="wrapper cl hc-container-main-properties scrollbar" id="hc-content-scroll">
+					<div class="hc-container-properties force-overflow">
+						<ui:repeat value="#{cc.imageContainerList}" var="imageItem"
+							varStatus="vstatus" id="imageItemsList">
+							<div class="#{cc.isMainImage(vstatus.index) ? 'hc-image-selected' : 'pic hc-image-unselected'}">
+								<span class="hc-close ui-icon-closethick"
+									onclick="deleteImage(#{vstatus.index})"></span>
+								<h:graphicImage value="#{imageItem.url}"
+									styleClass="pic-image hc-image-properties">
+								</h:graphicImage>
+								<span class="pic-caption top-to-bottom">
+									<h1 class="pic-title">#{vstatus.index}</h1>
+									<p>
+										<span class="hc-form-label">#{viewBundle['Properties.multi.image.Editor']}</span>
+									</p>
+									<button class="btn btn-primary"
+										onclick="selectImage(#{vstatus.index})"
+										value="#{viewBundle['Properties.multi.image.button']}"><span class="hc-form-label">#{viewBundle['Properties.multi.image.button']}</span></button>
+								</span>
+							</div>
+							<div id="property-image-delete-#{vstatus.index}"
+								style="display: none">
+								<h:commandButton immediate="true"
+									onclick="if(!confirm('#{viewBundle['Properties.multi.image.question']}')){return false}"
+									id="property-delete-button">
+									<f:ajax execute="@this"
+										listener="#{cc.onDeleteImage(vstatus.index)}"
+										render="#{cc.attrs.update}"></f:ajax>
+								</h:commandButton>
+								<h:commandButton immediate="true" id="property-select-button">
+									<f:ajax execute="@this"
+										listener="#{cc.onSelectMainImage(vstatus.index)}"
+										render="#{cc.attrs.update}"></f:ajax>
+								</h:commandButton>
+							</div>
+						</ui:repeat>
+					</div>
+				</section>
+			</div>
+		</h:panelGroup>
+	</cc:implementation>
+</ui:composition>

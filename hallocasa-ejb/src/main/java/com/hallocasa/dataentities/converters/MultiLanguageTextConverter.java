@@ -5,14 +5,10 @@
  */
 package com.hallocasa.dataentities.converters;
 
-import java.lang.reflect.Type;
-
-import com.google.gson.reflect.TypeToken;
-import com.hallocasa.commons.i18n.MultiLanguageText;
-import com.hallocasa.dataentities.types.LanguageList;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+
+import com.hallocasa.commons.i18n.MultiLanguageText;
 
 /**
  *

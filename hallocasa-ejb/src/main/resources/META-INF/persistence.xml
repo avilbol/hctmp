@@ -2,7 +2,7 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="RealStateDatabasePU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>jdbc/hallocasaDatasource</jta-data-source>
+    <jta-data-source>${datasource.wcmName}</jta-data-source>
     <!-- converters -->
     <class>com.hallocasa.dataentities.converters.LanguageConverter</class>
     <!-- entities -->
@@ -87,13 +87,17 @@
   </persistence-unit>
   <persistence-unit name="App" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>jdbc/hallocasaAppDatasource</jta-data-source>
+    <jta-data-source>${datasource.appName}</jta-data-source>
     <!-- converters -->
     <class>com.hallocasa.dataentities.converters.LanguageConverter</class>
     <class>com.hallocasa.dataentities.converters.MultiLanguageTextConverter</class>
     <class>com.hallocasa.dataentities.converters.SpokenLanguagesConverter</class>
     <class>com.hallocasa.dataentities.converters.ImageContainerConverter</class>
     <class>com.hallocasa.dataentities.converters.CountryTelephonePrefixConverter</class>
+    <class>com.hallocasa.dataentities.converters.DatabaseBooleanConverter</class>
+    <class>com.hallocasa.dataentities.converters.PropertyTypeConverter</class>
+    <class>com.hallocasa.dataentities.converters.PropertyLocationConverter</class>
+    <class>com.hallocasa.dataentities.converters.PropertyProposalConverter</class>
     <!-- entities -->
     <class>com.hallocasa.dataentities.app.Profile</class>
     <class>com.hallocasa.dataentities.app.UseCase</class>
@@ -103,8 +107,22 @@
     <class>com.hallocasa.dataentities.app.Country</class>
     <class>com.hallocasa.dataentities.app.City</class>
     <class>com.hallocasa.dataentities.app.Token</class>
-    <class>com.hallocasa.dataentities.app.TestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.TestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.ChildrenTestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.ParentSpEntity</class>
+    <class>com.hallocasa.dataentities.app.test.SecondParentSpEntity</class>
     <class>com.hallocasa.dataentities.app.Telephone</class>
+    <class>com.hallocasa.dataentities.app.Currency</class>
+    <class>com.hallocasa.dataentities.app.properties.Property</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyField</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyFieldRule</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyFieldRulePK</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyFieldValue</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyFieldValuePK</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyLocation</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyProposal</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyType</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyTypeGroup</class>
     <class>com.hallocasa.dataentities.app.CountryTelephonePrefix</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
@@ -122,6 +140,7 @@
     <class>com.hallocasa.dataentities.converters.SpokenLanguagesConverter</class>
     <class>com.hallocasa.dataentities.converters.ImageContainerConverter</class>
     <class>com.hallocasa.dataentities.converters.CountryTelephonePrefixConverter</class>
+    <class>com.hallocasa.dataentities.converters.DatabaseBooleanConverter</class>
     <!-- entities -->
     <class>com.hallocasa.dataentities.app.Profile</class>
     <class>com.hallocasa.dataentities.app.UseCase</class>
@@ -132,8 +151,22 @@
     <class>com.hallocasa.dataentities.app.City</class>
     <class>com.hallocasa.dataentities.app.Country</class>
     <class>com.hallocasa.dataentities.app.Token</class>
-    <class>com.hallocasa.dataentities.app.TestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.TestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.ChildrenTestEntity</class>
+    <class>com.hallocasa.dataentities.app.test.ParentSpEntity</class>
+    <class>com.hallocasa.dataentities.app.test.SecondParentSpEntity</class>
     <class>com.hallocasa.dataentities.app.Telephone</class>
+    <class>com.hallocasa.dataentities.app.Currency</class>
+    <class>com.hallocasa.dataentities.app.properties.Property</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyField</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyFieldRule</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyFieldRulePK</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyFieldValue</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyFieldValuePK</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyLocation</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyProposal</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyType</class>
+    <class>com.hallocasa.dataentities.app.properties.PropertyTypeGroup</class>
     <class>com.hallocasa.dataentities.app.CountryTelephonePrefix</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>

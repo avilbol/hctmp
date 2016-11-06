@@ -2,6 +2,7 @@ package com.hallocasa.view.navigation;
 
 import static com.hallocasa.view.navigation.ViewParamEnum.ARTICLE_ID;
 import static com.hallocasa.view.navigation.ViewParamEnum.EMAIL;
+import static com.hallocasa.view.navigation.ViewParamEnum.OPTION;
 import static com.hallocasa.view.navigation.ViewParamEnum.TOKEN;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import com.hallocasa.viewmodel.user.present.ProfileBrowserPage;
 import com.hallocasa.viewmodel.user.profile.ProfileEditPage;
 import com.hallocasa.viewmodel.user.profile.ProfileReadPage;
 import com.hallocasa.viewmodel.user.profile.PublicProfilePage;
+import com.hallocasa.viewmodel.user.properties.PropertyReadPage;
 
 /**
  * Enumeration to control all the views in the application
@@ -64,15 +66,29 @@ public enum HallocasaViewEnum {
      */
     PASSWORD_RECOVERY_REQUEST(HallocasaViewNames.PASSWORD_RECOVERY_REQUEST,
             "", null, false, null),
+    
     /**
-     * Page for account information
+     * Page for profile editing and view
      */
     MY_PROFILE(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/profile.xhtml",
-            ProfileReadPage.class, true, null, UseCaseEnum.SEE_MY_PROFILE),
+            ProfileReadPage.class, true, new ViewParamEnum[]{OPTION}, UseCaseEnum.SEE_MY_PROFILE),
+    
+    /**
+     * Page for property list
+     */
+    MY_PROPERTIES(HallocasaViewNames.USER_PROPERTY_LIST, "/user/pages/properties/properties.xhtml",
+            PropertyReadPage.class, false, null, UseCaseEnum.SEE_MY_PROFILE),
+    
     /**
      * Page for profile editing
      */
     EDIT_PROFILE(HallocasaViewNames.USER_PROFILE_EDIT, "/user/pages/edit-profile.xhtml",
+            ProfileEditPage.class, true, null, UseCaseEnum.EDIT_MY_PROFILE),
+    
+    /**
+     * Page for profile editing
+     */
+    EDIT_PROFILE_TEMP(HallocasaViewNames.USER_PROFILE_EDIT, "/user/pages/new-edit-profile.xhtml",
             ProfileEditPage.class, true, null, UseCaseEnum.EDIT_MY_PROFILE),
     
     /**

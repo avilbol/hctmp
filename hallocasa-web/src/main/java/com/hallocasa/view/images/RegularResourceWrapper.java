@@ -5,6 +5,9 @@
 package com.hallocasa.view.images;
 
 import com.hallocasa.model.application.HallocasaApplicationImpl;
+
+import java.io.Serializable;
+
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceWrapper;
 
@@ -12,9 +15,14 @@ import javax.faces.application.ResourceWrapper;
  *
  * @author David Mantilla Esmosoft
  */
-public class RegularResourceWrapper extends ResourceWrapper {
+public class RegularResourceWrapper extends ResourceWrapper implements Serializable {
 
-    private final javax.faces.application.Resource resource;
+    /**
+	 * Serialization constant
+	 */
+	private static final long serialVersionUID = -3286223378265148106L;
+	
+	private final javax.faces.application.Resource resource;
 
     public RegularResourceWrapper(Resource resource) {
         this.resource = resource;

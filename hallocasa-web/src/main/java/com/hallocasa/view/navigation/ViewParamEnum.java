@@ -21,7 +21,8 @@ public enum ViewParamEnum {
     LOGIN_AUTO("login-auto"),
     RECOVERY_PASSWORD("recovery-password-token"),
     LANGUAGE("lang"),
-    ARTICLE_ID("article");
+    ARTICLE_ID("article"),
+    OPTION("option");
 
     private final String paramKey;
 

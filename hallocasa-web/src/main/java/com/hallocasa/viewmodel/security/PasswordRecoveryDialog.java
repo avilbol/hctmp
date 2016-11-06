@@ -80,7 +80,7 @@ public class PasswordRecoveryDialog {
     }
 
     public void sendPasswordRecovery() throws MailServicesErrorException{
-        UserVO user = userServices.find(this.email);
+        UserVO user = userServices.findBasicInfo(this.email);
         if(user == null){
             viewContext.showGlobalErrorMessage("ForgotPassword.enterEmail.errorNotFound", 
                     "ForgotPassword.enterEmail.errorNotFound");

@@ -63,7 +63,7 @@ public class AuthenticationServicesImpl extends ServicesBase implements Authenti
 
         // search user
         List<User> users
-                = appPS.executeNamedQuery(User.QUERY_FIND_BY_EMAIL,
+                = appPS.executeNamedQuery(User.QUERY_FIND_BASIC_BY_EMAIL,
                         new Object[]{credentials.getEmail()}, User.class);
 
         if (users.isEmpty()) {

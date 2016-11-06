@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils">
+
+	<div class="col-md-12 properties-images">
+		<h:panelGroup id="multiimage-container" styleClass="col-md-12">
+			<h2>
+				<span class="hc-form-label">#{viewBundle['Properties.title.image']}</span>
+			</h2>
+			<hr></hr>
+			<p>
+				<span class="hc-form-label">#{viewBundle['Properties.message.image']}</span>
+			</p>
+			<utils:multiImageEditor
+				imageList="#{propertyWizardPage.propertyInEdition.propertyImageInfo.imageContainerList}"
+				indexMainImage="#{propertyWizardPage.propertyInEdition.propertyImageInfo.indexMainImage}"
+				imageType="propertyImage"
+				id="multiImageEditor"
+				update=":hc-profile-form:multiimage-container" />
+		</h:panelGroup>
+	</div>
+</ui:composition>
