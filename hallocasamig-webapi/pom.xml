@@ -58,7 +58,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 					</webResources>
 					<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
 					<packagingExcludes>**/web.xml</packagingExcludes>
-					<outputDirectory>D:\development\servers\apache-tomcat-8.0.36\webapps</outputDirectory>
+					<outputDirectory>${apidoc.war.location}</outputDirectory>
 				</configuration>
 			</plugin>
 		</plugins>

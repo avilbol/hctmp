@@ -59,11 +59,10 @@
 		<scripts.location>${project.basedir}/../database/scripts</scripts.location>
 		<netbeans.compile.on.save>all</netbeans.compile.on.save>
 		<local.glassfish.base>${glassfish.base}</local.glassfish.base>
-		<local.glassfish.home>${local.glassfish.base}/glassfish</local.glassfish.home>
 		<local.glassfish.user>admin</local.glassfish.user>
 		<local.glassfish.domain>${glassfish.domain}</local.glassfish.domain>
 		<local.glassfish.passfile>
-			${local.glassfish.home}/domains/${local.glassfish.domain}/config/domain-passwords
+			${local.glassfish.base}/domains/${local.glassfish.domain}/config/domain-passwords
 		</local.glassfish.passfile>
 		<local.app.path>http://localhost:${glassfish.app.port}/hallocasa-api</local.app.path>
 		<local.glassfish.port>${glassfish.admin.port}</local.glassfish.port>

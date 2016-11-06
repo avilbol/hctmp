@@ -21,7 +21,8 @@ public class BasicFilter implements ContainerResponseFilter{
             ContainerResponseContext response) throws IOException {
     	response.getHeaders().add("Access-Control-Allow-Origin", "*");
         response.getHeaders().add("Access-Control-Allow-Headers",
-                "origin, content-type, accept, authorization");
+                "origin, content-type, accept, authorization, O-Auth-Token, "
+                + "O-Auth-Code, O-Auth-Client-Id");
         response.getHeaders().add("Access-Control-Allow-Credentials", "true");
         response.getHeaders().add("Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");
