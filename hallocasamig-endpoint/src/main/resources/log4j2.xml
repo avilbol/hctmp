@@ -9,7 +9,7 @@
 	</Properties>
 	<Appenders>
 		<RollingFile name="main-log" fileName="${logspath}/${filename-info}"
-			filePattern="${logspath}/%d${MMMM}/${filename-info}.%d{ddMMyyyy}">
+			filePattern="${logspath}/%d{MMMM}/${filename-info}.%d{ddMMyyyy}">
 			<PatternLayout pattern="%d{dd-MMM-yyyy HH:mm:ss} %p %l %m %n" />
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" />
