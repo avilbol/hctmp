@@ -5,8 +5,10 @@ For /F "tokens=1* delims==" %%A IN (my-hc-settings.properties) DO (
     IF "%%A"=="api_doc_tomcat_base" set api_doc_tomcat_base=%%B
 )
 call mvn -f %hc_home%/hallocasamig-webapi/pom.xml clean package -U ^
- -Dglassfish.app.port=%glassfish_app_port% 
+ -Dglassfish.app.port=%glassfish_app_port% ^
+ -Dapidoc.war.location=%api_doc_tomcat_base%/webapps
 cd /d %api_doc_tomcat_base%/bin
 call catalina stop
 call catalina start
-cd %~dp0
+cmd /k cd %~dp0
+pause
