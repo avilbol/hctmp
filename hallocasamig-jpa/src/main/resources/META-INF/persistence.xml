@@ -6,9 +6,26 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/hallocasaAppDatasource</jta-data-source>
     <class>com.hallocasa.entities.EntityExample</class>
+    <class>com.hallocasa.entities.EntityFilterListingStep</class>
+    <class>com.hallocasa.entities.EntityFilterShowingStep</class>
+    <class>com.hallocasa.entities.EntityHcFilter</class>
+    <class>com.hallocasa.entities.EntityHcFilterCondition</class>
+    <class>com.hallocasa.entities.EntityHcFilterNature</class>
+    <class>com.hallocasa.entities.EntityHcFilterType</class>
+    <class>com.hallocasa.entities.EntityUser</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyField</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyFieldFilter</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyFieldOption</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyFilterConditionOption</class>
+    <class>com.hallocasa.entities.security.EntityAuthorizationCode</class>
+    <class>com.hallocasa.entities.security.EntitySecurityToken</class>
     <!-- converters -->
-    <!-- entities -->
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <class>com.hallocasa.persistence.converters.HcBooleanConverter</class>
+    <class>com.hallocasa.persistence.converters.FilterOperationStepConverter</class>
+    <class>com.hallocasa.persistence.converters.RangeFieldPresentationConverter</class>
+    <class>com.hallocasa.persistence.converters.RangeOperandConverter</class>
+    <class>com.hallocasa.persistence.converters.ShowChoiceConverter</class>
+    <class>com.hallocasa.persistence.converters.HcFilterTypeNatureConverter</class>
     <properties>
       <property name="eclipselink.target-database" value="MySQL"/>
       <property name="eclipselink.logging.level" value="FINE"/>

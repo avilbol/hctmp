@@ -5,15 +5,13 @@ import java.io.Serializable;
 import com.hallocasa.vo.i.ValueObject;
 
 /**
- * VO que representa un tipo de filtro a usar en un sistema de búsqueda
- * @author avillamil
+ * VO representing the nature of the filter selected
  */
-public class HcFilterType implements Serializable, ValueObject {
+public class HcFilterNature implements Serializable, ValueObject {
 
 	private static final long serialVersionUID = 8385629228688826281L;
 	private Integer id;
 	private String name;
-	private HcFilterTypeNature filterTypeNature;
 
 	public Integer getId() {
 		return id;
@@ -29,13 +27,5 @@ public class HcFilterType implements Serializable, ValueObject {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public HcFilterTypeNature getFilterTypeNature() {
-		return filterTypeNature;
-	}
-
-	public void setFilterTypeNature(HcFilterTypeNature filterTypeNature) {
-		this.filterTypeNature = filterTypeNature;
 	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.hallocasa.vo.i.ValueObject;
+import com.hallocasa.vo.properties.PropertyFieldOption;
 
 /**
  * Condition applied to filter, in order to validate some of his properties
@@ -18,7 +19,6 @@ public class DropdownFilterCondition extends HcFilterCondition implements ValueO
 	private boolean containsAll;
 	private boolean containsNumber;
 	private Integer number;
-	private List<HcFilterOption> selectedOptions;
 	
 	private Integer selectedNumberAny;
 	
@@ -39,12 +39,6 @@ public class DropdownFilterCondition extends HcFilterCondition implements ValueO
 	}
 	public void setContainsNumber(boolean containsNumber) {
 		this.containsNumber = containsNumber;
-	}
-	public List<HcFilterOption> getSelectedOptions() {
-		return selectedOptions;
-	}
-	public void setSelectedOptions(List<HcFilterOption> selectedOptions) {
-		this.selectedOptions = selectedOptions;
 	}
 	public boolean isSearchSpecific() {
 		return searchSpecific;

@@ -1,9 +1,12 @@
 package com.hallocasa.utils.constants.parsing;
 
+import static com.hallocasa.utils.constants.parsing.ParserMetadata.clazzEquivalenceMap;
+import static com.hallocasa.utils.constants.parsing.ParserMetadata.getParser;
+import static com.hallocasa.utils.constants.parsing.ParserMetadata.getWrapperTypes;
+import static org.apache.commons.beanutils.PropertyUtils.getPropertyType;
+
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,11 +17,6 @@ import org.apache.commons.beanutils.PropertyUtils;
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.utils.constants.parsing.i.Parser;
 import com.hallocasa.vo.i.ValueObject;
-
-import static org.apache.commons.beanutils.PropertyUtils.getPropertyType;
-import static com.hallocasa.utils.constants.parsing.ParserMetadata.clazzEquivalenceMap;
-import static com.hallocasa.utils.constants.parsing.ParserMetadata.getParser;
-import static com.hallocasa.utils.constants.parsing.ParserMetadata.getWrapperTypes;
 
 
 /**

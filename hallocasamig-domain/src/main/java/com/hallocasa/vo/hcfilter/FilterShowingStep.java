@@ -3,7 +3,7 @@ package com.hallocasa.vo.hcfilter;
 /**
  * @author avillamil
  */
-public class FilterApplySequenceElement {
+public class FilterShowingStep {
 
 	private FilterOperationStep beforeStep;
 	private HcFilterCondition condition;

@@ -16,9 +16,10 @@ public class HcFilter implements Serializable, ValueObject{
 	private Integer id;	
 	private String name;
 	private HcFilterType filterType;
-	private List<HcFilter> parentFilters;
-	private List<FilterApplySequenceElement> obtainSourceSeq;
-	private HcFilterShowingSchema showingSeq;
+	private HcFilterNature filterNature;
+	private List<FilterShowingStep> showingStepList;
+	private List<FilterListingStep> listingStepList;
+	private ShowChoice choice;
 	
 	public Integer getId() {
 		return id;
@@ -38,22 +39,28 @@ public class HcFilter implements Serializable, ValueObject{
 	public void setFilterType(HcFilterType filterType) {
 		this.filterType = filterType;
 	}
-	public List<HcFilter> getParentFilters() {
-		return parentFilters;
+	public List<FilterShowingStep> getShowingStepList() {
+		return showingStepList;
 	}
-	public void setParentFilters(List<HcFilter> parentFilters) {
-		this.parentFilters = parentFilters;
+	public void setShowingStepList(List<FilterShowingStep> showingStepList) {
+		this.showingStepList = showingStepList;
 	}
-	public List<FilterApplySequenceElement> getObtainSourceSeq() {
-		return obtainSourceSeq;
+	public List<FilterListingStep> getListingStepList() {
+		return listingStepList;
 	}
-	public void setObtainSourceSeq(List<FilterApplySequenceElement> obtainSourceSeq) {
-		this.obtainSourceSeq = obtainSourceSeq;
+	public void setListingStepList(List<FilterListingStep> listingStepList) {
+		this.listingStepList = listingStepList;
 	}
-	public HcFilterShowingSchema getShowingSeq() {
-		return showingSeq;
+	public ShowChoice getChoice() {
+		return choice;
 	}
-	public void setShowingSeq(HcFilterShowingSchema showingSeq) {
-		this.showingSeq = showingSeq;
+	public void setChoice(ShowChoice choice) {
+		this.choice = choice;
+	}
+	public HcFilterNature getFilterNature() {
+		return filterNature;
+	}
+	public void setFilterNature(HcFilterNature filterNature) {
+		this.filterNature = filterNature;
 	}
 }

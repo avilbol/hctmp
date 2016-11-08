@@ -11,31 +11,58 @@ import com.hallocasa.vo.i.ValueObject;
 public class RangeFilterType extends HcFilterType implements Serializable, ValueObject {
 
 	private static final long serialVersionUID = 4253281090779378505L;
-	private boolean useSlider;
-	private boolean validateMin;
-	private boolean validateMax;
+	private Boolean useSlider;
+	private Boolean onlyFrom;
+	private Boolean onlyTo;
+	private Boolean validateMin;
+	private Boolean validateMax;
+	private RangeFieldPresentation rangeFieldPresentation;
 
-	public boolean isUseSlider() {
+	public Boolean isUseSlider() {
 		return useSlider;
 	}
 
-	public void setUseSlider(boolean useSlider) {
+	public void setUseSlider(Boolean useSlider) {
 		this.useSlider = useSlider;
 	}
 
-	public boolean isValidateMin() {
+	public Boolean isValidateMin() {
 		return validateMin;
 	}
 
-	public void setValidateMin(boolean validateMin) {
+	public void setValidateMin(Boolean validateMin) {
 		this.validateMin = validateMin;
 	}
 
-	public boolean isValidateMax() {
+	public Boolean isValidateMax() {
 		return validateMax;
 	}
 
-	public void setValidateMax(boolean validateMax) {
+	public void setValidateMax(Boolean validateMax) {
 		this.validateMax = validateMax;
+	}
+
+	public RangeFieldPresentation getRangeFieldPresentation() {
+		return rangeFieldPresentation;
+	}
+
+	public void setRangeFieldPresentation(RangeFieldPresentation rangeFieldPresentation) {
+		this.rangeFieldPresentation = rangeFieldPresentation;
+	}
+
+	public Boolean isOnlyFrom() {
+		return onlyFrom;
+	}
+
+	public void setOnlyFrom(Boolean onlyFrom) {
+		this.onlyFrom = onlyFrom;
+	}
+
+	public Boolean isOnlyTo() {
+		return onlyTo;
+	}
+
+	public void setOnlyTo(Boolean onlyTo) {
+		this.onlyTo = onlyTo;
 	}
 }
