@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration status="debug" name="XMLConfigTest"
+	packages="org.apache.logging.log4j.test">
+	<Properties>
+		<Property name="filename-info">${loggingPath}/hallocasa.log</Property>
+		<Property name="filename-debug">${loggingPath}/hallocasa-debug.log</Property>
+	</Properties>
+	<Appenders>
+		<RollingFile name="main-log" fileName="${filename-info}"
+			filePattern="%d${MMMM}/${filename-info}.%d{ddMMyyyy}">
+			<PatternLayout pattern="%d{dd-MMM-yyyy HH:mm:ss} %p %l %m %n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="debug-log" fileName="${filename-debug}"
+			filePattern="%d${MMMM}/${filename-debug}.%d{ddMMyyyy}">
+			<PatternLayout pattern="%d{dd-MMM-yyyy HH:mm:ss} %p %l %m %n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="debug-log" level="DEBUG" />
+			<AppenderRef ref="main-log" level="INFO" />
+		</Root>
+	</Loggers>
+</Configuration>
+

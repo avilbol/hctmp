@@ -7,7 +7,7 @@ package com.hallocasa.utils.constants.parsing.i;
  * @param <U>
  * @param <V>
  */
-public interface Parser<U,V> {
+public interface Parser<ValueObject, HallocasaEntity> {
 
 	/**
 	 * Takes a value object and converts into an equivalent entity
@@ -18,7 +18,7 @@ public interface Parser<U,V> {
 	 * @return
 	 * 		The entity equivalent
 	 */
-	V toEntity(U valueObject, Class<V> clazz);
+	HallocasaEntity toEntity(ValueObject valueObject, Class<?> clazz);
 	
 	/**
 	 * Takes a entity and converts into a value object
@@ -29,6 +29,6 @@ public interface Parser<U,V> {
 	 * @return
 	 * 		The value object equivalent
 	 */
-	U toValueObject(V entity, Class<U> clazz);
+	ValueObject toValueObject(HallocasaEntity entity, Class<?> clazz);
 	
 }

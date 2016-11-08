@@ -6,7 +6,6 @@
   <name>hallocasamig-domain</name>
   <description>Vo's para la aplicación hallocasamig</description>
   <build>
-    <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

@@ -2,10 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>com.hallocasa</groupId>
 	<artifactId>hallocasamig-endpoint</artifactId>
-	<version>1.0</version>
 	<packaging>war</packaging>
 
 	<name>hallocasamig-endpoint</name>
@@ -13,6 +10,7 @@
 	<properties>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<war.name>${war.location}/${project.build.finalName}.war</war.name>
 	</properties>
 
 	<dependencies>
@@ -22,10 +20,20 @@
 			<version>1.1.0</version>
 		</dependency>
 		<dependency>
+			<groupId>com.hallocasa</groupId>
+			<artifactId>hallocasamig-api</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-web-api</artifactId>
 			<version>7.0</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-jersey-jaxrs</artifactId>
+			<version>1.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
@@ -37,10 +45,80 @@
 			<artifactId>swagger-annotations</artifactId>
 			<version>1.5.10</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.oltu.oauth2</groupId>
+			<artifactId>org.apache.oltu.oauth2.authzserver</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.oltu.oauth2</groupId>
+			<artifactId>org.apache.oltu.oauth2.client</artifactId>
+			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.8.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>2.23.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>start-domain</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<executable>sdomain</executable>
+							<arguments>
+								<argument>${local.glassfish.base}/bin</argument>
+								<argument>${local.glassfish.domain}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>redeploy</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<executable>${local.glassfish.base}/bin/asadmin.bat</executable>
+							<arguments>
+								<argument>deploy</argument>
+								<argument>--force</argument>
+								<argument>--name=${project.build.finalName}</argument>
+								<argument>--user=${local.glassfish.user}</argument>
+								<argument>--passwordfile=${local.glassfish.passfile}</argument>
+								<argument>--port=${local.glassfish.port}</argument>
+								<argument>--host=localhost</argument>
+								<argument>${war.name}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -58,8 +136,25 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.3</version>
 				<configuration>
-					<outputDirectory>D:/development/hallocasa-portal-utils/war</outputDirectory>
+					<outputDirectory>${war.location}</outputDirectory>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>**/web.xml</include>
+							</includes>
+						</resource>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/resources</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+							<includes>
+								<include>log4j2.xml</include>
+							</includes>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -89,4 +184,10 @@
 			</plugin>
 		</plugins>
 	</build>
+	<parent>
+		<artifactId>hallocasamig</artifactId>
+		<groupId>com.hallocasa</groupId>
+		<relativePath>../hallocasamig</relativePath>
+		<version>1.1.0</version>
+	</parent>
 </project>

@@ -5,6 +5,13 @@
  */
 package com.hallocasa.services.security.impl;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.ejb.EJB;
+import javax.ejb.Stateless;
+
 import com.hallocasa.commons.codec.CodecUtils;
 import com.hallocasa.commons.exceptions.services.InvalidEmailException;
 import com.hallocasa.commons.exceptions.services.InvalidPasswordLoginException;
@@ -13,16 +20,10 @@ import com.hallocasa.commons.vo.AuthInfoVO;
 import com.hallocasa.commons.vo.CredentialVO;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.dataentities.app.User;
-import com.hallocasa.helpers.HallocasaVOParser;
 import com.hallocasa.helpers.ParsersContext;
 import com.hallocasa.services.base.ServicesBase;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 import com.hallocasa.services.security.local.AuthenticationServices;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
 
 /**
  *

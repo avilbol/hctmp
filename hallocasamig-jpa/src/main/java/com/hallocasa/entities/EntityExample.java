@@ -22,7 +22,7 @@ import com.hallocasa.utils.constants.Tables;
 	query = "select e from EntityExample e where e.identifier = ?1")})
 public class EntityExample implements HallocasaEntity {
 
-	public static final String QUERY_FIND_BY_IDENTIFIER = "EntityExample.queryFFindByIdentifier";
+	public static final String QUERY_FIND_BY_IDENTIFIER = "EntityExample.queryFFFindByIdentifier";
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

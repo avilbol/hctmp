@@ -1,52 +1,46 @@
 package com.hallocasa.utils.constants.parsing;
 
-import java.util.HashMap;
-import java.util.Map;
+import static com.hallocasa.utils.constants.parsing.ParserMetadata.clazzEquivalenceMap;
+import static com.hallocasa.utils.constants.parsing.ParserMetadata.parserMap;
 
-import com.hallocasa.entities.EntityExample;
+import java.util.Optional;
+
+import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.utils.constants.parsing.i.Parser;
-import com.hallocasa.vo.Example;
+import com.hallocasa.vo.i.ValueObject;
 
-public class HallocasaConvert <U, V> {
-
-	public static Map<Class<?>, Class<?>> clazzEquivalenceMap = new HashMap<>();
-	
-	public static Map<Class<?>, Parser<?, ?>> parserMap = new HashMap<>();
-	
-	/**
-	 * Place here equivalences between entities and value objects
-	 */
-	static{
-		 clazzEquivalenceMap.put(Example.class, EntityExample.class);
-	}
-	
-	/**
-	 * Place here customized parsers
-	 */
-	static{
-		// TODO : Place here customized parsers
-	}
+public class HallocasaConvert {
 	
 	@SuppressWarnings("unchecked")
-	public static <U, V> V toEntity(U vo){
-		Class<V> entityEquivalence = (Class<V>) clazzEquivalenceMap.get(vo.getClass());
+	public static HallocasaEntity toEntity(ValueObject vo){
+		Class<?> entityEquivalence = (Class<?>) clazzEquivalenceMap.get(vo.getClass());
 		if(entityEquivalence == null){
 			throw new FatalException("Imposible determinar la entidad asociada al Value Object " 
 					+ vo.getClass().getName());
 		}
-		Parser<U, V> parser = (Parser<U, V>) parserMap.get(vo.getClass());
+		Parser<ValueObject, HallocasaEntity> parser = (Parser<ValueObject, HallocasaEntity>) parserMap.get(vo.getClass());
 		if(parser == null){
-			parser = new DefaultParser<>();
+			parser = new DefaultParser();
 		}
 		return parser.toEntity(vo, entityEquivalence);
 	}
 	
+	public static Optional<?> toValueObject(Optional<?> entity){
+		if(!entity.isPresent()){
+			return Optional.empty();
+		}
+		return Optional.of(toValueObject((HallocasaEntity)entity.get()));
+	}
+	
 	@SuppressWarnings("unchecked")
-	public static <U, V> U toValueObject(V entity){
-		Class<U> voEquivalence = null;
+	public static ValueObject toValueObject(HallocasaEntity entity){
+		if (entity == null){
+			return null;
+		}
+		Class<?> voEquivalence = null;
 		for(Class<?> valueObject : clazzEquivalenceMap.keySet()){
-			Class<U> value = (Class<U>) valueObject;
+			Class<?> value =  valueObject;
 			if(clazzEquivalenceMap.get(value).equals(entity.getClass())){
 				voEquivalence = value;
 			}
@@ -55,15 +49,10 @@ public class HallocasaConvert <U, V> {
 			throw new FatalException("Imposible determinar el value object asociado a la entidad " 
 					+ entity.getClass().getName());
 		}
-		Parser<U, V> parser = (Parser<U, V>) parserMap.get(voEquivalence);
+		Parser<ValueObject, HallocasaEntity> parser = (Parser<ValueObject, HallocasaEntity>) parserMap.get(voEquivalence);
 		if(parser == null){
-			parser = new DefaultParser<>();
+			parser = new DefaultParser();
 		}
 		return parser.toValueObject(entity, voEquivalence);
 	}
-	
-	public static void main(String[] args){
-		HallocasaConvert.<Example, EntityExample>toValueObject(new EntityExample());
-	}
-	
 }

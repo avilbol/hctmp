@@ -18,7 +18,7 @@ public class DAOExample implements IDAOExample {
 	@Override
 	public EntityExample findByCode(Integer code) {
 		List<EntityExample> entityExampleList = appPersistenceServices.executeNamedQuery(
-                EntityExample.QUERY_FIND_BY_IDENTIFIER, new Object[]{1}, EntityExample.class);
+                EntityExample.QUERY_FIND_BY_IDENTIFIER, new Object[]{code}, EntityExample.class);
 		if(!entityExampleList.isEmpty()){
 			return entityExampleList.get(0);
 		}
