@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite">
+	<cc:interface componentType="currencyEditorComponent">
+		<cc:attribute name="value"
+			type="com.hallocasa.commons.vo.CurrencyVOAmmount"
+			shortDescription="Currency vo ammount value" />
+		<cc:attribute name="currencies" type="java.util.List"
+			shortDescription="Currency list to deploy" />
+		<cc:attribute name="converter" type="java.lang.String"
+			shortDescription="Converter to use" />
+		<cc:attribute name="language" type="com.hallocasa.commons.Language"
+			shortDescription="Language to manage" />
+		<cc:attribute name="label" type="java.lang.String"
+			shortDescription="Label to show in validation error messages" />
+		<cc:attribute name="validatorMessage" type="java.lang.String"
+			shortDescription="Message to show when currency ammount is not number" />
+		<cc:attribute name="defaultMessage" type="java.lang.String"
+			shortDescription="Default message when no currency selected" />
+	</cc:interface>
+	<cc:implementation>
+		<p>
+		<script>
+		function format(input)
+		{
+		var num = input.value.replace(/\./g,'');
+		if(!isNaN(num)){
+		num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+		num = num.split('').reverse().join('').replace(/^[\.]/,'');
+		input.value = num;
+		}
+		 
+		else{ 
+		input.value = input.value.replace(/[^\d\.]*/g,'');
+		}
+		}
+		
+		</script>
+			<h:inputText id="currencyValue"
+				styleClass="hc-form-field form-control"
+				binding="#{cc.currencyAmmount}"
+				label="#{cc.attrs.label}"
+				required="true"
+				converter="javax.faces.Double">
+				<f:convertNumber pattern="0"/>
+			</h:inputText>
+		</p>
+		<br></br>
+		<p style="position: absolute;">
+			<h:selectOneMenu id="currency"
+				styleClass="hc-form-field form-control hc-select-property-basic-info"
+				binding="#{cc.currency}"
+				converter="currencyConverter">
+				<f:selectItem itemLabel="#{cc.attrs.defaultMessage}" value="#{null}"/>
+				<f:selectItems value="#{cc.attrs.currencies}" var="currency"
+					itemLabel="#{cc.currencyValue(currency)}" itemValue="#{currency}" />
+			</h:selectOneMenu>
+		</p>
+	</cc:implementation>
+</ui:composition>

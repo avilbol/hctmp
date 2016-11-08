@@ -31,7 +31,7 @@ body {
     padding: 30px;
     margin: 0px;
 }
-.col:first-child { margin-left: 0; }
+.col:first-child { margin-left: 0;    width: 50%; }
 .group:before,
 .group:after { content:""; display:table; }
 .group:after { clear:both;}

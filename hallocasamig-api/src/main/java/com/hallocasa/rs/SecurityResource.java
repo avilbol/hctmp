@@ -41,7 +41,15 @@ import com.hallocasa.vo.security.AuthInfo;
 import com.hallocasa.vo.security.AuthorizationCode;
 import com.hallocasa.vo.security.UserCredentials;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @Path("/security")
+@Api(value="/security", tags = "security")
 public class SecurityResource {
 
 	@EJB
@@ -83,6 +91,27 @@ public class SecurityResource {
 	@Path("/token")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
+	@ApiOperation( 
+		    value = "Intercambia el código de autorización, el usuario y la contraseña,"
+		    		+ "suministrados, por un token a través del cual, se podrá acceder "
+		    		+ "a los recursos privados de la aplicación", 
+		    notes = "Tener en cuenta que el token expira en 15 minutos, cuando "
+		    		+" ocurra, se debe volver a invocar este servicio con los "
+		    		+" parámetros anteriormente descritos"
+		)
+		@ApiResponses( {
+		    @ApiResponse( code = 401, message = "Si el usuario no está autorizado" ),
+		    @ApiResponse( code = 500, message = "Error interno del servidor" ),
+		    @ApiResponse( code = 200, message = "Recurso generado" )
+		})
+		@ApiImplicitParams({
+			@ApiImplicitParam(name = "client_id", value = "Id de aplicación", example="api-requester", required = true, dataType = "string", paramType = "form"),
+			@ApiImplicitParam(name = "client_secret", value = "Contraseña de aplicación (opcional)", defaultValue="12345", required = false, dataType = "string", paramType = "form"),
+			@ApiImplicitParam(name = "grant_type", value = "Tipo de autorización (opcional)", defaultValue="password", required = false, dataType = "string", paramType = "form"),
+		    @ApiImplicitParam(name = "code", value = "Código de autorización", example="hfjd542rRRFdfvjkv354657nfjfkd43", required = true, dataType = "string", paramType = "form"),
+		    @ApiImplicitParam(name = "username", value = "Email de usuario", required = false, dataType = "string", paramType = "form"),
+		    @ApiImplicitParam(name = "password", value = "Contraseña", required = true, dataType = "string", paramType = "form")
+		})
 	public Response loadToken(@Context HttpServletRequest request) throws URISyntaxException, OAuthSystemException,
 			JsonGenerationException, JsonMappingException, IOException {
 		OAuthTokenRequest oauthRequest = null;

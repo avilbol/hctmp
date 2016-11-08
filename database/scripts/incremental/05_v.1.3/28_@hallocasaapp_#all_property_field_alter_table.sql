@@ -1,0 +1,1 @@
+ALTER TABLE hallocasaapp.property_field ADD COLUMN basic INTEGER(1) DEFAULT 0 NOT NULL;

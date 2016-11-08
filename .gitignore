@@ -12,3 +12,4 @@
 .settings/
 bin/
 .recommenders/
+db/scripts/*/executed

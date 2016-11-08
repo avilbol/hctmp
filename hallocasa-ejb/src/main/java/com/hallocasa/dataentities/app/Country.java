@@ -6,9 +6,12 @@
 package com.hallocasa.dataentities.app;
 
 import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.Coordinate;
 import com.hallocasa.commons.vo.interfaces.HallocasaEntity;
 import com.hallocasa.dataentities.converters.MultiLanguageTextConverter;
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -35,7 +38,7 @@ public class Country implements Serializable, HallocasaEntity {
 
     public static final String QUERY_FIND_BY_ID = "Country.findById";
     public static final String QUERY_FIND_ALL = "Country.findAll";
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -47,7 +50,7 @@ public class Country implements Serializable, HallocasaEntity {
 
     @Column(name = "java_code")
     private String javaCode;
-
+    
     /**
      * Default constructor
      */

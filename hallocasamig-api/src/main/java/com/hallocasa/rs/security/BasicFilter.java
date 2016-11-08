@@ -1,5 +1,9 @@
 package com.hallocasa.rs.security;
 
+import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_CLIENT_ID_HEADER;
+import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_CODE_HEADER;
+import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_TOKEN_HEADER;
+
 import java.io.IOException;
 
 import javax.ejb.EJB;
@@ -20,8 +24,11 @@ public class BasicFilter implements ContainerResponseFilter{
     public void filter(ContainerRequestContext requestContext,
             ContainerResponseContext response) throws IOException {
     	response.getHeaders().add("Access-Control-Allow-Origin", "*");
+    	String allowedHeaders = String.format(
+    			"origin, content-type, accept, authorization, %s, %s, %s", 
+    			O_AUTH_TOKEN_HEADER, O_AUTH_CODE_HEADER, O_AUTH_CLIENT_ID_HEADER);
         response.getHeaders().add("Access-Control-Allow-Headers",
-                "origin, content-type, accept, authorization");
+                allowedHeaders);
         response.getHeaders().add("Access-Control-Allow-Credentials", "true");
         response.getHeaders().add("Access-Control-Allow-Methods",
                 "GET, POST, PUT, DELETE, OPTIONS, HEAD");

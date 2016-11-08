@@ -15,6 +15,7 @@
         <class>com.hallocasa.dataentities.converters.SpokenLanguagesConverter</class>
         <class>com.hallocasa.dataentities.converters.ImageContainerConverter</class>
         <class>com.hallocasa.dataentities.converters.CountryTelephonePrefixConverter</class>
+        <class>com.hallocasa.dataentities.converters.DatabaseBooleanConverter</class>
         <!-- entities -->
         <class>com.hallocasa.dataentities.app.Profile</class>
         <class>com.hallocasa.dataentities.app.UseCase</class>
@@ -24,8 +25,11 @@
         <class>com.hallocasa.dataentities.app.Country</class>
         <class>com.hallocasa.dataentities.app.City</class>
         <class>com.hallocasa.dataentities.app.Token</class>
-        <class>com.hallocasa.dataentities.app.TestEntity</class>
+        <class>com.hallocasa.dataentities.app.test.TestEntity</class>
+        <class>com.hallocasa.dataentities.app.test.ChildrenTestEntity</class>
+        <class>com.hallocasa.dataentities.app.test.ParentSpEntity</class>
         <class>com.hallocasa.dataentities.app.Telephone</class>
+        <class>com.hallocasa.dataentities.app.properties.Property</class>
     	<class>com.hallocasa.dataentities.app.CountryTelephonePrefix</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>

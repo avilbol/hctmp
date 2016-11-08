@@ -16,6 +16,10 @@ import com.hallocasa.helpers.test.UserTestVOParser;
 public class ParsersContext {
 
 	public static final UserVOParser USER_VO_PARSER = new UserVOParser();
+	public static final PropertyVOParser PROPERTY_VO_PARSER = new PropertyVOParser();
+	public static final PropertyTypeVOParser PROPERTY_TYPE_VO_PARSER = new PropertyTypeVOParser();
+	public static final PropertyProposalVOParser PROPERTY_PROPOSAL_VO_PARSER = new PropertyProposalVOParser();
+	public static final PropertyLocationVOParser PROPERTY_LOCATION_VO_PARSER = new PropertyLocationVOParser();
 	public static final UserTestVOParser USER_TEST_VO_PARSER = new UserTestVOParser();
 	public static final CountryVOParser COUNTRY_VO_PARSER = new CountryVOParser();
 	public static final StandardVOParser<Telephone, TelephoneVO> TELEPHONE_VO_PARSER = new StandardVOParser<>();
@@ -23,6 +27,7 @@ public class ParsersContext {
 	public static final StateVOParser STATE_VO_PARSER = new StateVOParser();
 	public static final CityVOParser CITY_VO_PARSER = new CityVOParser();
 	public static final UserTypeVOParser USER_TYPE_VO_PARSER = new UserTypeVOParser();
+	public static final CurrencyVOParser CURRENCY_VO_PARSER = new CurrencyVOParser();
 	/* instance variables */
 
 	/* constructors */

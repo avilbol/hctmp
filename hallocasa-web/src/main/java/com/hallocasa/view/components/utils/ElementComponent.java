@@ -13,7 +13,7 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
-import com.hallocasa.dataentities.app.TestEntity;
+import com.hallocasa.dataentities.app.test.TestEntity;
 import com.hallocasa.view.components.base.BaseComponent;
 
 @FacesComponent("elementComponent")

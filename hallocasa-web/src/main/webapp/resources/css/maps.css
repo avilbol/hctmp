@@ -1,0 +1,8 @@
+#map {
+	height: 400px;
+	overflow:visible !important;
+}
+
+#map * {
+    overflow:visible;
+}

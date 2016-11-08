@@ -5,8 +5,6 @@
  */
 package com.hallocasa.services.persistence.impl;
 
-import com.hallocasa.services.persistence.local.AppPersistenceServices;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +21,8 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
+
+import com.hallocasa.services.persistence.local.AppPersistenceServices;
 
 /**
  * Session Bean implementation class PartnerServices
@@ -140,11 +140,10 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
      * com.mobiera.social.services.local.PersistenceServicesLocal#executeNamedQuery
      * (java.lang.String, java.lang.Object[], java.lang.Class)
      */
-    @SuppressWarnings("unchecked")
     @Override
     public <T> List<T> executeNamedQuery(String queryName, Object[] params,
             Class<T> expectedClass) {
-        Query query = em.createNamedQuery(queryName);
+        TypedQuery<T> query = em.createNamedQuery(queryName, expectedClass);
         int i = 1;
         if (params != null) {
             for (Object entry : params) {

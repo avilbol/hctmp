@@ -18,9 +18,7 @@ import static com.hallocasa.view.utils.FormatUtils.*;
  */
 @FacesConverter(value = "stateConverter")
 public class StateConverter implements Converter {
-
-   
-    
+	
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if (isNumeric(value)) {
@@ -31,6 +29,9 @@ public class StateConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
+    	if(value == null){
+    		return null;
+    	}
         return "" + ((StateVO) value).getId();
     }
 }

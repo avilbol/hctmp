@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
@@ -38,6 +37,7 @@ import com.hallocasa.commons.vo.ImageContainer;
 import com.hallocasa.utils.ApplicationFileUtils;
 import com.hallocasa.view.components.base.BaseComponent;
 import com.hallocasa.view.context.ViewContext;
+import com.hallocasa.view.i18n.Messages;
 import com.hallocasa.viewmodel.security.LoginDialog;
 
 /**
@@ -52,36 +52,22 @@ public class ImageEditorComponent extends BaseComponent {
 	private static final Logger LOG = Logger.getLogger(LoginDialog.class.getName());
 
 	private enum Attributes {
-
-		imageUrl, imageType, readOnly, defaultImageUrl
+		imageUrl, imageType, readOnly, defaultImageUrl, postUploadAction
 	}
 
 	private static final Integer MAX_BYTES_PART_SIZE = 5120000;
-
 	private static final Integer MAX_IMAGE_WIDTH = 312;
-
 	private static final Integer MAX_IMAGE_HEIGHT = 536;
-
 	private Part uncroppedImagePart;
-
 	private Part ppl;
-
 	private String contentExt;
-
 	private String uncroppedImageResourcesUrl;
-
 	private String uncroppedImageUrl;
-
 	private ImageContainer image;
-
 	private Boolean showImageLoad;
-
 	private Boolean showImageCrop;
-
 	private Boolean validUpload;
-
 	private CroppedImage croppedImage;
-
 	private String relativePath;
 
 	@Inject
@@ -135,6 +121,8 @@ public class ImageEditorComponent extends BaseComponent {
 				createUncroppedImage();
 				onNextClick();
 			} catch (IOException e) {
+				LOG.log(Level.SEVERE, "Unexepcted error", e);
+				viewContext.showGlobalErrorMessage(Messages.UNEXPECTED_ERROR, null);
 			}
 		}
 	}
@@ -156,8 +144,7 @@ public class ImageEditorComponent extends BaseComponent {
 			postCropAction();
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error al intentar realizar el ajuste de la imagen. {0}", e);
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Cropping failed."));
+			viewContext.showGlobalErrorMessage(Messages.UNEXPECTED_ERROR, null);
 		}
 
 	}
@@ -204,6 +191,10 @@ public class ImageEditorComponent extends BaseComponent {
 		this.uncroppedImageResourcesUrl = null;
 		this.uncroppedImageUrl = null;
 		onBackClick();
+		Object postUploadAction = getAttributes().get(Attributes.postUploadAction.toString());
+		if(postUploadAction != null){
+			this.invokeMethod(Attributes.postUploadAction.toString(), new Object[]{});
+		}
 	}
 
 	public void onNextClick() {
@@ -351,7 +342,6 @@ public class ImageEditorComponent extends BaseComponent {
 		if (!file.delete()) {
 			viewContext.showGlobalErrorMessage("Image.Edition.Delete.Error", "Image.Edition.Delete.Error");
 		}
-		;
 	}
 
 	private File loadFileTemplate() {
@@ -371,5 +361,14 @@ public class ImageEditorComponent extends BaseComponent {
 			}
 		}
 		return this.relativePath;
+	}
+	
+	public ImageContainer imageToShow(){
+		ImageContainer ic = (ImageContainer) getAttributes().get("imageUrl");
+		if(ic == null){
+			String defaultIcUrl = (String) getAttributes().get("defaultImageUrl");
+			return new ImageContainer(defaultIcUrl);
+		}
+		return ic;
 	}
 }
