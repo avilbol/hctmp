@@ -35,7 +35,6 @@ public class EntityHcFilter implements HallocasaEntity {
 
 	@JoinColumn(name = "filter_nature_id", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@Column(name = "filter_nature_id")
 	private EntityHcFilterNature filterNature;
 
 	@Column(name = "min_value")

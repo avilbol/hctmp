@@ -54,10 +54,10 @@ public class AuthenticationServiceImp implements AuthenticationService {
 		// search user
 		EntityUser entUser = daoUser.find(credentials.getEmail());
 		if (entUser == null) {
-			throw new InvalidEmailException();
+			throw new SecurityException("Email of user does not exist");
 		}
 		if (!entUser.getPassword().equals(CodecUtils.encryptPassword(credentials.getPassword()))) {
-			throw new InvalidPasswordLoginException();
+			throw new SecurityException("Email of user or password is incorrect");
 		}
 
 		// creates result object
