@@ -13,6 +13,7 @@ public class HcFilterType implements Serializable, ValueObject {
 	private static final long serialVersionUID = 8385629228688826281L;
 	private Integer id;
 	private String name;
+	private HcFilterTypeNature filterTypeNature;
 
 	public Integer getId() {
 		return id;
@@ -28,5 +29,13 @@ public class HcFilterType implements Serializable, ValueObject {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public HcFilterTypeNature getFilterTypeNature() {
+		return filterTypeNature;
+	}
+
+	public void setFilterTypeNature(HcFilterTypeNature filterTypeNature) {
+		this.filterTypeNature = filterTypeNature;
 	}
 }

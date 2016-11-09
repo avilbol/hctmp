@@ -11,40 +11,47 @@ import com.hallocasa.vo.i.ValueObject;
 public class DropdownFilterType extends HcFilterType implements Serializable, ValueObject {
 
 	private static final long serialVersionUID = 7171194327323161403L;
-	private boolean allowMultiple;
-	private boolean useSearch;
-	private boolean useSort;
-	private boolean useSelectAll;
-	private boolean useRemoteList;
+	private Boolean allowMultiple;
+	private Boolean useSearch;
+	private Boolean useSort;
+	private Boolean useSelectAll;
+	private Boolean useRemoteList;
+	private Boolean useLinks;
 	
-	public boolean isAllowMultiple() {
+	public Boolean isAllowMultiple() {
 		return allowMultiple;
 	}
-	public void setAllowMultiple(boolean allowMultiple) {
+	public void setAllowMultiple(Boolean allowMultiple) {
 		this.allowMultiple = allowMultiple;
 	}
-	public boolean isUseSearch() {
+	public Boolean isUseSearch() {
 		return useSearch;
 	}
-	public void setUseSearch(boolean useSearch) {
+	public void setUseSearch(Boolean useSearch) {
 		this.useSearch = useSearch;
 	}
-	public boolean isUseSort() {
+	public Boolean isUseSort() {
 		return useSort;
 	}
-	public void setUseSort(boolean useSort) {
+	public void setUseSort(Boolean useSort) {
 		this.useSort = useSort;
 	}
-	public boolean isUseSelectAll() {
+	public Boolean isUseSelectAll() {
 		return useSelectAll;
 	}
-	public void setUseSelectAll(boolean useSelectAll) {
+	public void setUseSelectAll(Boolean useSelectAll) {
 		this.useSelectAll = useSelectAll;
 	}
-	public boolean isUseRemoteList() {
+	public Boolean isUseRemoteList() {
 		return useRemoteList;
 	}
-	public void setUseRemoteList(boolean useRemoteList) {
+	public void setUseRemoteList(Boolean useRemoteList) {
 		this.useRemoteList = useRemoteList;
+	}
+	public Boolean isUseLinks() {
+		return useLinks;
+	}
+	public void setUseLinks(Boolean useLinks) {
+		this.useLinks = useLinks;
 	}
 }

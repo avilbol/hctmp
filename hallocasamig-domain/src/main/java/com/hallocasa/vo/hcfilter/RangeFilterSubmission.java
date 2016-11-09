@@ -1,6 +1,7 @@
 package com.hallocasa.vo.hcfilter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.hallocasa.vo.i.ValueObject;
 
@@ -10,6 +11,10 @@ public class RangeFilterSubmission extends HcFilterSubmission implements ValueOb
 
 	private double minValue;
 	private double maxValue;
+	
+	private Date minDateValue;
+	private Date maxDateValue;
+	
 	public double getMinValue() {
 		return minValue;
 	}
@@ -21,5 +26,17 @@ public class RangeFilterSubmission extends HcFilterSubmission implements ValueOb
 	}
 	public void setMaxValue(double maxValue) {
 		this.maxValue = maxValue;
+	}
+	public Date getMinDateValue() {
+		return minDateValue;
+	}
+	public void setMinDateValue(Date minDateValue) {
+		this.minDateValue = minDateValue;
+	}
+	public Date getMaxDateValue() {
+		return maxDateValue;
+	}
+	public void setMaxDateValue(Date maxDateValue) {
+		this.maxDateValue = maxDateValue;
 	}
 }

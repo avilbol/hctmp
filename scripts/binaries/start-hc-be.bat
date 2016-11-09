@@ -11,6 +11,7 @@ For /F "tokens=1* delims==" %%A IN (my-hc-settings.properties) DO (
     IF "%%A"=="mysql_jdbc" set mysql_jdbc=%%B
     IF "%%A"=="mysql_pass" set mysql_pass=%%B
     IF "%%A"=="hc_version" set hc_version=%%B
+    IF "%%A"=="api_doc_tomcat_base" set api_doc_tomcat_base=%%B
 )
 call copy "my-hc-settings.properties" "init_setup/my-hc-settings.properties"
 call init_setup/do
@@ -23,7 +24,9 @@ call mvn -f %hc_home%/hallocasamig/pom.xml clean package ^
  -Dglassfish.admin.port=%glassfish_admin_port% -Dlogsdir=%logs_dir% ^
  -Dglassfish.app.port=%glassfish_app_port% ^
  -Dmysql.jdbc=%mysql_jdbc% ^
- -Dmysql.pass=%mysql_pass%
+ -Dmysql.pass=%mysql_pass% ^
+ -Dglassfish.app.port=%glassfish_app_port% ^
+ -Dapidoc.war.location=%api_doc_tomcat_base%/webapps
 GOTO Success
 :Error
 cmd /k

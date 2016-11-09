@@ -16,6 +16,8 @@ public class RangeFilterCondition  extends HcFilterCondition implements ValueObj
 	private RangeOperand maxOperand;
 	private double minValue;
 	private double maxValue;
+	private double minDateValue;
+	private double maxDateValue;
 	private boolean applyMinConstraint;
 	private boolean applyMaxConstraint;
 	
@@ -54,5 +56,17 @@ public class RangeFilterCondition  extends HcFilterCondition implements ValueObj
 	}
 	public void setApplyMaxConstraint(boolean applyMaxConstraint) {
 		this.applyMaxConstraint = applyMaxConstraint;
+	}
+	public double getMinDateValue() {
+		return minDateValue;
+	}
+	public void setMinDateValue(double minDateValue) {
+		this.minDateValue = minDateValue;
+	}
+	public double getMaxDateValue() {
+		return maxDateValue;
+	}
+	public void setMaxDateValue(double maxDateValue) {
+		this.maxDateValue = maxDateValue;
 	}
 }

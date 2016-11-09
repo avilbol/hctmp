@@ -16,6 +16,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.hallocasa.entities.i.HallocasaEntity;
+
 
 /**
  * 
@@ -24,7 +26,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user")
 @NamedQueries({ @NamedQuery(name = EntityUser.QUERY_FIND_BY_EMAIL, query = "select u from EntityUser u where u.email = ?1"), })
-public class EntityUser implements Serializable, com.hallocasa.entities.i.HallocasaEntity {
+public class EntityUser implements Serializable, HallocasaEntity {
 
 	/* static fields */
 	private static final long serialVersionUID = 1L;

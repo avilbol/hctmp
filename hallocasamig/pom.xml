@@ -76,6 +76,7 @@
 		<module>../hallocasamig-utils</module>
 		<module>../hallocasamig-service</module>
 		<module>../hallocasamig-api</module>
+		<module>../hallocasamig-webapi</module>
 		<module>../hallocasamig-domain</module>
 	</modules>
 
