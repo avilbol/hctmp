@@ -1,7 +1,6 @@
 package com.hallocasa.persistence.converters;
 
 import javax.persistence.AttributeConverter;
-import javax.persistence.Convert;
 import javax.persistence.Converter;
 
 import com.hallocasa.vo.hcfilter.HcFilterTypeNature;
@@ -12,11 +11,11 @@ public class HcFilterTypeNatureConverter implements AttributeConverter<HcFilterT
 
     @Override
     public String convertToDatabaseColumn(HcFilterTypeNature filterTypeNature) {
-        return filterTypeNature.name();
+        return filterTypeNature == null ? null : filterTypeNature.name();
     }
 
     @Override
     public HcFilterTypeNature convertToEntityAttribute(String s) {
-        return HcFilterTypeNature.valueOf(s);
+        return s == null ? null : HcFilterTypeNature.valueOf(s);
     }
 }

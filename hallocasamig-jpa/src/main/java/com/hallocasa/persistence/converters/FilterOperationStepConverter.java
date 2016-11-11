@@ -1,7 +1,6 @@
 package com.hallocasa.persistence.converters;
 
 import javax.persistence.AttributeConverter;
-import javax.persistence.Convert;
 import javax.persistence.Converter;
 
 import com.hallocasa.vo.hcfilter.FilterOperationStep;
@@ -17,6 +16,6 @@ public class FilterOperationStepConverter implements AttributeConverter<FilterOp
 
     @Override
     public FilterOperationStep convertToEntityAttribute(String s) {
-        return FilterOperationStep.valueOf(s);
+        return s == null ? null : FilterOperationStep.valueOf(s);
     }
 }

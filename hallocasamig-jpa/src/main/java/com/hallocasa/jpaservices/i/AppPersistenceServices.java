@@ -7,6 +7,7 @@ package com.hallocasa.jpaservices.i;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.Local;
 import javax.persistence.EntityManager;
@@ -240,4 +241,13 @@ public interface AppPersistenceServices {
 
 	<T> T executeQuery(String jpqlQuery, HashMap<String, Object> params,
 			Class<T> expectedClass, Integer index);
+
+	/**
+	 * Returns an unique response value in query
+	 * @param queryName
+	 * @param params
+	 * @param expectedClass
+	 * @return
+	 */
+	<T> Optional<T> executeSingleNamedQuery(String queryName, Object[] params, Class<T> expectedClass);
 }

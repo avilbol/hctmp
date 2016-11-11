@@ -4,8 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.persistence.converters.HcBooleanConverter;
 
 /**
@@ -14,8 +17,18 @@ import com.hallocasa.persistence.converters.HcBooleanConverter;
  */
 @Entity
 @Table(name = "property_field")
-public class EntityPropertyField {
+@NamedQueries({
+	@NamedQuery(name = EntityPropertyField.QUERY_FIND_BY_FILTER, 
+			query = "select f from EntityPropertyField f where f.id IN ("
+					+ "select ff.propertyField.id from EntityPropertyFieldFilter ff "
+					+ "where ff.filter.id = ?1)")})
+public class EntityPropertyField implements HallocasaEntity {
 
+	/**
+	 * Query to find all filters
+	 */
+	public static final String QUERY_FIND_BY_FILTER = "EntityPropertyField.queryFindByFilter";
+	
 	/**
 	 * Property field identifier
 	 */
