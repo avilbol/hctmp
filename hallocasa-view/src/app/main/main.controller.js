@@ -32,7 +32,7 @@
         templateUrl: 'app/session/login/login.html',
         parent: $document.body,
         locals: {
-          textArea: "",
+          description: "",
           allowClose: true
         },
         targetEvent: ev,

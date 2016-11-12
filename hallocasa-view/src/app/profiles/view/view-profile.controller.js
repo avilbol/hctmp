@@ -6,7 +6,7 @@
     .controller('ViewProfileController', ViewProfileController);
 
   /** @ngInject */
-  function ViewProfileController(ProfilesService, $location, SessionService, ImageValidatorService, LocationService, toastr) {
+  function ViewProfileController(ProfilesService, $location, ImageValidatorService, LocationService, toastr) {
     var vm = this;
 
     vm.validateImage = ImageValidatorService.validateBase64;
@@ -60,8 +60,6 @@
           toastr.info(error, "Error al cargar Estados");
         });
     }
-
-    SessionService.validateActiveSession("PublicProfile.PreAuthorize.loginNeeded");
 
     loadProfile();
     loadCountries();

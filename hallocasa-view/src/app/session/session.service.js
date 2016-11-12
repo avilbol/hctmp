@@ -6,14 +6,15 @@
     .service('SessionService', SessionService);
 
   /** @ngInject */
-  function SessionService(translateFilter, $mdMedia, $mdDialog, $document) {
+  function SessionService($mdMedia, $mdDialog, $document, $auth, $q) {
     var service = {
-      validateActiveSession: validateActiveSession
+      validateActiveSession: validateActiveSession,
+      login: login
     };
     return service;
 
     function validateActiveSession(message) {
-      if(!sessionStorage.session){
+      if(!$auth.isAuthenticated()){
         var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
         return $mdDialog.show({
           controller: "LoginController",
@@ -21,13 +22,26 @@
           templateUrl: 'app/session/login/login.html',
           parent: $document.body,
           locals: {
-            textArea: translateFilter(message),
+            description: message,
             allowClose: false
           },
           clickOutsideToClose:false,
           fullscreen: useFullScreen
         })
       }
+    }
+
+    function login(userCredentials) {
+      return $q(function (resolve, reject) {
+        $auth.login(userCredentials)
+          .then(function (userToken) {
+            $auth.setToken(userToken);
+            resolve();
+          })
+          .catch(function(error){
+            reject(error);
+          })
+      });
     }
   }
 })();

@@ -11,7 +11,7 @@
   <form name="loginForm" novalidate ng-submit="editProfileForm.$valid && true">
     <md-dialog-content>
       <md-content class="md-padding">
-        <span>{{vm.textArea}}</span>
+        <span>{{vm.description | translate}}</span>
         <md-input-container  class="md-block">
           <label>{{'Login.Form.Email' | translate}}</label>
           <input name="email" ng-model="vm.userData.email" type="email" ng-required="true">
@@ -31,7 +31,7 @@
           ></ng-messages-generator>
         </md-input-container>
         <md-input-container layout="row" layout-align="center center">
-          <md-button class="md-primary md-raised" type="submit">
+          <md-button class="md-primary md-raised" type="submit" ng-click="vm.login()" ng-disabled="loginForm.$invalid">
             {{'Login.Submit.Button' | translate}}
           </md-button>
         </md-input-container>

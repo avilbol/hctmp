@@ -27,7 +27,8 @@
     "v-accordion": "1.6.0",
     "lf-ng-md-file-input": "^1.4.8",
     "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
-    "angular-carousel-3d": "*"
+    "angular-carousel-3d": "*",
+    "satellizer": "^0.15.5"
   },
   "devDependencies": {
     "angular-mocks": "1.5.8"
