@@ -16,6 +16,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import org.apache.http.HttpStatus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
@@ -52,6 +54,11 @@ import io.swagger.annotations.ApiResponses;
 @Api(value="/security", tags = "security")
 public class SecurityResource {
 
+	/**
+	 * Log de la clase.
+	 */
+	private static final Logger LOG = LogManager.getLogger(SecurityResource.class);
+	
 	@EJB
 	AuthorizationCodeService authCodeService;
 
@@ -118,6 +125,12 @@ public class SecurityResource {
 		OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
 		oauthIssuerImpl.accessToken();
 		try {
+			LOG.debug("client_id:" + request.getParameter("client_id"));
+			LOG.debug("code:" + request.getParameter("code"));
+			LOG.debug("username:" + request.getParameter("username"));
+			LOG.debug("password:" + request.getParameter("password"));
+			LOG.debug("grant_type:" + request.getParameter("grant_type"));
+			LOG.debug("client_secret:" + request.getParameter("client_secret"));
 			oauthRequest = new OAuthTokenRequest(request);
 			String authCode = oauthRequest.getParam(OAuth.OAUTH_CODE);
 			String clientId = oauthRequest.getParam(OAuth.OAUTH_CLIENT_ID);

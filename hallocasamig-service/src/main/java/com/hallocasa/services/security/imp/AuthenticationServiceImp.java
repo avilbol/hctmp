@@ -26,8 +26,7 @@ import com.hallocasa.vo.security.AuthInfo;
 import com.hallocasa.vo.security.UserCredentials;
 
 /**
- *
- * @author david
+ * @author avillamil
  */
 @Stateless
 public class AuthenticationServiceImp implements AuthenticationService {

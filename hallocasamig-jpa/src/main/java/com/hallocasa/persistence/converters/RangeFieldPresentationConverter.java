@@ -10,11 +10,11 @@ public class RangeFieldPresentationConverter implements AttributeConverter<Range
 
     @Override
     public String convertToDatabaseColumn(RangeFieldPresentation filterTypeNature) {
-        return filterTypeNature.name();
+        return filterTypeNature == null ? null : filterTypeNature.name();
     }
 
     @Override
     public RangeFieldPresentation convertToEntityAttribute(String s) {
-        return RangeFieldPresentation.valueOf(s);
+        return s == null ? null : RangeFieldPresentation.valueOf(s);
     }
 }

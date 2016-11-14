@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
@@ -155,6 +156,29 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         return query.getResultList();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.mobiera.social.services.local.PersistenceServicesLocal#executeNamedQuery
+     * (java.lang.String, java.lang.Object[], java.lang.Class)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> Optional<T> executeSingleNamedQuery(String queryName, Object[] params,
+            Class<T> expectedClass) {
+        Query query = em.createNamedQuery(queryName);
+        int i = 1;
+        if (params != null) {
+            for (Object entry : params) {
+                query.setParameter(i, entry);
+                i++;
+            }
+        }
+        List<T> resultList = query.getResultList();
+        return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
+    }
+    
     /*
      * (non-Javadoc)
      * 

@@ -20,12 +20,6 @@
     <class>com.hallocasa.entities.security.EntityAuthorizationCode</class>
     <class>com.hallocasa.entities.security.EntitySecurityToken</class>
     <!-- converters -->
-    <class>com.hallocasa.persistence.converters.HcBooleanConverter</class>
-    <class>com.hallocasa.persistence.converters.FilterOperationStepConverter</class>
-    <class>com.hallocasa.persistence.converters.RangeFieldPresentationConverter</class>
-    <class>com.hallocasa.persistence.converters.RangeOperandConverter</class>
-    <class>com.hallocasa.persistence.converters.ShowChoiceConverter</class>
-    <class>com.hallocasa.persistence.converters.HcFilterTypeNatureConverter</class>
     <properties>
       <property name="eclipselink.target-database" value="MySQL"/>
       <property name="eclipselink.logging.level" value="FINE"/>

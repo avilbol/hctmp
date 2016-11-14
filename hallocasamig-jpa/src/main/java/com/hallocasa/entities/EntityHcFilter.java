@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,8 +22,23 @@ import com.hallocasa.vo.hcfilter.ShowChoice;
 
 @Entity
 @Table(name = "filter")
+@NamedQueries({
+	@NamedQuery(name = EntityHcFilter.QUERY_FIND_BY_NATURE, 
+			query = "select f from EntityHcFilter f where f.filterNature.id IN (?1)"),
+	@NamedQuery(name = EntityHcFilter.QUERY_FIND_ALL, 
+			query = "select f from EntityHcFilter f")})
 public class EntityHcFilter implements HallocasaEntity {
 
+	/**
+	 * Query to find all filters
+	 */
+	public static final String QUERY_FIND_ALL = "EntitySecurityToken.queryFindAll";
+	
+	/**
+	 * Query to find all filters that matches with nature filter id list
+	 */
+	public static final String QUERY_FIND_BY_NATURE = "EntitySecurityToken.queryFindByNature";
+	
 	@Id
 	@Column(name = "id")
 	private int id;
@@ -57,7 +74,7 @@ public class EntityHcFilter implements HallocasaEntity {
 	@Column(name = "force_all_filter_options")
 	private Boolean forceAllFilterOptions;
 
-	@Column(name = "api_operations")
+	@Column(name = "api_operation")
 	private String apiOperation;
 
 	@Convert(converter = ShowChoiceConverter.class)

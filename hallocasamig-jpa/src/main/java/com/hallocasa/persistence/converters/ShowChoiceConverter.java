@@ -10,11 +10,11 @@ public class ShowChoiceConverter implements AttributeConverter<ShowChoice, Strin
 
     @Override
     public String convertToDatabaseColumn(ShowChoice showChoice) {
-        return showChoice.name();
+        return showChoice == null ? null : showChoice.name();
     }
 
     @Override
     public ShowChoice convertToEntityAttribute(String s) {
-        return ShowChoice.valueOf(s);
+        return s == null ? null : ShowChoice.valueOf(s);
     }
 }

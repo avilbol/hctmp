@@ -10,11 +10,11 @@ public class RangeOperandConverter implements AttributeConverter<RangeOperand, S
 
     @Override
     public String convertToDatabaseColumn(RangeOperand rangeOperand) {
-        return rangeOperand.name();
+        return rangeOperand == null ? null : rangeOperand.name();
     }
 
     @Override
     public RangeOperand convertToEntityAttribute(String s) {
-        return RangeOperand.valueOf(s);
+        return s == null ? null : RangeOperand.valueOf(s);
     }
 }

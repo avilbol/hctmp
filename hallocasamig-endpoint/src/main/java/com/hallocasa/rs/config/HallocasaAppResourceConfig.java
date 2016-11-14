@@ -26,6 +26,7 @@ public class HallocasaAppResourceConfig extends ResourceConfig {
 		LOG.info("Inicio de la configuraci\u00F3n de la aplicaci\u00F3n.");
 		LOG.info("Registrando recursos..");
 		packages("com.hallocasa.rs");
+		packages("com.hallocasa.rs.hcfilter");
 		LOG.info("Registrando filtros...");
 		register(com.hallocasa.rs.security.AuthenticationFilter.class);
 		register(com.hallocasa.rs.security.AuthorizationFilter.class);
@@ -33,6 +34,7 @@ public class HallocasaAppResourceConfig extends ResourceConfig {
 		// Exception mappers
 		register(com.hallocasa.rs.mapper.SecurityExceptionMapper.class);
 		register(com.hallocasa.rs.mapper.GenericExceptionMapper.class);
+		register(com.hallocasa.rs.mapper.BadRequestExceptionMapper.class);
 		LOG.info("Registrando features...");
 		// Features
 		LOG.info("Aplicaci\u00F3n configurada correctamente.");
