@@ -7,6 +7,7 @@ import com.hallocasa.vo.i.ValueObject;
  */
 public class User implements ValueObject {
 
+	private Long id;
 	private String email;
 	private String password;
 	private Boolean confirmedFlag;
@@ -63,5 +64,11 @@ public class User implements ValueObject {
 	}
 	public void setSkype(String skype) {
 		this.skype = skype;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

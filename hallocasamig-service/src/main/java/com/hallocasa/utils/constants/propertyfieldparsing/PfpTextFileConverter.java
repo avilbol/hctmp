@@ -27,10 +27,11 @@ public class PfpTextFileConverter implements PropertyFieldValueConverter {
 		}
 		String tmpPrefix = details[1];
 		String propId = details[0];
+		String pref = tmpPrefix + "-";
 		String fullFilename = FileManager.createFileFromBase64(filePathRoot, 
-				spec.getStrVal(), tmpPrefix + "-" + propId);
+				spec.getStrVal(), pref + propId);
 		String[] parts = fullFilename.split("/");
-		return parts[parts.length - 1].replaceAll(tmpPrefix, "");
+		return parts[parts.length - 1].replaceAll(pref, "");
 	}
 
 }

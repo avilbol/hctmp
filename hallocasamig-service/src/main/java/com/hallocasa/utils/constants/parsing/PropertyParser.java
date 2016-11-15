@@ -51,6 +51,9 @@ public class PropertyParser extends CustomizedParser {
 				propertyFieldMap.put(pfield.getId(), (PropertyField) HallocasaConvert.toValueObject(pfield));
 			}
 			PropertyField propField = propertyFieldMap.get(pfield.getId());
+			if(propField.getFieldValueList() == null){
+				propField.setFieldValueList(new LinkedList<>());
+			}
 			PropertyFieldValue pfvalue = new PropertyFieldValue();
 			if (entFieldValue.getIdentifier() != null) {
 				pfvalue.setIdentifier(Integer.parseInt(entFieldValue.getIdentifier()));
@@ -59,7 +62,6 @@ public class PropertyParser extends CustomizedParser {
 			pfvalue.setData1(getConverter(propField.getData1Type()).toVo(entFieldValue.getData1()));
 			pfvalue.setData2(getConverter(propField.getData2Type()).toVo(entFieldValue.getData2()));
 			pfvalue.setData3(getConverter(propField.getData3Type()).toVo(entFieldValue.getData3()));
-			propField.setFieldValueList(new LinkedList<>());
 			propField.getFieldValueList().add(pfvalue);
 		}
 		property.setFieldList(new LinkedList<>(propertyFieldMap.values()));
@@ -70,6 +72,7 @@ public class PropertyParser extends CustomizedParser {
 		EntityProperty entityProperty = (EntityProperty) ent;
 		Property property = (Property) vo;
 		String id = (property.getId() == null ? RandomUtils.alphanumericRandom(8) : property.getId());
+		entityProperty.setId(id);
 		entityProperty.setPropertyType(
 				(EntityPropertyType) HallocasaConvert.toEntity(property.getPropertyKey().getPropertyType()));
 		entityProperty.setPropertyLocation(
@@ -82,9 +85,9 @@ public class PropertyParser extends CustomizedParser {
 		for(PropertyField pfield: property.getFieldList()){
 			for(PropertyFieldValue pfieldvalue : pfield.getFieldValueList()){
 				EntityPropertyFieldValue epfvalue = new EntityPropertyFieldValue();
-				epfvalue.setPropertyField((EntityPropertyField) HallocasaConvert.toEntity(pfieldvalue));
+				epfvalue.setPropertyField((EntityPropertyField) HallocasaConvert.toEntity(pfield));
 				EntityProperty singleEntityProperty = new EntityProperty();
-				singleEntityProperty.setId(property.getId());
+				singleEntityProperty.setId(entityProperty.getId());
 				epfvalue.setProperty(singleEntityProperty);
 				if (pfieldvalue.getIdentifier() != null) {
 					epfvalue.setIdentifier(String.valueOf(pfieldvalue.getIdentifier()));
@@ -104,8 +107,8 @@ public class PropertyParser extends CustomizedParser {
 						: data2Converter.toEnt(pfieldvalue.getData2());
 				String data3 = data3RequiresExtra ? data3Converter.toEnt(pfieldvalue.getData3(), id, tempPrefix) 
 						: data3Converter.toEnt(pfieldvalue.getData3());
-				String text = textRequiresExtra ? textConverter.toEnt(pfieldvalue.getData1(), id, tempPrefix) 
-						: textConverter.toEnt(pfieldvalue.getData1());
+				String text = textRequiresExtra ? textConverter.toEnt(pfieldvalue.getText(), id, tempPrefix) 
+						: textConverter.toEnt(pfieldvalue.getText());
 				epfvalue.setData1(data1);
 				epfvalue.setData2(data2);
 				epfvalue.setData3(data3);

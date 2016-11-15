@@ -58,7 +58,7 @@ public class EntityProperty implements Serializable, HallocasaEntity {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private EntityUser user;
 	
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "publish_date")
 	private Date publishDate;
 	

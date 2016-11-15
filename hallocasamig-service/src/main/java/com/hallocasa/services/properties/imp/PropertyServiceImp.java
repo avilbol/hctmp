@@ -34,7 +34,7 @@ public class PropertyServiceImp implements PropertyService {
 	 */
 	@Override
 	public void save(Property property) {
-		if(property.getUser() == null){
+		if(property.getUser() == null || property.getUser().getId() == null){
 			throw new BadRequestException("User not specified in property");
 		}
 		if(property.getPropertyKey() == null){

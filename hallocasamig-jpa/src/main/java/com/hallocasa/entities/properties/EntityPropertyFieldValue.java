@@ -1,11 +1,12 @@
 package com.hallocasa.entities.properties;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
@@ -17,18 +18,18 @@ import com.hallocasa.entities.i.HallocasaEntity;
  * @author Alexander Villamil
  */
 @Entity
-@Table(name = "property_field_type")
+@Table(name = "property_field_value")
 public class EntityPropertyFieldValue implements HallocasaEntity {
 
-	@EmbeddedId
-	private EntityPropertyFieldValuePK propertyFieldValuePK;
 
-	@MapsId("propertyFieldId")
+	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
 	@JoinColumn(name = "property_field_id", referencedColumnName = "id")
 	@ManyToOne
 	private EntityPropertyField propertyField;
 
-	@MapsId("propertyId")
 	@JoinColumn(name = "property_id", referencedColumnName = "property_id")
 	@ManyToOne
 	private EntityProperty property;
@@ -47,14 +48,6 @@ public class EntityPropertyFieldValue implements HallocasaEntity {
 	
 	@Column(name = "data3")
 	private String data3;
-
-	public EntityPropertyFieldValuePK getPropertyFieldValuePK() {
-		return propertyFieldValuePK;
-	}
-
-	public void setPropertyFieldValuePK(EntityPropertyFieldValuePK propertyFieldValuePK) {
-		this.propertyFieldValuePK = propertyFieldValuePK;
-	}
 
 	public EntityPropertyField getPropertyField() {
 		return propertyField;
@@ -110,5 +103,19 @@ public class EntityPropertyFieldValue implements HallocasaEntity {
 
 	public void setData3(String data3) {
 		this.data3 = data3;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "EntityPropertyFieldValue [identifier=" + identifier + ", text=" + text + ", data1=" + data1 + ", data2="
+				+ data2 + ", data3=" + data3 + "]";
 	}
 }

@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.persistence.converters.HcBooleanConverter;
 import com.hallocasa.persistence.converters.RangeOperandConverter;
-import com.hallocasa.vo.hcfilter.HcFilter;
 import com.hallocasa.vo.hcfilter.RangeOperand;
 
 @Entity

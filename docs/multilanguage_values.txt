@@ -1,0 +1,27 @@
+property types
+
+1:{'en':'Lot','de':'Grundst\u00FCck','es':'Lote'}
+2:{'en':'Shopping Mall','de':'Einkaufszentrum','es':'Centro comercial'}
+4:{'en':'Hotel','de':'Hotel','es':'Hotel'}
+5:{'en':'Lot with Built','de':'Bebautes Grundst\u00FCck','es':'Finca con Casa'}
+6:{'en':'Apartment','de':'Wohnung','es':'Apartamento'}
+9:{'en':'Penthouse','de':'Dachterrassenwohnung','es':'Penthouse'}
+10:{'en':'Warehouse','de':'Lagerhalle','es':'Bodega'}
+11:{'en':'Garage','de':'Garage','es':'Garaje'}
+12:{'en':'Restaurant','de':'Restaurant','es':'Restaurante'}
+14:{'en':'Office','de':'B\u00FCro','es':'Oficina'}
+15:{'en':'Detached House','de':'Einfamilienhaus','es':'Casa Unifamiliar'}
+16:{'en':'Apartment Building','de':'Mehrfamilienhaus','es':'Edificio de Apartamentos'}
+17:{'en':'Airport','de':'Flughafen','es':'Aeropuerto'}
+18:{'en':'Factory','de':'Fabrik','es':'F\u00E1brica'}
+19:{'en':'School','de':'Schule','es':'Escuela'}
+20:{'en':'Theater','de':'Theater','es':'Teatro'}
+21:{'en':'Kindergarten','de':'Kindergarten','es':'Jard\u00EDn Infantil'}
+22:{'en':'Car Park','de':'Parkplatz','es':'Estacionamiento'}
+23:{'en':'Hospital','de':'Krankenhaus','es':'Hospital'}
+
+property locations
+
+{'en':'City Center','de':'Stadtzentrum','es':'Urbano'}
+{'en':'Suburb','de':'Vorort','es':'Suburbio'}
+{'en':'Countryside','de':'Landschaft','es':'Rural'}

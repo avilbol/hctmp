@@ -10,7 +10,6 @@ import javax.ejb.Stateless;
 import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.properties.EntityProperty;
-import com.hallocasa.entities.properties.EntityPropertyField;
 import com.hallocasa.jpaservices.i.AppPersistenceServices;
 import com.hallocasa.vo.hcfilter.HcRequest;
 
@@ -26,8 +25,7 @@ public class DAOProperty implements IDAOProperty {
 	
 	@Override
 	public void save(EntityProperty property) {
-		// TODO Auto-generated method stub
-
+		appPersistenceServices.mergeEntity(property);
 	}
 
 	@Override
@@ -53,10 +51,8 @@ public class DAOProperty implements IDAOProperty {
 		String query = EntityProperty.QUERY_FIND_BY_ID;
 		List<Object> paramList = new LinkedList<Object>();
 		paramList.add(id);
-		List<Object> idList = appPersistenceServices.executeNativeQuery(EntityPropertyField.NATIVE_QUERY_FIND_BY_PK,
-				paramList.toArray());
-		return appPersistenceServices.executeSingleNamedQuery(query, idList.toArray(), 
-				EntityProperty.class);
+		return appPersistenceServices.executeSingleNamedQuery
+				(query, paramList.toArray(), EntityProperty.class);
 	}
 
 }
