@@ -1,0 +1,48 @@
+{
+  "buyRent":"Comprar",
+  "country":"1",
+  "currency":"USD - Dólar estadounidense",
+  "contact":{
+    "avatarURL": "user17.jpg",
+    "city": "Bogotá, D.C.",
+    "name": "Sandra Maldonado",
+    "languages": ["Inglés","Español"],
+    "services": ["Corredor"],
+    "telephone":{
+      "number": 3144360619,
+      "extension": 57
+    },
+    "email": "svma23@gmail.com",
+    "id": 1
+  },
+  "description":{
+    "Español":{
+      "location":"CONDOMINIO LA MOLINA -VEREDA LA VIOLETA, SOPO – CUNDINAMARCA -ACCESO: Parcelación Campestre Hacienda Portugal - Vereda La Violeta",
+      "propertyDescription":"VENDO LOTE 63 – CONDOMINIO LA MOLINA SOPO Area 2.627 m2 - Club House –Salón de reuniones con chimenea y terraza bbq con mirador –Juegos para niños – Cancha de Tenis – Golfito – Bosque nativo protegido – Senderos ecológicos – Lago-. acometidas de servicios de acueducto-alcantarillado y energía eléctrica hasta la entrada del lote. Valor $197.200m2.- Inf. 314-4360619",
+      "title":"VENDO LOTE 63 – CONDOMINIO LA MOLINA SOPO"
+    }
+  },
+  "images":[
+    {"src":"http://www.canexel.es/wp-content/uploads/2015/06/casa-de-madera-logrono.jpg"},
+    {"src":"http://decorandocasas.com.br/wp-content/uploads/2014/03/fachadas-de-casas-modernas-pequenas3.jpg"},
+    {"src":"http://www.construyehogar.com/wp-content/uploads/2015/06/Dise%C3%B1o-de-casa-moderna-de-dos-plantas.jpg"}
+  ],
+  "languages":[
+    "English"
+  ],
+  "location":{
+    "city":"Sopó",
+    "country":"Colombia",
+    "center":{
+      "latitude":4.6449837,
+      "longitude":-74.1037
+    },
+    "zoom":12,
+    "state":"Cundinamarca"
+  },
+  "mainLanguage":"Español",
+  "meters":5,
+  "price":518044400,
+  "propertyLocation":"1",
+  "propertyType":"Lote"
+}

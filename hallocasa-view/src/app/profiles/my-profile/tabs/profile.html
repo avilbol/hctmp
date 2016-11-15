@@ -1,0 +1,128 @@
+<md-content>
+  <div layout="row" layout-align="center" class="header-background">
+    <header class="header-image"></header>
+    <div flex-gt-sm="90" flex-gt-xs="90" flex-xs="100">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{'Profile.General.Panel.Title' | translate}}</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content flex-gt-sm="50" flex-gt-xs="50" flex-xs="100">
+          <div layout="column">
+            <div layout="row">
+              <b>{{'Profile.Data.Name.Label' | translate}}:&nbsp;</b> {{vm.userData.profile.name}} {{vm.userData.profile.lastName}}
+            </div>
+            <div layout="row">
+              <b>{{'Profile.Data.Email.Label' | translate}}:&nbsp;</b> {{vm.userData.profile.email}}
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+
+      <md-card ng-if="vm.userData.profile.services.length > 0">
+        <md-card-title layout="row" layout-align="center center">
+          <md-card-title-media>
+            <span class="md-headline">{{'Profile.Service.Panel.Title' | translate}}</span>
+            <div class="md-media-lg card-media">
+              <img ng-src="{{vm.validateImage('assets/images/user_avatar/' + vm.userData.profile.avatarURL) || 'assets/images/user_avatar/user0.jpg'}}" alt="{{ vm.userData.name }}">
+            </div>
+          </md-card-title-media>
+          <md-card-title-text hide-xs>
+            <ng-include src="'userServicesAndLanguages.html'"></ng-include>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <div hide-gt-xs>
+            <ng-include src="'userServicesAndLanguages.html'"></ng-include>
+          </div>
+          <br>
+          <div layout-gt-sm="row" layout-gt-xs="column" layout-xs="column">
+            <div layout="column" flex-gt-sm="20" flex-gt-xs="100" flex-xs="100">
+              <div layout="row">
+                <b>{{'Profile.Data.Country.Label' | translate}}:&nbsp;</b> {{vm.countries | idSearch: vm.userData.profile.country: 'name'}}
+              </div>
+              <div layout="row">
+                <b>{{'Profile.Data.State.Label' | translate}}:&nbsp;</b> {{vm.states | idSearch: vm.userData.profile.state: 'name'}}
+              </div>
+              <div layout="row">
+                <b>{{'Profile.Data.City.Label' | translate}}:&nbsp;</b> {{vm.cities | idSearch: vm.userData.profile.city: 'name'}}
+              </div>
+
+              <div layout="row" ng-if="vm.userData.profile.skype">
+                <b>{{'Profile.Data.Skype.Label' | translate}}:&nbsp;</b>
+                {{vm.userData.profile.skype}}&nbsp;
+                <a class="md-primary" ng-href="skype:{{vm.userData.profile.skype}}?call">
+                  <i class="fa fa-skype" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div layout="row" ng-if="vm.userData.profile.telephone.extension">
+                <b>{{'Profile.Data.Telephone.Label' | translate}}:&nbsp;</b>
+                ({{vm.userData.profile.telephone.extension}}) {{vm.userData.profile.telephone.number}}
+              </div>
+            </div>
+          </div>
+          <br>
+          <md-divider></md-divider>
+          <br>
+          <div>
+            <div layout="row">
+              <b>{{'Profile.Data.Languages.MainLanguage.Label' | translate}}:&nbsp;</b>
+              {{vm.userData.profile.mainLanguage}}
+            </div>
+            <br>
+            <v-accordion class="vAccordion--default">
+              <v-pane ng-repeat="language in vm.userData.profile.languages">
+                <v-pane-header>
+                  {{'Profile.Data.Description.Label' | translate}} ({{language}})
+                </v-pane-header>
+                <v-pane-content>
+                  {{vm.userData.profile.description[language]}}
+                </v-pane-content>
+              </v-pane>
+            </v-accordion>
+          </div>
+          <div layout="row" layout-align="center">
+            <md-button class="md-raised" ng-click="vm.editProfile()">
+              {{'Profile.Edit.Button' | translate}}
+            </md-button>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
+  </div>
+</md-content>
+
+
+<script type="text/ng-template" id="userServicesAndLanguages.html">
+  <div layout-gt-sm="row" layout-gt-xs="row" layout-xs="column" layout-align="space-between">
+    <div flex>
+      <md-button class="md-icon-button md-primary" aria-label="social" ng-href="{{vm.userData.profile.linkedin}}" ng-if="vm.userData.profile.linkedin">
+        <i class="fa fa-linkedin fa-2x" aria-hidden="true"></i>
+      </md-button>
+    </div>
+    <div layout-gt-sm="column" layout-gt-xs="column" layout-xs="row" flex>
+      <b>{{'Profile.Data.Website.Label' | translate}}<span hide-gt-xs>:&nbsp;</span></b>
+      <a ng-if="vm.userData.profile.website" ng-href="{{vm.userData.profile.website}}">
+        {{vm.userData.profile.website}}
+      </a>
+    </div>
+    <span flex-gt-sm="50" flex-gt-xs="30" flex-xs="0"></span>
+  </div>
+  <br>
+  <div layout="row" layout-align="space-between">
+    <div layout="column" flex>
+      <b>{{'Profile.Data.Languages.Label' | translate}}</b>
+      <div layout="column">
+        <item-list tablet-items="2" desktop-items="3" list="vm.userData.profile.languages" display="column"></item-list>
+      </div>
+    </div>
+    <div layout="column" flex>
+      <b>{{'Profile.Data.Services.Label' | translate}}</b>
+      <div layout="column">
+        <item-list tablet-items="2" desktop-items="3" list="vm.userData.profile.services" display="column"></item-list>
+      </div>
+    </div>
+    <span flex-gt-sm="50" flex-gt-xs="30" flex-xs="0"></span>
+  </div>
+</script>

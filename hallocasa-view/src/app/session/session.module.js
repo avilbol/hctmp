@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('HalloCasa.session', []);
+		.module('HalloCasa.session', ["satellizer"]);
 
 })();
 

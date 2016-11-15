@@ -6,9 +6,13 @@
     .controller('LandingController', LandingController);
 
   /** @ngInject */
-  function LandingController(LandingService) {
+  function LandingController(ProfilesService) {
     var vm = this;
-    vm.profiles = LandingService.getProfiles();
+
+    ProfilesService.loadPublicProfile()
+      .then(function (profiles) {
+        vm.profiles = profiles;
+      });
 
   }
 })();

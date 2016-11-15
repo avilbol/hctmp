@@ -9,12 +9,15 @@
     var service = {
       getServices: getServices,
       saveProfile: saveProfile,
-      loadProfile: loadProfile
+      loadProfile: loadProfile,
+      loadPublicProfiles: loadPublicProfiles,
+      loadPublicProfile: loadPublicProfile
     };
 
     var resources = {
       profileSave: $resource("/mocks/profile/saveProfile.json", {}, GenericRESTResource),
-      profileLoad: $resource("/mocks/profile/loadProfile.json", {}, GenericRESTResource)
+      profileLoad: $resource("/mocks/profile/loadProfile.json", {}, GenericRESTResource),
+      profilePublic: $resource("/mocks/profile/publicProfiles.json", {}, GenericRESTResource)
     };
 
     return service;
@@ -41,6 +44,15 @@
     function loadProfile(profileID) {
       $log.log("Cargar perfil: (ID: "+profileID+")");
       return resources.profileLoad.show().$promise;
+    }
+
+    function loadPublicProfile() {
+      return resources.profilePublic.query().$promise;
+    }
+
+    function loadPublicProfiles(start, finish) {
+      $log.log("Cargar rango de perfiles: ("+start+" - "+finish+")");
+      return resources.profilePublic.query().$promise;
     }
   }
 })();

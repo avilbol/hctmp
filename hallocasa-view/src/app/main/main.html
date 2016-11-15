@@ -4,12 +4,15 @@
       <md-button class="md-icon-button" aria-label="menu" hide-gt-sm ng-click="MainCtrl.toggleMenu()">
         <i class="material-icons">menu</i>
       </md-button>
-      <md-button aria-label="main">
+      <md-button aria-label="main" ng-click="MainCtrl.goTo('/')">
         <img class="png-icon main-logo" flex src="./assets/images/logo-hallocasa.png">
       </md-button>
       <span flex></span>
       <div layout-wrap hide-sm hide-xs layout="row" layout-align="end">
-        <md-button>
+        <md-button ng-click="MainCtrl.goTo('/property/browser')">
+          {{'Properties.title.label' | translate}}
+        </md-button>
+        <md-button ng-click="MainCtrl.goTo('/profile/browser')">
           {{'Common.Label.BrowseProfiles' | translate}}
         </md-button>
         <md-button>
@@ -33,13 +36,20 @@
   </md-toolbar>
   <loading></loading>
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-    <md-toolbar class="md-whiteframe-4dp md-tall">
+    <md-toolbar class="md-whiteframe-4dp md-tall" layout="row">
       <h1 class="md-toolbar-tools">Hallo Casa</h1>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="MainCtrl.toggleMenu()" aria-label="close">
+        <i class="fa fa-close"></i>
+      </md-button>
     </md-toolbar>
     <md-content layout-padding>
       <md-list flex>
         <md-subheader class="md-no-sticky">{{'Label.Menu' | translate}}</md-subheader>
-        <md-list-item md-ink-ripple>
+        <md-list-item md-ink-ripple ng-click="MainCtrl.goTo('/property/browser', true)">
+          <p> {{'Properties.title.label' | translate}}</p>
+        </md-list-item>
+        <md-list-item md-ink-ripple ng-click="MainCtrl.goTo('/profile/browser', true)">
           <p> {{'Common.Label.BrowseProfiles' | translate}}</p>
         </md-list-item>
         <md-list-item md-ink-ripple>
@@ -65,7 +75,7 @@
     </md-content>
   </md-sidenav>
   <md-content flex>
-    <md-content ng-view layout="column"></md-content>
+    <md-content ng-view flex layout="column" class="ng-view-container"></md-content>
     <md-toolbar class="md-hue-2" ng-class="{'md-medium-tall': !MainCtrl.screenIsSmall, 'md-xl': MainCtrl.screenIsSmall}">
       <div layout="column" layout-gt-sm="row" flex layout-align="center center">
         <span layout-margin></span>

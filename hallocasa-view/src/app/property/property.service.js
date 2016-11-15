@@ -5,12 +5,19 @@
     .module('HalloCasa.property')
     .service('PropertyService', PropertyService);
 
-  function PropertyService($q) {
+  function PropertyService($q, $resource, $log, GenericRESTResource) {
     var service = {
       getPropertyTypes: getPropertyTypes,
       getLocation: getLocation,
       getBuyRent: getBuyRent,
-      getCurrencies: getCurrencies
+      getCurrencies: getCurrencies,
+      loadPublicProperties: loadPublicProperties,
+      loadProperty: loadProperty
+    };
+
+    var resources = {
+      propertiesPublic: $resource("/mocks/property/publicProperties.json", {}, GenericRESTResource),
+      propertyLoad: $resource("/mocks/property/loadProperty.json", {}, GenericRESTResource)
     };
 
     return service;
@@ -59,6 +66,7 @@
         ]);
       });
     }
+
     function getCurrencies() {
       return $q(function (resolve) {
         resolve([
@@ -71,6 +79,16 @@
           {id: 7, name: "AUD - Dolar australiano"}
         ]);
       });
+    }
+
+    function loadPublicProperties(start, finish) {
+      $log.log("Cargar rango de propiedades: ("+start+" - "+finish+")");
+      return resources.propertiesPublic.get().$promise;
+    }
+
+    function loadProperty(profileID) {
+      $log.log("Cargar propiedad: (ID: "+profileID+")");
+      return resources.propertyLoad.show().$promise;
     }
   }
 })();

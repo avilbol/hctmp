@@ -1,5 +1,5 @@
-@import url(//fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
-/*@import url(//fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext);*/
+/*@import url(//fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);*/
+@import url(//fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext);
 
 @font-face {
   font-family: 'Material Icons';
@@ -34,7 +34,7 @@
 }
 
 html {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Lato', serif;
 }
 
 [layout=row] {
@@ -77,6 +77,15 @@ md-card-title-media{
   height: calc(70vh - 88px);
 }
 
+.header-background > header{
+  position: absolute;
+  z-index: 0;
+}
+
+.header-background > div{
+  z-index: 1
+}
+
 header {
   position: relative;
   display: block;
@@ -100,7 +109,7 @@ header .intro-content {
 
 @media (min-width: 1024px) {
   .header-image{
-	background-position-y: -260px;
+	  background-position-y: -199px;
   }
 }
 
@@ -159,4 +168,37 @@ header .intro-content {
 .white-border-button{
 	border-color: white;
     border: 1px solid;
+}
+
+@media (min-width: 960px) {
+  .ng-view-container {
+    min-height: calc(100% - 88px);
+  }
+}
+
+@media (max-width: 960px) {
+  .ng-view-container {
+    min-height: calc(100% - 204px);
+  }
+}
+
+v-pane {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.image-responsive {
+  width: 100%;
+  height: auto;
+}
+
+.vertical-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-3d-loader-circle div {
+  display: none;
 }

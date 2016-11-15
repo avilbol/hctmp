@@ -1,0 +1,11 @@
+<div class="angular-google-map-container" ng-if="refresh">
+  <ui-gmap-google-map
+    center="mapCenter"
+    zoom="location.zoom"
+    options="options"
+    events="events"
+    control="map.control"
+  >
+    <ui-gmap-marker coords="location.center" idkey="'locationMarker'">
+  </ui-gmap-google-map>
+</div>

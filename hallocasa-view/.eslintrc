@@ -9,6 +9,9 @@
     "angular": true,
     "module": true,
     "inject": true,
+	"browser": true,
+	"element": true,
+	"by": true,
     "_": true
   }
 }
