@@ -24,7 +24,7 @@ import com.hallocasa.vo.hcfilter.ShowChoice;
 @Table(name = "filter")
 @NamedQueries({
 	@NamedQuery(name = EntityHcFilter.QUERY_FIND_BY_NATURE, 
-			query = "select f from EntityHcFilter f where f.filterNature.id IN (?1)"),
+			query = "select f from EntityHcFilter f where f.filterNature.id IN ?1"),
 	@NamedQuery(name = EntityHcFilter.QUERY_FIND_ALL, 
 			query = "select f from EntityHcFilter f")})
 public class EntityHcFilter implements HallocasaEntity {

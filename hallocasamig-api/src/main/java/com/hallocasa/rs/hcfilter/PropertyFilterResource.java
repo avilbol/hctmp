@@ -40,11 +40,8 @@ public class PropertyFilterResource {
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "filter_nature_id", value = "Filter nature id", required = false, dataType = "string", paramType = "query"),
-			@ApiImplicitParam(name = "filter_nature_id", value = "Filter nature id", required = false, dataType = "string", paramType = "query"),
-			@ApiImplicitParam(name = "filter_nature_id", value = "Filter nature id", required = false, dataType = "string", paramType = "query"),
-			@ApiImplicitParam(name = "filter_nature_id", value = "Filter nature id", required = false, dataType = "string", paramType = "query"),
-			@ApiImplicitParam(name = "filter_nature_id", value = "Filter nature id", required = false, dataType = "string", paramType = "query") })
+			@ApiImplicitParam(allowMultiple = true, name = "filter_nature_id", value = "Filter nature id", required = false, dataType = "string", paramType = "query")
+	})
 	public Response getPropertyFilters(@Context UriInfo uriInfo) {
 		List<Integer> filterNatureIdList = ResourceUtils.intList(uriInfo, "filter_nature_id");
 		List<PropertyFilter> filterList = propertyFilterService.loadPropertyFilterList(!filterNatureIdList.isEmpty(),
