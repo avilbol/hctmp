@@ -17,7 +17,6 @@ public class HcFilterParser extends CustomizedParser {
 
 	@Override
 	public void initialize() {
-		addIgnoreVOField("filterType");
 	}
 
 	@Override

@@ -11,11 +11,14 @@ public class ParsingPackage {
 	private boolean applyParser;
 	
 	private boolean ignore;
+	
+	private boolean list;
 
 	private Parser<ValueObject, HallocasaEntity> parser;
 
-	public ParsingPackage(Object propertyToSet, boolean applyParser, Parser<ValueObject, HallocasaEntity> parser) {
+	public ParsingPackage(Object propertyToSet, boolean list, boolean applyParser, Parser<ValueObject, HallocasaEntity> parser) {
 		super();
+		this.list = list;
 		this.propertyToSet = propertyToSet;
 		this.applyParser = applyParser;
 		this.parser = parser;
@@ -60,6 +63,12 @@ public class ParsingPackage {
 	public void setIgnore(boolean ignore) {
 		this.ignore = ignore;
 	}
-	
-	
+
+	public boolean isList() {
+		return list;
+	}
+
+	public void setList(boolean list) {
+		this.list = list;
+	}
 }

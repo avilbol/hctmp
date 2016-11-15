@@ -25,9 +25,13 @@ public class EntityFilterListingStep implements HallocasaEntity {
 	@Convert(converter=FilterOperationStepConverter.class)
 	private FilterOperationStep sequenceBefore;
 	
-	@JoinColumn(name = "sequence_filter_id", referencedColumnName = "id")
+	@JoinColumn(name = "filter_id", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private EntityHcFilter filter;
+	
+	@JoinColumn(name = "sequence_filter_id", referencedColumnName = "id")
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private EntityHcFilter sequenceFilter;
 	
 	@Column(name = "sequence_after")
 	@Convert(converter=FilterOperationStepConverter.class)
@@ -38,7 +42,6 @@ public class EntityFilterListingStep implements HallocasaEntity {
 		return sequenceBefore;
 	}
 
-
 	public void setSequenceBefore(FilterOperationStep sequenceBefore) {
 		this.sequenceBefore = sequenceBefore;
 	}
@@ -47,21 +50,25 @@ public class EntityFilterListingStep implements HallocasaEntity {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	public EntityHcFilter getSequenceFilter() {
+		return sequenceFilter;
+	}
 
+	public void setSequenceFilter(EntityHcFilter sequenceFilter) {
+		this.sequenceFilter = sequenceFilter;
+	}
+	
 	public EntityHcFilter getFilter() {
 		return filter;
 	}
 
-
 	public void setFilter(EntityHcFilter filter) {
 		this.filter = filter;
 	}
-
 
 	public FilterOperationStep getSequenceAfter() {
 		return sequenceAfter;

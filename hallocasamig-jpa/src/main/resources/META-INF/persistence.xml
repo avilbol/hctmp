@@ -5,6 +5,7 @@
   <persistence-unit name="MyApp" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/hallocasaAppDatasource</jta-data-source>
+    <class>com.hallocasa.entities.EntityCountry</class>
     <class>com.hallocasa.entities.EntityExample</class>
     <class>com.hallocasa.entities.EntityFilterListingStep</class>
     <class>com.hallocasa.entities.EntityFilterShowingStep</class>
@@ -13,10 +14,20 @@
     <class>com.hallocasa.entities.EntityHcFilterNature</class>
     <class>com.hallocasa.entities.EntityHcFilterType</class>
     <class>com.hallocasa.entities.EntityUser</class>
+    <class>com.hallocasa.entities.properties.EntityProperty</class>
     <class>com.hallocasa.entities.properties.EntityPropertyField</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyFieldConditionOption</class>
     <class>com.hallocasa.entities.properties.EntityPropertyFieldFilter</class>
     <class>com.hallocasa.entities.properties.EntityPropertyFieldOption</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyFieldType</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyFieldValue</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyFieldValuePK</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyFieldValueType</class>
     <class>com.hallocasa.entities.properties.EntityPropertyFilterConditionOption</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyLocation</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyProposal</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyType</class>
+    <class>com.hallocasa.entities.properties.EntityPropertyTypeGroup</class>
     <class>com.hallocasa.entities.security.EntityAuthorizationCode</class>
     <class>com.hallocasa.entities.security.EntitySecurityToken</class>
     <!-- converters -->

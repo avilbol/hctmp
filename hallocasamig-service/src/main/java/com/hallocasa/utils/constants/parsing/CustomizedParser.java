@@ -44,7 +44,7 @@ public abstract class CustomizedParser implements Parser<ValueObject, HallocasaE
 		initialize();
 		setupParsingClass(entity, clazz);
 		DefaultParser deeperParser = new DefaultParser(getFieldsToIgnore());
-		ValueObject valueObject = deeperParser.toValueObject(entity, clazz);
+		ValueObject valueObject = deeperParser.toValueObject(entity, this.getSpecificDestClass());
 		transform(valueObject, entity);
 		return valueObject;
 	}

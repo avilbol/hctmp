@@ -15,6 +15,9 @@ import com.hallocasa.entities.EntityHcFilterNature;
 import com.hallocasa.entities.EntityHcFilterType;
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.i.HallocasaEntity;
+import com.hallocasa.entities.properties.EntityPropertyField;
+import com.hallocasa.entities.properties.EntityPropertyFieldType;
+import com.hallocasa.entities.properties.EntityPropertyFieldValueType;
 import com.hallocasa.entities.security.EntityAuthorizationCode;
 import com.hallocasa.entities.security.EntitySecurityToken;
 import com.hallocasa.utils.constants.parsing.i.Parser;
@@ -27,7 +30,10 @@ import com.hallocasa.vo.hcfilter.HcFilter;
 import com.hallocasa.vo.hcfilter.HcFilterCondition;
 import com.hallocasa.vo.hcfilter.HcFilterNature;
 import com.hallocasa.vo.hcfilter.HcFilterType;
+import com.hallocasa.vo.hcfilter.properties.PropertyFieldType;
+import com.hallocasa.vo.hcfilter.properties.PropertyFieldValueType;
 import com.hallocasa.vo.i.ValueObject;
+import com.hallocasa.vo.properties.PropertyField;
 import com.hallocasa.vo.security.AuthorizationCode;
 import com.hallocasa.vo.security.SecurityToken;
 
@@ -51,6 +57,10 @@ public class ParserMetadata {
 		clazzEquivalenceMap.put(HcFilterNature.class, EntityHcFilterNature.class);
 		clazzEquivalenceMap.put(FilterListingStep.class, EntityFilterListingStep.class);
 		clazzEquivalenceMap.put(FilterShowingStep.class, EntityFilterShowingStep.class);
+		clazzEquivalenceMap.put(PropertyField.class, EntityPropertyField.class);
+		clazzEquivalenceMap.put(PropertyFieldType.class, EntityPropertyFieldType.class);
+		clazzEquivalenceMap.put(PropertyFieldValueType.class, EntityPropertyFieldValueType.class);
+		clazzEquivalenceMap.put(PropertyField.class, EntityPropertyField.class);
 		clazzEquivalenceMap.put(User.class, EntityUser.class);
 	}
 

@@ -23,36 +23,29 @@ public class EntityPropertyFilterConditionOption implements HallocasaEntity {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private EntityHcFilterCondition filterCondition;
 	
-	
 	@JoinColumn(name = "property_field_option_id", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private EntityPropertyFieldOption propertyFieldOption;
-
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
 
 	public EntityHcFilterCondition getFilterCondition() {
 		return filterCondition;
 	}
 
-
 	public void setFilterCondition(EntityHcFilterCondition filterCondition) {
 		this.filterCondition = filterCondition;
 	}
 
-
 	public EntityPropertyFieldOption getPropertyFieldOption() {
 		return propertyFieldOption;
 	}
-
 
 	public void setPropertyFieldOption(EntityPropertyFieldOption propertyFieldOption) {
 		this.propertyFieldOption = propertyFieldOption;

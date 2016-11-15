@@ -2,7 +2,7 @@ package com.hallocasa.services.hcfilters;
 
 import java.util.List;
 
-import com.hallocasa.vo.hcfilter.HcFilter;
+import com.hallocasa.vo.hcfilter.properties.PropertyFilter;
 
 /**
  * Services for provide services about filters
@@ -18,6 +18,6 @@ public interface PropertyFilterService {
 	 * @return	
 	 * 		The filter list matching the natures specified
 	 */
-	List<HcFilter> loadFilterList(boolean filterByNature, List<Integer> filterNatureIdList);
+	List<PropertyFilter> loadPropertyFilterList(boolean filterByNature, List<Integer> filterNatureIdList);
 	
 }

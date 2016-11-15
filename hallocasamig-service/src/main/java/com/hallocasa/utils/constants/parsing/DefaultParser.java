@@ -7,6 +7,7 @@ import static org.apache.commons.beanutils.PropertyUtils.getPropertyType;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +18,6 @@ import org.apache.commons.beanutils.PropertyUtils;
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.utils.constants.parsing.i.Parser;
 import com.hallocasa.vo.i.ValueObject;
-
 
 /**
  * Class to implement the parse between vo's and entities
@@ -86,47 +86,79 @@ public class DefaultParser implements Parser<ValueObject, HallocasaEntity> {
 	protected void copyEntityPropertyToVoProperty(ValueObject vo, HallocasaEntity entity, String propertyName,
 			Object propertyValue) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		try {
+			if (propertyName.equals("filterListingStep")) {
+				System.out.println("stop");
+			}
 			ParsingPackage parsingPackage = loadParsingPackage(vo, entity, propertyName, propertyValue);
-			if(parsingPackage.isApplyParser()){
+			if (parsingPackage.isApplyParser()) {
 				parsingPackage.entityToVo(getPropertyType(vo, propertyName));
+			}
+			if (parsingPackage.isList()){
+				parsingPackage.setPropertyToSet(toVoList((List<?>) parsingPackage.getPropertyToSet()));
 			}
 			getBeanUtilsBean().setProperty(vo, propertyName, parsingPackage.getPropertyToSet());
 		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Error setting property "
-				+ propertyName + " with value " + propertyValue
-				+ " over entity " + entity, e);
+			throw new IllegalArgumentException("Error setting property " + propertyName + " with value " + propertyValue
+					+ " over entity " + entity, e);
 		}
+	}
+	
+	private List<?> toVoList(List<?> entList){
+		List<Object> voList = new LinkedList<>();
+		for(Object ent : (entList)){
+			boolean isEntity = HallocasaEntity.class
+					.isAssignableFrom(ent.getClass());
+			voList.add(isEntity ? HallocasaConvert
+					.toValueObject((HallocasaEntity) ent) : ent);
+		}
+		return voList;
+	}
+	
+	private List<?> toEntList(List<?> voList){
+		List<Object> entList = new LinkedList<>();
+		for(Object vo : (entList)){
+			boolean isVo = ValueObject.class
+					.isAssignableFrom(vo.getClass());
+			entList.add(isVo ? HallocasaConvert
+					.toEntity((ValueObject) vo) : vo);
+		}
+		return entList;
 	}
 
 	/**
 	 * Copies a property from value object to a property in the entity
 	 * 
-	 * @param vo Value Object
-	 * @param entity Entity object
-	 * @param propertyName Name of the property to copy
-	 * @param propertyValue Value of the property in the entity
+	 * @param vo
+	 *            Value Object
+	 * @param entity
+	 *            Entity object
+	 * @param propertyName
+	 *            Name of the property to copy
+	 * @param propertyValue
+	 *            Value of the property in the entity
 	 * @throws NoSuchMethodException
 	 * @throws InvocationTargetException
 	 * @throws IllegalAccessException
 	 */
-	protected void copyVOPropertyToEntityProperty(ValueObject vo, HallocasaEntity entity,
-		String propertyName, Object propertyValue)
-		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	protected void copyVOPropertyToEntityProperty(ValueObject vo, HallocasaEntity entity, String propertyName,
+			Object propertyValue) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		try {
 			ParsingPackage parsingPackage = loadParsingPackage(vo, entity, propertyName, propertyValue);
-			if(parsingPackage.isApplyParser()){
+			if (parsingPackage.isApplyParser()) {
 				parsingPackage.voToEntity(getPropertyType(entity, propertyName));
 			}
-			getBeanUtilsBean().setProperty(entity, propertyName, parsingPackage.getPropertyToSet());		
+			if (parsingPackage.isList()){
+				parsingPackage.setPropertyToSet(toEntList((List<?>) parsingPackage.getPropertyToSet()));
+			}
+			getBeanUtilsBean().setProperty(entity, propertyName, parsingPackage.getPropertyToSet());
 		} catch (IllegalArgumentException e) {
-			throw new IllegalArgumentException("Error setting property "
-				+ propertyName + " with value " + propertyValue
-				+ " over entity " + entity, e);
+			throw new IllegalArgumentException("Error setting property " + propertyName + " with value " + propertyValue
+					+ " over entity " + entity, e);
 		}
 	}
-	
-	private ParsingPackage loadParsingPackage(ValueObject vo, HallocasaEntity entity,
-			String propertyName, Object propertyValue) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+
+	private ParsingPackage loadParsingPackage(ValueObject vo, HallocasaEntity entity, String propertyName,
+			Object propertyValue) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		Object propertyToSet = null;
 		Class<?> voClazz = getPropertyType(vo, propertyName);
 		Class<?> entClazz = getPropertyType(entity, propertyName);
@@ -134,10 +166,11 @@ public class DefaultParser implements Parser<ValueObject, HallocasaEntity> {
 		Class<?> parserEntClazz = clazzEquivalenceMap.get(voClazz);
 		boolean parserExistent = parserEntClazz != null && parserEntClazz.equals(entClazz);
 		boolean allowCasting = getWrapperTypes().contains(voClazz) && getWrapperTypes().contains(entClazz);
-		if(equalClazz || allowCasting || parserExistent){
+		boolean list = equalClazz && voClazz.getName().equals("java.util.List");
+		if (equalClazz || allowCasting || parserExistent) {
 			propertyToSet = propertyValue;
 		}
-		return new ParsingPackage(propertyToSet, !equalClazz && parserExistent, getParser(voClazz));
+		return new ParsingPackage(propertyToSet, list, !equalClazz && parserExistent, getParser(voClazz));
 	}
 
 	/**

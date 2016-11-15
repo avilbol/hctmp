@@ -1,4 +1,9 @@
-﻿USE hallocasaapp;START TRANSACTION;
+﻿USE hallocasaapp;
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+--
+-- Host: localhost    Database: hallocasaapp
+-- ------------------------------------------------------
+-- Server version	5.6.27-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -11,6 +16,51 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+--
+-- Table structure for table `authorization_code`
+--
+
+DROP TABLE IF EXISTS `authorization_code`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `authorization_code` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `client_id` varchar(100) NOT NULL,
+  `auth_code` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `client_id_UNIQUE` (`client_id`),
+  UNIQUE KEY `auth_code_UNIQUE` (`auth_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `authorization_code`
+--
+
+LOCK TABLES `authorization_code` WRITE;
+/*!40000 ALTER TABLE `authorization_code` DISABLE KEYS */;
+INSERT INTO `authorization_code` VALUES (1,'hallocasa-view','9bd17bd71e7422b9d05ba4c975132bf5'),(2,'hallocasa_davasquez_api_tester','0a33ea311f854b5d6ffffe171224bd80'),(3,'hallocasa_oguerrero_api_tester','7c0e62d2803b65efca67ebeddc2cbaa2'),(4,'hallocasa_avilbol_api_tester','c3262724a345b473cccdba7a883ec8e3');
+/*!40000 ALTER TABLE `authorization_code` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `city`
+--
+
+DROP TABLE IF EXISTS `city`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `city` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `city_name` varchar(300) NOT NULL,
+  `state_id` int(11) NOT NULL,
+  `default_lat_coordinate` decimal(5,2) DEFAULT NULL,
+  `default_lng_coordinate` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk__city__state` (`state_id`),
+  CONSTRAINT `city_ibfk_1` FOREIGN KEY (`state_id`) REFERENCES `state` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1155 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `city`
@@ -23,14 +73,48 @@ INSERT INTO `city` VALUES (33,'{\'de\':\'Medell\\u00EDn\',\'en\':\'Medell\\u00ED
 UNLOCK TABLES;
 
 --
+-- Table structure for table `country`
+--
+
+DROP TABLE IF EXISTS `country`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `country` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `country_name` varchar(80) NOT NULL,
+  `java_code` varchar(15) NOT NULL,
+  `lang` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq__country__country_name` (`java_code`),
+  UNIQUE KEY `uq__country__java_code` (`country_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `country`
 --
 
 LOCK TABLES `country` WRITE;
 /*!40000 ALTER TABLE `country` DISABLE KEYS */;
-INSERT INTO `country` VALUES (1,'{en:\'Colombia\',\'de\':\'Kolumbien\',\'es\':\'Colombia\'}','CO');
+INSERT INTO `country` VALUES (1,'Colombia','CO','hallocasa.pending'),(2,'Argentina','AR','hallocasa.pending'),(3,'Chile','CL','hallocasa.pending'),(4,'Panamá','PA','hallocasa.pending'),(5,'Perú','PE','hallocasa.pending'),(6,'Canadá','CA','hallocasa.pending'),(7,'EEUU','US','hallocasa.pending'),(8,'Costa Rica','CR','hallocasa.pending'),(9,'Ecuador','EC','hallocasa.pending');
 /*!40000 ALTER TABLE `country` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `currency`
+--
+
+DROP TABLE IF EXISTS `currency`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `currency` (
+  `id` int(11) NOT NULL,
+  `name` varchar(300) DEFAULT NULL,
+  `abbreviation` varchar(30) DEFAULT NULL,
+  `prefix` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `currency`
@@ -43,6 +127,75 @@ INSERT INTO `currency` VALUES (1,'{\'en\':\'Colombian Peso\',\'de\':\'Kolumbiani
 UNLOCK TABLES;
 
 --
+-- Table structure for table `currency_exchange_data`
+--
+
+DROP TABLE IF EXISTS `currency_exchange_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `currency_exchange_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `currency_from_id` int(11) DEFAULT NULL,
+  `currency_to_id` int(11) DEFAULT NULL,
+  `rate_exchange` float(255,8) DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `currency_from_id` (`currency_from_id`),
+  KEY `currency_to_id` (`currency_to_id`),
+  CONSTRAINT `currency_exchange_data_ibfk_1` FOREIGN KEY (`currency_from_id`) REFERENCES `currency` (`id`),
+  CONSTRAINT `currency_exchange_data_ibfk_2` FOREIGN KEY (`currency_to_id`) REFERENCES `currency` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `currency_exchange_data`
+--
+
+LOCK TABLES `currency_exchange_data` WRITE;
+/*!40000 ALTER TABLE `currency_exchange_data` DISABLE KEYS */;
+/*!40000 ALTER TABLE `currency_exchange_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dbmaintain_scripts`
+--
+
+DROP TABLE IF EXISTS `dbmaintain_scripts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dbmaintain_scripts` (
+  `file_name` varchar(150) DEFAULT NULL,
+  `file_last_modified_at` bigint(20) DEFAULT NULL,
+  `checksum` varchar(50) DEFAULT NULL,
+  `executed_at` varchar(20) DEFAULT NULL,
+  `succeeded` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dbmaintain_scripts`
+--
+
+LOCK TABLES `dbmaintain_scripts` WRITE;
+/*!40000 ALTER TABLE `dbmaintain_scripts` DISABLE KEYS */;
+INSERT INTO `dbmaintain_scripts` VALUES ('incremental/01_v1.1/08_@hallocasaapp_#all_country_table_create.sql',1455412192323,'7c9afa60604139330d18e152cc437f5a','2016-09-01 19:35:07',1),('incremental/01_v1.1/09_@hallocasaapp_#all_country_inserts.sql',1455412192325,'64477e6c9c6230c25daab467b2f1133f','2016-09-01 19:35:08',1),('incremental/01_v1.1/10_@hallocasaapp_#all_state_table_create.sql',1455412192332,'d38b1ffa47b34387bcf18a4643c67bd8','2016-09-01 19:35:08',1),('incremental/01_v1.1/11_@hallocasaapp_#all_user_table_create.sql',1455412192339,'d38ae89f5c7557ffb6c03b1465f6476c','2016-09-01 19:35:09',1),('incremental/01_v1.1/12_@hallocasaapp_#all_profile_table_create.sql',1455412192347,'23edb233eb6dc7ca00cc280004a544bb','2016-09-01 19:35:09',1),('incremental/01_v1.1/13_@hallocasaapp_#all_user_type_table_create .sql',1455412192354,'ac5280e74bc80ee729662ecc9def3b7a','2016-09-01 19:35:11',1),('incremental/01_v1.1/14_@hallocasaapp_#all_use_case_table_inserts.sql',1455412192360,'21f93a96171812ff863a4bffa8dccd01','2016-09-01 19:35:12',1),('incremental/01_v1.1/15_@hallocasaapp_#all_profile_table_inserts.sql',1455412192366,'846af90bc141a213095cb74df3685e1c','2016-09-01 19:35:13',1),('incremental/01_v1.1/16_@hallocasaapp_#all_user_type_inserts.sql',1455412192373,'54426004120f19748132de56f1ebe3f8','2016-09-01 19:35:13',1),('incremental/01_v1.1/17_@hallocasaapp_#all_state_inserts.sql',1472430867450,'d046fec95cadee71ceb46913ccc4c4bd','2016-09-01 19:35:13',1),('incremental/01_v1.1/50_@hallocasaapp_#dev_user_inserts.sql',1455412192387,'d7178dbc62a657ab47e5b075357bfc8b','2016-09-01 19:35:14',1),('incremental/02_v1.1.1/01_@hallocasaapp_#all_user_add_image_field.sql',1455412192393,'dcd53b86545f06bb0b2d5347705b342c','2016-09-01 19:35:14',1),('incremental/02_v1.1.1/02_@hallocasaapp_#all_token_table_create.sql',1455412192400,'679de090fc4458eb3277ac9b042dfce3','2016-09-01 19:35:16',1),('incremental/02_v1.1.1/03_@hallocasaapp_#all_city_table_create.sql',1455412192407,'b08e7bb6d16dd7a45bedd3a89ab7f289','2016-09-01 19:35:17',1),('incremental/02_v1.1.1/04_@hallocasaapp_#all_user_alter_city_data.sql',1455412192414,'486982ece40da5041719dc2d724b2d20','2016-09-01 19:35:18',1),('incremental/02_v1.1.1/05_@hallocasaapp_#all_state_add_states.sql',1455412192421,'a1b397e672e7bebb6f9855da0de0da1f','2016-09-01 19:36:11',1),('incremental/02_v1.1.1/06_@hallocasaapp_#all_city_table_insert.sql',1461385079631,'51d17d36f65997ba9253c4ad132fea92','2016-09-01 19:36:15',1),('incremental/03_v1.2/01_@hallocasaapp_#all_user_add_main_spoken_language.sql',1455412192440,'55270483e98e3990f99a2a7b54ce02a8','2016-09-01 19:36:26',1),('incremental/03_v1.2/02_@hallocasaapp_#all_telephone_prefix_create_table.sql',1461384899161,'cf8590fb2685200265c7e48c7f0d552f','2016-09-01 19:36:34',1),('incremental/03_v1.2/03_@hallocasaapp_#all_telephone_prefix_insert_data.sql',1461384899163,'1e233e84ea662f24c944b5957b4b44a1','2016-09-01 19:36:36',1),('incremental/03_v1.2/04_@hallocasaapp_#all_telephone_create_table.sql',1461384899164,'688d7ee12a4bef42008bba2f09753aaa','2016-09-01 19:36:37',1),('incremental/03_v1.2/05_@hallocasaapp_#all_user_add_telephone_id.sql',1461384899164,'b32a69df5f0d399210083f003c5b649a','2016-09-01 19:36:43',1),('incremental/03_v1.2/06_@hallocasaapp_#all_user_refresh_foreign_keys.sql',1461384899166,'f2b5973cf56e3d4526fa9fcd8b2cece5','2016-09-01 19:37:09',1),('incremental/04_v1.2.1/01_@hallocasaapp_#all_user_type_add_lawyer.sql',1461385079633,'faffd8a74be85bcc57461d382b5cdf31','2016-09-01 19:37:59',1),('incremental/04_v1.2.1/02_@hallocasaapp_#all_state_move_bogota.sql',1461385079634,'4020ce0ea8debb7ee7daff9f75c35de0','2016-09-01 19:38:01',1),('incremental/04_v1.2.1/03_@hallocasaapp_#all_user_type_change_ubersetzer.sql',1461385079634,'523574e22b8acc76e7ace6d430ca9949','2016-09-01 19:38:06',1),('incremental/04_v1.2.1/04_@hallocasaapp_#all_telephone_delete_user_dependency.sql',1461385079636,'e9815ab7457a6e6cc3ec4708175b27a3','2016-09-01 19:38:08',1),('incremental/04_v1.2.1/06_@hallocasaapp_#all_user_type_update_data.sql',1461385079637,'a41074fa38f29dfb51e402cb1e194dc0','2016-09-01 19:38:19',1),('incremental/05_v.1.3/01_@hallocasaapp_#all_currency_create_table.sql',1472430867456,'cf0a2c99a309995ae904a017533e5fb1','2016-09-01 19:38:22',1),('incremental/05_v.1.3/02_@hallocasaapp_#all_currency_insert_data.sql',1472430867456,'476faba1693eea02d7b458b80bc8c1b6','2016-09-01 19:38:29',1),('incremental/05_v.1.3/03_@hallocasaapp_#all_property_type_group_create_table.sql',1472430867463,'4685c75708073f154f84737c924f37ed','2016-09-01 19:38:32',1),('incremental/05_v.1.3/04_@hallocasaapp_#all_property_type_group_insert_data.sql',1472430867469,'35641f182ec2471d96a6b61c48a23f11','2016-09-01 19:38:39',1),('incremental/05_v.1.3/05_@hallocasaapp_#all_property_type_create_table.sql',1472430867479,'dcb4f161be8f90b4c176496cfd8e3b31','2016-09-01 19:38:40',1),('incremental/05_v.1.3/06_@hallocasaapp_#all_property_type_insert_data.sql',1472430867480,'46b8ba6207bcecfc798e26649d666046','2016-09-01 19:38:41',1),('incremental/05_v.1.3/07_@hallocasaapp_#all_property_location_create_table.sql',1472430867485,'31e79fbda8f76b0e7decf9ccf8e9bed6','2016-09-01 19:38:42',1),('incremental/05_v.1.3/08_@hallocasaapp_#all_property_location_insert_data.sql',1472430867485,'386b5a8376924f6ed209f6710c49fa00','2016-09-01 19:38:43',1),('incremental/05_v.1.3/09_@hallocasaapp_#all_property_proposal_create_table.sql',1472430867489,'489937156f2dc191b8d3ee4766d259bd','2016-09-01 19:38:44',1),('incremental/05_v.1.3/10_@hallocasaapp_#all_property_proposal_insert_data.sql',1472430867493,'71a073d778f94d39c0e8d1bf9f4122f4','2016-09-01 19:38:45',1),('incremental/05_v.1.3/11_@hallocasaapp_#all_property_field_create_table.sql',1472430867497,'6c698fe37796226090d24383f6a8c226','2016-09-01 19:38:46',1),('incremental/05_v.1.3/12_@hallocasaapp_#all_property_field_insert_data.sql',1472430867498,'2a2f8f81da55dedcce07cef0571e74ce','2016-09-01 19:38:47',1),('incremental/05_v.1.3/13_@hallocasaapp_#all_property_field_rule_create_table.sql',1472430867501,'72de47af3b34f17676f729f906bf9bd9','2016-09-01 19:38:48',1),('incremental/05_v.1.3/14_@hallocasaapp_#all_property_field_rule_insert_data.sql',1472430867502,'7aa4afb888c1103c986258b5c1704676','2016-09-01 19:38:51',1),('incremental/05_v.1.3/15_@hallocasaapp_#all_property_create_table.sql',1472430867504,'b2d319b1e73f865a1b0b596660bcf8c2','2016-09-01 19:38:52',1),('incremental/05_v.1.3/16_@hallocasaapp_#dev_property_insert_data.sql',1472430867508,'ea10be3b1eee380188fc09b77912ab6b','2016-09-01 19:38:54',1),('incremental/05_v.1.3/17_@hallocasaapp_#all_property_selector_type_create_table.sql',1472430867512,'e929b89ddb9daacddd16f9486674e292','2016-09-01 19:38:54',1),('incremental/05_v.1.3/18_@hallocasaapp_#all_property_selector_type_insert_data.sql',1472430867516,'af6aefa9c257241349847cfea896f05f','2016-09-01 19:38:56',1),('incremental/05_v.1.3/19_@hallocasaapp_#all_property_selector_create_table.sql',1472430867517,'edf0e5d5c997c9b1f6301b40fa0dee7a','2016-09-01 19:38:56',1),('incremental/05_v.1.3/20_@hallocasaapp_#all_property_selector_insert_data.sql',1472430867521,'fcde476da9e22eb996e53e4301e39b24','2016-09-01 19:38:58',1),('incremental/05_v.1.3/21_@hallocasaapp_#all_property_selector_option_create_table.sql',1472430867525,'8095729ec6d15eb26217060158098485','2016-09-01 19:38:58',1),('incremental/05_v.1.3/22_@hallocasaapp_#all_property_selector_option_insert_data.sql',1472430867528,'3c1d707961e970246420c407109cc1e2','2016-09-01 19:39:00',1),('incremental/05_v.1.3/23_@hallocasaapp_#all_property_field_value_create_table.sql',1472430867534,'689720df5fcab0ca5c32a7b516969ef7','2016-09-01 19:39:00',1),('incremental/05_v.1.3/24_@hallocasaapp_#dev_property_field_value_insert_data.sql',1472430867537,'ad26385f46385a885c8cd835ea63fb97','2016-09-01 19:39:02',1),('incremental/05_v.1.3/25_@hallocasaapp_#all_property_field_add_data.sql',1472430867578,'8282e33b45541efa7034f9e28b008dab','2016-09-01 19:39:09',1),('incremental/05_v.1.3/26_@hallocasaapp_#dev_property_field_value_add_data.sql',1472430867583,'f81ec40615b6a921e9b1936930d5bf8a','2016-09-01 19:39:12',1),('incremental/05_v.1.3/27_@hallocasaapp_#dev_property_field_value_update_data.sql',1472430867587,'de8a76e2e37c6417762e2267f03c728d','2016-09-01 19:39:14',1),('incremental/05_v.1.3/28_@hallocasaapp_#all_property_field_alter_table.sql',1472430867602,'57668f8bb1cae1baa5a0a206d2bd3583','2016-09-01 19:39:15',1),('incremental/05_v.1.3/29_@hallocasaapp_#dev_property_field_update_data.sql',1472430867603,'9b1379229c840fcc38bb5a2f89f5cb28','2016-09-01 19:39:18',1),('incremental/05_v.1.3/30_@hallocasaapp_#all_city_add_default_coordinate.sql',1472430867607,'f8af65ae68372f874d6443d147c918db','2016-09-01 19:39:20',1),('incremental/05_v.1.3/31_@hallocasaapp_#all_city_insert_default_coordinates.sql',1472430867607,'ab1935ec1854be646701edfbdf396358','2016-09-01 19:39:43',1),('incremental/06_v.1.4/01_@hallocasaapp_#all_currency_exchange_data_create_table.sql',1472430867608,'863fe8b45b4595cb75ec9bf587593cf6','2016-09-01 19:39:44',1),('incremental/06_v.1.4/02_@hallocasaapp_#all_property_type_changes.sql',1472430867608,'4e741578bf96255bae92ed31fd68d22c','2016-09-01 19:40:00',1),('incremental/06_v.1.4/03_@hallocasaapp_#all_property_proposal_changes.sql',1472430867609,'67da680a64a5f66fb869a15cbb12266a','2016-09-01 19:40:01',1);
+/*!40000 ALTER TABLE `dbmaintain_scripts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `example`
+--
+
+DROP TABLE IF EXISTS `example`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `example` (
+  `identifier` int(11) DEFAULT NULL,
+  `description` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `example`
 --
 
@@ -52,6 +205,290 @@ INSERT INTO `example` VALUES (5,'Esto est\\u00E1 funcionando');
 /*!40000 ALTER TABLE `example` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `filter`
+--
+
+DROP TABLE IF EXISTS `filter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `filter` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `filter_type_id` int(11) NOT NULL,
+  `filter_nature_id` int(11) NOT NULL,
+  `min_value` decimal(10,2) DEFAULT NULL,
+  `max_value` decimal(10,2) DEFAULT NULL,
+  `yes_text` varchar(30) DEFAULT NULL,
+  `no_text` varchar(30) DEFAULT NULL,
+  `use_static_filter_options` tinyint(1) DEFAULT NULL,
+  `api_operation` varchar(50) DEFAULT NULL,
+  `show_choice` varchar(10) DEFAULT NULL,
+  `force_all_filter_options` tinyint(1) DEFAULT NULL,
+  `min_value_date_in_past` tinyint(1) DEFAULT NULL,
+  `min_value_date_in_future` tinyint(1) DEFAULT NULL,
+  `max_value_date_in_past` tinyint(1) DEFAULT NULL,
+  `max_value_date_in_future` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `filter_type_id` (`filter_type_id`),
+  KEY `filter_nature_id` (`filter_nature_id`),
+  CONSTRAINT `filter_ibfk_1` FOREIGN KEY (`filter_type_id`) REFERENCES `filter_type` (`id`),
+  CONSTRAINT `filter_ibfk_2` FOREIGN KEY (`filter_nature_id`) REFERENCES `filter_nature` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `filter`
+--
+
+LOCK TABLES `filter` WRITE;
+/*!40000 ALTER TABLE `filter` DISABLE KEYS */;
+INSERT INTO `filter` VALUES (1,'Property types',1,1,NULL,NULL,NULL,NULL,1,'/property_data/types',NULL,0,NULL,NULL,NULL,NULL),(2,'Buy / Rent',1,1,NULL,NULL,NULL,NULL,1,'/property_data/proposals',NULL,0,NULL,NULL,NULL,NULL),(3,'Property locations',1,1,NULL,NULL,NULL,NULL,1,'/property_data/locations',NULL,0,NULL,NULL,NULL,NULL),(4,'Languages',1,1,NULL,NULL,NULL,NULL,1,'/languages',NULL,0,NULL,NULL,NULL,NULL),(5,'Market Price',7,1,0.00,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,'Square Meters Total',5,1,5.00,1000000.00,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,'Country',1,1,NULL,NULL,NULL,NULL,1,'/countries',NULL,0,NULL,NULL,NULL,NULL),(8,'Department',1,1,NULL,NULL,NULL,NULL,0,NULL,'SHOW',0,NULL,NULL,NULL,NULL),(9,'Town',1,1,NULL,NULL,NULL,NULL,0,NULL,'SHOW',0,NULL,NULL,NULL,NULL),(10,'Neighborhood',1,1,NULL,NULL,NULL,NULL,0,NULL,'SHOW',0,NULL,NULL,NULL,NULL),(12,'Rooms',4,2,NULL,NULL,NULL,NULL,1,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(13,'Bathrooms',4,2,NULL,NULL,NULL,NULL,1,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(14,'Condition',1,2,NULL,NULL,NULL,NULL,1,NULL,'SHOW',0,NULL,NULL,NULL,NULL),(15,'Furnished',2,2,NULL,NULL,NULL,NULL,NULL,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(16,'Floor',1,2,NULL,NULL,NULL,NULL,1,NULL,'SHOW',0,NULL,NULL,NULL,NULL),(17,'Optional Features',1,2,NULL,NULL,NULL,NULL,1,NULL,'SHOW',0,NULL,NULL,NULL,NULL),(18,'Suitable For',1,2,NULL,NULL,NULL,NULL,1,NULL,'SHOW',0,NULL,NULL,NULL,NULL),(19,'Parking Spots',1,2,NULL,NULL,NULL,NULL,1,NULL,'SHOW',0,NULL,NULL,NULL,NULL),(20,'Basement',2,2,NULL,NULL,NULL,NULL,NULL,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(21,'Full Basement',2,2,NULL,NULL,NULL,NULL,NULL,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(22,'Balcony/Rooftop',2,2,NULL,NULL,NULL,NULL,NULL,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(23,'Garden',2,2,NULL,NULL,NULL,NULL,NULL,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(24,'Publishing Date',3,2,NULL,NULL,NULL,NULL,NULL,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(25,'Rented',2,2,NULL,NULL,NULL,NULL,NULL,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(26,'Annual Return on Investment',4,1,NULL,NULL,NULL,NULL,1,NULL,'SHOW',0,NULL,NULL,NULL,NULL),(27,'Available from',11,2,NULL,NULL,NULL,NULL,NULL,NULL,'SHOW',NULL,0,0,0,0),(28,'Estrato - Colombia',1,1,NULL,NULL,NULL,NULL,1,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(29,'Estrato - Chile',1,1,NULL,NULL,NULL,NULL,1,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(30,'Estrato - Costa Rica',1,1,NULL,NULL,NULL,NULL,1,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(31,'Estrato - Ecuador',1,1,NULL,NULL,NULL,NULL,1,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(32,'Estrato - Panamá',1,1,NULL,NULL,NULL,NULL,1,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(33,'Estrato - Perú',1,1,NULL,NULL,NULL,NULL,1,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL),(34,'Estrato - Argentina',1,1,NULL,NULL,NULL,NULL,1,NULL,'SHOW',NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `filter` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `filter_condition`
+--
+
+DROP TABLE IF EXISTS `filter_condition`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `filter_condition` (
+  `id` int(11) NOT NULL,
+  `filter_id` int(11) DEFAULT NULL,
+  `search_specific` tinyint(1) DEFAULT NULL,
+  `contains_at_least_one` tinyint(1) DEFAULT NULL,
+  `contains_all` tinyint(1) DEFAULT NULL,
+  `contains_number` tinyint(1) DEFAULT NULL,
+  `number` int(11) DEFAULT NULL,
+  `selected_number_any` int(11) DEFAULT NULL,
+  `min_operand` varchar(10) DEFAULT NULL,
+  `max_operand` varchar(10) DEFAULT NULL,
+  `min_value` decimal(10,2) DEFAULT NULL,
+  `max_value` decimal(10,2) DEFAULT NULL,
+  `apply_min_constraint` tinyint(1) DEFAULT NULL,
+  `apply_max_constraint` tinyint(1) DEFAULT NULL,
+  `apply` tinyint(1) DEFAULT NULL,
+  `min_date_value` date DEFAULT NULL,
+  `max_date_value` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `filter_condition`
+--
+
+LOCK TABLES `filter_condition` WRITE;
+/*!40000 ALTER TABLE `filter_condition` DISABLE KEYS */;
+INSERT INTO `filter_condition` VALUES (1,7,0,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,8,0,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,9,0,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `filter_condition` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `filter_listing_step`
+--
+
+DROP TABLE IF EXISTS `filter_listing_step`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `filter_listing_step` (
+  `filter_id` int(11) NOT NULL,
+  `sequence_before` varchar(30) DEFAULT NULL,
+  `sequence_filter_id` int(11) DEFAULT NULL,
+  `sequence_after` varchar(30) DEFAULT NULL,
+  `id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`filter_id`),
+  KEY `sequence_filter_id` (`sequence_filter_id`),
+  CONSTRAINT `filter_listing_step_ibfk_1` FOREIGN KEY (`filter_id`) REFERENCES `filter` (`id`),
+  CONSTRAINT `filter_listing_step_ibfk_2` FOREIGN KEY (`sequence_filter_id`) REFERENCES `filter` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `filter_listing_step`
+--
+
+LOCK TABLES `filter_listing_step` WRITE;
+/*!40000 ALTER TABLE `filter_listing_step` DISABLE KEYS */;
+INSERT INTO `filter_listing_step` VALUES (8,NULL,7,NULL,1),(9,NULL,8,NULL,2),(10,NULL,9,NULL,3);
+/*!40000 ALTER TABLE `filter_listing_step` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `filter_nature`
+--
+
+DROP TABLE IF EXISTS `filter_nature`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `filter_nature` (
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `filter_nature`
+--
+
+LOCK TABLES `filter_nature` WRITE;
+/*!40000 ALTER TABLE `filter_nature` DISABLE KEYS */;
+INSERT INTO `filter_nature` VALUES (1,'Básico'),(2,'Avanzado');
+/*!40000 ALTER TABLE `filter_nature` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `filter_showing_step`
+--
+
+DROP TABLE IF EXISTS `filter_showing_step`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `filter_showing_step` (
+  `filter_id` int(11) NOT NULL,
+  `sequence_before` varchar(30) DEFAULT NULL,
+  `filter_condition_id` int(11) DEFAULT NULL,
+  `sequence_after` varchar(30) DEFAULT NULL,
+  `id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`filter_id`),
+  KEY `filter_condition_id` (`filter_condition_id`),
+  CONSTRAINT `filter_showing_step_ibfk_1` FOREIGN KEY (`filter_id`) REFERENCES `filter` (`id`),
+  CONSTRAINT `filter_showing_step_ibfk_2` FOREIGN KEY (`filter_condition_id`) REFERENCES `filter_condition` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `filter_showing_step`
+--
+
+LOCK TABLES `filter_showing_step` WRITE;
+/*!40000 ALTER TABLE `filter_showing_step` DISABLE KEYS */;
+INSERT INTO `filter_showing_step` VALUES (8,NULL,1,NULL,1),(9,NULL,2,NULL,2),(10,NULL,3,NULL,3);
+/*!40000 ALTER TABLE `filter_showing_step` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `filter_type`
+--
+
+DROP TABLE IF EXISTS `filter_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `filter_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `use_slider` tinyint(1) NOT NULL,
+  `validate_min` tinyint(1) NOT NULL,
+  `validate_max` tinyint(1) NOT NULL,
+  `allow_multiple` tinyint(1) NOT NULL,
+  `use_search` tinyint(1) NOT NULL,
+  `use_sort` tinyint(1) NOT NULL,
+  `use_select_all` tinyint(1) NOT NULL,
+  `use_remote_list` tinyint(1) NOT NULL,
+  `use_links` tinyint(1) NOT NULL,
+  `use_yes_no_dropdown` tinyint(1) NOT NULL,
+  `use_checkbox` tinyint(1) NOT NULL,
+  `use_radio` tinyint(1) NOT NULL,
+  `use_text` tinyint(1) NOT NULL,
+  `toggle` tinyint(1) NOT NULL,
+  `sort_sign` tinyint(1) NOT NULL,
+  `filter_type_nature` varchar(30) DEFAULT NULL,
+  `range_field_presentation` varchar(30) DEFAULT NULL,
+  `range_only_from` tinyint(1) DEFAULT NULL,
+  `range_only_to` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `filter_type`
+--
+
+LOCK TABLES `filter_type` WRITE;
+/*!40000 ALTER TABLE `filter_type` DISABLE KEYS */;
+INSERT INTO `filter_type` VALUES (1,'Hybrid Dropdown',0,0,0,1,1,0,1,0,0,0,0,0,0,0,0,'DROPDOWN',NULL,NULL,NULL),(2,'Checkbox two options',0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,'YESNO',NULL,NULL,NULL),(3,'Yes/No with Sort',0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,'YESNO',NULL,NULL,NULL),(4,'Unique Dropdown',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'DROPDOWN',NULL,NULL,NULL),(5,'Single Range',0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,'RANGE','INTEGER',0,0),(6,'Slider Range',1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'RANGE','INTEGER',0,0),(7,'Single Crcy Range',0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,'RANGE','CURRENCY',0,0),(8,'Slider Crcy Range',1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'RANGE','CURRENCY',0,0),(9,'Single Dbl Range',0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,'RANGE','DOUBLE',0,0),(10,'Slider Dbl Range',1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'RANGE','DOUBLE',0,0),(11,'Available From Range',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'RANGE','DATE',1,0);
+/*!40000 ALTER TABLE `filter_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `profile`
+--
+
+DROP TABLE IF EXISTS `profile`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `profile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `profile_name` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `profile_name_UNIQUE` (`profile_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `profile`
+--
+
+LOCK TABLES `profile` WRITE;
+/*!40000 ALTER TABLE `profile` DISABLE KEYS */;
+INSERT INTO `profile` VALUES (1,'/hallocasa/user/my-profile');
+/*!40000 ALTER TABLE `profile` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `profile_use_case`
+--
+
+DROP TABLE IF EXISTS `profile_use_case`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `profile_use_case` (
+  `profile_id` int(11) NOT NULL,
+  `use_case_id` int(11) NOT NULL,
+  PRIMARY KEY (`profile_id`,`use_case_id`),
+  KEY `fk__profile_use_case__use_case` (`use_case_id`),
+  CONSTRAINT `fk__profile_use_case__profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk__profile_use_case__use_case` FOREIGN KEY (`use_case_id`) REFERENCES `use_case` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `profile_use_case`
+--
+
+LOCK TABLES `profile_use_case` WRITE;
+/*!40000 ALTER TABLE `profile_use_case` DISABLE KEYS */;
+/*!40000 ALTER TABLE `profile_use_case` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `property`
+--
+
+DROP TABLE IF EXISTS `property`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property` (
+  `property_id` varchar(20) NOT NULL,
+  `property_type_id` int(11) NOT NULL,
+  `property_proposal_id` int(11) NOT NULL,
+  `property_location_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `country_id` int(11) NOT NULL,
+  PRIMARY KEY (`property_id`),
+  KEY `property_type_id` (`property_type_id`),
+  KEY `property_proposal_id` (`property_proposal_id`),
+  KEY `property_location_id` (`property_location_id`),
+  KEY `country_id` (`country_id`),
+  CONSTRAINT `property_ibfk_1` FOREIGN KEY (`property_type_id`) REFERENCES `property_type` (`id`),
+  CONSTRAINT `property_ibfk_2` FOREIGN KEY (`property_proposal_id`) REFERENCES `property_proposal` (`id`),
+  CONSTRAINT `property_ibfk_3` FOREIGN KEY (`property_location_id`) REFERENCES `property_location` (`id`),
+  CONSTRAINT `property_ibfk_4` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `property`
@@ -64,14 +501,163 @@ INSERT INTO `property` VALUES ('TYrtHJI8',1,1,1,1,1);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `property_field`
+--
+
+DROP TABLE IF EXISTS `property_field`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_field` (
+  `id` int(11) NOT NULL,
+  `name` varchar(500) DEFAULT NULL,
+  `basic` int(1) NOT NULL DEFAULT '0',
+  `primary_key` tinyint(1) NOT NULL DEFAULT '0',
+  `lang` varchar(200) NOT NULL DEFAULT 'hallocasa.pending',
+  `multilanguage_value` tinyint(1) DEFAULT '0',
+  `property_field_type_id` int(11) DEFAULT NULL,
+  `property_field_value_type_id` int(11) DEFAULT NULL,
+  `text_type` varchar(50) DEFAULT NULL,
+  `data1_type` varchar(50) DEFAULT NULL,
+  `data2_type` varchar(50) DEFAULT NULL,
+  `data3_type` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `property_field_type_id` (`property_field_type_id`),
+  KEY `property_field_value_type_id` (`property_field_value_type_id`),
+  CONSTRAINT `property_field_ibfk_1` FOREIGN KEY (`property_field_type_id`) REFERENCES `property_field_type` (`id`),
+  CONSTRAINT `property_field_ibfk_2` FOREIGN KEY (`property_field_value_type_id`) REFERENCES `property_field_value_type` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `property_field`
 --
 
 LOCK TABLES `property_field` WRITE;
 /*!40000 ALTER TABLE `property_field` DISABLE KEYS */;
-INSERT INTO `property_field` VALUES (1,'Information - Languages',0),(2,'Information - Title',1),(3,'Information - Property Description',1),(4,'Information - Location Description',0),(5,'Information - Market Price',1),(6,'Information - Square Meters Total',1),(7,'Location - Department',0),(8,'Location - Town',1),(9,'Location - Address',1),(10,'Location - Longitude',0),(11,'Location - Latitude',0),(12,'Images - Image',0),(13,'Information - Main Language',0),(14,'Images - Main image',1);
+INSERT INTO `property_field` VALUES (1,'Languages',0,0,'hallocasa.pending',0,3,3,NULL,NULL,NULL,NULL),(2,'Title',1,0,'hallocasa.pending',1,2,5,NULL,'INT','TEXT',NULL),(3,'Property Description',1,0,'hallocasa.pending',1,2,5,NULL,'INT','TEXT',NULL),(4,'Location Description',0,0,'hallocasa.pending',1,2,5,NULL,'INT','TEXT',NULL),(5,'Market Price',1,0,'hallocasa.pending',0,9,4,NULL,'INT','DOUBLE',NULL),(6,'Square Meters Total',1,0,'hallocasa.pending',0,6,1,'INT',NULL,NULL,NULL),(7,'Department',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(8,'Town',1,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(9,'Address',1,0,'hallocasa.pending',0,2,1,'TEXT',NULL,NULL,NULL),(10,'Location',0,0,'hallocasa.pending',0,10,4,NULL,'DOUBLE','DOUBLE',NULL),(12,'Images',0,0,'hallocasa.pending',0,4,5,NULL,'FILE','BOOLEAN',NULL),(13,'Video',0,0,'hallocasa.pending',0,5,1,'TEXT',NULL,NULL,NULL),(15,'Location - Neighborhood',1,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(17,'Rooms',0,0,'hallocasa.pending',0,6,1,'INT',NULL,NULL,NULL),(18,'Bathrooms',0,0,'hallocasa.pending',0,6,1,'INT',NULL,NULL,NULL),(19,'Condition',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(20,'Furnished',0,0,'hallocasa.pending',0,7,1,'BOOLEAN',NULL,NULL,NULL),(21,'Floor',0,0,'hallocasa.pending',0,6,1,'INT',NULL,NULL,NULL),(22,'Optional features',0,0,'hallocasa.pending',0,3,3,NULL,NULL,NULL,NULL),(23,'Suitable for',0,0,'hallocasa.pending',0,3,3,NULL,NULL,NULL,NULL),(24,'Parking spots',0,0,'hallocasa.pending',0,6,1,'INT',NULL,NULL,NULL),(25,'Basement',0,0,'hallocasa.pending',0,7,1,'BOOLEAN',NULL,NULL,NULL),(27,'Balcony/Rooftop',0,0,'hallocasa.pending',0,7,1,'BOOLEAN',NULL,NULL,NULL),(28,'Garden/Terrace',0,0,'hallocasa.pending',0,7,1,'BOOLEAN',NULL,NULL,NULL),(29,'Available From',0,0,'hallocasa.pending',0,8,1,'DATE',NULL,NULL,NULL),(30,'Rented',0,0,'hallocasa.pending',0,7,1,'BOOLEAN',NULL,NULL,NULL),(31,'Property type',1,1,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(32,'Property location',1,1,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(33,'Property proposal',1,1,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(34,'Country',1,1,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(35,'Square Meters Built',0,0,'hallocasa.pending',0,6,1,NULL,NULL,NULL,NULL),(36,'Security',0,0,'hallocasa.pending',0,3,3,NULL,NULL,NULL,NULL),(37,'Estrato - Colombia',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(38,'Estrato - Panamá',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(39,'Estrato - Costa Rica',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(40,'Estrato - Chile',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(41,'Estrato - Argentina',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(42,'Estrato - Perú',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(43,'Estrato - Ecuador',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(44,'Kind of Road',0,0,'hallocasa.pending',0,3,3,NULL,NULL,NULL,NULL),(45,'Heating',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(46,'Number of Floors',0,0,'hallocasa.pending',0,6,1,'INT',NULL,NULL,NULL),(47,'Drinking Water',0,0,'hallocasa.pending',0,3,3,NULL,NULL,NULL,NULL),(48,'Sewage Water',0,0,'hallocasa.pending',0,3,3,NULL,NULL,NULL,NULL),(49,'Year of Construction',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(50,'Method of Construction',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(51,'Type of Soil',0,0,'hallocasa.pending',0,3,3,NULL,NULL,NULL,NULL),(52,'Agriculture',0,0,'hallocasa.pending',0,3,3,NULL,NULL,NULL,NULL),(53,'Last Modernization',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(54,'Price Development in last 5 Years',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(55,'Inclination',0,0,'hallocasa.pending',0,3,3,NULL,NULL,NULL,NULL),(56,'Agent Fee',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(57,'Monthly Admin Fees for the Landlord',0,0,'hallocasa.pending',0,6,1,'DOUBLE',NULL,NULL,NULL),(58,'Additional Monthly Fees for the Landlord',0,0,'hallocasa.pending',0,6,1,'DOUBLE',NULL,NULL,NULL),(59,'Annual Tax Rate on the Property',0,0,'hallocasa.pending',0,1,2,NULL,NULL,NULL,NULL),(60,'Monthly Rent',0,0,'hallocasa.pending',0,9,4,'DOUBLE',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `property_field` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `property_field_condition_option`
+--
+
+DROP TABLE IF EXISTS `property_field_condition_option`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_field_condition_option` (
+  `id` int(11) NOT NULL,
+  `property_field_id` int(11) NOT NULL,
+  `parent_property_field_id` int(11) NOT NULL,
+  `parent_property_field_option_id` int(11) NOT NULL,
+  `condition_level` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `property_field_id` (`property_field_id`),
+  KEY `parent_property_field_id` (`parent_property_field_id`),
+  CONSTRAINT `property_field_condition_option_ibfk_1` FOREIGN KEY (`property_field_id`) REFERENCES `property_field` (`id`),
+  CONSTRAINT `property_field_condition_option_ibfk_2` FOREIGN KEY (`parent_property_field_id`) REFERENCES `property_field` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `property_field_condition_option`
+--
+
+LOCK TABLES `property_field_condition_option` WRITE;
+/*!40000 ALTER TABLE `property_field_condition_option` DISABLE KEYS */;
+INSERT INTO `property_field_condition_option` VALUES (1,1,31,1,0),(2,1,31,2,0),(3,1,31,3,0),(4,1,32,1,0),(5,1,32,2,0),(6,1,32,3,0),(7,1,33,1,0),(8,1,33,2,0),(9,1,34,1,0),(10,1,34,2,0),(11,1,34,3,0),(12,1,34,4,0),(13,1,34,5,0),(14,1,34,6,0),(15,1,34,7,0),(16,1,34,8,0),(17,1,34,9,0),(18,2,31,1,0),(19,2,31,2,0),(20,2,31,3,0),(21,2,32,1,0),(22,2,32,2,0),(23,2,32,3,0),(24,2,33,1,0),(25,2,33,2,0),(26,2,34,1,0),(27,2,34,2,0),(28,2,34,3,0),(29,2,34,4,0),(30,2,34,5,0),(31,2,34,6,0),(32,2,34,7,0),(33,2,34,8,0),(34,2,34,9,0),(35,3,31,1,0),(36,3,31,2,0),(37,3,31,3,0),(38,3,32,1,0),(39,3,32,2,0),(40,3,32,3,0),(41,3,33,1,0),(42,3,33,2,0),(43,3,34,1,0),(44,3,34,2,0),(45,3,34,3,0),(46,3,34,4,0),(47,3,34,5,0),(48,3,34,6,0),(49,3,34,7,0),(50,3,34,8,0),(51,3,34,9,0),(52,4,31,1,0),(53,4,31,2,0),(54,4,31,3,0),(55,4,32,1,0),(56,4,32,2,0),(57,4,32,3,0),(58,4,33,1,0),(59,4,33,2,0),(60,4,34,1,0),(61,4,34,2,0),(62,4,34,3,0),(63,4,34,4,0),(64,4,34,5,0),(65,4,34,6,0),(66,4,34,7,0),(67,4,34,8,0),(68,4,34,9,0),(69,5,31,1,0),(70,5,31,2,0),(71,5,31,3,0),(72,5,32,1,0),(73,5,32,2,0),(74,5,32,3,0),(75,5,33,1,0),(76,5,33,2,0),(77,5,34,1,0),(78,5,34,2,0),(79,5,34,3,0),(80,5,34,4,0),(81,5,34,5,0),(82,5,34,6,0),(83,5,34,7,0),(84,5,34,8,0),(85,5,34,9,0),(86,6,31,1,0),(87,6,31,2,0),(88,6,31,3,0),(89,6,32,1,0),(90,6,32,2,0),(91,6,32,3,0),(92,6,33,1,0),(93,6,33,2,0),(94,6,34,1,0),(95,6,34,2,0),(96,6,34,3,0),(97,6,34,4,0),(98,6,34,5,0),(99,6,34,6,0),(100,6,34,7,0),(101,6,34,8,0),(102,6,34,9,0),(103,7,31,1,0),(104,7,31,2,0),(105,7,31,3,0),(106,7,32,1,0),(107,7,32,2,0),(108,7,32,3,0),(109,7,33,1,0),(110,7,33,2,0),(111,7,34,1,0),(112,7,34,2,0),(113,7,34,3,0),(114,7,34,4,0),(115,7,34,5,0),(116,7,34,6,0),(117,7,34,7,0),(118,7,34,8,0),(119,7,34,9,0),(120,8,31,1,0),(121,8,31,2,0),(122,8,31,3,0),(123,8,32,1,0),(124,8,32,2,0),(125,8,32,3,0),(126,8,33,1,0),(127,8,33,2,0),(128,8,34,1,0),(129,8,34,2,0),(130,8,34,3,0),(131,8,34,4,0),(132,8,34,5,0),(133,8,34,6,0),(134,8,34,7,0),(135,8,34,8,0),(136,8,34,9,0),(137,9,31,1,0),(138,9,31,2,0),(139,9,31,3,0),(140,9,32,1,0),(141,9,32,2,0),(142,9,32,3,0),(143,9,33,1,0),(144,9,33,2,0),(145,9,34,1,0),(146,9,34,2,0),(147,9,34,3,0),(148,9,34,4,0),(149,9,34,5,0),(150,9,34,6,0),(151,9,34,7,0),(152,9,34,8,0),(153,9,34,9,0),(154,10,31,1,0),(155,10,31,2,0),(156,10,31,3,0),(157,10,32,1,0),(158,10,32,2,0),(159,10,32,3,0),(160,10,33,1,0),(161,10,33,2,0),(162,10,34,1,0),(163,10,34,2,0),(164,10,34,3,0),(165,10,34,4,0),(166,10,34,5,0),(167,10,34,6,0),(168,10,34,7,0),(169,10,34,8,0),(170,10,34,9,0),(171,12,31,1,0),(172,12,31,2,0),(173,12,31,3,0),(174,12,32,1,0),(175,12,32,2,0),(176,12,32,3,0),(177,12,33,1,0),(178,12,33,2,0),(179,12,34,1,0),(180,12,34,2,0),(181,12,34,3,0),(182,12,34,4,0),(183,12,34,5,0),(184,12,34,6,0),(185,12,34,7,0),(186,12,34,8,0),(187,12,34,9,0),(188,13,31,1,0),(189,13,31,2,0),(190,13,31,3,0),(191,13,32,1,0),(192,13,32,2,0),(193,13,32,3,0),(194,13,33,1,0),(195,13,33,2,0),(196,13,34,1,0),(197,13,34,2,0),(198,13,34,3,0),(199,13,34,4,0),(200,13,34,5,0),(201,13,34,6,0),(202,13,34,7,0),(203,13,34,8,0),(204,13,34,9,0),(205,15,31,1,0),(206,15,31,2,0),(207,15,31,3,0),(208,15,32,1,0),(209,15,32,2,0),(210,15,32,3,0),(211,15,33,1,0),(212,15,33,2,0),(213,15,34,1,0),(214,15,34,2,0),(215,15,34,3,0),(216,15,34,4,0),(217,15,34,5,0),(218,15,34,6,0),(219,15,34,7,0),(220,15,34,8,0),(221,15,34,9,0),(222,17,31,2,0),(223,17,31,3,0),(224,17,32,1,0),(225,17,32,2,0),(226,17,32,3,0),(227,17,33,1,0),(228,17,33,2,0),(229,17,34,1,0),(230,17,34,2,0),(231,17,34,3,0),(232,17,34,4,0),(233,17,34,5,0),(234,17,34,6,0),(235,17,34,7,0),(236,17,34,8,0),(237,17,34,9,0),(238,18,31,2,0),(239,18,31,3,0),(240,18,32,1,0),(241,18,32,2,0),(242,18,32,3,0),(243,18,33,1,0),(244,18,33,2,0),(245,18,34,1,0),(246,18,34,2,0),(247,18,34,3,0),(248,18,34,4,0),(249,18,34,5,0),(250,18,34,6,0),(251,18,34,7,0),(252,18,34,8,0),(253,18,34,9,0),(254,19,31,1,0),(255,19,31,2,0),(256,19,31,3,0),(257,19,32,1,0),(258,19,32,2,0),(259,19,32,3,0),(260,19,33,1,0),(261,19,33,2,0),(262,19,34,1,0),(263,19,34,2,0),(264,19,34,3,0),(265,19,34,4,0),(266,19,34,5,0),(267,19,34,6,0),(268,19,34,7,0),(269,19,34,8,0),(270,19,34,9,0),(271,20,31,2,0),(272,20,31,3,0),(273,20,32,1,0),(274,20,32,2,0),(275,20,32,3,0),(276,20,33,1,0),(277,20,33,2,0),(278,20,34,1,0),(279,20,34,2,0),(280,20,34,3,0),(281,20,34,4,0),(282,20,34,5,0),(283,20,34,6,0),(284,20,34,7,0),(285,20,34,8,0),(286,20,34,9,0),(287,21,31,3,0),(288,21,32,1,0),(289,21,32,2,0),(290,21,32,3,0),(291,21,33,1,0),(292,21,33,2,0),(293,21,34,1,0),(294,21,34,2,0),(295,21,34,3,0),(296,21,34,4,0),(297,21,34,5,0),(298,21,34,6,0),(299,21,34,7,0),(300,21,34,8,0),(301,21,34,9,0),(302,22,31,2,0),(303,22,31,3,0),(304,22,32,1,0),(305,22,32,2,0),(306,22,32,3,0),(307,22,33,1,0),(308,22,33,2,0),(309,22,34,1,0),(310,22,34,2,0),(311,22,34,3,0),(312,22,34,4,0),(313,22,34,5,0),(314,22,34,6,0),(315,22,34,7,0),(316,22,34,8,0),(317,22,34,9,0),(318,23,31,1,0),(319,23,31,2,0),(320,23,31,3,0),(321,23,32,1,0),(322,23,32,2,0),(323,23,32,3,0),(324,23,33,1,0),(325,23,33,2,0),(326,23,34,1,0),(327,23,34,2,0),(328,23,34,3,0),(329,23,34,4,0),(330,23,34,5,0),(331,23,34,6,0),(332,23,34,7,0),(333,23,34,8,0),(334,23,34,9,0),(335,24,31,1,0),(336,24,31,2,0),(337,24,31,3,0),(338,24,32,1,0),(339,24,32,2,0),(340,24,32,3,0),(341,24,33,1,0),(342,24,33,2,0),(343,24,34,1,0),(344,24,34,2,0),(345,24,34,3,0),(346,24,34,4,0),(347,24,34,5,0),(348,24,34,6,0),(349,24,34,7,0),(350,24,34,8,0),(351,24,34,9,0),(352,25,31,2,0),(353,25,32,1,0),(354,25,32,2,0),(355,25,32,3,0),(356,25,33,1,0),(357,25,33,2,0),(358,25,34,1,0),(359,25,34,2,0),(360,25,34,3,0),(361,25,34,4,0),(362,25,34,5,0),(363,25,34,6,0),(364,25,34,7,0),(365,25,34,8,0),(366,25,34,9,0),(367,27,31,2,0),(368,27,31,3,0),(369,27,32,1,0),(370,27,32,2,0),(371,27,32,3,0),(372,27,33,1,0),(373,27,33,2,0),(374,27,34,1,0),(375,27,34,2,0),(376,27,34,3,0),(377,27,34,4,0),(378,27,34,5,0),(379,27,34,6,0),(380,27,34,7,0),(381,27,34,8,0),(382,27,34,9,0),(383,28,31,2,0),(384,28,31,3,0),(385,28,32,1,0),(386,28,32,2,0),(387,28,32,3,0),(388,28,33,1,0),(389,28,33,2,0),(390,28,34,1,0),(391,28,34,2,0),(392,28,34,3,0),(393,28,34,4,0),(394,28,34,5,0),(395,28,34,6,0),(396,28,34,7,0),(397,28,34,8,0),(398,28,34,9,0),(399,29,31,1,0),(400,29,31,2,0),(401,29,31,3,0),(402,29,32,1,0),(403,29,32,2,0),(404,29,32,3,0),(405,29,33,1,0),(406,29,33,2,0),(407,29,34,1,0),(408,29,34,2,0),(409,29,34,3,0),(410,29,34,4,0),(411,29,34,5,0),(412,29,34,6,0),(413,29,34,7,0),(414,29,34,8,0),(415,29,34,9,0),(416,30,31,1,0),(417,30,31,2,0),(418,30,31,3,0),(419,30,32,1,0),(420,30,32,2,0),(421,30,32,3,0),(422,30,33,1,0),(423,30,34,1,0),(424,30,34,2,0),(425,30,34,3,0),(426,30,34,4,0),(427,30,34,5,0),(428,30,34,6,0),(429,30,34,7,0),(430,30,34,8,0),(431,30,34,9,0),(432,35,31,1,0),(433,35,31,2,0),(434,35,32,1,0),(435,35,32,2,0),(436,35,32,3,0),(437,35,33,1,0),(438,35,33,2,0),(439,35,34,1,0),(440,35,34,2,0),(441,35,34,3,0),(442,35,34,4,0),(443,35,34,5,0),(444,35,34,6,0),(445,35,34,7,0),(446,35,34,8,0),(447,35,34,9,0),(448,36,31,1,0),(449,36,31,2,0),(450,36,31,3,0),(451,36,32,1,0),(452,36,32,2,0),(453,36,32,3,0),(454,36,33,1,0),(455,36,33,2,0),(456,36,34,1,0),(457,36,34,2,0),(458,36,34,3,0),(459,36,34,4,0),(460,36,34,5,0),(461,36,34,6,0),(462,36,34,7,0),(463,36,34,8,0),(464,36,34,9,0),(465,37,31,1,0),(466,37,31,2,0),(467,37,31,3,0),(468,37,32,1,0),(469,37,32,2,0),(470,37,32,3,0),(471,37,33,1,0),(472,37,33,2,0),(473,37,34,1,0),(474,38,31,1,0),(475,38,31,2,0),(476,38,31,3,0),(477,38,32,1,0),(478,38,32,2,0),(479,38,32,3,0),(480,38,33,1,0),(481,38,33,2,0),(482,38,34,4,0),(483,39,31,1,0),(484,39,31,2,0),(485,39,31,3,0),(486,39,32,1,0),(487,39,32,2,0),(488,39,32,3,0),(489,39,33,1,0),(490,39,33,2,0),(491,39,34,8,0),(492,40,31,1,0),(493,40,31,2,0),(494,40,31,3,0),(495,40,32,1,0),(496,40,32,2,0),(497,40,32,3,0),(498,40,33,1,0),(499,40,33,2,0),(500,40,34,3,0),(501,41,31,1,0),(502,41,31,2,0),(503,41,31,3,0),(504,41,32,1,0),(505,41,32,2,0),(506,41,32,3,0),(507,41,33,1,0),(508,41,33,2,0),(509,41,34,2,0),(510,42,31,1,0),(511,42,31,2,0),(512,42,31,3,0),(513,42,32,1,0),(514,42,32,2,0),(515,42,32,3,0),(516,42,33,1,0),(517,42,33,2,0),(518,42,34,5,0),(519,43,31,1,0),(520,43,31,2,0),(521,43,31,3,0),(522,43,32,1,0),(523,43,32,2,0),(524,43,32,3,0),(525,43,33,1,0),(526,43,33,2,0),(527,43,34,9,0),(528,44,31,1,0),(529,44,31,2,0),(530,44,31,3,0),(531,44,32,2,0),(532,44,32,3,0),(533,44,33,1,0),(534,44,33,2,0),(535,44,34,1,0),(536,44,34,2,0),(537,44,34,3,0),(538,44,34,4,0),(539,44,34,5,0),(540,44,34,6,0),(541,44,34,7,0),(542,44,34,8,0),(543,44,34,9,0),(544,45,31,1,0),(545,45,31,2,0),(546,45,31,3,0),(547,45,32,1,0),(548,45,32,2,0),(549,45,32,3,0),(550,45,33,1,0),(551,45,33,2,0),(552,45,34,1,0),(553,45,34,2,0),(554,45,34,3,0),(555,45,34,4,0),(556,45,34,5,0),(557,45,34,6,0),(558,45,34,7,0),(559,45,34,8,0),(560,45,34,9,0),(561,46,31,2,0),(562,46,32,1,0),(563,46,32,2,0),(564,46,32,3,0),(565,46,33,1,0),(566,46,33,2,0),(567,46,34,1,0),(568,46,34,2,0),(569,46,34,3,0),(570,46,34,4,0),(571,46,34,5,0),(572,46,34,6,0),(573,46,34,7,0),(574,46,34,8,0),(575,46,34,9,0),(576,47,31,1,0),(577,47,32,3,0),(578,47,33,1,0),(579,47,33,2,0),(580,47,34,1,0),(581,47,34,2,0),(582,47,34,3,0),(583,47,34,4,0),(584,47,34,5,0),(585,47,34,6,0),(586,47,34,7,0),(587,47,34,8,0),(588,47,34,9,0),(589,47,31,1,1),(590,47,32,2,1),(591,47,33,1,1),(592,47,34,1,1),(593,47,34,2,1),(594,47,34,3,1),(595,47,34,4,1),(596,47,34,5,1),(597,47,34,6,1),(598,47,34,7,1),(599,47,34,8,1),(600,47,34,9,1),(601,48,31,1,0),(602,48,31,2,0),(603,48,32,1,0),(604,48,32,2,0),(605,48,32,3,0),(606,48,33,1,0),(607,48,33,2,0),(608,48,34,1,0),(609,48,34,2,0),(610,48,34,3,0),(611,48,34,4,0),(612,48,34,5,0),(613,48,34,6,0),(614,48,34,7,0),(615,48,34,8,0),(616,48,34,9,0),(617,49,31,1,0),(618,49,31,2,0),(619,49,31,3,0),(620,49,32,1,0),(621,49,32,2,0),(622,49,32,3,0),(623,49,33,1,0),(624,49,33,2,0),(625,49,34,1,0),(626,49,34,2,0),(627,49,34,3,0),(628,49,34,4,0),(629,49,34,5,0),(630,49,34,6,0),(631,49,34,7,0),(632,49,34,8,0),(633,49,34,9,0),(634,50,31,1,0),(635,50,31,2,0),(636,50,31,3,0),(637,50,32,1,0),(638,50,32,2,0),(639,50,32,3,0),(640,50,33,1,0),(641,50,33,2,0),(642,50,34,1,0),(643,50,34,2,0),(644,50,34,3,0),(645,50,34,4,0),(646,50,34,5,0),(647,50,34,6,0),(648,50,34,7,0),(649,50,34,8,0),(650,50,34,9,0),(651,51,31,1,0),(652,51,32,1,0),(653,51,32,2,0),(654,51,32,3,0),(655,51,33,1,0),(656,51,33,2,0),(657,51,34,1,0),(658,51,34,2,0),(659,51,34,3,0),(660,51,34,4,0),(661,51,34,5,0),(662,51,34,6,0),(663,51,34,7,0),(664,51,34,8,0),(665,51,34,9,0),(666,52,31,1,0),(667,52,32,1,0),(668,52,32,2,0),(669,52,32,3,0),(670,52,33,1,0),(671,52,33,2,0),(672,52,34,1,0),(673,52,34,2,0),(674,52,34,3,0),(675,52,34,4,0),(676,52,34,5,0),(677,52,34,6,0),(678,52,34,7,0),(679,52,34,8,0),(680,52,34,9,0),(681,53,31,1,0),(682,53,31,2,0),(683,53,31,3,0),(684,53,32,1,0),(685,53,32,2,0),(686,53,32,3,0),(687,53,33,1,0),(688,53,33,2,0),(689,53,34,1,0),(690,53,34,2,0),(691,53,34,3,0),(692,53,34,4,0),(693,53,34,5,0),(694,53,34,6,0),(695,53,34,7,0),(696,53,34,8,0),(697,53,34,9,0),(698,54,31,1,0),(699,54,31,2,0),(700,54,31,3,0),(701,54,32,1,0),(702,54,32,2,0),(703,54,32,3,0),(704,54,33,1,0),(705,54,34,1,0),(706,54,34,2,0),(707,54,34,3,0),(708,54,34,4,0),(709,54,34,5,0),(710,54,34,6,0),(711,54,34,7,0),(712,54,34,8,0),(713,54,34,9,0),(714,55,31,1,0),(715,55,32,1,0),(716,55,32,2,0),(717,55,32,3,0),(718,55,33,1,0),(719,55,33,2,0),(720,55,34,1,0),(721,55,34,2,0),(722,55,34,3,0),(723,55,34,4,0),(724,55,34,5,0),(725,55,34,6,0),(726,55,34,7,0),(727,55,34,8,0),(728,55,34,9,0),(729,56,31,1,0),(730,56,31,2,0),(731,56,31,3,0),(732,56,32,1,0),(733,56,32,2,0),(734,56,32,3,0),(735,56,33,1,0),(736,56,33,2,0),(737,56,34,1,0),(738,56,34,2,0),(739,56,34,3,0),(740,56,34,4,0),(741,56,34,5,0),(742,56,34,6,0),(743,56,34,7,0),(744,56,34,8,0),(745,56,34,9,0),(746,57,31,1,0),(747,57,31,2,0),(748,57,31,3,0),(749,57,32,1,0),(750,57,32,2,0),(751,57,32,3,0),(752,57,33,1,0),(753,57,33,2,0),(754,57,34,1,0),(755,57,34,2,0),(756,57,34,3,0),(757,57,34,4,0),(758,57,34,5,0),(759,57,34,6,0),(760,57,34,7,0),(761,57,34,8,0),(762,57,34,9,0),(763,58,31,1,0),(764,58,31,2,0),(765,58,31,3,0),(766,58,32,1,0),(767,58,32,2,0),(768,58,32,3,0),(769,58,33,1,0),(770,58,34,1,0),(771,58,34,2,0),(772,58,34,3,0),(773,58,34,4,0),(774,58,34,5,0),(775,58,34,6,0),(776,58,34,7,0),(777,58,34,8,0),(778,58,34,9,0),(779,59,31,1,0),(780,59,31,2,0),(781,59,31,3,0),(782,59,32,1,0),(783,59,32,2,0),(784,59,32,3,0),(785,59,33,1,0),(786,59,34,1,0),(787,59,34,2,0),(788,59,34,3,0),(789,59,34,4,0),(790,59,34,5,0),(791,59,34,6,0),(792,59,34,7,0),(793,59,34,8,0),(794,59,34,9,0),(795,60,31,1,0),(796,60,31,2,0),(797,60,31,3,0),(798,60,32,1,0),(799,60,32,2,0),(800,60,32,3,0),(801,60,33,1,0),(802,60,34,1,0),(803,60,34,2,0),(804,60,34,3,0),(805,60,34,4,0),(806,60,34,5,0),(807,60,34,6,0),(808,60,34,7,0),(809,60,34,8,0),(810,60,34,9,0);
+/*!40000 ALTER TABLE `property_field_condition_option` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `property_field_filter`
+--
+
+DROP TABLE IF EXISTS `property_field_filter`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_field_filter` (
+  `filter_id` int(11) NOT NULL,
+  `property_field_id` int(11) NOT NULL,
+  KEY `filter_id` (`filter_id`),
+  KEY `property_field_id` (`property_field_id`),
+  CONSTRAINT `property_field_filter_ibfk_1` FOREIGN KEY (`filter_id`) REFERENCES `filter` (`id`),
+  CONSTRAINT `property_field_filter_ibfk_2` FOREIGN KEY (`property_field_id`) REFERENCES `property_field` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `property_field_filter`
+--
+
+LOCK TABLES `property_field_filter` WRITE;
+/*!40000 ALTER TABLE `property_field_filter` DISABLE KEYS */;
+INSERT INTO `property_field_filter` VALUES (4,1),(5,5),(6,6),(8,7),(9,8),(10,15),(12,17),(13,18),(14,19),(15,20),(16,21),(17,22),(18,23),(19,24),(20,25),(22,27),(23,28),(25,30),(27,29),(28,37),(29,40),(30,39),(31,43),(32,38),(33,42),(34,41),(1,31),(2,33),(3,32),(7,34);
+/*!40000 ALTER TABLE `property_field_filter` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `property_field_option`
+--
+
+DROP TABLE IF EXISTS `property_field_option`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_field_option` (
+  `id` int(11) NOT NULL,
+  `property_field_id` int(11) NOT NULL,
+  `option_id` int(11) NOT NULL,
+  `data1` varchar(500) NOT NULL,
+  `data2` varchar(500) DEFAULT NULL,
+  `data3` varchar(500) DEFAULT NULL,
+  `data4` varchar(500) DEFAULT NULL,
+  `data5` varchar(500) DEFAULT NULL,
+  `data6` varchar(500) DEFAULT NULL,
+  `data7` varchar(500) DEFAULT NULL,
+  `data8` varchar(500) DEFAULT NULL,
+  `extended_data1` text,
+  `extended_data2` text,
+  PRIMARY KEY (`id`),
+  KEY `property_field_id` (`property_field_id`),
+  CONSTRAINT `property_field_option_ibfk_1` FOREIGN KEY (`property_field_id`) REFERENCES `property_field` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `property_field_option`
+--
+
+LOCK TABLES `property_field_option` WRITE;
+/*!40000 ALTER TABLE `property_field_option` DISABLE KEYS */;
+/*!40000 ALTER TABLE `property_field_option` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `property_field_rule`
+--
+
+DROP TABLE IF EXISTS `property_field_rule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_field_rule` (
+  `property_field_id` int(11) NOT NULL,
+  `property_type_group_id` int(11) NOT NULL,
+  `property_proposal_id` int(11) NOT NULL,
+  `property_location_id` int(11) NOT NULL,
+  `country_id` int(11) DEFAULT NULL,
+  `render_field` char(2) DEFAULT NULL,
+  KEY `property_field_id` (`property_field_id`),
+  KEY `property_type_group_id` (`property_type_group_id`),
+  KEY `property_proposal_id` (`property_proposal_id`),
+  KEY `property_location_id` (`property_location_id`),
+  KEY `country_id` (`country_id`),
+  CONSTRAINT `property_field_rule_ibfk_1` FOREIGN KEY (`property_field_id`) REFERENCES `property_field` (`id`),
+  CONSTRAINT `property_field_rule_ibfk_2` FOREIGN KEY (`property_type_group_id`) REFERENCES `property_type_group` (`id`),
+  CONSTRAINT `property_field_rule_ibfk_3` FOREIGN KEY (`property_proposal_id`) REFERENCES `property_proposal` (`id`),
+  CONSTRAINT `property_field_rule_ibfk_4` FOREIGN KEY (`property_location_id`) REFERENCES `property_location` (`id`),
+  CONSTRAINT `property_field_rule_ibfk_5` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `property_field_rule`
@@ -84,14 +670,124 @@ INSERT INTO `property_field_rule` VALUES (1,1,1,1,NULL,'Y'),(1,1,1,2,NULL,'Y'),(
 UNLOCK TABLES;
 
 --
+-- Table structure for table `property_field_type`
+--
+
+DROP TABLE IF EXISTS `property_field_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_field_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `property_field_type`
+--
+
+LOCK TABLES `property_field_type` WRITE;
+/*!40000 ALTER TABLE `property_field_type` DISABLE KEYS */;
+INSERT INTO `property_field_type` VALUES (1,'Dropdown'),(2,'Text field'),(3,'Checkbox group'),(4,'Image uploader'),(5,'Link text field'),(6,'Number field'),(7,'Yes / No'),(8,'Date'),(9,'Currency field'),(10,'Google maps');
+/*!40000 ALTER TABLE `property_field_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `property_field_value`
+--
+
+DROP TABLE IF EXISTS `property_field_value`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_field_value` (
+  `property_id` varchar(20) NOT NULL,
+  `property_field_id` int(11) NOT NULL,
+  `identifier` int(11) DEFAULT NULL,
+  `text` text,
+  `data1` varchar(500) DEFAULT NULL,
+  `data2` varchar(500) DEFAULT NULL,
+  `data3` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`property_id`,`property_field_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `property_field_value`
 --
 
 LOCK TABLES `property_field_value` WRITE;
 /*!40000 ALTER TABLE `property_field_value` DISABLE KEYS */;
-INSERT INTO `property_field_value` VALUES ('TYrtHJI8',1,'[\'en\',\'es\',\'de\']'),('TYrtHJI8',2,'{\'es\':\'Propiedad de prueba en Los Rosales\',\'en\':\'Test property in Los Rosales\', \'de\':\'Test property in Los Rosales\'}'),('TYrtHJI8',3,'{\'es\':\'Fantástico Penthouse, listo para ser estrenado, en la zona más exclusiva de Bogotá\', \n        \'en\':\'Fantástic Penthouse, ready to start, in Bogotá exclusive zone\', \n        \'de\': \'Fantástic Penthouse, ready to start, in Bogotá exclusive zone\'}'),('TYrtHJI8',4,'{\'es\':\'Al lado de la quebrada la Vieja\', \n        \'en\':\'Beside Quebrada La Vieja place\', \n        \'de\': \'Beside Quebrada La Vieja place\'}'),('TYrtHJI8',5,'{\'currency\':{\'id\' : 3}, \'value\':500000}'),('TYrtHJI8',6,'120'),('TYrtHJI8',7,'5'),('TYrtHJI8',8,'181'),('TYrtHJI8',9,'Cr 2 este 75-23'),('TYrtHJI8',10,'20.5'),('TYrtHJI8',11,'38.1'),('TYrtHJI8',12,'[]'),('TYrtHJI8',13,'es');
+INSERT INTO `property_field_value` VALUES ('TYrtHJI8',1,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',2,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',3,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',4,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',5,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',6,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',7,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',8,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',9,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',10,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',11,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',12,NULL,NULL,NULL,NULL,NULL),('TYrtHJI8',13,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `property_field_value` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `property_field_value_type`
+--
+
+DROP TABLE IF EXISTS `property_field_value_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_field_value_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `property_field_value_type`
+--
+
+LOCK TABLES `property_field_value_type` WRITE;
+/*!40000 ALTER TABLE `property_field_value_type` DISABLE KEYS */;
+INSERT INTO `property_field_value_type` VALUES (1,'Text'),(2,'Identifier'),(3,'Identifier list'),(4,'Object'),(5,'Object list');
+/*!40000 ALTER TABLE `property_field_value_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `property_filter_condition_option`
+--
+
+DROP TABLE IF EXISTS `property_filter_condition_option`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_filter_condition_option` (
+  `id` int(11) NOT NULL,
+  `filter_condition_id` int(11) NOT NULL,
+  `property_field_option_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `filter_condition_id` (`filter_condition_id`),
+  KEY `property_field_option_id` (`property_field_option_id`),
+  CONSTRAINT `property_filter_condition_option_ibfk_1` FOREIGN KEY (`filter_condition_id`) REFERENCES `filter_condition` (`id`),
+  CONSTRAINT `property_filter_condition_option_ibfk_2` FOREIGN KEY (`property_field_option_id`) REFERENCES `property_field_option` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `property_filter_condition_option`
+--
+
+LOCK TABLES `property_filter_condition_option` WRITE;
+/*!40000 ALTER TABLE `property_filter_condition_option` DISABLE KEYS */;
+/*!40000 ALTER TABLE `property_filter_condition_option` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `property_location`
+--
+
+DROP TABLE IF EXISTS `property_location`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_location` (
+  `id` int(11) NOT NULL,
+  `name` varchar(500) DEFAULT NULL,
+  `lang` varchar(200) DEFAULT 'hallocasa.pending',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `property_location`
@@ -99,9 +795,24 @@ UNLOCK TABLES;
 
 LOCK TABLES `property_location` WRITE;
 /*!40000 ALTER TABLE `property_location` DISABLE KEYS */;
-INSERT INTO `property_location` VALUES (1,'{\'en\':\'City Center\',\'de\':\'Stadtzentrum\',\'es\':\'Urbano\'}'),(2,'{\'en\':\'Suburb\',\'de\':\'Vorort\',\'es\':\'Suburbio\'}'),(3,'{\'en\':\'Countryside\',\'de\':\'Landschaft\',\'es\':\'Rural\'}');
+INSERT INTO `property_location` VALUES (1,'{\'en\':\'City Center\',\'de\':\'Stadtzentrum\',\'es\':\'Urbano\'}','hallocasa.pending'),(2,'{\'en\':\'Suburb\',\'de\':\'Vorort\',\'es\':\'Suburbio\'}','hallocasa.pending'),(3,'{\'en\':\'Countryside\',\'de\':\'Landschaft\',\'es\':\'Rural\'}','hallocasa.pending');
 /*!40000 ALTER TABLE `property_location` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `property_proposal`
+--
+
+DROP TABLE IF EXISTS `property_proposal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_proposal` (
+  `id` int(11) NOT NULL,
+  `name` varchar(500) DEFAULT NULL,
+  `lang` varchar(200) DEFAULT 'hallocasa.pending',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `property_proposal`
@@ -109,10 +820,79 @@ UNLOCK TABLES;
 
 LOCK TABLES `property_proposal` WRITE;
 /*!40000 ALTER TABLE `property_proposal` DISABLE KEYS */;
-INSERT INTO `property_proposal` VALUES (1,'{\'en\':\'Sell\',\'de\':\'Verkaufen\',\'es\':\'Vender\'}');
+INSERT INTO `property_proposal` VALUES (1,'{\'en\':\'Sell\',\'de\':\'Verkaufen\',\'es\':\'Vender\'}','hallocasa.pending'),(2,'Rent','hallocasa.pending');
 /*!40000 ALTER TABLE `property_proposal` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `property_selector`
+--
+
+DROP TABLE IF EXISTS `property_selector`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_selector` (
+  `id` int(11) NOT NULL,
+  `property_field_id` int(11) NOT NULL,
+  `property_selector_type_id` int(11) NOT NULL,
+  `range_start` int(11) DEFAULT NULL,
+  `range_end` int(11) DEFAULT NULL,
+  `exclusions` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `property_field_id` (`property_field_id`),
+  KEY `property_selector_type_id` (`property_selector_type_id`),
+  CONSTRAINT `property_selector_ibfk_1` FOREIGN KEY (`property_field_id`) REFERENCES `property_field` (`id`),
+  CONSTRAINT `property_selector_ibfk_2` FOREIGN KEY (`property_selector_type_id`) REFERENCES `property_selector_type` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `property_selector`
+--
+
+LOCK TABLES `property_selector` WRITE;
+/*!40000 ALTER TABLE `property_selector` DISABLE KEYS */;
+/*!40000 ALTER TABLE `property_selector` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `property_selector_option`
+--
+
+DROP TABLE IF EXISTS `property_selector_option`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_selector_option` (
+  `id` int(11) NOT NULL,
+  `property_selector_id` int(11) NOT NULL,
+  `selector_value` varchar(300) DEFAULT NULL,
+  KEY `property_selector_id` (`property_selector_id`),
+  CONSTRAINT `property_selector_option_ibfk_1` FOREIGN KEY (`property_selector_id`) REFERENCES `property_selector` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `property_selector_option`
+--
+
+LOCK TABLES `property_selector_option` WRITE;
+/*!40000 ALTER TABLE `property_selector_option` DISABLE KEYS */;
+/*!40000 ALTER TABLE `property_selector_option` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `property_selector_type`
+--
+
+DROP TABLE IF EXISTS `property_selector_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_selector_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `property_selector_type`
@@ -125,14 +905,46 @@ INSERT INTO `property_selector_type` VALUES (1,'Specific options'),(2,'Range');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `property_type`
+--
+
+DROP TABLE IF EXISTS `property_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(500) DEFAULT NULL,
+  `group_id` int(11) NOT NULL,
+  `lang` varchar(200) DEFAULT 'hallocasa.pending',
+  PRIMARY KEY (`id`),
+  KEY `group_id` (`group_id`),
+  CONSTRAINT `property_type_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `property_type_group` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `property_type`
 --
 
 LOCK TABLES `property_type` WRITE;
 /*!40000 ALTER TABLE `property_type` DISABLE KEYS */;
-INSERT INTO `property_type` VALUES (1,'{\'en\':\'Lot\',\'de\':\'Grundst\\u00FCck\',\'es\':\'Lote\'}',1),(2,'{\'en\':\'Shopping Mall\',\'de\':\'Einkaufszentrum\',\'es\':\'Centro comercial\'}',2),(4,'{\'en\':\'Hotel\',\'de\':\'Hotel\',\'es\':\'Hotel\'}',2),(5,'{\'en\':\'Lot with Built\',\'de\':\'Bebautes Grundst\\u00FCck\',\'es\':\'Finca con Casa\'}',2),(6,'{\'en\':\'Apartment\',\'de\':\'Wohnung\',\'es\':\'Apartamento\'}',3),(9,'{\'en\':\'Penthouse\',\'de\':\'Dachterrassenwohnung\',\'es\':\'Penthouse\'}',3),(10,'{\'en\':\'Warehouse\',\'de\':\'Lagerhalle\',\'es\':\'Bodega\'}',3),(11,'{\'en\':\'Garage\',\'de\':\'Garage\',\'es\':\'Garaje\'}',3),(12,'{\'en\':\'Restaurant\',\'de\':\'Restaurant\',\'es\':\'Restaurante\'}',3),(14,'{\'en\':\'Office\',\'de\':\'B\\u00FCro\',\'es\':\'Oficina\'}',3),(15,'{\'en\':\'Detached House\',\'de\':\'Einfamilienhaus\',\'es\':\'Casa Unifamiliar\'}',3),(16,'{\'en\':\'Apartment Building\',\'de\':\'Mehrfamilienhaus\',\'es\':\'Edificio de Apartamentos\'}',3),(17,'{\'en\':\'Airport\',\'de\':\'Flughafen\',\'es\':\'Aeropuerto\'}',3),(18,'{\'en\':\'Factory\',\'de\':\'Fabrik\',\'es\':\'F\\u00E1brica\'}',3),(19,'{\'en\':\'School\',\'de\':\'Schule\',\'es\':\'Escuela\'}',3),(20,'{\'en\':\'Theater\',\'de\':\'Theater\',\'es\':\'Teatro\'}',3),(21,'{\'en\':\'Kindergarten\',\'de\':\'Kindergarten\',\'es\':\'Jard\\u00EDn Infantil\'}',3),(22,'{\'en\':\'Car Park\',\'de\':\'Parkplatz\',\'es\':\'Estacionamiento\'}',3),(23,'{\'en\':\'Hospital\',\'de\':\'Krankenhaus\',\'es\':\'Hospital\'}',3);
+INSERT INTO `property_type` VALUES (1,'{\'en\':\'Lot\',\'de\':\'Grundst\\u00FCck\',\'es\':\'Lote\'}',1,'hallocasa.pending'),(2,'{\'en\':\'Shopping Mall\',\'de\':\'Einkaufszentrum\',\'es\':\'Centro comercial\'}',2,'hallocasa.pending'),(4,'{\'en\':\'Hotel\',\'de\':\'Hotel\',\'es\':\'Hotel\'}',2,'hallocasa.pending'),(5,'{\'en\':\'Lot with Built\',\'de\':\'Bebautes Grundst\\u00FCck\',\'es\':\'Finca con Casa\'}',2,'hallocasa.pending'),(6,'{\'en\':\'Apartment\',\'de\':\'Wohnung\',\'es\':\'Apartamento\'}',3,'hallocasa.pending'),(9,'{\'en\':\'Penthouse\',\'de\':\'Dachterrassenwohnung\',\'es\':\'Penthouse\'}',3,'hallocasa.pending'),(10,'{\'en\':\'Warehouse\',\'de\':\'Lagerhalle\',\'es\':\'Bodega\'}',3,'hallocasa.pending'),(11,'{\'en\':\'Garage\',\'de\':\'Garage\',\'es\':\'Garaje\'}',3,'hallocasa.pending'),(12,'{\'en\':\'Restaurant\',\'de\':\'Restaurant\',\'es\':\'Restaurante\'}',3,'hallocasa.pending'),(14,'{\'en\':\'Office\',\'de\':\'B\\u00FCro\',\'es\':\'Oficina\'}',3,'hallocasa.pending'),(15,'{\'en\':\'Detached House\',\'de\':\'Einfamilienhaus\',\'es\':\'Casa Unifamiliar\'}',3,'hallocasa.pending'),(16,'{\'en\':\'Apartment Building\',\'de\':\'Mehrfamilienhaus\',\'es\':\'Edificio de Apartamentos\'}',3,'hallocasa.pending'),(17,'{\'en\':\'Airport\',\'de\':\'Flughafen\',\'es\':\'Aeropuerto\'}',3,'hallocasa.pending'),(18,'{\'en\':\'Factory\',\'de\':\'Fabrik\',\'es\':\'F\\u00E1brica\'}',3,'hallocasa.pending'),(19,'{\'en\':\'School\',\'de\':\'Schule\',\'es\':\'Escuela\'}',3,'hallocasa.pending'),(20,'{\'en\':\'Theater\',\'de\':\'Theater\',\'es\':\'Teatro\'}',3,'hallocasa.pending'),(21,'{\'en\':\'Kindergarten\',\'de\':\'Kindergarten\',\'es\':\'Jard\\u00EDn Infantil\'}',3,'hallocasa.pending'),(22,'{\'en\':\'Car Park\',\'de\':\'Parkplatz\',\'es\':\'Estacionamiento\'}',3,'hallocasa.pending'),(23,'{\'en\':\'Hospital\',\'de\':\'Krankenhaus\',\'es\':\'Hospital\'}',3,'hallocasa.pending');
 /*!40000 ALTER TABLE `property_type` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `property_type_group`
+--
+
+DROP TABLE IF EXISTS `property_type_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `property_type_group` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `property_type_group`
@@ -144,6 +956,48 @@ INSERT INTO `property_type_group` VALUES (1,'Lotes'),(2,'Stand-Alone'),(3,'In-Ho
 /*!40000 ALTER TABLE `property_type_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `security_token`
+--
+
+DROP TABLE IF EXISTS `security_token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `security_token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `token_value` varchar(100) NOT NULL,
+  `registered` datetime NOT NULL,
+  `expires_in` bigint(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `security_token`
+--
+
+LOCK TABLES `security_token` WRITE;
+/*!40000 ALTER TABLE `security_token` DISABLE KEYS */;
+INSERT INTO `security_token` VALUES (1,'alxvilbol@gmail.com:859963b8ebeb79250c0a53b9793ed770','2016-10-24 20:47:47',900000),(2,'alxvilbol@gmail.com:f122c37fb5f8b33d2fee7a473ae2b5bb','2016-10-24 21:02:19',900000),(3,'alxvilbol@gmail.com:b8279b4a8a3ea9a011d2a335b2c262b3','2016-10-24 21:07:49',900000),(4,'alxvilbol@gmail.com:2c599ff3b1e8c54b0dd5f8b0e2142a28','2016-10-24 21:08:02',900000),(5,'alxvilbol@gmail.com:fa3f2356822270edf6dfd2793839aeb6','2016-10-24 21:15:13',900000),(6,'alxvilbol@gmail.com:7985d018e61b15728fd1cae3eb01599f','2016-10-24 21:39:26',900000),(7,'alxvilbol@gmail.com:6677f671613c7df260c0a209f55bf9c7','2016-10-30 22:21:10',900000),(8,'alxvilbol@gmail.com:6f7f8559cb1d46950785852dad275c85','2016-10-30 22:23:47',900000),(9,'alxvilbol@gmail.com:7437dd45e5b7fc6c31a1d8f92078df00','2016-10-30 22:25:00',900000),(10,'alxvilbol@gmail.com:ff72a70c0d21bfb17350d09e3464c9e3','2016-11-05 19:45:03',900000),(11,'alxvilbol@gmail.com:bd4d1aec4a769048272b11055d1b06dc','2016-11-05 19:58:11',900000),(12,'alxvilbol@gmail.com:a50ff3730f2ea4ca18342a71cb4b3086','2016-11-05 19:59:04',900000),(13,'alxvilbol@gmail.com:74c009df9f51d73d135facddc021ead3','2016-11-05 20:13:23',900000),(14,'alxvilbol@gmail.com:cce3c14244ab405486aa1d55fea3734a','2016-11-05 20:15:26',900000),(15,'alxvilbol@gmail.com:26c3cfcb2632714071fa01d2af751d15','2016-11-05 20:27:28',900000),(16,'alxvilbol@gmail.com:7c97e513d84c54f24ec08cc2a8aecaa5','2016-11-05 20:29:19',900000),(17,'alxvilbol@gmail.com:6d739f268f2827863df5fac0c8bfaaea','2016-11-05 20:37:08',900000),(18,'alxvilbol@gmail.com:27896abf0a77030bf3efde39dbc7fac5','2016-11-05 20:38:51',900000),(19,'alxvilbol@gmail.com:0a3a2221b08f8931ce777382dab17bf3','2016-11-05 20:59:42',900000),(20,'development@hallocasa.com:e1f1746367defcbd199d8fa3e6ddba2c','2016-11-06 11:48:03',900000),(21,'alxvilbol@gmail.com:6ec2cd14c7254972df4c091a8c00a88e','2016-11-12 08:44:42',900000),(22,'alxvilbol@gmail.com:12f01d2660552301f80987d1489a9754','2016-11-12 10:08:07',900000),(23,'alxvilbol@gmail.com:94562ec63207a8ed8a72e8f76ab4f8f1','2016-11-12 10:24:46',900000),(24,'alxvilbol@gmail.com:76274740bfe94f3704c719e952a28c2b','2016-11-12 10:44:15',900000),(25,'alxvilbol@gmail.com:b5ee1ed05e87015acbe6851cc8c0dc6c','2016-11-12 11:12:18',900000),(26,'alxvilbol@gmail.com:c31b11c1d589b3cadc73b6bf989f237d','2016-11-12 11:28:07',900000),(27,'alxvilbol@gmail.com:7acb8db925226d12b8643575b0410be3','2016-11-12 11:47:39',900000),(28,'alxvilbol@gmail.com:4a73a32e2c70f3f8b87468de747248fa','2016-11-12 12:08:26',900000),(30,'alxvilbol@gmail.com:c42e5fd2c6963c4d8a3af4de257a5695','2016-11-12 12:53:50',900000),(32,'alxvilbol@gmail.com:4fa1c428c5b1b21fdfda849b36f3554c','2016-11-12 12:54:04',900000),(34,'alxvilbol@gmail.com:b3db3a1639139e10fd181b509fdee902','2016-11-13 13:30:24',900000),(35,'alxvilbol@gmail.com:c8bbd9916e77a3853334e6310f8bff14','2016-11-13 13:41:54',900000),(36,'alxvilbol@gmail.com:5744cdd76adc6fafb5701a2c6e4fd7b6','2016-11-13 13:45:43',900000),(37,'alxvilbol@gmail.com:19e02995fcdae3725925ed8617df0b7c','2016-11-13 13:52:11',900000),(38,'alxvilbol@gmail.com:ddd7a1f758ba0ed687580b8ac6f6cd61','2016-11-13 14:00:08',900000),(39,'alxvilbol@gmail.com:649aea14a3190a6b65756c103a3b23b4','2016-11-13 14:03:24',900000),(40,'alxvilbol@gmail.com:c9ca70c270d5bda3d876830011b825ac','2016-11-13 14:04:24',900000),(41,'alxvilbol@gmail.com:a1a3edc54ea83bccea1fd12ae800d3b8','2016-11-13 14:06:26',900000),(42,'alxvilbol@gmail.com:e54873b2c3fe9529ff9d0bd3ba771d0b','2016-11-13 14:58:15',900000),(43,'alxvilbol@gmail.com:76655f83e2315409658e378f9195ef10','2016-11-13 15:25:01',900000),(44,'alxvilbol@gmail.com:317d9a206b2eb8062d59041bf4a8a888','2016-11-13 16:04:31',900000),(45,'alxvilbol@gmail.com:70f21f80d1b73b6a86051e9bfe28ae0c','2016-11-13 16:08:23',900000),(46,'alxvilbol@gmail.com:f3b0af43dc9b3ec6a6cc73edf1c97bef','2016-11-13 16:14:17',900000),(47,'alxvilbol@gmail.com:bb0cf48763906274bbe4942e6fa90e96','2016-11-13 16:16:38',900000),(48,'alxvilbol@gmail.com:b0d55ad008928c229162915c23b88cde','2016-11-13 16:38:22',900000),(49,'alxvilbol@gmail.com:eb1275dd64f9765d5399e5b31973f3e4','2016-11-13 17:00:17',900000);
+/*!40000 ALTER TABLE `security_token` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `state`
+--
+
+DROP TABLE IF EXISTS `state`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `state` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `state_name` varchar(300) NOT NULL,
+  `country_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk__state__country` (`country_id`),
+  CONSTRAINT `state_ibfk_1` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `state`
@@ -155,7 +1009,48 @@ INSERT INTO `state` VALUES (1,'{\'de\':\'Amazonas\',\'en\':\'Amazonas\',\'es\':\
 /*!40000 ALTER TABLE `state` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `telephone`
+--
 
+DROP TABLE IF EXISTS `telephone`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `telephone` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number` varchar(100) NOT NULL,
+  `prefix_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `prefix_id` (`prefix_id`),
+  CONSTRAINT `telephone_ibfk_1` FOREIGN KEY (`prefix_id`) REFERENCES `telephone_prefix` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `telephone`
+--
+
+LOCK TABLES `telephone` WRITE;
+/*!40000 ALTER TABLE `telephone` DISABLE KEYS */;
+/*!40000 ALTER TABLE `telephone` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `telephone_prefix`
+--
+
+DROP TABLE IF EXISTS `telephone_prefix`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `telephone_prefix` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `prefix` int(11) NOT NULL,
+  `description` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `telephone_prefix`
 --
 
@@ -166,14 +1061,149 @@ INSERT INTO `telephone_prefix` VALUES (1,1,'Canada'),(2,1,'North America'),(3,1,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `token`
+--
+
+DROP TABLE IF EXISTS `token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_associated` int(11) DEFAULT NULL,
+  `token_content` varchar(200) DEFAULT NULL,
+  `due_date` datetime DEFAULT NULL,
+  `active` tinyint(1) DEFAULT NULL,
+  `expedition_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `token`
+--
+
+LOCK TABLES `token` WRITE;
+/*!40000 ALTER TABLE `token` DISABLE KEYS */;
+/*!40000 ALTER TABLE `token` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `use_case`
+--
+
+DROP TABLE IF EXISTS `use_case`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `use_case` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `use_case_name` varchar(120) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `use_case_name_UNIQUE` (`use_case_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `use_case`
+--
+
+LOCK TABLES `use_case` WRITE;
+/*!40000 ALTER TABLE `use_case` DISABLE KEYS */;
+INSERT INTO `use_case` VALUES (1,'/hallocasa/user/my-profile');
+/*!40000 ALTER TABLE `use_case` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(80) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `first_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `web_site` varchar(80) DEFAULT NULL,
+  `linked_in` varchar(80) DEFAULT NULL,
+  `skype` varchar(45) DEFAULT NULL,
+  `language` varchar(10) NOT NULL,
+  `confirmed_flag` tinyint(1) NOT NULL DEFAULT '0',
+  `user_description` text COMMENT 'JSON (MultilanguageText) with description for each language',
+  `spoken_languages` text COMMENT 'JSON with an array of spoken languages',
+  `country_id` int(11) DEFAULT NULL,
+  `state_id` int(11) DEFAULT NULL,
+  `IMAGE_NAME` varchar(100) DEFAULT '/userimage/user0.jpg',
+  `city_id` int(11) DEFAULT NULL,
+  `main_spoken_language` varchar(10) NOT NULL DEFAULT 'en',
+  `user_telephone_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq__user__email` (`email`),
+  KEY `fk__user__city` (`city_id`),
+  KEY `fk__user__country` (`country_id`),
+  KEY `fk__user__state` (`state_id`),
+  KEY `fk__user__telephone` (`user_telephone_id`),
+  CONSTRAINT `fk__user__city` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`),
+  CONSTRAINT `fk__user__country` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`),
+  CONSTRAINT `fk__user__state` FOREIGN KEY (`state_id`) REFERENCES `state` (`id`),
+  CONSTRAINT `fk__user__telephone` FOREIGN KEY (`user_telephone_id`) REFERENCES `telephone` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `user`
 --
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'alxvilbol@gmail.com','d2392d23516b0ca59c4aaae13d3ddc39',NULL,NULL,NULL,NULL,NULL,NULL,'es',1,NULL,'[]',NULL,NULL,'/userimage/user0.jpg',NULL,'en',NULL);
+INSERT INTO `user` VALUES (1,'alxvilbol@gmail.com','d2392d23516b0ca59c4aaae13d3ddc39',NULL,NULL,NULL,NULL,NULL,NULL,'es',1,NULL,'[]',NULL,NULL,'/userimage/user0.jpg',NULL,'en',NULL),(2,'development@hallocasa.com','26239de944662b89a61df8c350e47f48',NULL,NULL,NULL,NULL,NULL,NULL,'es',1,NULL,'[]',NULL,NULL,'/userimage/user0.jpg',NULL,'en',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user_profile`
+--
+
+DROP TABLE IF EXISTS `user_profile`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_profile` (
+  `user_id` int(11) NOT NULL,
+  `profile_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`profile_id`),
+  KEY `fk__user_profile__profile_idx` (`profile_id`),
+  CONSTRAINT `fk__user_profile__profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk__user_profile__user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_profile`
+--
+
+LOCK TABLES `user_profile` WRITE;
+/*!40000 ALTER TABLE `user_profile` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_profile` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_type`
+--
+
+DROP TABLE IF EXISTS `user_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_type_name` text NOT NULL COMMENT 'JSON multilanguages field',
+  `user_type_tooltip` text COMMENT 'JSON multilanguages field',
+  `manage_tooltip` tinyint(1) NOT NULL DEFAULT '0',
+  `manage_certificate` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user_type`
@@ -186,10 +1216,56 @@ INSERT INTO `user_type` VALUES (2,'{\'en\':\'Broker\',\'de\':\'Makler\',\'es\':\
 UNLOCK TABLES;
 
 --
+-- Table structure for table `user_type_profiles`
+--
+
+DROP TABLE IF EXISTS `user_type_profiles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_type_profiles` (
+  `user_type_id` int(11) NOT NULL,
+  `profile_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_type_id`,`profile_id`),
+  KEY `fk__user_type_profiles__profile` (`profile_id`),
+  CONSTRAINT `fk__user_type_profiles__profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk__user_type_profiles__user_type` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `user_type_profiles`
 --
 
+LOCK TABLES `user_type_profiles` WRITE;
+/*!40000 ALTER TABLE `user_type_profiles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_type_profiles` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `user_user_type`
+--
+
+DROP TABLE IF EXISTS `user_user_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_user_type` (
+  `user_id` int(11) NOT NULL,
+  `user_type_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`user_type_id`),
+  KEY `fk__user_user_type__user_type` (`user_type_id`),
+  CONSTRAINT `fk__user_user_type__user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk__user_user_type__user_type` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_user_type`
+--
+
+LOCK TABLES `user_user_type` WRITE;
+/*!40000 ALTER TABLE `user_user_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_user_type` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -200,4 +1276,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-COMMIT;
+-- Dump completed on 2016-11-14 13:26:01

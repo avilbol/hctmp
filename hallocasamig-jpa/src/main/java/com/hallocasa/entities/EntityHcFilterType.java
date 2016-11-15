@@ -21,7 +21,7 @@ public class EntityHcFilterType implements HallocasaEntity {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "name varchar")
+	@Column(name = "name")
 	private String name;
 	
 	@Convert(converter=HcFilterTypeNatureConverter.class)
@@ -69,15 +69,15 @@ public class EntityHcFilterType implements HallocasaEntity {
 	private Boolean useYesNoDropdown;
 	
 	@Convert(converter=HcBooleanConverter.class)
-	@Column(name = "useCheckbox")
+	@Column(name = "use_checkbox")
 	private Boolean useCheckbox;
 	
 	@Convert(converter=HcBooleanConverter.class)
-	@Column(name = "useRadio")
+	@Column(name = "use_radio")
 	private Boolean useRadio;
 	
 	@Convert(converter=HcBooleanConverter.class)
-	@Column(name = "useText")
+	@Column(name = "use_text")
 	private Boolean useText;
 	
 	@Convert(converter=HcBooleanConverter.class)
@@ -89,12 +89,12 @@ public class EntityHcFilterType implements HallocasaEntity {
 	private Boolean sortSign;
 	
 	@Convert(converter=HcBooleanConverter.class)
-	@Column(name = "only_from")
-	private Boolean onlyFrom;
+	@Column(name = "range_only_from")
+	private Boolean rangeOnlyFrom;
 	
 	@Convert(converter=HcBooleanConverter.class)
-	@Column(name = "only_to")
-	private Boolean onlyTo;
+	@Column(name = "range_only_to")
+	private Boolean rangeOnlyTo;
 	
 	@Convert(converter=RangeFieldPresentationConverter.class)
 	@Column(name = "range_field_presentation")
@@ -244,20 +244,20 @@ public class EntityHcFilterType implements HallocasaEntity {
 		this.sortSign = sortSign;
 	}
 
-	public Boolean getOnlyFrom() {
-		return onlyFrom;
+	public Boolean getRangeOnlyFrom() {
+		return rangeOnlyFrom;
 	}
 
-	public void setOnlyFrom(Boolean onlyFrom) {
-		this.onlyFrom = onlyFrom;
+	public void setRangeOnlyFrom(Boolean rangeOnlyFrom) {
+		this.rangeOnlyFrom = rangeOnlyFrom;
 	}
 
-	public Boolean getOnlyTo() {
-		return onlyTo;
+	public Boolean getRangeOnlyTo() {
+		return rangeOnlyTo;
 	}
 
-	public void setOnlyTo(Boolean onlyTo) {
-		this.onlyTo = onlyTo;
+	public void setRangeOnlyTo(Boolean rangeOnlyTo) {
+		this.rangeOnlyTo = rangeOnlyTo;
 	}
 
 	public RangeFieldPresentation getRangeFieldPresentation() {

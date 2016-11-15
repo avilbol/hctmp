@@ -17,10 +17,7 @@ import com.hallocasa.entities.properties.EntityPropertyField;
 import com.hallocasa.services.hcfilters.PropertyFilterService;
 import com.hallocasa.services.security.imp.AuthenticationServiceImp;
 import com.hallocasa.vo.hcfilter.HcFilter;
-import com.hallocasa.vo.hcfilter.HcFilterTypeNature;
-import com.hallocasa.vo.hcfilter.properties.PropertyBooleanFilter;
-import com.hallocasa.vo.hcfilter.properties.PropertyDropdownFilter;
-import com.hallocasa.vo.hcfilter.properties.PropertyRangeFilter;
+import com.hallocasa.vo.hcfilter.properties.PropertyFilter;
 import com.hallocasa.vo.properties.PropertyField;
 
 /**
@@ -51,10 +48,10 @@ public class PropertyFilterServiceImp implements PropertyFilterService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<HcFilter> loadFilterList(boolean filterByNature, List<Integer> filterNatureIdList) {
+	public List<PropertyFilter> loadPropertyFilterList(boolean filterByNature, List<Integer> filterNatureIdList) {
 		List<EntityHcFilter> entityHcFilterList;
 		entityHcFilterList = filterByNature ? daoHcFilter.find(filterNatureIdList) : daoHcFilter.find();
-		List<HcFilter> filterList = new LinkedList<HcFilter>();
+		List<PropertyFilter> filterList = new LinkedList<PropertyFilter>();
 		for (EntityHcFilter entityHcFilter : entityHcFilterList) {
 			HcFilter hcFilter = (HcFilter) toValueObject(entityHcFilter);
 			filterList.add(transformToPropertyFilter(hcFilter));
@@ -62,20 +59,10 @@ public class PropertyFilterServiceImp implements PropertyFilterService {
 		return filterList;
 	}
 
-	private HcFilter transformToPropertyFilter(HcFilter hcFilter) {
-		HcFilterTypeNature filterTypeNature = hcFilter.getFilterType().getFilterTypeNature();
+	private PropertyFilter transformToPropertyFilter(HcFilter hcFilter) {
 		Optional<EntityPropertyField> entPropertyField = daoPropertyField.findByFilterId(hcFilter.getId());
 		PropertyField propertyField = entPropertyField.isPresent() ? 
 				(PropertyField) toValueObject(entPropertyField.get()) : null;
-		if (filterTypeNature.equals(HcFilterTypeNature.DROPDOWN)) {
-			((PropertyDropdownFilter) hcFilter).setPropertyField(propertyField);
-		}
-		if (filterTypeNature.equals(HcFilterTypeNature.RANGE)) {
-			((PropertyRangeFilter) hcFilter).setPropertyField(propertyField);
-		}
-		if (filterTypeNature.equals(HcFilterTypeNature.YESNO)) {
-			((PropertyBooleanFilter) hcFilter).setPropertyField(propertyField);
-		}
-		return hcFilter;
+		return new PropertyFilter(hcFilter, propertyField);
 	}
 }

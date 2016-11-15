@@ -41,7 +41,7 @@ public class EntityHcFilter implements HallocasaEntity {
 	
 	@Id
 	@Column(name = "id")
-	private int id;
+	private Integer id;
 
 	@Column(name = "name")
 	private String name;
@@ -103,11 +103,11 @@ public class EntityHcFilter implements HallocasaEntity {
 	@OneToMany(mappedBy = "filter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<EntityFilterListingStep> listingStepList;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
