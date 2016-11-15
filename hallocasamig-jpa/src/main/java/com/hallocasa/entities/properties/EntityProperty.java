@@ -15,10 +15,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.hallocasa.entities.EntityCountry;
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.i.HallocasaEntity;
+
 
 /**
 * This entity class represents a user's property
@@ -55,6 +58,7 @@ public class EntityProperty implements Serializable, HallocasaEntity {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private EntityUser user;
 	
+	@Temporal(TemporalType.TIME)
 	@Column(name = "publish_date")
 	private Date publishDate;
 	

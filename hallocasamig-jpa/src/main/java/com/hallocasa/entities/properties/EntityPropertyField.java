@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.persistence.converters.HcBooleanConverter;
 import com.hallocasa.persistence.converters.PropertyDatatypeConverter;
-import com.hallocasa.utils.constants.propertyfieldparsing.PropertyDatatype;
+import com.hallocasa.vo.hcfilter.properties.PropertyDatatype;
 
 /**
  * This entity represents a field of a property

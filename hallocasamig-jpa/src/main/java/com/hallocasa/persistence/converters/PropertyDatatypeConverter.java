@@ -3,7 +3,7 @@ package com.hallocasa.persistence.converters;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import com.hallocasa.utils.constants.propertyfieldparsing.PropertyDatatype;
+import com.hallocasa.vo.hcfilter.properties.PropertyDatatype;
 
 @Converter
 public class PropertyDatatypeConverter implements AttributeConverter<PropertyDatatype, String>{

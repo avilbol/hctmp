@@ -1,9 +1,11 @@
 package com.hallocasa.dao.i.properties;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.hallocasa.entities.EntityUser;
+import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.vo.hcfilter.HcRequest;
-import com.hallocasa.vo.hcfilter.properties.Property;
 
 public interface IDAOProperty {
 
@@ -12,14 +14,14 @@ public interface IDAOProperty {
 	 * @param property
 	 * 		The property to update or create
 	 */
-	void save(Property property);
+	void save(EntityProperty property);
 	
 	/**
 	 * Find the basic properties
 	 * @return
 	 * 		The basic properties (?)
 	 */
-	List<Property> findBasic();
+	List<EntityProperty> findBasic();
 	
 	/**
 	 * Find the basic properties with the specified filters
@@ -28,12 +30,21 @@ public interface IDAOProperty {
 	 * @return
 	 * 		The properties that match the filters
 	 */
-	List<Property> findBasic(HcRequest request);
+	List<EntityProperty> findBasic(HcRequest request);
+	
+	/**
+	 * Find the basic properties corresponding to specified user
+	 * @param entityUser
+	 * 		The user which the properties allow
+	 * @return
+	 * 		The properties of that user
+	 */
+	List<EntityProperty> findByUser(EntityUser entityUser);
 	
 	/**
 	 * Find a detailed property by its id
 	 * @param id
 	 * @return
 	 */
-	Property findById(String id);
+	Optional<EntityProperty> findById(String id);
 }

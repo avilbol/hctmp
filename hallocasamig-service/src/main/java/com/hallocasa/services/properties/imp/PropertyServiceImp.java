@@ -1,11 +1,21 @@
 package com.hallocasa.services.properties.imp;
 
+import static com.hallocasa.filemanager.FileManager.cleanFilesStartingWithPrefix;
+import static com.hallocasa.filemanager.FileManager.replaceMassive;
+import static com.hallocasa.systemproperties.SystemConstants.PROPERTY_IMAGES_PATH;
+import static com.hallocasa.systemproperties.SystemProperty.get;
+import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toEntity;
+import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
+
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.hallocasa.dao.i.properties.IDAOProperty;
+import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.services.properties.PropertyService;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
 import com.hallocasa.vo.hcfilter.HcRequest;
@@ -16,6 +26,8 @@ public class PropertyServiceImp implements PropertyService {
 
 	@EJB
 	private IDAOProperty daoProperty;
+	
+	private String filePathRoot = get(PROPERTY_IMAGES_PATH);
 	
 	/**
 	 * {@inheritDoc}
@@ -46,9 +58,12 @@ public class PropertyServiceImp implements PropertyService {
 		if(property.getFieldList().isEmpty()){
 			throw new BadRequestException("Field list empty in property");
 		}
-		if(property.getId() != null){
-			
-		}
+		property.setPublishDate(new Date());
+		EntityProperty entityProperty = (EntityProperty) toEntity(property);
+		daoProperty.save(entityProperty);
+		String propId = entityProperty.getId();
+		cleanFilesStartingWithPrefix(filePathRoot, propId);
+		replaceMassive(filePathRoot, "new-" + propId, propId);
 	}
 
 	/**
@@ -73,8 +88,12 @@ public class PropertyServiceImp implements PropertyService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Property findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Property> findById(String id) {
+		Optional<EntityProperty> entityProperty = daoProperty.findById(id);
+		if(!entityProperty.isPresent()){
+			return Optional.empty();
+		}
+		Property property = (Property) toValueObject(entityProperty.get());
+		return Optional.of(property);
 	}
 }

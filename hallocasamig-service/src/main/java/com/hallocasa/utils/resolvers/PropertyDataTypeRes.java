@@ -7,8 +7,8 @@ import com.hallocasa.utils.constants.propertyfieldparsing.PfpTextDatetimeConvert
 import com.hallocasa.utils.constants.propertyfieldparsing.PfpTextDoubleConverter;
 import com.hallocasa.utils.constants.propertyfieldparsing.PfpTextFileConverter;
 import com.hallocasa.utils.constants.propertyfieldparsing.PfpTextIntegerConverter;
-import com.hallocasa.utils.constants.propertyfieldparsing.PropertyDatatype;
 import com.hallocasa.utils.constants.propertyfieldparsing.PropertyFieldValueConverter;
+import com.hallocasa.vo.hcfilter.properties.PropertyDatatype;
 
 public enum PropertyDataTypeRes {
 	SAME(new PfpTextConverter(), false), 

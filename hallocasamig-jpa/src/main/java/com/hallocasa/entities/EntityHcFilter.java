@@ -46,6 +46,9 @@ public class EntityHcFilter implements HallocasaEntity {
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "lang")
+	private String lang;
+	
 	@JoinColumn(name = "filter_type_id", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private EntityHcFilterType filterType;
@@ -245,5 +248,13 @@ public class EntityHcFilter implements HallocasaEntity {
 
 	public void setListingStepList(List<EntityFilterListingStep> listingStepList) {
 		this.listingStepList = listingStepList;
+	}
+
+	public String getLang() {
+		return lang;
+	}
+
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 }

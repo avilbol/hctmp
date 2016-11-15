@@ -11,7 +11,8 @@ For /F "tokens=1* delims==" %%A IN (my-hc-settings.properties) DO (
     IF "%%A"=="mysql_jdbc" set mysql_jdbc=%%B
     IF "%%A"=="mysql_pass" set mysql_pass=%%B
     IF "%%A"=="hc_version" set hc_version=%%B
-    IF "%%A"=="api_doc_tomcat_base" set api_doc_tomcat_base=%%B
+    IF "%%A"=="files_property_images_rootpath" set files_property_images_rootpath=%%B
+    IF "%%A"=="files_user_images_rootpath" set files_user_images_rootpath=%%B
 )
 call copy "my-hc-settings.properties" "init_setup/my-hc-settings.properties"
 call init_setup/do
@@ -25,8 +26,8 @@ call mvn -f %hc_home%/hallocasamig/pom.xml clean package ^
  -Dglassfish.app.port=%glassfish_app_port% ^
  -Dmysql.jdbc=%mysql_jdbc% ^
  -Dmysql.pass=%mysql_pass% ^
- -Dglassfish.app.port=%glassfish_app_port% ^
- -Dapidoc.war.location=%api_doc_tomcat_base%/webapps
+ -Dfiles.propertyImages.rootPath=%files_property_images_rootpath% ^
+ -Dfiles.userImages.rootPath=%files_user_images_rootpath%
 GOTO Success
 :Error
 cmd /k

@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
 
+
+
 /**
  * This entity represents a type of a value of property field
  * @author Alexander Villamil

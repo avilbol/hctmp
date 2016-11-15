@@ -1,6 +1,7 @@
 package com.hallocasa.services.properties;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.hallocasa.vo.hcfilter.HcRequest;
 import com.hallocasa.vo.hcfilter.properties.Property;
@@ -40,5 +41,5 @@ public interface PropertyService {
 	 * @param id
 	 * @return
 	 */
-	Property findById(String id);
+	Optional<Property> findById(String id);
 }

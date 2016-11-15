@@ -1,7 +1,5 @@
 package com.hallocasa.services.properties.imp;
 
-import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
-
 import java.util.LinkedList;
 import java.util.List;
 

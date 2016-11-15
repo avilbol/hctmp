@@ -3,7 +3,7 @@ package com.hallocasa.vo.properties;
 import java.io.Serializable;
 import java.util.List;
 
-import com.hallocasa.utils.constants.propertyfieldparsing.PropertyDatatype;
+import com.hallocasa.vo.hcfilter.properties.PropertyDatatype;
 import com.hallocasa.vo.hcfilter.properties.PropertyFieldType;
 import com.hallocasa.vo.hcfilter.properties.PropertyFieldValue;
 import com.hallocasa.vo.hcfilter.properties.PropertyFieldValueType;

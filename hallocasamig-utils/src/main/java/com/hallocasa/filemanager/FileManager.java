@@ -10,6 +10,12 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
@@ -81,8 +87,23 @@ public class FileManager {
 		}
 	}
 	
+	public static void replaceMassive(String dir, String toReplace, String replace){
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(dir))) {
+            for (Path path : directoryStream) {
+            	String pathname = path.getFileName().toString();
+            	if(pathname.startsWith(toReplace)){
+            		Files.move(path, path.resolveSibling(pathname.replaceAll(toReplace, replace)));
+            	}
+            }
+        } catch (IOException ex) {
+        	throw new FatalException("Unexpected error", ex);
+        }
+	}
+	
 	public static void main(String[] args) throws IOException{
-		String fromFolder = "D:\\development\\hallocasa-portal-utils\\test/from";
+		String folder = "D:\\development\\hallocasa-portal-utils\\test2";
+		replaceMassive(folder, "new-accght", "accght");
+		/*String fromFolder = "D:\\development\\hallocasa-portal-utils\\test/from";
 		String toFolder = "D:\\development\\hallocasa-portal-utils\\test/to";
 		String prefix = "adfght";
 		String file1B64 = encodeToBase64(fromFolder, "1.jpg");
@@ -91,6 +112,16 @@ public class FileManager {
 		cleanFilesStartingWithPrefix(toFolder, prefix);
 		System.out.println(createFileFromBase64(toFolder, file1B64, prefix));
 		createFileFromBase64(toFolder, file2B64, prefix);
-		createFileFromBase64(toFolder, file3B64, prefix);
+		createFileFromBase64(toFolder, file3B64, prefix);*/
 	}
+	
+	public static List<String> fileList(String directory) {
+        List<String> fileNames = new ArrayList<>();
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Paths.get(directory))) {
+            for (Path path : directoryStream) {
+                fileNames.add(path.toString());
+            }
+        } catch (IOException ex) {}
+        return fileNames;
+    }
 }

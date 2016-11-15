@@ -1,5 +1,7 @@
 package com.hallocasa.utils.constants.parsing;
 
+import static com.hallocasa.utils.resolvers.PropertyDataTypeRes.*;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -23,7 +25,6 @@ import com.hallocasa.vo.hcfilter.properties.PropertyProposal;
 import com.hallocasa.vo.hcfilter.properties.PropertyType;
 import com.hallocasa.vo.i.ValueObject;
 import com.hallocasa.vo.properties.PropertyField;
-import static com.hallocasa.utils.resolvers.PropertyDataTypeRes.*;
 
 public class PropertyParser extends CustomizedParser {
 
@@ -91,18 +92,19 @@ public class PropertyParser extends CustomizedParser {
 				PropertyFieldValueConverter data1Converter = getConverter(pfield.getData1Type());
 				PropertyFieldValueConverter data2Converter = getConverter(pfield.getData2Type());
 				PropertyFieldValueConverter data3Converter = getConverter(pfield.getData3Type());
-				PropertyFieldValueConverter textConverter = pfield.getTextType().getConverter();
+				PropertyFieldValueConverter textConverter = getConverter(pfield.getTextType());
 				boolean data1RequiresExtra = getRequiresExtraParameters(pfield.getData1Type());
 				boolean data2RequiresExtra = getRequiresExtraParameters(pfield.getData2Type());
 				boolean data3RequiresExtra = getRequiresExtraParameters(pfield.getData3Type());
 				boolean textRequiresExtra =  getRequiresExtraParameters(pfield.getTextType());
-				String data1 = data1RequiresExtra ? data1Converter.toEnt(pfieldvalue.getData1(), id) 
+				String tempPrefix = "new";
+				String data1 = data1RequiresExtra ? data1Converter.toEnt(pfieldvalue.getData1(), id, tempPrefix) 
 						: data1Converter.toEnt(pfieldvalue.getData1());
-				String data2 = data2RequiresExtra ? data2Converter.toEnt(pfieldvalue.getData2(), id) 
+				String data2 = data2RequiresExtra ? data2Converter.toEnt(pfieldvalue.getData2(), id, tempPrefix) 
 						: data2Converter.toEnt(pfieldvalue.getData2());
-				String data3 = data3RequiresExtra ? data3Converter.toEnt(pfieldvalue.getData3(), id) 
+				String data3 = data3RequiresExtra ? data3Converter.toEnt(pfieldvalue.getData3(), id, tempPrefix) 
 						: data3Converter.toEnt(pfieldvalue.getData3());
-				String text = textRequiresExtra ? textConverter.toEnt(pfieldvalue.getData1(), id) 
+				String text = textRequiresExtra ? textConverter.toEnt(pfieldvalue.getData1(), id, tempPrefix) 
 						: textConverter.toEnt(pfieldvalue.getData1());
 				epfvalue.setData1(data1);
 				epfvalue.setData2(data2);

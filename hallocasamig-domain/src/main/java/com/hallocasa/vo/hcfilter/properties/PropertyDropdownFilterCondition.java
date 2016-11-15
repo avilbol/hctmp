@@ -1,5 +1,6 @@
 package com.hallocasa.vo.hcfilter.properties;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.hallocasa.vo.hcfilter.DropdownFilterCondition;
@@ -9,7 +10,7 @@ import com.hallocasa.vo.properties.PropertyFieldOption;
 /**
  * @author avillamil
  */
-public class PropertyDropdownFilterCondition extends DropdownFilterCondition implements ValueObject {
+public class PropertyDropdownFilterCondition extends DropdownFilterCondition implements ValueObject, Serializable {
 
 	private static final long serialVersionUID = 6125757017766000275L;
 

@@ -15,6 +15,7 @@ public class HcFilter implements Serializable, ValueObject{
 
 	private Integer id;	
 	private String name;
+	private String lang;
 	private HcFilterType filterType;
 	private HcFilterNature filterNature;
 	private List<FilterShowingStep> showingStepList;
@@ -62,5 +63,11 @@ public class HcFilter implements Serializable, ValueObject{
 	}
 	public void setFilterNature(HcFilterNature filterNature) {
 		this.filterNature = filterNature;
+	}
+	public String getLang() {
+		return lang;
+	}
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 }
