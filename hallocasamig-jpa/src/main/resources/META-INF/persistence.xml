@@ -18,7 +18,7 @@
     <class>com.hallocasa.entities.properties.EntityPropertyField</class>
     <class>com.hallocasa.entities.properties.EntityPropertyFieldConditionOption</class>
     <class>com.hallocasa.entities.properties.EntityPropertyFieldFilter</class>
-    <class>com.hallocasa.entities.properties.EntityPropertyFieldOption</class>
+    <class>com.hallocasa.entities.properties.EntityDropdownOption</class>
     <class>com.hallocasa.entities.properties.EntityPropertyFieldType</class>
     <class>com.hallocasa.entities.properties.EntityPropertyFieldValue</class>
     <class>com.hallocasa.entities.properties.EntityPropertyFieldValueType</class>

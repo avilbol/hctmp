@@ -25,7 +25,7 @@ public class EntityPropertyFilterConditionOption implements HallocasaEntity {
 	
 	@JoinColumn(name = "property_field_option_id", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private EntityPropertyFieldOption propertyFieldOption;
+	private EntityDropdownOption propertyFieldOption;
 
 	public Integer getId() {
 		return id;
@@ -43,11 +43,11 @@ public class EntityPropertyFilterConditionOption implements HallocasaEntity {
 		this.filterCondition = filterCondition;
 	}
 
-	public EntityPropertyFieldOption getPropertyFieldOption() {
+	public EntityDropdownOption getPropertyFieldOption() {
 		return propertyFieldOption;
 	}
 
-	public void setPropertyFieldOption(EntityPropertyFieldOption propertyFieldOption) {
+	public void setPropertyFieldOption(EntityDropdownOption propertyFieldOption) {
 		this.propertyFieldOption = propertyFieldOption;
 	}
 }

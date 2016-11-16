@@ -85,6 +85,10 @@ public class EntityPropertyField implements HallocasaEntity {
 	@JoinColumn(name = "property_field_value_type_id", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private EntityPropertyFieldValueType propertyFieldValueType;
+	
+	@JoinColumn(name = "dropdown_option_group_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private EntityDropdownOptionGroup dropdownOptionGroup;
 
 	@Convert(converter = PropertyDatatypeConverter.class)
 	@Column(name = "text_type")
@@ -196,5 +200,13 @@ public class EntityPropertyField implements HallocasaEntity {
 
 	public void setData3Type(PropertyDatatype data3Type) {
 		this.data3Type = data3Type;
+	}
+
+	public EntityDropdownOptionGroup getDropdownOptionGroup() {
+		return dropdownOptionGroup;
+	}
+
+	public void setDropdownOptionGroup(EntityDropdownOptionGroup dropdownOptionGroup) {
+		this.dropdownOptionGroup = dropdownOptionGroup;
 	}
 }

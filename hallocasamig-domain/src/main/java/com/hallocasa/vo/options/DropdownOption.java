@@ -1,78 +1,47 @@
-package com.hallocasa.entities.properties;
+package com.hallocasa.vo.options;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
 
-import com.hallocasa.entities.i.HallocasaEntity;
+import com.hallocasa.vo.i.ValueObject;
 
-@Entity
-@Table(name = "property_field_option")
-public class EntityPropertyFieldOption implements HallocasaEntity{
+/**
+ * VO representing an option of a multiple option property field 
+ * (typically dropdowns)
+ */
+public class DropdownOption implements ValueObject, Serializable {
 
-	@Id
-	@Column(name="id")
-	private Integer id;
+	private static final long serialVersionUID = -8521029765839743518L;
+
+	private Integer optionId;
+
+	private String name;
 	
-	@Column(name="property_field_id")
-	private Integer propertyFieldId;
-	
-	@Column(name="option_id")
-	private Integer option_id ;
-	
-    @Column(name="data1")
     private String data1;
     
-    @Column(name="data2")
     private String data2;
     
-    @Column(name="data3")
     private String data3;
     
-    @Column(name="data4")
     private String data4;
     
-    @Column(name="data5")
     private String data5;
     
-    @Column(name="data6")
     private String data6;
     
-    @Column(name="data7")
     private String data7;
     
-    @Column(name="data8")
     private String data8;
     
-    @Column(name="extended_data1")
     private String extendedData1;
     
-    @Column(name="extended_data2")
     private String extendedData2;
 
-	public Integer getId() {
-		return id;
+	public Integer getOptionId() {
+		return optionId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getPropertyFieldId() {
-		return propertyFieldId;
-	}
-
-	public void setPropertyFieldId(Integer propertyFieldId) {
-		this.propertyFieldId = propertyFieldId;
-	}
-
-	public Integer getOption_id() {
-		return option_id;
-	}
-
-	public void setOption_id(Integer option_id) {
-		this.option_id = option_id;
+	public void setOptionId(Integer optionId) {
+		this.optionId = optionId;
 	}
 
 	public String getData1() {
@@ -153,5 +122,13 @@ public class EntityPropertyFieldOption implements HallocasaEntity{
 
 	public void setExtendedData2(String extendedData2) {
 		this.extendedData2 = extendedData2;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

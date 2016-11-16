@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
+import com.hallocasa.entities.properties.EntityDropdownOptionGroup;
 import com.hallocasa.persistence.converters.HcBooleanConverter;
 import com.hallocasa.persistence.converters.ShowChoiceConverter;
 import com.hallocasa.vo.hcfilter.ShowChoice;
@@ -99,6 +100,10 @@ public class EntityHcFilter implements HallocasaEntity {
 	@Convert(converter = HcBooleanConverter.class)
 	@Column(name = "max_value_date_in_future")
 	private Boolean maxValueDateInFuture;
+	
+	@JoinColumn(name = "dropdown_option_group_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private EntityDropdownOptionGroup dropdownOptionGroup;
 
 	@OneToMany(mappedBy = "filter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<EntityFilterShowingStep> showingStepList;
@@ -256,5 +261,13 @@ public class EntityHcFilter implements HallocasaEntity {
 
 	public void setLang(String lang) {
 		this.lang = lang;
+	}
+
+	public EntityDropdownOptionGroup getDropdownOptionGroup() {
+		return dropdownOptionGroup;
+	}
+
+	public void setDropdownOptionGroup(EntityDropdownOptionGroup dropdownOptionGroup) {
+		this.dropdownOptionGroup = dropdownOptionGroup;
 	}
 }

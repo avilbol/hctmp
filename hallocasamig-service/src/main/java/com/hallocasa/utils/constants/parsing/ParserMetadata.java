@@ -18,7 +18,8 @@ import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.entities.properties.EntityPropertyField;
-import com.hallocasa.entities.properties.EntityPropertyFieldOption;
+import com.hallocasa.entities.properties.EntityDropdownOption;
+import com.hallocasa.entities.properties.EntityDropdownOptionGroup;
 import com.hallocasa.entities.properties.EntityPropertyFieldType;
 import com.hallocasa.entities.properties.EntityPropertyFieldValueType;
 import com.hallocasa.entities.properties.EntityPropertyLocation;
@@ -46,8 +47,9 @@ import com.hallocasa.vo.hcfilter.properties.PropertyProposal;
 import com.hallocasa.vo.hcfilter.properties.PropertyType;
 import com.hallocasa.vo.hcfilter.properties.PropertyTypeGroup;
 import com.hallocasa.vo.i.ValueObject;
+import com.hallocasa.vo.options.DropdownOption;
+import com.hallocasa.vo.options.DropdownOptionGroup;
 import com.hallocasa.vo.properties.PropertyField;
-import com.hallocasa.vo.properties.PropertyFieldOption;
 import com.hallocasa.vo.security.AuthorizationCode;
 import com.hallocasa.vo.security.SecurityToken;
 
@@ -78,11 +80,13 @@ public class ParserMetadata {
 		clazzEquivalenceMap.put(PropertyProposal.class, EntityPropertyProposal.class);
 		clazzEquivalenceMap.put(PropertyField.class, EntityPropertyField.class);
 		clazzEquivalenceMap.put(PropertyFieldType.class, EntityPropertyFieldType.class);
-		clazzEquivalenceMap.put(PropertyFieldOption.class, EntityPropertyFieldOption.class);
+		clazzEquivalenceMap.put(DropdownOption.class, EntityDropdownOption.class);
 		clazzEquivalenceMap.put(PropertyFieldValueType.class, EntityPropertyFieldValueType.class);
 		clazzEquivalenceMap.put(PropertyField.class, EntityPropertyField.class);
 		clazzEquivalenceMap.put(User.class, EntityUser.class);
 		clazzEquivalenceMap.put(Country.class, EntityCountry.class);
+		clazzEquivalenceMap.put(DropdownOption.class, EntityDropdownOption.class);
+		clazzEquivalenceMap.put(DropdownOptionGroup.class, EntityDropdownOptionGroup.class);
 	}
 
 	/**

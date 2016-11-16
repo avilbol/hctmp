@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.hallocasa.vo.hcfilter.DropdownFilterCondition;
 import com.hallocasa.vo.i.ValueObject;
-import com.hallocasa.vo.properties.PropertyFieldOption;
+import com.hallocasa.vo.options.DropdownOption;
 
 /**
  * @author avillamil
@@ -14,13 +14,13 @@ public class PropertyDropdownFilterCondition extends DropdownFilterCondition imp
 
 	private static final long serialVersionUID = 6125757017766000275L;
 
-	private List<PropertyFieldOption> selectedOptions;
+	private List<DropdownOption> selectedOptions;
 
-	public List<PropertyFieldOption> getSelectedOptions() {
+	public List<DropdownOption> getSelectedOptions() {
 		return selectedOptions;
 	}
 
-	public void setSelectedOptions(List<PropertyFieldOption> selectedOptions) {
+	public void setSelectedOptions(List<DropdownOption> selectedOptions) {
 		this.selectedOptions = selectedOptions;
 	}
 }
