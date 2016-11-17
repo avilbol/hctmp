@@ -51,12 +51,6 @@ public class EntityDropdownOption implements HallocasaEntity{
     
     @Column(name="data8")
     private String data8;
-    
-    @Column(name="extended_data1")
-    private String extendedData1;
-    
-    @Column(name="extended_data2")
-    private String extendedData2;
 
 	public Integer getId() {
 		return id;
@@ -136,22 +130,6 @@ public class EntityDropdownOption implements HallocasaEntity{
 
 	public void setData8(String data8) {
 		this.data8 = data8;
-	}
-
-	public String getExtendedData1() {
-		return extendedData1;
-	}
-
-	public void setExtendedData1(String extendedData1) {
-		this.extendedData1 = extendedData1;
-	}
-
-	public String getExtendedData2() {
-		return extendedData2;
-	}
-
-	public void setExtendedData2(String extendedData2) {
-		this.extendedData2 = extendedData2;
 	}
 
 	public EntityDropdownOptionGroup getDropdownOptionGroup() {

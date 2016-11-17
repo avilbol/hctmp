@@ -78,9 +78,6 @@ public class EntityHcFilter implements HallocasaEntity {
 	@Column(name = "force_all_filter_options")
 	private Boolean forceAllFilterOptions;
 
-	@Column(name = "api_operation")
-	private String apiOperation;
-
 	@Convert(converter = ShowChoiceConverter.class)
 	@Column(name = "show_choice")
 	private ShowChoice showChoice;
@@ -189,14 +186,6 @@ public class EntityHcFilter implements HallocasaEntity {
 
 	public void setForceAllFilterOptions(Boolean forceAllFilterOptions) {
 		this.forceAllFilterOptions = forceAllFilterOptions;
-	}
-
-	public String getApiOperation() {
-		return apiOperation;
-	}
-
-	public void setApiOperation(String apiOperation) {
-		this.apiOperation = apiOperation;
 	}
 
 	public ShowChoice getShowChoice() {

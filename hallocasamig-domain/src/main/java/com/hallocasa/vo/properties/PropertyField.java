@@ -8,6 +8,7 @@ import com.hallocasa.vo.hcfilter.properties.PropertyFieldType;
 import com.hallocasa.vo.hcfilter.properties.PropertyFieldValue;
 import com.hallocasa.vo.hcfilter.properties.PropertyFieldValueType;
 import com.hallocasa.vo.i.ValueObject;
+import com.hallocasa.vo.options.DropdownOptionGroup;
 
 public class PropertyField implements ValueObject, Serializable {
 
@@ -33,6 +34,10 @@ public class PropertyField implements ValueObject, Serializable {
 	private PropertyFieldValueType propertyFieldValueType;
 	
 	private List<PropertyFieldValue> fieldValueList;
+	
+	private DropdownOptionGroup dropdownOptionGroup;
+	
+	private String tooltipLang;
 
 	private PropertyDatatype textType;
 	
@@ -144,5 +149,21 @@ public class PropertyField implements ValueObject, Serializable {
 
 	public void setFieldValueList(List<PropertyFieldValue> fieldValueList) {
 		this.fieldValueList = fieldValueList;
+	}
+
+	public DropdownOptionGroup getDropdownOptionGroup() {
+		return dropdownOptionGroup;
+	}
+
+	public void setDropdownOptionGroup(DropdownOptionGroup dropdownOptionGroup) {
+		this.dropdownOptionGroup = dropdownOptionGroup;
+	}
+
+	public String getTooltipLang() {
+		return tooltipLang;
+	}
+
+	public void setTooltipLang(String tooltipLang) {
+		this.tooltipLang = tooltipLang;
 	}
 }

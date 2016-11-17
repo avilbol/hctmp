@@ -65,6 +65,9 @@ public class EntityPropertyField implements HallocasaEntity {
 
 	@Column(name = "lang")
 	private String lang;
+	
+	@Column(name = "tooltip_lang")
+	private String tooltipLang;
 
 	@Convert(converter = HcBooleanConverter.class)
 	@Column(name = "basic")
@@ -208,5 +211,13 @@ public class EntityPropertyField implements HallocasaEntity {
 
 	public void setDropdownOptionGroup(EntityDropdownOptionGroup dropdownOptionGroup) {
 		this.dropdownOptionGroup = dropdownOptionGroup;
+	}
+
+	public String getTooltipLang() {
+		return tooltipLang;
+	}
+
+	public void setTooltipLang(String tooltipLang) {
+		this.tooltipLang = tooltipLang;
 	}
 }

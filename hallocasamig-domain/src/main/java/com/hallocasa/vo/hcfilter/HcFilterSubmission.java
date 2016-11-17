@@ -12,13 +12,13 @@ public class HcFilterSubmission implements Serializable, ValueObject{
 
 	private static final long serialVersionUID = 3624461578129545243L;
 	
-	private Integer filterId;
+	private HcFilter filter;
 
-	public Integer getFilterId() {
-		return filterId;
+	public HcFilter getFilter() {
+		return filter;
 	}
 
-	public void setFilterId(Integer filterId) {
-		this.filterId = filterId;
+	public void setFilter(HcFilter filter) {
+		this.filter = filter;
 	}
 }
