@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import com.hallocasa.dao.i.security.IDAOAuthorizationCode;
 import com.hallocasa.entities.security.EntityAuthorizationCode;
 import com.hallocasa.services.security.AuthorizationCodeService;
+import com.hallocasa.utils.constants.exceptions.SecurityException;
 import com.hallocasa.vo.security.AuthorizationCode;
 
 /**
@@ -31,6 +32,9 @@ public class AuthorizationCodeServiceImp implements AuthorizationCodeService {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Optional<AuthorizationCode> find(String clientId, String authorizationCode) {
+		if(clientId == null){
+			throw new SecurityException("Client id not supplied in headers");
+		}
 		Optional<EntityAuthorizationCode> optAntAuthCode = daoAuthorizationCode.find(clientId, null);
 		boolean foundAuthCode = false;
 		if (optAntAuthCode.isPresent()) {
