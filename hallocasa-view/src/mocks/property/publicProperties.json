@@ -11,8 +11,10 @@
       },
       "mainLanguage": "English",
       "propertyType": "Centro comercial",
-      "price": 4,
-      "currency": "USD - Dólar estadounidense",
+      "value": {
+        "amount": 1000,
+        "currencyID": 1
+      },
       "meters": 5,
       "id": 1
     },
@@ -29,8 +31,10 @@
       },
       "mainLanguage": "English",
       "propertyType": "Centro comercial",
-      "price": 4,
-      "currency": "USD - Dólar estadounidense",
+      "value": {
+        "amount": 2000,
+        "currencyID": 2
+      },
       "meters": 5,
       "id": 1
     },
@@ -47,8 +51,10 @@
       },
       "mainLanguage": "English",
       "propertyType": "Centro comercial",
-      "price": 4,
-      "currency": "USD - Dólar estadounidense",
+      "value": {
+        "amount": 3000,
+        "currencyID": 3
+      },
       "meters": 5,
       "id": 1
     },
@@ -65,8 +71,10 @@
       },
       "mainLanguage": "English",
       "propertyType": "Centro comercial",
-      "price": 4,
-      "currency": "USD - Dólar estadounidense",
+      "value": {
+        "amount": 4000,
+        "currencyID": 1
+      },
       "meters": 5,
       "id": 1
     },
@@ -83,8 +91,10 @@
       },
       "mainLanguage": "English",
       "propertyType": "Centro comercial",
-      "price": 4,
-      "currency": "USD - Dólar estadounidense",
+      "value": {
+        "amount": 5000,
+        "currencyID": 2
+      },
       "meters": 5,
       "id": 1
     },
@@ -101,8 +111,10 @@
       },
       "mainLanguage": "English",
       "propertyType": "Centro comercial",
-      "price": 4,
-      "currency": "USD - Dólar estadounidense",
+      "value": {
+        "amount": 6000,
+        "currencyID": 3
+      },
       "meters": 5,
       "id": 1
     },
@@ -117,8 +129,10 @@
       },
       "mainLanguage": "English",
       "propertyType": "Centro comercial",
-      "price": 4,
-      "currency": "USD - Dólar estadounidense",
+      "value": {
+        "amount": 7000,
+        "currencyID": 1
+      },
       "meters": 5,
       "id": 1
     },
@@ -133,8 +147,10 @@
       },
       "mainLanguage": "English",
       "propertyType": "Centro comercial",
-      "price": 4,
-      "currency": "USD - Dólar estadounidense",
+      "value": {
+        "amount": 1000,
+        "currencyID": 2
+      },
       "meters": 5,
       "id": 1
     },
@@ -149,8 +165,10 @@
       },
       "mainLanguage": "English",
       "propertyType": "Centro comercial",
-      "price": 4,
-      "currency": "USD - Dólar estadounidense",
+      "value": {
+        "amount": 1000,
+        "currencyID": 3
+      },
       "meters": 5,
       "id": 1
     },
@@ -165,8 +183,10 @@
       },
       "mainLanguage": "English",
       "propertyType": "Centro comercial",
-      "price": 4,
-      "currency": "USD - Dólar estadounidense",
+      "value": {
+        "amount": 1000,
+        "currencyID": 1
+      },
       "meters": 5,
       "id": 1
     }
