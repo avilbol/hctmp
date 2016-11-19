@@ -5,7 +5,7 @@ import java.util.List;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilter;
 
 /**
- * Services for provide services about filters
+ * Service for provide system property filters
  */
 public interface PropertyFilterService {
 
