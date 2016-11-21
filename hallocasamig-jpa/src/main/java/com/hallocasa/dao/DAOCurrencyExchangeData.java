@@ -1,12 +1,14 @@
 package com.hallocasa.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.NoResultException;
 
 import com.hallocasa.dao.i.IDAOCurrencyExchangeData;
-import com.hallocasa.entities.EntityCountry;
+import com.hallocasa.dateutils.DateUtils;
 import com.hallocasa.entities.EntityCurrencyExchangeData;
 import com.hallocasa.jpaservices.i.AppPersistenceServices;
 
@@ -40,9 +42,8 @@ public class DAOCurrencyExchangeData implements IDAOCurrencyExchangeData {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean clean() {
-		// TODO Auto-generated method stub
-		return false;
+	public void clean() {
+		appPersistenceServices.executeNamedQuery(EntityCurrencyExchangeData.QUERY_DELETE_ALL, new Object[] {});
 	}
 
 	/**
@@ -50,7 +51,12 @@ public class DAOCurrencyExchangeData implements IDAOCurrencyExchangeData {
 	 */
 	@Override
 	public boolean isTodayUpdated() {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			Date mostRecentDate = appPersistenceServices.executeQuery(
+					EntityCurrencyExchangeData.QUERY_LAST_UPDATE, Date.class);
+			return DateUtils.isToday(mostRecentDate);
+		} catch(NoResultException e){
+			return false;
+		}
 	}
 }

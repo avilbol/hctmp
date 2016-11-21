@@ -134,6 +134,15 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         return entity;
     }
 
+    @Override
+    public <T> void mergeEntityList(List<T> entityList){
+		for (T entity : entityList) {
+			em.merge(entity);
+			em.flush();
+			em.clear();
+		}
+    }
+    
     /*
      * (non-Javadoc)
      * 

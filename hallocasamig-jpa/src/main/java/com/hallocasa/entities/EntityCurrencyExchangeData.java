@@ -28,7 +28,9 @@ import com.hallocasa.entities.i.HallocasaEntity;
    @NamedQuery(name = EntityCurrencyExchangeData.QUERY_FIND_BY_CURRENCY_FROM,
            query = "select ce from EntityCurrencyExchangeData ce where ce.currencyFrom = ?1"),
    @NamedQuery(name = EntityCurrencyExchangeData.QUERY_FIND_ALL,
-   		   query = "select ce from EntityCurrencyExchangeData ce")
+   		   query = "select ce from EntityCurrencyExchangeData ce"),
+   @NamedQuery(name = EntityCurrencyExchangeData.QUERY_DELETE_ALL,
+	   query = "delete from EntityCurrencyExchangeData")
 })
 public class EntityCurrencyExchangeData implements HallocasaEntity {
 
@@ -40,9 +42,15 @@ public static final String QUERY_FIND_BY_CURRENCY_FROM = "CurrencyExchange.Data.
 	public static final String QUERY_FIND_ALL = "CurrencyExchange.Data.QueryFindAll";
 	
 	/**
+	 * Query to delete all entries of @CurrencyExchangeData
+	 */
+	public static final String QUERY_DELETE_ALL = "CurrencyExchange.Data.QueryDeleteAll";
+	
+	/**
 	 * Native query the last update of @CurrencyExchangeData
 	 */
 	public static final String QUERY_LAST_UPDATE = "SELECT MAX(ce.updateDate) FROM CurrencyExchangeData ce";
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
