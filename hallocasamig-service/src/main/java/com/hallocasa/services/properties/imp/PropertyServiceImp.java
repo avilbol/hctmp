@@ -79,7 +79,7 @@ public class PropertyServiceImp implements PropertyService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Property> find(PropertyFilterRequest request) {
+	public List<Property> find(PropertyFilterRequest request, boolean fullDetail) {
 		// TODO Auto-generated method stub
 		return null;
 	}

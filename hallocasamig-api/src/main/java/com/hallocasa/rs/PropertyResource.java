@@ -20,7 +20,6 @@ import org.apache.http.HttpStatus;
 import com.hallocasa.rs.security.Auth;
 import com.hallocasa.rs.security.Secured;
 import com.hallocasa.services.properties.PropertyService;
-import com.hallocasa.vo.hcfilter.HcFilterRequestSourceSubmision;
 import com.hallocasa.vo.hcfilter.PropertyFilterRequest;
 import com.hallocasa.vo.hcfilter.properties.Property;
 
