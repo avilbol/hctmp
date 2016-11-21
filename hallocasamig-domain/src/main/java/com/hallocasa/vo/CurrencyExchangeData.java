@@ -1,8 +1,12 @@
 package com.hallocasa.vo;
 
+import java.io.Serializable;
+
 import com.hallocasa.vo.i.ValueObject;
 
-public class CurrencyExchangeData implements ValueObject {
+public class CurrencyExchangeData implements ValueObject, Serializable {
+
+	private static final long serialVersionUID = -8112418260962409136L;
 
 	private Double USD;
 

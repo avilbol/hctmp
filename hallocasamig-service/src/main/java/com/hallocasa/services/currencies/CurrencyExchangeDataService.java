@@ -1,7 +1,5 @@
 package com.hallocasa.services.currencies;
 
-import java.util.List;
-
 import com.hallocasa.vo.CurrencyExchangeDataSummary;
 
 /**
@@ -10,7 +8,7 @@ import com.hallocasa.vo.CurrencyExchangeDataSummary;
  */
 public interface CurrencyExchangeDataService {
 
-	List<CurrencyExchangeDataSummary> findExchangeRates();
+	CurrencyExchangeDataSummary findExchangeRates();
 
-	boolean refreshExchangeRates();
+	void refreshExchangeRates();
 }

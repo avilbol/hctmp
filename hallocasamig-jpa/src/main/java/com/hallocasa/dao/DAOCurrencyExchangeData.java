@@ -54,7 +54,7 @@ public class DAOCurrencyExchangeData implements IDAOCurrencyExchangeData {
 		try{
 			Date mostRecentDate = appPersistenceServices.executeQuery(
 					EntityCurrencyExchangeData.QUERY_LAST_UPDATE, Date.class);
-			return DateUtils.isToday(mostRecentDate);
+			return mostRecentDate != null && DateUtils.isToday(mostRecentDate);
 		} catch(NoResultException e){
 			return false;
 		}

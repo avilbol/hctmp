@@ -49,7 +49,7 @@ public static final String QUERY_FIND_BY_CURRENCY_FROM = "CurrencyExchange.Data.
 	/**
 	 * Native query the last update of @CurrencyExchangeData
 	 */
-	public static final String QUERY_LAST_UPDATE = "SELECT MAX(ce.updateDate) FROM CurrencyExchangeData ce";
+	public static final String QUERY_LAST_UPDATE = "SELECT MAX(ce.updateDate) FROM EntityCurrencyExchangeData ce";
 
 	
 	@Id
