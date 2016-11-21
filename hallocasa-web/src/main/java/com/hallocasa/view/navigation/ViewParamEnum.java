@@ -17,6 +17,7 @@ public enum ViewParamEnum {
     TOKEN("token"),
     EMAIL("email"),
     USER_ID("user-id"),
+    PROPERTY_ID("property-id"),
     LOGIN_DIALOG("login-dialog"),
     LOGIN_AUTO("login-auto"),
     RECOVERY_PASSWORD("recovery-password-token"),

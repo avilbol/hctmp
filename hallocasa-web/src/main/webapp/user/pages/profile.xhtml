@@ -21,10 +21,11 @@
 		<h:outputStylesheet library="css" name="maps.css" />
 		<h:outputStylesheet library="css"
 			name="bootstrap/css/bootstrap.vertical-tabs.css" />
+		<h:outputStylesheet library="css" name="cropper.css"/>
 	</ui:define>
 	<ui:define name="jsSection">
 		<script async="async" defer="defer"
-			src="https://maps.googleapis.com/maps/api/js?key=#{globalMenuBean.gmapsApiKey}&amp;signed_in=true"></script>
+			src="https://maps.googleapis.com/maps/api/js?key=#{globalMenuBean.gmapsApiKey}&amp;signed_in=true&amp;v=3.20"></script>
 		<h:outputScript library="js" name="maps.js"/>
 	</ui:define>
 	<ui:define name="contentSection">

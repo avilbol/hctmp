@@ -61,7 +61,7 @@
 
 /* social icons */
 ul.hc-footer-social-icons {
-	display: -webkit-box;
+	    display: flex;
 }
 
 ul.hc-footer-social-icons li {

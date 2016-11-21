@@ -13,10 +13,12 @@
 #buy-process-menu-container{
     width: 360px;
     display: inline-block;
-    font-size: 12px; 
+    font-size: 16px; 
     vertical-align: top;
     position: absolute;
-    margin-top: 30px;
+    margin-top: 30px; 
+    text-align: center;
+    
 }
 #buy-process-menu-container .gray-btn{
     font-size: 16px;
@@ -62,13 +64,6 @@
 #buy-process-menu-container .in-menu-article{
     padding: 10px;
 }
-#buying-process-summary p,
-#buy-process-menu-container .in-menu-article p{
-    color: black;
-    font-size: 14px;    
-    text-align: justify;
-    font-weight: normal;
-}
 #article-content{
     display: inline-block; 
     margin-top: 30px;
@@ -79,16 +74,6 @@
     min-height:  900px;
 }
 
-#buying-process-summary p,
-#article-content p,
-#article-content ul,
-#article-content li{
-    font-size: 16px;
-    color: #27292C;
-    text-align: justify;
-    font-weight: normal;
-    list-style: disc;
-}
 #next-button-section{
     text-align: center;
     margin-top: 40px;
@@ -122,6 +107,9 @@
 }
 
 
+.article-content p {
+    margin-bottom: 30px;
+}
 
 @media screen and (max-width:1440px){
 

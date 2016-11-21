@@ -240,4 +240,10 @@ public interface AppPersistenceServices {
 
 	<T> T executeQuery(String jpqlQuery, HashMap<String, Object> params,
 			Class<T> expectedClass, Integer index);
+
+	/**
+	 * Update a collection of entities
+	 * @param entityList
+	 */
+	<T> void mergeEntityList(List<T> entityList);
 }

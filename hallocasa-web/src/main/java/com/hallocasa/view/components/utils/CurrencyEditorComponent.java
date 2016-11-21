@@ -76,6 +76,8 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer 
 	public Object getSubmittedValue() {
 		String crncy = (String) currency.getSubmittedValue();
 		String crncyAmmount = (String) currencyAmmount.getSubmittedValue();
+		if(crncyAmmount != null && !crncyAmmount.isEmpty())
+			crncyAmmount = crncyAmmount.replace(".", "");
 		CurrencyVOAmmount cvoAmmount = new CurrencyVOAmmount();
 		if ((crncy != null && !crncy.trim().isEmpty() && FormatUtils.isNumeric(crncy))
 				|| !FormatUtils.isEmptyValue(crncyAmmount)) {
@@ -85,7 +87,7 @@ public class CurrencyEditorComponent extends UIInput implements NamingContainer 
 				crcyVOObj.setId(Integer.parseInt(crncy));
 				cvoAmmount.setCurrency(crcyVOObj);
 			}
-			if(FormatUtils.isNumeric(crncyAmmount)){
+			if(FormatUtils.isLongNumeric(crncyAmmount)){
 				cvoAmmount.setValue(new BigDecimal(crncyAmmount));
 			}
 		}

@@ -62,6 +62,9 @@ public class ImageServlet extends HttpServlet {
         
         response.setContentType(cntx.getMimeType(file.getName()));
         response.setContentLength((int)file.length());
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache"); 
+        response.setDateHeader("Expires", 0);
         
         try (FileInputStream in = new FileInputStream(file); 
                 OutputStream out = response.getOutputStream()) {

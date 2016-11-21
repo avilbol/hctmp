@@ -17,56 +17,76 @@
 	</ui:define>
 
 	<ui:define name="contentSection">
+
+		<script>
+			function format(input) {
+				var inputVal = input.value.replace(/\./g, '');
+				if (!isNaN(inputVal))
+					input.value = parseInt(inputVal).toLocaleString();
+				else
+					input.value = input.value.replace(/[^\d\.]*/g, '');
+				if (input.value == "NaN")
+					input.value = "";
+			}
+			$(function(){
+				$("a[data-toggle='tab']").on("shown.bs.tab", function(e) {
+					alert("tab changed!");
+				});
+			});
+		</script>
 		<div class="hc-content-body">
 			<div class="container">
+
 				<h:form id="form" styleClass="hc-form" enctype="multipart/form-data">
+					v5
+					<p:commandButton value="#{viewBundle['Properties.view.label']}"
+						styleClass="btn btn-primary"
+						action="#{publicProfilePage.goToViewProperty(null)}">
+					</p:commandButton>
+					<h:inputText styleId="hhhi" class="testt"
+						value="#{testPage.valueFrom}" onkeyup="format(this)">
+						<f:convertNumber groupingUsed="false" locale="es_PE" />
+					</h:inputText>
 
-					<h:selectOneMenu id="currency"
-						styleClass="hc-form-field form-control"
-						style="width: 100%!important;" value="#{testPage.currency}"
-						converter="currencyConverter">
-						<f:selectItem itemLabel="#{cc.attrs.defaultMessage}" />
-						<f:selectItems value="#{testPage.currencies}" var="currency"
-							itemLabel="#{currency.abbreviation}" itemValue="#{currency}" />
-					</h:selectOneMenu>
 
-					<h:selectOneMenu id="country"
-						styleClass="hc-form-field form-control"
-						style="width: 100%!important;" value="#{testPage.country}"
-						converter="countryConverter">
-						<f:selectItem itemLabel="#{cc.attrs.defaultMessage}" />
-						<f:selectItems value="#{testPage.countries}" var="country"
-							itemLabel="#{country.countryName}" itemValue="#{country}" />
-					</h:selectOneMenu>
+					<h:outputScript>
+						$("input[type='text'].testt ").each(function(i){
+							var obj = $("input[type='text'].testt:eq(" + i + ")");
+							if(obj.val() != null)
+								format(obj[0]);
+						});
+					</h:outputScript>
+
+					<h:inputText value="#{testPage.valueTo}" />
+					<br></br>
+					<h:commandButton value="abcd" action="#{testPage.change()}">
+						<f:ajax execute="@form" render="@form" />
+					</h:commandButton>
+
+
+
+
+
+					<div class="container">
+						<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#home">Description</a></li>
+						<li><a data-toggle="tab" href="#maps">maps</a></li>
+						<li><a data-toggle="tab" href="#contact">Contact</a></li>
+					</ul>
+
+					<div class="tab-content">
+						<div id="home" class="tab-pane fade in active">home</div>
+						<div id="maps" class="tab-pane fade">maps</div>
+						<div id="contact" class="tab-pane fade">contact</div>
+					</div>
+					</div>
 					
-					<p:inputText required="#{not empty param[save.clientId]}" />
-					<p:inputText required="#{not empty param[save.clientId]}" />
 
-					<p:commandButton binding="#{save}" value="Save" />
-					<p:commandButton binding="#{cancel}" value="Save" />
-					<p:selectManyCheckbox id="propertyLanguages" label="Lenguajes"
-						value="#{testPage.languages}" layout="responsive" required="true"
-						converter="languageConverter" columns="4">
-						<f:selectItems value="#{applicationContext.languages}"
-							var="language" itemLabel="#{language.languageName}"
-							itemValue="#{language}">
-						</f:selectItems>
-						<f:ajax execute="@form"
-							listener="#{testPage.processLanguagesSelectedChange()}"
-							render="@form" />
-					</p:selectManyCheckbox>
 
-					<ui:repeat value="#{testPage.languages}" var="lang">
-						<h:inputText id="title-#{lang}"
-							value="#{testPage.title.langMap[lang]}"
-							label="Title ( #{lang.languageName} )">
-							<f:validateLength minimum="20"
-								disabled="#{empty param[save.clientId]}" />
-						</h:inputText>
-					</ui:repeat>
+
+
+
 				</h:form>
-
-
 			</div>
 		</div>
 	</ui:define>

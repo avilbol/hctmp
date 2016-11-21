@@ -50,7 +50,7 @@
 		                	<h:panelGroup >
 		                    	<ui:repeat value="#{profileReadPage.user.spokenLanguages}" var="lang">
 		                        	<span class="hc-form-field">
-		                            	<h:outputText value="#{lang.languageName}"/><br/>
+		                            	<h:outputText value="#{viewBundle['Language.' += lang.toString()]}"/><br/>
 		                        	</span>
 		                    	</ui:repeat>
 		                	</h:panelGroup>
@@ -88,6 +88,9 @@
                 <h:outputText value="#{profileReadPage.cityName}" styleClass="hc-form-field"/>
                 </div>
                 </div>
+                
+            <div class="col-md-12">
+            <div class="col-md-12">
 				<ui:fragment rendered="#{not profileReadPage.telephonePending}">
 					<b><span class="hc-form-label">#{viewBundle['Profile.Data.Telephone.Label']}</span></b>&nbsp; 
 					<span class="hc-form-field">
@@ -97,28 +100,23 @@
 							readOnly="true"
 							emptyMessage="#{viewBundle['Common.Label.NotSpecified']}" />
 					</span>
-				</ui:fragment>
+				</ui:fragment><br></br>
                 <ui:fragment rendered="#{not profileReadPage.skypePending}">
-                	<b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>
-                	<h:outputText value="#{profileReadPage.skypeName}"/>
+                	<b><span class="hc-form-label">#{viewBundle['Profile.Data.Skype.Label']}</span></b>&nbsp;
+                	<h:outputText value="#{profileReadPage.skypeName}"/>&nbsp;
 			    	<h:outputLink value="skype:#{profileReadPage.skypeName}?call"
                 			  rendered="#{not profileReadPage.skypePending}">
             		<h:graphicImage library="images/icons" 	name="skype-24.png" />
 					</h:outputLink>
 				</ui:fragment>
+                </div>
+                </div>
             </div>
         </div>
         <hr/>
         
-        <div class="section hc-overlay-form-fields-container clearfix">
-            <ui:repeat value="#{profileReadPage.user.spokenLanguages}" var="lang">
-                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( #{lang.languageName} )</span></b>
-                <span class="hc-form-field">
-                    #{profileReadPage.user.userDescription.getText(lang)}
-                </span>
-            </ui:repeat>
-        </div>
         
+        <div class="col-md-12 section hc-overlay-form-fields-container clearfix">
         <h:panelGroup 
             layout="block"
             styleClass="section hc-overlay-form-fields-container clearfix"
@@ -130,10 +128,21 @@
                 </h:outputLabel>
             </b>
             <span class="hc-form-field">
-                #{profileReadPage.user.mainSpokenLanguage.languageName}
+            	#{viewBundle['Language.' += profileReadPage.user.mainSpokenLanguage.toString()]}
             </span>
         </h:panelGroup>
+        </div>
         
+        <div class="col-md-9 col-md-offset-1 section hc-overlay-form-fields-container clearfix">
+            <ui:repeat value="#{profileReadPage.user.spokenLanguages}" var="lang">
+            
+        <p>
+                <b><span class="hc-form-label">#{viewBundle['Profile.Data.Description.Label']} ( #{viewBundle['Language.' += lang.toString()]} )</span></b>
+                <span class="hc-form-field">
+                    #{profileReadPage.user.userDescription.getText(lang)}
+                </span>
+        </p><br></br>
+            </ui:repeat>
+        </div>
     </p:panel>
-
 </ui:composition>

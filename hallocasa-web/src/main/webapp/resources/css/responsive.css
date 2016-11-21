@@ -190,145 +190,8 @@
 		font-size: 40px !important;
 		text-decoration: inherit !important;
 	}
-	ul
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	.topnavli
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	:not
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	(
-	:first-child
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	){
-	display
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	:
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	none
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	;
+ul.topnavli:not(:first-child){
+	display:none;
 }
 
 ul.topnav li.icon {
@@ -347,7 +210,7 @@ ul.topnav.responsive li.icon {
 ul.topnav.responsive li {
 	border: 1px solid #fff;
 	float: right;
-	width: 100%;
+	width: 99%;
 	display: inline;
 }
 
@@ -467,8 +330,90 @@ span.menu-link {
 	background-repeat: no-repeat;
 }
 
+.hc-contents-cards {
+	margin-top: 100px;
 }
-@media screen and (max-width:680px) {
+
+.btn-responsive {
+	width: 100% !important;
+}
+
+	.hc-card-properties {
+	width: 100% !important;
+}
+
+.hc-content-filters {
+	height: 70px;
+}
+
+.ui-selectlistbox-filter-container {
+	width: 100%;
+}
+
+.container-fluid {
+	width: 100%
+}
+	
+.hc-card-properties-details .btn-linkedin{
+	width: 4%;
+}
+input.btn.btn-primary{
+	width: 51%!important;
+}
+.hc-basic-button{
+	width: 51%!important;	
+}
+.hc-card-profile.hc-profile-browse-panel-complete .img-profile img {
+    width: 194px!important;
+}
+.col-md-offset-propertie-public-profile {
+    margin-left: 0%;
+}
+.hc-image-public-content {
+    width: 330px;
+}
+.filters-properties{
+   width: 100%;
+    float: left;
+}
+.list-card-porperties{
+   float: left;
+   width: 100%;
+}.hc-card-profile.hc-profile-browse-panel-complete .label-city {
+    margin-left: 0px!important;
+}
+.card-description p{
+	margin-left:10px;
+}
+}
+@media screen and (max-width:650px) {
+	
+	
+input.btn.btn-primary{
+	width: 51%!important;
+}	
+.hc-card-properties-details .btn-linkedin{
+	width: 9%;
+}
+	.hc-content-filters {
+		height: 50px;
+	}
+	.ui-selectlistbox-filter-container {
+		width: 100%;
+	}
+	.col-md-offset-container-properties {
+		margin-left: 0%;
+	}
+	.hc-card-properties {
+		margin: 20px 0;
+	}
+	.container-fluid {
+	 width: 100%;
+    float: left;
+	}
+	.top-strip {
+    width: 100%;
+	}
 	.logo {
 		width: 10% !important;
 	}
@@ -514,15 +459,15 @@ span.menu-link {
 	}
 	.col-md-btn-cancel,.col-md-btn-save,.col-md-btn-back,.col-md-btn-follow
 		{
-		width: 100%;
+		width: 40%;
+	}
+	.hc-col-md-offset-save {
+		margin-left: 40px;
 	}
 	.hc-image-selected {
 		width: 86%;
 		margin: 0px;
 		margin-bottom: 19px;
-	}
-	.hc-image-selected img.hc-image-properties {
-		width: 95%;
 	}
 	.hc-image-selected span.hc-close {
 		top: 105px;
@@ -558,167 +503,7 @@ span.menu-link {
 		width: 42%;
 		padding: 15px;
 	}
-	ul
-	
-	
-
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	.topnav
-	
-	
-
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	li
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	:not
-	
-	
-
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	(
-	:first-child
-	
-	
-
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	)
-	{
-	display
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	:
-	
-	
-
-	
-	
-	
-	
-	
-	
-	 
-	
-	
-	
-	
-	
-	
-	
-
-	
-	none
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	;
+	ul.topnavli:not(:first-child)	{	display:none;
 }
 
 .row.col-md-10.menu {
@@ -828,7 +613,6 @@ li.hc-header-global-menu-item.hc-header-menu.btn.btn-default-languaje {
 div.hc-responsive-div,div.hc-responsive-div img {
 	width: 100%;
 	height: auto;
-	float: left;
 }
 
 .copy-right p {
@@ -920,7 +704,7 @@ div.hc-responsive-div,div.hc-responsive-div img {
 		margin-left: -34px;
 	}
 	ul.topnav.responsive {
-		height: 430px;
+		height: 492px;
 	}
 	/*home*/
 	.hc-home-newsletter-box {
@@ -984,7 +768,7 @@ div.hc-responsive-div,div.hc-responsive-div img {
 	}
 	.hc-card-profile.hc-profile-browse-panel-lite .sub-card-languaje,.hc-card-profile.hc-profile-browse-panel-lite .sub-card-service
 		{
-		width: 40% !important;
+		width: 100% !important;
 		float: left;
 	}
 	ul.topnav {

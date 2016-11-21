@@ -13,7 +13,7 @@
 		<cc:attribute name="size" type="java.lang.Integer" default="200"
 			shortDescription="profile entry size" />
 		<cc:attribute name="language" type="com.hallocasa.commons.Language"
-			 shortDescription="Language to view user data" />
+			shortDescription="Language to view user data" />
 		<cc:attribute name="presentation" type="java.lang.String"
 			default="lite" shortDescription="Mode to organize the component" />
 		<cc:attribute name="onClick" required="true"
@@ -32,75 +32,79 @@
 		<h:outputStylesheet library="css" name="modules/profile/browse.css" />
 
 		<h:panelGroup id="profile-entry-container">
-			
+
 			<h:commandLink binding="#{cc.commandLink}">
 				<f:ajax listener="#{cc.attrs.onClick}"></f:ajax>
 				<f:param name="user" value="#{cc.profile}"></f:param>
 			</h:commandLink>
-				<div class="hc-card-profile hc-profile-browse-panel-#{cc.attrs.presentation}"
-					onclick="doClick('#{cc.commandLink.clientId}')">
-			<div class="card-content hc-profile-browse-cell">
+			<div
+				class="hc-card-profile hc-profile-browse-panel-#{cc.attrs.presentation}"
+				onclick="doClick('#{cc.commandLink.clientId}')">
+				<div class="card-content hc-profile-browse-cell">
 					<div class="card-image">
-					
-					<div class="col-md-3 img-profile">
-					<utils:imageEditor imageUrl="#{cc.profile.image}"
-							imageType="userImage" readOnly="true" />
-					<h:outputText  styleClass="label-city" value="#{cc.cityName}">
-								</h:outputText>
-					</div>
-					<div class="content-info-init">
-					
-					<div class="name-card">						
-							<b class="name-content"> <h:outputText
-									value="#{cc.profile.firstName} #{cc.profile.lastName}">
-								</h:outputText>
-							</b>
-					</div>
-					<div class="info-card">	
-					<div class="sub-card-languaje">	
-					<div class="col-md-md">	
-							<ui:repeat value="#{cc.loadSpokenLanguageList()}"
-								var="spokenLanguage">
-									#{spokenLanguage.languageName}
+
+						<div class="col-md-3" style="padding:10px;float:left;">
+						<div class="img-profile">
+							<utils:imageEditor imageUrl="#{cc.profile.image}"
+								imageType="userImage" readOnly="true" />
+						</div>
+							<h:outputText styleClass="label-city" value="#{cc.cityName}">
+							</h:outputText>
+						</div>
+						<div class="content-info-init">						
+						<div class="name-card" >
+								<b class="name-content"> <h:outputText
+										value="#{cc.profile.firstName} #{cc.profile.lastName}">
+									</h:outputText>
+								</b>
+							</div>
+							<div class="info-card">
+								<div class="sub-card-languaje">
+									<div class="col-md-md">
+										<ui:repeat value="#{cc.loadSpokenLanguageList()}"
+											var="spokenLanguage">
+									#{viewBundle['Language.' += spokenLanguage.toString()]}
 									
 								#{cc.loadAdditionalLanguagesMark()}
 							</ui:repeat>
+									</div>
+								</div>
+
+								<div class="sub-card-service">
+									<div class="col-md-md">
+										<ui:repeat value="#{cc.profile.userTypes}" var="userType">
+											<div style="display: block">#{cc.load(userType)}</div>
+										</ui:repeat>
+									</div>
+								</div>
 							</div>
+						</div>
+
+
+
+						<div class="col-md-12 content-btn-more text-center">
+							<div class="col-md-4 "></div>
+							<div class="col-md-4 ">
+								<ui:fragment
+									rendered="#{cc.attrs.presentation.equals(cc.litePresentation)}">
+									<h:commandButton styleClass="btn btn-primary" style="width:53px"
+										actionListener="#{cc.attrs.onClick}"
+										value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
+								</ui:fragment>
 							</div>
-							
-					<div class="sub-card-service">
-					<div class="col-md-md">		
-						<ui:repeat value="#{cc.profile.userTypes}" var="userType">
-							<div style="display: block">#{cc.load(userType)}</div>
-						</ui:repeat>
-							</div>
-							</div>
-							</div>
-							</div>
-							
-							
-							
-					<div class="col-md-12 content-btn-more">
-					<div class="col-md-6 sub-card btn-more">	
-							<ui:fragment
-								rendered="#{cc.attrs.presentation.equals(cc.litePresentation)}">
-								<h:commandButton styleClass="btn btn-primary"
-									actionListener="#{cc.attrs.onClick}"
-									value="#{viewBundle['PublicProfile.Widget.ViewMore']}" />
-							</ui:fragment>
-							</div>
-							
-							</div>
-					<div class="col-md-6">
-					<div class="col-md-12 card-description">	
-						<!-- <p><b><h:outputText
+							<div class="col-md-4"></div>
+
+						</div>
+						<div class="col-md-5">
+							<div class="col-md-12 card-description">
+								<!-- <p><b><h:outputText
 							value="#{viewBundle['PublicProfile.BrowseProfiles.Description']}" /></b></p> -->
-						<p>#{cc.loadDescription()}</p>
+								<p>#{cc.loadDescription()}</p>
 							</div>
 						</div>
-						</div>
-						</div>
-						</div>
-					</h:panelGroup>
+					</div>
+				</div>
+			</div>
+		</h:panelGroup>
 	</cc:implementation>
 </ui:composition>

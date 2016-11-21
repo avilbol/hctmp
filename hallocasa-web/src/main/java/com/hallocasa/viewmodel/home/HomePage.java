@@ -5,20 +5,27 @@
  */
 package com.hallocasa.viewmodel.home;
 
+import com.hallocasa.commons.StrategySort;
 import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.commons.vo.properties.PropertyVO;
 import com.hallocasa.dataentities.app.Token;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
+import com.hallocasa.services.interfaces.PropertyServices;
 import com.hallocasa.services.interfaces.SecurityServices;
 import com.hallocasa.view.navigation.HallocasaViewEnum;
 import com.hallocasa.view.navigation.NavigationHandler;
 import com.hallocasa.view.navigation.ViewParamEnum;
+
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+
 import org.primefaces.context.RequestContext;
 
 /**
@@ -36,7 +43,14 @@ public class HomePage implements Serializable {
     @Inject
     private SecurityServices securityServices;
 
+    @EJB
+	private PropertyServices propertyServices;
+    
     private Integer userIdInRecoveryProcess;
+    
+    private List<PropertyVO> propertyList;
+    
+    private static final Integer PROPERTY_AMMOUNT_TO_SHOW = 10;
     
     /**
      * Initialize bean
@@ -57,10 +71,9 @@ public class HomePage implements Serializable {
                         .setUserIdInRecoveryProcess(token.getIdAssociated());
                 processPasswordRecoveryDialogRequest();
             }
-            else{
-                navigationHandler.redirectToPage(HallocasaViewEnum.FORBIDDEN);
-            }
         }
+        propertyList = propertyServices.find(PROPERTY_AMMOUNT_TO_SHOW,
+				StrategySort.RANDOM);
     }
 
     /**
@@ -69,6 +82,12 @@ public class HomePage implements Serializable {
     public void launch() {
         // just for forcing creation
     }
+    
+    public void goToProperty(String id){
+		HashMap<ViewParamEnum, String> params = new HashMap<ViewParamEnum, String>();
+		params.put(ViewParamEnum.PROPERTY_ID, id);
+		navigationHandler.redirectToPage(HallocasaViewEnum.PROPERTY_DETAIL, params);
+	}
     
     public void goToProfile(UserVO userVO){
 		HashMap<ViewParamEnum, String> params = new HashMap<ViewParamEnum, String>();
@@ -97,6 +116,12 @@ public class HomePage implements Serializable {
     public void setUserIdInRecoveryProcess(Integer userIdInRecoveryProcess) {
         this.userIdInRecoveryProcess = userIdInRecoveryProcess;
     }
-    
-    
+
+	public List<PropertyVO> getPropertyList() {
+		return propertyList;
+	}
+
+	public void setPropertyList(List<PropertyVO> propertyList) {
+		this.propertyList = propertyList;
+	}
 }

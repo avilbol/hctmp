@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
@@ -25,6 +26,7 @@ import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.TelephoneVO;
 import com.hallocasa.dataentities.app.test.TestEntity;
+import com.hallocasa.model.application.CurrencyGlobalApplication;
 import com.hallocasa.model.application.HallocasaApplicationImpl;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.services.messaging.local.MailServices;
@@ -47,6 +49,10 @@ public class TestPage {
     
     private String myAttr;
     
+    private Double valueFrom;
+    
+    private String valueTo;
+    
     private List<String> availableElements;
     
     private List<Language> languages;
@@ -64,7 +70,10 @@ public class TestPage {
     private List<CountryVO> countries;
     
     @Inject
-	private HallocasaApplicationImpl halloCasaApplication;
+	private HallocasaApplicationImpl  halloCasaApplication;
+    
+    @Inject
+   	private CurrencyGlobalApplication currencyGlobal;
     
     @PostConstruct
     public void init(){
@@ -72,7 +81,7 @@ public class TestPage {
     	country = new CountryVO();
     	country.setId(1l);
     	countries=halloCasaApplication.getCountries();
-    	currencies= halloCasaApplication.getCurrencies();
+    	currencies= currencyGlobal.getCurrencies();
     	currency.setId(1);
     	testAttrList = new ArrayList<TestEntity>();
     	testAttrList.add(new TestEntity(1l, "hi"));
@@ -117,6 +126,16 @@ public class TestPage {
         }
     }
 
+    public void sayHi(){
+    	int a = 2;
+    	System.out.println(a);
+    }
+    
+    public void change(){
+    	int a = 2;
+    	System.out.println(a);
+    }
+    
     public List<String> getAvailableElements() {
         return availableElements;
     }
@@ -204,6 +223,20 @@ public class TestPage {
 	public void setCountries(List<CountryVO> countries) {
 		this.countries = countries;
 	}
-	
-	
+
+	public Double getValueFrom() {
+		return valueFrom;
+	}
+
+	public void setValueFrom(Double valueFrom) {
+		this.valueFrom = valueFrom;
+	}
+
+	public String getValueTo() {
+		return valueTo;
+	}
+
+	public void setValueTo(String valueTo) {
+		this.valueTo = valueTo;
+	}
 }

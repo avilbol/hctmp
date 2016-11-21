@@ -2172,13 +2172,4 @@ input.ui-state-error{
 }
 
 
-.article-content p,
-.article-content ul,
-.article-content ol,
-.article-content li{
-    font-size: 16px;
-    color: #27292C;
-    text-align: justify;
-    font-weight: normal;
-    list-style: disc;
-}
+

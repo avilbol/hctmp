@@ -2,8 +2,10 @@ package com.hallocasa.services.interfaces;
 
 import java.util.List;
 
+import com.hallocasa.commons.StrategySort;
 import com.hallocasa.commons.vo.UserVO;
 import com.hallocasa.commons.vo.properties.PropertyVO;
+import com.hallocasa.filters.converters.PropertyFilter;
 
 /**
  * Interface for the service related with properties
@@ -18,6 +20,24 @@ public interface PropertyServices {
 	 * @return
 	 */
 	List<PropertyVO> find(UserVO user);
+	
+	/**
+	 * Finds property list constraint with first property number to show and
+	 * a sort strategy.
+	 * 
+	 * @param propertyNumberToShow
+	 * @param strategySort
+	 * @return
+	 */
+	List<PropertyVO> find(Integer propertyNumberToShow, StrategySort strategySort);
+	
+	/**
+	 * Finds property list by filters
+	 * @param user
+	 * @param propertyFilter
+	 * @return
+	 */
+	List<PropertyVO> find(PropertyFilter propertyFilter);
 	
 	/**
 	 * Save property

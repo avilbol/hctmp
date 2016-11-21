@@ -46,7 +46,7 @@ import com.hallocasa.dataentities.types.LanguageList;
 @Table(name = "user")
 @NamedQueries({ @NamedQuery(name = User.QUERY_FIND_BY_EMAIL, query = "select u from User u where u.email = ?1"),
 				@NamedQuery(name = User.QUERY_FIND_BASIC_BY_EMAIL, query = "select NEW com.hallocasa.dataentities.app.User(u.id, u.email, "
-						+ "u.password, u.language, u.confirmedFlag, u.mainSpokenLanguage) from User u where u.email = ?1")})
+						+ "u.password, u.language, u.confirmedFlag, u.mainSpokenLanguage, u.firstName) from User u where u.email = ?1")})
 @SuppressWarnings({ "UniqueEntityName", "ValidPrimaryTableName",
 		"ValidAttributes" })
 public class User implements Serializable, HallocasaEntity {
@@ -166,13 +166,15 @@ public class User implements Serializable, HallocasaEntity {
 	public User(Long id, String email, String password, 
 			Language language, 
 			Boolean confirmedFlag,
-			Language mainSpokenLanguage) {
+			Language mainSpokenLanguage,
+			String firstName) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.confirmedFlag = confirmedFlag;
 		this.language = language;
+		this.firstName = firstName;
 		this.mainSpokenLanguage = mainSpokenLanguage;
 	}
 

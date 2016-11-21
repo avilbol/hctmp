@@ -13,19 +13,20 @@
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .card-description {
-	text-align: left;
-	margin-top: 66px;
+	text-align: left;margin-top: 62px;
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .img-profile {
-	    width: 244px;
+	width: 188px;
     text-align: left;
     padding: 0px 10px 10px 10px;
-    height: 197px;
+    height: 203px;
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .img-profile img {
-	width: 100%;
+        display: block;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .name-content {
@@ -38,12 +39,12 @@
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .content-info-init {
-	width: 20%;
+	width: 230px;
 	float: left;
 }
 
 .hc-card-profile.hc-profile-browse-panel-complete .name-card {
-	width: 100% !important;
+	width: 60% !important;
 	text-align: left;
 	float: left;
 	margin-bottom: 20px;
@@ -61,7 +62,9 @@
 	width: 50% !important;
 	float: left;
 }
-
+.hc-profile-browse-panel-lite .col-md-3{
+	width: 200px;
+}
 .hc-card-profile.hc-profile-browse-panel-complete .label-city {
 	font-size: 17px;
 	margin-left: 15px;
@@ -79,7 +82,7 @@
 	height: auto;
 	display: inline-block;
 	float: left;
-	width: 35%;
+	width: 42%;
 }
 
 .card-image,card-info {
@@ -91,15 +94,12 @@
 }
 
 .hc-card-profile.hc-profile-browse-panel-lite .img-profile {
-	width: 50%;
-	padding: 10px;
+	width: 100%;
 	text-align: left;
 	float:left;
 }
 
-.hc-card-profile.hc-profile-browse-panel-lite .img-profile img {
-	width: 100%;    height: 100%;
-}
+
 
 .hc-card-profile.hc-profile-browse-panel-lite .content-info-init {
 	    width: 195px;
@@ -128,7 +128,7 @@
 
 .hc-card-profile.hc-profile-browse-panel-lite .sub-card-languaje
 {
-	width: 46% !important;
+	width: 50%;
 	float: left;
 	font-size: 17px;
 }

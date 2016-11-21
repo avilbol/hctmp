@@ -112,6 +112,7 @@
     <class>com.hallocasa.dataentities.app.test.ParentSpEntity</class>
     <class>com.hallocasa.dataentities.app.test.SecondParentSpEntity</class>
     <class>com.hallocasa.dataentities.app.Telephone</class>
+    <class>com.hallocasa.dataentities.app.CurrencyExchangeData</class>
     <class>com.hallocasa.dataentities.app.Currency</class>
     <class>com.hallocasa.dataentities.app.properties.Property</class>
     <class>com.hallocasa.dataentities.app.properties.PropertyField</class>
@@ -157,6 +158,7 @@
     <class>com.hallocasa.dataentities.app.test.SecondParentSpEntity</class>
     <class>com.hallocasa.dataentities.app.Telephone</class>
     <class>com.hallocasa.dataentities.app.Currency</class>
+    <class>com.hallocasa.dataentities.app.CurrencyExchangeData</class>
     <class>com.hallocasa.dataentities.app.properties.Property</class>
     <class>com.hallocasa.dataentities.app.properties.PropertyField</class>
     <class>com.hallocasa.dataentities.app.properties.PropertyFieldRule</class>

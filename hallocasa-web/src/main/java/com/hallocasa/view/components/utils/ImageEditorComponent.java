@@ -56,8 +56,8 @@ public class ImageEditorComponent extends BaseComponent {
 	}
 
 	private static final Integer MAX_BYTES_PART_SIZE = 5120000;
-	private static final Integer MAX_IMAGE_WIDTH = 312;
-	private static final Integer MAX_IMAGE_HEIGHT = 536;
+	private static final Integer MAX_IMAGE_WIDTH = 936;
+	private static final Integer MAX_IMAGE_HEIGHT = 1608;
 	private Part uncroppedImagePart;
 	private Part ppl;
 	private String contentExt;
@@ -69,6 +69,11 @@ public class ImageEditorComponent extends BaseComponent {
 	private Boolean validUpload;
 	private CroppedImage croppedImage;
 	private String relativePath;
+	
+	private Double imageDimX;
+	private Double imageDimY;
+	private Double imageCropWidth;
+	private Double imageCropHeight;
 
 	@Inject
 	private ViewContext viewContext;
@@ -128,25 +133,28 @@ public class ImageEditorComponent extends BaseComponent {
 	}
 
 	public void onImageCrop() {
-		if (croppedImage == null) {
-			return;
-		}
-		FileImageOutputStream imageOutput;
-		File file = loadFileTemplate();
-		try {
-			imageOutput = new FileImageOutputStream(file);
-			imageOutput.write(croppedImage.getBytes(), 0, croppedImage.getBytes().length);
-			imageOutput.close();
+		try{
+			String fileNameSource = ApplicationFileUtils.getAbsoluteUrl(getUncroppedImageUrl());
+			File file = new File(fileNameSource);
+			BufferedImage image = ImageIO.read(file);
+			int x = (int) Math.round(imageDimX);
+			int y = (int) Math.round(imageDimY);
+			int width = (int) Math.round(imageCropWidth);
+			int height = (int) Math.round(imageCropHeight);
+			if(x + width > image.getWidth())
+				width = image.getWidth() - x;
+			if(y + height > image.getHeight())
+				height = image.getHeight() - y;
+			BufferedImage subImage = image.getSubimage(x, y, width, height);
+			ImageIO.write(subImage, 
+					ApplicationFileUtils.getImageMimeType(file), file);
 			this.image.setUrl(getRelativePath() + "/" + file.getName());
 			((ImageContainer) getAttributes().get(Attributes.imageUrl.toString())).setUrl(this.image.getUrl());
-			RequestContext context = RequestContext.getCurrentInstance();
-			context.execute("PF('upload-image-dialog').hide();");
 			postCropAction();
 		} catch (Exception e) {
 			LOG.log(Level.SEVERE, "Error al intentar realizar el ajuste de la imagen. {0}", e);
 			viewContext.showGlobalErrorMessage(Messages.UNEXPECTED_ERROR, null);
 		}
-
 	}
 
 	private void scaleImage(File file) throws IOException {
@@ -186,7 +194,7 @@ public class ImageEditorComponent extends BaseComponent {
 	}
 
 	private void postCropAction() {
-		destroyUncroppedImage();
+		//destroyUncroppedImage();
 		this.validUpload = false;
 		this.uncroppedImageResourcesUrl = null;
 		this.uncroppedImageUrl = null;
@@ -370,5 +378,37 @@ public class ImageEditorComponent extends BaseComponent {
 			return new ImageContainer(defaultIcUrl);
 		}
 		return ic;
+	}
+
+	public Double getImageDimX() {
+		return imageDimX;
+	}
+
+	public void setImageDimX(Double imageDimX) {
+		this.imageDimX = imageDimX;
+	}
+
+	public Double getImageDimY() {
+		return imageDimY;
+	}
+
+	public void setImageDimY(Double imageDimY) {
+		this.imageDimY = imageDimY;
+	}
+
+	public Double getImageCropWidth() {
+		return imageCropWidth;
+	}
+
+	public void setImageCropWidth(Double imageCropWidth) {
+		this.imageCropWidth = imageCropWidth;
+	}
+
+	public Double getImageCropHeight() {
+		return imageCropHeight;
+	}
+
+	public void setImageCropHeight(Double imageCropHeight) {
+		this.imageCropHeight = imageCropHeight;
 	}
 }

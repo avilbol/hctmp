@@ -5,21 +5,6 @@
  */
 package com.hallocasa.model.session;
 
-import com.hallocasa.commons.Language;
-import com.hallocasa.commons.constants.SystemConstants;
-import com.hallocasa.commons.exceptions.services.InactiveUserException;
-import com.hallocasa.commons.exceptions.services.InvalidEmailException;
-import com.hallocasa.commons.exceptions.services.InvalidPasswordLoginException;
-import com.hallocasa.commons.vo.AuthInfoVO;
-import com.hallocasa.commons.vo.CredentialVO;
-import com.hallocasa.commons.vo.ProfileVO;
-import com.hallocasa.commons.vo.UserVO;
-import com.hallocasa.model.controlaccess.AccessValidator;
-import com.hallocasa.services.interfaces.ProfileServices;
-import com.hallocasa.services.interfaces.UserServices;
-import com.hallocasa.services.security.local.AuthenticationServices;
-import com.hallocasa.view.i18n.Messages;
-import com.hallocasa.view.navigation.NavigationHandler;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +19,25 @@ import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.hallocasa.commons.Language;
+import com.hallocasa.commons.constants.SystemConstants;
+import com.hallocasa.commons.exceptions.services.InactiveUserException;
+import com.hallocasa.commons.exceptions.services.InvalidEmailException;
+import com.hallocasa.commons.exceptions.services.InvalidPasswordLoginException;
+import com.hallocasa.commons.i18n.MultiLanguageText;
+import com.hallocasa.commons.vo.AuthInfoVO;
+import com.hallocasa.commons.vo.CredentialVO;
+import com.hallocasa.commons.vo.CurrencyVO;
+import com.hallocasa.commons.vo.ProfileVO;
+import com.hallocasa.commons.vo.UserVO;
+import com.hallocasa.model.application.CurrencyGlobalApplication;
+import com.hallocasa.model.controlaccess.AccessValidator;
+import com.hallocasa.services.interfaces.ProfileServices;
+import com.hallocasa.services.interfaces.UserServices;
+import com.hallocasa.services.security.local.AuthenticationServices;
+import com.hallocasa.view.i18n.Messages;
+import com.hallocasa.view.navigation.NavigationHandler;
+
 /**
  *
  * @author David Mantilla
@@ -45,6 +49,7 @@ public class WebSessionImpl extends Observable implements WebSession,
 
     /* Instance variables */
     private Language currentLanguage;
+    private CurrencyVO currentCurrency;
     private Map<String, Object> attributesMap;
     private UserVO currentUser;
 
@@ -59,6 +64,8 @@ public class WebSessionImpl extends Observable implements WebSession,
     private NavigationHandler navigationHandler;
     @EJB
     private AuthenticationServices authenticationServices;
+    @Inject
+    private CurrencyGlobalApplication currencyGlobal;
 
     /* instance variables */
     private AuthInfoVO authInfoVO;
@@ -195,4 +202,29 @@ public class WebSessionImpl extends Observable implements WebSession,
         return currentUser;
     }
 
+    public void setCurrentUser(UserVO currentUser) {
+		this.currentUser = currentUser;
+	}
+
+	@Override
+	public CurrencyVO getCurrentCurrency() {
+		return currentCurrency;
+	}
+
+	public void changeCurrency(String currentAb) {
+		if(currentAb == null){
+			this.currentCurrency = currencyGlobal.searchByAb(CurrencyGlobalApplication.COP_ABBR);
+		}
+		else{
+			this.currentCurrency = currencyGlobal.searchByAb(currentAb);
+		}
+	}
+	
+	public String getCurrentCurrencyName(){
+		return getCurrentCurrency().getName().getLangValue(getCurrentLanguage());
+	}
+	
+	public String getCurrencyName(MultiLanguageText name){
+		return name.getLangValue(getCurrentLanguage());
+	}
 }

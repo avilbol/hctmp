@@ -72,19 +72,12 @@ public class MultiImageEditorComponent extends BaseComponent {
 	 * @param index
 	 */
 	public void onDeleteImage(int index){
-		try{
-			ImageContainer imageToDelete = getImageContainerList().get(index);
-			File pathToDelete = new File(ApplicationFileUtils.getAbsoluteUrl(imageToDelete.getUrl()));
-			FileUtils.forceDelete(pathToDelete);
-			getImageContainerList().remove(index);
-			if(getIndexMainImageContainer().get() == index){
-				indexMainImageContainer.set(0);
-			}
-			if(indexMainImageContainer.get() > index){
-				indexMainImageContainer.decrementAndGet();
-			}
-		} catch (IOException e) {
-			viewContext.showGlobalErrorMessage("Common.UnexpectedError.Message", null);
+		getImageContainerList().remove(index);
+		if(getIndexMainImageContainer().get() == index){
+			indexMainImageContainer.set(0);
+		}
+		if(indexMainImageContainer.get() > index){
+			indexMainImageContainer.decrementAndGet();
 		}
 	}
 	

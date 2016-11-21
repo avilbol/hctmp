@@ -22,7 +22,7 @@
 					value="#{viewBundle['Profile.Data.propertie.Country.Label']}"
 					styleClass="label-property" />
 			</div>
-			
+
 			<div class="col-md-12">
 				<h:selectOneMenu id="country"
 					styleClass="hc-form-field form-control" required="true"
@@ -97,17 +97,10 @@
 				</h:selectOneMenu>
 			</div>
 		</div>
-			<!-- - btns create and delete -->
-			<div class="col-md-6 btn-cancel">
-				<h:commandButton
-					value="#{viewBundle['Properties.wizard.next.label']}"
-					action="#{propertyWizardPage.onProcessInitZone}"
-					styleClass="btn btn-primary col-md-btn-follow">
-					<f:ajax execute="@form"
-						render=":hc-profile-form:container-property-element" />
-				</h:commandButton>
-			</div>
-			<div class="col-md-6 btn-cancel">
+		<!-- - btns create and delete -->
+		<div class="col-md-12">
+			<div class="col-md-2"></div>
+			<div class="col-md-2 btn-cancel">
 				<h:commandButton
 					value="#{viewBundle['Properties.wizard.cancel.label']}"
 					onclick="if(!confirm('#{viewBundle['propertyWizardPage.propertyInEdition.propertyPopup']}')) return false"
@@ -116,5 +109,17 @@
 					<f:ajax execute="@form" render="@form" />
 				</h:commandButton>
 			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-2 btn-cancel">
+				<h:commandButton
+					value="#{viewBundle['Properties.wizard.next.label']}"
+					action="#{propertyWizardPage.onProcessInitZone}"
+					styleClass="btn btn-primary col-md-btn-follow">
+					<f:ajax execute="@form"
+						render=":hc-profile-form:container-property-element" />
+				</h:commandButton>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
 	</div>
 </ui:composition>

@@ -4,6 +4,7 @@ import static com.hallocasa.view.navigation.ViewParamEnum.ARTICLE_ID;
 import static com.hallocasa.view.navigation.ViewParamEnum.EMAIL;
 import static com.hallocasa.view.navigation.ViewParamEnum.OPTION;
 import static com.hallocasa.view.navigation.ViewParamEnum.TOKEN;
+import static com.hallocasa.view.navigation.ViewParamEnum.PROPERTY_ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 import com.hallocasa.commons.constants.SystemConstants;
 import com.hallocasa.model.controlaccess.UseCaseEnum;
+import com.hallocasa.view.components.utils.ProfileEntryComponent;
 import com.hallocasa.viewmodel.managed.pages.blog.BlogArticlePage;
 import com.hallocasa.viewmodel.managed.pages.blog.BlogIndexPage;
 import com.hallocasa.viewmodel.managed.pages.buyprocess.BuyProcessPage;
@@ -20,6 +22,7 @@ import com.hallocasa.viewmodel.user.present.ProfileBrowserPage;
 import com.hallocasa.viewmodel.user.profile.ProfileEditPage;
 import com.hallocasa.viewmodel.user.profile.ProfileReadPage;
 import com.hallocasa.viewmodel.user.profile.PublicProfilePage;
+import com.hallocasa.viewmodel.user.properties.PropertyDetailPage;
 import com.hallocasa.viewmodel.user.properties.PropertyReadPage;
 
 /**
@@ -71,19 +74,27 @@ public enum HallocasaViewEnum {
      * Page for profile editing and view
      */
     MY_PROFILE(HallocasaViewNames.USER_PROFILE_VIEW, "/user/pages/profile.xhtml",
-            ProfileReadPage.class, true, new ViewParamEnum[]{OPTION}, UseCaseEnum.SEE_MY_PROFILE),
+            ProfileEntryComponent.class, true, new ViewParamEnum[]{OPTION}, UseCaseEnum.SEE_MY_PROFILE),
     
     /**
      * Page for property list
      */
     MY_PROPERTIES(HallocasaViewNames.USER_PROPERTY_LIST, "/user/pages/properties/properties.xhtml",
-            PropertyReadPage.class, false, null, UseCaseEnum.SEE_MY_PROFILE),
+            ProfileEntryComponent.class, false, null, UseCaseEnum.SEE_MY_PROFILE),
     
+    /**
+     * Page for property detail
+     */
+    PROPERTY_DETAIL(HallocasaViewNames.PROPERTY_DETAIL, "/user/pages/properties/property-view.xhtml",
+    		PropertyDetailPage.class, false, null, UseCaseEnum.SEE_MY_PROPERTY),
+            
     /**
      * Page for profile editing
      */
     EDIT_PROFILE(HallocasaViewNames.USER_PROFILE_EDIT, "/user/pages/edit-profile.xhtml",
             ProfileEditPage.class, true, null, UseCaseEnum.EDIT_MY_PROFILE),
+            
+            
     
     /**
      * Page for profile editing
@@ -96,6 +107,12 @@ public enum HallocasaViewEnum {
      */
     BROWSE_PROFILE(HallocasaViewNames.USER_PROFILE_BROWSER, "/profile/profile-browser.xhtml",
     		ProfileBrowserPage.class, false, null, UseCaseEnum.BROWSE_PROFILES),
+    
+    /**
+     * Page for profile browsing
+     */
+    BROWSE_PROPERTY(HallocasaViewNames.USER_PROPERTY_BROWSER, "/properties/property-browser-t.xhtml",
+    		ProfileBrowserPage.class, false, null, UseCaseEnum.BROWSE_PROPERTIES),
         
 	/**
      * Page for profile public
