@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.hallocasa.dao.i.properties.IDAOPropertyField;
+import com.hallocasa.entities.EntityHcFilter;
 import com.hallocasa.entities.properties.EntityPropertyField;
 import com.hallocasa.jpaservices.i.AppPersistenceServices;
 import com.hallocasa.vo.hcfilter.properties.PropertyKey;
@@ -52,6 +53,9 @@ public class DAOPropertyField implements IDAOPropertyField {
 		paramList.add(propertyKey.getCountry().getId());
 		List<Object> idList = appPersistenceServices.executeNativeQuery(EntityPropertyField.NATIVE_QUERY_FIND_BY_PK,
 				paramList.toArray());
+		if(idList.isEmpty()){
+			return new LinkedList<EntityPropertyField>();
+		}
 		return appPersistenceServices.executeNamedQuery(query, new Object[]{idList}, 
 				EntityPropertyField.class);
 	}

@@ -5,7 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
+import com.hallocasa.commons.vo.CountryTelephonePrefix;
 
 /**
  * Converter for country telephone prefix
@@ -19,7 +19,7 @@ public class CountryTelephonePrefixConverter implements Converter {
 		if(arg2 == null){
 			return null;
 		}
-		return new CountryTelephonePrefixVO(Long.parseLong(arg2));
+		return new CountryTelephonePrefix(Long.parseLong(arg2));
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class CountryTelephonePrefixConverter implements Converter {
 		if(arg2 == null){
 			return null;
 		}
-		return "" + ((CountryTelephonePrefixVO)arg2).getId();
+		return "" + ((CountryTelephonePrefix)arg2).getId();
 	}
 
 }

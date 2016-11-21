@@ -1,10 +1,10 @@
-package com.hallocasa.vo.hcfilter;
+package com.hallocasa.vo.hcfilter.properties;
 
 import java.io.Serializable;
 
 import com.hallocasa.vo.i.ValueObject;
 
-public class BooleanFilterSubmission extends HcFilterSubmission implements ValueObject, Serializable{
+public class PropertyBooleanFilterSubmission extends PropertyFilterSubmission implements ValueObject, Serializable{
 	
 	private static final long serialVersionUID = -7095386578286489377L;
 

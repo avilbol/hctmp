@@ -19,8 +19,9 @@ public class HcFilter implements Serializable, ValueObject{
 	private HcFilterType filterType;
 	private HcFilterNature filterNature;
 	private List<FilterShowingStep> showingStepList;
-	private List<FilterListingStep> listingStepList;
+	private HcFilter parentFilter;
 	private ShowChoice choice;
+	private Boolean usePropertyField;
 	
 	public Integer getId() {
 		return id;
@@ -46,11 +47,11 @@ public class HcFilter implements Serializable, ValueObject{
 	public void setShowingStepList(List<FilterShowingStep> showingStepList) {
 		this.showingStepList = showingStepList;
 	}
-	public List<FilterListingStep> getListingStepList() {
-		return listingStepList;
+	public HcFilter getParentFilter() {
+		return parentFilter;
 	}
-	public void setListingStepList(List<FilterListingStep> listingStepList) {
-		this.listingStepList = listingStepList;
+	public void setParentFilter(HcFilter parentFilter) {
+		this.parentFilter = parentFilter;
 	}
 	public ShowChoice getChoice() {
 		return choice;
@@ -69,5 +70,11 @@ public class HcFilter implements Serializable, ValueObject{
 	}
 	public void setLang(String lang) {
 		this.lang = lang;
+	}
+	public Boolean getUsePropertyField() {
+		return usePropertyField;
+	}
+	public void setUsePropertyField(Boolean usePropertyField) {
+		this.usePropertyField = usePropertyField;
 	}
 }

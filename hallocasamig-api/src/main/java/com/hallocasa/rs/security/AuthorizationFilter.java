@@ -30,7 +30,12 @@ public class AuthorizationFilter implements ContainerRequestFilter{
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
     	MultivaluedMap<String, String> headers = requestContext.getHeaders();
-    	Optional<AuthorizationCode> authCode = authorizationCodeService.find(headers.getFirst(O_AUTH_CLIENT_ID_HEADER), headers.getFirst(O_AUTH_CODE_HEADER));
+    	String clientId = headers.getFirst(O_AUTH_CLIENT_ID_HEADER);
+    	String code = headers.getFirst(O_AUTH_CODE_HEADER);
+    	if(clientId == null || code == null){
+    		throw new SecurityException("client_id or authorization code not specified");
+    	}
+    	Optional<AuthorizationCode> authCode = authorizationCodeService.find(clientId, code);
     	if(!authCode.isPresent()){
     		throw new SecurityException(AuthorizationCodeError.INVALID_AUTH_CODE, 
     				SecurityException.INVALID_AUTH_CODE);

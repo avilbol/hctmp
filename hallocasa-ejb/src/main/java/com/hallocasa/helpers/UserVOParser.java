@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import com.hallocasa.commons.Language;
-import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
+import com.hallocasa.commons.vo.CountryTelephonePrefix;
 import com.hallocasa.commons.vo.TelephoneVO;
 import com.hallocasa.commons.vo.UserTypeVO;
 import com.hallocasa.commons.vo.UserVO;
@@ -120,7 +120,7 @@ public class UserVOParser extends HallocasaVOParser<User, UserVO> {
 		}
 		TelephoneVO tvo = new TelephoneVO();
 		tvo.setNumber(telephone.getNumber());
-		CountryTelephonePrefixVO ctp = new CountryTelephonePrefixVO();
+		CountryTelephonePrefix ctp = new CountryTelephonePrefix();
 		ctp.setId(telephone.getCountryTelephonePrefix().getId().longValue());
 		ctp.setName(telephone.getCountryTelephonePrefix().getName());
 		ctp.setPrefix(telephone.getCountryTelephonePrefix().getPrefix());

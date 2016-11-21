@@ -305,6 +305,13 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         return query.getResultList();
     }
 
+    @Override
+    public <T> List<T> executeQuery(String jpqlQuery, Object[] params,
+            Class<T> expectedClass) {
+        return executeQuery(jpqlQuery, params, expectedClass, null, null);
+    }
+
+    
     /*
      * (non-Javadoc)
      * 

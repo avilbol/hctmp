@@ -250,4 +250,6 @@ public interface AppPersistenceServices {
 	 * @return
 	 */
 	<T> Optional<T> executeSingleNamedQuery(String queryName, Object[] params, Class<T> expectedClass);
+
+	<T> List<T> executeQuery(String jpqlQuery, Object[] params, Class<T> expectedClass);
 }

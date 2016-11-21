@@ -1,10 +1,8 @@
 package com.hallocasa.vo.hcfilter;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.hallocasa.vo.i.ValueObject;
-import com.hallocasa.vo.options.DropdownOption;
 
 /**
  * Condition applied to filter, in order to validate some of his properties

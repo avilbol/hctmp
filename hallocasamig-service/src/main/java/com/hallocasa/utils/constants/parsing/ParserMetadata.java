@@ -8,6 +8,7 @@ import java.util.Set;
 import com.hallocasa.entities.EntityCity;
 import com.hallocasa.entities.EntityComposedExample;
 import com.hallocasa.entities.EntityCountry;
+import com.hallocasa.entities.EntityCountryTelephonePrefix;
 import com.hallocasa.entities.EntityExample;
 import com.hallocasa.entities.EntityFilterListingStep;
 import com.hallocasa.entities.EntityFilterShowingStep;
@@ -18,11 +19,11 @@ import com.hallocasa.entities.EntityHcFilterType;
 import com.hallocasa.entities.EntityState;
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.i.HallocasaEntity;
-import com.hallocasa.entities.properties.EntityProperty;
-import com.hallocasa.entities.properties.EntityPropertyField;
 import com.hallocasa.entities.properties.EntityDropdownOption;
 import com.hallocasa.entities.properties.EntityDropdownOptionGroup;
 import com.hallocasa.entities.properties.EntityLanguage;
+import com.hallocasa.entities.properties.EntityProperty;
+import com.hallocasa.entities.properties.EntityPropertyField;
 import com.hallocasa.entities.properties.EntityPropertyFieldType;
 import com.hallocasa.entities.properties.EntityPropertyFieldValueType;
 import com.hallocasa.entities.properties.EntityPropertyLocation;
@@ -35,6 +36,7 @@ import com.hallocasa.utils.constants.parsing.i.Parser;
 import com.hallocasa.vo.City;
 import com.hallocasa.vo.ComposedExample;
 import com.hallocasa.vo.Country;
+import com.hallocasa.vo.CountryTelephonePrefix;
 import com.hallocasa.vo.Example;
 import com.hallocasa.vo.Language;
 import com.hallocasa.vo.State;
@@ -96,6 +98,7 @@ public class ParserMetadata {
 		clazzEquivalenceMap.put(Language.class, EntityLanguage.class);
 		clazzEquivalenceMap.put(DropdownOption.class, EntityDropdownOption.class);
 		clazzEquivalenceMap.put(DropdownOptionGroup.class, EntityDropdownOptionGroup.class);
+		clazzEquivalenceMap.put(CountryTelephonePrefix.class, EntityCountryTelephonePrefix.class);
 	}
 
 	/**
@@ -104,6 +107,7 @@ public class ParserMetadata {
 	static {
 		parserMap.put(ComposedExample.class, new ComposedExampleParser());
 		parserMap.put(HcFilter.class, new HcFilterParser());
+		parserMap.put(HcFilterCondition.class, new HcFilterConditionParser());
 		parserMap.put(HcFilterType.class, new HcFilterTypeParser());
 		parserMap.put(Property.class, new PropertyParser());
 	}

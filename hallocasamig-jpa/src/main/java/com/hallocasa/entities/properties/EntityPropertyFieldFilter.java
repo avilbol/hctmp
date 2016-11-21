@@ -1,6 +1,5 @@
 package com.hallocasa.entities.properties;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -16,9 +15,6 @@ import com.hallocasa.entities.i.HallocasaEntity;
 public class EntityPropertyFieldFilter implements HallocasaEntity {
 
 	@Id
-	@Column(name = "id")
-	private Integer id;
-	
 	@JoinColumn(name = "filter_id", referencedColumnName = "id")
 	@OneToOne(fetch = FetchType.LAZY)
 	private EntityHcFilter filter;

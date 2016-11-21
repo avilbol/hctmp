@@ -13,10 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.entities.properties.EntityDropdownOptionGroup;
+import com.hallocasa.entities.properties.EntityPropertyFieldFilter;
 import com.hallocasa.persistence.converters.HcBooleanConverter;
 import com.hallocasa.persistence.converters.ShowChoiceConverter;
 import com.hallocasa.vo.hcfilter.ShowChoice;
@@ -27,18 +29,37 @@ import com.hallocasa.vo.hcfilter.ShowChoice;
 	@NamedQuery(name = EntityHcFilter.QUERY_FIND_BY_NATURE, 
 			query = "select f from EntityHcFilter f where f.filterNature.id IN ?1"),
 	@NamedQuery(name = EntityHcFilter.QUERY_FIND_ALL, 
-			query = "select f from EntityHcFilter f")})
+			query = "select f from EntityHcFilter f"),
+	@NamedQuery(name = EntityHcFilter.QUERY_FILTER_BY_FIELD_KEYS, 
+			query = "select fi from EntityHcFilter fi WHERE fi.id IN "
+					+"(select fi2.id FROM EntityHcFilter fi2 WHERE fi2.fieldFilter.propertyField.primaryKey = TRUE"
+					+ " OR fi2.fieldFilter.propertyField.id IN ?1)" 
+					+ " OR fi.usePropertyField = FALSE"),
+	@NamedQuery(name = EntityHcFilter.QUERY_FILTER_BASIC_VALUES, 
+			query = "select fi from EntityHcFilter fi WHERE fi.id IN "
+					+ "(select fi2.id FROM EntityHcFilter fi2 WHERE fi2.fieldFilter.propertyField.primaryKey = TRUE)"
+					+ " OR fi.usePropertyField = FALSE")})
 public class EntityHcFilter implements HallocasaEntity {
 
 	/**
 	 * Query to find all filters
 	 */
-	public static final String QUERY_FIND_ALL = "EntitySecurityToken.queryFindAll";
+	public static final String QUERY_FIND_ALL = "EntityHcFilter.queryFindAll";
 	
 	/**
 	 * Query to find all filters that matches with nature filter id list
 	 */
-	public static final String QUERY_FIND_BY_NATURE = "EntitySecurityToken.queryFindByNature";
+	public static final String QUERY_FIND_BY_NATURE = "EntityHcFilter.queryFindByNature";
+	
+	/**
+	 * Query to find all filters with the property fields specified
+	 */
+	public static final String QUERY_FILTER_BY_FIELD_KEYS = "EntityHcFilter.queryFindByFieldKeys";
+	
+	/**
+	 * Query to find all filters only loading the primary key and basic values
+	 */
+	public static final String QUERY_FILTER_BASIC_VALUES = "EntityHcFilter.queryFindBasicValues";
 	
 	@Id
 	@Column(name = "id")
@@ -49,6 +70,10 @@ public class EntityHcFilter implements HallocasaEntity {
 
 	@Column(name = "lang")
 	private String lang;
+	
+	@OneToOne(mappedBy = "filter", cascade = CascadeType.ALL, 
+			fetch = FetchType.EAGER, optional = true)
+	private EntityPropertyFieldFilter fieldFilter;
 	
 	@JoinColumn(name = "filter_type_id", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -70,6 +95,10 @@ public class EntityHcFilter implements HallocasaEntity {
 	@Column(name = "no_text")
 	private String noText;
 
+	@Convert(converter = HcBooleanConverter.class)
+	@Column(name = "use_property_field")
+	private Boolean usePropertyField;
+	
 	@Convert(converter = HcBooleanConverter.class)
 	@Column(name = "use_static_filter_options")
 	private Boolean useStaticFilterOptions;
@@ -258,5 +287,21 @@ public class EntityHcFilter implements HallocasaEntity {
 
 	public void setDropdownOptionGroup(EntityDropdownOptionGroup dropdownOptionGroup) {
 		this.dropdownOptionGroup = dropdownOptionGroup;
+	}
+
+	public EntityPropertyFieldFilter getFieldFilter() {
+		return fieldFilter;
+	}
+
+	public void setFieldFilter(EntityPropertyFieldFilter fieldFilter) {
+		this.fieldFilter = fieldFilter;
+	}
+
+	public Boolean getUsePropertyField() {
+		return usePropertyField;
+	}
+
+	public void setUsePropertyField(Boolean usePropertyField) {
+		this.usePropertyField = usePropertyField;
 	}
 }

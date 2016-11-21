@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.properties.EntityProperty;
-import com.hallocasa.vo.hcfilter.HcRequest;
+import com.hallocasa.vo.hcfilter.PropertyFilterRequest;
 
 public interface IDAOProperty {
 
@@ -30,7 +30,7 @@ public interface IDAOProperty {
 	 * @return
 	 * 		The properties that match the filters
 	 */
-	List<EntityProperty> findBasic(HcRequest request);
+	List<EntityProperty> findBasic(PropertyFilterRequest request);
 	
 	/**
 	 * Find the basic properties corresponding to specified user

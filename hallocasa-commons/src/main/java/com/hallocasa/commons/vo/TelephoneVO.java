@@ -29,7 +29,7 @@ public class TelephoneVO implements Serializable, ValueObject {
 	 * Country prefix 
 	 */
     @NotNull
-	private CountryTelephonePrefixVO countryTelephonePrefix;
+	private CountryTelephonePrefix countryTelephonePrefix;
 	
 	/**
 	 * Telephone number
@@ -44,11 +44,11 @@ public class TelephoneVO implements Serializable, ValueObject {
 		super();
 	}
 	
-	public CountryTelephonePrefixVO getCountryTelephonePrefix() {
+	public CountryTelephonePrefix getCountryTelephonePrefix() {
 		return countryTelephonePrefix;
 	}
 
-	public void setCountryTelephonePrefix(CountryTelephonePrefixVO countryTelephonePrefix) {
+	public void setCountryTelephonePrefix(CountryTelephonePrefix countryTelephonePrefix) {
 		this.countryTelephonePrefix = countryTelephonePrefix;
 	}
 

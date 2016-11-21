@@ -1,0 +1,10 @@
+use hallocasaapp;
+DELETE FROM `hallocasaapp`.`filter_showing_step` WHERE `filter_id`='10';
+INSERT INTO `hallocasaapp`.`filter_showing_step` (`filter_id`, `filter_condition_id`, `id`) VALUES ('28', '1', '4');
+INSERT INTO `hallocasaapp`.`filter_showing_step` (`filter_id`, `filter_condition_id`, `id`) VALUES ('29', '1', '5');
+INSERT INTO `hallocasaapp`.`filter_showing_step` (`filter_id`, `filter_condition_id`, `id`) VALUES ('30', '1', '6');
+INSERT INTO `hallocasaapp`.`filter_showing_step` (`filter_id`, `filter_condition_id`, `id`) VALUES ('31', '1', '7');
+INSERT INTO `hallocasaapp`.`filter_showing_step` (`filter_id`, `filter_condition_id`, `id`) VALUES ('32', '1', '8');
+INSERT INTO `hallocasaapp`.`filter_showing_step` (`filter_id`, `filter_condition_id`, `id`) VALUES ('33', '1', '9');
+INSERT INTO `hallocasaapp`.`filter_showing_step` (`filter_id`, `filter_condition_id`, `id`) VALUES ('34', '1', '10');
+DELETE FROM `hallocasaapp`.`filter_condition` WHERE `id`='3';

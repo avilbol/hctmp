@@ -13,7 +13,7 @@ public class ResourceUtils {
 
 	public static List<Integer> intList(UriInfo uriInfo, String value){
 		try{
-			List<String> strList = uriInfo.getQueryParameters().get("filter_nature_id");
+			List<String> strList = uriInfo.getQueryParameters().get(value);
 			List<Integer> intList = new LinkedList<Integer>();
 			if(strList != null){
 				for(String strItem : strList){

@@ -46,9 +46,8 @@ public class EntityHcFilterCondition implements HallocasaEntity {
 	@Column(name = "number")
 	private Boolean number;
 	
-	@Convert(converter=HcBooleanConverter.class)
 	@Column(name = "selected_number_any")
-	private Boolean selectedNumberAny;
+	private Integer selectedNumberAny;
 	
 	@Convert(converter=RangeOperandConverter.class)
 	@Column(name = "min_operand")
@@ -112,7 +111,7 @@ public class EntityHcFilterCondition implements HallocasaEntity {
 		return number;
 	}
 
-	public Boolean getSelectedNumberAny() {
+	public Integer getSelectedNumberAny() {
 		return selectedNumberAny;
 	}
 
@@ -168,11 +167,7 @@ public class EntityHcFilterCondition implements HallocasaEntity {
 		this.number = number;
 	}
 
-	public Boolean isSelectedNumberAny() {
-		return selectedNumberAny;
-	}
-
-	public void setSelectedNumberAny(Boolean selectedNumberAny) {
+	public void setSelectedNumberAny(Integer selectedNumberAny) {
 		this.selectedNumberAny = selectedNumberAny;
 	}
 

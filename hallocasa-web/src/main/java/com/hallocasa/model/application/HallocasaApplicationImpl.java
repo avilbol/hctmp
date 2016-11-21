@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import com.hallocasa.commons.Language;
 import com.hallocasa.commons.i18n.MultiLanguageText;
 import com.hallocasa.commons.vo.CityVO;
-import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
+import com.hallocasa.commons.vo.CountryTelephonePrefix;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.UserTypeVO;
@@ -92,7 +92,7 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 
 	private List<PropertyProposalVO> propertyProposals;
 
-	private List<CountryTelephonePrefixVO> countryTelephonePrefixList;
+	private List<CountryTelephonePrefix> countryTelephonePrefixList;
 
 	private Integer userIdInRecoveryProcess;
 
@@ -177,12 +177,12 @@ public class HallocasaApplicationImpl implements HallocasaApplication,
 		this.userTypes = userTypes;
 	}
 
-	public List<CountryTelephonePrefixVO> getCountryTelephonePrefixList() {
+	public List<CountryTelephonePrefix> getCountryTelephonePrefixList() {
 		return countryTelephonePrefixList;
 	}
 
 	public void setCountryTelephonePrefixList(
-			List<CountryTelephonePrefixVO> countryTelephonePrefixList) {
+			List<CountryTelephonePrefix> countryTelephonePrefixList) {
 		this.countryTelephonePrefixList = countryTelephonePrefixList;
 	}
 

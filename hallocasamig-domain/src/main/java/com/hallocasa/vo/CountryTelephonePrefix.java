@@ -1,8 +1,8 @@
-package com.hallocasa.commons.vo;
+package com.hallocasa.vo;
 
 import java.io.Serializable;
 
-import com.hallocasa.commons.vo.interfaces.ValueObject;
+import com.hallocasa.vo.i.ValueObject;
 
 /**
  * Value Object for telephone prefix (for countries)
@@ -10,7 +10,7 @@ import com.hallocasa.commons.vo.interfaces.ValueObject;
  * @author Alexander Villamil
  * @since 1.7
  */
-public class CountryTelephonePrefixVO  implements Serializable, ValueObject {
+public class CountryTelephonePrefix  implements Serializable, ValueObject {
 
 	/**
 	 * Serialization constant
@@ -18,7 +18,7 @@ public class CountryTelephonePrefixVO  implements Serializable, ValueObject {
 	private static final long serialVersionUID = -7420932080600290247L;
 	
 	/**
-	 * Instance variables 
+	 * identifier
 	 */
 	private Long id;
 	
@@ -32,16 +32,19 @@ public class CountryTelephonePrefixVO  implements Serializable, ValueObject {
 	 */
 	private String name;
 	
-	public CountryTelephonePrefixVO() {
+	/**
+	 * Lang
+	 */
+	private String lang;
+	
+	public CountryTelephonePrefix() {
 		super();
 	}
 	
-	public CountryTelephonePrefixVO(Long id) {
+	public CountryTelephonePrefix(Long id) {
 		super();
 		this.id = id;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -65,5 +68,13 @@ public class CountryTelephonePrefixVO  implements Serializable, ValueObject {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getLang() {
+		return lang;
+	}
+
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 }

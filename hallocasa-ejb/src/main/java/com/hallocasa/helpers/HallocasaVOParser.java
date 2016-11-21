@@ -9,7 +9,7 @@ import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.beanutils.converters.LongConverter;
 
 import com.hallocasa.commons.vo.CityVO;
-import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
+import com.hallocasa.commons.vo.CountryTelephonePrefix;
 import com.hallocasa.commons.vo.CountryVO;
 import com.hallocasa.commons.vo.CurrencyVO;
 import com.hallocasa.commons.vo.StateVO;
@@ -51,7 +51,7 @@ public class HallocasaVOParser<T extends HallocasaEntity, U extends ValueObject>
 		registerConverter(City.class, CityVO.class, CityVOParser.class);
 		registerConverter(Telephone.class, TelephoneVO.class, StandardVOParser.class);
 		registerConverter(CountryTelephonePrefix.class, 
-				CountryTelephonePrefixVO.class, StandardVOParser.class);
+				CountryTelephonePrefix.class, StandardVOParser.class);
 		registerConverter(PropertyType.class, 
 				PropertyTypeVO.class, PropertyTypeVOParser.class);
 		registerConverter(PropertyProposal.class, 

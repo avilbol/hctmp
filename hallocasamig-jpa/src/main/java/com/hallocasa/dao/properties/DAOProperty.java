@@ -11,7 +11,7 @@ import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.jpaservices.i.AppPersistenceServices;
-import com.hallocasa.vo.hcfilter.HcRequest;
+import com.hallocasa.vo.hcfilter.PropertyFilterRequest;
 
 /**
  * DAO for class {@link EntityProperty}
@@ -35,7 +35,7 @@ public class DAOProperty implements IDAOProperty {
 	}
 
 	@Override
-	public List<EntityProperty> findBasic(HcRequest request) {
+	public List<EntityProperty> findBasic(PropertyFilterRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}

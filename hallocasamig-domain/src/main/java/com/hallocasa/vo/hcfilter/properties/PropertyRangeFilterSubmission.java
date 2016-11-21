@@ -1,30 +1,31 @@
-package com.hallocasa.vo.hcfilter;
+package com.hallocasa.vo.hcfilter.properties;
 
 import java.io.Serializable;
 import java.util.Date;
 
 import com.hallocasa.vo.i.ValueObject;
 
-public class RangeFilterSubmission extends HcFilterSubmission implements ValueObject, Serializable{
+public class PropertyRangeFilterSubmission extends PropertyFilterSubmission implements ValueObject, Serializable{
 	
 	private static final long serialVersionUID = -7095382938286489377L;
 
-	private double minValue;
-	private double maxValue;
+	private Double minValue;
+	private Double maxValue;
 	
 	private Date minDateValue;
 	private Date maxDateValue;
 	
-	public double getMinValue() {
+	
+	public Double getMinValue() {
 		return minValue;
 	}
-	public void setMinValue(double minValue) {
+	public void setMinValue(Double minValue) {
 		this.minValue = minValue;
 	}
-	public double getMaxValue() {
+	public Double getMaxValue() {
 		return maxValue;
 	}
-	public void setMaxValue(double maxValue) {
+	public void setMaxValue(Double maxValue) {
 		this.maxValue = maxValue;
 	}
 	public Date getMinDateValue() {
