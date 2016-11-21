@@ -24,12 +24,31 @@
         <md-button>
           {{'BuyProcessPage.Menu.Label.Content' | translate}}
         </md-button>
-        <md-button ng-click="MainCtrl.launchLoginDialog($event)">
+        <md-button ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!vm.isAuthenticated()">
           {{'Header.Login.Button' | translate}}
         </md-button>
-        <md-button class="md-primary white-border-button" ng-click="MainCtrl.launchRegisterDialog($event)">
+        <md-button class="md-primary white-border-button" ng-click="MainCtrl.launchRegisterDialog($event)" ng-if="!vm.isAuthenticated()">
           {{'Header.SignUp.Button' | translate}}
         </md-button>
+
+        <md-menu ng-if="vm.isAuthenticated()">
+          <md-button ng-click='$mdOpenMenu($event)'>
+            <i class='material-icons'>account_circle</i> <div>Usuario</div>
+          </md-button>
+          <md-menu-content>
+            <md-menu-item>
+              <md-button ng-click="MainCtrl.goTo('/profile/my-profile', false)">
+                {{'GlobalMenu.GoToProfile' | translate}}
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="MainCtrl.logout()">
+                {{'Header.Logout.Button' | translate}}
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
         <div ng-translate-language-select></div>
         <div currency-select></div>
       </div>
@@ -62,18 +81,37 @@
         <md-list-item md-ink-ripple>
           <p> {{'BuyProcessPage.Menu.Label.Content' | translate}}</p>
         </md-list-item>
-        <md-list-item md-ink-ripple ng-click="MainCtrl.launchLoginDialog($event)">
-          <p> {{'ForgotPassword.recovery.goLogin' | translate}}</p>
+        <md-list-item md-ink-ripple ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!vm.isAuthenticated()">
+          <p> {{'Header.Login.Button' | translate}}</p>
         </md-list-item>
         <md-list-item>
-          <md-button flex class="md-raised" >
+          <md-button flex class="md-raised" ng-if="!vm.isAuthenticated()">
             {{'Header.SignUp.Button' | translate}}
           </md-button>
         </md-list-item>
-        <md-list-item layout="row" layout-align="center center" ng-translate-language-select>
-        </md-list-item>
-        <md-list-item layout="row" layout-align="center center" currency-select>
-        </md-list-item>
+        <div layout="row" layout-align="center center" ng-if="vm.isAuthenticated()">
+          <md-menu>
+            <md-button ng-click='$mdOpenMenu($event)'>
+              <i class='material-icons'>account_circle</i> <div>Usuario</div>
+            </md-button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="MainCtrl.goTo('/profile/my-profile', true)">
+                  {{'GlobalMenu.GoToProfile' | translate}}
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="MainCtrl.logout()">
+                  {{'Header.Logout.Button' | translate}}
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+          <md-list-item ng-translate-language-select>
+          </md-list-item>
+          <md-list-item currency-select>
+          </md-list-item>
+        </div>
       </md-list>
     </md-content>
   </md-sidenav>

@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location) {
+  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
@@ -14,6 +14,8 @@
     //Menu elements handlers
     vm.launchLoginDialog = launchLoginDialog;
     vm.launchRegisterDialog = launchRegisterDialog;
+    vm.isAuthenticated = isAuthenticated;
+    vm.logout = SessionService.logout;
     vm.goTo = goTo;
 
     $scope.$watch(function() { return $mdMedia('sm') || $mdMedia('xs'); }, function(small) {
@@ -23,6 +25,10 @@
     function toggleMenu() {
       $mdSidenav('left').toggle();
     }
+
+    function isAuthenticated() {
+      return $auth.isAuthenticated();
+    };
 
     function launchLoginDialog(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
