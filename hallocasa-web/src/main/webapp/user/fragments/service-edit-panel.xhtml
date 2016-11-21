@@ -152,7 +152,7 @@
 										layout="responsive" required="true"
 										converter="languageConverter" columns="3">
 										<f:selectItems value="#{profileEditPage.languages}"
-											var="language" itemLabel="#{language.languageName}"
+											var="language" itemLabel="#{viewBundle['Language.' += language.toString()]}"
 											itemValue="#{language}">
 										</f:selectItems>
 										<f:ajax
@@ -184,7 +184,7 @@
 								label="#{viewBundle['Profile.Data.Languages.MainLanguage.Label']}"
 								converter="languageConverter">
 								<f:selectItems value="#{profileEditPage.user.spokenLanguages}"
-									var="language" itemLabel="#{language.languageName}"
+									var="language" itemLabel="#{viewBundle['Language.' += language.toString()]}"
 									itemValue="#{language}" />
 							</h:selectOneMenu>
 						</span>
@@ -198,13 +198,13 @@
 							var="lang">
 							<div class="col-md-12">
 								<b> <h:outputLabel styleClass="hc-form-label" for="#{lang}"
-										value="#{viewBundle['Profile.Data.Description.Label']} ( #{lang.languageName} )">
+										value="#{viewBundle['Profile.Data.Description.Label']} ( #{viewBundle['Language.' += lang.toString()]} )">
 									</h:outputLabel>
 								</b>
 							</div>
 							<div class="col-md-12">
 								<span> <p:inputTextarea rows="10" id="#{lang}" cols="30"
-										label="#{viewBundle['Profile.Data.Description.Label']} ( #{lang.languageName} )"
+										label="#{viewBundle['Profile.Data.Description.Label']} ( #{viewBundle['Language.' += lang.toString()]} )"
 										value="#{profileEditPage.user.userDescription.langMap[lang]}"
 										maxlength="800" styleClass="hc-input-text-area"
 										counterTemplate="{0} characters remaining." autoResize="false">

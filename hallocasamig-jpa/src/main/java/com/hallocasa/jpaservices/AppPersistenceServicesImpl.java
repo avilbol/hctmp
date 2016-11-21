@@ -134,6 +134,15 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         return entity;
     }
 
+    @Override
+    public <T> void mergeEntityList(List<T> entityList){
+		for (T entity : entityList) {
+			em.merge(entity);
+			em.flush();
+			em.clear();
+		}
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -305,6 +314,13 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         return query.getResultList();
     }
 
+    @Override
+    public <T> List<T> executeQuery(String jpqlQuery, Object[] params,
+            Class<T> expectedClass) {
+        return executeQuery(jpqlQuery, params, expectedClass, null, null);
+    }
+
+    
     /*
      * (non-Javadoc)
      * 

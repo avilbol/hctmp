@@ -3,6 +3,7 @@ package com.hallocasa.dataentities.app.properties;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -38,7 +39,7 @@ public class PropertyFieldValue {
 
 	@MapsId("propertyId")
 	@JoinColumn(name = "property_id", referencedColumnName = "property_id")
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	private Property property;
 
 	@Column(name = "property_value")

@@ -8,7 +8,6 @@ public class City implements ValueObject, Serializable {
 
 	private Integer id;
 	private String name;
-	private State state;
 	private Double defaultLatCoordinate;
 	private Double defaultLngCoordinate;
 	
@@ -28,14 +27,6 @@ public class City implements ValueObject, Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
 	}
 
 	public Double getDefaultLatCoordinate() {

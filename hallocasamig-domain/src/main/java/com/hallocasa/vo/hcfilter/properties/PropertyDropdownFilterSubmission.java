@@ -1,19 +1,20 @@
 package com.hallocasa.vo.hcfilter.properties;
 
-import com.hallocasa.vo.hcfilter.DropdownFilterSubmission;
-import com.hallocasa.vo.i.ValueObject;
-import com.hallocasa.vo.properties.PropertyField;
+import java.util.List;
 
-public class PropertyDropdownFilterSubmission extends DropdownFilterSubmission implements ValueObject {
+import com.hallocasa.vo.options.DropdownOption;
 
-	private static final long serialVersionUID = 3988678965646453756L;
-	private PropertyField propertyField;
+public class PropertyDropdownFilterSubmission extends PropertyFilterSubmission {
 
-	public PropertyField getPropertyField() {
-		return propertyField;
+	private static final long serialVersionUID = -392574647713969135L;
+
+	private List<DropdownOption> selectedFilterOptions;
+
+	public List<DropdownOption> getSelectedFilterOptions() {
+		return selectedFilterOptions;
 	}
 
-	public void setPropertyField(PropertyField propertyField) {
-		this.propertyField = propertyField;
+	public void setSelectedFilterOptions(List<DropdownOption> selectedFilterOptions) {
+		this.selectedFilterOptions = selectedFilterOptions;
 	}
 }

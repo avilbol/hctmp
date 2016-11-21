@@ -3,6 +3,8 @@ package com.hallocasa.commons.imagemanager;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 
@@ -36,7 +38,8 @@ public class UserProfileImageManager extends ImageManager {
 		String mimeType = ApplicationFileUtils.getMimeType(sourceFile);
 		String ext = mimeType.equals("image/png") ? "png" : "jpg";
 		String userNumber = params[UserProfileImageManagerParam.USER_ID.ordinal()];
-		return "/user" + userNumber + "." + ext;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmmss");
+		return "/user" + userNumber + sdf.format(new Date()) + "." + ext;
 	}
 
 	@Override

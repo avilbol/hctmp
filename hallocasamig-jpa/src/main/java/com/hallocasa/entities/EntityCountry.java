@@ -3,6 +3,8 @@ package com.hallocasa.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
@@ -13,8 +15,13 @@ import com.hallocasa.entities.i.HallocasaEntity;
  */
 @Entity
 @Table(name = "country")
+@NamedQueries({
+	@NamedQuery(name = EntityCountry.QUERY_FIND_ALL, 
+			query = "select c from EntityCountry c") })
 public class EntityCountry implements HallocasaEntity {
 
+	public static final String QUERY_FIND_ALL = "EntityCountry.findAll";
+	
 	/**
 	 * Country identifier
 	 */

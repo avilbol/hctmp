@@ -10,7 +10,6 @@ import javax.ws.rs.core.Response;
 import org.apache.http.HttpStatus;
 
 import com.hallocasa.rs.security.Auth;
-import com.hallocasa.rs.security.Secured;
 import com.hallocasa.services.generalities.LanguageService;
 
 import io.swagger.annotations.Api;

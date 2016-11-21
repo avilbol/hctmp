@@ -50,14 +50,14 @@ public class UserVO implements ValueObject {
     private TelephoneVO telephone;
 
     @NotEmpty
-    @Size(min = 0, max = 45)
+    @Size(min = 2, max = 45)
     @NotNull
     @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
             + ValidationMessages.GENERAL_NAME_PATTERN + "}")
     private String firstName;
 
     @NotEmpty
-    @Size(min = 0, max = 45)
+    @Size(min = 2, max = 45)
     @NotNull
     @Pattern(regexp = ValidationPatterns.GENERAL_NAME, message = "{"
             + ValidationMessages.GENERAL_NAME_PATTERN + "}")

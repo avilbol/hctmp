@@ -23,6 +23,11 @@
         			PF('signup-dialog').hide();
         		}
         	}
+        	$(function(){
+        		$("a.ui-dialog-titlebar-close").on("click", function(){
+        			$("a.ui-icon-closethick").click();
+        		});
+        	});
         </h:outputScript>
 		<h:form id="signup-form" styleClass="hc-form">
 			<div class="-container">
@@ -69,18 +74,18 @@
 						oncomplete="processSignUpFinished(args, #{globalMenuBean.interactWithApp});"/>
 				</div>
 				<div class="col-md-12 terms-conditions">
-				<div class="col-md-12 btn-open">
-					<a class="show">
-						<h4>#{viewBundle['SignUp.Form.TermsAndConditions']}</h4>
-					</a>
-				</div>
-				<div class="col-md-12 btn-close"> 
-					<a class="closed-tc ui-icon ui-icon-closethick">#{viewBundle['SignUp.Form.Close']}</a>
-				</div>
-				<div class="col-md-12 hidden-btn">
-					<h:outputText escape="false" value="#{viewTermsBundle['signup']}"
-						styleClass="hc-form-field" />
-				</div>
+					<div class="col-md-12 btn-open">
+						<a class="show">
+							<h4>#{viewBundle['SignUp.Form.TermsAndConditions']}</h4>
+						</a>
+					</div>
+					<div class="col-md-12 btn-close"> 
+						<a class="closed-tc ui-icon ui-icon-closethick">#{viewBundle['SignUp.Form.Close']}</a>
+					</div>
+					<div class="col-md-12 hidden-btn">
+						<h:outputText escape="false" value="#{viewTermsBundle['signup']}"
+							styleClass="hc-form-field" />
+					</div>
 				</div>
 			</div>
 		</h:form>

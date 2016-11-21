@@ -39,7 +39,7 @@
 				<span id="imageUrl"> <utils:imageEditor
 						imageUrl="#{cc.imageInEdition}" imageType="#{cc.attrs.imageType}"
 						postUploadAction="#{cc.onImageUploaded}" showImage="#{false}"
-						update="#{cc.attrs.update}" />
+						update="#{cc.attrs.update}" id="abcdef" />
 				</span>
 			</div>
 			<div class="row">
@@ -51,10 +51,10 @@
 								<span class="hc-close ui-icon-closethick"
 									onclick="deleteImage(#{vstatus.index})"></span>
 								<h:graphicImage value="#{imageItem.url}"
-									styleClass="pic-image hc-image-properties">
+									styleClass="pic-image hc-image-properties center-block">
 								</h:graphicImage>
 								<span class="pic-caption top-to-bottom">
-									<h1 class="pic-title">#{vstatus.index}</h1>
+									<!-- <h1 class="pic-title">#{vstatus.index}</h1>-->
 									<p>
 										<span class="hc-form-label">#{viewBundle['Properties.multi.image.Editor']}</span>
 									</p>

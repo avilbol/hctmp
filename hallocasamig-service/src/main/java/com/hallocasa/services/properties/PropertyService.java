@@ -3,7 +3,7 @@ package com.hallocasa.services.properties;
 import java.util.List;
 import java.util.Optional;
 
-import com.hallocasa.vo.hcfilter.HcRequest;
+import com.hallocasa.vo.hcfilter.PropertyFilterRequest;
 import com.hallocasa.vo.hcfilter.properties.Property;
 
 /**
@@ -28,13 +28,15 @@ public interface PropertyService {
 	List<Property> findBasic();
 	
 	/**
-	 * Find the basic properties with the specified filters
+	 * Find the properties with the specified filters
 	 * @param request
 	 * 		The request with filters to apply
+	 * @param fullDetail
+	 * 		Return the whole attributes for each property when true
 	 * @return
 	 * 		The properties that match the filters
 	 */
-	List<Property> findBasic(HcRequest request);
+	List<Property> find(PropertyFilterRequest request, boolean fullDetail);
 	
 	/**
 	 * Find a detailed property by its id

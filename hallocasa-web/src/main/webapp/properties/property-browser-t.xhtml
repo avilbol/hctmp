@@ -1,0 +1,398 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:utils="http://java.sun.com/jsf/composite/components/utils"
+	template="../commons/templates/general-layout.xhtml">
+
+	<ui:param name="header_showSubMenu" value="#{false}"></ui:param>
+
+	<ui:define name="jsSection">
+		<script type="text/javascript">
+			jQuery(document)
+					.ready(
+							function() {
+								$("strong[id^='title-content-id']")
+										.each(
+												function(i) {
+													var obj = $("[id^='title-content-id']:eq("
+															+ i + ")");
+													var propertyContent = obj[0];
+													var title = propertyContent.textContent;
+													var titleClear = jQuery
+															.trim(title);
+													var comp = titleClear.length > 60 ? "..."
+															: "";
+													var shortText = titleClear
+															.substring(0, 60)
+															.split(" ").slice()
+															.join(" ")
+															+ comp;
+													propertyContent.textContent = shortText;
+												});
+
+								$("div[id^='description-content-id']")
+										.each(
+												function(i) {
+													var obj = $("[id^='description-content-id']:eq("
+															+ i + ")");
+													var propertyContent = obj[0];
+													var title = propertyContent.textContent;
+													var titleClear = jQuery
+															.trim(title);
+													var comp = titleClear.length > 160 ? "..."
+															: "";
+													var shortText = titleClear
+															.substring(0, 160)
+															.split(" ").slice()
+															.join(" ")
+															+ comp;
+													propertyContent.textContent = shortText;
+												});
+							});
+		</script>
+	</ui:define>
+	<p:growl globalOnly="false" showDetail="false" />
+
+	<ui:define name="contentSection">
+		<script>
+			function format(input) {
+				var inputVal = parseInt(input.value.replace(/\./g, ''));
+			    var numericVal = (isNaN(inputVal) ? "" : inputVal).toString();
+			    var cnt = 0;
+			    for(var i = numericVal.length - 1; i >= 0 ; i--){
+			      cnt++;
+			      if(cnt%3 == 0 &amp;&amp; i > 0)
+			        numericVal = numericVal.substring(0, i)+ "." + numericVal.substring(i);
+			    }
+			    input.value = numericVal;
+			}
+		</script>
+		<h:panelGroup id="container-property-element">
+			<div class="hc-content-body-properties">
+				<div class="row hc-contents-cards">
+					<h:form styleClass="hc-form" enctype="multipart/form-data">
+						<p:messages id="messages" showDetail="false" autoUpdate="true"
+							closable="true" />
+						<div class="col-md-12 hc-content-filters"></div>
+						<div class="container">
+							<div class="col-md-2 filters-properties">
+								<h4>
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.languajes']} </span>
+								</h4>
+								<h:commandButton
+									value="#{viewBundle['Properties.browser.button']}"
+									styleClass="btn btn-primary hc-primary"
+									action="#{propertyBrowsePage.activateFilter('LANGUAGES')}"
+									rendered="#{not propertyBrowsePage.isFilterActive('LANGUAGES')}">
+									<f:ajax render="@form" update="@form" />
+								</h:commandButton>
+								<ui:fragment
+									rendered="#{propertyBrowsePage.isFilterActive('LANGUAGES')}">
+									<h:commandButton
+										value="#{viewBundle['Properties.browser.button.quit']}"
+										styleClass="btn btn-primary hc-primary"
+										action="#{propertyBrowsePage.deactivateFilter('LANGUAGES')}">
+										<f:ajax render="@form" update="@form" />
+									</h:commandButton>
+									<p:selectManyMenu id="languages" styleClass="filter-container"
+										value="#{propertyBrowsePage.selectedLanguages}"
+										converter="languageConverter" var="language" filter="true"
+										filterMatchMode="contains" showCheckbox="true">
+										<f:selectItems value="#{propertyBrowsePage.languageList}"
+											var="language" itemLabel="#{viewBundle['Language.' += language.toString()]}"
+											itemValue="#{language}" />
+										<p:column>
+											<h:outputText value="#{viewBundle['Language.' += language.toString()]}" />
+										</p:column>
+										<f:ajax render="@form"
+											listener="#{propertyBrowsePage.reloadProperties}"
+											update="@form" />
+									</p:selectManyMenu>
+								</ui:fragment>
+
+								<h4>
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.state']} </span>
+								</h4>
+								<h:commandButton
+									value="#{viewBundle['Properties.browser.button']}"
+									styleClass="btn btn-primary hc-primary"
+									action="#{propertyBrowsePage.activateFilter('STATE')}"
+									rendered="#{not propertyBrowsePage.isFilterActive('STATE')}">
+									<f:ajax render="@form" update="@form" />
+								</h:commandButton>
+								<ui:fragment
+									rendered="#{propertyBrowsePage.isFilterActive('STATE')}">
+									<h:commandButton
+										value="#{viewBundle['Properties.browser.button.quit']}"
+										styleClass="btn btn-primary hc-primary"
+										action="#{propertyBrowsePage.deactivateFilter('STATE')}">
+										<f:ajax render="@form" update="@form" />
+									</h:commandButton>
+									<p:selectManyMenu id="states" styleClass="filter-container"
+										value="#{propertyBrowsePage.selectedStates}"
+										converter="stateConverter" var="state" filter="true"
+										filterMatchMode="contains" showCheckbox="true">
+										<f:selectItems value="#{propertyBrowsePage.states}"
+											var="state"
+											itemLabel="#{propertyBrowsePage.getName(state.stateName)}"
+											itemValue="#{state}" />
+										<p:column>
+											<h:outputText
+												value="#{propertyBrowsePage.getName(state.stateName)}" />
+										</p:column>
+										<f:ajax render="@form"
+											listener="#{propertyBrowsePage.processStateSelect}"
+											update="@form" />
+									</p:selectManyMenu>
+								</ui:fragment>
+								<ui:fragment rendered="#{not empty propertyBrowsePage.selectedStates}">
+									<h4>
+										<span class="hc-form-label">
+											#{viewBundle['Properties.browser.city']} </span>
+									</h4>
+									<h:commandButton
+										value="#{viewBundle['Properties.browser.button']}"
+										styleClass="btn btn-primary hc-primary"
+										action="#{propertyBrowsePage.activateFilter('CITY')}"
+										rendered="#{not propertyBrowsePage.isFilterActive('CITY')}">
+										<f:ajax render="@form" update="@form" />
+									</h:commandButton>
+									<ui:fragment
+										rendered="#{propertyBrowsePage.isFilterActive('CITY')}">
+										<h:commandButton
+											value="#{viewBundle['Properties.browser.button.quit']}"
+											styleClass="btn btn-primary hc-primary"
+											action="#{propertyBrowsePage.deactivateFilter('CITY')}">
+											<f:ajax render="@form" update="@form" />
+										</h:commandButton>
+										<p:selectManyMenu id="cities" styleClass="filter-container"
+											value="#{propertyBrowsePage.selectedCities}"
+											converter="cityConverter" var="city" filter="true"
+											filterMatchMode="contains" showCheckbox="true">
+											<f:selectItems value="#{propertyBrowsePage.cities}"
+												var="city"
+												itemLabel="#{propertyBrowsePage.getName(city.cityName)}"
+												itemValue="#{city}" />
+											<p:column>
+												<h:outputText
+													value="#{propertyBrowsePage.getName(city.cityName)}" />
+											</p:column>
+											<f:ajax render="@form"
+												listener="#{propertyBrowsePage.reloadProperties}"
+												update="@form" />
+										</p:selectManyMenu>
+									</ui:fragment>
+								</ui:fragment>
+								<h4>
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.propertyType']} </span>
+								</h4>
+								<h:commandButton
+									value="#{viewBundle['Properties.browser.button']}"
+									styleClass="btn btn-primary hc-primary"
+									action="#{propertyBrowsePage.setPropertyTypeFilterState(true)}"
+									rendered="#{not propertyBrowsePage.propertyTypeFilterState}">
+									<f:ajax render="@form" update="@form" />
+								</h:commandButton>
+
+								<ui:fragment
+									rendered="#{propertyBrowsePage.propertyTypeFilterState}">
+									<h:commandButton
+										value="#{viewBundle['Properties.browser.button.quit']}"
+										styleClass="btn btn-primary hc-primary"
+										action="#{propertyBrowsePage.cleanPropertyTypeFilter()}">
+										<f:ajax render="@form" update="@form" />
+									</h:commandButton>
+									<p:selectManyMenu id="property_types"
+										styleClass="filter-container"
+										value="#{propertyBrowsePage.selectedPropertyTypes}"
+										converter="propertyTypeConverter" var="ptype" filter="true"
+										filterMatchMode="contains" showCheckbox="true">
+										<f:selectItems value="#{propertyBrowsePage.propertyTypes}"
+											var="ptype"
+											itemLabel="#{propertyBrowsePage.getName(ptype.name)}"
+											itemValue="#{ptype}" />
+										<p:column>
+											<h:outputText
+												value="#{propertyBrowsePage.getName(ptype.name)}" />
+										</p:column>
+										<f:ajax render="@form"
+											listener="#{propertyBrowsePage.reloadProperties}"
+											update="@form" />
+									</p:selectManyMenu>
+								</ui:fragment>
+
+								<h4>
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.price']} </span>
+								</h4>
+								<h:commandButton
+									value="#{viewBundle['Properties.browser.button']}"
+									styleClass="btn btn-primary hc-primary"
+									action="#{propertyBrowsePage.activateFilter('MARKET_PRICE')}"
+									rendered="#{not propertyBrowsePage.isFilterActive('MARKET_PRICE')}">
+									<f:ajax execute="@form" render="@form" />
+								</h:commandButton>
+								<ui:fragment
+									rendered="#{propertyBrowsePage.isFilterActive('MARKET_PRICE')}">
+									<h:commandButton
+										value="#{viewBundle['Properties.browser.button.quit']}"
+										styleClass="btn btn-primary hc-primary"
+										action="#{propertyBrowsePage.deactivateFilter('MARKET_PRICE')}">
+										<f:ajax execute="@form" render="@form" />
+									</h:commandButton>
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.since']} :</span>
+									<h:inputText styleClass="currency" onkeyup="format(this)"
+										value="#{propertyBrowsePage.getSchemeFilter('MARKET_PRICE').valueFrom}">
+										<f:convertNumber groupingUsed="false" locale="es_PE" />
+									</h:inputText>
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.until']} :</span>
+									<h:inputText styleClass="currency" onkeyup="format(this)"
+										value="#{propertyBrowsePage.getSchemeFilter('MARKET_PRICE').valueTo}">
+										<f:convertNumber groupingUsed="false" locale="es_PE" />
+									</h:inputText>
+									<br></br>
+									<h:outputScript>
+										$("input[type='text'].currency ").each(function(i){
+											var obj = $("input[type='text'].currency:eq(" + i + ")");
+											if(obj.val() != null)
+												format(obj[0]);
+										});
+									</h:outputScript>
+									<h:commandButton
+										value="#{viewBundle['Properties.browser.button.search']}"
+										styleClass="btn btn-primary hc-primary-search"
+										action="#{propertyBrowsePage.reloadProperties}">
+										<f:ajax execute="@form" render="@form" />
+									</h:commandButton>
+								</ui:fragment>
+								<h4>
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.area']} </span>
+								</h4>
+								<h:commandButton
+									value="#{viewBundle['Properties.browser.button']}"
+									styleClass="btn btn-primary hc-primary"
+									action="#{propertyBrowsePage.activateFilter('AREA')}"
+									rendered="#{not propertyBrowsePage.isFilterActive('AREA')}">
+									<f:ajax execute="@form" render="@form" />
+								</h:commandButton>
+								<ui:fragment
+									rendered="#{propertyBrowsePage.isFilterActive('AREA')}">
+									<h:commandButton
+										value="#{viewBundle['Properties.browser.button.quit']}"
+										styleClass="btn btn-primary hc-primary"
+										action="#{propertyBrowsePage.deactivateFilter('AREA')}">
+										<f:ajax execute="@form" render="@form" />
+									</h:commandButton>
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.since']} :</span>
+									<h:inputText styleClass="currency"
+										value="#{propertyBrowsePage.getSchemeFilter('AREA').valueFrom}">
+										<f:convertNumber maxFractionDigits="0" />
+									</h:inputText>
+									<span class="hc-form-label">
+										#{viewBundle['Properties.browser.until']} :</span>
+									<h:inputText styleClass="currency"
+										value="#{propertyBrowsePage.getSchemeFilter('AREA').valueTo}">
+										<f:convertNumber maxFractionDigits="0" />
+									</h:inputText>
+									<h:commandButton
+										value="#{viewBundle['Properties.browser.button.search']}"
+										styleClass="btn btn-primary hc-primary-search"
+										action="#{propertyBrowsePage.reloadProperties}">
+										<f:ajax execute="@form" render="@form" />
+									</h:commandButton>
+									<br></br>
+								</ui:fragment>
+							</div>
+							<div class="col-md-offset-1 col-md-8 list-card-porperties">
+								<ui:fragment
+									rendered="#{propertyBrowsePage.propertyList.isEmpty()}">
+									<div class="row" style="text-align: center;">
+										<span class="hc-form-label hc-without-properties alert-info">
+											#{viewBundle['Properties.none.property']} </span>
+									</div>
+								</ui:fragment>
+								<ui:repeat var="property"
+									value="#{propertyBrowsePage.propertyList}">
+									<div class="row hc-contents-cards-list">
+										<div class="col-md-12 hc-cards-list">
+											<div class="col-md-4 hc-content-card-image">
+												<div class="col-md-12 hc-responsive-div-properties img-profile-home">
+													<h:graphicImage
+														url="#{property.propertyImageInfo.mainImage.url}"
+														rendered="#{property.propertyImageInfo.mainImage != null}"
+														styleClass="img-responsive center-block" />
+													<h:graphicImage
+														url="#{propertyPresentationPage.defaultImageUrl}"
+														rendered="#{property.propertyImageInfo.mainImage == null}"
+														styleClass="img-responsive center-block" />
+												</div>
+												<div class="col-md-12 hc-cards-city">
+													<label class="control-form hc-properties-city">
+														#{propertyPresentationPage.getCityName(property.propertyLocationInfo.city.id)}
+													</label>
+												</div>
+											</div>
+											<div class="col-md-8 hc-cards-propertie-title">
+												<strong id="title-content-id-#{property.id}">#{propertyPresentationPage.titleValue(property)}</strong>
+											</div>
+											<div class="col-md-3">
+												<div class="col-md-12">
+													<div class="col-md-12">
+														<label class="col-md-6 hc-properties-features">
+															#{propertyPresentationPage.langValue(property.propertyType.name)}
+														</label> 
+														<ui:remove>
+														<label class="col-md-6 hc-properties-features">
+															#{propertyPresentationPage.langValue(property.propertyProposal.name)}
+														</label>
+														</ui:remove>
+													</div>
+
+													<div class="col-md-12">
+														<label class="col-md-12 hc-properties-features"
+															style="font-weight: 600;">
+															#{propertyPresentationPage.currencyValue(property.propertyBasicInfo.marketPrice)}
+														</label> <label class="col-md-12 hc-properties-features">
+															#{propertyPresentationPage.squareMetersValue(property.propertyBasicInfo.area)}
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6 col-md-offset-4 hc-cards-list"
+												id="description-content-id-#{property.id}">
+												#{propertyPresentationPage.propertyDescriptionValue(property)}</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-8"></div>
+											<div class="col-md-4">
+												<p:commandButton
+													value="#{viewBundle['Properties.view.label']}"
+													styleClass="btn btn-primary"
+													action="#{propertyBrowsePage.goToViewProperty(property)}">
+													<f:ajax execute="@this"
+														render=":hc-profile-form:container-property-element" />
+												</p:commandButton>
+											</div>
+										</div>
+									</div>
+								</ui:repeat>
+							</div>
+						</div>
+						<div class="col-md-12 hc-content-filters"></div>
+					</h:form>
+				</div>
+			</div>
+		</h:panelGroup>
+	</ui:define>
+</ui:composition>

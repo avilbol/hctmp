@@ -3,26 +3,28 @@ package com.hallocasa.vo.hcfilter;
 import java.io.Serializable;
 import java.util.List;
 
+import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
+
 /**
  * Hallocasa request, value object to obtain data
  * @author Alexander Villamil 
  * *
  */
-public class HcRequest implements Serializable {
+public class PropertyFilterRequest implements Serializable {
 
 	private static final long serialVersionUID = -6665149200769287476L;
 
-	private List<HcFilterSubmission> filterList;
+	private List<PropertyFilterSubmission> filterList;
 	
 	private Integer pageFrom;
 	
 	private Integer pageTo;
 
-	public List<HcFilterSubmission> getFilterList() {
+	public List<PropertyFilterSubmission> getFilterList() {
 		return filterList;
 	}
 
-	public void setFilterList(List<HcFilterSubmission> filterList) {
+	public void setFilterList(List<PropertyFilterSubmission> filterList) {
 		this.filterList = filterList;
 	}
 

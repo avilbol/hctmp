@@ -6,32 +6,41 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
 
 @Entity
 @Table(name = "city")
+@NamedQueries({
+		@NamedQuery(name = EntityCity.QUERY_FIND_BY_STATE_ID, query = "select c from EntityCity c where c.state.id = ?1"),
+		@NamedQuery(name = EntityCity.QUERY_FIND_BY_STATES_ID, query = "select c from EntityCity c where c.state.id IN ?1") })
 public class EntityCity implements HallocasaEntity {
+
+	public static final String QUERY_FIND_BY_STATE_ID = "EntityCity.findByStateId";
+
+	public static final String QUERY_FIND_BY_STATES_ID = "EntityCity.findByStatesId";
 
 	/**
 	 * City identifier
 	 */
 	@Id
-	@Column(name="id")
+	@Column(name = "id")
 	private Integer id;
-	
-	@Column(name="city_name")
+
+	@Column(name = "city_name")
 	private String name;
-	
+
 	@JoinColumn(name = "state_id", referencedColumnName = "id")
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private EntityState state;
-	
-	@Column(name="default_lat_coordinate")
+
+	@Column(name = "default_lat_coordinate")
 	private Double defaultLatCoordinate;
-	
-	@Column(name="default_lng_coordinate")
+
+	@Column(name = "default_lng_coordinate")
 	private Double defaultLngCoordinate;
 
 	public Integer getId() {

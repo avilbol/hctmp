@@ -3,6 +3,8 @@ package com.hallocasa.utils.constants.parsing;
 import static com.hallocasa.utils.constants.parsing.ParserMetadata.clazzEquivalenceMap;
 import static com.hallocasa.utils.constants.parsing.ParserMetadata.parserMap;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import com.hallocasa.entities.i.HallocasaEntity;

@@ -1,16 +1,43 @@
 var map;
 var markers = [];
+var enableMarkerChange = true;
+
+$(function(){
+	$("a[data-toggle='tab']").on("shown.bs.tab", function(e) {
+		initialize();
+	});
+});
+
+function clean(){
+	map = null;
+	markers = [];
+}
+
+function initialize(){
+	map.setTilt(45);	
+	var center = map.getCenter();
+    google.maps.event.trigger(map, "resize");
+    map.setCenter(center);
+	map.addListener("click", clickListener);
+}
 
 function initDefaultCityMap() {
+	clean();
 	setTimeout('defaultCityMap()', 2000);
 }
 
 function initLayoutCityMap(lat, lng) {
+	clean();
 	setTimeout('layoutCityMap(' + lat + ',' + lng + ')', 2000);
 }
 
 function initMarkerMap(lat, lng) {
+	clean();
 	setTimeout('markerMap(' + lat + ',' + lng + ')', 2000);
+}
+
+function initLastMap() {
+	setTimeout('lastMap()', 2000);
 }
 
 function initMarkerAndLayoutCityMap(latVluCity,
@@ -29,6 +56,14 @@ function changeCityMap(latValue, lngValue) {
 	}
 }
 
+function enableMarkerChangeOpt(){
+	enableMarkerChange = true;
+}
+
+function disableMarkerChangeOpt(){
+	enableMarkerChange = false;
+}
+
 function defaultCityMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		// Bogota coordinates
@@ -38,11 +73,18 @@ function defaultCityMap() {
 		},
 		zoom : 10
 	});
-	map.setTilt(45);
-	var center = map.getCenter();
-	google.maps.event.trigger(map, 'resize');
-	map.setCenter(center);
+	setupInput();
 	map.addListener("click", clickListener);
+}
+
+function lastMap() {
+	map = new google.maps.Map(document.getElementById('map'), {
+		center : map.getCenter(),
+		zoom : map.getZoom()
+	});
+	setupInput();
+	if(markers.length > 0)
+		pointMarker(markers[0].getPosition());
 }
 
 function layoutCityMap(latVlu, lngVlu) {
@@ -53,10 +95,7 @@ function layoutCityMap(latVlu, lngVlu) {
 		},
 		zoom : 10
 	});
-	map.setTilt(45);
-	var center = map.getCenter();
-	google.maps.event.trigger(map, 'resize');
-	map.setCenter(center);
+	setupInput();
 	map.addListener("click", clickListener);
 }
 
@@ -66,13 +105,9 @@ function markerMap(latVlu, lngVlu) {
 			lat : latVlu,
 			lng : lngVlu
 		},
-		zoom : 18
+		zoom : 10
 	});
-	map.setTilt(45);
 	var center = map.getCenter();
-	google.maps.event.trigger(map, 'resize');
-	map.setCenter(center);
-	map.addListener("click", clickListener);
 	pointMarker(center);
 }
 
@@ -159,8 +194,10 @@ function initMap() {
 
 function clickListener(e) {
 	// lat and lng is available in e object
-	var position = e.latLng;
-	pointMarker(position);
+	if(enableMarkerChange){
+		var position = e.latLng;
+		pointMarker(position);
+	}
 }
 
 // Adds a marker to the map and push to the array.
@@ -253,12 +290,14 @@ function setLngDms() {
 
 function setInputLongitude() {
 	var rawId = "hc-profile-form:property-longitude";
-	$('#' + rawId.split(':').join('\\:')).val(getLng());
+	if(getLng() != null)
+		$('#' + rawId.split(':').join('\\:')).val(getLng());
 }
 
 function setInputLatitude() {
 	var rawId = "hc-profile-form:property-latitude";
-	$('#' + rawId.split(':').join('\\:')).val(getLat());
+	if(getLat() != null)
+		$('#' + rawId.split(':').join('\\:')).val(getLat());
 }
 
 function setupInput() {

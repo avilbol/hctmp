@@ -18,7 +18,7 @@ import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.services.properties.PropertyService;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
-import com.hallocasa.vo.hcfilter.HcRequest;
+import com.hallocasa.vo.hcfilter.PropertyFilterRequest;
 import com.hallocasa.vo.hcfilter.properties.Property;
 
 @Stateless
@@ -79,7 +79,7 @@ public class PropertyServiceImp implements PropertyService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Property> findBasic(HcRequest request) {
+	public List<Property> find(PropertyFilterRequest request, boolean fullDetail) {
 		// TODO Auto-generated method stub
 		return null;
 	}

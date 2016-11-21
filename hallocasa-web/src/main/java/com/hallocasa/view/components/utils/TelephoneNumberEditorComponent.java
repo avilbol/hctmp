@@ -14,7 +14,7 @@ import javax.faces.component.UIInput;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
-import com.hallocasa.commons.vo.CountryTelephonePrefixVO;
+import com.hallocasa.commons.vo.CountryTelephonePrefix;
 import com.hallocasa.commons.vo.TelephoneVO;
 import com.hallocasa.services.location.local.TelephoneServices;
 import com.hallocasa.view.utils.FormatUtils;
@@ -35,7 +35,7 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 	@EJB
 	TelephoneServices telephoneServices;
 
-	List<CountryTelephonePrefixVO> prefixList;
+	List<CountryTelephonePrefix> prefixList;
 
 	List<String> testList;
 
@@ -75,7 +75,7 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 	@SuppressWarnings("unchecked")
 	public void restoreState(FacesContext facesContext, Object object) {
 		Map<String, Object> stateMap = (Map<String, Object>) object;
-		prefixList = (List<CountryTelephonePrefixVO>) stateMap.get("prefixList");
+		prefixList = (List<CountryTelephonePrefix>) stateMap.get("prefixList");
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 		String ctpVO = (String) countryTelephonePrefix.getSubmittedValue();
 		String nmb = (String) number.getSubmittedValue();
 		if (ctpVO != null && !ctpVO.trim().isEmpty() && !FormatUtils.isEmptyValue(nmb)) {
-			CountryTelephonePrefixVO ctpVOObj = new CountryTelephonePrefixVO();
+			CountryTelephonePrefix ctpVOObj = new CountryTelephonePrefix();
 			ctpVOObj.setId(Long.parseLong(ctpVO));
 			TelephoneVO telephoneVO = new TelephoneVO();
 			telephoneVO.setCountryTelephonePrefix(ctpVOObj);
@@ -105,9 +105,9 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 		return object;
 	}
 	
-	public List<CountryTelephonePrefixVO> completeText(String query) {
-		List<CountryTelephonePrefixVO> results = new ArrayList<>();
-		for (CountryTelephonePrefixVO ctpVO : getPrefixList()) {
+	public List<CountryTelephonePrefix> completeText(String query) {
+		List<CountryTelephonePrefix> results = new ArrayList<>();
+		for (CountryTelephonePrefix ctpVO : getPrefixList()) {
 			if (String.valueOf(ctpVO.getPrefix()).contains(query)) {
 				results.add(ctpVO);
 			}
@@ -115,21 +115,21 @@ public class TelephoneNumberEditorComponent extends UIInput implements NamingCon
 		return results;
 	}
 
-	public String loadItemLabel(CountryTelephonePrefixVO ctpVO) {
+	public String loadItemLabel(CountryTelephonePrefix ctpVO) {
 		if (ctpVO == null) {
 			return null;
 		}
 		return ctpVO.getPrefix() + " - " + ctpVO.getName();
 	}
 
-	public List<CountryTelephonePrefixVO> getPrefixList() {
+	public List<CountryTelephonePrefix> getPrefixList() {
 		if (prefixList == null) {
 			prefixList = telephoneServices.getCountryPrefixList();
 		}
 		return prefixList;
 	}
 
-	public void setPrefixList(List<CountryTelephonePrefixVO> prefixList) {
+	public void setPrefixList(List<CountryTelephonePrefix> prefixList) {
 		this.prefixList = prefixList;
 	}
 

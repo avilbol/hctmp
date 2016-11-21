@@ -12,8 +12,7 @@
 		<cc:attribute name="imageUrl"
 			type="com.hallocasa.commons.vo.ImageContainer" required="true"
 			shortDescription="Image URL to edit" />
-		<cc:attribute name="defaultImageUrl"
-			type="java.lang.String" 
+		<cc:attribute name="defaultImageUrl" type="java.lang.String"
 			shortDescription="Default URL to show when imageUrl is set to null" />
 		<cc:attribute name="imageType" type="java.lang.String" default="image"
 			shortDescription="Image type as scheme to manage image files" />
@@ -25,76 +24,178 @@
 			default="#{true}" />
 		<cc:attribute name="editLabel" type="java.lang.String"
 			default="#{viewBundle['Image.Edition.Upload']}" />
-		<cc:attribute name="styleClass" type="java.lang.String"
-			default="" shortDescription="styleClass for image" />
+		<cc:attribute name="styleClass" type="java.lang.String" default=""
+			shortDescription="styleClass for image" />
 		<cc:attribute name="update" type="java.lang.String"
 			default="image-editor-container" />
-		<cc:attribute name="aspectRatio" type="java.lang.String" default="0" />
+		<cc:attribute name="aspectRatio" type="java.lang.String"
+			default="auto" />
 	</cc:interface>
 	<cc:implementation>
+		<h:outputStylesheet library="css" name="cropper.css" />
+		<style>
+.cropper-container {
+	max-width: 720px;
+	margin: 20px auto;
+}
+
+.cropper-img-container {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.cropper-img-container img {
+	width: 100%;
+}
+
+img {
+	max-width: 100%;
+	/* This rule is very important, please do not ignore this! */
+}
+</style>
 		<h:panelGroup id="image-editor-container">
-			<div class="edit-btn-content col-md-12">
-				<h:commandButton styleClass="btn btn-primary"
-					rendered="#{not cc.attrs.readOnly}" value="#{cc.attrs.editLabel}"
-					onclick="PF('upload-image-dialog').show();return false" />
+
+			<div class="col-md-12">
+				<ui:fragment rendered="#{not cc.attrs.readOnly}">
+					<button type="button" class="btn btn-primary center-block"
+						data-toggle="modal" data-target="#image-edition-modal">
+						<span class="hc-form-label">#{cc.attrs.editLabel}</span>
+					</button>
+				</ui:fragment>
 			</div>
 			<ui:fragment rendered="#{cc.attrs.showImage}">
-					<h:graphicImage url="#{cc.imageToShow().getUrl()}"
-						styleClass="#{cc.attrs.styleClass}" />
+				<div class="edit-btn-content col-md-12 hc-img-profile-card">
+					<span><h:graphicImage url="#{cc.imageToShow().getUrl()}"
+							styleClass="#{cc.attrs.styleClass}" /></span>
+				</div>
 			</ui:fragment>
-			<p:dialog header="#{viewBundle['Image.Edition.Header']}"
-				position="center" responsive="true" fitViewport="true" widgetVar="upload-image-dialog"
-				minHeight="40" width="800" height="auto" draggable="false"
-				resizable="false">
-				<h:panelGroup id="upload-image-bt" styleClass="row">
-				</h:panelGroup>
-				<h:panelGroup id="upload-image-pg"
-					styleClass="row hc-content-edit-info">
-					<h:panelGroup rendered="#{cc.showImageLoad}">
-						<h:outputText value="#{viewBundle['Image.Edition.Header.Detail']}" />
-						<h:inputFile id="file" value="#{cc.uncroppedImagePart}"
-							styleClass="" validator="#{cc.validateFile}">
-						</h:inputFile>
-						<h:commandButton
-							value="#{viewBundle['Image.Edition.Header.Upload']}"
-							action="#{cc.onFileUpload}" styleClass="btn btn-primary">
-							<f:ajax execute="file" render="upload-image-pg upload-image-bt" />
-						</h:commandButton>
-					</h:panelGroup>
-					<h:panelGroup rendered="#{cc.showImageCrop}">
-						<h:outputText value="#{viewBundle['Image.Edition.Crop']}" />
-						<h:panelGrid columns="2">
-							<div class="row">
-								<div class="col-md-6">
-									<h:commandButton
-										value="#{viewBundle['Image.Edition.FinishCrop']}"
-										action="#{cc.onImageCrop}" style="float:left"
-										styleClass="btn btn-primary hc-edit-finish-img">
-										<f:ajax execute="cropper" render="#{cc.attrs.update}" />
-									</h:commandButton>
-								</div>
-								<div class="col-md-6">
-									<h:commandButton value="#{viewBundle['Common.Label.Back']}"
-										action="#{cc.onBackClick}" rendered="#{cc.showBackButton}"
-										styleClass="btn btn-primary">
-										<f:ajax render="upload-image-pg upload-image-bt" />
-									</h:commandButton>
-									<h:commandButton value="#{viewBundle['Common.Label.Next']}"
-										action="#{cc.onNextClick}" rendered="#{cc.showNextButton}"
-										styleClass="btn btn-primary">
-										<f:ajax render="upload-image-pg upload-image-bt" />
-									</h:commandButton>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<p:imageCropper id="cropper" value="#{cc.croppedImage}"
-									image="/resources/images/#{cc.uncroppedImageResourcesUrl}"
-									initialCoords="0,0,50,50" aspectRatio="#{cc.attrs.aspectRatio}" />
-							</div>
-						</h:panelGrid>
-					</h:panelGroup>
-				</h:panelGroup>
-			</p:dialog>
+
+			<!-- Modal -->
+			<div class="modal fade" id="image-edition-modal" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">
+								#{viewBundle['Image.Edition.Header']}</h4>
+						</div>
+						<div class="modal-body">
+							<h:panelGroup id="upload-image-bt" styleClass="row">
+							</h:panelGroup>
+							<h:panelGroup id="upload-image-pg"
+								styleClass="row hc-content-edit-info">
+								<h:panelGroup rendered="#{cc.showImageLoad}">
+									<h:outputText
+										value="#{viewBundle['Image.Edition.Header.Detail']}" />
+									<h:inputFile id="file" value="#{cc.uncroppedImagePart}"
+										styleClass="" validator="#{cc.validateFile}">
+									</h:inputFile>
+									<div class="col-md-4"></div>
+									<div class="col-md-4">
+										<h:commandButton
+											value="#{viewBundle['Image.Edition.Header.Upload']}"
+											action="#{cc.onFileUpload}" styleClass="btn btn-primary">
+											<f:ajax execute="file"
+												render="upload-image-pg upload-image-bt" />
+										</h:commandButton>
+									</div>
+									<div class="col-md-4"></div>
+								</h:panelGroup>
+								<h:panelGroup rendered="#{cc.showImageCrop}"
+									id="crop-panel-group">
+									<h:outputText value="#{viewBundle['Image.Edition.Crop']}" />
+									<div class="row">
+										<div class="col-md-1"></div>
+										<div class="col-md-4">
+											<h:commandButton
+												value="#{viewBundle['Image.Edition.FinishCrop']}"
+												action="#{cc.onImageCrop}" style="float:left"
+												onclick="$('#image-edition-modal').modal('hide'); return true; "
+												styleClass="btn btn-primary hc-edit-finish-img">
+												<f:ajax execute="cropper" render="#{cc.attrs.update}" />
+											</h:commandButton>
+
+										</div>
+										<div class="col-md-2"></div>
+										<div class="col-md-4">
+											<h:commandButton value="#{viewBundle['Common.Label.Back']}"
+												action="#{cc.onBackClick}" rendered="#{cc.showBackButton}"
+												styleClass="btn btn-primary">
+												<f:ajax render="upload-image-pg upload-image-bt" />
+											</h:commandButton>
+											<h:commandButton value="#{viewBundle['Common.Label.Next']}"
+												action="#{cc.onNextClick}" rendered="#{cc.showNextButton}"
+												styleClass="btn btn-primary">
+												<f:ajax render="upload-image-pg upload-image-bt" />
+											</h:commandButton>
+										</div>
+									</div>
+									<h:panelGroup styleClass="col-md-12" id="cropper">
+										<h:outputScript library="js" name="cropper/cropper.js" />
+										<script type="text/javascript">
+											$(function() {
+												var $image = $('.cropper-img-container > img');
+
+												function updateData(data) {
+													var data = $image
+															.cropper('getData');
+													$('.imageDimX input').val(
+															data.x);
+													$('.imageDimY input').val(
+															data.y);
+													$('.imageCropWidth input')
+															.val(data.width);
+													$('.imageCropHeight input')
+															.val(data.height);
+													console.log(data.x);
+													console.log(data.y);
+													console.log(data.width);
+													console.log(data.height);
+												}
+
+												$image
+														.cropper(
+																{
+																	movable : true,
+																	zoomable : false,
+																	rotatable : false,
+																	scalable : false,
+																	aspectRatio : "#{cc.attrs.aspectRatio}"
+																})
+														.on(
+																'dragend.cropper dragmove.cropper built.cropper',
+																updateData);
+
+											});
+										</script>
+										<div class="cropper-container">
+											<div class="cropper-img-container">
+												<h:graphicImage id="crop-image"
+													url="/resources/images/#{cc.uncroppedImageResourcesUrl}" />
+												<span style="display: none" class="imageDimX"> <h:inputHidden
+														value="#{cc.imageDimX}"></h:inputHidden>
+												</span> <span style="display: none" class="imageDimY"> <h:inputHidden
+														value="#{cc.imageDimY}"></h:inputHidden>
+												</span> <span style="display: none" class="imageCropWidth">
+													<h:inputHidden value="#{cc.imageCropWidth}"></h:inputHidden>
+												</span> <span style="display: none" class="imageCropHeight">
+													<h:inputHidden value="#{cc.imageCropHeight}"></h:inputHidden>
+												</span>
+											</div>
+										</div>
+									</h:panelGroup>
+								</h:panelGroup>
+							</h:panelGroup>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary btn-lg"
+								data-dismiss="modal">
+								<span class="hc-form-label">#{viewBundle['Properties.cancel.label']}</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</h:panelGroup>
 	</cc:implementation>
 </ui:composition>

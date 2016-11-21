@@ -10,26 +10,25 @@ import com.hallocasa.vo.i.ValueObject;
 public class FilterShowingStep implements ValueObject, Serializable{
 
 	private static final long serialVersionUID = -3650358021030315986L;
-	private FilterOperationStep beforeStep;
-	private HcFilterCondition condition;
-	private FilterOperationStep afterStep;
-	
-	public FilterOperationStep getBeforeStep() {
-		return beforeStep;
+	private FilterOperationStep sequenceBefore;
+	private HcFilterCondition filterCondition;
+	private FilterOperationStep sequenceAfter;
+	public FilterOperationStep getSequenceBefore() {
+		return sequenceBefore;
 	}
-	public void setBeforeStep(FilterOperationStep beforeStep) {
-		this.beforeStep = beforeStep;
+	public void setSequenceBefore(FilterOperationStep sequenceBefore) {
+		this.sequenceBefore = sequenceBefore;
 	}
-	public HcFilterCondition getCondition() {
-		return condition;
+	public HcFilterCondition getFilterCondition() {
+		return filterCondition;
 	}
-	public void setCondition(HcFilterCondition condition) {
-		this.condition = condition;
+	public void setFilterCondition(HcFilterCondition filterCondition) {
+		this.filterCondition = filterCondition;
 	}
-	public FilterOperationStep getAfterStep() {
-		return afterStep;
+	public FilterOperationStep getSequenceAfter() {
+		return sequenceAfter;
 	}
-	public void setAfterStep(FilterOperationStep afterStep) {
-		this.afterStep = afterStep;
+	public void setSequenceAfter(FilterOperationStep sequenceAfter) {
+		this.sequenceAfter = sequenceAfter;
 	}
 }

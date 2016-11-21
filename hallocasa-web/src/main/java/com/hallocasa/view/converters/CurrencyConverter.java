@@ -9,7 +9,7 @@ import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
 import com.hallocasa.commons.vo.CurrencyVO;
-import com.hallocasa.model.application.HallocasaApplicationImpl;
+import com.hallocasa.model.application.CurrencyGlobalApplication;
 
 /**
  * Converter for @CurrencyVO
@@ -21,19 +21,14 @@ public class CurrencyConverter implements Converter{
 
 	// Dependencies
     @Inject
-    private HallocasaApplicationImpl halloCasaApplication;
+    private CurrencyGlobalApplication currencyGlobal;
     
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if (value == null || !isNumeric(value)) {
             return null;
         }
-        for(CurrencyVO currency : halloCasaApplication.getCurrencies()){
-            if(currency.getId().equals(Long.parseLong(value))){
-                return currency;
-            }
-        }
-        return null;
+        return currencyGlobal.searchById(Integer.parseInt(value));
     }
 
     @Override

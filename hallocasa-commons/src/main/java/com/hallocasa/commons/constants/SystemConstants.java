@@ -28,6 +28,13 @@ public class SystemConstants {
     public static final String USER_IMAGES_PATH = get("Persistance.Files.userImagesPath");
     public static final String PROPERTY_IMAGES_PATH = get("Persistance.Files.propertyImagesPath");
     
+    // Currency Layer
+    public static final String CURRENCY_LAYER_API_URL = get("Api.CurrencyLayer.Url");
+    public static final String CURRENCY_LAYER_API_RESOURCE = get("Api.CurrencyLayer.LiveResource");
+    public static final String CURRENCY_LAYER_API_KEY = get("Api.CurrencyLayer.ApiKey");
+    
+    
+    
     //public static final String MAIL_CHIMP_NEWSLETTER_LIST_ID = "c2730bb54f"; // Newsletter list
 
 }

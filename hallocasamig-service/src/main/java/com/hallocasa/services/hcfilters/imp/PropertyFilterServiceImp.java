@@ -17,6 +17,7 @@ import com.hallocasa.entities.properties.EntityPropertyField;
 import com.hallocasa.services.hcfilters.PropertyFilterService;
 import com.hallocasa.services.security.imp.AuthenticationServiceImp;
 import com.hallocasa.vo.hcfilter.HcFilter;
+import com.hallocasa.vo.hcfilter.properties.PropertyDropdownFilterSubmission;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilter;
 import com.hallocasa.vo.properties.PropertyField;
 
@@ -57,6 +58,20 @@ public class PropertyFilterServiceImp implements PropertyFilterService {
 			filterList.add(transformToPropertyFilter(hcFilter));
 		}
 		return filterList;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<PropertyFilter> loadPropertyFilterList(List<PropertyDropdownFilterSubmission> filterList) {
+		List<EntityHcFilter> entityHcFilterList = daoHcFilter.findByPropertyKeys(filterList);
+		List<PropertyFilter> resultList = new LinkedList<PropertyFilter>();
+		for (EntityHcFilter entityHcFilter : entityHcFilterList) {
+			HcFilter hcFilter = (HcFilter) toValueObject(entityHcFilter);
+			resultList.add(transformToPropertyFilter(hcFilter));
+		}
+		return resultList;
 	}
 
 	private PropertyFilter transformToPropertyFilter(HcFilter hcFilter) {

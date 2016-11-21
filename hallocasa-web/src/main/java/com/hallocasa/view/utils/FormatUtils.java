@@ -30,6 +30,16 @@ public class FormatUtils {
 		}
 		return true;
 	}
+	
+	public static boolean isLongNumeric(String value) {
+		try {
+			Double.parseDouble(value);
+			Long.parseLong(value);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
 
 	public static String getDefensiveLabel(String value) {
 		if (value == null || value.equals("")) {

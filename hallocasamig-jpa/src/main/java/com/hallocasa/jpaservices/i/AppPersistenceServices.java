@@ -250,4 +250,14 @@ public interface AppPersistenceServices {
 	 * @return
 	 */
 	<T> Optional<T> executeSingleNamedQuery(String queryName, Object[] params, Class<T> expectedClass);
+
+	<T> List<T> executeQuery(String jpqlQuery, Object[] params, Class<T> expectedClass);
+
+	/**
+     * @param <T> Entity Type
+     * @param entity Entity to persist
+     * @return the merged entity
+     * @throws PersistenceException when merging fails
+     */
+	<T> void mergeEntityList(List<T> entityList);
 }

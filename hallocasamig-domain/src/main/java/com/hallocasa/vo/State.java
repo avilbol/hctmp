@@ -10,7 +10,6 @@ public class State implements ValueObject, Serializable {
 
 	private Integer id;
 	private String name;
-	private Country country;
 	
 	public Integer getId() {
 		return id;
@@ -23,11 +22,5 @@ public class State implements ValueObject, Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Country getCountry() {
-		return country;
-	}
-	public void setCountry(Country country) {
-		this.country = country;
 	}
 }

@@ -7,23 +7,26 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 	<div class="hc-content-body-profile">
 		<div class="row">
-		
-				<div class="col-md-12 content-profile">
-					<ui:include src="../../../fragments/investor-panel.xhtml" />
-					<ui:include src="../../../fragments/service-panel.xhtml" />
-				</div>
 
-				<div class="col-md-12 content-btn-edit">
+			<div class="col-md-12 content-profile">
+				<ui:include src="../../../fragments/investor-panel.xhtml" />
+				<ui:include src="../../../fragments/service-panel.xhtml" />
+			</div>
+
+			<div class="col-md-12 content-btn-edit">
+				<div class="col-md-5"></div>
+				<div class="col-md-2">
 					<h:commandButton value="#{viewBundle['Profile.Edit.Button']}"
 						styleClass="btn btn-primary" process="@this"
 						update=":hc-profile-form:container-profile-element"
 						action="#{profileReadPage.processEditClick()}">
-						<f:ajax 
-							process="@this" 
-							render=":hc-profile-form:container-profile-element"/>
+						<f:ajax process="@this"
+							render=":hc-profile-form:container-profile-element" />
 					</h:commandButton>
 				</div>
-		
+				<div class="col-md-5"></div>
+			</div>
+
 		</div>
 	</div>
 </ui:composition>

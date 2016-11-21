@@ -22,6 +22,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
+import com.hallocasa.dataentities.app.CurrencyExchangeData;
 import com.hallocasa.services.persistence.local.AppPersistenceServices;
 
 /**
@@ -131,6 +132,15 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
     	em.getEntityManagerFactory().getCache().evictAll();
         em.merge(entity);
         return entity;
+    }
+    
+    @Override
+    public <T> void mergeEntityList(List<T> entityList){
+		for (T entity : entityList) {
+			em.merge(entity);
+			em.flush();
+			em.clear();
+		}
     }
 
     /*
