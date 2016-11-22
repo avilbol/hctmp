@@ -10,5 +10,4 @@ public interface CurrencyService {
 	 * Find all currencies available in system
 	 */
 	public List<Currency> find();
-	
 }
