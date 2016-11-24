@@ -3,6 +3,8 @@ package com.hallocasa.entities.properties;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
@@ -12,9 +14,14 @@ import com.hallocasa.entities.i.HallocasaEntity;
  * @author Alexander Villamil
  */
 @Entity
-@Table(name = "property_proposal")
+@Table(name = "property_location")
+@NamedQueries({
+	@NamedQuery(name = EntityPropertyLocation.QUERY_FIND_ALL, 
+			query = "select pl from EntityPropertyLocation pl") })
 public class EntityPropertyLocation implements HallocasaEntity {
 
+	public static final String QUERY_FIND_ALL = "EntityPropertyLocation.findAll";
+	
 	/**
 	 * Property proposal identifier
 	 */

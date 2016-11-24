@@ -14,7 +14,7 @@ public class PropertyType implements ValueObject, Serializable {
 	
 	private String lang;
 	
-	private PropertyTypeGroup propertyTypeGroup;
+	private PropertyTypeGroup group;
 
 	public Integer getId() {
 		return id;
@@ -40,11 +40,11 @@ public class PropertyType implements ValueObject, Serializable {
 		this.lang = lang;
 	}
 
-	public PropertyTypeGroup getPropertyTypeGroup() {
-		return propertyTypeGroup;
+	public PropertyTypeGroup getGroup() {
+		return group;
 	}
 
-	public void setPropertyTypeGroup(PropertyTypeGroup propertyTypeGroup) {
-		this.propertyTypeGroup = propertyTypeGroup;
+	public void setGroup(PropertyTypeGroup group) {
+		this.group = group;
 	}
 }
