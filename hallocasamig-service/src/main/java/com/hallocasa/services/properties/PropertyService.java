@@ -44,4 +44,11 @@ public interface PropertyService {
 	 * @return
 	 */
 	Optional<Property> findById(String id);
+	
+	/**
+	 * Delete the property with the specified id
+	 * @param propertyId
+	 * 		Id of property to delete
+	 */
+	void delete(String propertyId);
 }

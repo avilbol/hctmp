@@ -96,4 +96,13 @@ public class PropertyServiceImp implements PropertyService {
 		Property property = (Property) toValueObject(entityProperty.get());
 		return Optional.of(property);
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(String propertyId) {
+		daoProperty.delete(propertyId);
+		cleanFilesStartingWithPrefix(filePathRoot, propertyId);
+	}
 }
