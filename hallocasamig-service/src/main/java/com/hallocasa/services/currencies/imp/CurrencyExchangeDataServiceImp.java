@@ -11,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -75,6 +76,11 @@ public class CurrencyExchangeDataServiceImp implements CurrencyExchangeDataServi
 		} catch(IOException e){
 			throw new FatalException("Unexpected error", e);
 		}
+	}
+	
+	@Override
+	public Optional<Double> findRate(Integer currencyFromId, Integer currencyToId) {
+		return daoCurrencyExchangeData.findRate(currencyFromId, currencyToId);
 	}
 	
 	private CurrencyExchangeDataSummary toSummary(List<EntityCurrencyExchangeData> exchangeList) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{

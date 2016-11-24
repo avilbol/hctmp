@@ -10,5 +10,4 @@ public interface IDAOCurrency {
 	 * Find the currencies supportes by system
 	 */
 	List<EntityCurrency> find();
-	
 }

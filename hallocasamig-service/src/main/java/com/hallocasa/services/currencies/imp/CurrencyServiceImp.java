@@ -30,5 +30,4 @@ public class CurrencyServiceImp implements CurrencyService {
 		}
 		return resultList;
 	}
-
 }

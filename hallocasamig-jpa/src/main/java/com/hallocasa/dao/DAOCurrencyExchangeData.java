@@ -2,6 +2,7 @@ package com.hallocasa.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -58,5 +59,14 @@ public class DAOCurrencyExchangeData implements IDAOCurrencyExchangeData {
 		} catch(NoResultException e){
 			return false;
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Optional<Double> findRate(Integer currencyFromId, Integer currencyToId) {
+		return appPersistenceServices.executeSingleNamedQuery(EntityCurrencyExchangeData.QUERY_FIND_RATE_EXCHANGE, 
+				new Object[] {currencyFromId, currencyToId}, Double.class);
 	}
 }
