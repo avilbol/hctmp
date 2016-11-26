@@ -31,7 +31,7 @@
           {{'Header.SignUp.Button' | translate}}
         </md-button>
 
-        <md-menu ng-if="vm.isAuthenticated()">
+        <md-menu ng-if="MainCtrl.isAuthenticated()">
           <md-button ng-click='$mdOpenMenu($event)'>
             <i class='material-icons'>account_circle</i> <div>Usuario</div>
           </md-button>
@@ -121,8 +121,14 @@
       <div layout="column" layout-gt-sm="row" flex layout-align="center center">
         <span layout-margin></span>
         <div flex layout="column" class="md-subhead" flex-order-sm="1" flex-order-xs="1">
-          <span> © 2016 HalloCasa, All Rights Reserved</span>
-          <span>{{'Common.Label.PrivacyStatement' | translate}}</span>
+           <div layout="row">
+            <span> © 2016 HalloCasa, All Rights Reserved</span>
+           </div>
+          <div layout="row">
+            <md-button ng-click="MainCtrl.launchPrivacyStatementDialog()">
+              {{'Common.Label.PrivacyStatement' | translate}}
+            </md-button>
+          </div>
         </div>
         <md-button class="md-icon-button" aria-label="go up" flex-order-sm="0" flex-order-xs="0">
           <i class="material-icons">arrow_upward</i>

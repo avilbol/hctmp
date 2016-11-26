@@ -1,0 +1,16 @@
+<md-dialog aria-label="login">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{'Common.Label.PrivacyStatement' | translate}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="vm.closeDialog()">
+        <i class="material-icons">close</i>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <md-content class="md-padding">
+      <span>{{vm.description}}</span>
+    </md-content>
+  </md-dialog-content>
+</md-dialog>

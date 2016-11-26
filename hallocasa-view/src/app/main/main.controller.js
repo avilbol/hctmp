@@ -15,6 +15,7 @@
     vm.launchLoginDialog = launchLoginDialog;
     vm.launchRegisterDialog = launchRegisterDialog;
     vm.isAuthenticated = isAuthenticated;
+    vm.launchPrivacyStatementDialog = launchPrivacyStatementDialog;
     vm.logout = SessionService.logout;
     vm.goTo = goTo;
 
@@ -41,6 +42,19 @@
           description: "",
           allowClose: true
         },
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: useFullScreen
+      });
+    }
+
+    function launchPrivacyStatementDialog(ev) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+      $mdDialog.show({
+        controller: "PrivacyStatementController",
+        controllerAs: "vm",
+        templateUrl: 'app/main/privacy-statement/privacy-statement.html',
+        parent: $document.body,
         targetEvent: ev,
         clickOutsideToClose:true,
         fullscreen: useFullScreen
