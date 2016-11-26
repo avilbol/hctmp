@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService) {
+  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService, $auth) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
@@ -28,7 +28,7 @@
 
     function isAuthenticated() {
       return $auth.isAuthenticated();
-    };
+    }
 
     function launchLoginDialog(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));

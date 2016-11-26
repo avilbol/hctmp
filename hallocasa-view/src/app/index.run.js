@@ -6,8 +6,9 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($log, $route) {
+  function runBlock($log, $route, appAuthProvider) {
     $route.reload();
+    appAuthProvider.getAuthToken();
     $log.debug('runBlock end');
   }
 

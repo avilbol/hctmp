@@ -5,7 +5,7 @@
 		.module('HalloCasa.session')
 		.controller('LoginController', LoginController);
 
-	function LoginController(SessionService, toastr, $mdDialog, description, allowClose) {
+	function LoginController(SessionService, toastr, $mdDialog, description, allowClose, $log) {
 		var vm = this;
 		vm.userData = {};
 		vm.login = login;
@@ -14,9 +14,9 @@
     vm.allowClose = allowClose;
 
 		function login(){
-      console.log("login",vm.userData);
       SessionService.login(vm.userData)
 				.then(function(response){
+          $log.debug(response);
           closeDialog();
 				})
 				.catch(function(error){
