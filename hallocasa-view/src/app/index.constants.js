@@ -20,6 +20,23 @@
       show: { method: 'GET' },
       update: { method: 'PUT', params: {id: '@id'} },
       delete: { method: 'DELETE', params: {id: '@id'} }
+    })
+    .constant('BlogLinks',{
+      'Español':{
+        'blog': 'http://blog.hallocasa.com/es/',
+        'link': 'http://blog.hallocasa.com/es/descargas-todos/',
+        'buyProcess': 'http://blog.hallocasa.com/es/procesos-de-compra-todos/'
+      },
+      'English': {
+        'blog': 'http://blog.hallocasa.com/',
+        'link': 'http://blog.hallocasa.com/downloads-overview/',
+        'buyProcess': 'http://blog.hallocasa.com/buying-processes-overview/'
+      },
+      'Deutsch':{
+        'blog': 'http://blog.hallocasa.com/de/',
+        'link': 'http://blog.hallocasa.com/de/downloads-alle/',
+        'buyProcess': 'http://blog.hallocasa.com/de/kaufprozesse-alle/'
+      }
     });
 
 })();

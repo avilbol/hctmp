@@ -6,7 +6,8 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService, $auth) {
+  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService, $auth,
+                          LocaleService, BlogLinks, $window) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
@@ -18,6 +19,7 @@
     vm.launchPrivacyStatementDialog = launchPrivacyStatementDialog;
     vm.logout = SessionService.logout;
     vm.goTo = goTo;
+    vm.blogRedirection = blogRedirection;
 
     $scope.$watch(function() { return $mdMedia('sm') || $mdMedia('xs'); }, function(small) {
       vm.screenIsSmall = small;
@@ -79,6 +81,11 @@
       if(closeMenu){
         toggleMenu();
       }
+    }
+
+    function blogRedirection(section) {
+      var currentLanguage = LocaleService.getLocaleDisplayName();
+      $window.open( BlogLinks[currentLanguage][section], '_blank');
     }
   }
 })();
