@@ -55,4 +55,11 @@ public class DAOProperty implements IDAOProperty {
 				(query, paramList.toArray(), EntityProperty.class);
 	}
 
+	@Override
+	public void delete(String propertyId) {
+		String query = EntityProperty.QUERY_DELETE_BY_ID;
+		List<Object> paramList = new LinkedList<Object>();
+		paramList.add(propertyId);
+		appPersistenceServices.executeNamedQuery(query, paramList.toArray());
+	}
 }

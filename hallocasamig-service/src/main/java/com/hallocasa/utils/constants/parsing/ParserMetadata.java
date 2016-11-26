@@ -10,6 +10,7 @@ import com.hallocasa.entities.EntityComposedExample;
 import com.hallocasa.entities.EntityCountry;
 import com.hallocasa.entities.EntityCountryTelephonePrefix;
 import com.hallocasa.entities.EntityCurrency;
+import com.hallocasa.entities.EntityCurrencyExchangeData;
 import com.hallocasa.entities.EntityExample;
 import com.hallocasa.entities.EntityFilterListingStep;
 import com.hallocasa.entities.EntityFilterShowingStep;
@@ -39,6 +40,7 @@ import com.hallocasa.vo.ComposedExample;
 import com.hallocasa.vo.Country;
 import com.hallocasa.vo.CountryTelephonePrefix;
 import com.hallocasa.vo.Currency;
+import com.hallocasa.vo.CurrencyExchangeDataSummary;
 import com.hallocasa.vo.Example;
 import com.hallocasa.vo.Language;
 import com.hallocasa.vo.State;
@@ -102,6 +104,7 @@ public class ParserMetadata {
 		clazzEquivalenceMap.put(DropdownOption.class, EntityDropdownOption.class);
 		clazzEquivalenceMap.put(DropdownOptionGroup.class, EntityDropdownOptionGroup.class);
 		clazzEquivalenceMap.put(CountryTelephonePrefix.class, EntityCountryTelephonePrefix.class);
+		clazzEquivalenceMap.put(CurrencyExchangeDataSummary.class, EntityCurrencyExchangeData.class);
 	}
 
 	/**

@@ -1,5 +1,4 @@
-select * from hallocasaapp.currency_exchange_data
-select * from hallocasaapp.telephone_prefix
+use hallocasaapp;
 
 alter table currency add lang varchar(100) default 'hallocasa.pending';
 update hallocasaapp.currency set name = 'Colombian Peso' where id = 1;

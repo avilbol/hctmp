@@ -17,6 +17,13 @@ public interface IDAOProperty {
 	void save(EntityProperty property);
 	
 	/**
+	 * Delete the property with the specified id
+	 * @param propertyId
+	 * 		Id of property to delete
+	 */
+	void delete(String propertyId);
+	
+	/**
 	 * Find the basic properties
 	 * @return
 	 * 		The basic properties (?)

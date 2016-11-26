@@ -25,16 +25,15 @@ import com.hallocasa.entities.i.HallocasaEntity;
 @Entity
 @Table(name = "currency_exchange_data")
 @NamedQueries({
-   @NamedQuery(name = EntityCurrencyExchangeData.QUERY_FIND_BY_CURRENCY_FROM,
-           query = "select ce from EntityCurrencyExchangeData ce where ce.currencyFrom = ?1"),
    @NamedQuery(name = EntityCurrencyExchangeData.QUERY_FIND_ALL,
    		   query = "select ce from EntityCurrencyExchangeData ce"),
    @NamedQuery(name = EntityCurrencyExchangeData.QUERY_DELETE_ALL,
-	   query = "delete from EntityCurrencyExchangeData")
+	   	   query = "delete from EntityCurrencyExchangeData"),
+   @NamedQuery(name = EntityCurrencyExchangeData.QUERY_FIND_RATE_EXCHANGE,
+   		   query = "select ce.rateExchange from EntityCurrencyExchangeData ce where ce.currencyFrom.id = ?1 "
+   		   		+ "AND ce.currencyTo.id = ?2")
 })
 public class EntityCurrencyExchangeData implements HallocasaEntity {
-
-public static final String QUERY_FIND_BY_CURRENCY_FROM = "CurrencyExchange.Data.QueryFindByCurrencyFrom";
 	
 	/**
 	 * Query to get all entries of @CurrencyExchangeData
@@ -47,9 +46,14 @@ public static final String QUERY_FIND_BY_CURRENCY_FROM = "CurrencyExchange.Data.
 	public static final String QUERY_DELETE_ALL = "CurrencyExchange.Data.QueryDeleteAll";
 	
 	/**
+	 * Query to find rate exchange by currencies identifiers
+	 */
+	public static final String QUERY_FIND_RATE_EXCHANGE = "CurrencyExchange.Data.QueryFindRateExchange";
+	
+	/**
 	 * Native query the last update of @CurrencyExchangeData
 	 */
-	public static final String QUERY_LAST_UPDATE = "SELECT MAX(ce.updateDate) FROM CurrencyExchangeData ce";
+	public static final String QUERY_LAST_UPDATE = "SELECT MAX(ce.updateDate) FROM EntityCurrencyExchangeData ce";
 
 	
 	@Id

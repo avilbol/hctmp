@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -90,5 +91,20 @@ public class PropertyResource {
 	public Response saveProperty(@ApiParam("property to persist") Property property) {
 	    propertyService.save(property);
 		return Response.status(HttpStatus.SC_OK).entity("Property saved succesfully").build();
+	}
+	
+	@DELETE
+	@Path("{id}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.TEXT_HTML})
+	@Secured
+	@ApiOperation(value = "Delete the property with id supplied", 
+		notes = "This process is not reversible")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	public Response deleteProperty(@ApiParam("propertyId") @PathParam("id") String propertyId) {
+	    propertyService.delete(propertyId);
+		return Response.status(HttpStatus.SC_OK).entity("Property deleted succesfully").build();
 	}
 }

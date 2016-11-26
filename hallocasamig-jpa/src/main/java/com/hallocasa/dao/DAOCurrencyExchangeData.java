@@ -2,6 +2,7 @@ package com.hallocasa.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -54,9 +55,18 @@ public class DAOCurrencyExchangeData implements IDAOCurrencyExchangeData {
 		try{
 			Date mostRecentDate = appPersistenceServices.executeQuery(
 					EntityCurrencyExchangeData.QUERY_LAST_UPDATE, Date.class);
-			return DateUtils.isToday(mostRecentDate);
+			return mostRecentDate != null && DateUtils.isToday(mostRecentDate);
 		} catch(NoResultException e){
 			return false;
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Optional<Double> findRate(Integer currencyFromId, Integer currencyToId) {
+		return appPersistenceServices.executeSingleNamedQuery(EntityCurrencyExchangeData.QUERY_FIND_RATE_EXCHANGE, 
+				new Object[] {currencyFromId, currencyToId}, Double.class);
 	}
 }
