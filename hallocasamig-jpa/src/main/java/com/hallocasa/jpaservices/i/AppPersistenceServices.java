@@ -13,6 +13,7 @@ import javax.ejb.Local;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
 /**
@@ -260,4 +261,14 @@ public interface AppPersistenceServices {
      * @throws PersistenceException when merging fails
      */
 	<T> void mergeEntityList(List<T> entityList);
+
+	/**
+	 * Generates a named query
+	 * @param queryName
+	 * 		The name of query
+	 * @param params
+	 * 		Parameters that apply
+	 * @return
+	 */
+	Query loadNamedQuery(String queryName, Object[] params);
 }

@@ -8,13 +8,13 @@ public class PropertyFilterSubmission implements Serializable, ValueObject{
 
 	private static final long serialVersionUID = 3624461578129545243L;
 	
-	private PropertyFilter filter;
+	private PropertyFilter propertyFilter;
 
-	public PropertyFilter getFilter() {
-		return filter;
+	public PropertyFilter getPropertyFilter() {
+		return propertyFilter;
 	}
 
-	public void setFilter(PropertyFilter filter) {
-		this.filter = filter;
+	public void setPropertyFilter(PropertyFilter propertyFilter) {
+		this.propertyFilter = propertyFilter;
 	}
 }

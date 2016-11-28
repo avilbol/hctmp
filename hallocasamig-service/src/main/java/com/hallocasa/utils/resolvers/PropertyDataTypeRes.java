@@ -30,10 +30,10 @@ public enum PropertyDataTypeRes {
 	}
 
 	public static PropertyFieldValueConverter getConverter(PropertyDatatype propertyDatatype) {
-		return PropertyDataTypeRes.valueOf(propertyDatatype.name()).converter;
+		return valueOf(propertyDatatype.name()).converter;
 	}
 
 	public static Boolean getRequiresExtraParameters(PropertyDatatype propertyDatatype) {
-		return PropertyDataTypeRes.valueOf(propertyDatatype.name()).requiresExtraParameters;
+		return valueOf(propertyDatatype.name()).requiresExtraParameters;
 	}
 }

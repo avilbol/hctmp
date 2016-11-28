@@ -105,7 +105,7 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         em.persist(entity);
         return entity;
     }
-
+    
     /*
      * (non-Javadoc)
      * 
@@ -288,7 +288,19 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         }
         return query.executeUpdate();
     }
-
+    
+    @Override
+    public Query loadNamedQuery(String queryName, Object[] params) {
+        Query query = em.createNamedQuery(queryName);
+        int i = 1;
+        if (params != null) {
+            for (Object entry : params) {
+                query.setParameter(i, entry);
+                i++;
+            }
+        }
+        return query;
+    }
     /*
      * (non-Javadoc)
      * 

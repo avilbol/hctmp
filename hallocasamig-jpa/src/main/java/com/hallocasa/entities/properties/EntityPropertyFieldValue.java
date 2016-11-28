@@ -7,7 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
 
 import com.hallocasa.entities.i.HallocasaEntity;
 
@@ -19,9 +22,14 @@ import com.hallocasa.entities.i.HallocasaEntity;
  */
 @Entity
 @Table(name = "property_field_value")
+@NamedQueries({
+	@NamedQuery(name = EntityPropertyFieldValue.QUERY_FIND_BASIC_IN, query = "select pfv from "
+			+ "EntityPropertyFieldValue pfv where pfv.property.id IN ?1 AND "
+			+ "pfv.propertyField.basic = TRUE")})
 public class EntityPropertyFieldValue implements HallocasaEntity {
 
-
+	public static final String QUERY_FIND_BASIC_IN = "EntityPropertyFieldValue.QueryFindBasicIn";
+	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;

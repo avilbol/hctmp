@@ -11,7 +11,7 @@ public class RangeFilterWorker implements FilterWorker {
 	public String loadParametersQuery(PropertyFilterSubmission filterSubmission) {
 		String lpStr = " case pf%1$dexist when 1 then 1 else 0 end as pf%1$d," + 
 				" case pf%1$dmatch when 1 then 1 else 0 end as pf%1$dmatch, ";
-		return String.format(lpStr, filterSubmission.getFilter()
+		return String.format(lpStr, filterSubmission.getPropertyFilter()
 				.getPropertyField().getId());
 	}
 
@@ -26,7 +26,7 @@ public class RangeFilterWorker implements FilterWorker {
 		  +" (select true as pf%1$dmatch, property_id from property_field_value "
 		  +"	where property_field_id=%1$d and %2$s GROUP BY property_id) pf%1$dfilter"
 		  +" on pf%1$dfilter.property_id = p0.property_id";
-		RangeFilterType filterType = (RangeFilterType) submission.getFilter().getFilter().getFilterType();
+		RangeFilterType filterType = (RangeFilterType) submission.getPropertyFilter().getFilter().getFilterType();
 		RangeFieldPresentation presentation = filterType.getRangeFieldPresentation();
 		String sqldataType = WorkerUtils.loadSqlDataType(presentation);
 		StringBuilder condition = new StringBuilder("");
@@ -39,14 +39,14 @@ public class RangeFilterWorker implements FilterWorker {
 			condition.append(String.format("%1$s CAST(text AS %2$s) >= %3$d",
 					addAnd ? " AND " : "", sqldataType, attrNumber++));
 		}
-		return String.format(ljStr, filterSubmission.getFilter()
+		return String.format(ljStr, filterSubmission.getPropertyFilter()
 				.getPropertyField().getId(), condition.toString());
 	}
 
 	@Override
 	public String loadWhereQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
 		String lwStr =  " (pf%1$d = 0 or pf%1$dmatch = 1)";
-		return String.format(lwStr, filterSubmission.getFilter()
+		return String.format(lwStr, filterSubmission.getPropertyFilter()
 				.getPropertyField().getId());
 	}
 

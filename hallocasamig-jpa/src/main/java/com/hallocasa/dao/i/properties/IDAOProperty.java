@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.properties.EntityProperty;
-import com.hallocasa.vo.hcfilter.PropertyFilterRequest;
+import com.hallocasa.entities.properties.EntityPropertyFieldValue;
 
 public interface IDAOProperty {
 
@@ -24,20 +24,44 @@ public interface IDAOProperty {
 	void delete(String propertyId);
 	
 	/**
+	 * Find properties which its id is within the list supplied
+	 * @param idList
+	 * 		Identifier list supplied
+	 * @param orderBy
+	 * 		String list attributes that apply in order by
+	 * @param asc
+	 * 		Specify if the attributes sort ascending (true) or descending (false)
+	 * @return
+	 * 		Properties matching with any of identifiers
+	 */
+	List<EntityProperty> findByPropertyIdList(List<String> idList, List<String> orderBy, boolean asc);
+	
+	/**
+	 * Find properties which its id is within the list supplied
+	 * @param idList
+	 * 		Identifier list supplied
+	 * @return
+	 * 		Properties matching with any of identifiers
+	 */
+	List<EntityPropertyFieldValue> findValuesByPropertyIdList(List<String> idList);
+	
+	/**
 	 * Find the basic properties
+	 * @param resultsNumber
 	 * @return
 	 * 		The basic properties (?)
 	 */
-	List<EntityProperty> findBasic();
+	List<EntityProperty> findBasicRandom(Integer resultsNumber);
 	
 	/**
-	 * Find the basic properties with the specified filters
-	 * @param request
-	 * 		The request with filters to apply
+	 * Execute a specific filter query, returning the property identifier matching result list
+	 * @param filterQuery
+	 * @param params
+	 * @param pageInfo
 	 * @return
-	 * 		The properties that match the filters
 	 */
-	List<EntityProperty> findBasic(PropertyFilterRequest request);
+	List<String> findIdentifierListByFilterRequest(String filterQuery, List<Object> params, 
+			Integer... pageInfo);
 	
 	/**
 	 * Find the basic properties corresponding to specified user
