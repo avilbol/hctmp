@@ -39,4 +39,19 @@
       </md-card-actions>
     </md-card>
   </div>
+
+  <md-divider ></md-divider>
+
+  <div ng-if="vm.properties.length > 0">
+    <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
+      <div ng-repeat="property in vm.properties" flex-gt-sm="30" flex-gt-xs="45" flex-xs="100">
+        <div
+          ng-include="'app/property/templates/properties-card.html'"
+          ng-click="vm.viewProperty(property.id)"
+          style="cursor: pointer"
+        ></div>
+      </div>
+    </div>
+  </div>
+
 </md-content>

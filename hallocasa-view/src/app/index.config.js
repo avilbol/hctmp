@@ -7,7 +7,10 @@
 
   /** @ngInject */
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
-                  $mdDateLocaleProvider, paginationTemplateProvider, $compileProvider) {
+                  $mdDateLocaleProvider, paginationTemplateProvider, $compileProvider, $httpProvider) {
+
+    $httpProvider.interceptors.push('AppAuthTokenInterceptor');
+
     // Pagination template
     paginationTemplateProvider.setPath('app/global/pagination/pagination.html');
     // Enable log

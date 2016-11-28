@@ -15,13 +15,13 @@
         <md-button ng-click="MainCtrl.goTo('/profile/browser')">
           {{'Common.Label.BrowseProfiles' | translate}}
         </md-button>
-        <md-button>
+        <md-button ng-click="MainCtrl.blogRedirection('blog')">
           {{'Common.Label.Blog' | translate}}
         </md-button>
-        <md-button>
+        <md-button ng-click="MainCtrl.blogRedirection('link')">
           {{'Common.Label.Links' | translate}}
         </md-button>
-        <md-button>
+        <md-button ng-click="MainCtrl.blogRedirection('buyProcess')">
           {{'BuyProcessPage.Menu.Label.Content' | translate}}
         </md-button>
         <md-button ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!vm.isAuthenticated()">
@@ -31,7 +31,7 @@
           {{'Header.SignUp.Button' | translate}}
         </md-button>
 
-        <md-menu ng-if="vm.isAuthenticated()">
+        <md-menu ng-if="MainCtrl.isAuthenticated()">
           <md-button ng-click='$mdOpenMenu($event)'>
             <i class='material-icons'>account_circle</i> <div>Usuario</div>
           </md-button>
@@ -72,13 +72,13 @@
         <md-list-item md-ink-ripple ng-click="MainCtrl.goTo('/profile/browser', true)">
           <p> {{'Common.Label.BrowseProfiles' | translate}}</p>
         </md-list-item>
-        <md-list-item md-ink-ripple>
+        <md-list-item md-ink-ripple ng-click="MainCtrl.blogRedirection('blog')">
           <p> {{'Common.Label.Blog' | translate}}</p>
         </md-list-item>
-        <md-list-item md-ink-ripple>
+        <md-list-item md-ink-ripple ng-click="MainCtrl.blogRedirection('links')">
           <p> {{'Common.Label.Links' | translate}}</p>
         </md-list-item>
-        <md-list-item md-ink-ripple>
+        <md-list-item md-ink-ripple ng-click="MainCtrl.blogRedirection('buyProcess')">
           <p> {{'BuyProcessPage.Menu.Label.Content' | translate}}</p>
         </md-list-item>
         <md-list-item md-ink-ripple ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!vm.isAuthenticated()">
@@ -121,8 +121,14 @@
       <div layout="column" layout-gt-sm="row" flex layout-align="center center">
         <span layout-margin></span>
         <div flex layout="column" class="md-subhead" flex-order-sm="1" flex-order-xs="1">
-          <span> © 2016 HalloCasa, All Rights Reserved</span>
-          <span>{{'Common.Label.PrivacyStatement' | translate}}</span>
+           <div layout="row">
+            <span> © 2016 HalloCasa, All Rights Reserved</span>
+           </div>
+          <div layout="row">
+            <md-button ng-click="MainCtrl.launchPrivacyStatementDialog()">
+              {{'Common.Label.PrivacyStatement' | translate}}
+            </md-button>
+          </div>
         </div>
         <md-button class="md-icon-button" aria-label="go up" flex-order-sm="0" flex-order-xs="0">
           <i class="material-icons">arrow_upward</i>

@@ -9,7 +9,8 @@
   function SessionService($mdMedia, $mdDialog, $document, $auth, $q) {
     var service = {
       validateActiveSession: validateActiveSession,
-      login: login
+      login: login,
+      logout: logout
     };
     return service;
 

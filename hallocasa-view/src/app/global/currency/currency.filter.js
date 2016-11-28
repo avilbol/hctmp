@@ -5,14 +5,12 @@
     .module('HalloCasa')
     .filter('dynamicCurrency', dynamicCurrency);
 
-  function dynamicCurrency(CurrencyService, idSearchFilter, numberFilter, $log) {
+  function dynamicCurrency(CurrencyService, idSearchFilter, numberFilter, toastr) {
     var exchange, currency;
 
     function calculateExchange(inputCurrency, outputCurrency) {
       var rate = getCurrencyRate(inputCurrency, outputCurrency);
       var convertedCurrency = numberFilter(inputCurrency.amount * rate, 2);
-
-      //$log.debug(inputCurrency.amount,idSearchFilter(currency, inputCurrency.currencyID).name," -> ", convertedCurrency, outputCurrency.name);
 
       return convertedCurrency + " " + outputCurrency.name;
     }
