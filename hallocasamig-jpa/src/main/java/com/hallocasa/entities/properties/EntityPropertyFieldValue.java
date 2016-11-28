@@ -25,7 +25,7 @@ import com.hallocasa.entities.i.HallocasaEntity;
 @NamedQueries({
 	@NamedQuery(name = EntityPropertyFieldValue.QUERY_FIND_BASIC_IN, query = "select pfv from "
 			+ "EntityPropertyFieldValue pfv where pfv.property.id IN ?1 AND "
-			+ "pfv.propertyField.basic = TRUE")})
+			+ "(pfv.propertyField.basic = TRUE OR (pfv.propertyField.id = 12 AND pfv.data2 = 1))")})
 public class EntityPropertyFieldValue implements HallocasaEntity {
 
 	public static final String QUERY_FIND_BASIC_IN = "EntityPropertyFieldValue.QueryFindBasicIn";

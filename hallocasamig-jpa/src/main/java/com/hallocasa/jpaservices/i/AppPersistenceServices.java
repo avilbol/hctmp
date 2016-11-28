@@ -229,8 +229,8 @@ public interface AppPersistenceServices {
      * @param endIndex
      * @return
      */
-	<T> List<T> executeNativeQuery(String sqlQuery, HashMap<String, Object> params,
-			Class<T> expectedClass, Integer startIndex, Integer endIndex);
+	List<Object> executeNativeQuery(String sqlQuery, HashMap<String, Object> params,
+			 Integer startIndex, Integer endIndex);
 
 	/**
 	 * 
@@ -271,4 +271,13 @@ public interface AppPersistenceServices {
 	 * @return
 	 */
 	Query loadNamedQuery(String queryName, Object[] params);
+
+	/**
+	 * 
+	 * @param sentence
+	 * @param params
+	 * @param expectedClass
+	 * @return
+	 */
+	<T> List<T> executeNativeQuery(String sentence, Object[] params, Class<T> expectedClass);
 }

@@ -3,7 +3,6 @@ package com.hallocasa.utils.constants.parsing;
 import static com.hallocasa.vo.hcfilter.HcFilterTypeNature.DROPDOWN;
 import static com.hallocasa.vo.hcfilter.HcFilterTypeNature.RANGE;
 import static com.hallocasa.vo.hcfilter.HcFilterTypeNature.YESNO;
-import static com.hallocasa.utils.constants.parsing.HallocasaConvert.*;
 
 import java.util.List;
 

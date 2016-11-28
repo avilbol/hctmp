@@ -21,6 +21,15 @@ public interface PropertyService {
 	void save(Property property);
 	
 	/**
+	 * Find the basic properties with specific user id
+	 * @param userId
+	 * 		The user id to use as filter
+	 * @return
+	 * 		The basic properties that belongs to specific user
+	 */
+	List<Property> findByUser(Integer userId);
+	
+	/**
 	 * Find the basic properties
 	 * @return
 	 * 		The basic properties (?)
@@ -31,12 +40,10 @@ public interface PropertyService {
 	 * Find the properties with the specified filters
 	 * @param request
 	 * 		The request with filters to apply
-	 * @param fullDetail
-	 * 		Return the whole attributes for each property when true
 	 * @return
 	 * 		The properties that match the filters
 	 */
-	List<Property> find(PropertyFilterRequest request, boolean fullDetail);
+	List<Property> find(PropertyFilterRequest request);
 	
 	/**
 	 * Find a detailed property by its id

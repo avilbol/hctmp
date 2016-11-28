@@ -71,11 +71,9 @@ public class PropertyResource {
 				+ "list all the details for each property. Default: false",
 				example="true", required = false, dataType = "boolean", paramType = "query")
 	})
-	public Response findProperties(@Context UriInfo uriInfo, 
+	public Response findProperties(
 			@ApiParam(value = "filters") PropertyFilterRequest propertyFilterRequest) {
-		String fullDetailStr = uriInfo.getQueryParameters().getFirst("full_detail");
-		boolean fullDetail = fullDetailStr.equals("true");
-		List<Property> propertyList = propertyService.find(propertyFilterRequest, fullDetail);
+		List<Property> propertyList = propertyService.find(propertyFilterRequest);
 		return Response.status(HttpStatus.SC_OK).entity(propertyList).build();
 	}
 

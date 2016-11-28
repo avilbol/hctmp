@@ -1,8 +1,8 @@
 package com.hallocasa.services.hcfilters.filterworkers;
 
 import java.util.List;
+import java.util.Map;
 
-import com.hallocasa.vo.hcfilter.properties.PropertyDropdownFilterSubmission;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 import com.hallocasa.vo.options.DropdownOption;
 
@@ -10,7 +10,7 @@ public class PropertyProposalFilterWorker implements FilterWorker {
 
 	@Override
 	public String loadParametersQuery(PropertyFilterSubmission filterSubmission) {
-		return " property_proposal_id,";
+		return " property_proposal_id";
 	}
 
 	@Override
@@ -21,10 +21,18 @@ public class PropertyProposalFilterWorker implements FilterWorker {
 	@Override
 	public String loadWhereQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
 		String ljStr = " property_proposal_id IN %1$s";
-		PropertyDropdownFilterSubmission submission = (PropertyDropdownFilterSubmission) filterSubmission;
-		List<DropdownOption> dropdownOptionList = submission.getSelectedFilterOptions();
+		List<DropdownOption> dropdownOptionList = filterSubmission.getSelectedFilterOptions();
 		String resultParamSchema = WorkerUtils.loadCondition(dropdownOptionList, attrNumber);
 		return String.format(ljStr, resultParamSchema);
+	}
+	
+	@Override
+	public Integer addParams(PropertyFilterSubmission filterSubmission, Map<String, Object> params, Integer attrNumber) {
+		Integer counter = attrNumber;
+		for(DropdownOption option : filterSubmission.getSelectedFilterOptions()){
+			params.put(String.valueOf(counter++), option.getOptionId());
+		}
+		return counter;
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.hallocasa.dao.properties;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -10,10 +12,14 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import com.hallocasa.dao.i.properties.IDAOProperty;
-import com.hallocasa.entities.EntityUser;
+import com.hallocasa.entities.EntityCountry;
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.entities.properties.EntityPropertyFieldValue;
+import com.hallocasa.entities.properties.EntityPropertyLocation;
+import com.hallocasa.entities.properties.EntityPropertyProposal;
+import com.hallocasa.entities.properties.EntityPropertyType;
 import com.hallocasa.jpaservices.i.AppPersistenceServices;
+import com.hallocasa.jpaservices.i.QueryUtils;
 
 /**
  * DAO for class {@link EntityProperty}
@@ -21,9 +27,15 @@ import com.hallocasa.jpaservices.i.AppPersistenceServices;
  */
 @Stateless
 public class DAOProperty implements IDAOProperty {
-
+	
+	private static final String BASIC_PROPERTY_ATTR = "NEW EntityProperty(p.id, p.publishDate, p.propertyType, p.propertyLocation, "
+			+ "p.propertyProposal, p.country)";
+	
 	@EJB
 	private AppPersistenceServices appPersistenceServices;
+	
+	@EJB
+	private QueryUtils queryUtils;
 	
 	@Override
 	public void save(EntityProperty property) {
@@ -31,9 +43,9 @@ public class DAOProperty implements IDAOProperty {
 	}
 	
 	@Override
-	public List<EntityProperty> findByUser(EntityUser entityUser) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> findByUser(Integer userId) {
+		return appPersistenceServices.executeNamedQuery
+				(EntityProperty.QUERY_FIND_ID_BY_USER_ID, new Object[]{userId}, String.class);
 	}
 
 	@Override
@@ -58,9 +70,11 @@ public class DAOProperty implements IDAOProperty {
 	 */
 	@Override
 	public List<EntityProperty> findByPropertyIdList(List<String> idList, List<String> orderBy, boolean asc) {
-		String query = "select p from EntityProperty p where p.id IN ?1";
-		return appPersistenceServices.executeNamedQuery(, 
-				idList.toArray(), EntityProperty.class);
+		String query = String.format("select %1$s from EntityProperty p where p.id IN ?1", BASIC_PROPERTY_ATTR);
+		StringBuilder resultQuery = new StringBuilder("");
+		resultQuery.append(query).append(queryUtils.loadOrderBySnippetQuery(orderBy, asc));
+		return appPersistenceServices.executeQuery(resultQuery.toString(), 
+				new Object[]{idList}, EntityProperty.class);
 	}
 
 	/**
@@ -69,7 +83,7 @@ public class DAOProperty implements IDAOProperty {
 	@Override
 	public List<EntityPropertyFieldValue> findValuesByPropertyIdList(List<String> idList) {
 		return appPersistenceServices.executeNamedQuery(EntityPropertyFieldValue.QUERY_FIND_BASIC_IN, 
-				idList.toArray(), EntityPropertyFieldValue.class);
+				new Object[]{idList}, EntityPropertyFieldValue.class);
 	}
 
 	/**
@@ -91,9 +105,14 @@ public class DAOProperty implements IDAOProperty {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> findIdentifierListByFilterRequest(String filterQuery, List<Object> params,
+	public List<String> findIdentifierListByFilterRequest(String filterQuery, HashMap<String, Object> paramMap,
 			Integer... pageInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Object> objList =  appPersistenceServices.executeNativeQuery(filterQuery, paramMap, 
+				pageInfo[0], pageInfo[1]);
+		List<String> resultList = new LinkedList<>();
+		for(Object obj : objList){
+			resultList.add((String) obj);
+		}
+		return resultList;
 	}
 }

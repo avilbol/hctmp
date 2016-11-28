@@ -1,9 +1,9 @@
 package com.hallocasa.dao.i.properties;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.entities.properties.EntityPropertyFieldValue;
 
@@ -60,17 +60,17 @@ public interface IDAOProperty {
 	 * @param pageInfo
 	 * @return
 	 */
-	List<String> findIdentifierListByFilterRequest(String filterQuery, List<Object> params, 
+	List<String> findIdentifierListByFilterRequest(String filterQuery, HashMap<String, Object> params, 
 			Integer... pageInfo);
 	
 	/**
-	 * Find the basic properties corresponding to specified user
-	 * @param entityUser
-	 * 		The user which the properties allow
+	 * Find the basic property identifiers corresponding to specified user
+	 * @param userId
+	 * 		The user id which the properties allow
 	 * @return
 	 * 		The properties of that user
 	 */
-	List<EntityProperty> findByUser(EntityUser entityUser);
+	List<String> findByUser(Integer userId);
 	
 	/**
 	 * Find a detailed property by its id

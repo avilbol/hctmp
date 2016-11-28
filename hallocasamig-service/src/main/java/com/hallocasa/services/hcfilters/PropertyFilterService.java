@@ -2,8 +2,8 @@ package com.hallocasa.services.hcfilters;
 
 import java.util.List;
 
-import com.hallocasa.vo.hcfilter.properties.PropertyDropdownFilterSubmission;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilter;
+import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 
 /**
  * Service for provide system property filters
@@ -29,6 +29,6 @@ public interface PropertyFilterService {
 	 * @return
 	 * 		filter list which property field apply in filter of selected dropdown options
 	 */
-	List<PropertyFilter> loadPropertyFilterList(List<PropertyDropdownFilterSubmission> filterList);
+	List<PropertyFilter> loadPropertyFilterList(List<PropertyFilterSubmission> filterList);
 	
 }

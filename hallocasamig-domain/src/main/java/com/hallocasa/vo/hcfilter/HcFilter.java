@@ -22,6 +22,7 @@ public class HcFilter implements Serializable, ValueObject{
 	private HcFilter parentFilter;
 	private ShowChoice choice;
 	private Boolean usePropertyField;
+	private FilterWorkerOption filterWorkerOption;
 	
 	public Integer getId() {
 		return id;
@@ -76,5 +77,11 @@ public class HcFilter implements Serializable, ValueObject{
 	}
 	public void setUsePropertyField(Boolean usePropertyField) {
 		this.usePropertyField = usePropertyField;
+	}
+	public FilterWorkerOption getFilterWorkerOption() {
+		return filterWorkerOption;
+	}
+	public void setFilterWorkerOption(FilterWorkerOption filterWorkerOption) {
+		this.filterWorkerOption = filterWorkerOption;
 	}
 }

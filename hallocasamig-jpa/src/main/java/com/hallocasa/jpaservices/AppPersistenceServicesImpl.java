@@ -235,6 +235,20 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
         }
         return query.getResultList();
     }
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> List<T> executeNativeQuery(String sentence, Object[] params, Class<T> expectedClass) {
+        Query query = em.createNativeQuery(sentence);
+        int i = 1;
+        if (params != null) {
+            for (Object entry : params) {
+                query.setParameter(i, entry);
+                i++;
+            }
+        }
+        return query.getResultList();
+    }
 
     /*
      * (non-Javadoc)
@@ -458,11 +472,11 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
      * java.lang.Integer)
      */
     @Override
-    public <T> List<T> executeNativeQuery(String sqlQuery,
-            HashMap<String, Object> params, Class<T> expectedClass,
+    public List<Object> executeNativeQuery(String sqlQuery,
+            HashMap<String, Object> params, 
             Integer startIndex, Integer endIndex) {
 
-        Query query = em.createNativeQuery(sqlQuery, expectedClass);
+        Query query = em.createNativeQuery(sqlQuery);
 
         // set limits
         if (startIndex == null) {

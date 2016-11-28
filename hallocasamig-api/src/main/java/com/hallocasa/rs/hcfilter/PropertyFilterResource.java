@@ -17,8 +17,8 @@ import org.apache.http.HttpStatus;
 import com.hallocasa.rs.security.Secured;
 import com.hallocasa.rs.utils.ResourceUtils;
 import com.hallocasa.services.hcfilters.PropertyFilterService;
-import com.hallocasa.vo.hcfilter.properties.PropertyDropdownFilterSubmission;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilter;
+import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -65,7 +65,7 @@ public class PropertyFilterResource {
 	@ApiImplicitParams({
 			@ApiImplicitParam(allowMultiple = true, name = "filter_nature_id", value = "Filter nature id", required = false, dataType = "string", paramType = "query")
 	})
-	public Response getPropertyFilters(List<PropertyDropdownFilterSubmission> filterList) {
+	public Response getPropertyFilters(List<PropertyFilterSubmission> filterList) {
 		List<PropertyFilter> resultList = propertyFilterService.loadPropertyFilterList(filterList);
 		return Response.status(HttpStatus.SC_OK).entity(resultList).build();
 	}
