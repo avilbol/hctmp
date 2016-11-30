@@ -5,7 +5,7 @@
     .module('HalloCasa', [
       //Third party modules
       'ngAnimate', 'ngResource', 'ngCookies', 'ngRoute', 'ngMaterial', 'toastr', 'pascalprecht.translate', 'ngSanitize',
-      'tmh.dynamicLocale', 'vAccordion', 'ngMessages', 'lfNgMdFileInput', 'angular-carousel-3d',
+      'tmh.dynamicLocale', 'vAccordion', 'ngMessages', 'lfNgMdFileInput', 'angular-carousel-3d', 'pdf',
       //App modules
       'HalloCasa.global',
       'HalloCasa.session',

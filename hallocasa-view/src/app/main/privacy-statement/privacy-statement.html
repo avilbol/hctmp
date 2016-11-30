@@ -1,4 +1,4 @@
-<md-dialog aria-label="login">
+<md-dialog aria-label="privacy-police">
   <md-toolbar>
     <div class="md-toolbar-tools">
       <h2>{{'Common.Label.PrivacyStatement' | translate}}</h2>
@@ -8,9 +8,8 @@
       </md-button>
     </div>
   </md-toolbar>
+  <ng-include src="'app/global/pdf/viewer_toolbar.html'"></ng-include>
   <md-dialog-content>
-    <md-content class="md-padding">
-      <span>{{vm.description}}</span>
-    </md-content>
+    <ng-pdf template-url="/app/global/pdf/pdf_viewer.html" scale="1"></ng-pdf>
   </md-dialog-content>
 </md-dialog>
