@@ -7,7 +7,6 @@ import javax.ejb.EJB;
 
 import com.hallocasa.services.generalities.location.StateService;
 import com.hallocasa.vo.State;
-import com.hallocasa.vo.hcfilter.properties.PropertyDropdownFilterSubmission;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 import com.hallocasa.vo.options.DropdownOption;
 import com.hallocasa.vo.properties.PropertyField;
@@ -19,7 +18,7 @@ public class StateLister implements HcLister {
 	
 	@Override
 	public List<DropdownOption> loadFilterOptions(List<PropertyFilterSubmission> filterList) {
-		PropertyDropdownFilterSubmission filterSubm = (PropertyDropdownFilterSubmission) filterList.get(0);
+		PropertyFilterSubmission filterSubm = (PropertyFilterSubmission) filterList.get(0);
 		List<DropdownOption> optionList = filterSubm.getSelectedFilterOptions();
 		List<Integer> intList = new LinkedList<>();
 		for(DropdownOption dropOpt : optionList){

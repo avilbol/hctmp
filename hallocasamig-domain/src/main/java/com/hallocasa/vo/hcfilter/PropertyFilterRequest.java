@@ -16,6 +16,10 @@ public class PropertyFilterRequest implements Serializable {
 
 	private List<PropertyFilterSubmission> filterList;
 	
+	private Boolean sortByMostRecent;
+	
+	private Boolean sortByLessRecent;
+	
 	private Integer pageFrom;
 	
 	private Integer pageTo;
@@ -42,5 +46,21 @@ public class PropertyFilterRequest implements Serializable {
 
 	public void setPageTo(Integer pageTo) {
 		this.pageTo = pageTo;
+	}
+
+	public Boolean getSortByMostRecent() {
+		return sortByMostRecent;
+	}
+
+	public void setSortByMostRecent(Boolean sortByMostRecent) {
+		this.sortByMostRecent = sortByMostRecent;
+	}
+
+	public Boolean getSortByLessRecent() {
+		return sortByLessRecent;
+	}
+
+	public void setSortByLessRecent(Boolean sortByLessRecent) {
+		this.sortByLessRecent = sortByLessRecent;
 	}
 }

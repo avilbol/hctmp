@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.hallocasa.entities.EntityHcFilter;
 import com.hallocasa.vo.hcfilter.HcFilter;
-import com.hallocasa.vo.hcfilter.properties.PropertyDropdownFilterSubmission;
+import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 
 /**
  * Contract for DAO of class {@link HcFilter}
@@ -31,7 +31,7 @@ public interface IDAOHcFilter {
 	 * @return
 	 * 		The filter list that match with dropdown options
 	 */
-	List<EntityHcFilter> findByPropertyKeys(List<PropertyDropdownFilterSubmission> filterList);
+	List<EntityHcFilter> findByPropertyKeys(List<PropertyFilterSubmission> filterList);
 
 	
 }

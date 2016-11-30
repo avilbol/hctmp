@@ -30,23 +30,56 @@ import com.hallocasa.entities.i.HallocasaEntity;
 @Entity
 @Table(name = "property")
 @NamedQueries({
+	@NamedQuery(name = EntityProperty.QUERY_COUNT, query = "select count(p) from EntityProperty p"),
 	@NamedQuery(name = EntityProperty.QUERY_FIND_IN, query = "select p from EntityProperty p where p.id IN ?1"),
+	@NamedQuery(name = EntityProperty.QUERY_FIND_BASIC, query = "select p.id, p.publishDate, p.propertyType, "
+			+ "p.propertyProposal, p.country, p.propertyLocation from EntityProperty p"),
+	@NamedQuery(name = EntityProperty.QUERY_FIND_ID_BY_USER_ID, query = "select p.id from EntityProperty p WHERE p.user.id = ?1"),
 	@NamedQuery(name = EntityProperty.QUERY_FIND_BY_ID, query = "select p from EntityProperty p where p.id = ?1"),
 	@NamedQuery(name = EntityProperty.QUERY_DELETE_BY_ID, query = "delete from EntityProperty p where p.id = ?1")
 	})
 public class EntityProperty implements Serializable, HallocasaEntity {
 
+	public static final String QUERY_COUNT = "EntityProperty.QueryCount";
+	
 	public static final String QUERY_FIND_BY_ID = "EntityProperty.QueryFindById";
+	
+	public static final String QUERY_FIND_BASIC = "EntityProperty.QueryFindBasic";
+	
+	public static final String QUERY_FIND_ID_BY_USER_ID = "EntityProperty.QueryFindBasicByUserId";
 	
 	public static final String QUERY_FIND_IN = "EntityProperty.QueryFindIn";
 	
 	public static final String QUERY_DELETE_BY_ID = "EntityProperty.QueryDeleteById";
+	
+	public static final String QUERY_SEARCH_BY_FILTERS = ""
+			+ "SELECT filterable.property_id "
+			+ "FROM ( " 
+			+ " SELECT p0.property_id "
+			+ "		   %%FIELDS%% "
+			+ " FROM property p0 "
+			+ " %%JOINS%%"
+			+ ") filterable "
+			+ "WHERE %%FILTERS%% ";
 	
 	/**
 	 * Serialization constant
 	 */
 	private static final long serialVersionUID = 8086831618480962012L;
 
+	public EntityProperty(){}
+	
+	public EntityProperty(String id, Date publishDate, EntityPropertyType propertyType, 
+			EntityPropertyLocation propertyLocation, EntityPropertyProposal propertyProposal, 
+			EntityCountry country){
+		this.id = id;
+		this.publishDate = publishDate;
+		this.propertyType = propertyType;
+		this.propertyLocation = propertyLocation;
+		this.propertyProposal = propertyProposal;
+		this.country = country;
+	}
+	
 	/**
 	 * Property identifier
 	 */

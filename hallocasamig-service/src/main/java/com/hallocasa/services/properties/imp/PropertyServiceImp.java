@@ -8,6 +8,8 @@ import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toEntity;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +18,15 @@ import javax.ejb.Stateless;
 
 import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.properties.EntityProperty;
+import com.hallocasa.services.hcfilters.filterworkers.FilterWorker;
+import com.hallocasa.services.properties.PropertyCommonsService;
 import com.hallocasa.services.properties.PropertyService;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
+import com.hallocasa.utils.resolvers.FilterWorkerOptionRes;
+import com.hallocasa.vo.hcfilter.FilterWorkerOption;
 import com.hallocasa.vo.hcfilter.PropertyFilterRequest;
 import com.hallocasa.vo.hcfilter.properties.Property;
+import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 
 @Stateless
 public class PropertyServiceImp implements PropertyService {
@@ -27,7 +34,12 @@ public class PropertyServiceImp implements PropertyService {
 	@EJB
 	private IDAOProperty daoProperty;
 	
+	@EJB
+	private PropertyCommonsService propertyCommonsService;
+	
 	private String filePathRoot = get(PROPERTY_IMAGES_PATH);
+	
+	private static final Integer BASIC_PROPERTIES_RETURN_NUMBER = 10;
 	
 	/**
 	 * {@inheritDoc}
@@ -71,17 +83,46 @@ public class PropertyServiceImp implements PropertyService {
 	 */
 	@Override
 	public List<Property> findBasic() {
-		// TODO Auto-generated method stub
-		return null;
+		List<EntityProperty> entList = daoProperty.findBasicRandom(BASIC_PROPERTIES_RETURN_NUMBER);
+		return propertyCommonsService.toValueObjectList(entList);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Property> find(PropertyFilterRequest request, boolean fullDetail) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Property> find(PropertyFilterRequest request) {
+		boolean sortByLessRecent = request.getSortByLessRecent() != null && request.getSortByLessRecent();
+		boolean sortByMostRecent = request.getSortByMostRecent() != null && request.getSortByMostRecent();
+		validateRequest(request);
+		String query = EntityProperty.QUERY_SEARCH_BY_FILTERS;
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		StringBuilder fieldBuilder = new StringBuilder("");
+		StringBuilder filterBuilder = new StringBuilder("");
+		StringBuilder joinBuilder = new StringBuilder(""); 
+		List<String> orderByParamList = new LinkedList<>();
+		List<PropertyFilterSubmission> submissionList = request.getFilterList();
+		Integer attrNumber = 1;
+		for(PropertyFilterSubmission filterSubmission : submissionList){
+			FilterWorkerOption fwo = filterSubmission.getPropertyFilter().getFilter().getFilterWorkerOption();
+			FilterWorker filterWorker = FilterWorkerOptionRes.getFilterWorker(fwo);
+			fieldBuilder.append(", " + filterWorker.loadParametersQuery(filterSubmission));
+			joinBuilder.append(filterWorker.loadJoinQuery(filterSubmission, attrNumber));
+			filterBuilder.append(filterBuilder.toString().isEmpty() ? "" : " AND ")
+				.append(filterWorker.loadWhereQuery(filterSubmission, attrNumber));
+			attrNumber = filterWorker.addParams(filterSubmission, paramMap, attrNumber);
+		}
+		if(sortByLessRecent || sortByMostRecent){
+			orderByParamList.add("p.publishDate");
+		}
+		query = query.replaceAll("%%FIELDS%%", fieldBuilder.toString());
+		query = query.replaceAll("%%JOINS%%", joinBuilder.toString());
+		query = query.replaceAll("%%FILTERS%%", filterBuilder.toString());
+		List<String> filteredIdProperties = daoProperty.findIdentifierListByFilterRequest(query, paramMap, 
+				request.getPageFrom(), request.getPageTo());
+		List<EntityProperty> filteredProperties = propertyCommonsService.getPropertyListBy(filteredIdProperties, 
+				orderByParamList, sortByLessRecent);
+		return propertyCommonsService.toValueObjectList(filteredProperties);
 	}
 
 	/**
@@ -104,5 +145,27 @@ public class PropertyServiceImp implements PropertyService {
 	public void delete(String propertyId) {
 		daoProperty.delete(propertyId);
 		cleanFilesStartingWithPrefix(filePathRoot, propertyId);
+	}
+
+	@Override
+	public List<Property> findByUser(Integer userId) {
+		List<String> userIdProperties = daoProperty.findByUser(userId);
+		List<EntityProperty> userProperties = propertyCommonsService.getPropertyListBy(userIdProperties, 
+				new LinkedList<>(), false);
+		return propertyCommonsService.toValueObjectList(userProperties);
+	}
+	
+	private void validateRequest(PropertyFilterRequest request){
+		boolean sortByLessRecent = request.getSortByLessRecent() != null && request.getSortByLessRecent();
+		boolean sortByMostRecent = request.getSortByMostRecent() != null && request.getSortByMostRecent();
+		if(sortByMostRecent && sortByLessRecent){
+			throw new BadRequestException("Sort by most recent and less recent? really?");
+		}
+		if(request.getPageFrom() == null || request.getPageTo() == null){
+			throw new BadRequestException("You must specify pagination (start and end index)");
+		}
+		if(request.getPageFrom() > request.getPageTo()){
+			throw new BadRequestException("Pagination start index greater than end index? really?");
+		}
 	}
 }

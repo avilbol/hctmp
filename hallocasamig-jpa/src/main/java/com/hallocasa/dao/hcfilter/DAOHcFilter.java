@@ -14,7 +14,7 @@ import com.hallocasa.entities.EntityHcFilter;
 import com.hallocasa.jpaservices.i.AppPersistenceServices;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
 import com.hallocasa.vo.hcfilter.HcFilter;
-import com.hallocasa.vo.hcfilter.properties.PropertyDropdownFilterSubmission;
+import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 import com.hallocasa.vo.options.DropdownOption;
 
 /**
@@ -53,7 +53,7 @@ public class DAOHcFilter implements IDAOHcFilter {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<EntityHcFilter> findByPropertyKeys(List<PropertyDropdownFilterSubmission> filterList) {
+	public List<EntityHcFilter> findByPropertyKeys(List<PropertyFilterSubmission> filterList) {
 		List<Object> attrList = new LinkedList<>();
 		String dynamicSearchQuery = "select pf.id from property_field pf";
 		String joinSchema = " join (select * from property_field_condition_option where condition_level = %1$d and parent_property_field_id=?%2$d) p%4$d"
@@ -65,7 +65,7 @@ public class DAOHcFilter implements IDAOHcFilter {
 		if (filterList.isEmpty()) {
 			throw new BadRequestException("You must send at least one property key filter");
 		}
-		for (PropertyDropdownFilterSubmission pdfs : filterList) {
+		for (PropertyFilterSubmission pdfs : filterList) {
 			if (pdfs.getSelectedFilterOptions().isEmpty()) {
 				throw new BadRequestException("You cannot send property key filters " + "without selected options!");
 			}
@@ -75,7 +75,7 @@ public class DAOHcFilter implements IDAOHcFilter {
 				attrList.add(option.getOptionId());
 			}
 			String options = internalOptBuilder.append(")").toString().replaceAll(",\\)", "\\)");
-			Integer propertyFieldId = pdfs.getFilter().getPropertyField().getId();
+			Integer propertyFieldId = pdfs.getPropertyFilter().getPropertyField().getId();
 			String joinSchemaResC0 = String.format(joinSchema, 0, ++attrCounter, options, ++filterCounter);
 			String joinSchemaResC1 = String.format(joinSchema, 1, attrCounter, options, ++filterCounter);
 			builderCond0.append(joinSchemaResC0);

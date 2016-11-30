@@ -19,8 +19,10 @@ import javax.persistence.Table;
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.entities.properties.EntityDropdownOptionGroup;
 import com.hallocasa.entities.properties.EntityPropertyFieldFilter;
+import com.hallocasa.persistence.converters.FilterWorkerOptionConverter;
 import com.hallocasa.persistence.converters.HcBooleanConverter;
 import com.hallocasa.persistence.converters.ShowChoiceConverter;
+import com.hallocasa.vo.hcfilter.FilterWorkerOption;
 import com.hallocasa.vo.hcfilter.ShowChoice;
 
 @Entity
@@ -136,6 +138,10 @@ public class EntityHcFilter implements HallocasaEntity {
 
 	@OneToMany(mappedBy = "filter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<EntityFilterListingStep> listingStepList;
+	
+	@Convert(converter=FilterWorkerOptionConverter.class)
+	@Column(name = "filter_worker_option")
+	private FilterWorkerOption filterWorkerOption;
 
 	public Integer getId() {
 		return id;
@@ -303,5 +309,13 @@ public class EntityHcFilter implements HallocasaEntity {
 
 	public void setUsePropertyField(Boolean usePropertyField) {
 		this.usePropertyField = usePropertyField;
+	}
+
+	public FilterWorkerOption getFilterWorkerOption() {
+		return filterWorkerOption;
+	}
+
+	public void setFilterWorkerOption(FilterWorkerOption filterWorkerOption) {
+		this.filterWorkerOption = filterWorkerOption;
 	}
 }
