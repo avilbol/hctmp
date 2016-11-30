@@ -136,7 +136,6 @@ public class PropertyServicesImpl implements PropertyServices {
 	}
 
 
-
 	@Override
 	public List<PropertyVO> find(PropertyFilter propertyFilter) {
 		return propertyFilteringServices.loadProperties(propertyFilter);

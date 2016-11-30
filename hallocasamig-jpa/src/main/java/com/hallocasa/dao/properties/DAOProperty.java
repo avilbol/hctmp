@@ -1,6 +1,5 @@
 package com.hallocasa.dao.properties;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,12 +11,8 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import com.hallocasa.dao.i.properties.IDAOProperty;
-import com.hallocasa.entities.EntityCountry;
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.entities.properties.EntityPropertyFieldValue;
-import com.hallocasa.entities.properties.EntityPropertyLocation;
-import com.hallocasa.entities.properties.EntityPropertyProposal;
-import com.hallocasa.entities.properties.EntityPropertyType;
 import com.hallocasa.jpaservices.i.AppPersistenceServices;
 import com.hallocasa.jpaservices.i.QueryUtils;
 
@@ -28,7 +23,7 @@ import com.hallocasa.jpaservices.i.QueryUtils;
 @Stateless
 public class DAOProperty implements IDAOProperty {
 	
-	private static final String BASIC_PROPERTY_ATTR = "NEW EntityProperty(p.id, p.publishDate, p.propertyType, p.propertyLocation, "
+	private static final String BASIC_PROPERTY_ATTR = "NEW com.hallocasa.entities.properties.EntityProperty(p.id, p.publishDate, p.propertyType, p.propertyLocation, "
 			+ "p.propertyProposal, p.country)";
 	
 	@EJB
@@ -108,7 +103,7 @@ public class DAOProperty implements IDAOProperty {
 	public List<String> findIdentifierListByFilterRequest(String filterQuery, HashMap<String, Object> paramMap,
 			Integer... pageInfo) {
 		List<Object> objList =  appPersistenceServices.executeNativeQuery(filterQuery, paramMap, 
-				pageInfo[0], pageInfo[1]);
+				pageInfo[0] - 1, pageInfo[1]);
 		List<String> resultList = new LinkedList<>();
 		for(Object obj : objList){
 			resultList.add((String) obj);

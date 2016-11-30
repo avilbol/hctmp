@@ -39,6 +39,9 @@ public class PropertyCommonsServiceImp implements PropertyCommonsService {
 	 */
 	@Override
 	public List<EntityProperty> getPropertyListBy(List<String> propertyIdList, List<String> orderBy, boolean asc) {
+		if(propertyIdList.isEmpty()){
+			return new LinkedList<EntityProperty>();
+		}
 		List<EntityProperty> entPropertyList = daoProperty.findByPropertyIdList(propertyIdList, orderBy, asc);
 		List<EntityPropertyFieldValue> entPfvList = daoProperty.findValuesByPropertyIdList(propertyIdList);
 		Map<String, EntityProperty> entPropertyMap = new HashMap<String, EntityProperty>();

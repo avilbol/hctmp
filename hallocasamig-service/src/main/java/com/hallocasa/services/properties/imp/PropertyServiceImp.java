@@ -70,7 +70,9 @@ public class PropertyServiceImp implements PropertyService {
 		if(property.getFieldList().isEmpty()){
 			throw new BadRequestException("Field list empty in property");
 		}
-		property.setPublishDate(new Date());
+		if(property.getPublishDate() == null){
+			property.setPublishDate(new Date());
+		}
 		EntityProperty entityProperty = (EntityProperty) toEntity(property);
 		daoProperty.save(entityProperty);
 		String propId = entityProperty.getId();

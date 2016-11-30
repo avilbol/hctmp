@@ -25,10 +25,14 @@ import com.hallocasa.entities.i.HallocasaEntity;
 @NamedQueries({
 	@NamedQuery(name = EntityPropertyFieldValue.QUERY_FIND_BASIC_IN, query = "select pfv from "
 			+ "EntityPropertyFieldValue pfv where pfv.property.id IN ?1 AND "
-			+ "(pfv.propertyField.basic = TRUE OR (pfv.propertyField.id = 12 AND pfv.data2 = 1))")})
+			+ "(pfv.propertyField.basic = TRUE OR (pfv.propertyField.id = 12 AND pfv.data2 = 1))"),
+	@NamedQuery(name = EntityPropertyFieldValue.QUERY_DELETE_BY_PROP_ID, query = "delete from "
+			+ "EntityPropertyFieldValue pfv where pfv.property.id = ?1")})
 public class EntityPropertyFieldValue implements HallocasaEntity {
 
 	public static final String QUERY_FIND_BASIC_IN = "EntityPropertyFieldValue.QueryFindBasicIn";
+	
+	public static final String QUERY_DELETE_BY_PROP_ID = "EntityPropertyFieldValue.QueryDeleteByPropId";
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
