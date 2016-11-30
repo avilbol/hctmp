@@ -14,7 +14,7 @@ public class PropertyFilterSubmission implements Serializable, ValueObject {
 
 	private boolean apply;
 	
-	private PropertyFilter propertyFilter;
+	private PropertyFilterEntry propertyFilter;
 
 	private Double minValue;
 	private Double maxValue;
@@ -40,11 +40,11 @@ public class PropertyFilterSubmission implements Serializable, ValueObject {
 		this.selectedFilterOptions = selectedFilterOptions;
 	}
 	
-	public PropertyFilter getPropertyFilter() {
+	public PropertyFilterEntry getPropertyFilter() {
 		return propertyFilter;
 	}
 
-	public void setPropertyFilter(PropertyFilter propertyFilter) {
+	public void setPropertyFilter(PropertyFilterEntry propertyFilter) {
 		this.propertyFilter = propertyFilter;
 	}
 

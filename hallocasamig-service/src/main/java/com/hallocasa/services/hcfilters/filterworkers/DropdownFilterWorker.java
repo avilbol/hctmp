@@ -20,7 +20,7 @@ public class DropdownFilterWorker implements FilterWorker {
 	public String loadJoinQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
 		String ljStr = " left join "
 		  + "(select true as pf%1$dexists, property_id from property_field_value "
-		  + " where property_field_id=%1$d) pf%1$d"
+		  + " where property_field_id=%1$d GROUP BY property_id) pf%1$d"
 		  + " on pf%1$d.property_id = p0.property_id"
 		  +" left join"
 		  +" (select true as pf%1$dmatch, property_id from property_field_value "
@@ -35,7 +35,7 @@ public class DropdownFilterWorker implements FilterWorker {
 
 	@Override
 	public String loadWhereQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
-		String lwStr =  " (pf%1$d = 0 or pf%1$dmatch = 1)";
+		String lwStr =  " (pf%1$d = 1 and pf%1$dmatch = 1)";
 		return String.format(lwStr, filterSubmission.getPropertyFilter()
 				.getPropertyField().getId());
 	}
