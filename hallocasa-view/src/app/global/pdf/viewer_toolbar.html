@@ -1,0 +1,21 @@
+<div layout="row" layout-align="center center" ng-if="pageNum && pageCount">
+  <span flex="20"></span>
+  <div flex layout="row" layout-align="center center">
+    <md-button class="md-primary" ng-click="goPrevious()">
+      <span> < </span>
+    </md-button>
+    <span>{{pageNum}} / {{pageCount}}</span>
+    <md-button class="md-primary" ng-click="goNext()">
+      <span> > </span>
+    </md-button>
+  </div>
+
+  <div flex="20" layout="row" layout-align="end center">
+    <md-button class="md-primary md-icon-button" ng-click="zoomIn()">
+      <i class="material-icons">zoom_in</i>
+    </md-button>
+    <md-button class="md-primary md-icon-button" ng-click="zoomOut()">
+      <i class="material-icons">zoom_out</i>
+    </md-button>
+  </div>
+</div>

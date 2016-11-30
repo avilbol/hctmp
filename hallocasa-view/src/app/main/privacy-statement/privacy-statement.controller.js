@@ -6,12 +6,11 @@
     .controller('PrivacyStatementController', PrivacyStatementController);
 
   /** @ngInject */
-  function PrivacyStatementController($mdDialog) {
+  function PrivacyStatementController($mdDialog, $scope) {
     var vm = this;
 
     vm.closeDialog = closeDialog;
-    //TODO: Texto del acuerdo
-    vm.description = "Acuerdo de privacidad";
+    $scope.pdfUrl = "/resources/privacy_statement/hallocasa_privacy_statement.pdf";
 
     function closeDialog(){
       $mdDialog.cancel();
