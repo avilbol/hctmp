@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.hallocasa.vo.CurrencyAmmount;
 import com.hallocasa.vo.i.ValueObject;
 import com.hallocasa.vo.options.DropdownOption;
 
@@ -21,6 +22,9 @@ public class PropertyFilterSubmission implements Serializable, ValueObject {
 
 	private Date minDateValue;
 	private Date maxDateValue;
+	
+	private CurrencyAmmount minCrcyValue;
+	private CurrencyAmmount maxCrcyValue;
 
 	private List<DropdownOption> selectedFilterOptions;
 
@@ -78,5 +82,21 @@ public class PropertyFilterSubmission implements Serializable, ValueObject {
 
 	public void setMaxDateValue(Date maxDateValue) {
 		this.maxDateValue = maxDateValue;
+	}
+
+	public CurrencyAmmount getMinCrcyValue() {
+		return minCrcyValue;
+	}
+
+	public void setMinCrcyValue(CurrencyAmmount minCrcyValue) {
+		this.minCrcyValue = minCrcyValue;
+	}
+
+	public CurrencyAmmount getMaxCrcyValue() {
+		return maxCrcyValue;
+	}
+
+	public void setMaxCrcyValue(CurrencyAmmount maxCrcyValue) {
+		this.maxCrcyValue = maxCrcyValue;
 	}
 }

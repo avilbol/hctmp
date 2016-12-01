@@ -73,6 +73,7 @@ public class CurrencyExchangeDataServiceImp implements CurrencyExchangeDataServi
 			List<EntityCurrencyExchangeData> exchangeList = exchangeDataConverter
 					.toSimpleList(currencyExchangeData, currencies);
 			daoCurrencyExchangeData.save(exchangeList);
+			daoCurrencyExchangeData.clean();
 		} catch(IOException e){
 			throw new FatalException("Unexpected error", e);
 		}

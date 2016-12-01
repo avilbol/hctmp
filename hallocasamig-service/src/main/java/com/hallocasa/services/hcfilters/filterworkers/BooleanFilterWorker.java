@@ -22,7 +22,7 @@ public class BooleanFilterWorker implements FilterWorker {
 		  + " on pf%1$d.property_id = p0.property_id"
 		  +" left join"
 		  +" (select true as pf%1$dmatch, property_id from property_field_value "
-		  +"	where property_field_id=%1$d and text = %1$s GROUP BY property_id) pf%1$dfilter"
+		  +"	where property_field_id=%1$d and text = %2$s GROUP BY property_id) pf%1$dfilter"
 		  +" on pf%1$dfilter.property_id = p0.property_id";
 		String checkStr = "?" + (attrNumber);
 		return String.format(ljStr, filterSubmission.getPropertyFilter()

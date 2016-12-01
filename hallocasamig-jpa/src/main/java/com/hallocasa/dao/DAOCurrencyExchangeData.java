@@ -44,7 +44,8 @@ public class DAOCurrencyExchangeData implements IDAOCurrencyExchangeData {
 	 */
 	@Override
 	public void clean() {
-		appPersistenceServices.executeNamedQuery(EntityCurrencyExchangeData.QUERY_DELETE_ALL, new Object[] {});
+		appPersistenceServices.executeNativeUpdate(
+				EntityCurrencyExchangeData.NATIVE_QUERY_DELETE_OLD, new Object[] {});
 	}
 
 	/**
