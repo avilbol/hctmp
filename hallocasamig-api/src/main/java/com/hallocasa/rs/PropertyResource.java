@@ -1,6 +1,5 @@
 package com.hallocasa.rs;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.ejb.EJB;
@@ -11,10 +10,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 
 import org.apache.http.HttpStatus;
 
@@ -73,8 +70,8 @@ public class PropertyResource {
 	})
 	public Response findProperties(
 			@ApiParam(value = "filters") PropertyFilterRequest propertyFilterRequest) {
-		List<Property> propertyList = propertyService.find(propertyFilterRequest);
-		return Response.status(HttpStatus.SC_OK).entity(propertyList).build();
+		return Response.status(HttpStatus.SC_OK).entity(
+				propertyService.find(propertyFilterRequest)).build();
 	}
 
 	@POST

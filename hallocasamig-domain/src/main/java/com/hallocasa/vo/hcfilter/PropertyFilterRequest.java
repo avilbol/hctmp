@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
+import com.hallocasa.vo.resultrequest.ResultRequest;
 
 /**
  * Hallocasa request, value object to obtain data
@@ -16,13 +17,7 @@ public class PropertyFilterRequest implements Serializable {
 
 	private List<PropertyFilterSubmission> filterList;
 	
-	private Boolean sortByMostRecent;
-	
-	private Boolean sortByLessRecent;
-	
-	private Integer pageFrom;
-	
-	private Integer pageTo;
+	private ResultRequest resultRequest;
 
 	public List<PropertyFilterSubmission> getFilterList() {
 		return filterList;
@@ -32,35 +27,14 @@ public class PropertyFilterRequest implements Serializable {
 		this.filterList = filterList;
 	}
 
-	public Integer getPageFrom() {
-		return pageFrom;
+	public ResultRequest getResultRequest() {
+		if(resultRequest == null){
+			resultRequest = new ResultRequest();
+		}
+		return resultRequest;
 	}
 
-	public void setPageFrom(Integer pageFrom) {
-		this.pageFrom = pageFrom;
-	}
-
-	public Integer getPageTo() {
-		return pageTo;
-	}
-
-	public void setPageTo(Integer pageTo) {
-		this.pageTo = pageTo;
-	}
-
-	public Boolean getSortByMostRecent() {
-		return sortByMostRecent;
-	}
-
-	public void setSortByMostRecent(Boolean sortByMostRecent) {
-		this.sortByMostRecent = sortByMostRecent;
-	}
-
-	public Boolean getSortByLessRecent() {
-		return sortByLessRecent;
-	}
-
-	public void setSortByLessRecent(Boolean sortByLessRecent) {
-		this.sortByLessRecent = sortByLessRecent;
+	public void setResultRequest(ResultRequest resultRequest) {
+		this.resultRequest = resultRequest;
 	}
 }

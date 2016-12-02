@@ -25,8 +25,10 @@ import com.hallocasa.utils.constants.exceptions.BadRequestException;
 import com.hallocasa.utils.resolvers.FilterWorkerOptionRes;
 import com.hallocasa.vo.hcfilter.FilterWorkerOption;
 import com.hallocasa.vo.hcfilter.PropertyFilterRequest;
+import com.hallocasa.vo.hcfilter.PropertyFilterResult;
 import com.hallocasa.vo.hcfilter.properties.Property;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
+import com.hallocasa.vo.resultrequest.ResultRequest;
 
 @Stateless
 public class PropertyServiceImp implements PropertyService {
@@ -93,38 +95,29 @@ public class PropertyServiceImp implements PropertyService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Property> find(PropertyFilterRequest request) {
-		boolean sortByLessRecent = request.getSortByLessRecent() != null && request.getSortByLessRecent();
-		boolean sortByMostRecent = request.getSortByMostRecent() != null && request.getSortByMostRecent();
+	public PropertyFilterResult find(PropertyFilterRequest request) {
+		ResultRequest resultRequest = request.getResultRequest();
+		boolean sortByLessRecent = sortByLessRecent(resultRequest);
+		boolean sortByMostRecent = sortByMostRecent(resultRequest);
 		validateRequest(request);
-		String query = EntityProperty.QUERY_SEARCH_BY_FILTERS;
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		StringBuilder fieldBuilder = new StringBuilder("");
-		StringBuilder filterBuilder = new StringBuilder("");
-		StringBuilder joinBuilder = new StringBuilder(""); 
-		List<String> orderByParamList = new LinkedList<>();
-		List<PropertyFilterSubmission> submissionList = request.getFilterList();
-		Integer attrNumber = 1;
-		for(PropertyFilterSubmission filterSubmission : submissionList){
-			FilterWorkerOption fwo = filterSubmission.getPropertyFilter().getFilter().getFilterWorkerOption();
-			FilterWorker filterWorker = FilterWorkerOptionRes.getFilterWorker(fwo);
-			fieldBuilder.append(", " + filterWorker.loadParametersQuery(filterSubmission));
-			joinBuilder.append(filterWorker.loadJoinQuery(filterSubmission, attrNumber));
-			filterBuilder.append(filterBuilder.toString().isEmpty() ? "" : " AND ")
-				.append(filterWorker.loadWhereQuery(filterSubmission, attrNumber));
-			attrNumber = filterWorker.addParams(filterSubmission, paramMap, attrNumber);
-		}
+		String query = generateQuery(EntityProperty.QUERY_SEARCH_BY_FILTERS, request, paramMap);
+		String countQuery = generateQuery(EntityProperty.QUERY_COUNT_SEARCH_BY_FILTERS, request, paramMap);
+		resultRequest.setOrderBy(new LinkedList<>());
 		if(sortByLessRecent || sortByMostRecent){
-			orderByParamList.add("p.publishDate");
+			resultRequest.getOrderBy().add("p.publishDate");
 		}
-		query = query.replaceAll("%%FIELDS%%", fieldBuilder.toString());
-		query = query.replaceAll("%%JOINS%%", joinBuilder.toString());
-		query = query.replaceAll("%%FILTERS%%", filterBuilder.toString());
-		List<String> filteredIdProperties = daoProperty.findIdentifierListByFilterRequest(query, paramMap, 
-				request.getPageFrom(), request.getPageTo());
+		request.getResultRequest().setAsc(sortByLessRecent);
+		List<String> filteredIdProperties = daoProperty.findIdentifierListByFilterRequest(query, 
+				paramMap, resultRequest);
 		List<EntityProperty> filteredProperties = propertyCommonsService.getPropertyListBy(filteredIdProperties, 
-				orderByParamList, sortByLessRecent);
-		return propertyCommonsService.toValueObjectList(filteredProperties);
+				resultRequest);
+		Long count = null;
+		if(resultRequest.getLoadCount() != null && resultRequest.getLoadCount()){
+			count = daoProperty.findIdentifierCountByFilterRequest(countQuery, paramMap);
+		}
+		List<Property> propertyList = propertyCommonsService.toValueObjectList(filteredProperties);
+		return new PropertyFilterResult(count, propertyList);
 	}
 
 	/**
@@ -152,22 +145,53 @@ public class PropertyServiceImp implements PropertyService {
 	@Override
 	public List<Property> findByUser(Integer userId) {
 		List<String> userIdProperties = daoProperty.findByUser(userId);
+		ResultRequest resultRequest = new ResultRequest();
+		resultRequest.setAsc(false);
+		resultRequest.setOrderBy(new LinkedList<>());
 		List<EntityProperty> userProperties = propertyCommonsService.getPropertyListBy(userIdProperties, 
-				new LinkedList<>(), false);
+				resultRequest);
 		return propertyCommonsService.toValueObjectList(userProperties);
 	}
 	
 	private void validateRequest(PropertyFilterRequest request){
-		boolean sortByLessRecent = request.getSortByLessRecent() != null && request.getSortByLessRecent();
-		boolean sortByMostRecent = request.getSortByMostRecent() != null && request.getSortByMostRecent();
+		boolean sortByLessRecent = sortByLessRecent(request.getResultRequest());
+		boolean sortByMostRecent = sortByMostRecent(request.getResultRequest());
 		if(sortByMostRecent && sortByLessRecent){
 			throw new BadRequestException("Sort by most recent and less recent? really?");
 		}
-		if(request.getPageFrom() == null || request.getPageTo() == null){
+		if(request.getResultRequest().getPageFrom() == null || request.getResultRequest().getPageTo() == null){
 			throw new BadRequestException("You must specify pagination (start and end index)");
 		}
-		if(request.getPageFrom() > request.getPageTo()){
+		if(request.getResultRequest().getPageFrom() > request.getResultRequest().getPageTo()){
 			throw new BadRequestException("Pagination start index greater than end index? really?");
 		}
+	}
+	
+	private boolean sortByLessRecent(ResultRequest request){
+		return request.getOrderByLessRecent() != null && request.getOrderByLessRecent();
+	}
+	
+	private boolean sortByMostRecent(ResultRequest request){
+		return request.getOrderByMostRecent() != null && request.getOrderByMostRecent();
+	}
+	
+	private String generateQuery(String base, PropertyFilterRequest request, HashMap<String, Object> paramMap){
+		StringBuilder fieldBuilder = new StringBuilder("");
+		StringBuilder filterBuilder = new StringBuilder("");
+		StringBuilder joinBuilder = new StringBuilder(""); 
+		Integer attrNumber = 1;
+		for(PropertyFilterSubmission filterSubmission : request.getFilterList()){
+			FilterWorkerOption fwo = filterSubmission.getPropertyFilter().getFilter().getFilterWorkerOption();
+			FilterWorker filterWorker = FilterWorkerOptionRes.getFilterWorker(fwo);
+			fieldBuilder.append(", " + filterWorker.loadParametersQuery(filterSubmission));
+			joinBuilder.append(filterWorker.loadJoinQuery(filterSubmission, attrNumber));
+			filterBuilder.append(filterBuilder.toString().isEmpty() ? "" : " AND ")
+				.append(filterWorker.loadWhereQuery(filterSubmission, attrNumber));
+			attrNumber = filterWorker.addParams(filterSubmission, paramMap, attrNumber);
+		}
+		base = base.replaceAll("%%FIELDS%%", fieldBuilder.toString());
+		base = base.replaceAll("%%JOINS%%", joinBuilder.toString());
+		base = base.replaceAll("%%FILTERS%%", filterBuilder.toString());
+		return base;
 	}
 }

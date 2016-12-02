@@ -1,5 +1,6 @@
 package com.hallocasa.utils.constants.propertyfieldparsing;
 
+import static com.hallocasa.filemanager.FileManager.replaceMassive;
 import static com.hallocasa.systemproperties.SystemConstants.*;
 import static com.hallocasa.systemproperties.SystemProperty.get;
 
@@ -16,7 +17,7 @@ public class PfpTextFileConverter implements PropertyFieldValueConverter {
 			return null;
 		}
 		PropertyFieldValueSpec spec = new PropertyFieldValueSpec();
-		spec.setStrVal(FileManager.encodeToBase64(filePathRoot, detail));
+		spec.setStrVal(detail);
 		return spec;
 	}
 
@@ -28,10 +29,26 @@ public class PfpTextFileConverter implements PropertyFieldValueConverter {
 		String tmpPrefix = details[1];
 		String propId = details[0];
 		String pref = tmpPrefix + "-";
+		if(isFilename(spec.getStrVal())){
+			String pathname = spec.getStrVal();
+			replaceMassive(filePathRoot, pathname, pref + pathname);
+			return spec.getStrVal();
+		}
 		String fullFilename = FileManager.createFileFromBase64(filePathRoot, 
 				spec.getStrVal(), pref + propId);
 		String[] parts = fullFilename.split("/");
 		return parts[parts.length - 1].replaceAll(pref, "");
 	}
 
+	private boolean isFilename(String strVal){
+		String[] vluList = strVal.split("-");
+		boolean propIdentifierSize = vluList[0].length() == 8;
+		if(!propIdentifierSize){
+			return false;
+		}
+		String[] imgList = vluList[1].split("\\.");
+		boolean filenameSize = imgList[0].length() == 20;
+		return filenameSize;
+	}
+	
 }

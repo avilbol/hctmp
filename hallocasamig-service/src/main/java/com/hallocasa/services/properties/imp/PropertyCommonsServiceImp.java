@@ -15,6 +15,7 @@ import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.entities.properties.EntityPropertyFieldValue;
 import com.hallocasa.services.properties.PropertyCommonsService;
 import com.hallocasa.vo.hcfilter.properties.Property;
+import com.hallocasa.vo.resultrequest.ResultRequest;
 
 @Stateless
 public class PropertyCommonsServiceImp implements PropertyCommonsService {
@@ -38,11 +39,11 @@ public class PropertyCommonsServiceImp implements PropertyCommonsService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<EntityProperty> getPropertyListBy(List<String> propertyIdList, List<String> orderBy, boolean asc) {
+	public List<EntityProperty> getPropertyListBy(List<String> propertyIdList, ResultRequest resultRequest) {
 		if(propertyIdList.isEmpty()){
 			return new LinkedList<EntityProperty>();
 		}
-		List<EntityProperty> entPropertyList = daoProperty.findByPropertyIdList(propertyIdList, orderBy, asc);
+		List<EntityProperty> entPropertyList = daoProperty.findByPropertyIdList(propertyIdList, resultRequest);
 		List<EntityPropertyFieldValue> entPfvList = daoProperty.findValuesByPropertyIdList(propertyIdList);
 		Map<String, EntityProperty> entPropertyMap = new HashMap<String, EntityProperty>();
 		for(EntityProperty entityProperty : entPropertyList){

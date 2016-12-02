@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.entities.properties.EntityPropertyFieldValue;
+import com.hallocasa.vo.resultrequest.ResultRequest;
 
 public interface IDAOProperty {
 
@@ -27,14 +28,13 @@ public interface IDAOProperty {
 	 * Find properties which its id is within the list supplied
 	 * @param idList
 	 * 		Identifier list supplied
-	 * @param orderBy
-	 * 		String list attributes that apply in order by
-	 * @param asc
-	 * 		Specify if the attributes sort ascending (true) or descending (false)
+	 * @param resultRequest
+	 * 		Object with String list attributes that apply in order by, and 
+	 * 		if the attributes sort ascending (true) or descending (false)
 	 * @return
 	 * 		Properties matching with any of identifiers
 	 */
-	List<EntityProperty> findByPropertyIdList(List<String> idList, List<String> orderBy, boolean asc);
+	List<EntityProperty> findByPropertyIdList(List<String> idList, ResultRequest resultRequest);
 	
 	/**
 	 * Find properties which its id is within the list supplied
@@ -57,11 +57,11 @@ public interface IDAOProperty {
 	 * Execute a specific filter query, returning the property identifier matching result list
 	 * @param filterQuery
 	 * @param params
-	 * @param pageInfo
+	 * @param resultRequest
 	 * @return
 	 */
 	List<String> findIdentifierListByFilterRequest(String filterQuery, HashMap<String, Object> params, 
-			Integer... pageInfo);
+			ResultRequest resultRequest);
 	
 	/**
 	 * Find the basic property identifiers corresponding to specified user
@@ -78,4 +78,12 @@ public interface IDAOProperty {
 	 * @return
 	 */
 	Optional<EntityProperty> findById(String id);
+
+	/**
+	 * Finds count of filtered properties by specified filters in query
+	 * @param filterQuery
+	 * @param paramMap
+	 * @return
+	 */
+	Long findIdentifierCountByFilterRequest(String filterQuery, HashMap<String, Object> paramMap);
 }
