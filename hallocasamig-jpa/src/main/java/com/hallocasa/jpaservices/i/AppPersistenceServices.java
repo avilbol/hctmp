@@ -280,4 +280,12 @@ public interface AppPersistenceServices {
 	 * @return
 	 */
 	<T> List<T> executeNativeQuery(String sentence, Object[] params, Class<T> expectedClass);
+
+	/**
+	 * 
+	 * @param sentence
+	 * @param params
+	 * @return
+	 */
+	List<Object> executeNativeQuery(String sentence, HashMap<String, Object> params);
 }

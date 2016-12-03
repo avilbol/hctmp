@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.hallocasa.vo.hcfilter.PropertyFilterRequest;
+import com.hallocasa.vo.hcfilter.PropertyFilterResult;
 import com.hallocasa.vo.hcfilter.properties.Property;
 
 /**
@@ -41,9 +42,9 @@ public interface PropertyService {
 	 * @param request
 	 * 		The request with filters to apply
 	 * @return
-	 * 		The properties that match the filters
+	 * 		The result with the properties that match the filters
 	 */
-	List<Property> find(PropertyFilterRequest request);
+	PropertyFilterResult find(PropertyFilterRequest request);
 	
 	/**
 	 * Find a detailed property by its id

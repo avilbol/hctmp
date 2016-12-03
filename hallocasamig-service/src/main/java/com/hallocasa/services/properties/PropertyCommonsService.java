@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.vo.hcfilter.properties.Property;
+import com.hallocasa.vo.resultrequest.ResultRequest;
 
 public interface PropertyCommonsService {
 
@@ -20,13 +21,12 @@ public interface PropertyCommonsService {
 	 * Find the list of properties,searching by its ids
 	 * @param propertyIdList
 	 * 			Identifiers to search
-	 * @param orderBy
-	 * 			Specify attributes that apply to sort in query
-	 * @param asc
-	 * 			Specify if the sort is ascending (true), or descending (false)	
+	 * @param resultRequest
+	 * 			Object that specify attributes that apply to sort in query
+	 * 			and if the sort is ascending (true), or descending (false)	
 	 * @return
 	 * 			The list of properties, filtered and sorted
 	 */
-	public List<EntityProperty> getPropertyListBy(List<String> propertyIdList, List<String> orderBy, boolean asc);
+	public List<EntityProperty> getPropertyListBy(List<String> propertyIdList, ResultRequest resultRequest);
 	
 }

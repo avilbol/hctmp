@@ -55,6 +55,7 @@ public class PropertyParser extends CustomizedParser {
 				propField.setFieldValueList(new LinkedList<>());
 			}
 			PropertyFieldValue pfvalue = new PropertyFieldValue();
+			pfvalue.setBdid(entFieldValue.getId());
 			if (entFieldValue.getIdentifier() != null) {
 				pfvalue.setIdentifier(Integer.parseInt(entFieldValue.getIdentifier()));
 			}
@@ -86,6 +87,7 @@ public class PropertyParser extends CustomizedParser {
 			for(PropertyFieldValue pfieldvalue : pfield.getFieldValueList()){
 				EntityPropertyFieldValue epfvalue = new EntityPropertyFieldValue();
 				epfvalue.setPropertyField((EntityPropertyField) HallocasaConvert.toEntity(pfield));
+				epfvalue.setId(pfieldvalue.getBdid());
 				EntityProperty singleEntityProperty = new EntityProperty();
 				singleEntityProperty.setId(entityProperty.getId());
 				epfvalue.setProperty(singleEntityProperty);

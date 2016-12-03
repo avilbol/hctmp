@@ -238,6 +238,18 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
     
     @SuppressWarnings("unchecked")
     @Override
+    public List<Object> executeNativeQuery(String sentence, HashMap<String, Object> params) {
+        Query query = em.createNativeQuery(sentence);
+        if (params != null) {
+            for (String entry : params.keySet()) {
+                query.setParameter(entry, params.get(entry));
+            }
+        }
+        return query.getResultList();
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Override
     public <T> List<T> executeNativeQuery(String sentence, Object[] params, Class<T> expectedClass) {
         Query query = em.createNativeQuery(sentence);
         int i = 1;

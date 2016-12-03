@@ -8,6 +8,7 @@ public class PropertyFieldValue implements ValueObject, Serializable {
 
 	private static final long serialVersionUID = -8762506905849463829L;
 	
+	private Integer bdid;
 	private Integer identifier;
 	private PropertyFieldValueSpec text;
 	private PropertyFieldValueSpec data1;
@@ -42,5 +43,11 @@ public class PropertyFieldValue implements ValueObject, Serializable {
 	}
 	public void setData3(PropertyFieldValueSpec data3) {
 		this.data3 = data3;
+	}
+	public Integer getBdid() {
+		return bdid;
+	}
+	public void setBdid(Integer bdid) {
+		this.bdid = bdid;
 	}
 }

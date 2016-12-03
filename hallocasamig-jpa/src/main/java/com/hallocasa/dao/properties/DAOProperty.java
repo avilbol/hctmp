@@ -1,6 +1,5 @@
 package com.hallocasa.dao.properties;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,14 +11,11 @@ import javax.ejb.Stateless;
 import javax.persistence.Query;
 
 import com.hallocasa.dao.i.properties.IDAOProperty;
-import com.hallocasa.entities.EntityCountry;
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.entities.properties.EntityPropertyFieldValue;
-import com.hallocasa.entities.properties.EntityPropertyLocation;
-import com.hallocasa.entities.properties.EntityPropertyProposal;
-import com.hallocasa.entities.properties.EntityPropertyType;
 import com.hallocasa.jpaservices.i.AppPersistenceServices;
 import com.hallocasa.jpaservices.i.QueryUtils;
+import com.hallocasa.vo.resultrequest.ResultRequest;
 
 /**
  * DAO for class {@link EntityProperty}
@@ -28,7 +24,7 @@ import com.hallocasa.jpaservices.i.QueryUtils;
 @Stateless
 public class DAOProperty implements IDAOProperty {
 	
-	private static final String BASIC_PROPERTY_ATTR = "NEW EntityProperty(p.id, p.publishDate, p.propertyType, p.propertyLocation, "
+	private static final String BASIC_PROPERTY_ATTR = "NEW com.hallocasa.entities.properties.EntityProperty(p.id, p.publishDate, p.propertyType, p.propertyLocation, "
 			+ "p.propertyProposal, p.country)";
 	
 	@EJB
@@ -69,10 +65,11 @@ public class DAOProperty implements IDAOProperty {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<EntityProperty> findByPropertyIdList(List<String> idList, List<String> orderBy, boolean asc) {
+	public List<EntityProperty> findByPropertyIdList(List<String> idList, ResultRequest resultRequest) {
 		String query = String.format("select %1$s from EntityProperty p where p.id IN ?1", BASIC_PROPERTY_ATTR);
 		StringBuilder resultQuery = new StringBuilder("");
-		resultQuery.append(query).append(queryUtils.loadOrderBySnippetQuery(orderBy, asc));
+		resultQuery.append(query).append(queryUtils.loadOrderBySnippetQuery(resultRequest.getOrderBy(), 
+				resultRequest.getAsc()));
 		return appPersistenceServices.executeQuery(resultQuery.toString(), 
 				new Object[]{idList}, EntityProperty.class);
 	}
@@ -105,10 +102,21 @@ public class DAOProperty implements IDAOProperty {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Long findIdentifierCountByFilterRequest(String filterQuery, HashMap<String, Object> paramMap) {
+		return (Long) (appPersistenceServices.executeNativeQuery(filterQuery, paramMap).get(0));
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public List<String> findIdentifierListByFilterRequest(String filterQuery, HashMap<String, Object> paramMap,
-			Integer... pageInfo) {
-		List<Object> objList =  appPersistenceServices.executeNativeQuery(filterQuery, paramMap, 
-				pageInfo[0], pageInfo[1]);
+			ResultRequest resultRequest) {
+		StringBuilder resultQuery = new StringBuilder("");
+		resultQuery.append(filterQuery).append(queryUtils.loadOrderBySnippetQuery(resultRequest.getOrderBy(), 
+				resultRequest.getAsc()));
+		List<Object> objList =  appPersistenceServices.executeNativeQuery(resultQuery.toString(), paramMap, 
+				resultRequest.getPageFrom() - 1, resultRequest.getPageTo());
 		List<String> resultList = new LinkedList<>();
 		for(Object obj : objList){
 			resultList.add((String) obj);

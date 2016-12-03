@@ -27,8 +27,6 @@ import com.hallocasa.entities.i.HallocasaEntity;
 @NamedQueries({
    @NamedQuery(name = EntityCurrencyExchangeData.QUERY_FIND_ALL,
    		   query = "select ce from EntityCurrencyExchangeData ce"),
-   @NamedQuery(name = EntityCurrencyExchangeData.QUERY_DELETE_ALL,
-	   	   query = "delete from EntityCurrencyExchangeData"),
    @NamedQuery(name = EntityCurrencyExchangeData.QUERY_FIND_RATE_EXCHANGE,
    		   query = "select ce.rateExchange from EntityCurrencyExchangeData ce where ce.currencyFrom.id = ?1 "
    		   		+ "AND ce.currencyTo.id = ?2")
@@ -43,7 +41,8 @@ public class EntityCurrencyExchangeData implements HallocasaEntity {
 	/**
 	 * Query to delete all entries of @CurrencyExchangeData
 	 */
-	public static final String QUERY_DELETE_ALL = "CurrencyExchange.Data.QueryDeleteAll";
+	public static final String NATIVE_QUERY_DELETE_OLD = "delete from currency_exchange_data where update_date = "
+	   	   		+ "(select data.ud from (select MIN(update_date) AS ud from currency_exchange_data) data)";
 	
 	/**
 	 * Query to find rate exchange by currencies identifiers
