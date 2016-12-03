@@ -9,7 +9,8 @@ import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 public class RangeFilterWorker implements FilterWorker {
 
 	@Override
-	public String loadParametersQuery(PropertyFilterSubmission filterSubmission) {
+	public String loadParametersQuery(PropertyFilterSubmission filterSubmission, 
+			Integer attrNumber) {
 		String lpStr = " case pf%1$dexists when 1 then 1 else 0 end as pf%1$d," + 
 				" case pf%1$dmatch when 1 then 1 else 0 end as pf%1$dmatch";
 		return String.format(lpStr, filterSubmission.getPropertyFilter()
@@ -30,12 +31,12 @@ public class RangeFilterWorker implements FilterWorker {
 		RangeFieldPresentation presentation = filterType.getRangeFieldPresentation();
 		String sqldataType = WorkerUtils.loadSqlDataType(presentation);
 		StringBuilder condition = new StringBuilder("");
-		if(filterSubmission.getMinValue() != null){
+		if(filterSubmission.getMinValue() != null || filterSubmission.getMinDateValue() != null){
 			condition.append(String.format("CAST(text AS %1$s) >= ?%2$d",
 					sqldataType,attrNumber++));
 		}
 		boolean addAnd = !condition.toString().equals("");
-		if(filterSubmission.getMaxValue() != null){
+		if(filterSubmission.getMaxValue() != null || filterSubmission.getMaxDateValue() != null){
 			condition.append(String.format("%1$s CAST(text AS %2$s) <= ?%3$d",
 					addAnd ? " AND " : "", sqldataType, attrNumber++));
 		}
@@ -55,10 +56,10 @@ public class RangeFilterWorker implements FilterWorker {
 		HcFilterTypeEntry filterType = filterSubmission.getPropertyFilter().getFilter().getFilterType();
 		RangeFieldPresentation presentation = filterType.getRangeFieldPresentation();
 		Integer counter = attrNumber;
-		if(filterSubmission.getMinValue() != null){
+		if(filterSubmission.getMinValue() != null || filterSubmission.getMinDateValue() != null){
 			params.put(String.valueOf(counter++), WorkerUtils.getMinCastedValue(filterSubmission, presentation));
 		}
-		if(filterSubmission.getMaxValue() != null){
+		if(filterSubmission.getMaxValue() != null || filterSubmission.getMaxDateValue() != null){
 			params.put(String.valueOf(counter++), WorkerUtils.getMaxCastedValue(filterSubmission, presentation));
 		}
 		return counter;
