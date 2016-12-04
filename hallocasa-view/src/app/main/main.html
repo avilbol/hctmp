@@ -1,14 +1,14 @@
 <div layout="column" layout-fill ng-controller="MainController as MainCtrl">
-  <md-toolbar class="md-hue-2 md-medium-tall" layout-align="center center" layout="row">
+  <md-toolbar class="md-hue-2 md-medium-tall" layout-align="center center" layout="row" ng-if="MainCtrl.showToolbars">
     <div class="md-toolbar-tools">
-      <md-button class="md-icon-button" aria-label="menu" hide-gt-sm ng-click="MainCtrl.toggleMenu()">
+      <md-button class="md-icon-button" aria-label="menu" hide-gt-sm show-md ng-click="MainCtrl.toggleMenu()">
         <i class="material-icons">menu</i>
       </md-button>
       <md-button aria-label="main" ng-click="MainCtrl.goTo('/')">
         <img class="png-icon main-logo" flex src="./assets/images/logo-hallocasa.png">
       </md-button>
       <span flex></span>
-      <div layout-wrap hide-sm hide-xs layout="row" layout-align="end">
+      <div hide-md hide-sm hide-xs layout="row" layout-align="end">
         <md-button ng-click="MainCtrl.goTo('/property/browser')">
           {{'Properties.title.label' | translate}}
         </md-button>
@@ -117,7 +117,7 @@
   </md-sidenav>
   <md-content flex>
     <md-content ng-view flex layout="column" class="ng-view-container"></md-content>
-    <md-toolbar class="md-hue-2" ng-class="{'md-medium-tall': !MainCtrl.screenIsSmall, 'md-xl': MainCtrl.screenIsSmall}">
+    <md-toolbar class="md-hue-2" ng-class="{'md-medium-tall': !MainCtrl.screenIsSmall, 'md-xl': MainCtrl.screenIsSmall}" ng-if="MainCtrl.showToolbars">
       <div layout="column" layout-gt-sm="row" flex layout-align="center center">
         <span layout-margin></span>
         <div flex layout="column" class="md-subhead" flex-order-sm="1" flex-order-xs="1">

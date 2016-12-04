@@ -17,8 +17,26 @@
         controller: 'BlogRedirectionController',
         controllerAs: 'vm'
       })
+      .when('/404', {
+        templateUrl: 'app/main/common-pages/common-pages.html',
+        controller: 'CommonPagesController',
+        controllerAs: 'vm',
+        hideToolbars: true
+      })
+      .when('/forbidden', {
+        templateUrl: 'app/main/common-pages/common-pages.html',
+        controller: 'CommonPagesController',
+        controllerAs: 'vm',
+        hideToolbars: true
+      })
+      .when('/coming-soon', {
+        templateUrl: 'app/main/common-pages/common-pages.html',
+        controller: 'CommonPagesController',
+        controllerAs: 'vm',
+        hideToolbars: true
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/404'
       });
 
     $locationProvider.html5Mode(true);
