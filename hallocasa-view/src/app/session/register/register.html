@@ -10,7 +10,7 @@
   </md-toolbar>
   <form name="loginForm" novalidate ng-submit="loginForm.$valid && true">
     <md-dialog-content>
-      <md-content class="md-padding">
+      <md-content class="md-padding" ng-if="!vm.showTermsText">
         <md-input-container  class="md-block">
           <label>{{'SignUp.Form.Email' | translate}}</label>
           <input name="email" ng-model="vm.userData.email" type="text" ng-required="true">
@@ -55,10 +55,17 @@
           <md-button class="md-primary md-raised" type="submit">
             {{'SignUp.Header.Button' | translate}}
           </md-button>
-          <md-button>
+          <md-button ng-click="vm.showTerms()">
             {{'SignUp.Form.TermsAndConditions' | translate}}
           </md-button>
         </md-input-container>
+      </md-content>
+
+      <md-content class="md-padding" ng-if="vm.showTermsText">
+        <ng-include src="vm.templateURL"></ng-include>
+        <div layout-align="center" layout="row">
+          <md-button ng-click="vm.closeTerms()">{{'Common.Label.Close' | translate}}</md-button>
+        </div>
       </md-content>
     </md-dialog-content>
   </form>
