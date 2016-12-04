@@ -35,6 +35,12 @@
         controllerAs: 'vm',
         hideToolbars: true
       })
+      .when('/recovery-password/:token', {
+        templateUrl: 'app/main/landing/landing.html',
+        controller: 'LandingController',
+        controllerAs: 'vm',
+        isPassworRecovery: true
+      })
       .otherwise({
         redirectTo: '/404'
       });

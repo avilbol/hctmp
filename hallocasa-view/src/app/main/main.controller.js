@@ -51,6 +51,18 @@
       });
     }
 
+    function launchPasswordRecoveryDialog() {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+      $mdDialog.show({
+        controller: "PasswordRecoveryController",
+        controllerAs: "vm",
+        templateUrl: 'app/session/password-recovery/password-recovery.html',
+        parent: $document.body,
+        clickOutsideToClose: false,
+        fullscreen: useFullScreen
+      });
+    }
+
     function launchPrivacyStatementDialog(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
       $mdDialog.show({
@@ -97,6 +109,13 @@
       $rootScope.$on('$destroy',routeListener);
     }
 
+    function detectPasswordRecoveryProcess() {
+      if($route.current.isPassworRecovery){
+        launchPasswordRecoveryDialog();
+      }
+    }
+
     toolbarsHideHandler();
+    detectPasswordRecoveryProcess();
   }
 })();

@@ -13,13 +13,18 @@
         form: "=",
         validators: "@",
         messagesParams: "=",
-        inputName: "@"
+        inputName: "@",
+        passwordToMatch: "=?"
       },
       link: function (scope) {
         scope.$watch("showMessages", function () {
           var messagesObject = _.object(scope.validators.split(' ').join('').split(","), []);
           scope.messages = _.mapObject(messagesObject, function () {return true;});
         });
+
+        scope.matchPassword = function () {
+          return scope.passwordToMatch.firstPassword === scope.passwordToMatch.secondPassword;
+        }
       }
     };
   }
