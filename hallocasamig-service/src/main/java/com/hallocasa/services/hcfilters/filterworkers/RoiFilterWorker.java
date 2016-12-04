@@ -18,19 +18,22 @@ public class RoiFilterWorker implements FilterWorker {
 	}
 
 	@Override
-	public String loadParametersQuery(PropertyFilterSubmission filterSubmission) {
+	public String loadParametersQuery(PropertyFilterSubmission filterSubmission, 
+			Integer attrNumber) {
+		String formula = "(monthly_rent * ((100 - maflandlord - admflandlord) / 100) * 12) "
+				+ "* 100 / market_price";
 		String lpStr = "case maflandlord_exists when 1 then 1 else 0 end as maflandlord_exists," 
 				+ " case admflandlord_exists when 1 then 1 else 0 end as admflandlord_exists," 
 				+ " case market_price_exists when 1 then 1 else 0 end as market_price_exists," 
 				+ " case monthly_rent_exists when 1 then 1 else 0 end as monthly_rent_exists," 
-				+ " (monthly_rent * ((100 - maflandlord - admflandlord) / 100) * 12) * 100 "
-				+ " / market_price as aroi," 
-				+ " cast((((monthly_rent * ((100 - maflandlord - admflandlord) / 100) * 12) * 100 "
-				+ " / market_price) - 1) / 5 as unsigned integer) + 1 as interv," 
-				+ " case when(((monthly_rent * ((100 - maflandlord - admflandlord) / 100) * 12) * 100 "
-				+ " / market_price) %%5 = 0 ) then true else false end as exact";
-		return String.format(lpStr, filterSubmission.getPropertyFilter()
-					.getPropertyField().getId());
+				+ " %1$s as aroi," 
+				+ " cast(((%1$s) - 1) / 5 as unsigned integer) + 1 as interv," 
+				+ " case when((%1$s) %%5 = 0 ) then 1 else 0 end as exact,"
+				+ " case when(cast(((%1$s) - 1) / 5 as unsigned integer) + 1) = ?%2$d "
+				+ " then 1 else 0 end as intervmatch,"
+				+ " case when(cast(((%1$s) - 1) / 5 as unsigned integer) ) = ?%2$d "
+				+ " then 1 else 0 end as intervdownmatch ";
+		return String.format(lpStr, formula, attrNumber);
 	}
 
 	@Override
@@ -74,11 +77,8 @@ public class RoiFilterWorker implements FilterWorker {
 	public String loadWhereQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
 		String lwStr =  "maflandlord_exists and admflandlord_exists " 
 				+ " and market_price_exists and monthly_rent_exists and" 
-				+ " ((exact=true and (interv = ?%1$d or interv - 1 = ?%1$d))" 
-				+ " or (exact = false and interv = ?%1$d)) ";
+				+ " ((exact= 1 and (intervmatch = 1 or intervdownmatch = 1))" 
+				+ " or (exact = 0 and intervmatch = 1)) ";
 		return String.format(lwStr, attrNumber);
 	}
-
-	
-
 }

@@ -9,7 +9,8 @@ import com.hallocasa.vo.options.DropdownOption;
 public class PropertyProposalFilterWorker implements FilterWorker {
 
 	@Override
-	public String loadParametersQuery(PropertyFilterSubmission filterSubmission) {
+	public String loadParametersQuery(PropertyFilterSubmission filterSubmission, 
+			Integer attrNumber) {
 		return " property_proposal_id";
 	}
 

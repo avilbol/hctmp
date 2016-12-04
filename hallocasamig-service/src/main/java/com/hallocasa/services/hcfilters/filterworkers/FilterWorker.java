@@ -12,7 +12,8 @@ public interface FilterWorker {
 	public Integer addParams(PropertyFilterSubmission filterSubmission, Map<String, Object> params, 
 			Integer attrNumber);
 
-	public String loadParametersQuery(PropertyFilterSubmission filterSubmission);
+	public String loadParametersQuery(PropertyFilterSubmission filterSubmission, 
+			Integer attrNumber);
 	
 	public String loadJoinQuery(PropertyFilterSubmission filterSubmission, 
 			Integer attrNumber);

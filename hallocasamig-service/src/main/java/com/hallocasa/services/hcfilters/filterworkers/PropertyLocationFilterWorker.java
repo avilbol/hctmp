@@ -9,7 +9,8 @@ import com.hallocasa.vo.options.DropdownOption;
 public class PropertyLocationFilterWorker implements FilterWorker {
 
 	@Override
-	public String loadParametersQuery(PropertyFilterSubmission filterSubmission) {
+	public String loadParametersQuery(PropertyFilterSubmission filterSubmission, 
+			Integer attrNumber) {
 		return " property_location_id";
 	}
 

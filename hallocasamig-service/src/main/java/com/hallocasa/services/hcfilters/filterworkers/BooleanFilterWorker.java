@@ -7,7 +7,8 @@ import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 public class BooleanFilterWorker implements FilterWorker {
 
 	@Override
-	public String loadParametersQuery(PropertyFilterSubmission filterSubmission) {
+	public String loadParametersQuery(PropertyFilterSubmission filterSubmission, 
+			Integer attrNumber) {
 		String lpStr = " case pf%1$dexists when 1 then 1 else 0 end as pf%1$d," + 
 				" case pf%1$dmatch when 1 then 1 else 0 end as pf%1$dmatch ";
 		return String.format(lpStr, filterSubmission.getPropertyFilter()

@@ -11,26 +11,42 @@ public class CurrencyFilterWorker implements FilterWorker {
 	public Integer addParams(PropertyFilterSubmission filterSubmission, Map<String, Object> params,
 			Integer attrNumber) {
 		Integer counter = attrNumber;
-		params.put(String.valueOf(counter++), loadCrcyId(filterSubmission));
 		if(filterSubmission.getMinCrcyValue() != null){
 			params.put(String.valueOf(counter++), filterSubmission.getMinCrcyValue().getAmmount());
 		}
 		if(filterSubmission.getMaxCrcyValue() != null){
 			params.put(String.valueOf(counter++), filterSubmission.getMaxCrcyValue().getAmmount());
 		}
+		params.put(String.valueOf(counter++), loadCrcyId(filterSubmission));
 		return counter;
 	}
 
 	@Override
-	public String loadParametersQuery(PropertyFilterSubmission filterSubmission) {
-		String lpStr = "case pf%1$dexists when 1 then 1 else 0 end as pf%1$d,"
-				+" pf%1$dcrcy.currency_value * rate_exchange as currency_value";
-		return String.format(lpStr, filterSubmission.getPropertyFilter()
-					.getPropertyField().getId());
+	public String loadParametersQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
+		String lpStr = String.format("case pf%1$dexists when 1 then 1 else 0 end as pf%1$d ",
+				filterSubmission.getPropertyFilter().getPropertyField().getId());
+		StringBuilder sbuilder = new StringBuilder(lpStr);
+		if(filterSubmission.getMinCrcyValue() != null){
+			sbuilder.append(String.format(", case when(pf%1$dcrcy.currency_value * rate_exchange) "
+					+ ">= ?%2$d then 1 else 0 end as currency_value_geq_than", 
+					filterSubmission.getPropertyFilter().getPropertyField().getId(), attrNumber++));
+		}
+		if(filterSubmission.getMaxCrcyValue() != null){
+			sbuilder.append(String.format(", case when(pf%1$dcrcy.currency_value * rate_exchange) "
+					+ "<= ?%2$d then 1 else 0 end as currency_value_leq_than",
+					filterSubmission.getPropertyFilter().getPropertyField().getId(), attrNumber++));
+		}
+		return sbuilder.toString();
 	}
 
 	@Override
 	public String loadJoinQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
+		if(filterSubmission.getMinCrcyValue() != null){
+			attrNumber++;
+		}
+		if(filterSubmission.getMaxCrcyValue() != null){
+			attrNumber++;
+		}
 		String ljStr = " left join  ("
 				+" select true as pf%1$dexists, property_id from property_field_value"  
 				+" where property_field_id=%1$d GROUP BY property_id) pf%1$d"
@@ -49,17 +65,16 @@ public class CurrencyFilterWorker implements FilterWorker {
 
 	@Override
 	public String loadWhereQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
-		attrNumber++;
 		String lwStr =  "pf%1$d = 1 AND ";
 		String lwStrFormatted = String.format(lwStr, filterSubmission.getPropertyFilter()
 				.getPropertyField().getId());
 		StringBuilder condition = new StringBuilder(lwStrFormatted);
 		if(filterSubmission.getMinCrcyValue() != null){
-			condition.append(String.format("currency_value >= ?%1$d", attrNumber++));
+			condition.append(String.format("currency_value_geq_than = 1", attrNumber++));
 		}
 		boolean addAnd = !condition.toString().equals("");
 		if(filterSubmission.getMaxCrcyValue() != null){
-			condition.append(String.format(" %1$s currency_value <= ?%2$d", 
+			condition.append(String.format(" %1$s currency_value_leq_than = 1", 
 					addAnd ? "AND" : "", attrNumber++));
 		}
 		return condition.toString();

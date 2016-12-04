@@ -105,11 +105,12 @@ public class PropertyServiceImp implements PropertyService {
 		String countQuery = generateQuery(EntityProperty.QUERY_COUNT_SEARCH_BY_FILTERS, request, paramMap);
 		resultRequest.setOrderBy(new LinkedList<>());
 		if(sortByLessRecent || sortByMostRecent){
-			resultRequest.getOrderBy().add("p.publishDate");
+			resultRequest.getOrderBy().add("publish_date");
 		}
 		request.getResultRequest().setAsc(sortByLessRecent);
 		List<String> filteredIdProperties = daoProperty.findIdentifierListByFilterRequest(query, 
 				paramMap, resultRequest);
+		resultRequest.getOrderBy().set(0, "p.publishDate");
 		List<EntityProperty> filteredProperties = propertyCommonsService.getPropertyListBy(filteredIdProperties, 
 				resultRequest);
 		Long count = null;
@@ -183,7 +184,7 @@ public class PropertyServiceImp implements PropertyService {
 		for(PropertyFilterSubmission filterSubmission : request.getFilterList()){
 			FilterWorkerOption fwo = filterSubmission.getPropertyFilter().getFilter().getFilterWorkerOption();
 			FilterWorker filterWorker = FilterWorkerOptionRes.getFilterWorker(fwo);
-			fieldBuilder.append(", " + filterWorker.loadParametersQuery(filterSubmission));
+			fieldBuilder.append(", " + filterWorker.loadParametersQuery(filterSubmission, attrNumber));
 			joinBuilder.append(filterWorker.loadJoinQuery(filterSubmission, attrNumber));
 			filterBuilder.append(filterBuilder.toString().isEmpty() ? "" : " AND ")
 				.append(filterWorker.loadWhereQuery(filterSubmission, attrNumber));

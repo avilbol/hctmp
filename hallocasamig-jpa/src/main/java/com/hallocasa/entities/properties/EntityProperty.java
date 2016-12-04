@@ -55,7 +55,7 @@ public class EntityProperty implements Serializable, HallocasaEntity {
 	public static final String QUERY_SEARCH_BY_FILTERS = ""
 			+ "SELECT filterable.property_id "
 			+ "FROM ( " 
-			+ " SELECT p0.property_id "
+			+ " SELECT p0.property_id, p0.publish_date "
 			+ "		   %%FIELDS%% "
 			+ " FROM property p0 "
 			+ " %%JOINS%%"
