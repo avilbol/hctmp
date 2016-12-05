@@ -17,8 +17,32 @@
         controller: 'BlogRedirectionController',
         controllerAs: 'vm'
       })
+      .when('/404', {
+        templateUrl: 'app/main/common-pages/common-pages.html',
+        controller: 'CommonPagesController',
+        controllerAs: 'vm',
+        hideToolbars: true
+      })
+      .when('/forbidden', {
+        templateUrl: 'app/main/common-pages/common-pages.html',
+        controller: 'CommonPagesController',
+        controllerAs: 'vm',
+        hideToolbars: true
+      })
+      .when('/coming-soon', {
+        templateUrl: 'app/main/common-pages/common-pages.html',
+        controller: 'CommonPagesController',
+        controllerAs: 'vm',
+        hideToolbars: true
+      })
+      .when('/recovery-password/:token', {
+        templateUrl: 'app/main/landing/landing.html',
+        controller: 'LandingController',
+        controllerAs: 'vm',
+        isPassworRecovery: true
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/404'
       });
 
     $locationProvider.html5Mode(true);

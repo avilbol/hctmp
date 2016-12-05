@@ -7,10 +7,11 @@
 
   /** @ngInject */
   function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService, $auth,
-                          LocaleService, BlogLinks, $window) {
+                          LocaleService, BlogLinks, $window, $rootScope, $route) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
+    vm.showToolbars = !$route.current.hideToolbars;
 
     //Menu elements handlers
     vm.launchLoginDialog = launchLoginDialog;
@@ -46,6 +47,18 @@
         },
         targetEvent: ev,
         clickOutsideToClose:true,
+        fullscreen: useFullScreen
+      });
+    }
+
+    function launchPasswordRecoveryDialog() {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+      $mdDialog.show({
+        controller: "PasswordRecoveryController",
+        controllerAs: "vm",
+        templateUrl: 'app/session/password-recovery/password-recovery.html',
+        parent: $document.body,
+        clickOutsideToClose: false,
         fullscreen: useFullScreen
       });
     }
@@ -87,5 +100,22 @@
       var currentLanguage = LocaleService.getLocaleDisplayName();
       $window.open( BlogLinks[currentLanguage][section], '_blank');
     }
+
+    function toolbarsHideHandler() {
+      var routeListener = $rootScope.$on('$routeChangeStart', function (event, toState) {
+        vm.showToolbars = !toState.hideToolbars;
+      });
+
+      $rootScope.$on('$destroy',routeListener);
+    }
+
+    function detectPasswordRecoveryProcess() {
+      if($route.current.isPassworRecovery){
+        launchPasswordRecoveryDialog();
+      }
+    }
+
+    toolbarsHideHandler();
+    detectPasswordRecoveryProcess();
   }
 })();

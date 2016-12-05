@@ -10,7 +10,9 @@
     var service = {
       validateActiveSession: validateActiveSession,
       login: login,
-      logout: logout
+      logout: logout,
+      sendRecoveryRequest: sendRecoveryRequest,
+      sendRecoveryPassword: sendRecoveryPassword
     };
     return service;
 
@@ -47,6 +49,16 @@
     
     function logout() {
       $auth.logout();
+    }
+    
+    function sendRecoveryRequest() {
+      //TODO: conectar al backend
+      return $q(function (resolve) {resolve();});
+    }
+
+    function sendRecoveryPassword() {
+      //TODO: conectar al backend
+      return $q(function (resolve) {resolve();});
     }
     
   }

@@ -1,0 +1,22 @@
+<form name="recoveryForm" novalidate ng-submit="recoveryForm.$valid && vm.sendRecoveryRequest()">
+  <h1 class="md-title">{{'ForgotPassword.recovery' | translate}}</h1>
+  <span>{{'ForgotPassword.enterEmail' | translate}}</span>
+  <md-input-container  class="md-block">
+    <label>{{'Login.Form.Email' | translate}}</label>
+    <input name="emailRecover" ng-model="vm.emailRecover" type="email" ng-required="true">
+    <ng-messages-generator
+      form="recoveryForm"
+      input-name="emailRecover"
+      validators="enterEmail, email"
+    ></ng-messages-generator>
+  </md-input-container>
+
+  <md-input-container layout="row" layout-align="end">
+    <md-button ng-click="vm.hideRecovery()">
+      {{'Common.Label.Cancel' | translate}}
+    </md-button>
+    <md-button type="submit" ng-disabled="!recoveryForm.$valid">
+      {{'Common.Label.Send' | translate}}
+    </md-button>
+  </md-input-container>
+</form>

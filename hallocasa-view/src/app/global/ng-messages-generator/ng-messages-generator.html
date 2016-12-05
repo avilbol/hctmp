@@ -35,4 +35,7 @@
   <div ng-message="requireAll" ng-if="messages.requireAll">
     {{'constraints.NotNull' | translate}}
   </div>
+  <div ng-if="messages.passwordMatch && !matchPassword()">
+    {{'ForgotPassword.recovery.newPassword.unmatch' | translate}}
+  </div>
 </div>
