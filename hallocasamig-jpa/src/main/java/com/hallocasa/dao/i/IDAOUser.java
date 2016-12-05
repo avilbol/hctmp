@@ -22,9 +22,9 @@ public interface IDAOUser {
 
 	void save(EntityUser user);
 
-	Integer loadEntityShowableUserCount();
+	Long loadEntityShowableUserCount();
 
-	Long fetchRandomUserId(Integer userCount, List<Long> excludeIdList);
+	Long fetchRandomUserId(Long userCount, List<Long> excludeIdList);
 	
 	List<EntityUser> loadUserListByIdList(List<Long> idList);
 }

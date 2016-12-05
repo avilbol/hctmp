@@ -30,6 +30,9 @@ import static java.lang.String.format;
 public class FileManager {
 
 	public static void cleanFilesStartingWithPrefix(String dir, String prefix){
+		if(prefix == null){
+			return;
+		}
 		File folder = new File(dir + "/");
 		final File[] files = folder.listFiles( new FilenameFilter() {
 		    @Override

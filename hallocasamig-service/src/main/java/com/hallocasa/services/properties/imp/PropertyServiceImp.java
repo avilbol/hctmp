@@ -131,7 +131,9 @@ public class PropertyServiceImp implements PropertyService {
 		request.getResultRequest().setAsc(sortByLessRecent);
 		List<String> filteredIdProperties = daoProperty.findIdentifierListByFilterRequest(query, 
 				paramMap, resultRequest);
-		resultRequest.getOrderBy().set(0, "p.publishDate");
+		if(sortByLessRecent || sortByMostRecent){
+			resultRequest.getOrderBy().set(0, "p.publishDate");
+		}
 		List<EntityProperty> filteredProperties = propertyCommonsService.getPropertyListBy(filteredIdProperties, 
 				resultRequest);
 		Long count = null;

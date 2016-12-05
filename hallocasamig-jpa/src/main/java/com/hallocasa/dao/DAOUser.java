@@ -38,10 +38,10 @@ public class DAOUser implements IDAOUser {
 	}
 
 	@Override
-	public Integer loadEntityShowableUserCount() {
-		return appPersistenceServices.executeSingleNamedQuery(
+	public Long loadEntityShowableUserCount() {
+		return appPersistenceServices.executeQuery(
 				EntityUser.QUERY_COUNT_LIST_WITH_USER_TYPES, 
-				new Object[]{}, Integer.class).get();
+				new Object[]{}, Long.class).get(0);
 	}
 
 	@Override
@@ -70,12 +70,14 @@ public class DAOUser implements IDAOUser {
 	}
 
 	@Override
-	public Long fetchRandomUserId(Integer userCount, List<Long> excludeIdList) {
-		Integer indexToFix = new Random().nextInt(userCount);
+	public Long fetchRandomUserId(Long userCount, List<Long> excludeIdList) {
+		Integer indexToFix = new Random().nextInt(userCount.intValue());
 		HashMap<String, Object> params = new HashMap<>();
-		params.put("1", excludeIdList);
-		return appPersistenceServices.executeQuery(
-				EntityUser.QUERY_ID_LIST_WITH_USER_TYPES,
-				params, Long.class, indexToFix);
+		StringBuilder query = new StringBuilder(EntityUser.QUERY_ID_LIST_WITH_USER_TYPES);
+		if(excludeIdList != null && !excludeIdList.isEmpty()){
+			query.append(" AND u.id NOT IN ?1 ");
+			params.put("1", excludeIdList);
+		}
+		return appPersistenceServices.executeQuery(query.toString(), params, Long.class, indexToFix);
 	}
 }

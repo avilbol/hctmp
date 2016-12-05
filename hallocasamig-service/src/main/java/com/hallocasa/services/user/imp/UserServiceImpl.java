@@ -5,7 +5,7 @@
  */
 package com.hallocasa.services.user.imp;
 
-import static com.hallocasa.systemproperties.SystemConstants.PROPERTY_IMAGES_PATH;
+import static com.hallocasa.systemproperties.SystemConstants.USER_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemProperty.get;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
 
@@ -47,7 +47,7 @@ import com.hallocasa.vo.dto.UserListRequest;
 @TransactionManagement(TransactionManagementType.BEAN)
 public class UserServiceImpl implements UserService {
 
-	private String filePathRoot = get(PROPERTY_IMAGES_PATH);
+	private String filePathRoot = get(USER_IMAGES_PATH);
 	
 	/* constants */
 	@SuppressWarnings("unused")
@@ -96,13 +96,17 @@ public class UserServiceImpl implements UserService {
 		if(token != null && !(token.split("\\:")[0]).equals(user.getEmail())){
 			throw new BadRequestException("Invalid operation, inconsistent token");
 		}
-		daoUser.save((EntityUser) HallocasaConvert.toEntity(user));
-		if(user.getBase64Image() != null){
-			FileManager.cleanFilesStartingWithPrefix(filePathRoot, user.getImageLink());
+		String oldImageLink = user.getImageLink();
+		boolean newImage = user.getBase64Image() != null;
+		if(newImage){
 			String fullFilename = FileManager.createFileFromBase64(filePathRoot, 
 					user.getBase64Image(), "user" + user.getId());
 			String[] parts = fullFilename.split("/");
 			user.setImageLink(parts[parts.length - 1]);
+		}
+		daoUser.save((EntityUser) HallocasaConvert.toEntity(user));
+		if(newImage){
+			FileManager.cleanFilesStartingWithPrefix(filePathRoot, oldImageLink);
 		}
 	}
 	@Override
@@ -116,24 +120,26 @@ public class UserServiceImpl implements UserService {
 		if(userListRequest.getUserNumber() == null){
 			throw new BadRequestException("attribute 'userNumber' needed when searching");
 		}
-		Integer profileAmmount = daoUser.loadEntityShowableUserCount();
-		List<Long> userIdList = new LinkedList<>();
+		Long profileAmmount = daoUser.loadEntityShowableUserCount();
 		Long userId = null;
+		List<Long> userIdList = null;
+		List<EntityUser> entList = new LinkedList<EntityUser>();
 		while (counter++ < userListRequest.getUserNumber() && 
-				profileAmmount > userIdList.size()) {
+				profileAmmount > entList.size()) {
 			do {
+				userIdList = new LinkedList<>();
 				userId = daoUser.fetchRandomUserId(profileAmmount, 
 						userListRequest.getExcludeIdList());
-			} while (duplicateId(userId, userIdList));
+			} while (duplicateId(userId, entList));
 			userIdList.add(userId);
+			entList.addAll(daoUser.loadUserListByIdList(userIdList));
 		}
-		List<EntityUser> entList = daoUser.loadUserListByIdList(userIdList);
 		return toValueObjectList(entList);
 	}
 	
-	private boolean duplicateId(Long id, List<Long> idList) {
-		for (Long item : idList) {
-			if (item.equals(id)) {
+	private boolean duplicateId(Long id, List<EntityUser> userIdList) {
+		for (EntityUser item : userIdList) {
+			if (item.getId().equals(id)) {
 				return true;
 			}
 		}
