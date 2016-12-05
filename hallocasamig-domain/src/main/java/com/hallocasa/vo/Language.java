@@ -16,6 +16,8 @@ public class Language implements ValueObject, Serializable {
 	
 	private String name;
 
+	private String locale;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -30,5 +32,13 @@ public class Language implements ValueObject, Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 }

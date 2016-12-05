@@ -11,4 +11,8 @@ public class SystemConstants {
 	public static final String CURRENCY_LAYER_LIVE_RESOURCE = "Api.CurrencyLayer.LiveResource";
 	
 	public static final String CURRENCY_LAYER_API_KEY = "Api.CurrencyLayer.ApiKey";
+	
+	public static final String MAIL_CHIMP_API_KEY = "Email.MailChimp.ApiKey";
+	
+    public static final String MAIL_CHIMP_TEST1_LIST_ID = "Email.MailChimp.Test1ListId";
 }

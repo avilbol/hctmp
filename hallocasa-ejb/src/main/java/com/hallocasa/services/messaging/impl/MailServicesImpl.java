@@ -35,13 +35,6 @@ public class MailServicesImpl extends ServicesBase implements MailServices {
     @Resource(name = "mail/HallocasaSession")
     private Session mailSession;
 
-    /* instance variables */
-
-    /* constructors */
-    
-    /**
-     * Default Constructor
-     */
     public MailServicesImpl() {
     }
 
@@ -57,12 +50,8 @@ public class MailServicesImpl extends ServicesBase implements MailServices {
 
     /* Methods */
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.hallocasa.services.MailServicesLocal#sendMail(com.mobiera.social
-     * .services.MailServices.MailDefinition, java.util.Locale, java.util.List)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void sendMail(MailDefinition mailDefinition, Locale locale,
@@ -102,31 +91,22 @@ public class MailServicesImpl extends ServicesBase implements MailServices {
         sendFilledMessage(body, subject, addresses.toString());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * com.hallocasa.services.local.MailServicesLocal#sendFilledMessage
-     * (java.lang.String, java.lang.String, java.lang.StringBuilder)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void sendFilledMessage(String body, String subject, String addresses)
             throws MailServicesErrorException {
-        // send the message
         try {
             Message message = new MimeMessage(mailSession);
             message.setRecipients(Message.RecipientType.TO, InternetAddress
                     .parse(addresses));
             message.setSubject(subject);
             message.setContent(body, "text/html");
-
             Transport.send(message);
-
         } catch (MessagingException e) {
             LOG.log(Level.SEVERE, "Cannot send mail", e);
             throw new MailServicesErrorException(e);
         }
     }
-
-    /* Getters & Setters */
 }

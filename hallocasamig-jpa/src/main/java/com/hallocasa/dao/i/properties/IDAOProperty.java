@@ -86,4 +86,17 @@ public interface IDAOProperty {
 	 * @return
 	 */
 	Long findIdentifierCountByFilterRequest(String filterQuery, HashMap<String, Object> paramMap);
+
+	/**
+	 * Fetch random id from the list of showable properties in system
+	 * @param propertyCount
+	 * @return
+	 */
+	String fetchRandomPropertyId(Integer propertyCount);
+
+	/**
+	 * Return the ammount of showable properties in system
+	 * @return
+	 */
+	Integer loadEntityShowablePropertyCount();
 }

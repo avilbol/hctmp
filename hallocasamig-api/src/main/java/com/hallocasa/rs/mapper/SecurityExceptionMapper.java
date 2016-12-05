@@ -50,6 +50,12 @@ public class SecurityExceptionMapper implements ExceptionMapper<SecurityExceptio
 		case SecurityException.INVALID_AUTH_CODE:
 			httpStatus = Response.Status.UNAUTHORIZED.getStatusCode();
 			break;
+		case SecurityException.EMAIL_ALREADY_EXISTS:
+			httpStatus = Response.Status.CONFLICT.getStatusCode();
+			break;
+		case SecurityException.INACTIVE_USER:
+			httpStatus = Response.Status.FORBIDDEN.getStatusCode();
+			break;
 		default:
 			break;
 		}

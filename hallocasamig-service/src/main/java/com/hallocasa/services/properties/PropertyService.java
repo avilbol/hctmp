@@ -59,4 +59,12 @@ public interface PropertyService {
 	 * 		Id of property to delete
 	 */
 	void delete(String propertyId);
+
+	/**
+	 * Generate random series of properties
+	 * @param propertyNumber
+	 * 		Number of properties to fetch
+	 * @return
+	 */
+	List<Property> addPropertiesToShowableList(Integer propertyNumber);
 }

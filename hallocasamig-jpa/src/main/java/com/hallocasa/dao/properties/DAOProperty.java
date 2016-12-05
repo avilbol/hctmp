@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.ejb.EJB;
@@ -60,6 +61,13 @@ public class DAOProperty implements IDAOProperty {
 		paramList.add(propertyId);
 		appPersistenceServices.executeNamedQuery(query, paramList.toArray());
 	}
+	
+	@Override
+	public Integer loadEntityShowablePropertyCount(){
+		return appPersistenceServices.executeSingleNamedQuery(
+				EntityProperty.QUERY_COUNT_ID_WITH_USER_TYPES, 
+				new Object[]{}, Integer.class).get();
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -68,8 +76,11 @@ public class DAOProperty implements IDAOProperty {
 	public List<EntityProperty> findByPropertyIdList(List<String> idList, ResultRequest resultRequest) {
 		String query = String.format("select %1$s from EntityProperty p where p.id IN ?1", BASIC_PROPERTY_ATTR);
 		StringBuilder resultQuery = new StringBuilder("");
-		resultQuery.append(query).append(queryUtils.loadOrderBySnippetQuery(resultRequest.getOrderBy(), 
-				resultRequest.getAsc()));
+		resultQuery.append(query);
+		if(resultRequest != null){
+			resultQuery.append(queryUtils.loadOrderBySnippetQuery(resultRequest.getOrderBy(), 
+					resultRequest.getAsc()));
+		}
 		return appPersistenceServices.executeQuery(resultQuery.toString(), 
 				new Object[]{idList}, EntityProperty.class);
 	}
@@ -122,5 +133,13 @@ public class DAOProperty implements IDAOProperty {
 			resultList.add((String) obj);
 		}
 		return resultList;
+	}
+	
+	@Override
+	public String fetchRandomPropertyId(Integer propertyCount) {
+		Integer indexToFix = new Random().nextInt(propertyCount);
+		return appPersistenceServices.executeQuery(
+				EntityProperty.QUERY_FIND_ID_WITH_USER_TYPES,
+				new HashMap<String, Object>(), String.class, indexToFix);
 	}
 }

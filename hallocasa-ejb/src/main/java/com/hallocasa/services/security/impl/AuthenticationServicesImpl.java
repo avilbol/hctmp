@@ -73,6 +73,9 @@ public class AuthenticationServicesImpl extends ServicesBase implements Authenti
                 CodecUtils.encryptPassword(credentials.getPassword()))) {
             throw new InvalidPasswordLoginException();
         }
+        if (!users.get(0).getConfirmedFlag()){
+        	
+        }
 
         // creates result object
         UserVO userVO

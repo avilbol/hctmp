@@ -93,7 +93,7 @@ public class DefaultParser implements Parser<ValueObject, HallocasaEntity> {
 			if (parsingPackage.isApplyParser()) {
 				parsingPackage.entityToVo(getPropertyType(vo, propertyName));
 			}
-			if (parsingPackage.isList()){
+			if (parsingPackage.isList() && parsingPackage.getPropertyToSet() != null){
 				parsingPackage.setPropertyToSet(toVoList((List<?>) parsingPackage.getPropertyToSet()));
 			}
 			getBeanUtilsBean().setProperty(vo, propertyName, parsingPackage.getPropertyToSet());
@@ -116,7 +116,7 @@ public class DefaultParser implements Parser<ValueObject, HallocasaEntity> {
 	
 	private List<?> toEntList(List<?> voList){
 		List<Object> entList = new LinkedList<>();
-		for(Object vo : (entList)){
+		for(Object vo : (voList)){
 			boolean isVo = ValueObject.class
 					.isAssignableFrom(vo.getClass());
 			entList.add(isVo ? HallocasaConvert
@@ -147,7 +147,7 @@ public class DefaultParser implements Parser<ValueObject, HallocasaEntity> {
 			if (parsingPackage.isApplyParser()) {
 				parsingPackage.voToEntity(getPropertyType(entity, propertyName));
 			}
-			if (parsingPackage.isList()){
+			if (parsingPackage.isList() && parsingPackage.getPropertyToSet() != null){
 				parsingPackage.setPropertyToSet(toEntList((List<?>) parsingPackage.getPropertyToSet()));
 			}
 			getBeanUtilsBean().setProperty(entity, propertyName, parsingPackage.getPropertyToSet());

@@ -90,6 +90,27 @@ public class PropertyServiceImp implements PropertyService {
 		List<EntityProperty> entList = daoProperty.findBasicRandom(BASIC_PROPERTIES_RETURN_NUMBER);
 		return propertyCommonsService.toValueObjectList(entList);
 	}
+	
+	@Override
+	public List<Property> addPropertiesToShowableList(Integer propertyNumber) {
+		Integer counter = 0;
+		if(propertyNumber == null){
+			throw new BadRequestException("attribute 'propertyNumber' needed when searching");
+		}
+		Integer propertyAmmount = daoProperty.loadEntityShowablePropertyCount();
+		List<String> propertyIdList = new LinkedList<>();
+		String propertyId = null;
+		while (counter++ < propertyNumber && 
+				propertyAmmount > propertyIdList.size()) {
+			do {
+				propertyId = daoProperty.fetchRandomPropertyId(propertyAmmount);
+			} while (duplicateId(propertyId, propertyIdList));
+			propertyIdList.add(propertyId);
+		}
+		List<EntityProperty> entList = propertyCommonsService
+				.getPropertyListBy(propertyIdList, null);
+		return propertyCommonsService.toValueObjectList(entList);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -194,5 +215,14 @@ public class PropertyServiceImp implements PropertyService {
 		base = base.replaceAll("%%JOINS%%", joinBuilder.toString());
 		base = base.replaceAll("%%FILTERS%%", filterBuilder.toString());
 		return base;
+	}
+	
+	private boolean duplicateId(String id, List<String> idList) {
+		for (String item : idList) {
+			if (item.equals(id)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

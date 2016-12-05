@@ -10,8 +10,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import org.apache.http.HttpStatus;
 
@@ -62,12 +64,6 @@ public class PropertyResource {
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
-	@ApiImplicitParams({
-		@ApiImplicitParam(name = "full_detail", 
-				value = "If this parameter is set in true, it will "
-				+ "list all the details for each property. Default: false",
-				example="true", required = false, dataType = "boolean", paramType = "query")
-	})
 	public Response findProperties(
 			@ApiParam(value = "filters") PropertyFilterRequest propertyFilterRequest) {
 		return Response.status(HttpStatus.SC_OK).entity(
@@ -101,5 +97,25 @@ public class PropertyResource {
 	public Response deleteProperty(@ApiParam("propertyId") @PathParam("id") String propertyId) {
 	    propertyService.delete(propertyId);
 		return Response.status(HttpStatus.SC_OK).entity("Property deleted succesfully").build();
+	}
+	
+	@POST
+	@Path("fetch_random")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Auth
+	@ApiOperation(value = "Fetch random list of properties, with basic data")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "property_number", value = "Number of properties desired",
+				required = true, dataType = "int", paramType = "query")
+	})
+	public Response fetchRandomProperties(@Context UriInfo uriInfo) {
+		Integer propertyNumber = Integer.parseInt(uriInfo.getQueryParameters()
+				.getFirst("property_number"));
+		return Response.status(HttpStatus.SC_OK).entity(
+				propertyService.addPropertiesToShowableList(propertyNumber)).build();
 	}
 }

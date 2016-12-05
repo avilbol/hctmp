@@ -28,6 +28,9 @@ public class EntityLanguage implements HallocasaEntity{
 	
 	@Column(name="name")
 	private String name;
+	
+	@Column(name="locale")
+	private String locale;
 
 	public Integer getId() {
 		return id;
@@ -43,5 +46,13 @@ public class EntityLanguage implements HallocasaEntity{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 }

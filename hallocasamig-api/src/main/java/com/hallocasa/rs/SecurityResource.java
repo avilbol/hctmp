@@ -108,6 +108,7 @@ public class SecurityResource {
 		)
 		@ApiResponses( {
 		    @ApiResponse( code = 401, message = "Si el usuario no está autorizado" ),
+		    @ApiResponse( code = 403, message = "Si el usuario se encuentra inactivo" ),
 		    @ApiResponse( code = 500, message = "Error interno del servidor" ),
 		    @ApiResponse( code = 200, message = "Recurso generado" )
 		})
