@@ -27,4 +27,6 @@ public interface IDAOUser {
 	Long fetchRandomUserId(Long userCount, List<Long> excludeIdList);
 	
 	List<EntityUser> loadUserListByIdList(List<Long> idList);
+
+	void updatePassword(Long userId, String newPassword);
 }

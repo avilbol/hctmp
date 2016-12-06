@@ -35,10 +35,8 @@ import com.hallocasa.entities.i.HallocasaEntity;
 	@NamedQuery(name = EntityProperty.QUERY_FIND_BASIC, query = "select p.id, p.publishDate, p.propertyType, "
 			+ "p.propertyProposal, p.country, p.propertyLocation from EntityProperty p"),
 	@NamedQuery(name = EntityProperty.QUERY_FIND_ID_BY_USER_ID, query = "select p.id from EntityProperty p WHERE p.user.id = ?1"),
-	@NamedQuery(name = EntityProperty.QUERY_FIND_ID_WITH_USER_TYPES, query = "select p.id from EntityProperty p "
-			+ "	WHERE size(p.user.userTypes) > 0"),
 	@NamedQuery(name = EntityProperty.QUERY_COUNT_ID_WITH_USER_TYPES, query = "select count(p.id) from EntityProperty p "
-			+ "	WHERE size(p.user.userTypes) > 0"),
+			+ "	JOIN p.user user WHERE size(user.userTypes) > 0"),
 	@NamedQuery(name = EntityProperty.QUERY_FIND_BY_ID, query = "select p from EntityProperty p where p.id = ?1"),
 	@NamedQuery(name = EntityProperty.QUERY_DELETE_BY_ID, query = "delete from EntityProperty p where p.id = ?1")
 	})
@@ -50,7 +48,8 @@ public class EntityProperty implements Serializable, HallocasaEntity {
 	
 	public static final String QUERY_FIND_BASIC = "EntityProperty.QueryFindBasic";
 	
-	public static final String QUERY_FIND_ID_WITH_USER_TYPES = "EntityProperty.QueryFindIdWithUserTypes";
+	public static final String QUERY_FIND_ID_WITH_USER_TYPES = "select p.id from EntityProperty p "
+			+ "	JOIN p.user user WHERE size(user.userTypes) > 0";
 	
 	public static final String QUERY_COUNT_ID_WITH_USER_TYPES = "EntityProperty.QueryCountIdWithUserTypes";
 	

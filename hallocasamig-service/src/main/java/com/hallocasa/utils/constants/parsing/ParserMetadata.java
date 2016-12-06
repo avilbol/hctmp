@@ -18,6 +18,7 @@ import com.hallocasa.entities.EntityHcFilter;
 import com.hallocasa.entities.EntityHcFilterCondition;
 import com.hallocasa.entities.EntityHcFilterNature;
 import com.hallocasa.entities.EntityHcFilterType;
+import com.hallocasa.entities.EntityPasswordRecoveryToken;
 import com.hallocasa.entities.EntityState;
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.EntityUserDescription;
@@ -46,6 +47,7 @@ import com.hallocasa.vo.Currency;
 import com.hallocasa.vo.CurrencyExchangeDataSummary;
 import com.hallocasa.vo.Example;
 import com.hallocasa.vo.Language;
+import com.hallocasa.vo.PasswordRecoveryToken;
 import com.hallocasa.vo.State;
 import com.hallocasa.vo.User;
 import com.hallocasa.vo.UserDescription;
@@ -114,6 +116,7 @@ public class ParserMetadata {
 		clazzEquivalenceMap.put(UserType.class, EntityUserType.class);
 		clazzEquivalenceMap.put(UserLanguage.class, EntityUserLanguage.class);
 		clazzEquivalenceMap.put(UserDescription.class, EntityUserDescription.class);
+		clazzEquivalenceMap.put(PasswordRecoveryToken.class, EntityPasswordRecoveryToken.class);
 	}
 
 	/**

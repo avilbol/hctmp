@@ -97,18 +97,20 @@ public class PropertyServiceImp implements PropertyService {
 		if(propertyNumber == null){
 			throw new BadRequestException("attribute 'propertyNumber' needed when searching");
 		}
-		Integer propertyAmmount = daoProperty.loadEntityShowablePropertyCount();
+		Long propertyAmmount = daoProperty.loadEntityShowablePropertyCount();
 		List<String> propertyIdList = new LinkedList<>();
+		List<EntityProperty> entList = new LinkedList<>();
 		String propertyId = null;
 		while (counter++ < propertyNumber && 
 				propertyAmmount > propertyIdList.size()) {
 			do {
+				propertyIdList = new LinkedList<>();
 				propertyId = daoProperty.fetchRandomPropertyId(propertyAmmount);
-			} while (duplicateId(propertyId, propertyIdList));
+			} while (duplicateId(propertyId, entList));
 			propertyIdList.add(propertyId);
+			entList.addAll(propertyCommonsService
+					.getPropertyListBy(propertyIdList, null));
 		}
-		List<EntityProperty> entList = propertyCommonsService
-				.getPropertyListBy(propertyIdList, null);
 		return propertyCommonsService.toValueObjectList(entList);
 	}
 
@@ -219,9 +221,9 @@ public class PropertyServiceImp implements PropertyService {
 		return base;
 	}
 	
-	private boolean duplicateId(String id, List<String> idList) {
-		for (String item : idList) {
-			if (item.equals(id)) {
+	private boolean duplicateId(String id, List<EntityProperty> propertyList) {
+		for (EntityProperty item : propertyList) {
+			if (item.getId().equals(id)) {
 				return true;
 			}
 		}

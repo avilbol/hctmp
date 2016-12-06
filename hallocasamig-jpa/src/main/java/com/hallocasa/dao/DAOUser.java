@@ -36,6 +36,12 @@ public class DAOUser implements IDAOUser {
 	public void save(EntityUser user) {
 		appPersistenceServices.mergeEntity(user);
 	}
+	
+	@Override
+	public void updatePassword(Long userId, String newPassword) {
+		appPersistenceServices.executeNamedQuery(EntityUser.QUERY_UPDATE_PASSWORD, 
+				new Object[]{newPassword, userId});
+	}
 
 	@Override
 	public Long loadEntityShowableUserCount() {

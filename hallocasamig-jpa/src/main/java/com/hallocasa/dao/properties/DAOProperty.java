@@ -63,10 +63,10 @@ public class DAOProperty implements IDAOProperty {
 	}
 	
 	@Override
-	public Integer loadEntityShowablePropertyCount(){
+	public Long loadEntityShowablePropertyCount(){
 		return appPersistenceServices.executeSingleNamedQuery(
 				EntityProperty.QUERY_COUNT_ID_WITH_USER_TYPES, 
-				new Object[]{}, Integer.class).get();
+				new Object[]{}, Long.class).get();
 	}
 
 	/**
@@ -136,8 +136,8 @@ public class DAOProperty implements IDAOProperty {
 	}
 	
 	@Override
-	public String fetchRandomPropertyId(Integer propertyCount) {
-		Integer indexToFix = new Random().nextInt(propertyCount);
+	public String fetchRandomPropertyId(Long propertyCount) {
+		Integer indexToFix = new Random().nextInt(propertyCount.intValue());
 		return appPersistenceServices.executeQuery(
 				EntityProperty.QUERY_FIND_ID_WITH_USER_TYPES,
 				new HashMap<String, Object>(), String.class, indexToFix);

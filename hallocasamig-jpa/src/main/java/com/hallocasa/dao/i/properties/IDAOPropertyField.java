@@ -39,4 +39,13 @@ public interface IDAOPropertyField {
 	 * 		The property fields that match the property key
 	 */
 	List<EntityPropertyField> findByPropertyKeys(PropertyKey propertyKey);
+
+	/**
+	 * Search a property field with specific id
+	 * @param id
+	 * 		the id of property field to search
+	 * @return
+	 * 		the property field with specified id, empty if not found
+	 */
+	Optional<EntityPropertyField> findById(Integer id);
 }

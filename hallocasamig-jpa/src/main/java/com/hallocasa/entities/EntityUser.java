@@ -40,13 +40,16 @@ import com.hallocasa.persistence.converters.HcBooleanConverter;
 	@NamedQuery(name = EntityUser.QUERY_FIND_BY_ID, 
 		query = "select u from EntityUser u where u.id = ?1"),
 	@NamedQuery(name = EntityUser.QUERY_FIND_BY_ID_LIST, 
-		query = "select u from EntityUser u WHERE u.id IN ?1")})
+		query = "select u from EntityUser u WHERE u.id IN ?1"),
+	@NamedQuery(name = EntityUser.QUERY_UPDATE_PASSWORD, 
+		query = "UPDATE EntityUser u SET u.password = ?1 WHERE u.id = ?2")})
 public class EntityUser implements Serializable, HallocasaEntity {
 
 	/* static fields */
 	private static final long serialVersionUID = 1L;
 	public static final String QUERY_FIND_BASIC_BY_EMAIL = "EntityUser.findBasicByEmail";
 	public static final String QUERY_FIND_BY_ID = "EntityUser.findById";
+	public static final String QUERY_UPDATE_PASSWORD = "EntityUser.updatePassword";
 	public static final String QUERY_ID_LIST_WITH_USER_TYPES = "select u.id from EntityUser u "
 			+ "WHERE size(u.userTypes) > 0";
 	public static final String QUERY_FIND_BY_ID_LIST = "EntityUser.FindByIdList";

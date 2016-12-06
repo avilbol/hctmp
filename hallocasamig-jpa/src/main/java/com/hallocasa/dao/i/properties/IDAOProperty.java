@@ -92,11 +92,11 @@ public interface IDAOProperty {
 	 * @param propertyCount
 	 * @return
 	 */
-	String fetchRandomPropertyId(Integer propertyCount);
+	String fetchRandomPropertyId(Long propertyCount);
 
 	/**
 	 * Return the ammount of showable properties in system
 	 * @return
 	 */
-	Integer loadEntityShowablePropertyCount();
+	Long loadEntityShowablePropertyCount();
 }
