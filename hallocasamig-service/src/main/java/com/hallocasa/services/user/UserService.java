@@ -81,4 +81,11 @@ public interface UserService {
 	 * @param activationToken
 	 */
 	void activateUser(String email, String activationToken);
+
+	/**
+	 * Ends the user session by deleting its security access token
+	 * @param userTokenTokenContent
+	 * 		Content of user token to delete
+	 */
+	void logout(String userTokenTokenContent);
 }

@@ -47,9 +47,12 @@ public class PropertyServiceImp implements PropertyService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void save(Property property) {
+	public void save(Property property, String oAuthToken) {
 		if(property.getUser() == null || property.getUser().getId() == null){
 			throw new BadRequestException("User not specified in property");
+		}
+		if(!(oAuthToken.split("\\:")[0]).equals(property.getUser().getEmail())){
+			throw new BadRequestException("Invalid operation, inconsistent token");
 		}
 		if(property.getPropertyKey() == null){
 			throw new BadRequestException("Property key not specified in property");

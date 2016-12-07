@@ -1,7 +1,5 @@
 package com.hallocasa.rs;
 
-import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -17,8 +15,8 @@ import org.apache.http.HttpStatus;
 import com.hallocasa.rs.security.Secured;
 import com.hallocasa.services.properties.PropertyFieldService;
 import com.hallocasa.services.properties.PropertyListerService;
+import com.hallocasa.vo.hcfilter.properties.Property;
 import com.hallocasa.vo.hcfilter.properties.PropertyKey;
-import com.hallocasa.vo.properties.PropertyField;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -64,9 +62,9 @@ public class PropertyFieldResource {
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
 	public Response getPropertyFieldOptions(@ApiParam(value = "field_id") @PathParam("field_id") Integer fieldId,
-			@ApiParam(value = "property field list") List<PropertyField> propertyFieldList) {
+			@ApiParam(value = "property field composition") Property property) {
 		return Response.status(HttpStatus.SC_OK).entity(propertyListerService
-				.listFieldOptions(fieldId, propertyFieldList)).build();
+				.listFieldOptions(fieldId, property)).build();
 	}
 	
 	@GET

@@ -14,9 +14,9 @@ import com.hallocasa.entities.properties.EntityPropertyField;
 import com.hallocasa.services.hcfilters.listers.HcLister;
 import com.hallocasa.services.properties.PropertyListerService;
 import com.hallocasa.utils.resolvers.HcListerOptionRes;
+import com.hallocasa.vo.hcfilter.properties.Property;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 import com.hallocasa.vo.options.DropdownOption;
-import com.hallocasa.vo.properties.PropertyField;
 
 @Stateless
 public class PropertyListerServiceImp implements PropertyListerService {
@@ -31,7 +31,7 @@ public class PropertyListerServiceImp implements PropertyListerService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<DropdownOption> listFieldOptions(Integer fieldId, List<PropertyField> propertyFieldList) {
+	public List<DropdownOption> listFieldOptions(Integer fieldId, Property property) {
 		Optional<EntityPropertyField> field = daoPropertyField.findById(fieldId);
 		if(!field.isPresent()){
 			throw new BadRequestException("Invalid property field");
@@ -40,7 +40,7 @@ public class PropertyListerServiceImp implements PropertyListerService {
 			throw new BadRequestException("Property field has not listers associated");
 		}
 		HcLister lister = HcListerOptionRes.getLister(field.get().getHcListerOption());
-		return lister.loadFieldOptions(propertyFieldList);
+		return lister.loadFieldOptions(property.getPropertyKey(), property.getFieldList());
 	}
 
 	/**

@@ -138,4 +138,17 @@ public class UserResource {
 		return Response.status(HttpStatus.SC_OK).entity(
 				userService.find(id)).build();
 	}
+	
+	@GET
+	@Path("logout")
+	@Produces({ MediaType.TEXT_HTML })
+	@Secured
+	@ApiOperation(value = "Fetch random list of users, with basic data")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	public Response find(@HeaderParam(O_AUTH_TOKEN_HEADER) String oAuthToken) {
+		userService.logout(oAuthToken);
+		return Response.status(HttpStatus.SC_OK).entity("User logged out succesfully").build();
+	}
 }

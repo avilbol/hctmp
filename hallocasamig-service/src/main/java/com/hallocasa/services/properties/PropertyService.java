@@ -18,8 +18,10 @@ public interface PropertyService {
 	 * Update (or create) a property in the system
 	 * @param property
 	 * 		The property to update or create
+	 * @param oAuthToken
+	 * 		The token provided by headers system, to prove if user property really is itself
 	 */
-	void save(Property property);
+	void save(Property property, String oAuthToken);
 	
 	/**
 	 * Find the basic properties with specific user id

@@ -31,6 +31,7 @@ import com.hallocasa.linkbuilders.UserActivationLinkUtils;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.services.messaging.local.MailServices;
 import com.hallocasa.services.messaging.local.MailServices.BuildInMailType;
+import com.hallocasa.services.security.SecurityTokenService;
 import com.hallocasa.services.user.UserService;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
 import com.hallocasa.utils.constants.exceptions.FatalException;
@@ -59,6 +60,9 @@ public class UserServiceImpl implements UserService {
 	
 	@EJB
 	private MailServices mailServices;
+	
+	@EJB
+	private SecurityTokenService securityTokenService;
 	
 	@Override
 	public User find(String email) {
@@ -200,7 +204,6 @@ public class UserServiceImpl implements UserService {
     	daoUser.save(entityUser.get());
     }
 	
-	/* Implementation */
     @Override
     public void sendActivationLinkEmail(User user, String activationLink,
             String activationKey) throws MailServicesErrorException {
@@ -212,5 +215,13 @@ public class UserServiceImpl implements UserService {
         params.put("USER_ACTIVATION_KEY", activationKey);
         mailServices.sendMail(BuildInMailType.USER_ACTIVATION,
                 new Locale(user.getLanguage().getLocale()), emails, params);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void logout(String userTokenTokenContent){
+    	securityTokenService.delete(userTokenTokenContent);
     }
 }

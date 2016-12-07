@@ -1,11 +1,14 @@
 package com.hallocasa.rs;
 
+import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_TOKEN_HEADER;
+
 import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -79,8 +82,9 @@ public class PropertyResource {
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
-	public Response saveProperty(@ApiParam("property to persist") Property property) {
-	    propertyService.save(property);
+	public Response saveProperty(@ApiParam("property to persist") Property property,
+			@HeaderParam(O_AUTH_TOKEN_HEADER) String oAuthToken) {
+	    propertyService.save(property, oAuthToken);
 		return Response.status(HttpStatus.SC_OK).entity("Property saved succesfully").build();
 	}
 	
