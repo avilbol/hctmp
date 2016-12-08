@@ -4,10 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import com.hallocasa.services.generalities.location.StateService;
+import com.hallocasa.systemproperties.SystemConstants;
+import com.hallocasa.systemproperties.SystemProperty;
+import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.vo.State;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
+import com.hallocasa.vo.hcfilter.properties.PropertyKey;
 import com.hallocasa.vo.options.DropdownOption;
 import com.hallocasa.vo.properties.PropertyField;
 
@@ -24,14 +30,13 @@ public class StateLister implements HcLister {
 		for(DropdownOption dropOpt : optionList){
 			intList.add(dropOpt.getOptionId());
 		}
-		return toResultList(stateService.findByCountriesId(intList));
+		return toResultList(getStateService().findByCountriesId(intList));
 	}
 
 	@Override
-	public List<DropdownOption> loadFieldOptions(List<PropertyField> fieldList) {
-		PropertyField field = (PropertyField)fieldList.get(0);
-		Integer countryId =  field.getFieldValueList().get(0).getIdentifier();
-		return toResultList(stateService.findByCountryId(countryId));
+	public List<DropdownOption> loadFieldOptions(PropertyKey propertyKey, List<PropertyField> fieldList) {
+		Integer countryId =  propertyKey.getCountry().getId();
+		return toResultList(getStateService().findByCountryId(countryId));
 	}
 	
 	private List<DropdownOption> toResultList(List<State> stateList){
@@ -43,5 +48,18 @@ public class StateLister implements HcLister {
 			resultList.add(opt);
 		}
 		return resultList;
+	}
+	
+	private StateService getStateService(){
+		if(stateService == null){
+			String stateServiceJndi = String.format("java:global/hallocasamig-endpoint-%s/StateServiceImp",
+					SystemProperty.get(SystemConstants.APP_VERSION));
+			try {
+				stateService = (StateService) InitialContext.doLookup(stateServiceJndi);
+			} catch (NamingException e) {
+				throw new FatalException("Lookup for state service failed", e);
+			}
+		}
+		return stateService;
 	}
 }

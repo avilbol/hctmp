@@ -66,4 +66,12 @@ public class SecurityTokenServiceImp implements SecurityTokenService {
         return (SecurityToken) HallocasaConvert.toValueObject(entSecToken);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(String securityTokenContent) {
+		daoSecurityToken.delete(securityTokenContent);
+	}
+
 }

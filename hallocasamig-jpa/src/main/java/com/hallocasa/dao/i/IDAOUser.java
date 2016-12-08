@@ -1,12 +1,11 @@
 package com.hallocasa.dao.i;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.Local;
 
 import com.hallocasa.entities.EntityUser;
-import com.hallocasa.utils.constants.exceptions.ServiceException;
-import com.hallocasa.utils.strategies.StrategySort;
 
 
 /**
@@ -17,18 +16,17 @@ import com.hallocasa.utils.strategies.StrategySort;
 @Local
 public interface IDAOUser {
 
-	EntityUser find(String email);
+	Optional<EntityUser> find(String email);
 
-	EntityUser find(long id);
+	Optional<EntityUser> find(Long id);
 
-	void save(EntityUser user) throws ServiceException;
+	void save(EntityUser user);
 
-	Integer loadEntityUserVOCount();
+	Long loadEntityShowableUserCount();
 
-	List<EntityUser> loadEntityUserVOList(Integer initialAmmount, StrategySort strategySort);
+	Long fetchRandomUserId(Long userCount, List<Long> excludeIdList);
+	
+	List<EntityUser> loadUserListByIdList(List<Long> idList);
 
-	List<EntityUser> loadEntityUserVOList(List<EntityUser> existingEntityUserVOList, Integer aditionalAmmount, StrategySort strategySort);
-
-	List<EntityUser> createEntityUserVOList(List<EntityUser> existingEntityUserVOList, Integer elementNumber);
-
+	void updatePassword(Long userId, String newPassword);
 }

@@ -38,6 +38,15 @@ public class DAOSecurityToken implements IDAOSecurityToken {
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void delete(String securityTokenContent) {
+		appPersistenceServices.executeNamedQuery(EntitySecurityToken.QUERY_DELETE_BY_TOKEN_VALUE, 
+				new Object[]{securityTokenContent});
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public boolean save(EntitySecurityToken token) {
 		appPersistenceServices.mergeEntity(token);
 		return true;

@@ -30,4 +30,11 @@ public interface SecurityTokenService {
 	 * 		If there are problems when generating token
 	 */
 	SecurityToken generate(User user) throws OAuthSystemException;
+	
+	/**
+	 * Delete the specified token
+	 * @param securityTokenContent
+	 * 		The content of token to delete
+	 */
+	void delete(String securityTokenContent);
 }

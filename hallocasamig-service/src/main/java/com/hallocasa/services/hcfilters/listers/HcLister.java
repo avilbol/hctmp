@@ -3,6 +3,7 @@ package com.hallocasa.services.hcfilters.listers;
 import java.util.List;
 
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
+import com.hallocasa.vo.hcfilter.properties.PropertyKey;
 import com.hallocasa.vo.options.DropdownOption;
 import com.hallocasa.vo.properties.PropertyField;
 
@@ -24,5 +25,5 @@ public interface HcLister {
 	 * @return
 	 * 			The options that apply
 	 */
-	List<DropdownOption> loadFieldOptions(List<PropertyField> fieldList);
+	List<DropdownOption> loadFieldOptions(PropertyKey propertyKey, List<PropertyField> fieldList);
 }

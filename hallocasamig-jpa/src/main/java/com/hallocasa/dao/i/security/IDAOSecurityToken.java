@@ -27,4 +27,11 @@ public interface IDAOSecurityToken {
 	 * 		true if succesful operation
 	 */
 	boolean save(EntitySecurityToken token);
+
+	/**
+	 * Delete a security token already persisted in system
+	 * @param securityTokenContent
+	 * 		The content of token to delete
+	 */
+	void delete(String securityTokenContent);
 }

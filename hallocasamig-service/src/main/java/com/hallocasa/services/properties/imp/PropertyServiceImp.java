@@ -47,9 +47,12 @@ public class PropertyServiceImp implements PropertyService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void save(Property property) {
+	public void save(Property property, String oAuthToken) {
 		if(property.getUser() == null || property.getUser().getId() == null){
 			throw new BadRequestException("User not specified in property");
+		}
+		if(!(oAuthToken.split("\\:")[0]).equals(property.getUser().getEmail())){
+			throw new BadRequestException("Invalid operation, inconsistent token");
 		}
 		if(property.getPropertyKey() == null){
 			throw new BadRequestException("Property key not specified in property");
@@ -90,6 +93,29 @@ public class PropertyServiceImp implements PropertyService {
 		List<EntityProperty> entList = daoProperty.findBasicRandom(BASIC_PROPERTIES_RETURN_NUMBER);
 		return propertyCommonsService.toValueObjectList(entList);
 	}
+	
+	@Override
+	public List<Property> addPropertiesToShowableList(Integer propertyNumber) {
+		Integer counter = 0;
+		if(propertyNumber == null){
+			throw new BadRequestException("attribute 'propertyNumber' needed when searching");
+		}
+		Long propertyAmmount = daoProperty.loadEntityShowablePropertyCount();
+		List<String> propertyIdList = new LinkedList<>();
+		List<EntityProperty> entList = new LinkedList<>();
+		String propertyId = null;
+		while (counter++ < propertyNumber && 
+				propertyAmmount > propertyIdList.size()) {
+			do {
+				propertyIdList = new LinkedList<>();
+				propertyId = daoProperty.fetchRandomPropertyId(propertyAmmount);
+			} while (duplicateId(propertyId, entList));
+			propertyIdList.add(propertyId);
+			entList.addAll(propertyCommonsService
+					.getPropertyListBy(propertyIdList, null));
+		}
+		return propertyCommonsService.toValueObjectList(entList);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -110,7 +136,9 @@ public class PropertyServiceImp implements PropertyService {
 		request.getResultRequest().setAsc(sortByLessRecent);
 		List<String> filteredIdProperties = daoProperty.findIdentifierListByFilterRequest(query, 
 				paramMap, resultRequest);
-		resultRequest.getOrderBy().set(0, "p.publishDate");
+		if(sortByLessRecent || sortByMostRecent){
+			resultRequest.getOrderBy().set(0, "p.publishDate");
+		}
 		List<EntityProperty> filteredProperties = propertyCommonsService.getPropertyListBy(filteredIdProperties, 
 				resultRequest);
 		Long count = null;
@@ -194,5 +222,14 @@ public class PropertyServiceImp implements PropertyService {
 		base = base.replaceAll("%%JOINS%%", joinBuilder.toString());
 		base = base.replaceAll("%%FILTERS%%", filterBuilder.toString());
 		return base;
+	}
+	
+	private boolean duplicateId(String id, List<EntityProperty> propertyList) {
+		for (EntityProperty item : propertyList) {
+			if (item.getId().equals(id)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

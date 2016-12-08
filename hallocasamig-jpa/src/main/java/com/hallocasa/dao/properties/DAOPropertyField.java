@@ -8,7 +8,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.hallocasa.dao.i.properties.IDAOPropertyField;
-import com.hallocasa.entities.EntityHcFilter;
 import com.hallocasa.entities.properties.EntityPropertyField;
 import com.hallocasa.jpaservices.i.AppPersistenceServices;
 import com.hallocasa.vo.hcfilter.properties.PropertyKey;
@@ -31,6 +30,17 @@ public class DAOPropertyField implements IDAOPropertyField {
 		String query = EntityPropertyField.QUERY_FIND_BY_FILTER;
 		List<Object> paramList = new LinkedList<Object>();
 		paramList.add(filterId);
+		return appPersistenceServices.executeSingleNamedQuery(query, paramList.toArray(), EntityPropertyField.class);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Optional<EntityPropertyField> findById(Integer id) {
+		String query = EntityPropertyField.QUERY_FIND_BY_ID;
+		List<Object> paramList = new LinkedList<Object>();
+		paramList.add(id);
 		return appPersistenceServices.executeSingleNamedQuery(query, paramList.toArray(), EntityPropertyField.class);
 	}
 

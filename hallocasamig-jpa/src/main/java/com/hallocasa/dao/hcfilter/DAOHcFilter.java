@@ -5,6 +5,7 @@ import static com.hallocasa.entities.EntityHcFilter.QUERY_FILTER_BY_FIELD_KEYS;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -40,6 +41,18 @@ public class DAOHcFilter implements IDAOHcFilter {
 				EntityHcFilter.class);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Optional<EntityHcFilter> findById(Integer id) {
+		String query = EntityHcFilter.QUERY_FIND_BY_ID;
+		List<Object> paramList = new LinkedList<Object>();
+		paramList.add(id);
+		return appPersistenceServices.executeSingleNamedQuery(query, paramList.toArray(),
+				EntityHcFilter.class);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

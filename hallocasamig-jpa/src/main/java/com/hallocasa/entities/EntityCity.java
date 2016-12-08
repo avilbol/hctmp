@@ -16,7 +16,7 @@ import com.hallocasa.entities.i.HallocasaEntity;
 @Table(name = "city")
 @NamedQueries({
 		@NamedQuery(name = EntityCity.QUERY_FIND_BY_STATE_ID, query = "select c from EntityCity c where c.state.id = ?1"),
-		@NamedQuery(name = EntityCity.QUERY_FIND_BY_STATES_ID, query = "select c from EntityCity c where c.state.id IN ?1") })
+		@NamedQuery(name = EntityCity.QUERY_FIND_BY_STATES_ID, query = "select c from EntityCity c where c.state.id IN ?1 ORDER BY c.name") })
 public class EntityCity implements HallocasaEntity {
 
 	public static final String QUERY_FIND_BY_STATE_ID = "EntityCity.findByStateId";

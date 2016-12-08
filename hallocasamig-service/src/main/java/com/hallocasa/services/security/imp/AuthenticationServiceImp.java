@@ -7,6 +7,7 @@ package com.hallocasa.services.security.imp;
 
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
@@ -24,6 +25,7 @@ import com.hallocasa.utils.security.CodecUtils;
 import com.hallocasa.vo.User;
 import com.hallocasa.vo.security.AuthInfo;
 import com.hallocasa.vo.security.UserCredentials;
+import com.hallocasa.utils.constants.exceptions.SecurityException;
 
 /**
  * @author avillamil
@@ -51,16 +53,21 @@ public class AuthenticationServiceImp implements AuthenticationService {
 	public AuthInfo authenticate(UserCredentials credentials)
 			throws InvalidEmailException, InvalidPasswordLoginException, OAuthSystemException {
 		// search user
-		EntityUser entUser = daoUser.find(credentials.getEmail());
-		if (entUser == null) {
-			throw new SecurityException("Email of user does not exist");
+		Optional<EntityUser> entUser = daoUser.find(credentials.getEmail());
+		if (!entUser.isPresent()) {
+			throw new SecurityException("Email of user does not exist",
+					SecurityException.INVALID_AUTH_CODE);
 		}
-		if (!entUser.getPassword().equals(CodecUtils.encryptPassword(credentials.getPassword()))) {
-			throw new SecurityException("Email of user or password is incorrect");
+		if (!entUser.get().getPassword().equals(CodecUtils.encryptPassword(credentials.getPassword()))) {
+			throw new SecurityException("Email of user or password is incorrect",
+					SecurityException.INVALID_AUTH_CODE);
 		}
-
+		if (!entUser.get().getConfirmedFlag()) {
+			throw new SecurityException("The user is inactive", 
+					SecurityException.INACTIVE_USER);
+		}
 		// creates result object
-		User user = (User) toValueObject(entUser);
+		User user = (User) toValueObject(entUser.get());
 		AuthInfo authInfo = new AuthInfo(user, securityTokenService.generate(user));
 		LOG.info("User logged: " + user.getFirstName() + user.getLastName());
 		return authInfo;

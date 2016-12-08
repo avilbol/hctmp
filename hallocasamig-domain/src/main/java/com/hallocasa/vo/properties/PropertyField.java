@@ -3,6 +3,7 @@ package com.hallocasa.vo.properties;
 import java.io.Serializable;
 import java.util.List;
 
+import com.hallocasa.vo.hcfilter.HcListerOption;
 import com.hallocasa.vo.hcfilter.properties.PropertyDatatype;
 import com.hallocasa.vo.hcfilter.properties.PropertyFieldType;
 import com.hallocasa.vo.hcfilter.properties.PropertyFieldValue;
@@ -46,6 +47,8 @@ public class PropertyField implements ValueObject, Serializable {
 	private PropertyDatatype data2Type;
 	
 	private PropertyDatatype data3Type;
+	
+	private HcListerOption hcListerOption;
 
 	public Integer getId() {
 		return id;
@@ -165,5 +168,13 @@ public class PropertyField implements ValueObject, Serializable {
 
 	public void setTooltipLang(String tooltipLang) {
 		this.tooltipLang = tooltipLang;
+	}
+
+	public HcListerOption getHcListerOption() {
+		return hcListerOption;
+	}
+
+	public void setHcListerOption(HcListerOption hcListerOption) {
+		this.hcListerOption = hcListerOption;
 	}
 }

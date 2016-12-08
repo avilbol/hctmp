@@ -21,13 +21,13 @@ import com.hallocasa.utils.constants.Tables;
 @Table(name = Tables.SECURITY_TOKEN)
 @NamedQueries({
 		@NamedQuery(name = EntitySecurityToken.QUERY_FIND_BY_TOKEN_VALUE, 
-				query = "select s from EntitySecurityToken s where s.tokenValue = ?1") })
+				query = "select s from EntitySecurityToken s where s.tokenValue = ?1"),
+		@NamedQuery(name = EntitySecurityToken.QUERY_DELETE_BY_TOKEN_VALUE, 
+				query = "delete from EntitySecurityToken s where s.tokenValue = ?1")})
 public class EntitySecurityToken implements HallocasaEntity{
 
-	/**
-	 * Query to find the token that match by token value
-	 */
 	public static final String QUERY_FIND_BY_TOKEN_VALUE = "EntitySecurityToken.queryFindByTokenValue";
+	public static final String QUERY_DELETE_BY_TOKEN_VALUE = "EntitySecurityToken.queryDeleteByTokenValue";
 	
 	@Id
 	@Column(name = "id")

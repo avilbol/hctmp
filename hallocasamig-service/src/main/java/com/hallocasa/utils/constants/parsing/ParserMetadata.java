@@ -18,8 +18,12 @@ import com.hallocasa.entities.EntityHcFilter;
 import com.hallocasa.entities.EntityHcFilterCondition;
 import com.hallocasa.entities.EntityHcFilterNature;
 import com.hallocasa.entities.EntityHcFilterType;
+import com.hallocasa.entities.EntityPasswordRecoveryToken;
 import com.hallocasa.entities.EntityState;
 import com.hallocasa.entities.EntityUser;
+import com.hallocasa.entities.EntityUserDescription;
+import com.hallocasa.entities.EntityUserLanguage;
+import com.hallocasa.entities.EntityUserType;
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.entities.properties.EntityDropdownOption;
 import com.hallocasa.entities.properties.EntityDropdownOptionGroup;
@@ -43,8 +47,12 @@ import com.hallocasa.vo.Currency;
 import com.hallocasa.vo.CurrencyExchangeDataSummary;
 import com.hallocasa.vo.Example;
 import com.hallocasa.vo.Language;
+import com.hallocasa.vo.PasswordRecoveryToken;
 import com.hallocasa.vo.State;
 import com.hallocasa.vo.User;
+import com.hallocasa.vo.UserDescription;
+import com.hallocasa.vo.UserLanguage;
+import com.hallocasa.vo.UserType;
 import com.hallocasa.vo.hcfilter.FilterListingStep;
 import com.hallocasa.vo.hcfilter.FilterShowingStep;
 import com.hallocasa.vo.hcfilter.HcFilter;
@@ -105,6 +113,10 @@ public class ParserMetadata {
 		clazzEquivalenceMap.put(DropdownOptionGroup.class, EntityDropdownOptionGroup.class);
 		clazzEquivalenceMap.put(CountryTelephonePrefix.class, EntityCountryTelephonePrefix.class);
 		clazzEquivalenceMap.put(CurrencyExchangeDataSummary.class, EntityCurrencyExchangeData.class);
+		clazzEquivalenceMap.put(UserType.class, EntityUserType.class);
+		clazzEquivalenceMap.put(UserLanguage.class, EntityUserLanguage.class);
+		clazzEquivalenceMap.put(UserDescription.class, EntityUserDescription.class);
+		clazzEquivalenceMap.put(PasswordRecoveryToken.class, EntityPasswordRecoveryToken.class);
 	}
 
 	/**
@@ -116,6 +128,7 @@ public class ParserMetadata {
 		parserMap.put(HcFilterCondition.class, new HcFilterConditionParser());
 		parserMap.put(HcFilterType.class, new HcFilterTypeParser());
 		parserMap.put(Property.class, new PropertyParser());
+		parserMap.put(User.class, new UserParser());
 	}
 	
 	public static Set<Class<?>> getWrapperTypes()

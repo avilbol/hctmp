@@ -13,7 +13,9 @@ import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
 import com.hallocasa.persistence.converters.HcBooleanConverter;
+import com.hallocasa.persistence.converters.ListerOptionConverter;
 import com.hallocasa.persistence.converters.PropertyDatatypeConverter;
+import com.hallocasa.vo.hcfilter.HcListerOption;
 import com.hallocasa.vo.hcfilter.properties.PropertyDatatype;
 
 /**
@@ -27,12 +29,14 @@ import com.hallocasa.vo.hcfilter.properties.PropertyDatatype;
 		@NamedQuery(name = EntityPropertyField.QUERY_FIND_BY_FILTER, query = "select f from EntityPropertyField f where f.id IN ("
 				+ "select ff.propertyField.id from EntityPropertyFieldFilter ff " + "where ff.filter.id = ?1)"),
 		@NamedQuery(name = EntityPropertyField.QUERY_FIND_ALL, query = "select pf from EntityPropertyField pf"),
-		@NamedQuery(name = EntityPropertyField.QUERY_FIND_IN, query = "select pf from EntityPropertyField pf where pf.id IN ?1") })
+		@NamedQuery(name = EntityPropertyField.QUERY_FIND_IN, query = "select pf from EntityPropertyField pf where pf.id IN ?1"),
+		@NamedQuery(name = EntityPropertyField.QUERY_FIND_BY_ID, query = "select pf from EntityPropertyField pf where pf.id = ?1")})
 public class EntityPropertyField implements HallocasaEntity {
 
 	public static final String QUERY_FIND_BY_FILTER = "EntityPropertyField.QueryFindByFilter";
 	public static final String QUERY_FIND_ALL = "EntityPropertyField.QueryFindAll";
 	public static final String QUERY_FIND_IN = "EntityPropertyField.QueryFindIn";
+	public static final String QUERY_FIND_BY_ID = "EntityPropertyField.QueryFindById";
 	public static final String NATIVE_QUERY_FIND_BY_PK = "select pf.id from property_field pf"
 			+ " join (select * from property_field_condition_option where condition_level = 0 and parent_property_field_id=31) ptype"
 			+ " on ptype.property_field_id = pf.id and ?1 = ptype.parent_property_field_option_id"
@@ -108,6 +112,10 @@ public class EntityPropertyField implements HallocasaEntity {
 	@Convert(converter = PropertyDatatypeConverter.class)
 	@Column(name = "data3_type")
 	private PropertyDatatype data3Type;
+	
+	@Convert(converter=ListerOptionConverter.class)
+	@Column(name = "lister_option")
+	private HcListerOption hcListerOption;
 
 	public Integer getId() {
 		return id;
@@ -219,5 +227,13 @@ public class EntityPropertyField implements HallocasaEntity {
 
 	public void setTooltipLang(String tooltipLang) {
 		this.tooltipLang = tooltipLang;
+	}
+
+	public HcListerOption getHcListerOption() {
+		return hcListerOption;
+	}
+
+	public void setHcListerOption(HcListerOption hcListerOption) {
+		this.hcListerOption = hcListerOption;
 	}
 }

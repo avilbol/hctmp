@@ -3,9 +3,11 @@ package com.hallocasa.rs.hcfilter;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -17,6 +19,7 @@ import org.apache.http.HttpStatus;
 import com.hallocasa.rs.security.Secured;
 import com.hallocasa.rs.utils.ResourceUtils;
 import com.hallocasa.services.hcfilters.PropertyFilterService;
+import com.hallocasa.services.properties.PropertyListerService;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilter;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 
@@ -24,6 +27,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -33,6 +37,9 @@ public class PropertyFilterResource {
 
 	@EJB
 	PropertyFilterService propertyFilterService;
+	
+	@EJB
+	PropertyListerService propertyListerService;
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -70,4 +77,21 @@ public class PropertyFilterResource {
 		return Response.status(HttpStatus.SC_OK).entity(resultList).build();
 	}
 
+	@POST
+	@Path("/options/{filter_id}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Secured
+	@ApiOperation(value = "Return the options to offer to the user in property filter, given selected options of "
+			+ "parent property filters", notes = "The property filter must exist, and must have listers associated")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 403, message = "If it does not exist or do not have listers, the property filter"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	public Response getPropertyFieldOptions(@ApiParam(value = "filter_id") @PathParam("filter_id") Integer filterId,
+			@ApiParam(value = "property filter submission list") List<PropertyFilterSubmission> filterSubmissionList) {
+		return Response.status(HttpStatus.SC_OK).entity(propertyListerService
+				.listFilterOptions(filterId, filterSubmissionList)).build();
+	}
+	
 }
