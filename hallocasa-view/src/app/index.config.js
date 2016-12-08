@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
-                  $mdDateLocaleProvider, paginationTemplateProvider, $compileProvider, $httpProvider) {
+                  $mdDateLocaleProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider) {
 
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
 
@@ -21,6 +21,9 @@
     toastrConfig.timeOut = 3000;
     toastrConfig.positionClass = 'toast-bottom-center';
     toastrConfig.progressBar = true;
+
+    // OAuth2 path config
+    $authProvider.loginUrl = '/security/token';
 
     // Show warnings in the developer console, regarding forgotten IDs in translations
     $translateProvider.useMissingTranslationHandlerLog();

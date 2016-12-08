@@ -36,7 +36,20 @@
 
     function login(userCredentials) {
       return $q(function (resolve, reject) {
-        $auth.login(userCredentials)
+        userCredentials.client_id = "hallocasa_frontend";
+        userCredentials.client_secret = "12345";
+        userCredentials.grant_type = "password";
+        userCredentials.code = "qsxDcgYbFHuqPGZCMfWMrcElQgVLkELr";
+
+        $auth.login(userCredentials, {
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+          }
+        })
           .then(function (userToken) {
             $auth.setToken(userToken);
             resolve();
@@ -46,11 +59,11 @@
           })
       });
     }
-    
+
     function logout() {
       $auth.logout();
     }
-    
+
     function sendRecoveryRequest() {
       //TODO: conectar al backend
       return $q(function (resolve) {resolve();});
@@ -60,7 +73,7 @@
       //TODO: conectar al backend
       return $q(function (resolve) {resolve();});
     }
-    
+
   }
 })();
 

@@ -14,7 +14,8 @@
         }
 
         if(sessionStorage.appAuthToken){
-          config.headers.code = sessionStorage.appAuthToken;
+          config.headers["O-Auth-Code"] = sessionStorage.appAuthToken;
+          config.headers["O-Auth-Client-Id"] = sessionStorage.appAuthClientID;
           return config;
         }
 

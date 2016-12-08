@@ -14,7 +14,7 @@
           <span>{{vm.description | translate}}</span>
           <md-input-container  class="md-block">
             <label>{{'Login.Form.Email' | translate}}</label>
-            <input name="email" ng-model="vm.userData.email" type="email" ng-required="true">
+            <input name="email" ng-model="vm.userData.username" type="email" ng-required="true">
             <ng-messages-generator
               form="loginForm"
               input-name="email"

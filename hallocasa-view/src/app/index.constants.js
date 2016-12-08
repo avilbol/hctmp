@@ -5,7 +5,7 @@
   angular
     .module('HalloCasa')
     .constant('moment', moment)
-    .constant('backend_url'," http://localhost:64647/hallocasa-api/")
+    .constant('backend_url'," http://www.hallocasa.com:64647/hallocasa-api/")
     .constant('LOCALES', {
       'locales': {
         'es_ES': 'Español',
