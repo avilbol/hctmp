@@ -6,14 +6,22 @@
     .service('SessionService', SessionService);
 
   /** @ngInject */
-  function SessionService($mdMedia, $mdDialog, $document, $auth, $q) {
+  function SessionService($mdMedia, $mdDialog, $document, $auth, $q, GenericRESTResource, backend_url ,$resource) {
     var service = {
       validateActiveSession: validateActiveSession,
       login: login,
       logout: logout,
       sendRecoveryRequest: sendRecoveryRequest,
-      sendRecoveryPassword: sendRecoveryPassword
+      sendRecoveryPassword: sendRecoveryPassword,
+      validateToken: validateToken
     };
+
+    var resource = {
+      sendEmail: $resource(backend_url + "password_recovery/send_email", {}, GenericRESTResource),
+      updatePassword: $resource(backend_url + "password_recovery/update_password", {}, GenericRESTResource),
+      validateToken: $resource(backend_url + "password_recovery/validate_token", {}, GenericRESTResource)
+    };
+
     return service;
 
     function validateActiveSession(message) {
@@ -64,14 +72,23 @@
       $auth.logout();
     }
 
-    function sendRecoveryRequest() {
-      //TODO: conectar al backend
-      return $q(function (resolve) {resolve();});
+    function sendRecoveryRequest(email) {
+      return resource.sendEmail.show({"email": email}).$promise;
     }
 
-    function sendRecoveryPassword() {
-      //TODO: conectar al backend
-      return $q(function (resolve) {resolve();});
+    function sendRecoveryPassword(password, token) {
+      var recoveryData = {
+        newPassword: password,
+        passwordRecoveryToken:{
+          tokenContent: token
+        }
+      };
+      return resource.updatePassword.create(recoveryData).$promise;
+    }
+
+    function validateToken(token) {
+
+      return resource.validateToken.show({"password_recovery_token": token}).$promise;
     }
 
   }

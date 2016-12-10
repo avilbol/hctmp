@@ -21,6 +21,10 @@
       update: { method: 'PUT', params: {id: '@id'} },
       delete: { method: 'DELETE', params: {id: '@id'} }
     })
+    .constant('ApplicationCredentials', {
+      'ClientID': 'hallocasa_frontend',
+      'AuthToken': 'qsxDcgYbFHuqPGZCMfWMrcElQgVLkELr'
+    })
     .constant('BlogLinks',{
       'Español':{
         'blog': 'http://blog.hallocasa.com/es/',

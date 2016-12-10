@@ -5,28 +5,16 @@
     .module('HalloCasa')
     .factory("AppAuthTokenInterceptor",AppAuthTokenInterceptor);
 
-  function AppAuthTokenInterceptor($q, $rootScope, backend_url) {
+  function AppAuthTokenInterceptor(backend_url, ApplicationCredentials) {
     var requestInterceptor = {
       request: function(config) {
         var authRequest = backend_url + "security/auth";
         if(config.url === authRequest){
           return config;
         }
-
-        if(sessionStorage.appAuthToken){
-          config.headers["O-Auth-Code"] = sessionStorage.appAuthToken;
-          config.headers["O-Auth-Client-Id"] = sessionStorage.appAuthClientID;
-          return config;
-        }
-
-        var deferred = $q.defer();
-        var destroyListener = $rootScope.$on("AppAuthFinish", function() {
-          config.headers['code'] = sessionStorage.appAuthToken;
-          deferred.resolve(config);
-          destroyListener();
-        });
-
-        return deferred.promise;
+        config.headers["O-Auth-Client-Id"] = ApplicationCredentials.ClientID;
+        config.headers["O-Auth-Code"] = ApplicationCredentials.AuthToken;
+        return config;
       }
     };
 
