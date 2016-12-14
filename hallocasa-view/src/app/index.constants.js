@@ -22,8 +22,10 @@
       delete: { method: 'DELETE', params: {id: '@id'} }
     })
     .constant('ApplicationCredentials', {
-      'ClientID': 'hallocasa_frontend',
-      'AuthToken': 'qsxDcgYbFHuqPGZCMfWMrcElQgVLkELr'
+      'client-id': 'hallocasa_frontend',
+      'client_secret': "12345",
+      'grant_type': 'password',
+      'code': 'gXLLZEhkfsbUZmAfIfLhyGvjfVLzpyRq'
     })
     .constant('BlogLinks',{
       'Español':{

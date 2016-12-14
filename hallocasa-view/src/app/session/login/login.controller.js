@@ -23,9 +23,8 @@
           closeDialog();
 				})
 				.catch(function(error){
-					if(error.status === 403){
-            //TODO: traducción del mensaje de error
-						toastr.error('Nombre de usuario o contraseña incorrectas!', 'Error!');
+					if(error.status === 401){
+						toastr.error(translateFilter("Login.InvalidPassword.Message"));
 					}
 					else{
             //TODO: traducción del mensaje de error

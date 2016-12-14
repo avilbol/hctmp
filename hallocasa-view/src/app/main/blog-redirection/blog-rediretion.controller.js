@@ -10,6 +10,7 @@
 
     function blogRedirection(section) {
       var currentLanguage = LocaleService.getLocaleDisplayName();
+      currentLanguage = currentLanguage ? currentLanguage : "English";
       $window.location.href = BlogLinks[currentLanguage][section];
     }
 
@@ -21,7 +22,7 @@
         section = "blog";
       }
       if(currentURL.includes("pages/buyprocess")) {
-        section = "buyprocess";
+        section = "buyProcess";
       }
       if(currentURL.includes("pages/links")) {
         section = "links";

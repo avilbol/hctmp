@@ -21,6 +21,7 @@
     vm.logout = SessionService.logout;
     vm.goTo = goTo;
     vm.blogRedirection = blogRedirection;
+    vm.getCurrentUserIdentifier = getCurrentUserIdentifier;
 
     $scope.$watch(function() { return $mdMedia('sm') || $mdMedia('xs'); }, function(small) {
       vm.screenIsSmall = small;
@@ -28,6 +29,11 @@
 
     function toggleMenu() {
       $mdSidenav('left').toggle();
+    }
+
+    function getCurrentUserIdentifier() {
+      var currentUser = SessionService.getCurrentUser();
+      return currentUser.firstName ? currentUser.firstName : currentUser.email;
     }
 
     function isAuthenticated() {

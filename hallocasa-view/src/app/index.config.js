@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
-                  $mdDateLocaleProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider) {
+                  localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider) {
 
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
 
@@ -15,6 +15,9 @@
     paginationTemplateProvider.setPath('app/global/pagination/pagination.html');
     // Enable log
     $logProvider.debugEnabled(true);
+
+    //LocalStorage prefix
+    localStorageServiceProvider.setPrefix('HalloCasa');
 
     // Set options third-party lib
     toastrConfig.allowHtml = true;
@@ -47,53 +50,6 @@
     //URL Sanitization
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype|chrome-extension):/);
 
-
-    $mdDateLocaleProvider.months = [
-      "enero",
-      "febrero",
-      "marzo",
-      "abril",
-      "mayo",
-      "junio",
-      "julio",
-      "agosto",
-      "septiembre",
-      "octubre",
-      "noviembre",
-      "diciembre"
-    ];
-    $mdDateLocaleProvider.shortMonths = [
-      "ene.",
-      "feb.",
-      "mar.",
-      "abr.",
-      "may.",
-      "jun.",
-      "jul.",
-      "ago.",
-      "sept.",
-      "oct.",
-      "nov.",
-      "dic."
-    ];
-    $mdDateLocaleProvider.days = [
-      "domingo",
-      "lunes",
-      "martes",
-      "mi\u00e9rcoles",
-      "jueves",
-      "viernes",
-      "s\u00e1bado"
-    ];
-    $mdDateLocaleProvider.shortDays = [
-      "dom.",
-      "lun.",
-      "mar.",
-      "mi\u00e9.",
-      "jue.",
-      "vie.",
-      "s\u00e1b."
-    ];
   }
 
 })();

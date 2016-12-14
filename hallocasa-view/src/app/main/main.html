@@ -24,16 +24,16 @@
         <md-button ng-click="MainCtrl.blogRedirection('buyProcess')">
           {{'BuyProcessPage.Menu.Label.Content' | translate}}
         </md-button>
-        <md-button ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!vm.isAuthenticated()">
+        <md-button ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
           {{'Header.Login.Button' | translate}}
         </md-button>
-        <md-button class="md-primary white-border-button" ng-click="MainCtrl.launchRegisterDialog($event)" ng-if="!vm.isAuthenticated()">
+        <md-button class="md-primary white-border-button" ng-click="MainCtrl.launchRegisterDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
           {{'Header.SignUp.Button' | translate}}
         </md-button>
 
         <md-menu ng-if="MainCtrl.isAuthenticated()">
           <md-button ng-click='$mdOpenMenu($event)'>
-            <i class='material-icons'>account_circle</i> <div>Usuario</div>
+            <i class='material-icons'>account_circle</i> <div>{{MainCtrl.getCurrentUserIdentifier()}}</div>
           </md-button>
           <md-menu-content>
             <md-menu-item>
@@ -81,18 +81,18 @@
         <md-list-item md-ink-ripple ng-click="MainCtrl.blogRedirection('buyProcess')">
           <p> {{'BuyProcessPage.Menu.Label.Content' | translate}}</p>
         </md-list-item>
-        <md-list-item md-ink-ripple ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!vm.isAuthenticated()">
+        <md-list-item md-ink-ripple ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
           <p> {{'Header.Login.Button' | translate}}</p>
         </md-list-item>
         <md-list-item>
-          <md-button flex class="md-raised" ng-if="!vm.isAuthenticated()">
+          <md-button flex class="md-raised" ng-if="!MainCtrl.isAuthenticated()">
             {{'Header.SignUp.Button' | translate}}
           </md-button>
         </md-list-item>
-        <div layout="row" layout-align="center center" ng-if="vm.isAuthenticated()">
+        <div layout="row" layout-align="center center" ng-if="MainCtrl.isAuthenticated()">
           <md-menu>
             <md-button ng-click='$mdOpenMenu($event)'>
-              <i class='material-icons'>account_circle</i> <div>Usuario</div>
+              <i class='material-icons'>account_circle</i> <div>{{MainCtrl.getCurrentUserIdentifier()}}</div>
             </md-button>
             <md-menu-content>
               <md-menu-item>
