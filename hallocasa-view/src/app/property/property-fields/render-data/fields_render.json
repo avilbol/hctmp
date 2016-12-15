@@ -3,30 +3,30 @@
     {
       "id": 31,
       "name": "Property type",
-      "flex-mobile": 100,
-      "flex-tablet": 50,
-      "flex-desktop": 33
+      "flexMobile": 100,
+      "flexTablet": 50,
+      "flexDesktop": 33
     },
     {
       "id": 32,
       "name": "Property location",
-      "flex-mobile": 100,
-      "flex-tablet": 50,
-      "flex-desktop": 33
+      "flexMobile": 100,
+      "flexTablet": 50,
+      "flexDesktop": 33
     },
     {
       "id": 33,
       "name": "Property proposal",
-      "flex-mobile": 100,
-      "flex-tablet": 50,
-      "flex-desktop": 33
+      "flexMobile": 100,
+      "flexTablet": 50,
+      "flexDesktop": 33
     },
     {
       "id": 34,
       "name": "Country",
-      "flex-mobile": 100,
-      "flex-tablet": 50,
-      "flex-desktop": 33
+      "flexMobile": 100,
+      "flexTablet": 50,
+      "flexDesktop": 33
     }
   ],
   "tabList": [
@@ -35,53 +35,116 @@
       "lang": "Property.wizard.basic",
       "fieldList": [
         {
-          "id": 1,
-          "name": "Languages",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "id": "accordion_group",
+          "title": [
+            {
+              "type": "translate_key",
+              "value": "propertyWizardPage.propertyInEdition.propertyBasicInfo.language"
+            }
+          ],
+          "flexMobile": 100,
+          "flexTablet": 100,
+          "flexDesktop": 100,
+          "fieldList":[
+            {
+              "id": 1,
+              "name": "Languages",
+              "flexMobile": 100,
+              "flexTablet": 100,
+              "flexDesktop": 100
+            }
+          ]
         },
         {
-          "id": 2,
-          "name": "Title (all selected languages)",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
-        },
-        {
-          "id": 3,
-          "name": "Property Description (all selected languages)",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
-        },
-        {
-          "id": 4,
-          "name": "Location Description (all selected languages)",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "id": "accordion_group",
+          "title": [
+            {
+              "type": "translate_key",
+              "value": "propertyWizardPage.property.description"
+            }
+          ],
+          "flexMobile": 100,
+          "flexTablet": 100,
+          "flexDesktop": 100,
+          "fieldList":[
+            {
+              "id": "repeater_group",
+              "idField": 1,
+              "flexMobile": 100,
+              "flexTablet": 100,
+              "flexDesktop": 100,
+              "fieldList": [
+                {
+                  "id": "accordion_group",
+                  "title": [
+                    {
+                      "type": "translate_key",
+                      "value": "propertyWizardPage.propertyInEdition.propertyBasicInfo.title"
+                    },
+                    {
+                      "type": "literal_string",
+                      "value": "("
+                    },
+                    {
+                      "type": "binding_field_scope",
+                      "value": "name"
+                    },
+                    {
+                      "type": "literal_string",
+                      "value": ")"
+                    }
+                  ],
+                  "flexMobile": 50,
+                  "flexTablet": 50,
+                  "flexDesktop": 100,
+                  "fieldList":[
+                    {
+                      "id": 2,
+                      "name": "Title (all selected languages)",
+                      "flexMobile": 100,
+                      "flexTablet": 50,
+                      "flexDesktop": 33
+                    },
+                    {
+                      "id": 3,
+                      "name": "Property Description (all selected languages)",
+                      "flexMobile": 100,
+                      "flexTablet": 50,
+                      "flexDesktop": 33
+                    },
+                    {
+                      "id": 4,
+                      "name": "Location Description (all selected languages)",
+                      "flexMobile": 100,
+                      "flexTablet": 50,
+                      "flexDesktop": 33
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "id": 5,
           "name": "Market Price",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 6,
           "name": "Square Meters Total",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 35,
           "name": "Square Meters Built",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         }
       ]
     },
@@ -92,87 +155,87 @@
         {
           "id": 7,
           "name": "Department",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 8,
           "name": "Town",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 15,
           "name": "Neighborhood",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 37,
           "name": "Estrato (COLOMBIA)",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 38,
           "name": "Estrato (PANAMA)",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 39,
           "name": "Estrato (COSTA RICA)",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 40,
           "name": "Estrato (CHILE)",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 41,
           "name": "Estrato (ARGENTINA)",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 42,
           "name": "Estrato (PERU)",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "index": 10,
           "id": 43,
           "name": "Estrato (ECUADOR)",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 9,
           "name": "Address",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 44,
           "name": "Via de Accesso a la Propiedad (Kind of Road).",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         }
       ]
     },
@@ -183,16 +246,16 @@
         {
           "id": 12,
           "name": "Image",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 13,
           "name": "Video",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         }
       ]
     },
@@ -203,58 +266,58 @@
         {
           "id": 17,
           "name": "Rooms",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 18,
           "name": "Bathrooms",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 19,
           "name": "Condition",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 20,
           "name": "Furnished",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 36,
           "name": "Security",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 21,
           "name": "Floor",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 22,
           "name": "Optional Features",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 23,
           "name": "Suitable For",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         }
       ]
     },
@@ -265,108 +328,108 @@
         {
           "id": 45,
           "name": "Heating",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 24,
           "name": "Parking Spots",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 46,
           "name": "Number of Floors",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 25,
           "name": "Basement",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 27,
           "name": "Balcony / Rooftop",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 28,
           "name": "Garden / Terrace",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 47,
           "name": "Drinking Water",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 48,
           "name": "Sewage Water",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 49,
           "name": "Year of Contruction",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "index": 10,
           "id": 50,
           "name": "Method of Construction",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 51,
           "name": "Type of Soil",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 52,
           "name": "Agriculture",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 53,
           "name": "Last Modernization",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 54,
           "name": "Price Development in last 5 Years",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 55,
           "name": "Inclination",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         }
       ]
     },
@@ -377,51 +440,51 @@
         {
           "id": 56,
           "name": "Agent Fee",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 57,
           "name": "Monthly Admin Fees for the Landlord + Currency Dropdown",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 58,
           "name": "Additional Monthly Fees for the Landlord + Currency Dropdown",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 59,
           "name": "Annual Tax Rate on the Property",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 29,
           "name": "Available From",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 60,
           "name": "Monthly Rent",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         },
         {
           "id": 30,
           "name": "Rented",
-          "flex-mobile": 100,
-          "flex-tablet": 50,
-          "flex-desktop": 33
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
         }
       ]
     }
