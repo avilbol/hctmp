@@ -7,7 +7,8 @@
 
   /** @ngInject */
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
-                  localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider) {
+                  localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider,
+                  $mdThemingProvider) {
 
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
 
@@ -18,6 +19,16 @@
 
     //LocalStorage prefix
     localStorageServiceProvider.setPrefix('HalloCasa');
+
+    //Theme configuration
+    var HalloCasaTheme = $mdThemingProvider.extendPalette('indigo', {
+      '900': '#002d45'
+    });
+
+    $mdThemingProvider.definePalette('HalloCasaTheme', HalloCasaTheme);
+
+    $mdThemingProvider.theme('default')
+      .primaryPalette('HalloCasaTheme', {'default': '900'});
 
     // Set options third-party lib
     toastrConfig.allowHtml = true;
