@@ -9,6 +9,7 @@
   function BlogRedirectionController($location, BlogLinks, LocaleService, $window) {
 
     function blogRedirection(section) {
+      section = section ? section : "blog";
       var currentLanguage = LocaleService.getLocaleDisplayName();
       currentLanguage = currentLanguage ? currentLanguage : "English";
       $window.location.href = BlogLinks[currentLanguage][section];
