@@ -84,7 +84,7 @@
           </md-button>
         </md-list-item>
         <div ng-if="MainCtrl.isAuthenticated()">
-          <md-menu>
+          <md-menu layout-fill layout="row" layout-align="center stretch">
             <md-button ng-click='$mdOpenMenu($event)'>
               <div>{{MainCtrl.getCurrentUserIdentifier()}}</div>
             </md-button>
