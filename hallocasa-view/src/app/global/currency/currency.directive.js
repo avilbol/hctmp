@@ -10,16 +10,18 @@
       restrict: 'A',
       replace: true,
       template:
-      "<md-menu>"+
+      "<div>"+
+      "<md-menu layout-fill layout='row' layout-align='center stretch'>"+
       "<md-button ng-click='$mdOpenMenu($event)'>"+
-      "<i class='material-icons'>attach_money</i> <div>{{currentCurrency.name}}</div>"+
+      "<div>{{currentCurrency.name}}</div>"+
       "</md-button>"+
       "<md-menu-content>"+
       "<md-menu-item ng-repeat='currency in currencyList'>" +
       "<md-button ng-click='changeCurrency(currency)'>{{currency.name}}</md-button>" +
       "</md-menu-item>"+
       "</md-menu-content>"+
-      "</md-menu>",
+      "</md-menu>"+
+      "</div>",
       controller: function ($scope, CurrencyService, toastr) {
         $scope.changeCurrency = changeCurrency;
 
