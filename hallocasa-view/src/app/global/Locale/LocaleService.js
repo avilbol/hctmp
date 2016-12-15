@@ -50,6 +50,7 @@
 
     return {
       getLocaleDisplayName: function () {
+        currentLocale = currentLocale ? currentLocale : $translate.use();
         return localesObj[currentLocale];
       },
       setLocaleByDisplayName: function (localeDisplayName) {

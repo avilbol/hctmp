@@ -7,7 +7,7 @@
 
   function appAuthProvider() {
 
-    this.$get = function ($http, backend_url, $log, $rootScope) {
+    this.$get = function ($http, backend_url, $log, $rootScope, localStorageService) {
 
       var provider = {
         getAuthToken: getAuthToken
@@ -16,16 +16,12 @@
       return provider;
 
       function getAuthToken() {
-        if(sessionStorage.appAuthToken){
-          return;
-        }
         $http.get(backend_url+"security/auth")
           .then(function (data) {
-            sessionStorage.appAuthToken = data;
+            localStorageService.set("appAuthToken", data);
           })
           .catch(function (error) {
-            //TODO: Traducción de mensaje de error
-            sessionStorage.appAuthToken = "No_Auth_Token";
+            localStorageService.set("appAuthToken","No_Auth_Token");
             $log.debug("Error al autorizar aplicación ante API: ",error);
           })
           .finally(function () {
