@@ -24,6 +24,7 @@ call mvn -f %hc_home%/hallocasamig/pom.xml clean package ^
  -Dglassfish.base=%glassfish_base% -Dglassfish.domain=%glassfish_domain% ^
  -Dglassfish.admin.port=%glassfish_admin_port% -Dlogsdir=%logs_dir% ^
  -Dglassfish.app.port=%glassfish_app_port% ^
+ -Dapp.version=%hc_version% ^
  -Dmysql.jdbc=%mysql_jdbc% ^
  -Dmysql.pass=%mysql_pass% ^
  -Dfiles.propertyImages.rootPath=%files_property_images_rootpath% ^
