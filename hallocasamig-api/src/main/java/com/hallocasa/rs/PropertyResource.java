@@ -114,7 +114,7 @@ public class PropertyResource {
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "property_number", value = "Number of properties desired",
-				required = true, dataType = "int", paramType = "query")
+				required = true, dataType = "string", paramType = "query")
 	})
 	public Response fetchRandomProperties(@Context UriInfo uriInfo) {
 		Integer propertyNumber = Integer.parseInt(uriInfo.getQueryParameters()
