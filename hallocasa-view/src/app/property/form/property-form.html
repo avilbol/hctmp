@@ -50,14 +50,8 @@
             <ng-include src="vm.templateURL"></ng-include>
           </div>
           <md-tabs md-dynamic-height md-border-bottom ng-if="!vm.smallDevice">
-            <md-tab label="{{'Property.wizard.basic' | translate}}" ng-click="vm.handleTemplateLocation('basic-information')">
-              <ng-include src="'app/property/form/tabs/basic-information.html'"></ng-include>
-            </md-tab>
-            <md-tab label="{{'Property.wizard.location' | translate}}" ng-click="vm.handleTemplateLocation('location')">
-              <ng-include src="'app/property/form/tabs/location.html'"></ng-include>
-            </md-tab>
-            <md-tab label="{{'Property.wizard.images' | translate}}" ng-click="vm.handleTemplateLocation('images')">
-              <ng-include src="'app/property/form/tabs/images.html'"></ng-include>
+            <md-tab ng-repeat="tab in vm.fieldsRender" label="{{tab.lang | translate}}" ng-click="vm.handleTemplateLocation(tab.lang)">
+              <fields-interpreter field-list="tab.fieldList"></fields-interpreter>
             </md-tab>
           </md-tabs>
           <div>

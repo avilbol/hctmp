@@ -36,8 +36,10 @@
     toastrConfig.positionClass = 'toast-bottom-center';
     toastrConfig.progressBar = true;
 
-    // OAuth2 path config
+    // OAuth2 config
     $authProvider.loginUrl = '/security/token';
+    $authProvider.tokenHeader = 'O-Auth-Token';
+    $authProvider.tokenType = '';
 
     // Show warnings in the developer console, regarding forgotten IDs in translations
     $translateProvider.useMissingTranslationHandlerLog();

@@ -18,7 +18,7 @@
       <md-input-container class="md-block" flex>
         <label>{{'PropertyBrowse.Property.propertyType' | translate}}</label>
         <md-select name="propertyTypes" ng-model="vm.property.propertyType" required>
-          <md-option ng-repeat="propertyTypes in vm.propertyTypes" value="{{propertyTypes.name}}" ng-disabled="vm.isReadOnly">
+          <md-option ng-repeat="propertyTypes in vm.propertyTypes" value="{{propertyTypes.id}}" ng-disabled="vm.isReadOnly">
             {{propertyTypes.name}}
           </md-option>
         </md-select>
@@ -46,14 +46,14 @@
 
       <md-input-container class="md-block" flex>
         <label>{{'Profile.Data.buy.rent.Label' | translate}}</label>
-        <md-select name="buyRent" ng-model="vm.property.buyRent" required>
-          <md-option ng-repeat="buyRent in vm.buyRent" value="{{buyRent.id}}" ng-disabled="vm.isReadOnly">
-            {{buyRent.name}}
+        <md-select name="proposals" ng-model="vm.property.propertyProposal" required>
+          <md-option ng-repeat="proposal in vm.proposals" value="{{proposal.id}}" ng-disabled="vm.isReadOnly">
+            {{proposal.name}}
           </md-option>
         </md-select>
         <ng-messages-generator
           form="propertyInfoForm"
-          input-name="buyRent"
+          input-name="proposals"
           validators="required"
         ></ng-messages-generator>
       </md-input-container>

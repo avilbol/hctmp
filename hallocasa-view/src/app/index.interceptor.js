@@ -12,8 +12,8 @@
         if(config.url === authRequest){
           return config;
         }
-        config.headers["O-Auth-Client-Id"] = ApplicationCredentials.ClientID;
-        config.headers["O-Auth-Code"] = ApplicationCredentials.AuthToken;
+        config.headers["O-Auth-Client-Id"] = ApplicationCredentials["client-id"];
+        config.headers["O-Auth-Code"] = ApplicationCredentials["code"];
         return config;
       }
     };

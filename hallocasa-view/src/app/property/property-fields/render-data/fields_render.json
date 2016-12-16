@@ -1,37 +1,7 @@
 {
-  "propertyKey": [
-    {
-      "id": 31,
-      "name": "Property type",
-      "flexMobile": 100,
-      "flexTablet": 50,
-      "flexDesktop": 33
-    },
-    {
-      "id": 32,
-      "name": "Property location",
-      "flexMobile": 100,
-      "flexTablet": 50,
-      "flexDesktop": 33
-    },
-    {
-      "id": 33,
-      "name": "Property proposal",
-      "flexMobile": 100,
-      "flexTablet": 50,
-      "flexDesktop": 33
-    },
-    {
-      "id": 34,
-      "name": "Country",
-      "flexMobile": 100,
-      "flexTablet": 50,
-      "flexDesktop": 33
-    }
-  ],
   "tabList": [
     {
-      "name": "Basic Information",
+      "name": "Basic_Information",
       "lang": "Property.wizard.basic",
       "fieldList": [
         {
@@ -174,6 +144,13 @@
           "flexDesktop": 33
         },
         {
+          "id": 10,
+          "name": "Google Maps",
+          "flexMobile": 100,
+          "flexTablet": 100,
+          "flexDesktop": 100
+        },
+        {
           "id": 37,
           "name": "Estrato (COLOMBIA)",
           "flexMobile": 100,
@@ -240,7 +217,7 @@
       ]
     },
     {
-      "name": "Images and videos",
+      "name": "Images_and_videos",
       "lang": "Property.wizard.images",
       "fieldList": [
         {

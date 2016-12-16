@@ -17,6 +17,7 @@
     .constant('GenericRESTResource', {
       query: { method: 'GET', isArray: true },
       create: { method: 'POST' },
+      consult: { method: 'POST', isArray: true },
       show: { method: 'GET' },
       update: { method: 'PUT', params: {id: '@id'} },
       delete: { method: 'DELETE', params: {id: '@id'} }

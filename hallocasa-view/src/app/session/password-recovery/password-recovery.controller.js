@@ -15,7 +15,7 @@
     vm.sendRecoveryData = sendRecoveryData;
 
     function sendRecoveryData() {
-      SessionService.sendRecoveryPassword(vm.password1, recoveryToken)
+      SessionService.sendRecoveryPassword(vm.password1, tokenData)
         .then(function(){
           toastr.success(translateFilter("ForgotPassword.recovery.newPassword.success"));
           closeDialog();
