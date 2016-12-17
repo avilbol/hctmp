@@ -1,4 +1,5 @@
 ﻿{
+  "hallocasa.pending": "-- Pending translation --",
 	"directives.language-select.Language":"Lenguaje",
 	"Label.Property":"Propiedad",
 	"Label.Agent":"Agente",
@@ -175,7 +176,7 @@
 	"Properties.BasicInfo.MarketPrice.nocurrency":"Moneda: Debe seleccionar un valor",
 	"Properties.BasicInfo.MarketPrice.noammount":"Precio de mercado: Debe ingresar un valor",
 	"propertyWizardPage.propertyInEdition.propertyBasicInfo.title":"T\u00EDtulo",
-	"propertyWizardPage.propertyInEdition.propertyBasicInfo.language":"diomas",
+	"propertyWizardPage.propertyInEdition.propertyBasicInfo.language":"Idiomas",
 	"propertyWizardPage.property.description":"Descripci\u00F3n de la Propiedad",
 	"propertyWizardPage.property.Location":"Ubicaci\u00F3n",
 	"propertyWizardPage.property.LocationDescription":"Descripci\u00F3n de la ubicaci\u00F3n",

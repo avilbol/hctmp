@@ -7,7 +7,8 @@
 
   /** @ngInject */
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
-                  $mdDateLocaleProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider) {
+                  localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider,
+                  $mdThemingProvider) {
 
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
 
@@ -16,14 +17,29 @@
     // Enable log
     $logProvider.debugEnabled(true);
 
+    //LocalStorage prefix
+    localStorageServiceProvider.setPrefix('HalloCasa');
+
+    //Theme configuration
+    var HalloCasaTheme = $mdThemingProvider.extendPalette('indigo', {
+      '900': '#002d45'
+    });
+
+    $mdThemingProvider.definePalette('HalloCasaTheme', HalloCasaTheme);
+
+    $mdThemingProvider.theme('default')
+      .primaryPalette('HalloCasaTheme', {'default': '900'});
+
     // Set options third-party lib
     toastrConfig.allowHtml = true;
-    toastrConfig.timeOut = 3000;
+    toastrConfig.timeOut = 7000;
     toastrConfig.positionClass = 'toast-bottom-center';
     toastrConfig.progressBar = true;
 
-    // OAuth2 path config
+    // OAuth2 config
     $authProvider.loginUrl = '/security/token';
+    $authProvider.tokenHeader = 'O-Auth-Token';
+    $authProvider.tokenType = '';
 
     // Show warnings in the developer console, regarding forgotten IDs in translations
     $translateProvider.useMissingTranslationHandlerLog();
@@ -47,53 +63,6 @@
     //URL Sanitization
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype|chrome-extension):/);
 
-
-    $mdDateLocaleProvider.months = [
-      "enero",
-      "febrero",
-      "marzo",
-      "abril",
-      "mayo",
-      "junio",
-      "julio",
-      "agosto",
-      "septiembre",
-      "octubre",
-      "noviembre",
-      "diciembre"
-    ];
-    $mdDateLocaleProvider.shortMonths = [
-      "ene.",
-      "feb.",
-      "mar.",
-      "abr.",
-      "may.",
-      "jun.",
-      "jul.",
-      "ago.",
-      "sept.",
-      "oct.",
-      "nov.",
-      "dic."
-    ];
-    $mdDateLocaleProvider.days = [
-      "domingo",
-      "lunes",
-      "martes",
-      "mi\u00e9rcoles",
-      "jueves",
-      "viernes",
-      "s\u00e1bado"
-    ];
-    $mdDateLocaleProvider.shortDays = [
-      "dom.",
-      "lun.",
-      "mar.",
-      "mi\u00e9.",
-      "jue.",
-      "vie.",
-      "s\u00e1b."
-    ];
   }
 
 })();

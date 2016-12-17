@@ -6,27 +6,46 @@
     .controller('PasswordRecoveryController', PasswordRecoveryController);
 
   /** @ngInject */
-  function PasswordRecoveryController(SessionService, $mdDialog, translateFilter, toastr, $route) {
+  function PasswordRecoveryController(SessionService, $mdDialog, translateFilter, toastr, $route, $location) {
     var vm = this;
+
+    var tokenData;
+    var recoveryToken = $route.current.params.token;
 
     vm.sendRecoveryData = sendRecoveryData;
 
     function sendRecoveryData() {
-      var recoveryToken = $route.current.params.token;
-      SessionService.sendRecoveryPassword(vm.password1, recoveryToken)
+      SessionService.sendRecoveryPassword(vm.password1, tokenData)
         .then(function(){
           toastr.success(translateFilter("ForgotPassword.recovery.newPassword.success"));
           closeDialog();
         })
-        .catch(function(error){
+        .catch(function(){
           //TODO: mensaje de recuperación de contraseña
           toastr.error('Hubo un error al intentar recuperar contraseña!', 'Error!');
+        });
+    }
+
+    function validateToken() {
+      SessionService.validateToken(recoveryToken)
+        .then(function(data){
+          vm.validatedRecovery = true;
+          tokenData = data;
+        })
+        .catch(function(){
+          closeDialog();
+          $location.url("/forbidden");
+
+          //TODO: mensaje de error de token
+          toastr.error('Token inválido o vencido!', 'Error!');
         });
     }
 
     function closeDialog() {
       $mdDialog.cancel();
     }
+
+    validateToken();
   }
 })();
 

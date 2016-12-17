@@ -5,7 +5,7 @@ call mvn -f D:/development/hc/hallocasa-portal/hallocasamig/pom.xml clean packag
  -Dwar.output.location=D:/development/hc/hallocasa-environment/qa_target ^
  -Dglassfish.base=/usr/local/hallocasamig/api-server-qa ^
  -Dglassfish.domain=hallocasa-mig -Dglassfish.admin.port=64646 ^
- -Dlogsdir=usr/local/hallocasamig/logs-qa ^
+ -Dlogsdir=/usr/local/hallocasamig/logs-qa ^
  -Dglassfish.app.port=64647 ^
  -Dmysql.jdbc=jdbc:mysql://localhost:3307/hallocasaapp ^
  -Dmysql.pass=masterkey ^

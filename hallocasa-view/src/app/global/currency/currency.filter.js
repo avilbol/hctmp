@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('HalloCasa')
+    .module('HalloCasa.global')
     .filter('dynamicCurrency', dynamicCurrency);
 
   function dynamicCurrency(CurrencyService, idSearchFilter, numberFilter, toastr) {

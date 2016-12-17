@@ -1,0 +1,30 @@
+<div>numberField {{fieldType.id}}</div>
+
+<div ng-switch="fieldType.id">
+
+  <md-input-container class="md-block">
+    <label>{{fieldInformation.lang | translate}}</label>
+    <input
+      ng-switch-when="standard_field"
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].text.intVal"
+      type="number"
+    >
+    <input
+      ng-switch-when="double_field"
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      step="any"
+      ng-model="fieldInformation.fieldValueList[0].text.doubleVal"
+      type="number"
+    >
+    <input
+      ng-switch-when="scope_dependent_field"
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].data2.doubleVal"
+      type="number"
+    >
+  </md-input-container>
+</div>

@@ -208,3 +208,9 @@ v-pane {
 .carousel-3d-loader-circle div {
   display: none;
 }
+
+.header-medium-tall{
+  height: 88px;
+  min-height: 88px;
+  max-height: 88px;
+}

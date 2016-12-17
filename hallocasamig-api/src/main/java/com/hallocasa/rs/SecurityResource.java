@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -22,7 +23,6 @@ import org.apache.oltu.oauth2.as.issuer.MD5Generator;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuer;
 import org.apache.oltu.oauth2.as.issuer.OAuthIssuerImpl;
 import org.apache.oltu.oauth2.as.request.OAuthAuthzRequest;
-import org.apache.oltu.oauth2.as.request.OAuthTokenRequest;
 import org.apache.oltu.oauth2.as.response.OAuthASResponse;
 import org.apache.oltu.oauth2.common.OAuth;
 import org.apache.oltu.oauth2.common.error.OAuthError;
@@ -49,6 +49,8 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+
+import com.hallocasa.utils.constants.exceptions.SecurityException;
 
 @Path("/security")
 @Api(value="/security", tags = "security")
@@ -113,51 +115,57 @@ public class SecurityResource {
 		    @ApiResponse( code = 200, message = "Recurso generado" )
 		})
 		@ApiImplicitParams({
-			@ApiImplicitParam(name = "client_id", value = "Id de aplicación", example="api-requester", required = true, dataType = "string", paramType = "form"),
+			@ApiImplicitParam(name = "client-id", value = "Id de aplicación", example="api-requester", required = true, dataType = "string", paramType = "form"),
 			@ApiImplicitParam(name = "client_secret", value = "Contraseña de aplicación (opcional)", defaultValue="12345", required = false, dataType = "string", paramType = "form"),
 			@ApiImplicitParam(name = "grant_type", value = "Tipo de autorización (opcional)", defaultValue="password", required = false, dataType = "string", paramType = "form"),
 		    @ApiImplicitParam(name = "code", value = "Código de autorización", example="hfjd542rRRFdfvjkv354657nfjfkd43", required = true, dataType = "string", paramType = "form"),
-		    @ApiImplicitParam(name = "username", value = "Email de usuario", required = false, dataType = "string", paramType = "form"),
+		    @ApiImplicitParam(name = "email", value = "Email de usuario", required = false, dataType = "string", paramType = "form"),
 		    @ApiImplicitParam(name = "password", value = "Contraseña", required = true, dataType = "string", paramType = "form")
 		})
-	public Response loadToken(@Context HttpServletRequest request) throws URISyntaxException, OAuthSystemException,
+	public Response loadToken(@FormParam("client-id") String clientId,
+			@FormParam("code") String code,
+			@FormParam("email") String email,
+			@FormParam("password") String password,
+			@FormParam("grant_type") String grantType,
+			@FormParam("client_secret") String clientSecret) throws URISyntaxException, OAuthSystemException,
 			JsonGenerationException, JsonMappingException, IOException {
-		OAuthTokenRequest oauthRequest = null;
 		OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
 		oauthIssuerImpl.accessToken();
 		try {
-			LOG.debug("client_id:" + request.getParameter("client_id"));
-			LOG.debug("code:" + request.getParameter("code"));
-			LOG.debug("username:" + request.getParameter("username"));
-			LOG.debug("password:" + request.getParameter("password"));
-			LOG.debug("grant_type:" + request.getParameter("grant_type"));
-			LOG.debug("client_secret:" + request.getParameter("client_secret"));
-			oauthRequest = new OAuthTokenRequest(request);
-			String authCode = oauthRequest.getParam(OAuth.OAUTH_CODE);
-			String clientId = oauthRequest.getParam(OAuth.OAUTH_CLIENT_ID);
-			if(authCode == null){
+			LOG.debug("client-id:" + clientId);
+			LOG.debug("code:" + code);
+			LOG.debug("email:" + email);
+			LOG.debug("password:" + password);
+			LOG.debug("grant_type:" + grantType);
+			LOG.debug("client_secret:" + clientSecret);
+			if(clientId == null){
+				throw new SecurityException("The client id attribute has not been setted",
+						SecurityException.INVALID_AUTH_CODE);
+			}
+			if(code == null){
 				OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
 						.setError(OAuthError.TokenResponse.INVALID_CLIENT)
 						.setErrorDescription("authorization code not supplied").buildJSONMessage();
 				return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
 			}
 			// check if client id and authorization code is valid
-			if (!authCodeService.find(clientId, authCode).isPresent()) {
+			if (!authCodeService.find(clientId, code).isPresent()) {
 				OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
 						.setError(OAuthError.TokenResponse.INVALID_CLIENT)
 						.setErrorDescription("client_id or authorization code not found").buildJSONMessage();
 				return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
 			}
-			// validate username and password
-			String email = oauthRequest.getUsername();
-			String password = oauthRequest.getPassword();
+			if(email == null){
+				throw new SecurityException("The email attribute has not been setted",
+						SecurityException.INVALID_AUTH_CODE);
+			}
+			if(password == null){
+				throw new SecurityException("The password attribute has not been setted",
+						SecurityException.INVALID_AUTH_CODE);
+			}
 			UserCredentials credentials = new UserCredentials(email, password);
 			AuthInfo authInfo = authenticationService.authenticate(credentials);
 			return Response.status(HttpStatus.SC_ACCEPTED).entity(authInfo).build();
-		} catch (OAuthProblemException e) {
-			OAuthResponse res = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST).error(e)
-					.buildJSONMessage();
-			return Response.status(res.getResponseStatus()).entity(res.getBody()).build();
 		} catch (InvalidEmailException e) {
 			return Response.status(HttpStatus.SC_UNAUTHORIZED)
 					.entity(ExceptionResponse.error(e)).build();

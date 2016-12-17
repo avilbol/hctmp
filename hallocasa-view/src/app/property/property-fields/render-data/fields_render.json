@@ -1,0 +1,470 @@
+{
+  "tabList": [
+    {
+      "name": "Basic_Information",
+      "lang": "Property.wizard.basic",
+      "fieldList": [
+        {
+          "id": "accordion_group",
+          "title": [
+            {
+              "type": "translate_key",
+              "value": "propertyWizardPage.propertyInEdition.propertyBasicInfo.language"
+            }
+          ],
+          "flexMobile": 100,
+          "flexTablet": 100,
+          "flexDesktop": 100,
+          "fieldList":[
+            {
+              "id": 1,
+              "name": "Languages",
+              "flexMobile": 100,
+              "flexTablet": 100,
+              "flexDesktop": 100
+            }
+          ]
+        },
+        {
+          "id": "accordion_group",
+          "title": [
+            {
+              "type": "translate_key",
+              "value": "propertyWizardPage.property.description"
+            }
+          ],
+          "flexMobile": 100,
+          "flexTablet": 100,
+          "flexDesktop": 100,
+          "fieldList":[
+            {
+              "id": "repeater_group",
+              "idField": 1,
+              "flexMobile": 100,
+              "flexTablet": 100,
+              "flexDesktop": 100,
+              "fieldList": [
+                {
+                  "id": "accordion_group",
+                  "title": [
+                    {
+                      "type": "translate_key",
+                      "value": "propertyWizardPage.propertyInEdition.propertyBasicInfo.title"
+                    },
+                    {
+                      "type": "literal_string",
+                      "value": "("
+                    },
+                    {
+                      "type": "binding_field_scope",
+                      "value": "name"
+                    },
+                    {
+                      "type": "literal_string",
+                      "value": ")"
+                    }
+                  ],
+                  "flexMobile": 50,
+                  "flexTablet": 50,
+                  "flexDesktop": 100,
+                  "fieldList":[
+                    {
+                      "id": 2,
+                      "name": "Title (all selected languages)",
+                      "flexMobile": 100,
+                      "flexTablet": 50,
+                      "flexDesktop": 33
+                    },
+                    {
+                      "id": 3,
+                      "name": "Property Description (all selected languages)",
+                      "flexMobile": 100,
+                      "flexTablet": 50,
+                      "flexDesktop": 33
+                    },
+                    {
+                      "id": 4,
+                      "name": "Location Description (all selected languages)",
+                      "flexMobile": 100,
+                      "flexTablet": 50,
+                      "flexDesktop": 33
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Market Price",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 6,
+          "name": "Square Meters Total",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 35,
+          "name": "Square Meters Built",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        }
+      ]
+    },
+    {
+      "name": "Location",
+      "lang": "Property.wizard.location",
+      "fieldList": [
+        {
+          "id": 7,
+          "name": "Department",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 8,
+          "name": "Town",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 15,
+          "name": "Neighborhood",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 10,
+          "name": "Google Maps",
+          "flexMobile": 100,
+          "flexTablet": 100,
+          "flexDesktop": 100
+        },
+        {
+          "id": 37,
+          "name": "Estrato (COLOMBIA)",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 38,
+          "name": "Estrato (PANAMA)",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 39,
+          "name": "Estrato (COSTA RICA)",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 40,
+          "name": "Estrato (CHILE)",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 41,
+          "name": "Estrato (ARGENTINA)",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 42,
+          "name": "Estrato (PERU)",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "index": 10,
+          "id": 43,
+          "name": "Estrato (ECUADOR)",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 9,
+          "name": "Address",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 44,
+          "name": "Via de Accesso a la Propiedad (Kind of Road).",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        }
+      ]
+    },
+    {
+      "name": "Images_and_videos",
+      "lang": "Property.wizard.images",
+      "fieldList": [
+        {
+          "id": 12,
+          "name": "Image",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 13,
+          "name": "Video",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        }
+      ]
+    },
+    {
+      "name": "Features",
+      "lang": "Property.wizard.features *",
+      "fieldList": [
+        {
+          "id": 17,
+          "name": "Rooms",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 18,
+          "name": "Bathrooms",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 19,
+          "name": "Condition",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 20,
+          "name": "Furnished",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 36,
+          "name": "Security",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 21,
+          "name": "Floor",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 22,
+          "name": "Optional Features",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 23,
+          "name": "Suitable For",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        }
+      ]
+    },
+    {
+      "name": "Property",
+      "lang": "Property.wizard.property *",
+      "fieldList": [
+        {
+          "id": 45,
+          "name": "Heating",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 24,
+          "name": "Parking Spots",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 46,
+          "name": "Number of Floors",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 25,
+          "name": "Basement",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 27,
+          "name": "Balcony / Rooftop",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 28,
+          "name": "Garden / Terrace",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 47,
+          "name": "Drinking Water",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 48,
+          "name": "Sewage Water",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 49,
+          "name": "Year of Contruction",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "index": 10,
+          "id": 50,
+          "name": "Method of Construction",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 51,
+          "name": "Type of Soil",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 52,
+          "name": "Agriculture",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 53,
+          "name": "Last Modernization",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 54,
+          "name": "Price Development in last 5 Years",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 55,
+          "name": "Inclination",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        }
+      ]
+    },
+    {
+      "name": "Financials",
+      "lang": "Property.wizard.financials *",
+      "fieldList": [
+        {
+          "id": 56,
+          "name": "Agent Fee",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 57,
+          "name": "Monthly Admin Fees for the Landlord + Currency Dropdown",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 58,
+          "name": "Additional Monthly Fees for the Landlord + Currency Dropdown",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 59,
+          "name": "Annual Tax Rate on the Property",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 29,
+          "name": "Available From",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 60,
+          "name": "Monthly Rent",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        },
+        {
+          "id": 30,
+          "name": "Rented",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33
+        }
+      ]
+    }
+  ]
+}
+

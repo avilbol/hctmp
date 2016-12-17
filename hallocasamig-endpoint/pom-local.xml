@@ -80,6 +80,46 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>start-domain</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<executable>sdomain</executable>
+							<arguments>
+								<argument>${local.glassfish.base}/bin</argument>
+								<argument>${local.glassfish.domain}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>redeploy</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<executable>${local.glassfish.base}/bin/asadmin.bat</executable>
+							<arguments>
+								<argument>deploy</argument>
+								<argument>--force</argument>
+								<argument>--name=${project.build.finalName}</argument>
+								<argument>--user=${local.glassfish.user}</argument>
+								<argument>--passwordfile=${local.glassfish.passfile}</argument>
+								<argument>--port=${local.glassfish.port}</argument>
+								<argument>--host=localhost</argument>
+								<argument>${war.name}</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>

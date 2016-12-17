@@ -5,18 +5,26 @@
     .module('HalloCasa.property')
     .service('PropertyService', PropertyService);
 
-  function PropertyService($q, $resource, $log, GenericRESTResource) {
+  function PropertyService($q, $resource, $log, GenericRESTResource, backend_url) {
     var service = {
       getPropertyTypes: getPropertyTypes,
       getLocation: getLocation,
-      getBuyRent: getBuyRent,
+      getProposals: getProposals,
       getCurrencies: getCurrencies,
       loadPublicProperties: loadPublicProperties,
       loadProperty: loadProperty,
-      loadProperties: loadProperties
+      loadProperties: loadProperties,
+      loadFieldsData: loadFieldsData
     };
 
     var resources = {
+      propertyFields: $resource(backend_url + "property_fields/filter_by_key", {}, GenericRESTResource),
+      propertyLocations: $resource(backend_url + "property_locations", {}, GenericRESTResource),
+      propertyProposals: $resource(backend_url + "property_proposals", {}, GenericRESTResource),
+      propertyTypes: $resource(backend_url + "property_types", {}, GenericRESTResource),
+      fieldsRender: $resource("/app/property/property-fields/render-data/fields_render.json", {}, GenericRESTResource),
+
+
       properties: $resource("/mocks/property/properties.json", {}, GenericRESTResource),
       propertiesPublic: $resource("/mocks/property/publicProperties.json", {}, GenericRESTResource),
       propertyLoad: $resource("/mocks/property/loadProperty.json", {}, GenericRESTResource)
@@ -25,48 +33,15 @@
     return service;
 
     function getPropertyTypes() {
-      return $q(function (resolve) {
-        resolve([
-          {id: 1, name: "Lote"},
-          {id: 2, name: "Centro comercial"},
-          {id: 4, name: "Hotel"},
-          {id: 5, name: "Finca con Casa"},
-          {id: 6, name: "Apartamento"},
-          {id: 9, name: "Penthouse"},
-          {id: 10, name: "Bodega"},
-          {id: 11, name: "Garaje"},
-          {id: 12, name: "Restaurante"},
-          {id: 14, name: "Oficina"},
-          {id: 15, name: "Casa Unifamiliar"},
-          {id: 16, name: "Edificio de Apartamentos"},
-          {id: 17, name: "Aeropuerto"},
-          {id: 18, name: "Fábrica"},
-          {id: 19, name: "Escuela"},
-          {id: 20, name: "Teatro"},
-          {id: 21, name: "Jardín Infantil"},
-          {id: 22, name: "Estacionamiento"},
-          {id: 23, name: "Hospital"}
-        ]);
-      });
+      return resources.propertyTypes.query().$promise;
     }
 
     function getLocation() {
-      return $q(function (resolve) {
-        resolve([
-          {id: 1, name: "Urbano"},
-          {id: 2, name: "Suburbio"},
-          {id: 3, name: "Rural"}
-        ]);
-      });
+      return resources.propertyLocations.query().$promise;
     }
 
-    function getBuyRent() {
-      return $q(function (resolve) {
-        resolve([
-          {id: 1, name: "Arrendar"},
-          {id: 2, name: "Vender"}
-        ]);
-      });
+    function getProposals() {
+      return resources.propertyProposals.query().$promise;
     }
 
     function getCurrencies() {
@@ -95,6 +70,16 @@
     function loadProperty(profileID) {
       $log.log("Cargar propiedad: (ID: "+profileID+")");
       return resources.propertyLoad.show().$promise;
+    }
+
+    function loadFieldsData(propertyDeterminants) {
+      $log.debug("Cargar campos de propiedades:", propertyDeterminants);
+      var promises = {
+        propertyFields: resources.propertyFields.consult(propertyDeterminants).$promise,
+        fieldsRender: resources.fieldsRender.get().$promise
+      };
+
+      return $q.all(promises);
     }
   }
 })();

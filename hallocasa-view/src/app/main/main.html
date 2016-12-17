@@ -1,5 +1,5 @@
 <div layout="column" layout-fill ng-controller="MainController as MainCtrl">
-  <md-toolbar class="md-hue-2 md-medium-tall" layout-align="center center" layout="row" ng-if="MainCtrl.showToolbars">
+  <md-toolbar class="md-medium-tall" layout-align="center center" layout="row" ng-if="MainCtrl.showToolbars">
     <div class="md-toolbar-tools">
       <md-button class="md-icon-button" aria-label="menu" hide-gt-sm show-md ng-click="MainCtrl.toggleMenu()">
         <i class="material-icons">menu</i>
@@ -8,7 +8,7 @@
         <img class="png-icon main-logo" flex src="./assets/images/logo-hallocasa.png">
       </md-button>
       <span flex></span>
-      <div hide-md hide-sm hide-xs layout="row" layout-align="end">
+      <div hide-md hide-sm hide-xs layout="row" layout-align="end stretch" class="header-medium-tall">
         <md-button ng-click="MainCtrl.goTo('/property/browser')">
           {{'Properties.title.label' | translate}}
         </md-button>
@@ -18,37 +18,34 @@
         <md-button ng-click="MainCtrl.blogRedirection('blog')">
           {{'Common.Label.Blog' | translate}}
         </md-button>
-        <md-button ng-click="MainCtrl.blogRedirection('link')">
-          {{'Common.Label.Links' | translate}}
-        </md-button>
         <md-button ng-click="MainCtrl.blogRedirection('buyProcess')">
           {{'BuyProcessPage.Menu.Label.Content' | translate}}
         </md-button>
-        <md-button ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!vm.isAuthenticated()">
+        <md-button ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
           {{'Header.Login.Button' | translate}}
         </md-button>
-        <md-button class="md-primary white-border-button" ng-click="MainCtrl.launchRegisterDialog($event)" ng-if="!vm.isAuthenticated()">
+        <md-button class="md-primary white-border-button" ng-click="MainCtrl.launchRegisterDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
           {{'Header.SignUp.Button' | translate}}
         </md-button>
-
-        <md-menu ng-if="MainCtrl.isAuthenticated()">
-          <md-button ng-click='$mdOpenMenu($event)'>
-            <i class='material-icons'>account_circle</i> <div>Usuario</div>
-          </md-button>
-          <md-menu-content>
-            <md-menu-item>
-              <md-button ng-click="MainCtrl.goTo('/profile/my-profile', false)">
-                {{'GlobalMenu.GoToProfile' | translate}}
-              </md-button>
-            </md-menu-item>
-            <md-menu-item>
-              <md-button ng-click="MainCtrl.logout()">
-                {{'Header.Logout.Button' | translate}}
-              </md-button>
-            </md-menu-item>
-          </md-menu-content>
-        </md-menu>
-
+        <div layout="row">
+          <md-menu ng-if="MainCtrl.isAuthenticated()" layout-fill layout="row" layout-align="center stretch">
+            <md-button ng-click='$mdOpenMenu($event)'>
+                <span>{{MainCtrl.getCurrentUserIdentifier()}}</span>
+            </md-button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="MainCtrl.goTo('/profile/my-profile', false)">
+                  {{'GlobalMenu.GoToProfile' | translate}}
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="MainCtrl.logout()">
+                  {{'Header.Logout.Button' | translate}}
+                </md-button>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
+        </div>
         <div ng-translate-language-select></div>
         <div currency-select></div>
       </div>
@@ -75,24 +72,21 @@
         <md-list-item md-ink-ripple ng-click="MainCtrl.blogRedirection('blog')">
           <p> {{'Common.Label.Blog' | translate}}</p>
         </md-list-item>
-        <md-list-item md-ink-ripple ng-click="MainCtrl.blogRedirection('links')">
-          <p> {{'Common.Label.Links' | translate}}</p>
-        </md-list-item>
         <md-list-item md-ink-ripple ng-click="MainCtrl.blogRedirection('buyProcess')">
           <p> {{'BuyProcessPage.Menu.Label.Content' | translate}}</p>
         </md-list-item>
-        <md-list-item md-ink-ripple ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!vm.isAuthenticated()">
+        <md-list-item md-ink-ripple ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
           <p> {{'Header.Login.Button' | translate}}</p>
         </md-list-item>
         <md-list-item>
-          <md-button flex class="md-raised" ng-if="!vm.isAuthenticated()">
+          <md-button flex class="md-raised" ng-if="!MainCtrl.isAuthenticated()">
             {{'Header.SignUp.Button' | translate}}
           </md-button>
         </md-list-item>
-        <div layout="row" layout-align="center center" ng-if="vm.isAuthenticated()">
-          <md-menu>
+        <div ng-if="MainCtrl.isAuthenticated()">
+          <md-menu layout-fill layout="row" layout-align="center stretch">
             <md-button ng-click='$mdOpenMenu($event)'>
-              <i class='material-icons'>account_circle</i> <div>Usuario</div>
+              <div>{{MainCtrl.getCurrentUserIdentifier()}}</div>
             </md-button>
             <md-menu-content>
               <md-menu-item>
@@ -117,7 +111,7 @@
   </md-sidenav>
   <md-content flex>
     <md-content ng-view flex layout="column" class="ng-view-container"></md-content>
-    <md-toolbar class="md-hue-2" ng-class="{'md-medium-tall': !MainCtrl.screenIsSmall, 'md-xl': MainCtrl.screenIsSmall}" ng-if="MainCtrl.showToolbars">
+    <md-toolbar ng-class="{'md-medium-tall': !MainCtrl.screenIsSmall, 'md-xl': MainCtrl.screenIsSmall}" ng-if="MainCtrl.showToolbars">
       <div layout="column" layout-gt-sm="row" flex layout-align="center center">
         <span layout-margin></span>
         <div flex layout="column" class="md-subhead" flex-order-sm="1" flex-order-xs="1">

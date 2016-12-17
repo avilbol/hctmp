@@ -8,7 +8,7 @@
 
   /** @ngInject */
   function PropertyFormController($mdDialog, LocationService, LanguageService, PropertyService, toastr, $mdSidenav, $mdMedia,
-                                  GeolocationService, $timeout, FileReaderService, $log, title, property, readonly,
+                                  FieldsService, $timeout, FileReaderService, $log, title, property, readonly,
                                   $mdToast, translateFilter) {
 
 		var vm = this;
@@ -65,8 +65,30 @@
     }
 
     vm.changeState = function (state) {
-      vm.currentState = state;
+      if(state === vm.state.WIZARD_2){
+        loadFieldsData();
+      }
+      else {
+        vm.currentState = state;
+      }
     };
+
+    function loadFieldsData(){
+      var propertyDeterminants = _.pick(vm.property, "propertyType", "propertyLocation", "propertyProposal", "country");
+      propertyDeterminants = _.mapObject(propertyDeterminants, function (val) { return {"id": val}; });
+
+      return PropertyService.loadFieldsData(propertyDeterminants)
+        .then(function (fieldsData) {
+          $log.debug(fieldsData);
+          vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.fieldsRender.tabList);
+
+          vm.currentState = vm.state.WIZARD_2;
+        })
+        .catch(function () {
+          //TODO: Traducción de mensaje de error
+          toastr.info("Error al cargar atributos de la propiedad");
+        });
+    }
 
     function save() {
       var images = _.map(vm.property.images, function (image) {
@@ -130,10 +152,10 @@
         });
     }
 
-    function loadBuyRent() {
-      PropertyService.getBuyRent()
-        .then(function (buyRent) {
-          vm.buyRent = buyRent;
+    function loadProposals() {
+      PropertyService.getProposals()
+        .then(function (proposals) {
+          vm.proposals = proposals;
         })
         .catch(function (error) {
           //TODO: Traducción de mensaje de error
@@ -204,7 +226,7 @@
 
     function handleTemplateLocation(templateURL) {
       switch (templateURL){
-        case "location":
+        case "Location":
           $timeout(function () {
             vm.refresh = true;
           },300);
@@ -214,10 +236,15 @@
       }
     }
 
+
+    vm.print = function () {
+      console.log(vm.fieldsRender);
+    };
+
     loadCountries();
     loadPropertyTypes();
     loadLocations();
-    loadBuyRent();
+    loadProposals();
     loadLanguages();
     loadCurrencies();
     loadSavedLocation();

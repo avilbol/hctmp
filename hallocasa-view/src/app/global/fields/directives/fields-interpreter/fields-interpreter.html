@@ -1,0 +1,35 @@
+<div>Fields-Interpreter</div>
+<div layout="row" layout-wrap>
+  <div ng-repeat="field in fieldList" flex-gt-sm="{{field.flexDesktop}}" flex-gt-xs="{{field.flexTablet}}" flex-xs="{{field.flexMobile}}">
+    <span>{{field.propertyFieldType.id}} - {{field.propertyFieldType.name}}</span><br>
+    <!--Fields detector-->
+    <div ng-switch="field.propertyFieldType.id">
+      <dropdown-field ng-switch-when="1" field-scope="fieldScope" field-information="field"></dropdown-field>
+      <text-field ng-switch-when="2" field-scope="fieldScope" field-information="field"></text-field>
+      <checkbox-group-field ng-switch-when="3" field-scope="fieldScope" field-information="field"></checkbox-group-field>
+      <image-uploader-field ng-switch-when="4" field-scope="fieldScope" field-information="field"></image-uploader-field>
+      <link-text-field ng-switch-when="5" field-scope="fieldScope" field-information="field"></link-text-field>
+      <number-field ng-switch-when="6" field-scope="fieldScope" field-information="field"></number-field>
+      <yes-no-field ng-switch-when="7" field-scope="fieldScope" field-information="field"></yes-no-field>
+      <date-field ng-switch-when="8" field-scope="fieldScope" field-information="field"></date-field>
+      <currency-field ng-switch-when="9" field-scope="fieldScope" field-information="field"></currency-field>
+      <google-map-field ng-switch-when="10" field-scope="fieldScope" field-information="field"></google-map-field>
+    </div>
+
+    <!--Components detector-->
+    <div ng-switch="field.id">
+      <accordion-group
+        ng-switch-when="accordion_group"
+        title="field.title"
+        field-list="field.fieldList"
+        field-scope="fieldScope"
+      ></accordion-group>
+      <repeater-group
+        ng-switch-when="repeater_group"
+        id-field="field.idField"
+        field-list="field.fieldsList"
+        field-scope="fieldScope"
+      ></repeater-group>
+    </div>
+  </div>
+</div>

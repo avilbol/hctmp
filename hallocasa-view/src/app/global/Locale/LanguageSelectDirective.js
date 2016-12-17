@@ -10,16 +10,18 @@
       restrict: 'A',
       replace: true,
       template:
-      "<md-menu>"+
-      "<md-button ng-click='$mdOpenMenu($event)'>"+
-      "<i class='material-icons'>language</i> <div>{{'directives.language-select.Language' | translate}}</div>"+
+      "<div>"+
+      "<md-menu layout-fill layout='row' layout-align='center stretch'>"+
+      "<md-button ng-click='$mdOpenMenu($event)' aria-label='Open language dropdown'>"+
+      "<div>{{'directives.language-select.Language' | translate}}</div>"+
       "</md-button>"+
       "<md-menu-content>"+
       "<md-menu-item ng-repeat='localesDisplayName in localesDisplayNames'>" +
       "<md-button ng-click='changeLanguage(localesDisplayName)'>{{localesDisplayName}}</md-button>" +
       "</md-menu-item>"+
       "</md-menu-content>"+
-      "</md-menu>",
+      "</md-menu>"+
+      "</div>",
       controller: function ($scope) {
         $scope.currentLocaleDisplayName = LocaleService.getLocaleDisplayName();
         $scope.localesDisplayNames = LocaleService.getLocalesDisplayNames();

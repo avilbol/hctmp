@@ -10,7 +10,7 @@
     var vm = this;
 
     vm.closeDialog = closeDialog;
-    $scope.pdfUrl = "/resources/privacy_statement/hallocasa_privacy_statement.pdf";
+    $scope.pdfUrl = "/resources/privacy_statement/hallocasa_privacy_statement.pdf"; // eslint-disable-line
 
     function closeDialog(){
       $mdDialog.cancel();
