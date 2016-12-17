@@ -1,1 +1,22 @@
-<div>textField</div>
+<div>textField {{fieldType.id}}</div>
+
+<div ng-switch="fieldType.id">
+
+  <md-input-container class="md-block">
+    <label>{{fieldInformation.lang | translate}}</label>
+    <input
+      ng-switch-when="standard_field"
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].text.strVal"
+      type="text"
+    >
+    <input
+      ng-switch-when="scope_dependent_field"
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].data2.strVal"
+      type="text"
+    >
+  </md-input-container>
+</div>

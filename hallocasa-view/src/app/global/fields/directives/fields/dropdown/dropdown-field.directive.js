@@ -10,8 +10,16 @@
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/dropdown/dropdown-field.html",
       scope: {
+        fieldScope: "=?",
+        fieldInformation: "="
       },
-      link: function () {
+      link: function (scope) {
+        if(scope.fieldInformation.dropdownOptionGroup){
+          scope.fieldType = {id: "standard_field"};
+        }
+        else{
+          scope.fieldType = {id: "unimplemented_field"};
+        }
 
       }
     };

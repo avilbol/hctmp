@@ -50,10 +50,15 @@
             <ng-include src="vm.templateURL"></ng-include>
           </div>
           <md-tabs md-dynamic-height md-border-bottom ng-if="!vm.smallDevice">
-            <md-tab ng-repeat="tab in vm.fieldsRender" label="{{tab.lang | translate}}" ng-click="vm.handleTemplateLocation(tab.lang)">
-              <fields-interpreter field-list="tab.fieldList"></fields-interpreter>
+            <md-tab ng-repeat="tab in vm.fieldsRender" label="{{tab.lang | translate}}" ng-click="vm.handleTemplateLocation(tab.name)">
+              <fields-interpreter field-list="tab.fieldList" flex></fields-interpreter>
             </md-tab>
           </md-tabs>
+
+
+          <md-button ng-click="vm.print()">Mostrar modelo</md-button>
+
+
           <div>
             <md-button ng-click="vm.changeState(vm.state.WIZARD_1)">{{'Properties.wizard.back.label' | translate}}</md-button>
             <md-button ng-click="vm.closeDialog()">{{'Properties.wizard.cancel.label' | translate}}</md-button>

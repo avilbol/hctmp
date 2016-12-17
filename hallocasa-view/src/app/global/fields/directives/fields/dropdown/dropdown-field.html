@@ -1,1 +1,19 @@
-<div>dropdownField</div>
+<div>dropdownField {{fieldType.id}}</div>
+
+<div ng-switch="fieldType.id">
+
+  <md-input-container class="md-block">
+    <md-select
+      ng-switch-when="standard_field"
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].text.intVal"
+    >
+      <md-option ng-repeat="option in fieldInformation.dropdownOptionGroup.dropdownOptionList" value="{{option.optionId}}">
+        {{option.name}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+
+</div>
+

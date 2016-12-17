@@ -12,7 +12,7 @@
       template:
       "<div>"+
       "<md-menu layout-fill layout='row' layout-align='center stretch'>"+
-      "<md-button ng-click='$mdOpenMenu($event)'>"+
+      "<md-button ng-click='$mdOpenMenu($event)' aria-label='Open language dropdown'>"+
       "<div>{{'directives.language-select.Language' | translate}}</div>"+
       "</md-button>"+
       "<md-menu-content>"+

@@ -81,7 +81,7 @@
         .then(function (fieldsData) {
           $log.debug(fieldsData);
           vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.fieldsRender.tabList);
-          
+
           vm.currentState = vm.state.WIZARD_2;
         })
         .catch(function () {
@@ -235,6 +235,11 @@
           vm.refresh = false;
       }
     }
+
+
+    vm.print = function () {
+      console.log(vm.fieldsRender);
+    };
 
     loadCountries();
     loadPropertyTypes();
