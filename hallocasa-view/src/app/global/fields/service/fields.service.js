@@ -5,9 +5,10 @@
     .module('HalloCasa.global')
     .service('FieldsService', FieldsService);
 
-  function FieldsService() {
+  function FieldsService(LanguageService, $q, $log) {
     var service = {
-      generateFieldsRender: generateFieldsRender
+      generateFieldsRender: generateFieldsRender,
+      loadOptionsByServiceId: loadOptionsByServiceId
     };
 
     var componentsIdentifiers = ["accordion_group", "repeater_group"];
@@ -47,6 +48,21 @@
 
     function searchFieldById(fieldId, fieldsDataList) {
       return _.find(fieldsDataList, function (fieldData) {return fieldData.id === fieldId});
+    }
+
+    function loadOptionsByServiceId(serviceId) {
+      var servicePromise;
+      switch (serviceId){
+        case "Languages":
+          servicePromise = LanguageService.getLanguages();  
+          break;
+        default:
+          $log.warn("No se reconoce el id del servicio:", serviceId);
+          servicePromise = $q(function (resolve) {
+            resolve([]);
+          });
+      }
+      return servicePromise;
     }
   }
 })();
