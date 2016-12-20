@@ -15,7 +15,7 @@
         tabletCols: '=?',
         mobileCols: '=?',
         data: '=',
-        dataLabel: '=?',
+        optionsLabel: '=?',
         ngModel: '=',
         requireOnce: '=',
         requireAll: '='

@@ -5,70 +5,19 @@
     .module('HalloCasa.global')
     .service('LanguageService', LanguageService);
 
-  function LanguageService($q) {
+  function LanguageService(backend_url, GenericRESTResource, $resource) {
     var service = {
       getLanguages: getLanguages
+    };
+
+    var resources = {
+      languages: $resource(backend_url + "languages", {}, GenericRESTResource)
     };
 
     return service;
 
     function getLanguages() {
-      return $q(function (resolve) {
-        resolve([
-          "English",
-          "Español",
-          "Deutsch",
-          "Africaans",
-          "Algerian",
-          "Arabic",
-          "Armenian",
-          "Bosnian",
-          "Bulgarian",
-          "Cantonese",
-          "Catalan",
-          "Creole",
-          "Croatian",
-          "Czech",
-          "Danish",
-          "Dutch",
-          "Estonian",
-          "Filipino",
-          "Finnish",
-          "Flemish",
-          "French",
-          "Gaelic",
-          "Greek",
-          "Hebrew",
-          "Hindi",
-          "Hungarian",
-          "Icelandic",
-          "Irish",
-          "Italian",
-          "Japanese",
-          "Korean",
-          "Latvian",
-          "Lithuanian",
-          "Mandarin",
-          "Moldovian",
-          "Moroccan",
-          "Norwegian",
-          "Polish",
-          "Portuguese",
-          "Romanian",
-          "Russian",
-          "Scottish",
-          "Slovakian",
-          "Slovene",
-          "Swedish",
-          "Swiss French",
-          "Swiss German",
-          "Thai",
-          "Tunisian",
-          "Turkish",
-          "Ukrainian",
-          "Vietnamese"
-        ]);
-      });
+      return resources.languages.query().$promise;
     }
   }
 })();
