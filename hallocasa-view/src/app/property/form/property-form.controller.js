@@ -238,7 +238,7 @@
 
 
     vm.print = function () {
-      console.log(vm.fieldsRender);
+      $log.log(vm.fieldsRender);
     };
 
     loadCountries();

@@ -1,11 +1,22 @@
 <div>dropdownField {{fieldType}} {{fieldInformation.options.type}}</div>
 
-<div ng-switch="fieldType">
+<div ng-switch="fieldInformation.options.type">
 
   <md-input-container class="md-block">
     <label>{{fieldInformation.lang | translate}}</label>
     <md-select
-      ng-switch-when="standard_field"
+      ng-switch-when="static_options"
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].text.intVal"
+    >
+      <md-option ng-repeat="option in options" value="{{option.identifier}}">
+        {{option.data1}}
+      </md-option>
+    </md-select>
+
+    <md-select
+      ng-switch-when="dynamic_options"
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
@@ -16,7 +27,7 @@
     </md-select>
 
     <md-select
-      ng-switch-when="binary_field"
+      ng-switch-when="binary_options"
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.boolVal"
