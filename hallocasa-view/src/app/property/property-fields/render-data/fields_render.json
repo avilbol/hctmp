@@ -47,6 +47,11 @@
               "flexMobile": 100,
               "flexTablet": 100,
               "flexDesktop": 100,
+              "contentFlex": {
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33
+              },
               "fieldList": [
                 {
                   "id": "accordion_group",
@@ -68,30 +73,30 @@
                       "value": ")"
                     }
                   ],
-                  "flexMobile": 50,
-                  "flexTablet": 50,
+                  "flexMobile": 100,
+                  "flexTablet": 100,
                   "flexDesktop": 100,
                   "fieldList":[
                     {
                       "id": 2,
                       "name": "Title (all selected languages)",
                       "flexMobile": 100,
-                      "flexTablet": 50,
-                      "flexDesktop": 33
+                      "flexTablet": 100,
+                      "flexDesktop": 100
                     },
                     {
                       "id": 3,
                       "name": "Property Description (all selected languages)",
                       "flexMobile": 100,
-                      "flexTablet": 50,
-                      "flexDesktop": 33
+                      "flexTablet": 100,
+                      "flexDesktop": 100
                     },
                     {
                       "id": 4,
                       "name": "Location Description (all selected languages)",
                       "flexMobile": 100,
-                      "flexTablet": 50,
-                      "flexDesktop": 33
+                      "flexTablet": 100,
+                      "flexDesktop": 100
                     }
                   ]
                 }

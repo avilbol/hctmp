@@ -23,7 +23,7 @@
       ng-switch-when="scope_dependent_field"
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
-      ng-model="fieldInformation.fieldValueList[0].data2.doubleVal"
+      ng-model="fieldInformation.fieldValueList[fieldScope.identifier].data2.doubleVal"
       type="number"
     >
   </md-input-container>

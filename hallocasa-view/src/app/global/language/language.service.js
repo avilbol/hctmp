@@ -5,9 +5,10 @@
     .module('HalloCasa.global')
     .service('LanguageService', LanguageService);
 
-  function LanguageService(backend_url, GenericRESTResource, $resource) {
+  function LanguageService(backend_url, GenericRESTResource, $resource, $translate) {
     var service = {
-      getLanguages: getLanguages
+      getLanguages: getLanguages,
+      translate: translate
     };
 
     var resources = {
@@ -18,6 +19,11 @@
 
     function getLanguages() {
       return resources.languages.query().$promise;
+    }
+
+    function translate(translationId, defaultTranslationText) {
+      var translatedString = $translate.instant(translationId);
+      return (translatedString !== translationId) ? translatedString : defaultTranslationText;
     }
   }
 })();

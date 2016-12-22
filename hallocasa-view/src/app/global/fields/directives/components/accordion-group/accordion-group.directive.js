@@ -12,7 +12,8 @@
       scope: {
         title: "=?",
         fieldList: "=",
-        fieldScope: "=?"
+        fieldScope: "=?",
+        fieldRootScope: "=?"
       },
       link: function (scope) {
         function renderTitle() {

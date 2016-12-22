@@ -51,7 +51,7 @@
           </div>
           <md-tabs md-dynamic-height md-border-bottom ng-if="!vm.smallDevice">
             <md-tab ng-repeat="tab in vm.fieldsRender" label="{{tab.lang | translate}}" ng-click="vm.handleTemplateLocation(tab.name)">
-              <fields-interpreter field-list="tab.fieldList" flex></fields-interpreter>
+              <fields-interpreter field-list="tab.fieldList" field-root-scope="vm.fieldsRender" flex></fields-interpreter>
             </md-tab>
           </md-tabs>
 

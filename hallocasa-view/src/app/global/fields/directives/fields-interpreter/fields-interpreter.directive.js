@@ -11,10 +11,10 @@
       templateUrl: "app/global/fields/directives/fields-interpreter/fields-interpreter.html",
       scope: {
         fieldList: "=?",
-        fieldScope: "=?"
+        fieldScope: "=?",
+        fieldRootScope: "=?"
       },
       link: function () {
-
       }
     };
   }

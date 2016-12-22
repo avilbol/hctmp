@@ -35,31 +35,41 @@
           }
         ];
 
+        var fieldValueList = scope.fieldInformation.fieldValueList;
+
+        function validFieldModel(fieldType) {
+          var baseValidation = (_.isArray(fieldValueList) && fieldValueList.length > 0);
+
+          switch (fieldType){
+            case "scope_dependent_field":
+              var identifier = scope.fieldScope.identifier;
+              return (baseValidation && _.isObject(fieldValueList[identifier]));
+              break;
+            default:
+              return baseValidation;
+          }
+        }
 
         function buildFieldModel(fieldType) {
-          var validFieldModel = (
-            _.isArray(scope.fieldInformation.fieldValueList) &&
-            scope.fieldInformation.fieldValueList.length > 0
-          );
-
-          if(validFieldModel){
+          if(validFieldModel(fieldType)){
             return;
           }
 
-          scope.fieldInformation.fieldValueList = [];
           var fieldValue = {};
+          scope.fieldInformation.fieldValueList = fieldValueList ? fieldValueList : [];
 
           switch (fieldType){
             case "standard_field":
               fieldValue.text = {};
+              scope.fieldInformation.fieldValueList.push(fieldValue);
               break;
             case "scope_dependent_field":
               fieldValue.data1 = {
-                intVal: scope.fieldScope.id
+                intVal: scope.fieldScope.identifier
               };
+              scope.fieldInformation.fieldValueList[scope.fieldScope.identifier] = fieldValue;
               break;
           }
-          scope.fieldInformation.fieldValueList.push(fieldValue);
         }
 
         function detectFieldType() {

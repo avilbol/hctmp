@@ -5,7 +5,7 @@
         <label>{{'Profile.Data.Country.Label' | translate}}</label>
         <md-select name="country" ng-model="vm.property.country" required>
           <md-option ng-repeat="country in vm.countries" value="{{country.id}}" ng-disabled="vm.isReadOnly">
-            {{country.name}}
+            {{country.lang | translate}}
           </md-option>
         </md-select>
         <ng-messages-generator
@@ -19,7 +19,7 @@
         <label>{{'PropertyBrowse.Property.propertyType' | translate}}</label>
         <md-select name="propertyTypes" ng-model="vm.property.propertyType" required>
           <md-option ng-repeat="propertyTypes in vm.propertyTypes" value="{{propertyTypes.id}}" ng-disabled="vm.isReadOnly">
-            {{propertyTypes.name}}
+            {{propertyTypes.lang | translate}}
           </md-option>
         </md-select>
         <ng-messages-generator
@@ -34,7 +34,7 @@
         <label>{{'PropertyBrowse.Property.location' | translate}}</label>
         <md-select name="propertyLocation" ng-model="vm.property.propertyLocation" required>
           <md-option ng-repeat="location in vm.locations" value="{{location.id}}" ng-disabled="vm.isReadOnly">
-            {{location.name}}
+            {{location.lang | translate}}
           </md-option>
         </md-select>
         <ng-messages-generator
@@ -48,7 +48,7 @@
         <label>{{'Profile.Data.buy.rent.Label' | translate}}</label>
         <md-select name="proposals" ng-model="vm.property.propertyProposal" required>
           <md-option ng-repeat="proposal in vm.proposals" value="{{proposal.id}}" ng-disabled="vm.isReadOnly">
-            {{proposal.name}}
+            {{proposal.lang | translate}}
           </md-option>
         </md-select>
         <ng-messages-generator
