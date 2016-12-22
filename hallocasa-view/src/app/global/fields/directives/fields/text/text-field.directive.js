@@ -35,21 +35,18 @@
           }
         ];
 
+        var fieldValueList = scope.fieldInformation.fieldValueList;
 
         function validFieldModel(fieldType) {
-          var fieldValueList = scope.fieldInformation.fieldValueList;
-
           var baseValidation = (_.isArray(fieldValueList) && fieldValueList.length > 0);
 
           switch (fieldType){
-            case "standard_field":
-              return baseValidation;
-              break;
             case "scope_dependent_field":
               var identifier = scope.fieldScope.identifier;
-              var definedDependentFieldValue = (baseValidation && _.isObject(fieldValueList[identifier]));
-              return definedDependentFieldValue;
+              return (baseValidation && _.isObject(fieldValueList[identifier]));
               break;
+            default:
+              return baseValidation;
           }
         }
 
@@ -59,7 +56,7 @@
           }
 
           var fieldValue = {};
-          scope.fieldInformation.fieldValueList = scope.fieldInformation.fieldValueList ? scope.fieldInformation.fieldValueList : [];
+          scope.fieldInformation.fieldValueList = fieldValueList ? fieldValueList : [];
 
           switch (fieldType){
             case "standard_field":
@@ -73,7 +70,6 @@
               scope.fieldInformation.fieldValueList[scope.fieldScope.identifier] = fieldValue;
               break;
           }
-
         }
 
         function detectFieldType() {
