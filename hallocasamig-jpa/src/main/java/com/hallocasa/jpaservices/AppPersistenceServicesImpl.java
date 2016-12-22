@@ -10,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -40,7 +39,6 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
 
     @PersistenceContext(unitName = "MyApp")
     private EntityManager em;
-    private static final Logger LOG = Logger.getLogger(AppPersistenceServicesImpl.class.getName());
 
     /* Constructor */
     /**
@@ -195,7 +193,6 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
      * com.mobiera.social.services.local.PersistenceServicesLocal#executeNamedQuery
      * (java.lang.String, java.util.HashMap)
      */
-    @SuppressWarnings("unchecked")
     @Override
     public List<?> executeNamedQuery(String sentence,
             HashMap<String, Object> params) {
@@ -301,7 +298,6 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
      * com.mobiera.social.services.local.PersistenceServicesLocal#executeNamedQuery
      * (java.lang.String, java.lang.Object[], java.lang.Class, int, int)
      */
-    @SuppressWarnings("unchecked")
     @Override
     public int executeNamedQuery(String queryName, Object[] params) {
         Query query = em.createNamedQuery(queryName);
@@ -483,7 +479,8 @@ public class AppPersistenceServicesImpl implements AppPersistenceServices {
      * (java.lang.String, java.util.HashMap, java.lang.Class, java.lang.Integer,
      * java.lang.Integer)
      */
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Object> executeNativeQuery(String sqlQuery,
             HashMap<String, Object> params, 
             Integer startIndex, Integer endIndex) {

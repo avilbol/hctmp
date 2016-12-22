@@ -3,6 +3,7 @@ package com.hallocasa.vo.options;
 import java.io.Serializable;
 import java.util.List;
 
+import com.hallocasa.vo.hcfilter.GroupTranslationManagement;
 import com.hallocasa.vo.i.ValueObject;
 
 /**
@@ -17,7 +18,7 @@ public class DropdownOptionGroup implements ValueObject, Serializable {
 	
 	private String name;
 
-	private Boolean dependsOnLang;
+	private GroupTranslationManagement translationManagement;
 	
 	private List<DropdownOption> dropdownOptionList;
 
@@ -37,12 +38,12 @@ public class DropdownOptionGroup implements ValueObject, Serializable {
 		this.name = name;
 	}
 
-	public Boolean getDependsOnLang() {
-		return dependsOnLang;
+	public GroupTranslationManagement getTranslationManagement() {
+		return translationManagement;
 	}
 
-	public void setDependsOnLang(Boolean dependsOnLang) {
-		this.dependsOnLang = dependsOnLang;
+	public void setTranslationManagement(GroupTranslationManagement translationManagement) {
+		this.translationManagement = translationManagement;
 	}
 
 	public List<DropdownOption> getDropdownOptionList() {

@@ -12,7 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
-import com.hallocasa.persistence.converters.HcBooleanConverter;
+import com.hallocasa.persistence.converters.GroupTranslationManagementConverter;
+import com.hallocasa.vo.hcfilter.GroupTranslationManagement;
 
 /**
  * This entity represents a group for a number of dropdown options
@@ -32,9 +33,9 @@ public class EntityDropdownOptionGroup implements HallocasaEntity {
 	@Column(name="name")
 	private String name;
 
-	@Column(name="depends_on_lang")
-	@Convert(converter = HcBooleanConverter.class)
-	private Boolean dependsOnLang;
+	@Column(name="group_translation_management")
+	@Convert(converter = GroupTranslationManagementConverter.class)
+	private GroupTranslationManagement translationManagement;
 	
 	@OneToMany(mappedBy="dropdownOptionGroup", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<EntityDropdownOption> dropdownOptionList;
@@ -55,12 +56,12 @@ public class EntityDropdownOptionGroup implements HallocasaEntity {
 		this.name = name;
 	}
 
-	public Boolean getDependsOnLang() {
-		return dependsOnLang;
+	public GroupTranslationManagement getTranslationManagement() {
+		return translationManagement;
 	}
 
-	public void setDependsOnLang(Boolean dependsOnLang) {
-		this.dependsOnLang = dependsOnLang;
+	public void setTranslationManagement(GroupTranslationManagement translationManagement) {
+		this.translationManagement = translationManagement;
 	}
 
 	public List<EntityDropdownOption> getDropdownOptionList() {
