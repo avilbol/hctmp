@@ -1,1 +1,6 @@
 <div>repeaterGroup</div>
+<div layout="row" layout-wrap>
+  <div ng-repeat="value in field.fieldValueList" flex-gt-sm="{{contentFlex.flexDesktop}}" flex-gt-xs="{{contentFlex.flexTablet}}" flex-xs="{{contentFlex.flexMobile}}">
+    <fields-interpreter field-list="fieldList" field-scope="value" field-root-scope="fieldRootScope"></fields-interpreter>
+  </div>
+</div>
