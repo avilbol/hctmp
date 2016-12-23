@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .service('FieldsService', FieldsService);
 
-  function FieldsService(LanguageService, LocationService, $q, $log) {
+  function FieldsService(LanguageService, LocationService, CurrencyService,$q, $log) {
     var service = {
       generateFieldsRender: generateFieldsRender,
       loadOptionsByServiceId: loadOptionsByServiceId,
@@ -74,6 +74,9 @@
           break;
         case "Cities":
           servicePromise = LocationService.getCityByID(payload);
+          break;
+        case "Currency":
+          servicePromise = CurrencyService.loadCurrency();
           break;
         default:
           $log.warn("No se reconoce el id del servicio:", serviceId);

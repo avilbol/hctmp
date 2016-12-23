@@ -6,7 +6,7 @@
     .service('CurrencyService', CurrencyService);
 
   /** @ngInject */
-  function CurrencyService ($q, $resource, GenericRESTResource) {
+  function CurrencyService ($q, $resource, GenericRESTResource, backend_url) {
     var service = {
       loadCurrencyData: loadCurrencyData,
       loadCurrency: loadCurrency,
@@ -16,8 +16,8 @@
     };
 
     var resources = {
-      currency: $resource("/mocks/currency/currency.json", {}, GenericRESTResource),
-      exchange: $resource("/mocks/currency/exchange.json", {}, GenericRESTResource)
+      currency: $resource(backend_url + "currencies", {}, GenericRESTResource),
+      exchange: $resource(backend_url + "currency_exchange_data", {}, GenericRESTResource)
     };
 
     var currentCurrency;

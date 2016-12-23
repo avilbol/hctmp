@@ -16,8 +16,8 @@
     }
 
     function getCurrencyRate(inputCurrency, outputCurrency) {
-      inputCurrency = idSearchFilter(currency, inputCurrency.currencyID).name;
-      outputCurrency = idSearchFilter(currency, outputCurrency.id).name;
+      inputCurrency = idSearchFilter(currency, inputCurrency.currencyID).abbreviation;
+      outputCurrency = idSearchFilter(currency, outputCurrency.id).abbreviation;
       return exchange[inputCurrency][outputCurrency];
     }
 

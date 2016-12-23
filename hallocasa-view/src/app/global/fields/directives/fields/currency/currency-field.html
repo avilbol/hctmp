@@ -1,1 +1,26 @@
 <div>currencyField</div>
+<div layout="row">
+  <md-input-container class="md-icon-float md-block" flex="70">
+    <label>{{fieldInformation.lang | translate}}</label>
+    <md-icon md-font-set="material-icons"> attach_money </md-icon>
+    <input
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].data1.doubleVal"
+      type="number"
+    >
+  </md-input-container>
+
+  <md-input-container class="md-block" flex="30">
+    <md-select
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].data2.intVal"
+      ng-disabled="!options || options.length === 0"
+    >
+      <md-option ng-repeat="option in options" value="{{option.id}}">
+        {{option.abbreviation}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+</div>

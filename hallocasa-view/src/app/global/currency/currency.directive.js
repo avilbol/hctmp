@@ -13,11 +13,11 @@
       "<div>"+
       "<md-menu layout-fill layout='row' layout-align='center stretch'>"+
       "<md-button ng-click='$mdOpenMenu($event)' aria-label='Open currency dropdown'>"+
-      "<div>{{currentCurrency.name}}</div>"+
+      "<div>{{currentCurrency.lang | translate}}</div>"+
       "</md-button>"+
       "<md-menu-content>"+
       "<md-menu-item ng-repeat='currency in currencyList'>" +
-      "<md-button ng-click='changeCurrency(currency)'>{{currency.name}}</md-button>" +
+      "<md-button ng-click='changeCurrency(currency)'>{{currency.lang | translate}}</md-button>" +
       "</md-menu-item>"+
       "</md-menu-content>"+
       "</md-menu>"+

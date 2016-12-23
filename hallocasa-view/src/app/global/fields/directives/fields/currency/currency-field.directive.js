@@ -5,14 +5,23 @@
     .module('HalloCasa.global')
     .directive('currencyField', currencyField);
 
-  function currencyField() {
+  function currencyField(FieldsService) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/currency/currency-field.html",
       scope: {
+        fieldInformation: "="
       },
-      link: function () {
-
+      link: function (scope) {
+        FieldsService.loadOptionsByServiceId("Currency")
+          .then(function (options) {
+            scope.options = options
+          })
+          .catch(function () {
+            //TODO: Traducción de mensaje de error
+            toastr.warning("Error al cargar opciones del servicio:", serviceId);
+            scope.options = [];
+          });
       }
     };
   }
