@@ -42,6 +42,17 @@
           "flexDesktop": 100,
           "fieldList":[
             {
+              "id": 61,
+              "name": "Preferred language",
+              "flexMobile": 100,
+              "flexTablet": 50,
+              "flexDesktop": 33,
+              "options": {
+                "type": "internal_dependency_options",
+                "fieldId": 1
+              }
+            },
+            {
               "id": "repeater_group",
               "idField": 1,
               "flexMobile": 100,

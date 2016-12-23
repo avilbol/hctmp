@@ -9,7 +9,7 @@
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
-      ng-disabled="!options"
+      ng-disabled="!options || options.length === 0"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.data1}}
@@ -21,7 +21,7 @@
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
-      ng-disabled="!options"
+      ng-disabled="!options || options.length === 0"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.name}}
@@ -33,7 +33,7 @@
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.boolVal"
-      ng-disabled="!options"
+      ng-disabled="!options || options.length === 0"
     >
       <md-option ng-repeat="option in options" value="{{option.value}}">
         {{option.name}}
@@ -45,7 +45,7 @@
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
-      ng-disabled="!options"
+      ng-disabled="!options || options.length === 0"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.name}}
@@ -57,7 +57,7 @@
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
-      ng-disabled="!options"
+      ng-disabled="!options || options.length === 0"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.name}}
@@ -69,7 +69,7 @@
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
-      ng-disabled="!options"
+      ng-disabled="!options || options.length === 0"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.name}}

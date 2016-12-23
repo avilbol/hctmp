@@ -15,14 +15,23 @@
     };
 
     var componentsIdentifiers = ["accordion_group", "repeater_group"];
+    var totalFields, fieldsRendered;
 
     return service;
 
+
+
     function generateFieldsRender(fieldsDataList, fieldsRender) {
-      return _.map(fieldsRender, function(tab){
+      totalFields = fieldsDataList.length;
+      fieldsRendered = 0;
+      fieldsRender = _.map(fieldsRender, function(tab){
         tab.fieldList = concatFieldsData(tab.fieldList, fieldsDataList);
         return tab;
       });
+
+      $log.debug("Campos totales: "+totalFields+", Campos renderizados: "+fieldsRendered);
+
+      return fieldsRender;
     }
 
     function concatFieldsData(fieldList, fieldsDataList){
@@ -39,6 +48,7 @@
           }
           else {
             fieldList[fieldIndex] = _.extend(fieldData, field);
+            fieldsRendered += 1;
           }
         })
         .compact()

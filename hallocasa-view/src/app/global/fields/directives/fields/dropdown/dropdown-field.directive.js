@@ -34,7 +34,7 @@
         }
 
         function loadOptions() {
-          var serviceId, fieldId, field, parameterName;
+          var serviceId, fieldId, field, parameterName, fieldPath;
           switch(optionsData.type){
             case "static_options":
               scope.options = FieldsService.processOptions(staticOptionsGroup.dropdownOptionList, staticOptionsGroup.translationManagement);
@@ -57,24 +57,32 @@
                 {name: "No", value: false}
               ];
               break;
-            // case "internal_dependency_options":
-            //   serviceId = optionsData.serviceId;
-            //   serviceParameters;
-            //   FieldsService.loadOptionsByServiceId(serviceId)
-            //     .then(function (options) {
-            //       scope.options = FieldsService.processOptions(options, "NONE");
-            //     })
-            //     .catch(function () {
-            //       //TODO: Traducción de mensaje de error
-            //       toastr.warning("Error al cargar opciones del servicio:", serviceId);
-            //       scope.options = [];
-            //     });
-            //   break;
+            case "internal_dependency_options":
+              fieldId = optionsData.fieldId;
+              fieldPath = FieldsService.getFieldPathByID(fieldId, scope.fieldRootScope);
+              if(fieldPath) {
+                field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+                if (field.fieldValueList) {
+                  scope.options = field.fieldValueList;
+                }
+                var destroyWatcher = scope.$watch(function () {
+                  field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+                  if(field.fieldValueList){
+                    return field.fieldValueList.length;
+                  }
+                },function (newValue, oldValue) {
+                  if(newValue !== oldValue){
+                    scope.options = field.fieldValueList;
+                  }
+                });
+              }
+
+              break;
             case "external_dependency_options":
               serviceId = optionsData.serviceId;
               fieldId = optionsData.fieldId;
               parameterName = optionsData.parameterPayload;
-              var fieldPath = FieldsService.getFieldPathByID(fieldId, scope.fieldRootScope);
+              fieldPath = FieldsService.getFieldPathByID(fieldId, scope.fieldRootScope);
               if(fieldPath){
                 field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
                 if(field.fieldValueList){

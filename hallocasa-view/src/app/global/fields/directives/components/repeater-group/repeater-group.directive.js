@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('repeaterGroup', repeaterGroup);
 
-  function repeaterGroup() {
+  function repeaterGroup(FieldsService) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/components/repeater-group/repeater-group.html",
@@ -16,7 +16,24 @@
         contentFlex: "=?"
       },
       link: function (scope) {
-        scope.field = scope.fieldRootScope[0].fieldList[0].fieldList[0];
+        var fieldPath = FieldsService.getFieldPathByID(scope.idField, scope.fieldRootScope);
+
+        if(fieldPath) {
+          var field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+          if (field.fieldValueList) {
+            scope.valueList = field.fieldValueList;
+          }
+          var destroyWatcher = scope.$watch(function () {
+            field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+            if (field.fieldValueList) {
+              return field.fieldValueList.length;
+            }
+          }, function (newValue, oldValue) {
+            if (newValue !== oldValue) {
+              scope.valueList = field.fieldValueList;
+            }
+          });
+        }
       }
     };
   }
