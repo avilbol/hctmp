@@ -12,7 +12,8 @@
       scope: {
         fieldList: "=?",
         fieldScope: "=?",
-        fieldRootScope: "=?"
+        fieldRootScope: "=?",
+        additionalParameters: "=?"
       },
       link: function () {
       }

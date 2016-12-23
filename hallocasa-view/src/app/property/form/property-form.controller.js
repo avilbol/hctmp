@@ -7,7 +7,7 @@
 		.controller('PropertyFormController', PropertyFormController);
 
   /** @ngInject */
-  function PropertyFormController($mdDialog, LocationService, LanguageService, PropertyService, toastr, $mdSidenav, $mdMedia,
+  function PropertyFormController($mdDialog, PropertyService, toastr, $mdSidenav, $mdMedia, LocationService,
                                   FieldsService, $timeout, FileReaderService, $log, title, property, readonly,
                                   $mdToast, translateFilter) {
 
@@ -35,10 +35,7 @@
     vm.changeTemplate = changeTemplate;
     vm.toggleMenu = toggleMenu;
     vm.loadCountries = loadCountries;
-    vm.loadStates = loadStates;
-    vm.loadCities = loadCities;
     vm.handleTemplateLocation = handleTemplateLocation;
-    vm.updateMapLocation = updateMapLocation;
 
     vm.smallDevice = ($mdMedia('sm') || $mdMedia('xs'));
 
@@ -74,8 +71,8 @@
     };
 
     function loadFieldsData(){
-      var propertyDeterminants = _.pick(vm.property, "propertyType", "propertyLocation", "propertyProposal", "country");
-      propertyDeterminants = _.mapObject(propertyDeterminants, function (val) { return {"id": val}; });
+      vm.propertyDeterminants = _.pick(vm.property, "propertyType", "propertyLocation", "propertyProposal", "country");
+      var propertyDeterminants = _.mapObject(vm.propertyDeterminants, function (val) { return {"id": val}; });
 
       return PropertyService.loadFieldsData(propertyDeterminants)
         .then(function (fieldsData) {
@@ -107,40 +104,6 @@
         });
     }
 
-    function loadCountries() {
-      LocationService.getCountries()
-        .then(function (countries) {
-          vm.countries = countries;
-        })
-        .catch(function (error) {
-          //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar países");
-        });
-    }
-
-    function loadStates() {
-      var id = vm.property.location.country;
-      LocationService.getStateByID(id)
-        .then(function (states) {
-          vm.states = states;
-        })
-        .catch(function (error) {
-          //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar Estados");
-        });
-    }
-
-    function loadPropertyTypes() {
-      PropertyService.getPropertyTypes()
-        .then(function (propertyTypes) {
-          vm.propertyTypes = propertyTypes;
-        })
-        .catch(function (error) {
-          //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar tipos de propiedades");
-        });
-    }
-
     function loadLocations() {
       PropertyService.getLocation()
         .then(function (locations) {
@@ -163,25 +126,25 @@
         });
     }
 
-    function loadLanguages(){
-      LanguageService.getLanguages()
-        .then(function (languages) {
-          vm.languages = languages;
+    function loadPropertyTypes() {
+      PropertyService.getPropertyTypes()
+        .then(function (propertyTypes) {
+          vm.propertyTypes = propertyTypes;
         })
         .catch(function (error) {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar idiomas");
+          toastr.info(error, "Error al cargar tipos de propiedades");
         });
     }
 
-    function loadCurrencies(){
-      PropertyService.getCurrencies()
-        .then(function (currencies) {
-          vm.currencies = currencies;
+    function loadCountries() {
+      LocationService.getCountries()
+        .then(function (countries) {
+          vm.countries = countries;
         })
         .catch(function (error) {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar moneads");
+          toastr.info(error, "Error al cargar tipos países");
         });
     }
 
@@ -193,35 +156,6 @@
 
     function toggleMenu() {
       $mdSidenav('addPropertyMenu').toggle();
-    }
-
-    function updateMapLocation(city){
-      vm.property.location.center.latitude = city.lat;
-      vm.property.location.center.longitude = city.lng;
-      vm.property.location.zoom = city.zoom;
-    }
-
-    function loadCities() {
-      var id = vm.property.location.state;
-      LocationService.getCityByID(id)
-        .then(function (cities) {
-          vm.cities = cities;
-        })
-        .catch(function (error) {
-          //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar ciudades");
-        });
-    }
-
-    function loadSavedLocation() {
-      if(vm.property.location.country && vm.property.location.state){
-        loadStates();
-        loadCities();
-      }
-    }
-
-    function loadSavedPictures() {
-      //TODO: Cargar imágenes guardadas
     }
 
     function handleTemplateLocation(templateURL) {
@@ -245,9 +179,5 @@
     loadPropertyTypes();
     loadLocations();
     loadProposals();
-    loadLanguages();
-    loadCurrencies();
-    loadSavedLocation();
-    loadSavedPictures();
   }
 })();

@@ -4,7 +4,7 @@
     <span>{{field.propertyFieldType.id}} - {{field.propertyFieldType.name}}</span><br>
     <!--Fields detector-->
     <div ng-switch="field.propertyFieldType.id">
-      <dropdown-field ng-switch-when="1" field-scope="fieldScope" field-information="field"></dropdown-field>
+      <dropdown-field ng-switch-when="1" field-scope="fieldScope" field-information="field" additional-parameters="additionalParameters" field-root-scope="fieldRootScope"></dropdown-field>
       <text-field ng-switch-when="2" field-scope="fieldScope" field-information="field"></text-field>
       <checkbox-group-field ng-switch-when="3" field-scope="fieldScope" field-information="field"></checkbox-group-field>
       <image-uploader-field ng-switch-when="4" field-scope="fieldScope" field-information="field"></image-uploader-field>
@@ -24,6 +24,7 @@
         field-list="field.fieldList"
         field-scope="fieldScope"
         field-root-scope="fieldRootScope"
+        additional-parameters="additionalParameters"
       ></accordion-group>
       <repeater-group
         ng-switch-when="repeater_group"
@@ -31,6 +32,7 @@
         field-list="field.fieldList"
         content-flex="field.contentFlex"
         field-root-scope="fieldRootScope"
+        additional-parameters="additionalParameters"
       ></repeater-group>
     </div>
   </div>

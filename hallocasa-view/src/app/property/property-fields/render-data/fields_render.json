@@ -138,9 +138,10 @@
           "flexTablet": 50,
           "flexDesktop": 33,
           "options": {
-            "type": "external_dependency_options",
-            "fieldId": 34,
-            "serviceId": "states"
+            "type": "parameter_dependency_options",
+            "parameterName": "country",
+            "parameterPayload": "country_id",
+            "serviceId": "States"
           }
         },
         {
@@ -152,7 +153,8 @@
           "options": {
             "type": "external_dependency_options",
             "fieldId": 7,
-            "serviceId": "cities"
+            "serviceId": "Cities",
+            "parameterPayload": "state_id"
           }
         },
         {

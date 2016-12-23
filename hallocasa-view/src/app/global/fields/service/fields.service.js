@@ -5,11 +5,13 @@
     .module('HalloCasa.global')
     .service('FieldsService', FieldsService);
 
-  function FieldsService(LanguageService, $q, $log) {
+  function FieldsService(LanguageService, LocationService, $q, $log) {
     var service = {
       generateFieldsRender: generateFieldsRender,
       loadOptionsByServiceId: loadOptionsByServiceId,
-      processOptions: processOptions
+      processOptions: processOptions,
+      getFieldPathByID: getFieldPathByID,
+      getFieldByPath: getFieldByPath
     };
 
     var componentsIdentifiers = ["accordion_group", "repeater_group"];
@@ -51,11 +53,17 @@
       return _.find(fieldsDataList, function (fieldData) {return fieldData.id === fieldId});
     }
 
-    function loadOptionsByServiceId(serviceId) {
+    function loadOptionsByServiceId(serviceId, payload) {
       var servicePromise;
       switch (serviceId){
         case "Languages":
           servicePromise = LanguageService.getLanguages();
+          break;
+        case "States":
+          servicePromise = LocationService.getStateByID(payload);
+          break;
+        case "Cities":
+          servicePromise = LocationService.getCityByID(payload);
           break;
         default:
           $log.warn("No se reconoce el id del servicio:", serviceId);
@@ -75,6 +83,7 @@
       }
       return string;
     }
+
 
     function detectOptionID(option) {
       option.identifier = (option.id || option.optionId);
@@ -114,6 +123,54 @@
 
       var parseFunction = _.compose(cleanOption, detectOptionID, parseOptionString);
       return _.map(optionsList, parseFunction);
+    }
+
+    function getFieldPathByID(fieldID, fieldRootScope) {
+      var fieldPath;
+      var fieldFound =_.find(fieldRootScope, function (tab, tabIndex) {
+        fieldPath = getFieldPathInFieldsList(fieldID, tab.fieldList);
+        var fieldFound = fieldPath.length > 0;
+        if(fieldFound){
+          fieldPath.unshift(tabIndex);
+        }
+        return fieldFound;
+      });
+      if(!fieldFound){
+        $log.warn("No se pudo encontrar el campo con ID "+fieldID+" en la lista de campos", fieldRootScope);
+      }
+      return fieldPath;
+    }
+
+    function getFieldPathInFieldsList(fieldID, fieldList) {
+      var fieldPath = [];
+      _.find(fieldList, function (field, fieldIndex) {
+        if(isComponentField(field)){
+          fieldPath = getFieldPathInFieldsList(fieldID, field.fieldList);
+          var fieldFound = fieldPath.length > 0;
+          if(fieldFound){
+            fieldPath.unshift(fieldIndex);
+          }
+          return fieldFound;
+        }
+        var isSoughtField = (field.id === fieldID);
+        if(isSoughtField){
+          fieldPath.unshift(fieldIndex);
+        }
+        return isSoughtField;
+      });
+      return fieldPath;
+    }
+
+    function getFieldByPath(fieldPath, fieldRootScope) {
+      fieldPath = angular.copy(fieldPath);
+      var tabIndex = fieldPath.shift();
+      var fieldList = fieldRootScope[tabIndex].fieldList;
+      var field;
+      _.each(fieldPath, function (patch) {
+        field = fieldList[patch];
+        fieldList = field.fieldList;
+      });
+      return field;
     }
   }
 })();

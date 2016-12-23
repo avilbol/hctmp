@@ -10,7 +10,6 @@
       getPropertyTypes: getPropertyTypes,
       getLocation: getLocation,
       getProposals: getProposals,
-      getCurrencies: getCurrencies,
       loadPublicProperties: loadPublicProperties,
       loadProperty: loadProperty,
       loadProperties: loadProperties,
@@ -42,20 +41,6 @@
 
     function getProposals() {
       return resources.propertyProposals.query().$promise;
-    }
-
-    function getCurrencies() {
-      return $q(function (resolve) {
-        resolve([
-          {id: 1, name: "COP - Peso colombiano"},
-          {id: 2, name: "EUR - Euro"},
-          {id: 3, name: "USD - Dólar estadounidense"},
-          {id: 4, name: "CAD - Dólar canadiense"},
-          {id: 5, name: "GBP - Libra británica"},
-          {id: 6, name: "CHF - Franco suizo"},
-          {id: 7, name: "AUD - Dolar australiano"}
-        ]);
-      });
     }
 
     function loadPublicProperties(start, finish) {

@@ -9,6 +9,7 @@
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
+      ng-disabled="!options"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.data1}}
@@ -20,6 +21,7 @@
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
+      ng-disabled="!options"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.name}}
@@ -31,8 +33,45 @@
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.boolVal"
+      ng-disabled="!options"
     >
       <md-option ng-repeat="option in options" value="{{option.value}}">
+        {{option.name}}
+      </md-option>
+    </md-select>
+
+    <md-select
+      ng-switch-when="internal_dependency_options"
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].text.intVal"
+      ng-disabled="!options"
+    >
+      <md-option ng-repeat="option in options" value="{{option.identifier}}">
+        {{option.name}}
+      </md-option>
+    </md-select>
+
+    <md-select
+      ng-switch-when="external_dependency_options"
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].text.intVal"
+      ng-disabled="!options"
+    >
+      <md-option ng-repeat="option in options" value="{{option.identifier}}">
+        {{option.name}}
+      </md-option>
+    </md-select>
+
+    <md-select
+      ng-switch-when="parameter_dependency_options"
+      name="{{fieldInformation.name}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].text.intVal"
+      ng-disabled="!options"
+    >
+      <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.name}}
       </md-option>
     </md-select>

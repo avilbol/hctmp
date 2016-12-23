@@ -27,12 +27,12 @@
       return resources.countries.query().$promise;
     }
 
-    function getStateByID(id) {
-      return resources.states.query(id).$promise;
+    function getStateByID(query) {
+      return resources.states.query(query).$promise;
     }
 
-    function getCityByID(id) {
-      return resources.cities.query(id).$promise;
+    function getCityByID(query) {
+      return resources.cities.query(query).$promise;
     }
 
     function getTelephonePrefixes() {
