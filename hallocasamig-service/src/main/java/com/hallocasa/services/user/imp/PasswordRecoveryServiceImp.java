@@ -48,7 +48,8 @@ public class PasswordRecoveryServiceImp implements PasswordRecoveryService {
     public void sendPasswordRecovery(String email) {
         Optional<EntityUser> entUser = daoUser.find(email);
         if(!entUser.isPresent()){
-            throw new SecurityException("User with email entered, not found");
+            throw new SecurityException("User with email entered, not found",
+            		SecurityException.INVALID_AUTH_CODE);
         }
         PasswordRecoveryToken token = createRecoveryPasswordToken(entUser.get().getId());
         EntityUser entUserVal = entUser.get();

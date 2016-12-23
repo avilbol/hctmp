@@ -31,6 +31,8 @@ public class DropdownOption implements ValueObject, Serializable {
     private String data7;
     
     private String data8;
+    
+    private Boolean dependsOnLang;
 
 	public Integer getOptionId() {
 		return optionId;
@@ -110,5 +112,13 @@ public class DropdownOption implements ValueObject, Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Boolean getDependsOnLang() {
+		return dependsOnLang;
+	}
+
+	public void setDependsOnLang(Boolean dependsOnLang) {
+		this.dependsOnLang = dependsOnLang;
 	}
 }

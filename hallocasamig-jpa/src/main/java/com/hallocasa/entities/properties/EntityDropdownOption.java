@@ -1,6 +1,7 @@
 package com.hallocasa.entities.properties;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -9,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
+import com.hallocasa.persistence.converters.HcBooleanConverter;
 
 @Entity
 @Table(name = "dropdown_option")
@@ -21,6 +23,10 @@ public class EntityDropdownOption implements HallocasaEntity{
 	@JoinColumn(name = "dropdown_option_group_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private EntityDropdownOptionGroup dropdownOptionGroup;
+	
+	@Column(name = "depends_on_lang")
+	@Convert(converter = HcBooleanConverter.class)
+	private Boolean dependsOnLang;
 	
 	@Column(name="option_id")
 	private Integer optionId;
@@ -146,5 +152,13 @@ public class EntityDropdownOption implements HallocasaEntity{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Boolean getDependsOnLang() {
+		return dependsOnLang;
+	}
+
+	public void setDependsOnLang(Boolean dependsOnLang) {
+		this.dependsOnLang = dependsOnLang;
 	}
 }
