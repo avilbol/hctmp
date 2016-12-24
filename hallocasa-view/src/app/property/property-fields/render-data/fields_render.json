@@ -282,8 +282,8 @@
           "id": 12,
           "name": "Image",
           "flexMobile": 100,
-          "flexTablet": 50,
-          "flexDesktop": 33
+          "flexTablet": 100,
+          "flexDesktop": 100
         },
         {
           "id": 13,

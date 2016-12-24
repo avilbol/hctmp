@@ -17,6 +17,7 @@
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].data2.intVal"
       ng-disabled="!options || options.length === 0"
+      aria-label="{{fieldInformation.name}}"
     >
       <md-option ng-repeat="option in options" value="{{option.id}}">
         {{option.abbreviation}}
