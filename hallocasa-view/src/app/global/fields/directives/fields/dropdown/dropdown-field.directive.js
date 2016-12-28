@@ -65,7 +65,7 @@
                 if (field.fieldValueList) {
                   scope.options = field.fieldValueList;
                 }
-                var destroyWatcher = scope.$watch(function () {
+                var destroyInDependencyWatcher = scope.$watch(function () {
                   field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
                   if(field.fieldValueList){
                     return field.fieldValueList.length;
@@ -75,6 +75,7 @@
                     scope.options = field.fieldValueList;
                   }
                 });
+                scope.$on("$destroy",destroyInDependencyWatcher);
               }
 
               break;
@@ -90,7 +91,7 @@
                   loadDependentOptions(serviceId, parameterName, parameterValue);
                 }
 
-                var destroyWatcher = scope.$watch(function () {
+                var destroyExDependencyWatcher = scope.$watch(function () {
                   var field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
                   if(field.fieldValueList){
                     return field.fieldValueList[0].text.intVal;
@@ -101,7 +102,7 @@
                   }
                 });
 
-                scope.$on("$destroy",destroyWatcher);
+                scope.$on("$destroy",destroyExDependencyWatcher);
               }
               break;
             case "parameter_dependency_options":

@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('imageUploaderField', imageUploaderField);
 
-  function imageUploaderField(FileReaderService, toastr) {
+  function imageUploaderField(FileReaderService, toastr, $log) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/image-uploader/image-uploader-field.html",
@@ -39,7 +39,7 @@
 
             })
             .catch(function (error) {
-              console.debug(error);
+              $log.debug(error);
               //TODO: Traducción de mensaje de error
               toastr.info("Error al procesar imágen");
 

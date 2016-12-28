@@ -33,6 +33,8 @@
               scope.valueList = field.fieldValueList;
             }
           });
+          
+          scope.on("$destroy",destroyWatcher);
         }
       }
     };

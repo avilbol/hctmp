@@ -53,7 +53,6 @@
             case "scope_dependent_field":
               var identifier = scope.fieldScope.identifier;
               return (baseValidation && _.isObject(fieldValueList[identifier]));
-              break;
             default:
               return baseValidation;
           }
