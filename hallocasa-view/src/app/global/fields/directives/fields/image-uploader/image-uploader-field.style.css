@@ -1,0 +1,12 @@
+.lf-ng-md-file-input-thumbnails .lf-ng-md-file-input-frame {
+  cursor: pointer;
+}
+
+.lf-ng-md-file-input-thumbnails .lf-ng-md-file-input-frame .lf-ng-md-file-input-x{
+  border-radius: 3px;
+}
+
+.primary-image {
+  background-color: #002d45;
+  color: rgba(255, 255, 255, 0.87);
+}
