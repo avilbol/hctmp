@@ -8,7 +8,7 @@
   /** @ngInject */
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
                   localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider,
-                  $mdThemingProvider) {
+                  $mdThemingProvider, uiGmapGoogleMapApiProvider) {
 
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
 
@@ -62,6 +62,12 @@
 
     //URL Sanitization
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype|chrome-extension):/);
+
+    //Gmaps configurations
+    uiGmapGoogleMapApiProvider.configure({
+      key: 'AIzaSyChfY95Vk-MYNJnW4Wik-tqdphVcruqb7Q',
+      v: '3.25'
+    });
 
   }
 

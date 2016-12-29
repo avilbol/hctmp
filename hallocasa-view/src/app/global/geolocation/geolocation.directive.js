@@ -67,8 +67,8 @@
           if(!angular.isFunction(scope.map.control.getGMap)){
             return
           }
-          var latLngLiteral = {lat: newCenter.latitude, lng: newCenter.longitude};
-          var isVisible = scope.map.control.getGMap().getBounds().contains(latLngLiteral);
+          var latLng = new google.maps.LatLng(newCenter.latitude, newCenter.longitude);
+          var isVisible = scope.map.control.getGMap().getBounds().contains(latLng);
           scope.mapCenter = isVisible ? scope.mapCenter : newCenter;
         }
 

@@ -9,7 +9,7 @@
   /** @ngInject */
   function PropertyFormController($mdDialog, PropertyService, toastr, $mdSidenav, $mdMedia, LocationService,
                                   FieldsService, $timeout, FileReaderService, $log, title, property, readonly,
-                                  $mdToast, translateFilter) {
+                                  $mdToast, translateFilter, $rootScope) {
 
 		var vm = this;
     var propertyBase = {
@@ -161,12 +161,8 @@
     function handleTemplateLocation(templateURL) {
       switch (templateURL){
         case "Location":
-          $timeout(function () {
-            vm.refresh = true;
-          },300);
+          $rootScope.$broadcast("RepaintMap");
           break;
-        default:
-          vm.refresh = false;
       }
     }
 
