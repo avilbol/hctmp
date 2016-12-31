@@ -32,9 +32,9 @@
 
             CurrencyService.setCurrentCurrency($scope.currentCurrency);
           })
-          .catch(function (error) {
+          .catch(function () {
             //TODO: Traducción de mensaje de error
-            toastr.info(error, "Error al cargar monedas");
+            toastr.warning("Error al cargar monedas");
           });
 
         function changeCurrency(newCurrency) {

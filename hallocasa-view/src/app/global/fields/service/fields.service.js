@@ -11,15 +11,14 @@
       loadOptionsByServiceId: loadOptionsByServiceId,
       processOptions: processOptions,
       getFieldPathByID: getFieldPathByID,
-      getFieldByPath: getFieldByPath
+      getFieldByPath: getFieldByPath,
+      generateFieldValueList: generateFieldValueList
     };
 
     var componentsIdentifiers = ["accordion_group", "repeater_group"];
     var totalFields, fieldsRendered;
 
     return service;
-
-
 
     function generateFieldsRender(fieldsDataList, fieldsRender) {
       totalFields = fieldsDataList.length;
@@ -32,6 +31,29 @@
       $log.debug("Campos totales: "+totalFields+", Campos renderizados: "+fieldsRendered);
 
       return fieldsRender;
+    }
+
+    function generateFieldValueList(fieldsRender) {
+      var fieldValueList = [];
+      var fieldsSearcher = function (fieldList) {
+        _.each(fieldList, function (field) {
+          if(isComponentField(field)){
+            fieldsSearcher(field.fieldList);
+            return;
+          }
+
+          field = _.pick(field, "id", "fieldValueList", "bdid");
+          if(field.fieldValueList){
+            fieldValueList.push(field);
+          }
+        });
+      };
+
+      _.each(fieldsRender, function (tab) {
+        fieldsSearcher(tab.fieldList);
+      });
+
+      return fieldValueList;
     }
 
     function concatFieldsData(fieldList, fieldsDataList){

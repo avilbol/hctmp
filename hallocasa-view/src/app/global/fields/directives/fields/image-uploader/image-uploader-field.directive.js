@@ -23,7 +23,7 @@
 
         function parseNewImages(amountImages) {
           var imagesList = _.rest(scope.rawImages,scope.rawImages.length - amountImages);
-          var blobList = _.map(_.reject(imagesList, _.property('isRemote'), _.property('lfFile')));
+          var blobList = _.map(_.reject(imagesList, _.property('isRemote')), _.property('lfFile'));
 
           if(_.isEmpty(amountImages)){
             _.each(scope.rawImages, function (rawImage) {
@@ -44,7 +44,10 @@
                 scope.fieldInformation.fieldValueList.push(imageData);
                 filesKeys.push(scope.rawImages[fileIndex].key);
               });
-
+              if(!primaryImage){
+                var firstImageIndex = scope.rawImages.length - amountImages;
+                assignAsPrimaryImage(scope.rawImages[firstImageIndex]);
+              }
             })
             .catch(function (error) {
               $log.debug(error);
@@ -128,11 +131,11 @@
         }
 
         function assignAsPrimaryImage(image) {
-          unsetPreviewAsPrimary(primaryImage);
-          var imageIndex = filesKeys.indexOf(image.key);
           if(_.isNumber(primaryImage)){
+            unsetPreviewAsPrimary(primaryImage);
             scope.fieldInformation.fieldValueList[primaryImage].data2.boolVal = false;
           }
+          var imageIndex = filesKeys.indexOf(image.key);
           scope.fieldInformation.fieldValueList[imageIndex].data2.boolVal = true;
           primaryImage = imageIndex;
           setPreviewAsPrimary(primaryImage);

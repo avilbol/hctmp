@@ -26,9 +26,9 @@
         exchange = data.exchange;
         currency = data.currency;
       })
-      .catch(function (error) {
+      .catch(function () {
         //TODO: Traducción de mensaje de error
-        toastr.info(error, "Error al cargar tasas de cambio");
+        toastr.warning("Error al cargar tasas de cambio");
       });
 
     return function(inputMoney) {

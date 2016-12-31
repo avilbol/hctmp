@@ -82,7 +82,7 @@
 
     function getCurrentUser() {
       if(!$auth.isAuthenticated()){
-        return;
+        return {};
       }
       currentUser = currentUser ? currentUser : localStorageService.get("currentUser");
       return currentUser;

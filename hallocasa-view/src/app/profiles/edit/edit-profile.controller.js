@@ -30,9 +30,9 @@
           vm.userData = data;
           vm.profileForm = data.profile;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al datos del perfil");
+          toastr.warning("Error al datos del perfil");
           goBack();
         })
     }
@@ -135,9 +135,9 @@
         .then(function (cities) {
           vm.cities = cities;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar ciudades");
+          toastr.warning("Error al cargar ciudades");
         });
     }
 
@@ -146,9 +146,9 @@
         .then(function (countries) {
           vm.countries = countries;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar países");
+          toastr.warning("Error al cargar países");
         });
     }
 
@@ -158,9 +158,9 @@
         .then(function (states) {
           vm.states = states;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar Estados");
+          toastr.warning("Error al cargar Estados");
         });
     }
 
@@ -169,9 +169,9 @@
         .then(function (languages) {
           vm.languages = languages;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar idiomas");
+          toastr.warning("Error al cargar idiomas");
         });
     }
 
@@ -180,9 +180,9 @@
         .then(function (services) {
           vm.services = services;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar servicios");
+          toastr.warning("Error al cargar servicios");
         });
     }
 
@@ -194,9 +194,9 @@
           //TODO: Traducción de mensaje de éxito
           toastr.success("Perfil guardado con éxito");
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al guardar perfil");
+          toastr.warning("Error al guardar perfil");
         });
 
     }

@@ -13,7 +13,8 @@
       loadPublicProperties: loadPublicProperties,
       loadProperty: loadProperty,
       loadProperties: loadProperties,
-      loadFieldsData: loadFieldsData
+      loadFieldsData: loadFieldsData,
+      saveProperty: saveProperty
     };
 
     var resources = {
@@ -23,6 +24,7 @@
       propertyTypes: $resource(backend_url + "property_types", {}, GenericRESTResource),
       fieldsRender: $resource("/app/property/property-fields/render-data/fields_render.json", {}, GenericRESTResource),
 
+      property: $resource(backend_url + "property", {}, GenericRESTResource),
 
       properties: $resource("/mocks/property/properties.json", {}, GenericRESTResource),
       propertiesPublic: $resource("/mocks/property/publicProperties.json", {}, GenericRESTResource),
@@ -65,6 +67,10 @@
       };
 
       return $q.all(promises);
+    }
+
+    function saveProperty(propertyData) {
+      return resources.property.create(propertyData).$promise;
     }
   }
 })();

@@ -8,7 +8,7 @@
 
   /** @ngInject */
   function PropertyFormController($mdDialog, PropertyService, toastr, $mdSidenav, $mdMedia, LocationService,
-                                  FieldsService, $timeout, FileReaderService, $log, title, property, readonly,
+                                  FieldsService, SessionService, $log, title, property, readonly,
                                   $mdToast, translateFilter, $rootScope) {
 
 		var vm = this;
@@ -83,24 +83,24 @@
         })
         .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info("Error al cargar atributos de la propiedad");
+          toastr.warning("Error al cargar atributos de la propiedad");
         });
     }
 
     function save() {
-      var images = _.map(vm.property.images, function (image) {
-        return image.lfFile;
-      });
+      var propertyData = {
+        user: SessionService.getCurrentUser(),
+        propertyKey: vm.propertyDeterminants,
+        fieldList: FieldsService.generateFieldValueList(vm.fieldsRender)
+      };
 
-      FileReaderService.readFiles(images)
-        .then(function (imagesEncoded) {
-          vm.property.images = imagesEncoded;
-          //TODO: Enviar datos de la propiedad al backend
-          $mdDialog.hide(vm.property);
+      PropertyService.saveProperty(propertyData)
+        .then(function () {
+          toastr.success(translateFilter("property.wizard.create.succesful"));
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar imágenes");
+          toastr.warning("Error guardar propiedad");
         });
     }
 
@@ -109,9 +109,9 @@
         .then(function (locations) {
           vm.locations = locations;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar ubicaciones");
+          toastr.warning("Error al cargar ubicaciones");
         });
     }
 
@@ -120,9 +120,9 @@
         .then(function (proposals) {
           vm.proposals = proposals;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar comprar/arrendar");
+          toastr.warning("Error al cargar comprar/arrendar");
         });
     }
 
@@ -131,9 +131,9 @@
         .then(function (propertyTypes) {
           vm.propertyTypes = propertyTypes;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar tipos de propiedades");
+          toastr.warning("Error al cargar tipos de propiedades");
         });
     }
 
@@ -142,9 +142,9 @@
         .then(function (countries) {
           vm.countries = countries;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar tipos países");
+          toastr.warning("Error al cargar tipos países");
         });
     }
 

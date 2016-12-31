@@ -32,9 +32,9 @@
         .then(function (cities) {
           vm.cities = cities;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar ciudades");
+          toastr.warning("Error al cargar ciudades");
         });
     }
 
@@ -43,9 +43,9 @@
         .then(function (countries) {
           vm.countries = countries;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar países");
+          toastr.warning("Error al cargar países");
         });
     }
 
@@ -55,9 +55,9 @@
         .then(function (states) {
           vm.states = states;
         })
-        .catch(function (error) {
+        .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.info(error, "Error al cargar Estados");
+          toastr.warning("Error al cargar Estados");
         });
     }
 
