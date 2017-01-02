@@ -24,7 +24,7 @@
       propertyTypes: $resource(backend_url + "property_types", {}, GenericRESTResource),
       fieldsRender: $resource("/app/property/property-fields/render-data/fields_render.json", {}, GenericRESTResource),
 
-      property: $resource(backend_url + "property", {}, GenericRESTResource),
+      property: $resource(backend_url + "properties", {}, GenericRESTResource),
 
       properties: $resource("/mocks/property/properties.json", {}, GenericRESTResource),
       propertiesPublic: $resource("/mocks/property/publicProperties.json", {}, GenericRESTResource),

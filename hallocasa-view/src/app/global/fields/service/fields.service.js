@@ -42,8 +42,9 @@
             return;
           }
 
-          field = _.pick(field, "id", "fieldValueList", "bdid");
-          if(field.fieldValueList){
+          field = _.pick(field, "id", "fieldValueList", "bdid", "data1Type", "data2Type", "data3Type", "textType", "propertyFieldValueType");
+
+          if(!_.isEmpty(field.fieldValueList)){
             fieldValueList.push(field);
           }
         });

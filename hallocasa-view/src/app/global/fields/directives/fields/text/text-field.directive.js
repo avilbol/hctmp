@@ -58,10 +58,6 @@
           scope.fieldInformation.fieldValueList = fieldValueList ? fieldValueList : [];
 
           switch (fieldType){
-            case "standard_field":
-              fieldValue.text = {};
-              scope.fieldInformation.fieldValueList.push(fieldValue);
-              break;
             case "scope_dependent_field":
               fieldValue.data1 = {
                 intVal: scope.fieldScope.identifier

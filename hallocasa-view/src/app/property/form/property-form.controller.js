@@ -72,9 +72,9 @@
 
     function loadFieldsData(){
       vm.propertyDeterminants = _.pick(vm.property, "propertyType", "propertyLocation", "propertyProposal", "country");
-      var propertyDeterminants = _.mapObject(vm.propertyDeterminants, function (val) { return {"id": val}; });
+      vm.formatedPropertyDeterminants = _.mapObject(vm.propertyDeterminants, function (val) { return {"id": val}; });
 
-      return PropertyService.loadFieldsData(propertyDeterminants)
+      return PropertyService.loadFieldsData(vm.formatedPropertyDeterminants)
         .then(function (fieldsData) {
           $log.debug(fieldsData);
           vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.fieldsRender.tabList);
@@ -90,7 +90,7 @@
     function save() {
       var propertyData = {
         user: SessionService.getCurrentUser(),
-        propertyKey: vm.propertyDeterminants,
+        propertyKey: vm.formatedPropertyDeterminants,
         fieldList: FieldsService.generateFieldValueList(vm.fieldsRender)
       };
 
