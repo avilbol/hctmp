@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('imageUploaderField', imageUploaderField);
 
-  function imageUploaderField(FileReaderService, toastr, $log, $timeout, translateFilter) {
+  function imageUploaderField(FileReaderService, toastr, $log, $timeout, translateFilter, ImageValidatorService) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/image-uploader/image-uploader-field.html",
@@ -35,16 +35,26 @@
           FileReaderService.readFiles(blobList)
             .then(function (imagesEncoded) {
               _.each(imagesEncoded, function (imageEncoded, imageIndex) {
-                var imageData = {
-                  data1: {},
-                  data2: { boolVal: false }
-                };
                 var fileIndex = scope.rawImages.length - amountImages + imageIndex;
-                imageData.data1.strVal = imageEncoded;
-                scope.fieldInformation.fieldValueList.push(imageData);
-                filesKeys.push(scope.rawImages[fileIndex].key);
+
+                var validImage = ImageValidatorService.validateBase64(imageEncoded);
+                if(validImage){
+                  var imageData = {
+                    data1: {},
+                    data2: { boolVal: false }
+                  };
+
+                  imageData.data1.strVal = imageEncoded;
+                  scope.fieldInformation.fieldValueList.push(imageData);
+                  filesKeys.push(scope.rawImages[fileIndex].key);
+                }
+                else{
+                  //TODO: Traducción de mensaje de error
+                  toastr.warning("La imagen cargada es inválida o está vacía");
+                  scope.api.removeByName(scope.rawImages[fileIndex].lfFileName);
+                }
               });
-              if(!primaryImage){
+              if(_.isUndefined(primaryImage) && !_.isEmpty(scope.rawImages)){
                 var firstImageIndex = scope.rawImages.length - amountImages;
                 assignAsPrimaryImage(scope.rawImages[firstImageIndex]);
               }
