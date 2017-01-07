@@ -41,6 +41,10 @@
         'blog': 'http://blog.hallocasa.com/de/',
         'buyProcess': 'http://blog.hallocasa.com/de/kaufprozesse-alle/'
       }
+    })
+    .constant('ImagesFallbackList',{
+      "PropertyDefault": "assets/images/property/default.jpg",
+      "UserDefault": "assets/images/user_avatar/user0.jpg"
     });
 
 })();

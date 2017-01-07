@@ -6,9 +6,10 @@
     .service('ImageValidatorService', ImageValidatorService);
 
   /** @ngInject */
-  function ImageValidatorService ($log, $document) {
+  function ImageValidatorService ($log, $document, ImagesFallbackList) {
     var service = {
-      validateBase64: validateBase64
+      validateBase64: validateBase64,
+      validateOrFallback: validateOrFallback
     };
 
     return service;
@@ -22,6 +23,17 @@
       catch (err){
         $log.log("Imagen invalida: ", base64, err);
         return false;
+      }
+    }
+
+    function validateOrFallback(base64, imageFallbackId) {
+      var isValid = validateBase64(base64);
+      console.log(isValid, base64);
+      if(isValid){
+        return base64;
+      }
+      else{
+        return ImagesFallbackList[imageFallbackId]
       }
     }
 

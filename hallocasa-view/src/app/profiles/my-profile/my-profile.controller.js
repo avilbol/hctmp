@@ -9,8 +9,7 @@
   function myProfileController(ProfilesService, LocationService, LanguageService, toastr, $mdMedia, $mdDialog,
                                  $document, $location, ImageValidatorService) {
     var vm = this;
-
-    vm.validateImage = ImageValidatorService.validateBase64;
+    
     vm.viewProperty = viewProperty;
     vm.editProfile = editProfile;
     vm.goBack = goBack;
@@ -37,9 +36,11 @@
       data.profile.services  = angular.isArray(data.profile.services) ? data.profile.services : [];
       data.profile.languages  = angular.isArray(data.profile.languages) ? data.profile.languages : [];
       data.profile.description  = angular.isObject(data.profile.description) ? data.profile.description : {};
+      data.profile.avatarURL = ImageValidatorService.validateOrFallback('assets/images/user_avatar/' + data.profile.avatarURL, "UserDefault");
       data.properties  = angular.isArray(data.properties) ? data.properties : [];
       data.properties = _.map(data.properties, function (property) {
         property.images = angular.isArray(property.images) ? property.images : [];
+        property.images[0] = ImageValidatorService.validateOrFallback(property.images[0], "PropertyDefault");
         return property;
       });
       return data;

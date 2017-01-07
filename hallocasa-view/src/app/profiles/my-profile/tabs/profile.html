@@ -25,7 +25,7 @@
           <md-card-title-media>
             <span class="md-headline">{{'Profile.Service.Panel.Title' | translate}}</span>
             <div class="md-media-lg card-media">
-              <img ng-src="{{vm.validateImage('assets/images/user_avatar/' + vm.userData.profile.avatarURL) || 'assets/images/user_avatar/user0.jpg'}}" alt="{{ vm.userData.name }}">
+              <img ng-src="{{vm.userData.profile.avatarURL}}" alt="{{ vm.userData.name }}">
             </div>
           </md-card-title-media>
           <md-card-title-text hide-xs>
