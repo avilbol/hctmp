@@ -36,13 +36,13 @@ import io.swagger.annotations.ApiResponses;
 
 @Path("/properties")
 @Api(value = "/properties", tags = "Properties")
-public class PropertyResource {
+public class PropertyResource extends BasicResource {
 
 	@EJB
 	PropertyService propertyService;
 
 	@GET
-	@Path("{id}")
+	@Path("detail/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Secured
 	@ApiOperation(value = "Return the property with specified id", notes = "Filter the properties existing "

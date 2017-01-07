@@ -58,7 +58,7 @@ public class FileManager {
 	}
 	
 	public static String createFileFromBase64(String dir, String base64Name, String prefix){
-		byte[] data = Base64.decodeBase64(base64Name);
+		byte[] data = decodeBase64(base64Name);
 		String filename = null;
 		try{
 			String str = "%s/%s-%s.%s";
@@ -73,7 +73,7 @@ public class FileManager {
 			throw new FatalException("Unexpected error", e);
 		}
 	}
-	
+
 
 	public static String getExtension(byte[] data) throws IOException{
 		try (InputStream is = new ByteArrayInputStream(data);
@@ -127,4 +127,12 @@ public class FileManager {
         } catch (IOException ex) {}
         return fileNames;
     }
+	
+	public static byte[] decodeBase64(String base64Str){
+		if(base64Str == null || base64Str.isEmpty()){
+			throw new FatalException("Invalid base64 file");
+		}
+		String[] base64ElementList = base64Str.split(",");
+		return Base64.decodeBase64(base64ElementList[base64ElementList.length - 1]);
+	}
 }
