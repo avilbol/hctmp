@@ -25,7 +25,8 @@
               "options": {
                 "type": "dynamic_options",
                 "serviceId": "Languages"
-              }
+              },
+              "validations": "requiredOnce"
             }
           ]
         },
@@ -50,7 +51,8 @@
               "options": {
                 "type": "internal_dependency_options",
                 "fieldId": 1
-              }
+              },
+              "validations": "required"
             },
             {
               "id": "repeater_group",
@@ -93,21 +95,30 @@
                       "name": "Title (all selected languages)",
                       "flexMobile": 100,
                       "flexTablet": 100,
-                      "flexDesktop": 100
+                      "flexDesktop": 100,
+                      "validations": "required, minlength, maxlength",
+                      "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
+                      "validationsParams": { "minlength": 2, "maxlength": 45}
                     },
                     {
                       "id": 3,
                       "name": "Property Description (all selected languages)",
                       "flexMobile": 100,
                       "flexTablet": 100,
-                      "flexDesktop": 100
+                      "flexDesktop": 100,
+                      "validations": "required, minlength, maxlength",
+                      "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
+                      "validationsParams": { "minlength": 2, "maxlength": 45}
                     },
                     {
                       "id": 4,
                       "name": "Location Description (all selected languages)",
                       "flexMobile": 100,
                       "flexTablet": 100,
-                      "flexDesktop": 100
+                      "flexDesktop": 100,
+                      "validations": "required, minlength, maxlength",
+                      "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
+                      "validationsParams": { "minlength": 2, "maxlength": 45}
                     }
                   ]
                 }
@@ -120,21 +131,31 @@
           "name": "Market Price",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "required, minlength, maxlength",
+          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
+          "validationsParams": { "minlength": 2, "maxlength": 45}
+
         },
         {
           "id": 6,
           "name": "Square Meters Total",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "required, minlength, maxlength",
+          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
+          "validationsParams": { "minlength": 2, "maxlength": 45}
         },
         {
           "id": 35,
           "name": "Square Meters Built",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "minlength, maxlength",
+          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
+          "validationsParams": { "minlength": 2, "maxlength": 45}
         }
       ]
     },
@@ -153,7 +174,8 @@
             "parameterName": "country",
             "parameterPayload": "country_id",
             "serviceId": "States"
-          }
+          },
+          "validations": "required"
         },
         {
           "id": 8,
@@ -260,7 +282,10 @@
           "name": "Address",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "maxlength",
+          "messagesParams": { "maxlength": "0 - 100"},
+          "validationsParams": { "maxlength": 100}
         },
         {
           "id": 44,
@@ -283,7 +308,8 @@
           "name": "Image",
           "flexMobile": 100,
           "flexTablet": 100,
-          "flexDesktop": 100
+          "flexDesktop": 100,
+          "validations": "requiredOnce"
         },
         {
           "id": 13,
@@ -303,14 +329,20 @@
           "name": "Rooms",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "maxlength",
+          "messagesParams": { "maxlength": "0 - 999"},
+          "validationsParams": { "maxlength": 999}
         },
         {
           "id": 18,
           "name": "Bathrooms",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "maxlength",
+          "messagesParams": { "maxlength": "0 - 999"},
+          "validationsParams": { "maxlength": 999}
         },
         {
           "id": 19,
@@ -347,7 +379,10 @@
           "name": "Floor",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "maxlength",
+          "messagesParams": { "maxlength": "0 - 999"},
+          "validationsParams": { "maxlength": 999}
         },
         {
           "id": 22,
@@ -390,14 +425,20 @@
           "name": "Parking Spots",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "maxlength",
+          "messagesParams": { "maxlength": "0 - 999"},
+          "validationsParams": { "maxlength": 999}
         },
         {
           "id": 46,
           "name": "Number of Floors",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "maxlength",
+          "messagesParams": { "maxlength": "0 - 999"},
+          "validationsParams": { "maxlength": 999}
         },
         {
           "id": 25,
@@ -540,14 +581,20 @@
           "name": "Monthly Admin Fees for the Landlord + Currency Dropdown",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "minlength, maxlength",
+          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
+          "validationsParams": { "minlength": 2, "maxlength": 45}
         },
         {
           "id": 58,
           "name": "Additional Monthly Fees for the Landlord + Currency Dropdown",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "minlength, maxlength",
+          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
+          "validationsParams": { "minlength": 2, "maxlength": 45}
         },
         {
           "id": 59,
@@ -564,14 +611,18 @@
           "name": "Available From",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "noPastDate"
         },
         {
           "id": 60,
           "name": "Monthly Rent",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33
+          "flexDesktop": 33,
+          "validations": "minlength, maxlength",
+          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
+          "validationsParams": { "minlength": 2, "maxlength": 45}
         },
         {
           "id": 30,
