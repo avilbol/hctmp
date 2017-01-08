@@ -27,9 +27,7 @@
     }
 
     function validateOrFallback(base64, imageFallbackId) {
-      var isValid = validateBase64(base64);
-      console.log(isValid, base64);
-      if(isValid){
+      if(validateBase64(base64)){
         return base64;
       }
       else{
