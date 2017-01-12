@@ -10,7 +10,7 @@
     var vm = this;
 
     var tokenData;
-    var recoveryToken = $route.current.params.token;
+    var recoveryToken = $route.current.params["password_recovery_token"];
 
     vm.sendRecoveryData = sendRecoveryData;
 
