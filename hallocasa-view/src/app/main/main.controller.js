@@ -20,6 +20,7 @@
     vm.launchPrivacyStatementDialog = launchPrivacyStatementDialog;
     vm.logout = SessionService.logout;
     vm.goTo = goTo;
+    vm.goUp = goUp;
     vm.blogRedirection = blogRedirection;
     vm.getCurrentUserIdentifier = getCurrentUserIdentifier;
 
@@ -29,6 +30,10 @@
 
     function getCurrentAppVersion() {
       vm.appVersion = AppVersion;
+    }
+
+    function goUp() {
+      angular.element("#mainContainer").animate({ scrollTop: 0 }, "slow");
     }
 
     function toggleMenu() {
