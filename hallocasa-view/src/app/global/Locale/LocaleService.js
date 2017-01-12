@@ -5,7 +5,12 @@
     .module('HalloCasa')
     .service('LocaleService', LocaleService);
 
-  function LocaleService($translate, LOCALES, $rootScope, tmhDynamicLocale, $log, $document) {
+  function LocaleService($translate, LOCALES, $rootScope, tmhDynamicLocale, $log, $document, localStorageService) {
+    $translate.onReady(function () {
+      tmhDynamicLocale.set($translate.use().toLowerCase().replace(/_/g, '-'));
+    });
+
+
     var localesObj = LOCALES.locales;
 
     // locales and locales display names

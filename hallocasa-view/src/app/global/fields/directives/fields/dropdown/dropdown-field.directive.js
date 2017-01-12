@@ -13,11 +13,18 @@
         fieldScope: "=?",
         fieldInformation: "=",
         additionalParameters: "=?",
-        fieldRootScope: "=?"
+        fieldRootScope: "=?",
+        form: "=?"
       },
       link: function (scope) {
         var optionsData = scope.fieldInformation.options;
         var staticOptionsGroup = scope.fieldInformation.dropdownOptionGroup;
+        
+        function applyValidations() {
+          if (scope.fieldInformation.validations) {
+            scope.required = scope.fieldInformation.validations.includes("required");
+          }
+        }
 
         function loadDependentOptions(serviceId, parameterName, parameterValue) {
           var serviceParameters = {};
@@ -116,6 +123,7 @@
         }
 
         loadOptions();
+        applyValidations();
       }
     };
   }

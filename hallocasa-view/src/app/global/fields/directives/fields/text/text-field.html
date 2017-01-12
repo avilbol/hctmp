@@ -10,6 +10,9 @@
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.strVal"
       type="text"
+      ng-required="required"
+      ng-minlength="fieldInformation.validationsParams.minlength"
+      ng-maxlength="fieldInformation.validationsParams.maxlength"
     >
     <input
       ng-switch-when="scope_dependent_field"
@@ -17,6 +20,16 @@
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[fieldScope.identifier].data2.strVal"
       type="text"
+      ng-required="required"
+      ng-minlength="fieldInformation.validationsParams.minlength"
+      ng-maxlength="fieldInformation.validationsParams.maxlength"
     >
+
+    <ng-messages-generator
+      form="form"
+      input-name="{{fieldInformation.name}}"
+      validators="{{fieldInformation.validations}}"
+      messages-params="fieldInformation.messagesParams"
+    ></ng-messages-generator>
   </md-input-container>
 </div>

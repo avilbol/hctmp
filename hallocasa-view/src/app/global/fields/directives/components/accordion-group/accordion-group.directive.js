@@ -13,7 +13,8 @@
         title: "=?",
         fieldList: "=",
         fieldScope: "=?",
-        fieldRootScope: "=?"
+        fieldRootScope: "=?",
+        form: "=?"
       },
       link: function (scope) {
         function renderTitle() {

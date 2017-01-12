@@ -13,9 +13,21 @@
         fieldList: "=?",
         fieldScope: "=?",
         fieldRootScope: "=?",
-        additionalParameters: "=?"
+        additionalParameters: "=?",
+        formName: "=?",
+        form: "=?"
       },
-      link: function () {
+      link: function (scope) {
+        if(!scope.form){
+          var destroyWatcher = scope.$watch("[formName, form]", function () {
+            if(!scope.form && scope.formName){
+              scope.form = scope.$parent[scope.formName];
+            }
+            if(scope.form){
+              destroyWatcher();
+            }
+          });
+        }
       }
     };
   }

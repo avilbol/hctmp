@@ -1,8 +1,13 @@
-<div>checkboxGroupField {{fieldInformation.options.type}}</div>
 <span>{{fieldInformation.lang | translate}}</span>
 <checkbox-list
   name="{{fieldInformation.name}}"
   options-label="optionsLabel"
   data="options"
   ng-model="fieldInformation.fieldValueList"
+  require-once="requireOnce"
 ></checkbox-list>
+<ng-messages-generator
+  form="form"
+  input-name="{{fieldInformation.name}}"
+  validators="{{fieldInformation.validations}}"
+></ng-messages-generator>

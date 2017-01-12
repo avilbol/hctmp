@@ -8,7 +8,13 @@
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].data1.doubleVal"
       type="number"
+      ng-required="required"
     >
+    <ng-messages-generator
+      form="form"
+      input-name="{{fieldInformation.name}}"
+      validators="{{fieldInformation.validations}}"
+    ></ng-messages-generator>
   </md-input-container>
 
   <md-input-container class="md-block" flex="30">
@@ -18,6 +24,7 @@
       ng-model="fieldInformation.fieldValueList[0].data2.intVal"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldInformation.name}}"
+      ng-required="required || fieldInformation.fieldValueList[0].data1.doubleVal > 0"
     >
       <md-option ng-repeat="option in options" value="{{option.id}}">
         {{option.abbreviation}}

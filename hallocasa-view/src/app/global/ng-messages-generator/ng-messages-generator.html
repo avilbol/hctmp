@@ -8,6 +8,12 @@
   <div ng-message="maxlength" ng-if="messages.maxlength">
     {{'constraints.Size' | translate}} {{messagesParams.maxlength}}
   </div>
+  <div ng-message="min" ng-if="messages.minlength">
+    {{'constraints.Range' | translate}} {{messagesParams.minlength}}
+  </div>
+  <div ng-message="max" ng-if="messages.maxlength">
+    {{'constraints.Range' | translate}} {{messagesParams.maxlength}}
+  </div>
   <div ng-message="url" ng-if="messages.url">
     {{'constraints.UrlPattern' | translate}}
   </div>
@@ -37,5 +43,15 @@
   </div>
   <div ng-if="messages.passwordMatch && !matchPassword()">
     {{'ForgotPassword.recovery.newPassword.unmatch' | translate}}
+  </div>
+  <div ng-message="filesize" ng-if="messages.filesize">
+    {{'Image.Edition.Invalid.TooBig' | translate}}
+  </div>
+  <div ng-message="mimetype" ng-if="messages.mimetype">
+    {{'Image.Edition.Invalid.NotImage' | translate}}
+  </div>
+  <div ng-message="filtered" ng-if="messages.noPastDate">
+    <!--TODO: Traducción de mensaje de error-->
+    Date may not lie in the past
   </div>
 </div>

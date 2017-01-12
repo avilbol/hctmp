@@ -10,9 +10,17 @@
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/image-uploader/image-uploader-field.html",
       scope: {
-        fieldInformation: "="
+        fieldInformation: "=",
+        form: "=?"
       },
       link: function (scope) {
+        function applyValidations() {
+          if (scope.fieldInformation.validations) {
+            scope.fieldInformation.validations += ", mimetype, filesize";
+            scope.requireOnce = scope.fieldInformation.validations.includes("requireOnce");
+          }
+        }
+
         scope.fieldInformation.fieldValueList = scope.fieldInformation.fieldValueList ? scope.fieldInformation.fieldValueList : [];
         scope.rawImages = [];
         var filesKeys = [];
@@ -179,6 +187,7 @@
 
         watchRawImages();
         loadImages();
+        applyValidations();
       }
     };
   }
