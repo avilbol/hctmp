@@ -9,7 +9,6 @@
   function LandingController(ProfilesService, PropertyService, ImageValidatorService, $location) {
     var vm = this;
 
-    vm.validateImage = ImageValidatorService.validateBase64;
     vm.viewProperty = viewProperty;
 
     ProfilesService.loadPublicProfile()
@@ -19,6 +18,12 @@
 
     PropertyService.loadProperties()
       .then(function (properties) {
+        properties = _.map(properties, function (property) {
+          property.images = angular.isArray(property.images) ? property.images : [];
+          property.images[0] = ImageValidatorService.validateOrFallback(property.images[0], "PropertyDefault");
+          return property;
+        });
+
         vm.properties = properties;
       });
 
@@ -26,6 +31,6 @@
       $location.url("/property");
       $location.search('id', id);
     }
-    
+
   }
 })();
