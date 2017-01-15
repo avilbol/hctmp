@@ -29,8 +29,6 @@
 
     function responseCallback(score, comment) {
       $log.debug("wootric_response_callback");
-      $log.debug(score);
-      $log.debug(comment);
       $intercom.update({"last_wootric_score": parseInt(score),"last_wootric_comment": decodeURIComponent(comment)});
     }
   }

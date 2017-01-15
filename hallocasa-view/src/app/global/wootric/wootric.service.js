@@ -27,8 +27,8 @@
 
       $window.wootric = $window.lightningjs.require("wootric", "//d27j601g4x0gd5.cloudfront.net/beacon.js");
 
-      $window.wootric_survey_immediately = true; // Shows survey immediately for testing purposes.  TODO: Comment out for production.
-      $window.wootric_no_surveyed_cookie = true; // Bypass cookie based throttle for testing purposes.  TODO: Comment out for production.
+      //$window.wootric_survey_immediately = true; // Shows survey immediately for testing purposes.
+      //$window.wootric_no_surveyed_cookie = true; // Bypass cookie based throttle for testing purposes.
       $window.wootric("run");
     }
   }
