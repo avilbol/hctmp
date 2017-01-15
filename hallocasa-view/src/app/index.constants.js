@@ -5,6 +5,8 @@
   angular
     .module('HalloCasa')
     .constant('AppVersion', '0.0.1')
+    .constant('INTERCOM_APPID', 'd0idn8ii')
+    .constant('WOOTRIC_APPID', 'NPS-abcd1234')
     .constant('moment', moment)
     .constant('backend_url', "http://www.hallocasa.com:64647/hallocasa-api/")
     .constant('LOCALES', {

@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function SessionService($mdMedia, $mdDialog, $document, $auth, $q, GenericRESTResource, backend_url ,$resource,
-                          ApplicationCredentials, localStorageService) {
+                          ApplicationCredentials, localStorageService, $intercom, WootricService) {
     var service = {
       validateActiveSession: validateActiveSession,
       login: login,
@@ -62,6 +62,8 @@
           .then(function (auth) {
             $auth.setToken(auth.data.securityToken.tokenValue);
             setCurrentUser(auth.data.user);
+            $intercom.boot(currentUser);
+            WootricService.boot(currentUser);
             resolve(currentUser);
           })
           .catch(function(error){
@@ -73,6 +75,7 @@
     function logout() {
       clearCurrentUser();
       $auth.logout();
+      $intercom.shutdown();
     }
 
     function setCurrentUser(userData) {
