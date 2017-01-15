@@ -1,7 +1,6 @@
-<div>Fields-Interpreter</div>
 <div layout="row" layout-wrap>
   <div ng-repeat="field in fieldList" flex-gt-sm="{{field.flexDesktop}}" flex-gt-xs="{{field.flexTablet}}" flex-xs="{{field.flexMobile}}">
-    <span>{{field.propertyFieldType.id}} - {{field.propertyFieldType.name}}</span><br>
+
     <!--Fields detector-->
     <div ng-switch="field.propertyFieldType.id">
       <dropdown-field ng-switch-when="1" field-scope="fieldScope" field-information="field" additional-parameters="additionalParameters" field-root-scope="fieldRootScope" form="formName"></dropdown-field>
