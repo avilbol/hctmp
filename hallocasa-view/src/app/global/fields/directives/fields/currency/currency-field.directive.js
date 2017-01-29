@@ -10,9 +10,16 @@
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/currency/currency-field.html",
       scope: {
-        fieldInformation: "="
+        fieldInformation: "=",
+        form: "=?"
       },
       link: function (scope) {
+        function applyValidations() {
+          if (scope.fieldInformation.validations) {
+            scope.required = scope.fieldInformation.validations.includes("required");
+          }
+        }
+        
         FieldsService.loadOptionsByServiceId("Currency")
           .then(function (options) {
             scope.options = options
@@ -22,6 +29,8 @@
             toastr.warning("Error al cargar opciones del servicio: Currency");
             scope.options = [];
           });
+        
+        applyValidations();
       }
     };
   }

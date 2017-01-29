@@ -10,10 +10,17 @@
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/link-text/link-text-field.html",
       scope: {
-        fieldInformation: "="
+        fieldInformation: "=",
+        form: "=?"
       },
-      link: function () {
-
+      link: function (scope) {
+        function applyValidations() {
+          if (scope.fieldInformation.validations) {
+            scope.required = scope.fieldInformation.validations.includes("required");
+          }
+        }
+        
+        applyValidations();
       }
     };
   }

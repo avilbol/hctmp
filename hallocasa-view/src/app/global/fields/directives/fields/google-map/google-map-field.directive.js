@@ -10,7 +10,8 @@
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/google-map/google-map-field.html",
       scope: {
-        fieldInformation: "="
+        fieldInformation: "=",
+        form: "=?"
       },
       link: function (scope) {
         scope.fieldInformation.fieldValueList = scope.fieldInformation.fieldValueList ? scope.fieldInformation.fieldValueList : [];

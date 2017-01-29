@@ -8,7 +8,7 @@
   /** @ngInject */
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
                   localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider,
-                  $mdThemingProvider, uiGmapGoogleMapApiProvider) {
+                  $mdThemingProvider, uiGmapGoogleMapApiProvider, $intercomProvider, INTERCOM_APPID) {
 
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
 
@@ -68,6 +68,10 @@
       key: 'AIzaSyChfY95Vk-MYNJnW4Wik-tqdphVcruqb7Q',
       v: '3.25'
     });
+
+    //Intercom configuration
+    $intercomProvider.appID(INTERCOM_APPID);
+    $intercomProvider.asyncLoading(true)
 
   }
 

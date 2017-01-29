@@ -35,7 +35,7 @@
         controllerAs: 'vm',
         hideToolbars: true
       })
-      .when('/recovery-password/:token', {
+      .when('/password_recovery', {
         templateUrl: 'app/main/landing/landing.html',
         controller: 'LandingController',
         controllerAs: 'vm',

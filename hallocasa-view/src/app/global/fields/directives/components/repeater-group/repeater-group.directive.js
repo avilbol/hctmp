@@ -13,7 +13,8 @@
         idField: "=?",
         fieldList: "=?",
         fieldRootScope: "=?",
-        contentFlex: "=?"
+        contentFlex: "=?",
+        form: "=?"
       },
       link: function (scope) {
         var fieldPath = FieldsService.getFieldPathByID(scope.idField, scope.fieldRootScope);

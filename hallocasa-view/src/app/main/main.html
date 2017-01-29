@@ -109,14 +109,14 @@
       </md-list>
     </md-content>
   </md-sidenav>
-  <md-content flex>
+  <md-content flex id="mainContainer">
     <md-content ng-view flex layout="column" class="ng-view-container"></md-content>
     <md-toolbar ng-class="{'md-medium-tall': !MainCtrl.screenIsSmall, 'md-xl': MainCtrl.screenIsSmall}" ng-if="MainCtrl.showToolbars">
       <div layout="column" layout-gt-sm="row" flex layout-align="center center">
         <span layout-margin></span>
         <div flex layout="column" class="md-subhead" flex-order-sm="1" flex-order-xs="1">
            <div layout="row">
-            <span> © 2016 HalloCasa, All Rights Reserved</span>
+            <span> © 2017 HalloCasa {{MainCtrl.appVersion}}, All Rights Reserved</span>
            </div>
           <div layout="row">
             <md-button ng-click="MainCtrl.launchPrivacyStatementDialog()">
@@ -124,7 +124,7 @@
             </md-button>
           </div>
         </div>
-        <md-button class="md-icon-button" aria-label="go up" flex-order-sm="0" flex-order-xs="0">
+        <md-button class="md-icon-button" aria-label="go up" flex-order-sm="0" flex-order-xs="0" ng-click="MainCtrl.goUp()">
           <i class="material-icons">arrow_upward</i>
         </md-button>
         <div flex layout="column" flex-order-sm="2" flex-order-xs="2">

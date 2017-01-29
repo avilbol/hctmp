@@ -166,11 +166,6 @@
       }
     }
 
-
-    vm.print = function () {
-      $log.log(vm.fieldsRender);
-    };
-
     loadCountries();
     loadPropertyTypes();
     loadLocations();

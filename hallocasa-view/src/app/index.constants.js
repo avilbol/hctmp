@@ -4,8 +4,11 @@
 
   angular
     .module('HalloCasa')
+    .constant('AppVersion', '0.0.1')
+    .constant('INTERCOM_APPID', 't6itp8rl')
+    .constant('WOOTRIC_APPID', 'NPS-ead65c4a')
     .constant('moment', moment)
-    .constant('backend_url'," http://www.hallocasa.com:64647/hallocasa-api/")
+    .constant('backend_url', "http://www.hallocasa.com:64647/hallocasa-api/")
     .constant('LOCALES', {
       'locales': {
         'es_ES': 'Español',
@@ -41,6 +44,10 @@
         'blog': 'http://blog.hallocasa.com/de/',
         'buyProcess': 'http://blog.hallocasa.com/de/kaufprozesse-alle/'
       }
+    })
+    .constant('ImagesFallbackList',{
+      "PropertyDefault": "assets/images/property/default.jpg",
+      "UserDefault": "assets/images/user_avatar/user0.jpg"
     });
 
 })();

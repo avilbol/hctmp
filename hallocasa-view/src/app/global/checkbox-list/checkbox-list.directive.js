@@ -50,12 +50,12 @@
         }
 
         ngModel.$validators.requireOnce = function(modelValue) {
-          scope.requireOnceValidator = scope.requireOnce ? modelValue.length > 0 : true;
+          scope.requireOnceValidator = scope.requireOnce ? modelValue && modelValue.length > 0 : true;
           return scope.requireOnceValidator;
         };
 
         ngModel.$validators.requireAll = function(modelValue) {
-          scope.requireAllValidator = scope.requireAll ? modelValue.length === scope.data.length : true;
+          scope.requireAllValidator = scope.requireAll ? modelValue && modelValue.length === scope.data.length : true;
           return scope.requireAllValidator;
         };
       }

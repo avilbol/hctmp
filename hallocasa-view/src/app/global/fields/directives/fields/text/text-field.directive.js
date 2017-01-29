@@ -11,7 +11,8 @@
       templateUrl: "app/global/fields/directives/fields/text/text-field.html",
       scope: {
         fieldScope: "=?",
-        fieldInformation: "="
+        fieldInformation: "=",
+        form: "=?"
       },
       link: function (scope) {
         var fieldTypes =[
@@ -34,8 +35,13 @@
             }
           }
         ];
-
         var fieldValueList = scope.fieldInformation.fieldValueList;
+
+        function applyValidations() {
+          if (scope.fieldInformation.validations) {
+            scope.required = scope.fieldInformation.validations.includes("required");
+          }
+        }
 
         function validFieldModel(fieldType) {
           var baseValidation = (_.isArray(fieldValueList) && fieldValueList.length > 0);
@@ -82,6 +88,7 @@
         }
 
         detectFieldType();
+        applyValidations();
       }
     };
   }

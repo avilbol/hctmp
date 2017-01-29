@@ -1,5 +1,3 @@
-<div>dropdownField {{fieldType}} {{fieldInformation.options.type}}</div>
-
 <div ng-switch="fieldInformation.options.type">
 
   <md-input-container class="md-block">
@@ -11,6 +9,7 @@
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldInformation.name}}"
+      ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.data1}}
@@ -24,6 +23,7 @@
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldInformation.name}}"
+      ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.name}}
@@ -37,6 +37,7 @@
       ng-model="fieldInformation.fieldValueList[0].text.boolVal"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldInformation.name}}"
+      ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.value}}">
         {{option.name}}
@@ -50,6 +51,7 @@
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldInformation.name}}"
+      ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.name}}
@@ -63,6 +65,7 @@
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldInformation.name}}"
+      ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.name}}
@@ -76,11 +79,18 @@
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldInformation.name}}"
+      ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
         {{option.name}}
       </md-option>
     </md-select>
+
+    <ng-messages-generator
+      form="form"
+      input-name="{{fieldInformation.name}}"
+      validators="{{fieldInformation.validations}}"
+    ></ng-messages-generator>
   </md-input-container>
 
 </div>

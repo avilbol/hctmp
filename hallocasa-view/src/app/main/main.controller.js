@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService, $auth,
-                          LocaleService, BlogLinks, $window, $rootScope, $route) {
+                          LocaleService, BlogLinks, $window, $rootScope, $route, AppVersion) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
@@ -20,12 +20,21 @@
     vm.launchPrivacyStatementDialog = launchPrivacyStatementDialog;
     vm.logout = SessionService.logout;
     vm.goTo = goTo;
+    vm.goUp = goUp;
     vm.blogRedirection = blogRedirection;
     vm.getCurrentUserIdentifier = getCurrentUserIdentifier;
 
     $scope.$watch(function() { return $mdMedia('sm') || $mdMedia('xs'); }, function(small) {
       vm.screenIsSmall = small;
     });
+
+    function getCurrentAppVersion() {
+      vm.appVersion = AppVersion;
+    }
+
+    function goUp() {
+      angular.element("#mainContainer").animate({ scrollTop: 0 }, "slow");
+    }
 
     function toggleMenu() {
       $mdSidenav('left').toggle();
@@ -123,5 +132,6 @@
 
     toolbarsHideHandler();
     detectPasswordRecoveryProcess();
+    getCurrentAppVersion();
   }
 })();

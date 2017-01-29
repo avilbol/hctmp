@@ -1,4 +1,3 @@
-<div>imageUploaderField</div>
 <lf-ng-md-file-input
   lf-files="rawImages"
   lf-browse-label="{{'Image.Edition.Header.Upload' | translate}}"
@@ -7,8 +6,16 @@
   lf-caption="{{rawImages.length}} {{'Property.wizard.images' | translate}}"
   lf-remove-label="{{'Properties.delete.label' | translate}}"
   lf-on-file-click="assignAsPrimaryImage"
+  lf-required="requireOnce"
   lf-api="api"
-  accept="image/*"
+  lf-mimetype="image/*"
+  lf-filesize="5MB"
   multiple preview
   drag="!vm.isReadOnly"
 ></lf-ng-md-file-input>
+
+<ng-messages-generator
+  form="form"
+  input-name="{{fieldInformation.name}}"
+  validators="{{fieldInformation.validations}}"
+></ng-messages-generator>

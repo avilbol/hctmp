@@ -11,11 +11,20 @@
       templateUrl: "app/global/fields/directives/fields/checkbox-group/checkbox-group-field.html",
       scope: {
         fieldScope: "=?",
-        fieldInformation: "="
+        fieldInformation: "=",
+        form: "=?"
       },
       link: function (scope) {
         var optionsData = scope.fieldInformation.options;
         var staticOptionsGroup = scope.fieldInformation.dropdownOptionGroup;
+        
+        function applyValidations(){
+          if(scope.fieldInformation.validations){
+            scope.requireOnce = scope.fieldInformation.validations.includes("requireOnce");
+            scope.requireAll = scope.fieldInformation.validations.includes("requireAll");
+          }
+        }
+        
 
         function loadOptions() {
           switch(optionsData.type){
@@ -41,6 +50,7 @@
         }
 
         loadOptions();
+        applyValidations();
       }
     };
   }

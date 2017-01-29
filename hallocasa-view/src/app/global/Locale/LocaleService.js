@@ -6,6 +6,11 @@
     .service('LocaleService', LocaleService);
 
   function LocaleService($translate, LOCALES, $rootScope, tmhDynamicLocale, $log, $document) {
+    $translate.onReady(function () {
+      tmhDynamicLocale.set($translate.use().toLowerCase().replace(/_/g, '-'));
+    });
+
+
     var localesObj = LOCALES.locales;
 
     // locales and locales display names
