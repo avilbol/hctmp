@@ -25,7 +25,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.hallocasa.entities.i.HallocasaEntity;
-import com.hallocasa.entities.properties.EntityLanguage;
 import com.hallocasa.persistence.converters.HcBooleanConverter;
 
 /**

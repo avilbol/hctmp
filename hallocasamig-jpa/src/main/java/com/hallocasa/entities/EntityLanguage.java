@@ -1,4 +1,4 @@
-package com.hallocasa.entities.properties;
+package com.hallocasa.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

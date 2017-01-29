@@ -13,7 +13,6 @@ import javax.persistence.Table;
 
 import com.hallocasa.entities.composedkeys.EntityUserLanguagePK;
 import com.hallocasa.entities.i.HallocasaEntity;
-import com.hallocasa.entities.properties.EntityLanguage;
 import com.hallocasa.persistence.converters.HcBooleanConverter;
 
 /**

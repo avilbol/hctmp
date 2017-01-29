@@ -2,7 +2,7 @@ package com.hallocasa.dao.i;
 
 import java.util.List;
 
-import com.hallocasa.entities.properties.EntityLanguage;
+import com.hallocasa.entities.EntityLanguage;
 import com.hallocasa.vo.Language;
 
 /**

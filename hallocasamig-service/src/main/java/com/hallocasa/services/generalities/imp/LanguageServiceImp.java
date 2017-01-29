@@ -9,7 +9,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.hallocasa.dao.i.IDAOLanguage;
-import com.hallocasa.entities.properties.EntityLanguage;
+import com.hallocasa.entities.EntityLanguage;
 import com.hallocasa.services.generalities.LanguageService;
 import com.hallocasa.vo.Language;
 

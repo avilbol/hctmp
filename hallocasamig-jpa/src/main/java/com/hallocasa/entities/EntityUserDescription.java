@@ -12,7 +12,6 @@ import javax.persistence.Table;
 
 import com.hallocasa.entities.composedkeys.EntityUserLanguagePK;
 import com.hallocasa.entities.i.HallocasaEntity;
-import com.hallocasa.entities.properties.EntityLanguage;
 
 /**
  * Entity used to fill user descriptions registered by user in some language
