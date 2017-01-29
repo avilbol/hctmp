@@ -32,7 +32,7 @@ import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_TOKEN
 
 @Path("/user")
 @Api(value="/user", tags = "users")
-public class UserResource {
+public class UserResource extends BasicResource {
 
 	@EJB
     UserService userService;
@@ -127,10 +127,10 @@ public class UserResource {
 	}
 
 	@GET
-	@Path("{id}")
+	@Path("detail/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Secured
-	@ApiOperation(value = "Fetch random list of users, with basic data")
+	@ApiOperation(value = "Fetch user detail acoording to its id")
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
