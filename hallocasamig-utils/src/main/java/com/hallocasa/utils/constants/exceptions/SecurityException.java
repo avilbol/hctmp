@@ -15,7 +15,7 @@ public class SecurityException extends RuntimeException {
 	public static final int EXPIRED_TOKEN = -2;
 	public static final int INVALID_AUTH_CODE = -3;
 	public static final int EMAIL_ALREADY_EXISTS = -4;
-	public static final int INACTIVE_USER = -5;
+	public static final int FORBIDDEN = -5;
 	
 	private int status;
 	

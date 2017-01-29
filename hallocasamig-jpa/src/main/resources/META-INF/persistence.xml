@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="MyApp" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>jdbc/hallocasaAppProdDatasource</jta-data-source>
+    <jta-data-source>jdbc/hallocasaAppQaDatasource</jta-data-source>
     <class>com.hallocasa.entities.EntityCountry</class>
     <class>com.hallocasa.entities.EntityExample</class>
     <class>com.hallocasa.entities.EntityFilterListingStep</class>

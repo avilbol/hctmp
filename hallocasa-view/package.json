@@ -1,6 +1,6 @@
 {
-  "name": "gulpAngular",
-  "version": "0.0.0",
+  "name": "hallocasamig",
+  "version": "1.1.0",
   "dependencies": {},
   "scripts": {
     "test": "gulp test"

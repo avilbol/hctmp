@@ -64,7 +64,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
 		}
 		if (!entUser.get().getConfirmedFlag()) {
 			throw new SecurityException("The user is inactive", 
-					SecurityException.INACTIVE_USER);
+					SecurityException.FORBIDDEN);
 		}
 		// creates result object
 		User user = (User) toValueObject(entUser.get());

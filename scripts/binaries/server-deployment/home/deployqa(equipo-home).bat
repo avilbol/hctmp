@@ -14,6 +14,7 @@ call mvn -f D:/development/hallocasa-portal/HalloCasa/hallocasamig/pom.xml clean
  -Dfiles.userImages.rootPath=/usr/local/hallocasamig/user-images-qa ^
  -Dapidoc.war.location=D:/development/hallocasa-environment/qa_target
 cd D:/development/hallocasa-environment/qa_target
+call del hallocasamig-endpoint-qa-1.1.0.war
 call rename hallocasamig-endpoint-1.1.0.war hallocasamig-endpoint-qa-1.1.0.war
 call copy /y D:\development\hallocasa-portal\HalloCasa\hallocasamig-endpoint\pom-local.xml D:\development\hallocasa-portal\HalloCasa\hallocasamig-endpoint\pom.xml
 pause
