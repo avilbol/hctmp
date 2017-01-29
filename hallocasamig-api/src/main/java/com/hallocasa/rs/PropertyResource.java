@@ -58,6 +58,19 @@ public class PropertyResource extends BasicResource {
 		return Response.status(HttpStatus.SC_OK).entity(property.get()).build();
 	}
 	
+	@GET
+	@Path("by_user/{id}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Auth
+	@ApiOperation(value = "Return the property list with specified user id")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	public Response findPropertiesByUser(@ApiParam(value = "user id") @PathParam("id") Integer userId) {
+		return Response.status(HttpStatus.SC_OK)
+				.entity(propertyService.findByUser(userId)).build();
+	}
+	
 	@POST
 	@Path("search")
 	@Consumes({ MediaType.APPLICATION_JSON })
