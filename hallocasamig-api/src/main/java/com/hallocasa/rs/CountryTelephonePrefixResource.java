@@ -10,7 +10,6 @@ import javax.ws.rs.core.Response;
 import org.apache.http.HttpStatus;
 
 import com.hallocasa.rs.security.Auth;
-import com.hallocasa.services.generalities.location.CountryService;
 import com.hallocasa.services.generalities.location.CountryTelephonePrefixService;
 
 import io.swagger.annotations.Api;
