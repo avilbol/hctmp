@@ -9,6 +9,8 @@
     .constant('WOOTRIC_APPID', 'NPS-ead65c4a')
     .constant('moment', moment)
     .constant('backend_url', "http://www.hallocasa.com:64647/hallocasa-api/")
+    .constant('user_images_url', "http://www.hallocasa.com:64645/resources/images/users/")
+    .constant('property_images_url', "http://www.hallocasa.com:64645/resources/images/properties/")
     .constant('LOCALES', {
       'locales': {
         'es_ES': 'Español',

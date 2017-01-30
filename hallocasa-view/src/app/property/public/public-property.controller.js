@@ -26,7 +26,10 @@
         .then(function (data) {
           data.properties = _.map(data.properties, function (property) {
             property.images = angular.isArray(property.images) ? property.images : [];
-            property.images[0] = ImageValidatorService.validateOrFallback(property.images[0], "PropertyDefault");
+            ImageValidatorService.validateOrFallback(property.images[0], "PropertyDefault")
+              .then(function (image) {
+                property.images[0] = image;
+              });
             return property;
           });
 

@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('checkboxList', checkboxList);
 
-  function checkboxList() {
+  function checkboxList(translateFilter) {
     return {
       restrict: 'EA',
       require: 'ngModel',
@@ -16,6 +16,7 @@
         mobileCols: '=?',
         data: '=',
         optionsLabel: '=?',
+        translateLabel: '=?',
         ngModel: '=',
         requireOnce: '=',
         requireAll: '='
@@ -23,6 +24,7 @@
       link: function (scope, element, attrs, ngModel) {
         scope.toggle = toggle;
         scope.exists = exist;
+        scope.getLabel = getLabel;
 
         scope.mobileCols = (scope.mobileCols ? scope.mobileCols : 1);
         scope.tabletCols = (scope.tabletCols ? scope.tabletCols : 2);
@@ -48,6 +50,23 @@
           scope.ngModel = scope.ngModel ? scope.ngModel : [];
           return scope.ngModel.indexOf(item) > -1;
         }
+
+        function getLabel(element) {
+          if(!scope.label){return element;}
+          var label = angular.copy(element);
+          _.each(scope.label, function (attribute) {
+            label = label[attribute];
+          });
+          label = scope.translateLabel ? translateFilter(label) : label;
+          return label;
+        }
+
+        var watcher = scope.$watch("optionsLabel", function () {
+          if(scope.optionsLabel)
+            scope.label = scope.optionsLabel.split(".");
+        });
+
+        scope.$on("$destroy", watcher);
 
         ngModel.$validators.requireOnce = function(modelValue) {
           scope.requireOnceValidator = scope.requireOnce ? modelValue && modelValue.length > 0 : true;

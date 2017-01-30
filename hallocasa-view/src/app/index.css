@@ -83,6 +83,10 @@ md-card-title-media{
   height: calc(70vh - 88px);
 }
 
+.header-height{
+  min-height: calc(70vh - 88px);
+}
+
 .header-background > header{
   position: absolute;
   z-index: 0;

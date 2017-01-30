@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('itemList', itemList);
 
-  function itemList($mdMedia) {
+  function itemList($mdMedia, translateFilter) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/item-list/item-list.html",
@@ -14,7 +14,9 @@
         mobileItems: "=?",
         tabletItems: "=?",
         desktopItems: "=?",
-        display: "@?"
+        display: "@?",
+        labelAttribute: "=?",
+        translateLabel: "=?"
       },
       link: function (scope) {
         scope.mobileItems = angular.isNumber(scope.mobileItems) ? scope.mobileItems : 2;
@@ -26,6 +28,12 @@
         scope.$watch(function() { return $mdMedia('xs'); }, calculateList);
         scope.$watch(function() { return $mdMedia('sm'); }, calculateList);
         scope.$watch(function() { return $mdMedia('gt-sm'); }, calculateList);
+        scope.$watch("labelAttribute", function () {
+          if(scope.labelAttribute)
+            scope.label = scope.labelAttribute.split(".");
+        });
+
+        scope.getLabel = getLabel;
 
         function calculateList() {
           if($mdMedia('xs')){ //Mobile
@@ -52,6 +60,16 @@
               scope.viewList.push(scope.list[index]);
             });
           }
+        }
+
+        function getLabel(element) {
+          if(!scope.label){return element;}
+          var label = angular.copy(element);
+          _.each(scope.label, function (attribute) {
+            label = label[attribute];
+          });
+          label = scope.translateLabel ? translateFilter(label) : label;
+          return label;
         }
       }
     };

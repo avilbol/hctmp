@@ -7,7 +7,8 @@
 
   /** @ngInject */
   function EditProfileController(ProfilesService, LocationService, LanguageService, toastr, $mdMedia, $mdDialog,
-                                 $document, $location, translateFilter, ImageValidatorService) {
+                                 $document, $location, translateFilter, ImageValidatorService, SessionService,
+                                 FieldsService, user_images_url) {
     var vm = this;
 
     vm.loadStates = loadStates;
@@ -17,12 +18,13 @@
     vm.editProperty = editProperty;
     vm.viewProperty = viewProperty;
     vm.deleteProperty = deleteProperty;
+    vm.setMainLanguage = setMainLanguage;
     vm.goBack = goBack;
     vm.save = save;
     vm.propertyShowOptions = {view: true, edit: true, delete: true};
 
     function loadProfile(){
-      var profileID = 0;
+      var profileID = SessionService.getCurrentUser().id;
       ProfilesService.loadProfile(profileID)
         .then(function (data) {
           data = validateUserData(data);
@@ -38,14 +40,20 @@
 
     function validateUserData(data) {
       data.profile  = angular.isObject(data.profile) ? data.profile : {};
-      data.profile.services  = angular.isArray(data.profile.services) ? data.profile.services : [];
-      data.profile.languages  = angular.isArray(data.profile.languages) ? data.profile.languages : [];
-      data.profile.description  = angular.isObject(data.profile.description) ? data.profile.description : {};
-      data.profile.avatarURL = ImageValidatorService.validateOrFallback('assets/images/user_avatar/' + data.profile.avatarURL, "UserDefault");
+      data.profile.userTypes  = angular.isArray(data.profile.userTypes) ? data.profile.userTypes : [];
+      data.profile.userLanguages  = angular.isArray(data.profile.userLanguages) ? data.profile.userLanguages : [];
+      data.profile.userDescriptions  = angular.isArray(data.profile.userDescriptions) ? data.profile.userDescriptions : [];
+      ImageValidatorService.validateOrFallback(user_images_url + data.profile.imageLink, "UserDefault")
+        .then(function (image) {
+          data.profile.base64Image = image;
+        });
       data.properties  = angular.isArray(data.properties) ? data.properties : [];
       data.properties = _.map(data.properties, function (property) {
         property.images = angular.isArray(property.images) ? property.images : [];
-        property.images[0] = ImageValidatorService.validateOrFallback(property.images[0], "PropertyDefault");
+        ImageValidatorService.validateOrFallback(property.images[0], "PropertyDefault")
+          .then(function (image) {
+            property.images[0] = image;
+          });
         return property;
       });
       return data;
@@ -62,9 +70,9 @@
         clickOutsideToClose:true,
         fullscreen: useFullScreen
       }).then(function(result) {
-        vm.profileForm.avatarURL = result;
+        vm.profileForm.base64Image = result;
       }, function() {
-        vm.profileForm.avatarURL = undefined;
+        vm.profileForm.base64Image = undefined;
       });
     }
 
@@ -130,18 +138,6 @@
       })
     }
 
-    function loadCities() {
-      var id = vm.profileForm.state;
-      LocationService.getCityByID(id)
-        .then(function (cities) {
-          vm.cities = cities;
-        })
-        .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar ciudades");
-        });
-    }
-
     function loadCountries() {
       LocationService.getCountries()
         .then(function (countries) {
@@ -154,8 +150,8 @@
     }
 
     function loadStates() {
-      var id = vm.profileForm.country;
-      LocationService.getStateByID(id)
+      var id = vm.profileForm.country.id;
+      LocationService.getStateByID({country_id: id})
         .then(function (states) {
           vm.states = states;
         })
@@ -165,10 +161,28 @@
         });
     }
 
+    function loadCities() {
+      var id = vm.profileForm.state.id;
+      LocationService.getCityByID({state_id: id})
+        .then(function (cities) {
+          vm.cities = cities;
+        })
+        .catch(function () {
+          //TODO: Traducción de mensaje de error
+          toastr.warning("Error al cargar ciudades");
+        });
+    }
+
     function loadLanguages(){
       LanguageService.getLanguages()
         .then(function (languages) {
-          vm.languages = languages;
+          vm.languages = _.map(languages, function(language){
+            return {
+              language: language,
+              isMainLanguage: false,
+              value: ""
+            };
+          });
         })
         .catch(function () {
           //TODO: Traducción de mensaje de error
@@ -189,6 +203,7 @@
 
     function save(data, formID) {
       var formData = angular.copy(vm[data]);
+      formData.userDescriptions = formData.userLanguages;
       ProfilesService.saveProfile(formData, formID)
         .then(function () {
           vm.userData[formID] = formData;
@@ -200,6 +215,13 @@
           toastr.warning("Error al guardar perfil");
         });
 
+    }
+
+    function setMainLanguage(languageId) {
+      languageId = Number(languageId);
+      _.each(vm.profileForm.userLanguages, function (languageObject) {
+        languageObject.isMainLanguage = languageId === languageObject.language.id
+      });
     }
 
     function goBack() {
