@@ -17,12 +17,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.hallocasa.dao.i.IDAOUser;
 import com.hallocasa.entities.EntityUser;
@@ -50,10 +52,9 @@ public class UserServiceImpl implements UserService {
 
 	private String filePathRoot = get(USER_IMAGES_PATH);
 	
-	/* constants */
-	@SuppressWarnings("unused")
-	private final static Logger LOG = Logger.getLogger(UserServiceImpl.class
-			.getName());
+
+	private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
+
 
 	@EJB
 	private IDAOUser daoUser;
@@ -92,7 +93,20 @@ public class UserServiceImpl implements UserService {
 		if(!entUser.isPresent()){
 			return new User();
 		}
-		return (User) toValueObject(entUser.get());
+		LOG.debug("entity user descriptions size: " + 
+				entUser.get().getUserDescriptions().size());
+		LOG.debug("entity user languages size: " + 
+				entUser.get().getUserLanguages().size());
+		LOG.debug("entity user descriptions : " + 
+				entUser.get().getUserDescriptions());
+		LOG.debug("entity user languages : " + 
+				entUser.get().getUserLanguages());
+		User user = (User) toValueObject(entUser.get());
+		LOG.debug("vo user descriptions size: " + user.getUserDescriptions().size());
+		LOG.debug("vo user languages size: " + user.getUserLanguages().size());
+		LOG.debug("vo user descriptions: " + user.getUserDescriptions());
+		LOG.debug("vo user languages: " + user.getUserLanguages());
+		return user;
 	}
 	
 	@Override

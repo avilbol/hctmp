@@ -78,4 +78,10 @@ public class EntityUserDescription implements HallocasaEntity {
 	public void setEntityUserLanguagePK(EntityUserLanguagePK entityUserLanguagePK) {
 		this.entityUserLanguagePK = entityUserLanguagePK;
 	}
+
+	@Override
+	public String toString() {
+		return "EntityUserDescription [entityUserLanguagePK=" + entityUserLanguagePK + ", user=" + user + ", language="
+				+ language + ", value=" + value + "]";
+	}
 }

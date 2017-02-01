@@ -41,4 +41,9 @@ public class Language implements ValueObject, Serializable {
 	public void setLocale(String locale) {
 		this.locale = locale;
 	}
+
+	@Override
+	public String toString() {
+		return "Language [id=" + id + ", name=" + name + ", locale=" + locale + "]";
+	}
 }

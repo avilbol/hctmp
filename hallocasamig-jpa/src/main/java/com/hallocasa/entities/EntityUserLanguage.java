@@ -75,4 +75,9 @@ public class EntityUserLanguage implements HallocasaEntity{
 	public void setEntityUserLanguagePK(EntityUserLanguagePK entityUserLanguagePK) {
 		this.entityUserLanguagePK = entityUserLanguagePK;
 	}
+
+	@Override
+	public String toString() {
+		return "EntityUserLanguage [language=" + language + ", isMainLanguage=" + isMainLanguage + "]";
+	}
 }

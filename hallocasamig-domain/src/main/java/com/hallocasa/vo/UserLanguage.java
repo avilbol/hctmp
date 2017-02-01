@@ -27,4 +27,9 @@ public class UserLanguage implements Serializable, ValueObject {
 	public void setIsMainLanguage(Boolean isMainLanguage) {
 		this.isMainLanguage = isMainLanguage;
 	}
+
+	@Override
+	public String toString() {
+		return "UserLanguage [language=" + language + ", isMainLanguage=" + isMainLanguage + "]";
+	}
 }
