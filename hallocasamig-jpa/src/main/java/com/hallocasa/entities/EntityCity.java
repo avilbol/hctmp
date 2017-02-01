@@ -42,6 +42,9 @@ public class EntityCity implements HallocasaEntity {
 
 	@Column(name = "default_lng_coordinate")
 	private Double defaultLngCoordinate;
+	
+	@Column(name = "default_zoom")
+	private Integer defaultZoom;
 
 	public Integer getId() {
 		return id;
@@ -81,5 +84,13 @@ public class EntityCity implements HallocasaEntity {
 
 	public void setDefaultLngCoordinate(Double defaultLngCoordinate) {
 		this.defaultLngCoordinate = defaultLngCoordinate;
+	}
+
+	public Integer getDefaultZoom() {
+		return defaultZoom;
+	}
+
+	public void setDefaultZoom(Integer defaultZoom) {
+		this.defaultZoom = defaultZoom;
 	}
 }

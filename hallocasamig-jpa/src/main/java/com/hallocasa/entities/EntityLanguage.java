@@ -55,4 +55,9 @@ public class EntityLanguage implements HallocasaEntity{
 	public void setLocale(String locale) {
 		this.locale = locale;
 	}
+
+	@Override
+	public String toString() {
+		return "EntityLanguage [id=" + id + ", name=" + name + ", locale=" + locale + "]";
+	}
 }

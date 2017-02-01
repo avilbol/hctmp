@@ -27,4 +27,9 @@ public class UserDescription implements Serializable, ValueObject {
 	public void setValue(String value) {
 		this.value = value;
 	}
+
+	@Override
+	public String toString() {
+		return "UserDescription [language=" + language + ", value=" + value + "]";
+	}
 }
