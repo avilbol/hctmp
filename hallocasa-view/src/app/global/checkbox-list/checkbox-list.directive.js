@@ -17,6 +17,7 @@
         data: '=',
         optionsLabel: '=?',
         translateLabel: '=?',
+        trackBy: '=?',
         ngModel: '=',
         requireOnce: '=',
         requireAll: '='
@@ -48,7 +49,25 @@
 
         function exist(item) {
           scope.ngModel = scope.ngModel ? scope.ngModel : [];
-          return scope.ngModel.indexOf(item) > -1;
+          if(scope.trackBy){
+            return _.find(scope.ngModel, function (listElement) {
+              var listElementValue = angular.copy(listElement);
+              var itemValue = angular.copy(item);
+              try{
+                _.each(scope.attributeTrack, function (attribute) {
+                  listElementValue = listElementValue[attribute];
+                  itemValue = itemValue[attribute];
+                });
+                return listElementValue && itemValue && listElementValue === itemValue;
+              }
+              catch (err){
+                return false;
+              }
+            });
+          }
+          else {
+            return scope.ngModel.indexOf(item) > -1;
+          }
         }
 
         function getLabel(element) {
@@ -61,12 +80,18 @@
           return label;
         }
 
-        var watcher = scope.$watch("optionsLabel", function () {
+        var watcherOL = scope.$watch("optionsLabel", function () {
           if(scope.optionsLabel)
             scope.label = scope.optionsLabel.split(".");
         });
 
-        scope.$on("$destroy", watcher);
+        var watcherTB = scope.$watch("trackBy", function () {
+          if(scope.trackBy)
+            scope.attributeTrack = scope.trackBy.split(".");
+        });
+
+        scope.$on("$destroy", watcherOL);
+        scope.$on("$destroy", watcherTB);
 
         ngModel.$validators.requireOnce = function(modelValue) {
           scope.requireOnceValidator = scope.requireOnce ? modelValue && modelValue.length > 0 : true;

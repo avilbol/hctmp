@@ -30,6 +30,9 @@
           data = validateUserData(data);
           vm.userData = data;
           vm.profileForm = data.profile;
+          loadStates();
+          loadCities();
+          setMainLanguage();
         })
         .catch(function () {
           //TODO: Traducción de mensaje de error
@@ -41,8 +44,10 @@
     function validateUserData(data) {
       data.profile  = angular.isObject(data.profile) ? data.profile : {};
       data.profile.userTypes  = angular.isArray(data.profile.userTypes) ? data.profile.userTypes : [];
-      data.profile.userLanguages  = angular.isArray(data.profile.userLanguages) ? data.profile.userLanguages : [];
       data.profile.userDescriptions  = angular.isArray(data.profile.userDescriptions) ? data.profile.userDescriptions : [];
+      var mainLanguage = _.find(data.profile.userLanguages, function (languages) {return languages.isMainLanguage});
+      vm.languageId = mainLanguage ? mainLanguage.language.id : undefined;
+      data.profile.userLanguages  = data.profile.userDescriptions;
       ImageValidatorService.validateOrFallback(user_images_url + data.profile.imageLink, "UserDefault")
         .then(function (image) {
           data.profile.base64Image = image;
@@ -204,6 +209,8 @@
     function save(data, formID) {
       var formData = angular.copy(vm[data]);
       formData.userDescriptions = formData.userLanguages;
+      var imageLink = user_images_url + formData.imageLink;
+      formData.base64Image = imageLink !== formData.base64Image ? formData.base64Image : undefined;
       ProfilesService.saveProfile(formData, formID)
         .then(function () {
           vm.userData[formID] = formData;
@@ -217,8 +224,8 @@
 
     }
 
-    function setMainLanguage(languageId) {
-      languageId = Number(languageId);
+    function setMainLanguage() {
+      var languageId = Number(vm.languageId);
       _.each(vm.profileForm.userLanguages, function (languageObject) {
         languageObject.isMainLanguage = languageId === languageObject.language.id
       });
