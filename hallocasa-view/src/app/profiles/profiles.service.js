@@ -5,7 +5,7 @@
     .module('HalloCasa.profiles')
     .service('ProfilesService', ProfilesService);
 
-  function ProfilesService(GenericRESTResource, $resource, $q, $log) {
+  function ProfilesService(GenericRESTResource, $resource, $q, $log, backend_url) {
     var service = {
       getServices: getServices,
       saveProfile: saveProfile,
@@ -15,44 +15,38 @@
     };
 
     var resources = {
-      profileSave: $resource("/mocks/profile/saveProfile.json", {}, GenericRESTResource),
-      profileLoad: $resource("/mocks/profile/loadProfile.json", {}, GenericRESTResource),
-      profilePublic: $resource("/mocks/profile/publicProfiles.json", {}, GenericRESTResource)
+      profileSave: $resource(backend_url + "user", {}, GenericRESTResource),
+      userTypes: $resource(backend_url + "user_types", {}, GenericRESTResource),
+      profileLoad: $resource(backend_url + "user/detail/:id", {}, GenericRESTResource),
+      profilePublic: $resource(backend_url + "user/fetch_random", {}, GenericRESTResource)
     };
 
     return service;
 
     function getServices() {
-      return $q(function (resolve) {
-        resolve([
-          "Corredor",
-          "Notario",
-          "Tasador",
-          "Traductor",
-          "Administrador",
-          "Experto",
-          "Abogado"
-        ]);
-      });
+      return resources.userTypes.query().$promise
     }
 
     function saveProfile(data, formID) {
       $log.log("Guardar perfil: (Formulario: ",formID, ", Datos: ",data, ")");
-      return resources.profileSave.show().$promise;
+      return resources.profileSave.save(data).$promise;
     }
 
     function loadProfile(profileID) {
-      $log.log("Cargar perfil: (ID: "+profileID+")");
-      return resources.profileLoad.show().$promise;
+      return $q.all({
+        profile: resources.profileLoad.show({id: profileID}).$promise
+      });
     }
 
     function loadPublicProfile() {
-      return resources.profilePublic.query().$promise;
+      return resources.profilePublic.consult({
+        "userNumber": 7
+      }).$promise;
     }
 
     function loadPublicProfiles(start, finish) {
       $log.log("Cargar rango de perfiles: ("+start+" - "+finish+")");
-      return resources.profilePublic.query().$promise;
+      return resources.profilePublic.consult().$promise;
     }
   }
 })();

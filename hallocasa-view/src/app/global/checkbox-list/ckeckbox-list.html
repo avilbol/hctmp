@@ -4,7 +4,7 @@
       ng-checked="exists(element)"
       ng-click="toggle(element)"
     >
-      {{element[optionsLabel] || element}}
+      <span>{{::getLabel(element) | unicode}}</span>
     </md-checkbox>
   </div>
 </div>

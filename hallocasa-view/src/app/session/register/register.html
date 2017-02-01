@@ -8,7 +8,7 @@
       </md-button>
     </div>
   </md-toolbar>
-  <form name="loginForm" novalidate ng-submit="loginForm.$valid && true">
+  <form name="loginForm" novalidate ng-submit="loginForm.$valid && vm.register()">
     <md-dialog-content>
       <md-content class="md-padding" ng-if="!vm.showTermsText">
         <md-input-container  class="md-block">

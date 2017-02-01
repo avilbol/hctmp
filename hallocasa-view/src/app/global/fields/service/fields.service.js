@@ -111,17 +111,6 @@
       return servicePromise;
     }
 
-    function parseUnicode(string) {
-      try{
-        string = decodeURIComponent(angular.fromJson('"' + string.replace(/\"/g, '\\"') + '"'));
-      }
-      catch(error) {
-        $log.debug("Error al decodificar el texto" + string, error);
-      }
-      return string;
-    }
-
-
     function detectOptionID(option) {
       option.identifier = (option.id || option.optionId);
       return option;
@@ -137,7 +126,6 @@
       switch (translationManagement){
         case "NONE":
           parseOptionString = function (option) {
-            option.name = parseUnicode(option.name);
             return option;
           };
           break;

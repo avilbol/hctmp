@@ -1,0 +1,165 @@
+[
+  {
+    "id": 1,
+    "name": "English",
+    "locale": "en"
+  },
+  {
+    "id": 2,
+    "name": "Espa\\u00F1ol",
+    "locale": "es"
+  },
+  {
+    "id": 3,
+    "name": "Deutsch",
+    "locale": "de"
+  },
+  {
+    "id": 4,
+    "name": "Africaans"
+  },
+  {
+    "id": 5,
+    "name": "\\u0627\\u0644\\u0644\\u063A\\u0629 \\u0627\\u0644\\u0639\\u0631\\u0628\\u064A\\u0629"
+  },
+  {
+    "id": 6,
+    "name": "\\u0540\\u0561\\u0575\\u0565\\u0580\\u0565\\u0576"
+  },
+  {
+    "id": 7,
+    "name": "\\u0411\\u043E\\u0441\\u0430\\u043D\\u0441\\u043A\\u0438"
+  },
+  {
+    "id": 8,
+    "name": "\\u0431\\u044A\\u043B\\u0433\\u0430\\u0440\\u0441\\u043A\\u0438 \\u0435\\u0437\\u0438\\u043A"
+  },
+  {
+    "id": 9,
+    "name": "\\u5EE3\\u6771\\u8A71"
+  },
+  {
+    "id": 10,
+    "name": "Hrvatski"
+  },
+  {
+    "id": 11,
+    "name": "\\u010Cesk\\u00FD Jazyk"
+  },
+  {
+    "id": 12,
+    "name": "Dansk"
+  },
+  {
+    "id": 13,
+    "name": "Nederlands"
+  },
+  {
+    "id": 14,
+    "name": "Eesti"
+  },
+  {
+    "id": 15,
+    "name": "Wikang Filipino"
+  },
+  {
+    "id": 16,
+    "name": "Suomi"
+  },
+  {
+    "id": 17,
+    "name": "Fran\\u00E7ais"
+  },
+  {
+    "id": 18,
+    "name": "\\u0395\\u03BB\\u03BB\\u03B7\\u03BD\\u03B9\\u03BA\\u03AC"
+  },
+  {
+    "id": 19,
+    "name": "\\u05E2\\u05D1\\u05E8\\u05D9\\u05EA"
+  },
+  {
+    "id": 20,
+    "name": "\\u0939\\u093F\\u0928\\u094D\\u0926\\u0940"
+  },
+  {
+    "id": 21,
+    "name": "Magyar"
+  },
+  {
+    "id": 22,
+    "name": "\\u00CDslenska"
+  },
+  {
+    "id": 23,
+    "name": "Gaeilge"
+  },
+  {
+    "id": 24,
+    "name": "Italiano"
+  },
+  {
+    "id": 25,
+    "name": "\\u65E5\\u672C\\u8A9E"
+  },
+  {
+    "id": 26,
+    "name": "\\uC870\\uC120\\uB9D0"
+  },
+  {
+    "id": 27,
+    "name": "Latvie\\u0161u"
+  },
+  {
+    "id": 28,
+    "name": "Lietuvi\\u0173"
+  },
+  {
+    "id": 29,
+    "name": "\\u570B\\u8A9E"
+  },
+  {
+    "id": 30,
+    "name": "Norsk"
+  },
+  {
+    "id": 31,
+    "name": "Polski"
+  },
+  {
+    "id": 32,
+    "name": "Portugu\\u00EAs"
+  },
+  {
+    "id": 33,
+    "name": "Rom\\u00E2n\\u0103"
+  },
+  {
+    "id": 34,
+    "name": "\\u0420\\u0443\\u0441\\u0441\\u043A\\u0438\\u0439"
+  },
+  {
+    "id": 35,
+    "name": "Sloven\\u010Dina"
+  },
+  {
+    "id": 36,
+    "name": "Sloven\\u0161\\u010Dina"
+  },
+  {
+    "id": 37,
+    "name": "Svenska"
+  },
+  {
+    "id": 38,
+    "name": "\\u0E20\\u0E32\\u0E29\\u0E32\\u0E44\\u0E17\\u0E22"
+  },
+  {
+    "id": 39,
+    "name": "T\\u00FCrk\\u00E7e"
+  },
+  {
+    "id": 40,
+    "name": "\\u0423\\u043A\\u0440\\u0430\\u0457\\u043D\\u0441\\u044C\\u043A\\u0430"
+  }
+]

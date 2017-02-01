@@ -9,13 +9,13 @@
 		var service = {
 			makeRegister: makeRegister
 		};
-		
-		var RegisterResource =  $resource(backend_url+'/users/register', {}, {
+
+		var RegisterResource =  $resource(backend_url+'users/register', {}, {
 			register: { method: 'POST' }
 		});
-		
+
 		return service;
-		
+
 		function makeRegister(userData){
 			return RegisterResource.register(userData).$promise;
 		}

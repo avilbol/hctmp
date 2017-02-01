@@ -6,23 +6,20 @@
     .controller('myProfileController', myProfileController);
 
   /** @ngInject */
-  function myProfileController(ProfilesService, LocationService, LanguageService, toastr, $mdMedia, $mdDialog,
-                                 $document, $location, ImageValidatorService) {
+  function myProfileController(ProfilesService, toastr, $mdMedia, $mdDialog, $document, $location,
+                                 ImageValidatorService, SessionService, user_images_url) {
     var vm = this;
-    
+
     vm.viewProperty = viewProperty;
     vm.editProfile = editProfile;
     vm.goBack = goBack;
 
     function loadProfile(){
-      var profileID = 0;
+      var profileID = SessionService.getCurrentUser().id;
       ProfilesService.loadProfile(profileID)
         .then(function (data) {
           data = validateUserData(data);
           vm.userData = data;
-          loadCountries();
-          loadStates();
-          loadCities();
         })
         .catch(function () {
           //TODO: Traducción de mensaje de error
@@ -33,10 +30,16 @@
 
     function validateUserData(data) {
       data.profile  = angular.isObject(data.profile) ? data.profile : {};
-      data.profile.services  = angular.isArray(data.profile.services) ? data.profile.services : [];
-      data.profile.languages  = angular.isArray(data.profile.languages) ? data.profile.languages : [];
-      data.profile.description  = angular.isObject(data.profile.description) ? data.profile.description : {};
-      data.profile.avatarURL = ImageValidatorService.validateOrFallback('assets/images/user_avatar/' + data.profile.avatarURL, "UserDefault");
+      data.profile.userTypes  = angular.isArray(data.profile.userTypes) ? data.profile.userTypes : [];
+      data.profile.userLanguages  = angular.isArray(data.profile.userLanguages) ? data.profile.userLanguages : [];
+      data.profile.userDescriptions  = angular.isArray(data.profile.userDescriptions) ? data.profile.userDescriptions : [];
+      var mainLanguage = _.find(data.profile.userLanguages, _.property("isMainLanguage"));
+      data.profile.mainLanguage = mainLanguage ? mainLanguage.language.name : undefined;
+
+      ImageValidatorService.validateOrFallback(user_images_url + data.profile.imageLink, "UserDefault")
+        .then(function (image) {
+          data.profile.image = image;
+        });
       data.properties  = angular.isArray(data.properties) ? data.properties : [];
       data.properties = _.map(data.properties, function (property) {
         property.images = angular.isArray(property.images) ? property.images : [];
@@ -73,63 +76,6 @@
       })
     }
 
-    function loadCities() {
-      var id = vm.userData.profile.state;
-      LocationService.getCityByID(id)
-        .then(function (cities) {
-          vm.cities = cities;
-        })
-        .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar ciudades");
-        });
-    }
-
-    function loadCountries() {
-      LocationService.getCountries()
-        .then(function (countries) {
-          vm.countries = countries;
-        })
-        .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar países");
-        });
-    }
-
-    function loadStates() {
-      var id = vm.userData.profile.country;
-      LocationService.getStateByID(id)
-        .then(function (states) {
-          vm.states = states;
-        })
-        .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar Estados");
-        });
-    }
-
-    function loadLanguages(){
-      LanguageService.getLanguages()
-        .then(function (languages) {
-          vm.languages = languages;
-        })
-        .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar idiomas");
-        });
-    }
-
-    function loadUserServices(){
-      ProfilesService.getServices()
-        .then(function (services) {
-          vm.services = services;
-        })
-        .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar servicios");
-        });
-    }
-
     function goBack() {
       $location.url("/");
     }
@@ -139,7 +85,5 @@
     }
 
     loadProfile();
-    loadUserServices();
-    loadLanguages();
   }
 })();

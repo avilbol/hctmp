@@ -1,4 +1,4 @@
-<div ng-if="!vm.userData.profile.services || vm.userData.profile.services.length === 0">
+<div ng-if="!vm.userData.profile.userTypes || vm.userData.profile.userTypes.length === 0">
   <md-card>
     <md-card-content>
       <h1>
@@ -8,7 +8,7 @@
   </md-card>
 </div>
 
-<div ng-if="vm.userData.profile.services.length > 0">
+<div ng-if="vm.userData.profile.userTypes.length > 0">
   <div layout="row" layout-align="end center">
     <md-button class="md-raised" ng-click="vm.createProperty($event)">
       {{'Properties.add.label' | translate}}
