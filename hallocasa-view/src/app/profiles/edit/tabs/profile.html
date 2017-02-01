@@ -26,15 +26,7 @@
           messages-params="{ minlength: '2 - 45', maxlength: '2 - 45'}"
         ></ng-messages-generator>
       </md-input-container>
-      <md-input-container class="md-block">
-        <label>{{'Profile.Data.Email.Label' | translate}}</label>
-        <input name="email" ng-model="vm.profileForm.email" type="email" ng-required="true">
-        <ng-messages-generator
-          form="editProfileForm"
-          input-name="email"
-          validators="required, email"
-        ></ng-messages-generator>
-      </md-input-container>
+      <b>{{'Profile.Data.Email.Label' | translate}}: </b> <span>{{vm.profileForm.email || "..."}}</span>
     </md-card-content>
   </md-card>
 
@@ -52,7 +44,13 @@
           </v-pane-header>
 
           <v-pane-content>
-            <checkbox-list data="vm.services" ng-model="vm.profileForm.userTypes" translate-label="true" options-label="'lang'"></checkbox-list>
+            <checkbox-list
+              data="vm.services"
+              ng-model="vm.profileForm.userTypes"
+              translate-label="true"
+              options-label="'lang'"
+              track-by="'id'"
+            ></checkbox-list>
           </v-pane-content>
         </v-pane>
 
@@ -68,7 +66,13 @@
           <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
             <md-input-container class="md-block">
               <label>{{'Profile.Data.Country.Label' | translate}}</label>
-              <md-select name="country" ng-model="vm.profileForm.country" ng-change="vm.loadStates()" required>
+              <md-select
+                name="country"
+                ng-model="vm.profileForm.country"
+                ng-model-options="{trackBy: '$value.id'}"
+                ng-change="vm.loadStates()"
+                required
+              >
                 <md-option ng-repeat="country in vm.countries" ng-value="country">
                   {{country.name | unicode}}
                 </md-option>
@@ -85,6 +89,7 @@
               <md-select
                 name="state"
                 ng-model="vm.profileForm.state"
+                ng-model-options="{trackBy: '$value.id'}"
                 ng-change="vm.loadCities()"
                 ng-disabled="!vm.profileForm.country"
                 required
@@ -105,6 +110,7 @@
               <md-select
                 name="city"
                 ng-model="vm.profileForm.city"
+                ng-model-options="{trackBy: '$value.id'}"
                 ng-disabled="!vm.profileForm.state"
                 required
               >
@@ -120,7 +126,7 @@
             </md-input-container>
           </div>
           <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
-            <telephone layout="row" ng-model="vm.profileForm.telephone" label="{{'Profile.Data.Telephone.Label' | translate}}"></telephone>
+            <telephone layout="row" ng-model="vm.profileForm" label="{{'Profile.Data.Telephone.Label' | translate}}"></telephone>
             <md-input-container class="md-block">
               <label>{{'Profile.Data.Website.Label' | translate}}</label>
               <input name="website" ng-model="vm.profileForm.webSite" type="url">
@@ -155,7 +161,15 @@
           </v-pane-header>
 
           <v-pane-content>
-            <checkbox-list name="languages" data="vm.languages" ng-model="vm.profileForm.userLanguages" laptop-cols=5 require-once="true" options-label="'language.name'"></checkbox-list>
+            <checkbox-list
+              name="languages"
+              data="vm.languages"
+              ng-model="vm.profileForm.userLanguages"
+              laptop-cols=5
+              require-once="true"
+              options-label="'language.name'"
+              track-by="'language.id'"
+            ></checkbox-list>
             <ng-messages-generator
               form="editProfileForm"
               input-name="languages"
@@ -172,7 +186,7 @@
           <v-pane-content>
             <md-input-container class="md-block" flex-gt-sm="50" flex-gt-xs="50" flex-xs="100">
               <label>{{'Profile.Data.Languages.MainLanguage.Label' | translate}}</label>
-              <md-select name="mainLanguage" ng-model="languageId" ng-change="vm.setMainLanguage(languageId)" required>
+              <md-select name="mainLanguage" ng-model="vm.languageId" ng-change="vm.setMainLanguage()" required>
                 <md-option ng-repeat="languageObject in vm.profileForm.userLanguages track by $index" value="{{languageObject.language.id}}">
                   {{languageObject.language.name | unicode}}
                 </md-option>

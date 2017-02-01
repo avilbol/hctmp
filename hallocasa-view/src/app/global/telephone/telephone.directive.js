@@ -20,12 +20,12 @@
         scope.ngModel = scope.ngModel ? scope.ngModel : {};
         scope.isRequired = scope.isRequired ? scope.isRequired : false;
 
-        scope.$watchCollection("[ngModel.extension, ngModel.number]", function () {
+        scope.$watchCollection("[ngModel.telephonePrefix, ngModel.telephoneNumber]", function () {
           if(!scope.ngModel){
             scope.ngModel = {};
           }
 
-          scope.validTelephone = (scope.ngModel.extension && !scope.ngModel.number) || (!scope.ngModel.extension && scope.ngModel.number);
+          scope.validTelephone = (scope.ngModel.telephonePrefix && !scope.ngModel.telephoneNumber) || (!scope.ngModel.telephonePrefix && scope.ngModel.telephoneNumber);
         });
 
       }

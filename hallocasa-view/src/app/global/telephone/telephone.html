@@ -1,7 +1,7 @@
 <ng-form name="telephoneForm">
   <md-input-container flex="35">
     <label>{{label}}</label>
-    <input name="extension" ng-model="ngModel.extension" aria-label="telephone indicative" type="number" ng-required="isRequired || validTelephone">
+    <input name="extension" ng-model="ngModel.telephonePrefix" aria-label="telephone indicative" type="number" ng-required="isRequired || validTelephone">
     <div ng-messages="telephoneForm.extension.$error" ng-if="telephoneForm.extension.$touched || telephoneForm.number.$touched">
       <div ng-message="required" ng-if="isRequired">
         {{'constraints.NotEmpty' | translate}}
@@ -12,7 +12,7 @@
     </div>
   </md-input-container>
   <md-input-container flex="55">
-    <input name="number" ng-model="ngModel.number" aria-label="telephone" type="number" ng-required="isRequired || validTelephone">
+    <input name="number" ng-model="ngModel.telephoneNumber" aria-label="telephone" type="number" ng-required="isRequired || validTelephone">
     <div ng-messages="telephoneForm.number.$error" ng-if="telephoneForm.extension.$touched || telephoneForm.number.$touched">
       <div ng-message="required" ng-if="isRequired">
         {{'constraints.NotEmpty' | translate}}

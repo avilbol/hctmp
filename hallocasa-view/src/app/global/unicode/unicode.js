@@ -8,6 +8,7 @@
   /** @ngInject */
   function unicode($log) {
     return function(string){
+      if(!string){return;}
       try{
         string = decodeURIComponent(angular.fromJson('"' + string.replace(/\"/g, '\\"') + '"'));
       }
