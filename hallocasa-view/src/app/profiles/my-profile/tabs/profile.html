@@ -79,7 +79,7 @@
             </div>
             <br>
             <v-accordion class="vAccordion--default">
-              <v-pane ng-repeat="description in vm.userData.profile.userDescriptions">
+              <v-pane ng-repeat="description in vm.userData.profile.userDescriptions track by $index">
                 <v-pane-header>
                   {{'Profile.Data.Description.Label' | translate}} ({{description.language.name | unicode}})
                 </v-pane-header>

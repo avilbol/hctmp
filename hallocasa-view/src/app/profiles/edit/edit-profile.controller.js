@@ -225,7 +225,7 @@
     }
 
     function goBack() {
-      $location.url("/profile");
+      $location.url("/profile/my-profile");
     }
 
     loadProfile();

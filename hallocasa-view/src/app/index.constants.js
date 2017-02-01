@@ -17,6 +17,11 @@
         'en_US': 'English',
         'de_DE': 'Deutsch'
       },
+      'languages': {
+        'English': {'id': 1, 'locale': 'en'},
+        'Español': {'id': 2, 'locale': 'es'},
+        'Deutsch': {'id': 3, 'locale': 'de'}
+      },
       'preferredLocale': 'es_ES'
     })
     .constant('GenericRESTResource', {

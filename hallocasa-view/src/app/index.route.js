@@ -41,6 +41,12 @@
         controllerAs: 'vm',
         isPassworRecovery: true
       })
+      .when('/user_activation', {
+        templateUrl: 'app/main/landing/landing.html',
+        controller: 'LandingController',
+        controllerAs: 'vm',
+        isUserActivarion: true
+      })
       .otherwise({
         redirectTo: '/404'
       });

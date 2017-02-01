@@ -10,7 +10,7 @@
 			makeRegister: makeRegister
 		};
 
-		var RegisterResource =  $resource(backend_url+'users/register', {}, {
+		var RegisterResource =  $resource(backend_url+'user/register', {}, {
 			register: { method: 'POST' }
 		});
 
