@@ -173,8 +173,8 @@
             <md-input-container class="md-block" flex-gt-sm="50" flex-gt-xs="50" flex-xs="100">
               <label>{{'Profile.Data.Languages.MainLanguage.Label' | translate}}</label>
               <md-select name="mainLanguage" ng-model="languageId" ng-change="vm.setMainLanguage(languageId)" required>
-                <md-option ng-repeat="languageObject in vm.profileForm.userLanguages" value="{{languageObject.language.id}}">
-                  {{languageObject.language.name}}
+                <md-option ng-repeat="languageObject in vm.profileForm.userLanguages track by $index" value="{{languageObject.language.id}}">
+                  {{languageObject.language.name | unicode}}
                 </md-option>
               </md-select>
               <ng-messages-generator
@@ -184,9 +184,9 @@
               ></ng-messages-generator>
             </md-input-container>
             <div layout="row" layout-wrap flex >
-              <div flex-gt-sm="50" flex-gt-xs="50" flex-xs="100" ng-repeat="languageObject in vm.profileForm.userLanguages">
+              <div flex-gt-sm="50" flex-gt-xs="50" flex-xs="100" ng-repeat="languageObject in vm.profileForm.userLanguages track by $index">
                 <md-input-container class="md-block">
-                  <label>{{'Profile.Data.Description.Label' | translate}} ({{languageObject.language.name}})</label>
+                  <label>{{'Profile.Data.Description.Label' | translate}} ({{languageObject.language.name | unicode}})</label>
                   <textarea name="description" ng-model="languageObject.value" md-maxlength="500" md-minlength="20" rows="5" required></textarea>
                   <ng-messages-generator
                     form="editProfileForm"

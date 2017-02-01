@@ -78,6 +78,18 @@
       });
     }
 
+    function launchUserActivationDialog() {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+      $mdDialog.show({
+        controller: "UserActivationController",
+        controllerAs: "vm",
+        templateUrl: 'app/session/user-activation/user-activation.html',
+        parent: $document.body,
+        clickOutsideToClose: false,
+        fullscreen: useFullScreen
+      });
+    }
+
     function launchPrivacyStatementDialog(ev) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
       $mdDialog.show({
@@ -124,14 +136,17 @@
       $rootScope.$on('$destroy',routeListener);
     }
 
-    function detectPasswordRecoveryProcess() {
+    function detectRedirectRoute() {
       if($route.current.isPassworRecovery){
         launchPasswordRecoveryDialog();
+      }
+      if($route.current.isUserActivarion){
+        launchUserActivationDialog();
       }
     }
 
     toolbarsHideHandler();
-    detectPasswordRecoveryProcess();
+    detectRedirectRoute();
     getCurrentAppVersion();
   }
 })();

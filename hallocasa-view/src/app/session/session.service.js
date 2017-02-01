@@ -14,6 +14,7 @@
       logout: logout,
       sendRecoveryRequest: sendRecoveryRequest,
       sendRecoveryPassword: sendRecoveryPassword,
+      activateUser: activateUser,
       validateToken: validateToken,
       getCurrentUser: getCurrentUser
     };
@@ -23,7 +24,8 @@
     var resource = {
       sendEmail: $resource(backend_url + "password_recovery/send_email", {}, GenericRESTResource),
       updatePassword: $resource(backend_url + "password_recovery/update_password", {}, GenericRESTResource),
-      validateToken: $resource(backend_url + "password_recovery/validate_token", {}, GenericRESTResource)
+      validateToken: $resource(backend_url + "password_recovery/validate_token", {}, GenericRESTResource),
+      activateUser: $resource(backend_url + "user/activate_user", {}, GenericRESTResource)
     };
 
     return service;
@@ -112,6 +114,10 @@
 
     function validateToken(token) {
       return resource.validateToken.show({"password_recovery_token": token}).$promise;
+    }
+
+    function activateUser(email, activationKey) {
+      return resource.activateUser.show({"email": email, "activation_key": activationKey}).$promise;
     }
 
   }
