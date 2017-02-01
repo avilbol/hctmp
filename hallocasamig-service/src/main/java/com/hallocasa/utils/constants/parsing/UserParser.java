@@ -1,6 +1,8 @@
 package com.hallocasa.utils.constants.parsing;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.EntityUserDescription;
@@ -37,6 +39,29 @@ public class UserParser extends CustomizedParser {
 	public void transform(HallocasaEntity ent, ValueObject vo) {
 		User user = (User) vo;
 		EntityUser entUser = (EntityUser) ent;
+		if(entUser.getUserDescriptions() != null){
+			user.setUserDescriptions(new LinkedList<>());
+			Map<Integer, EntityUserDescription> userDescMap = new HashMap<Integer, EntityUserDescription>(); 
+			for(EntityUserDescription entUserDescription : entUser.getUserDescriptions()){
+				userDescMap.put(entUserDescription.getLanguage().getId(), entUserDescription);
+			}
+			for(EntityUserDescription entUserDescription : userDescMap.values()){
+				user.getUserDescriptions().add(
+						(UserDescription) HallocasaConvert.toValueObject(entUserDescription));
+			}
+		}
+		if(entUser.getUserLanguages() != null){
+			user.setUserLanguages(new LinkedList<>());
+			Map<Integer, EntityUserLanguage> userLangMap = new HashMap<Integer, EntityUserLanguage>(); 
+			for(EntityUserLanguage entUserLanguage : entUser.getUserLanguages()){
+				userLangMap.put(entUserLanguage.getLanguage().getId(), entUserLanguage);
+			}
+			for(EntityUserLanguage entUserLanguage : userLangMap.values()){
+				user.getUserLanguages().add(
+						(UserLanguage) HallocasaConvert.toValueObject(entUserLanguage));
+			}
+		}
+		
 		boolean mainSpokenLanguage = user.getMainSpokenLanguage() != null;
 		if(mainSpokenLanguage && user.getUserLanguages() == null){
 			user.setUserLanguages(new LinkedList<>());
