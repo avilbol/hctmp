@@ -32,13 +32,16 @@ public class UserParser extends CustomizedParser {
 					user.setMainSpokenLanguage((Language) HallocasaConvert.toValueObject(entUserLang.getLanguage()));
 				}
 			}
+			user.setUserLanguages(new LinkedList<>());
+			Map<Integer, EntityUserLanguage> userLangMap = new HashMap<Integer, EntityUserLanguage>(); 
+			for(EntityUserLanguage entUserLanguage : entUser.getUserLanguages()){
+				userLangMap.put(entUserLanguage.getLanguage().getId(), entUserLanguage);
+			}
+			for(EntityUserLanguage entUserLanguage : userLangMap.values()){
+				user.getUserLanguages().add(
+						(UserLanguage) HallocasaConvert.toValueObject(entUserLanguage));
+			}
 		}
-	}
-
-	@Override
-	public void transform(HallocasaEntity ent, ValueObject vo) {
-		User user = (User) vo;
-		EntityUser entUser = (EntityUser) ent;
 		if(entUser.getUserDescriptions() != null){
 			user.setUserDescriptions(new LinkedList<>());
 			Map<Integer, EntityUserDescription> userDescMap = new HashMap<Integer, EntityUserDescription>(); 
@@ -50,17 +53,12 @@ public class UserParser extends CustomizedParser {
 						(UserDescription) HallocasaConvert.toValueObject(entUserDescription));
 			}
 		}
-		if(entUser.getUserLanguages() != null){
-			user.setUserLanguages(new LinkedList<>());
-			Map<Integer, EntityUserLanguage> userLangMap = new HashMap<Integer, EntityUserLanguage>(); 
-			for(EntityUserLanguage entUserLanguage : entUser.getUserLanguages()){
-				userLangMap.put(entUserLanguage.getLanguage().getId(), entUserLanguage);
-			}
-			for(EntityUserLanguage entUserLanguage : userLangMap.values()){
-				user.getUserLanguages().add(
-						(UserLanguage) HallocasaConvert.toValueObject(entUserLanguage));
-			}
-		}
+	}
+
+	@Override
+	public void transform(HallocasaEntity ent, ValueObject vo) {
+		User user = (User) vo;
+		EntityUser entUser = (EntityUser) ent;
 		
 		boolean mainSpokenLanguage = user.getMainSpokenLanguage() != null;
 		if(mainSpokenLanguage && user.getUserLanguages() == null){
