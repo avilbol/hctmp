@@ -1,17 +1,27 @@
 <ng-form name="telephoneForm">
-  <md-input-container flex="35">
+  <md-input-container flex="50" style="margin-top: 0;top: -3px;">
     <label>{{label}}</label>
-    <input name="extension" ng-model="ngModel.telephonePrefix" aria-label="telephone indicative" type="number" ng-required="isRequired || validTelephone">
-    <div ng-messages="telephoneForm.extension.$error" ng-if="telephoneForm.extension.$touched || telephoneForm.number.$touched">
-      <div ng-message="required" ng-if="isRequired">
-        {{'constraints.NotEmpty' | translate}}
-      </div>
-      <div ng-message="required" ng-if="validTelephone">
-        Debe ser un número de teléfono válido
-      </div>
-    </div>
+    <md-select
+      ng-model="ngModel.telephonePrefix"
+      md-on-close="clearSearchTerm()"
+      ng-model-options="{trackBy: '$value.id'}"
+      data-md-container-class="searchSelectHeader"
+    >
+      <md-select-header class="search-select-header">
+        <input ng-model="searchTerm"
+               type="search"
+               placeholder="Search for a prefix..."
+               class="search-header-searchbox md-text">
+      </md-select-header>
+      <md-optgroup label="{{label}}">
+        <md-option ng-value="prefixItem" ng-repeat="prefixItem in prefixList | filter:searchTerm">{{prefixItem.prefix}} - {{prefixItem.lang | translate}}</md-option>
+      </md-optgroup>
+    </md-select>
   </md-input-container>
-  <md-input-container flex="55">
+
+
+
+  <md-input-container flex="45">
     <input name="number" ng-model="ngModel.telephoneNumber" aria-label="telephone" type="number" ng-required="isRequired || validTelephone">
     <div ng-messages="telephoneForm.number.$error" ng-if="telephoneForm.extension.$touched || telephoneForm.number.$touched">
       <div ng-message="required" ng-if="isRequired">

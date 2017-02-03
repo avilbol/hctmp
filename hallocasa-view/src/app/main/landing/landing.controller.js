@@ -6,13 +6,20 @@
     .controller('LandingController', LandingController);
 
   /** @ngInject */
-  function LandingController(ProfilesService, PropertyService, ImageValidatorService, $location) {
+  function LandingController(ProfilesService, PropertyService, ImageValidatorService, user_images_url) {
     var vm = this;
-
-    vm.viewProperty = viewProperty;
 
     ProfilesService.loadPublicProfile()
       .then(function (profiles) {
+
+        profiles = _.map(profiles, function (profile) {
+          ImageValidatorService.validateOrFallback(user_images_url + profile.imageLink, "UserDefault")
+            .then(function (image) {
+              profile.userImage = image;
+            });
+          return profile;
+        });
+
         vm.profiles = profiles;
       });
 
@@ -29,11 +36,6 @@
 
         vm.properties = properties;
       });
-
-    function viewProperty(id) {
-      $location.url("/property");
-      $location.search('id', id);
-    }
 
   }
 })();

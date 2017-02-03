@@ -63,9 +63,9 @@
                   <i class="fa fa-skype" aria-hidden="true"></i>
                 </a>
               </div>
-              <div layout="row" ng-if="vm.userData.profile.telephonePrefix">
+              <div layout="row" ng-if="vm.userData.profile.telephonePrefix.prefix">
                 <b>{{'Profile.Data.Telephone.Label' | translate}}:&nbsp;</b>
-                ({{vm.userData.profile.telephonePrefix}}) {{vm.userData.profile.telephoneNumber}}
+                ({{vm.userData.profile.telephonePrefix.prefix}}) {{vm.userData.profile.telephoneNumber}}
               </div>
             </div>
           </div>

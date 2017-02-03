@@ -6,25 +6,42 @@
         <md-card-title layout="row" layout-align="center center">
           <md-card-title-media>
             <div class="md-media-lg card-media">
-              <img ng-src="{{vm.validateImage('assets/images/user_avatar/' + vm.userData.profile.avatarURL) || 'assets/images/user_avatar/user0.jpg'}}" alt="{{ vm.userData.name }}">
+              <img
+                ng-src="{{vm.userData.profile.image}}"
+                alt="{{ vm.profile.firstName }}"
+                spinkit-image-preloader='cube-grid-spinner'
+              >
             </div>
           </md-card-title-media>
           <md-card-title-text hide-xs>
-            <span class="md-headline">{{vm.userData.profile.name}} {{vm.userData.profile.lastName}}</span>
+            <span class="md-headline">{{vm.userData.profile.firstName}} {{vm.userData.profile.lastName}}</span>
             <div layout="row" layout-align="start center">
-              <md-button class="md-icon-button md-primary" aria-label="social" ng-href="{{vm.userData.profile.linkedin}}" ng-if="vm.userData.profile.linkedin">
+              <md-button class="md-icon-button md-primary" aria-label="social" ng-href="{{vm.userData.profile.linkedIn}}" ng-if="vm.userData.profile.linkedIn">
                 <i class="fa fa-linkedin" aria-hidden="true"></i>
               </md-button>
-              <a ng-if="vm.userData.profile.website" ng-href="{{vm.userData.profile.website}}">
+              <a ng-if="vm.userData.profile.webSite" ng-href="{{vm.userData.profile.webSite}}">
                 {{'Profile.Data.Website.Label' | translate}}
               </a>
             </div>
             <div layout="row" layout-align="space-between">
               <div class="md-subhead" layout="column">
-                <item-list tablet-items="2" desktop-items="3" list="vm.userData.profile.languages" display="column"></item-list>
+                <item-list
+                  tablet-items="2"
+                  desktop-items="3"
+                  display="column"
+                  list="vm.userData.profile.userLanguages"
+                  label-attribute="'language.name'"
+                ></item-list>
               </div>
               <div class="md-subhead" layout="column">
-                <item-list tablet-items="2" desktop-items="3" list="vm.userData.profile.services" display="column"></item-list>
+                <item-list
+                  tablet-items="2"
+                  desktop-items="3"
+                  display="column"
+                  list="vm.userData.profile.userTypes"
+                  label-attribute="'lang'"
+                  translate-label="true"
+                ></item-list>
               </div>
               <span flex-gt-sm="50" flex-gt-xs="30" flex-xs="0"></span>
             </div>
@@ -32,19 +49,32 @@
         </md-card-title>
         <md-card-content>
           <div hide-gt-xs>
-            <span class="md-headline">{{vm.userData.profile.name}} {{vm.userData.profile.lastName}}</span>
+            <span class="md-headline">{{vm.userData.profile.firstName}} {{vm.userData.profile.lastName}}</span>
             <div layout="row" layout-align="start center">
-              <md-button class="md-icon-button md-primary" aria-label="social" ng-href="{{vm.userData.profile.linkedin}}">
+              <md-button class="md-icon-button md-primary" aria-label="social" ng-href="{{vm.userData.profile.linkedIn}}" ng-if="vm.userData.profile.linkedIn">
                 <i class="fa fa-linkedin" aria-hidden="true"></i>
               </md-button>
-              <a ng-href="{{vm.userData.profile.website}}">{{vm.userData.profile.website}}</a>
+              <a ng-if="vm.userData.profile.webSite" ng-href="{{vm.userData.profile.website}}">{{vm.userData.profile.website}}</a>
             </div>
             <div layout="row" layout-align="space-between">
               <div class="md-subhead" layout="column">
-                <item-list tablet-items="2" desktop-items="3" list="vm.userData.profile.languages" display="column"></item-list>
+                <item-list
+                  tablet-items="2"
+                  desktop-items="3"
+                  display="column"
+                  list="vm.userData.profile.userLanguages"
+                  label-attribute="'language.name'"
+                ></item-list>
               </div>
               <div class="md-subhead" layout="column">
-                <item-list tablet-items="2" desktop-items="3" list="vm.userData.profile.services" display="column"></item-list>
+                <item-list
+                  tablet-items="2"
+                  desktop-items="3"
+                  display="column"
+                  list="vm.userData.profile.userTypes"
+                  label-attribute="'lang'"
+                  translate-label="true"
+                ></item-list>
               </div>
               <span flex-gt-sm="50" flex-gt-xs="30" flex-xs="0"></span>
             </div>
@@ -52,13 +82,13 @@
           <br>
           <div layout-gt-sm="row" layout-gt-xs="column" layout-xs="column">
             <div layout="column" flex-gt-sm="20" flex-gt-xs="100" flex-xs="100">
-              <b>{{'Profile.Data.Country.Label' | translate}}: </b> {{vm.countries | idSearch: vm.userData.profile.country: 'name'}}
-              <b>{{'Profile.Data.State.Label' | translate}}: </b> {{vm.states | idSearch: vm.userData.profile.state: 'name'}}
-              <b>{{'Profile.Data.City.Label' | translate}}: </b> {{vm.cities | idSearch: vm.userData.profile.city: 'name'}}
+              <b>{{'Profile.Data.Country.Label' | translate}}: </b> {{vm.userData.profile.country.name | unicode}}
+              <b>{{'Profile.Data.State.Label' | translate}}: </b> {{vm.userData.profile.state.name | unicode}}
+              <b>{{'Profile.Data.City.Label' | translate}}: </b> {{vm.userData.profile.city.name | unicode}}
               <br>
-              <div layout="column" ng-if="vm.userData.profile.telephone.extension">
+              <div layout="column" ng-if="vm.userData.profile.telephonePrefix.prefix">
                 <b>{{'Profile.Data.Telephone.Label' | translate}}</b>
-                ({{vm.userData.profile.telephone.extension}}) {{vm.userData.profile.telephone.number}}
+                ({{vm.userData.profile.telephonePrefix.prefix}}) {{vm.userData.profile.telephoneNumber}}
               </div>
               <div layout="row" layout-align="start center" ng-if="vm.userData.profile.skype">
                 <div layout="column">
@@ -71,16 +101,23 @@
               </div>
             </div>
             <div layout="column" flex>
-              <v-accordion class="vAccordion--default">
-                <v-pane ng-repeat="language in vm.userData.profile.languages">
-                  <v-pane-header>
-                    {{'Profile.Data.Description.Label' | translate}} ({{language}})
-                  </v-pane-header>
-                  <v-pane-content>
-                    {{vm.userData.profile.description[language]}}
-                  </v-pane-content>
-                </v-pane>
-              </v-accordion>
+              <div>
+                <div layout="row">
+                  <b>{{'Profile.Data.Languages.MainLanguage.Label' | translate}}:&nbsp;</b>
+                  {{vm.userData.profile.mainLanguage | unicode}}
+                </div>
+                <br>
+                <v-accordion class="vAccordion--default">
+                  <v-pane ng-repeat="description in vm.userData.profile.userDescriptions track by $index">
+                    <v-pane-header>
+                      {{'Profile.Data.Description.Label' | translate}} ({{description.language.name | unicode}})
+                    </v-pane-header>
+                    <v-pane-content>
+                      {{description.value | unicode}}
+                    </v-pane-content>
+                  </v-pane>
+                </v-accordion>
+              </div>
             </div>
           </div>
 

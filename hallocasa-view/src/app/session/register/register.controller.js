@@ -5,7 +5,7 @@
 		.module('HalloCasa.session')
 		.controller('RegisterController', RegisterController);
 
-	function RegisterController(RegisterService, toastr, $mdDialog, $log, LocaleService, LOCALES, $translate) {
+	function RegisterController(RegisterService, toastr, $mdDialog, LocaleService, LOCALES) {
 		var vm = this;
 		vm.userData = {};
 		vm.register = register;

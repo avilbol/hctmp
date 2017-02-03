@@ -846,5 +846,13 @@
   "hallocasa.telephoneprefix.georgia": "Georgia",
   "hallocasa.telephoneprefix.kyrgyzstan": "Kirgisistan",
   "hallocasa.telephoneprefix.uzbekistan": "Usbekistan",
-  "hallocasa.currency.colombianpeso": "Kolumbianischer Peso"
+  "hallocasa.currency.colombianpeso": "Kolumbianischer Peso",
+
+  "hallocasa.usertype.broker.pending": "-- Pending translation --",
+  "hallocasa.usertype.notary.pending": "-- Pending translation --",
+  "hallocasa.usertype.appraiser.pending": "-- Pending translation --",
+  "hallocasa.usertype.translator.pending": "-- Pending translation --",
+  "hallocasa.usertype.administrator.pending": "-- Pending translation --",
+  "hallocasa.usertype.expert.pending": "-- Pending translation --",
+  "hallocasa.usertype.lawyer.pending": "-- Pending translation --"
 }

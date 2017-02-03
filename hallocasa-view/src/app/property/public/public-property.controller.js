@@ -6,9 +6,8 @@
     .controller('PublicPropertyController', PublicPropertyController);
 
   /** @ngInject */
-  function PublicPropertyController(PropertyService, ImageValidatorService, $location, $mdSidenav) {
+  function PublicPropertyController(PropertyService, ImageValidatorService, $mdSidenav) {
     var vm = this;
-    vm.viewProperty = viewProperty;
     vm.loadPropertiesPage = loadPropertiesPage;
     vm.toggleFilters = toggleFilters;
 
@@ -37,11 +36,6 @@
           vm.totalProperties = data.totalProperties;
           vm.firstLoading = false;
         });
-    }
-
-    function viewProperty(id) {
-      $location.url("/property");
-      $location.search('id', id);
     }
 
     function toggleFilters() {

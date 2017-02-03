@@ -853,5 +853,13 @@
   "hallocasa.currency.canadiandollar": "Canadian Dollar",
   "hallocasa.currency.britishpound": "British Pound",
   "hallocasa.currency.swissfranc": "Swiss Franc",
-  "hallocasa.currency.australiandollar": "Australian Dollar"
+  "hallocasa.currency.australiandollar": "Australian Dollar",
+
+  "hallocasa.usertype.broker.pending": "Broker",
+  "hallocasa.usertype.notary.pending": "Notary",
+  "hallocasa.usertype.appraiser.pending": "Appraiser",
+  "hallocasa.usertype.translator.pending": "Translator",
+  "hallocasa.usertype.administrator.pending": "Administrator",
+  "hallocasa.usertype.expert.pending": "Expert",
+  "hallocasa.usertype.lawyer.pending": "Lawyer"
 }

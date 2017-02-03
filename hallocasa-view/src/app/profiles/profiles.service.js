@@ -46,7 +46,9 @@
 
     function loadPublicProfiles(start, finish) {
       $log.log("Cargar rango de perfiles: ("+start+" - "+finish+")");
-      return resources.profilePublic.consult().$promise;
+      return resources.profilePublic.consult({
+        "userNumber": 7
+      }).$promise;
     }
   }
 })();

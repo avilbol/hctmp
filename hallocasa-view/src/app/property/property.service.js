@@ -26,7 +26,7 @@
 
       property: $resource(backend_url + "properties", {}, GenericRESTResource),
 
-      properties: $resource("/mocks/property/properties.json", {}, GenericRESTResource),
+      properties: $resource(backend_url + "properties/fetch_random", {}, GenericRESTResource),
       propertiesPublic: $resource("/mocks/property/publicProperties.json", {}, GenericRESTResource),
       propertyLoad: $resource("/mocks/property/loadProperty.json", {}, GenericRESTResource)
     };
@@ -51,7 +51,7 @@
     }
 
     function loadProperties() {
-      return resources.properties.query().$promise;
+      return resources.properties.consult({"property_number": 10}).$promise;
     }
 
     function loadProperty(profileID) {

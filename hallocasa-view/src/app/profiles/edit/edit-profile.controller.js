@@ -45,6 +45,7 @@
       data.profile  = angular.isObject(data.profile) ? data.profile : {};
       data.profile.userTypes  = angular.isArray(data.profile.userTypes) ? data.profile.userTypes : [];
       data.profile.userDescriptions  = angular.isArray(data.profile.userDescriptions) ? data.profile.userDescriptions : [];
+      data.profile.telephoneNumber = data.profile.telephoneNumber ? Number(data.profile.telephoneNumber) : undefined;
       var mainLanguage = _.find(data.profile.userLanguages, function (languages) {return languages.isMainLanguage});
       vm.languageId = mainLanguage ? mainLanguage.language.id : undefined;
       data.profile.userLanguages  = data.profile.userDescriptions;

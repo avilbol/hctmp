@@ -6,7 +6,7 @@
     .controller('ViewProfileController', ViewProfileController);
 
   /** @ngInject */
-  function ViewProfileController(ProfilesService, $location, ImageValidatorService, LocationService, toastr) {
+  function ViewProfileController(ProfilesService, $location, ImageValidatorService, toastr, user_images_url) {
     var vm = this;
 
     vm.validateImage = ImageValidatorService.validateBase64;
@@ -18,50 +18,39 @@
       }
       else{
         ProfilesService.loadProfile(profileID)
-          .then(function (userData) {
-            vm.userData = userData;
-            loadStates();
-            loadCities();
+          .then(function (data) {
+            data = validateUserData(data);
+            vm.userData = data;
+          })
+          .catch(function () {
+            //TODO: Traducción del mensaje de error
+            toastr.error("No se ha podido encontrar el usuario");
+            $location.url("/profile/browser");
           });
       }
     }
 
-    function loadCities() {
-      var id = vm.userData.profile.state;
-      LocationService.getCityByID(id)
-        .then(function (cities) {
-          vm.cities = cities;
-        })
-        .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar ciudades");
-        });
-    }
+    function validateUserData(data) {
+      data.profile  = angular.isObject(data.profile) ? data.profile : {};
+      data.profile.userTypes  = angular.isArray(data.profile.userTypes) ? data.profile.userTypes : [];
+      data.profile.userLanguages  = angular.isArray(data.profile.userLanguages) ? data.profile.userLanguages : [];
+      data.profile.userDescriptions  = angular.isArray(data.profile.userDescriptions) ? data.profile.userDescriptions : [];
+      var mainLanguage = _.find(data.profile.userLanguages, _.property("isMainLanguage"));
+      data.profile.mainLanguage = mainLanguage ? mainLanguage.language.name : undefined;
 
-    function loadCountries() {
-      LocationService.getCountries()
-        .then(function (countries) {
-          vm.countries = countries;
-        })
-        .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar países");
+      ImageValidatorService.validateOrFallback(user_images_url + data.profile.imageLink, "UserDefault")
+        .then(function (image) {
+          data.profile.image = image;
         });
-    }
-
-    function loadStates() {
-      var id = vm.userData.profile.country;
-      LocationService.getStateByID(id)
-        .then(function (states) {
-          vm.states = states;
-        })
-        .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar Estados");
-        });
+      data.properties  = angular.isArray(data.properties) ? data.properties : [];
+      data.properties = _.map(data.properties, function (property) {
+        property.images = angular.isArray(property.images) ? property.images : [];
+        property.images[0] = ImageValidatorService.validateOrFallback(property.images[0], "PropertyDefault");
+        return property;
+      });
+      return data;
     }
 
     loadProfile();
-    loadCountries();
   }
 })();

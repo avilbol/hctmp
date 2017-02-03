@@ -7,7 +7,6 @@
 
   /** @ngInject */
   function UserActivationController(SessionService, $mdDialog, toastr, $route, $location) {
-    var vm = this;
 
     function activateUser() {
       var email = $route.current.params["email"];
