@@ -30,8 +30,10 @@
           data = validateUserData(data);
           vm.userData = data;
           vm.profileForm = data.profile;
-          loadStates();
-          loadCities();
+          if(vm.profileForm.country){
+            loadStates();
+            loadCities();
+          }
           setMainLanguage();
         })
         .catch(function () {
