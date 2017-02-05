@@ -16,7 +16,8 @@
       sendRecoveryPassword: sendRecoveryPassword,
       activateUser: activateUser,
       validateToken: validateToken,
-      getCurrentUser: getCurrentUser
+      getCurrentUser: getCurrentUser,
+      launchLoginDialog: launchLoginDialog
     };
 
     var currentUser;
@@ -75,6 +76,9 @@
     }
 
     function logout() {
+      if(!$auth.isAuthenticated()){
+        return {};
+      }
       clearCurrentUser();
       $auth.logout();
       $intercom.shutdown();
@@ -118,6 +122,24 @@
 
     function activateUser(email, activationKey) {
       return resource.activateUser.show({"email": email, "activation_key": activationKey}).$promise;
+    }
+
+    function launchLoginDialog(options) {
+      options = options ? options : {};
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+      return $mdDialog.show({
+        controller: "LoginController",
+        controllerAs: "vm",
+        templateUrl: 'app/session/login/login.html',
+        parent: $document.body,
+        locals: {
+          description: options.description,
+          allowClose: options.allowClose
+        },
+        targetEvent: options.targetEvent,
+        clickOutsideToClose: options.clickOutsideToClose,
+        fullscreen: useFullScreen
+      });
     }
 
   }

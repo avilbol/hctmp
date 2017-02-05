@@ -50,20 +50,12 @@
     }
 
     function launchLoginDialog(ev) {
-      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
-      $mdDialog.show({
-        controller: "LoginController",
-        controllerAs: "vm",
-        templateUrl: 'app/session/login/login.html',
-        parent: $document.body,
-        locals: {
-          description: "",
-          allowClose: true
-        },
+      var options = {
+        allowClose: true,
         targetEvent: ev,
-        clickOutsideToClose:true,
-        fullscreen: useFullScreen
-      });
+        clickOutsideToClose: true
+      };
+      SessionService.launchLoginDialog(options);
     }
 
     function launchPasswordRecoveryDialog() {

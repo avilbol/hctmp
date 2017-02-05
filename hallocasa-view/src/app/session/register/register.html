@@ -26,7 +26,8 @@
           <ng-messages-generator
             form="loginForm"
             input-name="password"
-            validators="enterPassword"
+            validators="enterPassword, passwordMatch"
+            password-to-match="{'firstPassword': vm.userData.password, 'secondPassword': vm.userData.confPassword}"
           ></ng-messages-generator>
         </md-input-container>
         <md-input-container  class="md-block">
@@ -35,7 +36,8 @@
           <ng-messages-generator
             form="loginForm"
             input-name="confPassword"
-            validators="confirmPassword"
+            validators="enterPassword, passwordMatch"
+            password-to-match="{'firstPassword': vm.userData.password, 'secondPassword': vm.userData.confPassword}"
           ></ng-messages-generator>
         </md-input-container>
 

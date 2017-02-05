@@ -22,12 +22,13 @@
           closeDialog();
 				})
 				.catch(function(error){
-					if(error.status === 403){
-						toastr.error('Nombre de usuario o contraseña incorrectas!', 'Error!');
-					}
-					else{
-						toastr.error('Hubo un error al intentar acceder a su cuenta!', 'Error!');
-					}
+          if(error.status === 409){
+            //TODO: traducción del mensaje de error
+            toastr.error('El correo ingresado ya se encuentra asociado a una cuenta existente!', 'Error!');
+          }
+          else{
+            toastr.error('Hubo un error al intentar acceder a su cuenta!', 'Error!');
+          }
 				});
 		}
 
@@ -55,7 +56,13 @@
     }
 
     function closeDialog() {
-      $mdDialog.cancel();
+      if(vm.showTermsText){
+        closeTerms();
+      }
+      else {
+        $mdDialog.cancel();
+      }
+
     }
 	}
 })();

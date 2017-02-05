@@ -10,7 +10,9 @@
                   localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider,
                   $mdThemingProvider, uiGmapGoogleMapApiProvider, $intercomProvider, INTERCOM_APPID) {
 
+    //Inject interceptors
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
+    $httpProvider.interceptors.push('TokenUnauthorizedInterceptor');
 
     // Pagination template
     paginationTemplateProvider.setPath('app/global/pagination/pagination.html');

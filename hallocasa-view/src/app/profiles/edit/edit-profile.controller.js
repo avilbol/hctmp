@@ -36,7 +36,7 @@
         })
         .catch(function () {
           //TODO: Traducción de mensaje de error
-          toastr.warning("Error al datos del perfil");
+          toastr.warning("Hubo un error al cargar los datos de su perfil, intentelo más tarde");
           goBack();
         })
     }

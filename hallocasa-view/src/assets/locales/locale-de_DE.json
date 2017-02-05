@@ -848,11 +848,11 @@
   "hallocasa.telephoneprefix.uzbekistan": "Usbekistan",
   "hallocasa.currency.colombianpeso": "Kolumbianischer Peso",
 
-  "hallocasa.usertype.broker.pending": "-- Pending translation --",
-  "hallocasa.usertype.notary.pending": "-- Pending translation --",
-  "hallocasa.usertype.appraiser.pending": "-- Pending translation --",
-  "hallocasa.usertype.translator.pending": "-- Pending translation --",
-  "hallocasa.usertype.administrator.pending": "-- Pending translation --",
-  "hallocasa.usertype.expert.pending": "-- Pending translation --",
-  "hallocasa.usertype.lawyer.pending": "-- Pending translation --"
+  "hallocasa.usertype.broker.pending": "Makler",
+  "hallocasa.usertype.notary.pending": "Notar",
+  "hallocasa.usertype.appraiser.pending": "Gutachter",
+  "hallocasa.usertype.translator.pending": "Übersetzer",
+  "hallocasa.usertype.administrator.pending": "Verwalter",
+  "hallocasa.usertype.expert.pending": "Experte",
+  "hallocasa.usertype.lawyer.pending": "Anwalt"
 }
