@@ -15,12 +15,6 @@
         <md-button ng-click="MainCtrl.goTo('/profile/browser')">
           {{'Common.Label.BrowseProfiles' | translate}}
         </md-button>
-        <md-button ng-click="MainCtrl.blogRedirection('blog')">
-          {{'Common.Label.Blog' | translate}}
-        </md-button>
-        <md-button ng-click="MainCtrl.blogRedirection('buyProcess')">
-          {{'BuyProcessPage.Menu.Label.Content' | translate}}
-        </md-button>
         <md-button ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
           {{'Header.Login.Button' | translate}}
         </md-button>
@@ -69,17 +63,11 @@
         <md-list-item md-ink-ripple ng-click="MainCtrl.goTo('/profile/browser', true)">
           <p> {{'Common.Label.BrowseProfiles' | translate}}</p>
         </md-list-item>
-        <md-list-item md-ink-ripple ng-click="MainCtrl.blogRedirection('blog')">
-          <p> {{'Common.Label.Blog' | translate}}</p>
-        </md-list-item>
-        <md-list-item md-ink-ripple ng-click="MainCtrl.blogRedirection('buyProcess')">
-          <p> {{'BuyProcessPage.Menu.Label.Content' | translate}}</p>
-        </md-list-item>
         <md-list-item md-ink-ripple ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
           <p> {{'Header.Login.Button' | translate}}</p>
         </md-list-item>
         <md-list-item>
-          <md-button flex class="md-raised" ng-if="!MainCtrl.isAuthenticated()">
+          <md-button flex class="md-raised" ng-click="MainCtrl.launchRegisterDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
             {{'Header.SignUp.Button' | translate}}
           </md-button>
         </md-list-item>
@@ -101,11 +89,11 @@
               </md-menu-item>
             </md-menu-content>
           </md-menu>
-          <md-list-item ng-translate-language-select>
-          </md-list-item>
-          <md-list-item currency-select>
-          </md-list-item>
         </div>
+        <md-list-item ng-translate-language-select>
+        </md-list-item>
+        <md-list-item currency-select>
+        </md-list-item>
       </md-list>
     </md-content>
   </md-sidenav>
@@ -152,8 +140,11 @@
             </md-button>
           </div>
           <div layout="row" layout-align="end center" layout-align-sm="center center" layout-align-xs="center center">
-            <md-button aria-label="go up">
-              Contáctenos
+            <md-button ng-click="MainCtrl.blogRedirection('blog')">
+              {{'Common.Label.Blog' | translate}}
+            </md-button>
+            <md-button ng-click="MainCtrl.blogRedirection('buyProcess')">
+              {{'BuyProcessPage.Menu.Label.Content' | translate}}
             </md-button>
           </div>
         </div>

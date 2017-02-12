@@ -9,7 +9,6 @@
   function SessionService($mdMedia, $mdDialog, $document, $auth, $q, GenericRESTResource, backend_url ,$resource,
                           ApplicationCredentials, localStorageService, $intercom, WootricService) {
     var service = {
-      validateActiveSession: validateActiveSession,
       login: login,
       logout: logout,
       sendRecoveryRequest: sendRecoveryRequest,
@@ -30,24 +29,6 @@
     };
 
     return service;
-
-    function validateActiveSession(message) {
-      if(!$auth.isAuthenticated()){
-        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
-        return $mdDialog.show({
-          controller: "LoginController",
-          controllerAs: "vm",
-          templateUrl: 'app/session/login/login.html',
-          parent: $document.body,
-          locals: {
-            description: message,
-            allowClose: false
-          },
-          clickOutsideToClose:false,
-          fullscreen: useFullScreen
-        })
-      }
-    }
 
     function login(userCredentials) {
       return $q(function (resolve, reject) {

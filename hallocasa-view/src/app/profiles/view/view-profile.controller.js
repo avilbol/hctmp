@@ -22,9 +22,18 @@
             data = validateUserData(data);
             vm.userData = data;
           })
-          .catch(function () {
-            //TODO: Traducción del mensaje de error
-            toastr.error("No se ha podido encontrar el usuario");
+          .catch(function (error) {
+            if(error.status === 404){
+              //TODO: Traducción del mensaje de error
+              toastr.error("No se ha podido encontrar el usuario");
+
+            }
+            if(error.status === 500){
+              //TODO: Traducción del mensaje de error
+              toastr.error("Hubo un error al intentar cargar el usuario");
+
+            }
+
             $location.url("/profile/browser");
           });
       }

@@ -21,6 +21,20 @@
         PropertyService.loadProperty(propertyID)
           .then(function (property) {
             vm.property = property;
+          })
+          .catch(function (error) {
+            if(error.status === 404){
+              //TODO: Traducción del mensaje de error
+              toastr.error("No se ha podido encontrar la propiedad");
+
+            }
+            if(error.status === 500){
+              //TODO: Traducción del mensaje de error
+              toastr.error("Hubo un error al intentar cargar la propiedad");
+
+            }
+
+            $location.url("/property/browser");
           });
       }
     }

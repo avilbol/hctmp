@@ -13,11 +13,11 @@
       <md-content class="md-padding" ng-if="!vm.showTermsText">
         <md-input-container  class="md-block">
           <label>{{'SignUp.Form.Email' | translate}}</label>
-          <input name="email" ng-model="vm.userData.email" type="text" ng-required="true">
+          <input name="email" ng-model="vm.userData.email" type="email" ng-required="true">
           <ng-messages-generator
             form="loginForm"
             input-name="email"
-            validators="enterEmail"
+            validators="enterEmail, email"
           ></ng-messages-generator>
         </md-input-container>
         <md-input-container  class="md-block">
