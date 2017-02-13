@@ -72,9 +72,12 @@
 
     function loadFieldsData(){
       vm.propertyDeterminants = _.pick(vm.property, "propertyType", "propertyLocation", "propertyProposal", "country");
+      var propertyTypeGroup = vm.propertyDeterminants.propertyType.group.id;
       vm.formatedPropertyDeterminants = _.mapObject(vm.propertyDeterminants, function (val) { return {"id": val}; });
+      var payload = angular.copy(vm.formatedPropertyDeterminants);
+      payload.propertyType.id = propertyTypeGroup;
 
-      return PropertyService.loadFieldsData(vm.formatedPropertyDeterminants)
+      return PropertyService.loadFieldsData(payload)
         .then(function (fieldsData) {
           $log.debug(fieldsData);
           vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.fieldsRender.tabList);

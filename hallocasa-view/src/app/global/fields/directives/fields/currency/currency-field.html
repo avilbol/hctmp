@@ -5,7 +5,7 @@
     <input
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
-      ng-model="fieldInformation.fieldValueList[0].data1.doubleVal"
+      ng-model="fieldInformation.fieldValueList[0].data2.doubleVal"
       type="number"
       ng-required="required"
     >
@@ -20,10 +20,10 @@
     <md-select
       name="{{fieldInformation.name}}"
       title="{{fieldInformation.lang | translate}}"
-      ng-model="fieldInformation.fieldValueList[0].data2.intVal"
+      ng-model="fieldInformation.fieldValueList[0].data1.intVal"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldInformation.name}}"
-      ng-required="required || fieldInformation.fieldValueList[0].data1.doubleVal > 0"
+      ng-required="required || fieldInformation.fieldValueList[0].data2.doubleVal > 0"
     >
       <md-option ng-repeat="option in options" value="{{option.id}}">
         {{option.abbreviation}}
