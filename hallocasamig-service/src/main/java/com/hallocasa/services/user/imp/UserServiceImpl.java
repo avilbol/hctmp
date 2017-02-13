@@ -23,6 +23,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 
+import org.apache.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -38,6 +39,7 @@ import com.hallocasa.services.user.UserService;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
 import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.utils.constants.exceptions.SecurityException;
+import com.hallocasa.utils.constants.exceptions.ServiceException;
 import com.hallocasa.utils.constants.parsing.HallocasaConvert;
 import com.hallocasa.utils.security.CodecUtils;
 import com.hallocasa.vo.User;
@@ -69,7 +71,8 @@ public class UserServiceImpl implements UserService {
 	public User find(String email) {
 		Optional<EntityUser> entUser = daoUser.find(email);
 		if(!entUser.isPresent()){
-			return new User();
+			throw new ServiceException("The user with specified email cannot be found",
+					HttpStatus.SC_NOT_FOUND);
 		}
 		return (User) toValueObject(entUser.get());
 	}
@@ -91,7 +94,8 @@ public class UserServiceImpl implements UserService {
 	public User find(long id) {
 		Optional<EntityUser> entUser = daoUser.find(id);
 		if(!entUser.isPresent()){
-			return new User();
+			throw new ServiceException("The user with specified id cannot be found",
+					HttpStatus.SC_NOT_FOUND);
 		}
 		LOG.debug("entity user descriptions size: " + 
 				entUser.get().getUserDescriptions().size());

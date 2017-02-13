@@ -33,12 +33,10 @@ import org.apache.oltu.oauth2.common.utils.OAuthUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 
-import com.hallocasa.rs.response.ExceptionResponse;
 import com.hallocasa.services.security.AuthenticationService;
 import com.hallocasa.services.security.AuthorizationCodeService;
 import com.hallocasa.utils.constants.exceptions.FatalException;
-import com.hallocasa.utils.constants.exceptions.InvalidEmailException;
-import com.hallocasa.utils.constants.exceptions.InvalidPasswordLoginException;
+import com.hallocasa.utils.constants.exceptions.SecurityException;
 import com.hallocasa.vo.security.AuthInfo;
 import com.hallocasa.vo.security.AuthorizationCode;
 import com.hallocasa.vo.security.UserCredentials;
@@ -50,17 +48,15 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-import com.hallocasa.utils.constants.exceptions.SecurityException;
-
 @Path("/security")
-@Api(value="/security", tags = "security")
+@Api(value = "/security", tags = "security")
 public class SecurityResource {
 
 	/**
 	 * Log de la clase.
 	 */
 	private static final Logger LOG = LogManager.getLogger(SecurityResource.class);
-	
+
 	@EJB
 	AuthorizationCodeService authCodeService;
 
@@ -100,77 +96,55 @@ public class SecurityResource {
 	@Path("/token")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	@ApiOperation( 
-		    value = "Intercambia el código de autorización, el usuario y la contraseña,"
-		    		+ "suministrados, por un token a través del cual, se podrá acceder "
-		    		+ "a los recursos privados de la aplicación", 
-		    notes = "Tener en cuenta que el token expira en 15 minutos, cuando "
-		    		+" ocurra, se debe volver a invocar este servicio con los "
-		    		+" parámetros anteriormente descritos"
-		)
-		@ApiResponses( {
-		    @ApiResponse( code = 401, message = "Si el usuario no está autorizado" ),
-		    @ApiResponse( code = 403, message = "Si el usuario se encuentra inactivo" ),
-		    @ApiResponse( code = 500, message = "Error interno del servidor" ),
-		    @ApiResponse( code = 200, message = "Recurso generado" )
-		})
-		@ApiImplicitParams({
-			@ApiImplicitParam(name = "client-id", value = "Id de aplicación", example="api-requester", required = true, dataType = "string", paramType = "form"),
-			@ApiImplicitParam(name = "client_secret", value = "Contraseña de aplicación (opcional)", defaultValue="12345", required = false, dataType = "string", paramType = "form"),
-			@ApiImplicitParam(name = "grant_type", value = "Tipo de autorización (opcional)", defaultValue="password", required = false, dataType = "string", paramType = "form"),
-		    @ApiImplicitParam(name = "code", value = "Código de autorización", example="hfjd542rRRFdfvjkv354657nfjfkd43", required = true, dataType = "string", paramType = "form"),
-		    @ApiImplicitParam(name = "email", value = "Email de usuario", required = false, dataType = "string", paramType = "form"),
-		    @ApiImplicitParam(name = "password", value = "Contraseña", required = true, dataType = "string", paramType = "form")
-		})
-	public Response loadToken(@FormParam("client-id") String clientId,
-			@FormParam("code") String code,
-			@FormParam("email") String email,
-			@FormParam("password") String password,
-			@FormParam("grant_type") String grantType,
-			@FormParam("client_secret") String clientSecret) throws URISyntaxException, OAuthSystemException,
-			JsonGenerationException, JsonMappingException, IOException {
+	@ApiOperation(value = "Intercambia el código de autorización, el usuario y la contraseña,"
+			+ "suministrados, por un token a través del cual, se podrá acceder "
+			+ "a los recursos privados de la aplicación", notes = "Tener en cuenta que el token expira en 15 minutos, cuando "
+					+ " ocurra, se debe volver a invocar este servicio con los "
+					+ " parámetros anteriormente descritos")
+	@ApiResponses({ @ApiResponse(code = 401, message = "Si el usuario no está autorizado"),
+			@ApiResponse(code = 403, message = "Si el usuario se encuentra inactivo"),
+			@ApiResponse(code = 500, message = "Error interno del servidor"),
+			@ApiResponse(code = 200, message = "Recurso generado") })
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "client-id", value = "Id de aplicación", example = "api-requester", required = true, dataType = "string", paramType = "form"),
+			@ApiImplicitParam(name = "client_secret", value = "Contraseña de aplicación (opcional)", defaultValue = "12345", required = false, dataType = "string", paramType = "form"),
+			@ApiImplicitParam(name = "grant_type", value = "Tipo de autorización (opcional)", defaultValue = "password", required = false, dataType = "string", paramType = "form"),
+			@ApiImplicitParam(name = "code", value = "Código de autorización", example = "hfjd542rRRFdfvjkv354657nfjfkd43", required = true, dataType = "string", paramType = "form"),
+			@ApiImplicitParam(name = "email", value = "Email de usuario", required = false, dataType = "string", paramType = "form"),
+			@ApiImplicitParam(name = "password", value = "Contraseña", required = true, dataType = "string", paramType = "form") })
+	public Response loadToken(@FormParam("client-id") String clientId, @FormParam("code") String code,
+			@FormParam("email") String email, @FormParam("password") String password,
+			@FormParam("grant_type") String grantType, @FormParam("client_secret") String clientSecret)
+					throws URISyntaxException, OAuthSystemException, JsonGenerationException, JsonMappingException,
+					IOException {
 		OAuthIssuer oauthIssuerImpl = new OAuthIssuerImpl(new MD5Generator());
 		oauthIssuerImpl.accessToken();
-		try {
-			LOG.debug("client-id:" + clientId);
-			LOG.debug("code:" + code);
-			LOG.debug("email:" + email);
-			LOG.debug("password:" + password);
-			LOG.debug("grant_type:" + grantType);
-			LOG.debug("client_secret:" + clientSecret);
-			if(clientId == null){
-				throw new SecurityException("The client id attribute has not been setted",
-						SecurityException.INVALID_AUTH_CODE);
-			}
-			if(code == null){
-				OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-						.setError(OAuthError.TokenResponse.INVALID_CLIENT)
-						.setErrorDescription("authorization code not supplied").buildJSONMessage();
-				return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
-			}
-			// check if client id and authorization code is valid
-			if (!authCodeService.find(clientId, code).isPresent()) {
-				OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
-						.setError(OAuthError.TokenResponse.INVALID_CLIENT)
-						.setErrorDescription("client_id or authorization code not found").buildJSONMessage();
-				return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
-			}
-			if(email == null){
-				throw new SecurityException("The email attribute has not been setted",
-						SecurityException.INVALID_AUTH_CODE);
-			}
-			if(password == null){
-				throw new SecurityException("The password attribute has not been setted",
-						SecurityException.INVALID_AUTH_CODE);
-			}
-			UserCredentials credentials = new UserCredentials(email, password);
-			AuthInfo authInfo = authenticationService.authenticate(credentials);
-			return Response.status(HttpStatus.SC_ACCEPTED).entity(authInfo).build();
-		} catch (InvalidEmailException e) {
-			return Response.status(HttpStatus.SC_UNAUTHORIZED)
-					.entity(ExceptionResponse.error(e)).build();
-		} catch (InvalidPasswordLoginException e) {
-			return Response.status(HttpStatus.SC_UNAUTHORIZED).entity(e).build();
+		if (clientId == null) {
+			throw new SecurityException("The client id attribute has not been setted",
+					SecurityException.INVALID_AUTH_CODE);
 		}
+		if (code == null) {
+			OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
+					.setError(OAuthError.TokenResponse.INVALID_CLIENT)
+					.setErrorDescription("authorization code not supplied").buildJSONMessage();
+			return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
+		}
+		// check if client id and authorization code is valid
+		if (!authCodeService.find(clientId, code).isPresent()) {
+			OAuthResponse response = OAuthASResponse.errorResponse(HttpServletResponse.SC_BAD_REQUEST)
+					.setError(OAuthError.TokenResponse.INVALID_CLIENT)
+					.setErrorDescription("client_id or authorization code not found").buildJSONMessage();
+			return Response.status(response.getResponseStatus()).entity(response.getBody()).build();
+		}
+		if (email == null) {
+			throw new SecurityException("The email attribute has not been setted", SecurityException.INVALID_AUTH_CODE);
+		}
+		if (password == null) {
+			throw new SecurityException("The password attribute has not been setted",
+					SecurityException.INVALID_AUTH_CODE);
+		}
+		UserCredentials credentials = new UserCredentials(email, password);
+		AuthInfo authInfo = authenticationService.authenticate(credentials);
+		return Response.status(HttpStatus.SC_ACCEPTED).entity(authInfo).build();
 	}
 }

@@ -33,6 +33,7 @@ public class HallocasaAppResourceConfig extends ResourceConfig {
 		LOG.info("Registrando exception mappers...");
 		// Exception mappers
 		register(com.hallocasa.rs.mapper.SecurityExceptionMapper.class);
+		register(com.hallocasa.rs.mapper.ServiceExceptionMapper.class);
 		register(com.hallocasa.rs.mapper.GenericExceptionMapper.class);
 		register(com.hallocasa.rs.mapper.BadRequestExceptionMapper.class);
 		LOG.info("Registrando features...");

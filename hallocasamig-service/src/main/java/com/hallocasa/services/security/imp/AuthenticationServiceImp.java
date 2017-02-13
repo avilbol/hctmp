@@ -19,13 +19,11 @@ import com.hallocasa.dao.i.IDAOUser;
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.services.security.AuthenticationService;
 import com.hallocasa.services.security.SecurityTokenService;
-import com.hallocasa.utils.constants.exceptions.InvalidEmailException;
-import com.hallocasa.utils.constants.exceptions.InvalidPasswordLoginException;
+import com.hallocasa.utils.constants.exceptions.SecurityException;
 import com.hallocasa.utils.security.CodecUtils;
 import com.hallocasa.vo.User;
 import com.hallocasa.vo.security.AuthInfo;
 import com.hallocasa.vo.security.UserCredentials;
-import com.hallocasa.utils.constants.exceptions.SecurityException;
 
 /**
  * @author avillamil
@@ -50,8 +48,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
 	}
 
 	@Override
-	public AuthInfo authenticate(UserCredentials credentials)
-			throws InvalidEmailException, InvalidPasswordLoginException, OAuthSystemException {
+	public AuthInfo authenticate(UserCredentials credentials) throws OAuthSystemException {
 		// search user
 		Optional<EntityUser> entUser = daoUser.find(credentials.getEmail());
 		if (!entUser.isPresent()) {
