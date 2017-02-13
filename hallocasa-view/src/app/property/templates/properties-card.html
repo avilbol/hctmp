@@ -1,29 +1,29 @@
-<md-card>
+<md-card class="property-card">
   <md-card-title layout="row" layout-align="space-between start">
     <md-card-title-media>
       <div class="md-media-lg card-media">
-        <img flex ng-src="{{property.images[0]}}" alt="{{ property.name }}" spinkit-image-preloader='cube-grid-spinner'>
+        <img flex ng-src="{{property.image}}" alt="{{ property.title.data2.strVal }}" spinkit-image-preloader='cube-grid-spinner'>
       </div>
       <span flex></span>
     </md-card-title-media>
     <md-card-title-text>
       <span class="md-headline">
-        <b>{{property.description[property.mainLanguage].title}}</b>
+        <b>{{property.description.data2.strVal}}</b>
       </span>
       <span class="md-subhead">
-        {{property.propertyType}}
+        {{property.type | translate}}
       </span>
       <span>
-        <b>{{property.value | dynamicCurrency}}</b>
+        <b>{{property.price | dynamicCurrency}}</b>
       </span>
       <span class="md-subhead">
-        {{property.meters}} m²
+        {{property.squareMeters}} m²
       </span>
     </md-card-title-text>
   </md-card-title>
   <md-card-content>
     <p>
-      {{property.description[property.mainLanguage].propertyDescription}}
+      {{property.description.data2.strVal}}
     </p>
   </md-card-content>
   <md-card-actions layout="row" layout-align="start center">

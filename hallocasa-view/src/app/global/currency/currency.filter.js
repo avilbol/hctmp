@@ -33,7 +33,17 @@
 
     return function(inputMoney) {
       var outputCurrency = CurrencyService.getCurrentCurrency();
-      return exchange ? calculateExchange(inputMoney, outputCurrency) : "...";
+      if(exchange){
+        try{
+          return calculateExchange(inputMoney, outputCurrency);
+        }
+        catch(err){
+          return "...";
+        }
+      }
+      else{
+        return "...";
+      }
     }
   }
 })();

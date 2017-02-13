@@ -13,6 +13,7 @@
       loadPublicProperties: loadPublicProperties,
       loadProperty: loadProperty,
       loadProperties: loadProperties,
+      loadPropertiesByUserID: loadPropertiesByUserID,
       loadFieldsData: loadFieldsData,
       saveProperty: saveProperty
     };
@@ -23,11 +24,12 @@
       propertyProposals: $resource(backend_url + "property_proposals", {}, GenericRESTResource),
       propertyTypes: $resource(backend_url + "property_types", {}, GenericRESTResource),
       fieldsRender: $resource("/app/property/property-fields/render-data/fields_render.json", {}, GenericRESTResource),
+      propertiesByUser: $resource(backend_url + "properties/by_user/:id", {}, GenericRESTResource),
 
       property: $resource(backend_url + "properties", {}, GenericRESTResource),
 
-      properties: $resource(backend_url + "properties/fetch_random", {}, GenericRESTResource),
-      propertiesPublic: $resource("/mocks/property/publicProperties.json", {}, GenericRESTResource),
+      properties: $resource(backend_url + "properties/fetch_random/:property_number", {}, GenericRESTResource),
+      propertiesPublic: $resource(backend_url + "properties/search", {}, GenericRESTResource),
       propertyLoad: $resource("/mocks/property/loadProperty.json", {}, GenericRESTResource)
     };
 
@@ -47,7 +49,17 @@
 
     function loadPublicProperties(start, finish) {
       $log.log("Cargar rango de propiedades: ("+start+" - "+finish+")");
-      return resources.propertiesPublic.get().$promise;
+      var filter = {
+        filterList: [],
+        resultRequest:{
+          pageFrom: start+1,
+          pageTo: finish+1,
+          orderByMostRecent: false,
+          orderByLessRecent: false,
+          loadCount: false
+        }
+      };
+      return resources.propertiesPublic.consult(filter).$promise;
     }
 
     function loadProperties() {
@@ -71,6 +83,10 @@
 
     function saveProperty(propertyData) {
       return resources.property.create(propertyData).$promise;
+    }
+
+    function loadPropertiesByUserID(UserID) {
+      return resources.propertiesByUser.query({id: UserID}).$promise;
     }
   }
 })();

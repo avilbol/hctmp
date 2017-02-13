@@ -5,7 +5,7 @@
     .module('HalloCasa.profiles')
     .service('ProfilesService', ProfilesService);
 
-  function ProfilesService(GenericRESTResource, $resource, $q, $log, backend_url) {
+  function ProfilesService(GenericRESTResource, $resource, $q, $log, backend_url, PropertyService) {
     var service = {
       getServices: getServices,
       saveProfile: saveProfile,
@@ -34,7 +34,8 @@
 
     function loadProfile(profileID) {
       return $q.all({
-        profile: resources.profileLoad.show({id: profileID}).$promise
+        profile: resources.profileLoad.show({id: profileID}).$promise,
+        properties: PropertyService.loadPropertiesByUserID(profileID)
       });
     }
 

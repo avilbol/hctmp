@@ -6,7 +6,7 @@
     .controller('ViewPropertyController', ViewPropertyController);
 
   /** @ngInject */
-  function ViewPropertyController(PropertyService, $location, ImageValidatorService) {
+  function ViewPropertyController(PropertyService, $location, ImageValidatorService, toastr) {
     var vm = this;
 
     vm.validateImage = ImageValidatorService.validateBase64;

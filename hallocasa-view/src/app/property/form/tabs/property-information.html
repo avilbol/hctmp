@@ -18,7 +18,7 @@
       <md-input-container class="md-block" flex>
         <label>{{'PropertyBrowse.Property.propertyType' | translate}}</label>
         <md-select name="propertyTypes" ng-model="vm.property.propertyType" required>
-          <md-option ng-repeat="propertyTypes in vm.propertyTypes" value="{{propertyTypes.id}}" ng-disabled="vm.isReadOnly">
+          <md-option ng-repeat="propertyTypes in vm.propertyTypes" value="{{propertyTypes.group.id}}" ng-disabled="vm.isReadOnly">
             {{propertyTypes.lang | translate}}
           </md-option>
         </md-select>
