@@ -67,7 +67,7 @@ public class EntityProperty implements Serializable, HallocasaEntity {
 			+ " FROM property p0 "
 			+ " %%JOINS%%"
 			+ ") filterable "
-			+ "WHERE %%FILTERS%% ";
+			+ "%%FILTERS%% ";
 	
 	public static final String QUERY_COUNT_SEARCH_BY_FILTERS = ""
 			+ "SELECT count(filterable.property_id) "
@@ -77,7 +77,7 @@ public class EntityProperty implements Serializable, HallocasaEntity {
 			+ " FROM property p0 "
 			+ " %%JOINS%%"
 			+ ") filterable "
-			+ "WHERE %%FILTERS%% ";
+			+ "%%FILTERS%% ";
 	
 	/**
 	 * Serialization constant

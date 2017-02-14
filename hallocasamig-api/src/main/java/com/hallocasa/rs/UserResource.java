@@ -129,7 +129,7 @@ public class UserResource extends BasicResource {
 	@GET
 	@Path("detail/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Secured
+	@Auth
 	@ApiOperation(value = "Fetch user detail acoording to its id")
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
 			@ApiResponse(code = 500, message = "If server internal error"),
