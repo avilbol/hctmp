@@ -19,7 +19,7 @@
       link: function (scope) {
         var optionsData = scope.fieldInformation.options;
         var staticOptionsGroup = scope.fieldInformation.dropdownOptionGroup;
-        
+
         function applyValidations() {
           if (scope.fieldInformation.validations) {
             scope.required = scope.fieldInformation.validations.includes("required");
@@ -94,14 +94,14 @@
               if(fieldPath){
                 field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
                 if(field.fieldValueList){
-                  var parameterValue = field.fieldValueList[0].text.intVal;
+                  var parameterValue = field.fieldValueList[0].identifier;
                   loadDependentOptions(serviceId, parameterName, parameterValue);
                 }
 
                 var destroyExDependencyWatcher = scope.$watch(function () {
                   var field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
                   if(field.fieldValueList){
-                    return field.fieldValueList[0].text.intVal;
+                    return field.fieldValueList[0].identifier;
                   }
                 },function (newValue, oldValue) {
                   if(newValue !== oldValue){

@@ -1,7 +1,7 @@
 <v-accordion class="vAccordion--default">
   <v-pane>
     <v-pane-header>
-      {{renderedTitle}}
+      {{renderedTitle | unicode}}
     </v-pane-header>
     <v-pane-content>
       <fields-interpreter field-list="fieldList" field-scope="fieldScope" field-root-scope="fieldRootScope" form="form"></fields-interpreter>
