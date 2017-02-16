@@ -37,7 +37,18 @@
         function toggle(item) {
           ngModel.$setTouched();
           scope.ngModel = scope.ngModel ? scope.ngModel : [];
-          var idx = scope.ngModel.indexOf(item);
+          var idx;
+          if(scope.trackBy){
+            _.find(scope.ngModel, function (model, index) {
+              var found = model[scope.trackBy] === item[scope.trackBy];
+              idx = found ? index : undefined;
+            });
+            idx = idx ? idx : -1;
+          }
+          else {
+            idx = scope.ngModel.indexOf(item);
+          }
+
           if (idx > -1) {
             scope.ngModel.splice(idx, 1);
           }
