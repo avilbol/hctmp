@@ -21,11 +21,13 @@
     vm.goBack = goBack;
     vm.save = save;
     vm.propertyShowOptions = {view: true, edit: true, delete: true};
+    var propertyList;
 
     function loadProfile(){
       var profileID = SessionService.getCurrentUser().id;
       ProfilesService.loadProfile(profileID)
         .then(function (data) {
+          propertyList = data.properties;
           data = ProfilesService.validateUserData(data);
           vm.languageId = data.profile.mainLanguage ? data.profile.mainLanguage.id : undefined;
           data.profile.userLanguages  = data.profile.userDescriptions;
@@ -71,6 +73,7 @@
     }
 
     function editProperty(event, property) {
+      property = getPropertyDataByID(property.id);
       var locals = {
         title: "Properties.edit.label",
         property: property
@@ -83,6 +86,7 @@
     }
 
     function viewProperty(event, property) {
+      property = getPropertyDataByID(property.id);
       var locals = {
         title: "Properties.view.label",
         property: property,
@@ -104,6 +108,12 @@
         var index = vm.userData.properties.indexOf(property);
         vm.userData.properties.splice(index,1);
       });
+    }
+
+    function getPropertyDataByID(propertyID) {
+      return _.find(propertyList, function (property) {
+        return property.id === propertyID;
+      })
     }
 
     function launchPropertyFormDialog(ev, locals) {

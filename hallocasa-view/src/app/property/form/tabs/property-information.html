@@ -3,8 +3,13 @@
     <div layout-gt-sm="row" layout-gt-xs="row" layout-xs="column">
       <md-input-container class="md-block" flex>
         <label>{{'Profile.Data.Country.Label' | translate}}</label>
-        <md-select name="country" ng-model="vm.property.country" required>
-          <md-option ng-repeat="country in vm.countries" value="{{country.id}}" ng-disabled="vm.isReadOnly">
+        <md-select
+          name="country"
+          ng-model="vm.property.propertyKey.country"
+          ng-model-options="{trackBy: '$value.id'}"
+          required
+        >
+          <md-option ng-repeat="country in vm.countries" ng-value="country" ng-disabled="vm.isReadOnly">
             {{country.lang | translate}}
           </md-option>
         </md-select>
@@ -17,7 +22,12 @@
 
       <md-input-container class="md-block" flex>
         <label>{{'PropertyBrowse.Property.propertyType' | translate}}</label>
-        <md-select name="propertyTypes" ng-model="vm.property.propertyType" required>
+        <md-select
+          name="propertyTypes"
+          ng-model="vm.property.propertyKey.propertyType"
+          ng-model-options="{trackBy: '$value.id'}"
+          required
+        >
           <md-option ng-repeat="propertyTypes in vm.propertyTypes track by $index" ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
             {{propertyTypes.lang | translate}}
           </md-option>
@@ -32,8 +42,13 @@
     <div layout-gt-sm="row" layout-gt-xs="row" layout-xs="column">
       <md-input-container class="md-block" flex>
         <label>{{'PropertyBrowse.Property.location' | translate}}</label>
-        <md-select name="propertyLocation" ng-model="vm.property.propertyLocation" required>
-          <md-option ng-repeat="location in vm.locations" value="{{location.id}}" ng-disabled="vm.isReadOnly">
+        <md-select
+          name="propertyLocation"
+          ng-model="vm.property.propertyKey.propertyLocation"
+          ng-model-options="{trackBy: '$value.id'}"
+          required
+        >
+          <md-option ng-repeat="location in vm.locations" ng-value="location" ng-disabled="vm.isReadOnly">
             {{location.lang | translate}}
           </md-option>
         </md-select>
@@ -46,8 +61,13 @@
 
       <md-input-container class="md-block" flex>
         <label>{{'Profile.Data.buy.rent.Label' | translate}}</label>
-        <md-select name="proposals" ng-model="vm.property.propertyProposal" required>
-          <md-option ng-repeat="proposal in vm.proposals" value="{{proposal.id}}" ng-disabled="vm.isReadOnly">
+        <md-select
+          name="proposals"
+          ng-model="vm.property.propertyKey.propertyProposal"
+          ng-model-options="{trackBy: '$value.id'}"
+          required
+        >
+          <md-option ng-repeat="proposal in vm.proposals" ng-value="proposal" ng-disabled="vm.isReadOnly">
             {{proposal.lang | translate}}
           </md-option>
         </md-select>

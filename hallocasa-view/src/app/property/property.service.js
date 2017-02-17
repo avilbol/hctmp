@@ -99,6 +99,7 @@
     function generatePropertiesPreviewData(properties, mainLanguage) {
       return _.map(properties, function (property) {
         var propertyPreview = {};
+        propertyPreview.id = property.id;
         propertyPreview.title = _.find(getFieldByID(2, property), function(title){
           return mainLanguage.id === title.data1.intVal
         });

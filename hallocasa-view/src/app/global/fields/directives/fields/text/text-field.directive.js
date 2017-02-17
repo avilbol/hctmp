@@ -69,6 +69,9 @@
                 intVal: scope.fieldScope.identifier
               };
               scope.fieldInformation.fieldValueList[scope.fieldScope.identifier] = fieldValue;
+              scope.on("$destroy", function () {
+                delete scope.fieldInformation.fieldValueList[scope.fieldScope.identifier];
+              });
               break;
           }
         }

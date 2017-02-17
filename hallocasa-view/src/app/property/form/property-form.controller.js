@@ -9,7 +9,7 @@
   /** @ngInject */
   function PropertyFormController($mdDialog, PropertyService, toastr, $mdSidenav, $mdMedia, LocationService,
                                   FieldsService, SessionService, $log, title, property, readonly,
-                                  $mdToast, translateFilter, $rootScope) {
+                                  $mdToast, translateFilter, $rootScope, property_images_url) {
 
 		var vm = this;
     var propertyBase = {
@@ -71,15 +71,19 @@
     };
 
     function loadFieldsData(){
-      vm.propertyDeterminants = _.pick(vm.property, "propertyType", "propertyLocation", "propertyProposal", "country");
+      vm.propertyDeterminants = _.pick(vm.property.propertyKey, "propertyType", "propertyLocation", "propertyProposal", "country");
       var propertyTypeGroup = vm.propertyDeterminants.propertyType.group.id;
-      vm.formatedPropertyDeterminants = _.mapObject(vm.propertyDeterminants, function (val) { return {"id": val}; });
-      var payload = angular.copy(vm.formatedPropertyDeterminants);
+      vm.formatedPropertyDeterminants = _.mapObject(vm.propertyDeterminants, function (val) { return val.id; });
+      vm.formatedPropertyDeterminants.propertyImagesUrl = property_images_url;
+      var payload = angular.copy(vm.propertyDeterminants);
       payload.propertyType.id = propertyTypeGroup;
 
       return PropertyService.loadFieldsData(payload)
         .then(function (fieldsData) {
           $log.debug(fieldsData);
+          if(vm.property.fieldList){
+            fieldsData.propertyFields = FieldsService.consolidateFields(vm.property.fieldList, fieldsData.propertyFields);
+          }
           vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.fieldsRender.tabList);
 
           vm.currentState = vm.state.WIZARD_2;
@@ -93,7 +97,7 @@
     function save() {
       var propertyData = {
         user: SessionService.getCurrentUser(),
-        propertyKey: vm.formatedPropertyDeterminants,
+        propertyKey: vm.propertyDeterminants,
         fieldList: FieldsService.generateFieldValueList(vm.fieldsRender)
       };
 

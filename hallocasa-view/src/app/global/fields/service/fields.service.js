@@ -12,7 +12,8 @@
       processOptions: processOptions,
       getFieldPathByID: getFieldPathByID,
       getFieldByPath: getFieldByPath,
-      generateFieldValueList: generateFieldValueList
+      generateFieldValueList: generateFieldValueList,
+      consolidateFields: consolidateFields
     };
 
     var componentsIdentifiers = ["accordion_group", "repeater_group"];
@@ -196,6 +197,21 @@
         fieldList = field.fieldList;
       });
       return field;
+    }
+
+    function consolidateFields(filledFields, fieldList) {
+      filledFields = angular.copy(filledFields);
+      while(filledFields.length){
+        var filledField = filledFields.pop();
+        _.find(fieldList, function (field, index) {
+          var foundField = field.id === filledField.id;
+          if(foundField){
+            fieldList[index].fieldValueList = filledField.fieldValueList;
+          }
+          return foundField;
+        })
+      }
+      return fieldList;
     }
   }
 })();

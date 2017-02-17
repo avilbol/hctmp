@@ -11,6 +11,7 @@
       templateUrl: "app/global/fields/directives/fields/image-uploader/image-uploader-field.html",
       scope: {
         fieldInformation: "=",
+        additionalParameters: "=?",
         form: "=?"
       },
       link: function (scope) {
@@ -179,7 +180,11 @@
             loadPrimaryImage();
             $timeout(function(){
               _.each(fieldValueList,function (fieldValue, imageIndex) {
-                scope.api.addRemoteFile(fieldValue.data1.strVal,'image-'+imageIndex,'image');
+                var urlPrefix = scope.fieldInformation.imageURLPrefix;
+                urlPrefix = urlPrefix ? scope.additionalParameters[urlPrefix] : "";
+                var imageURL = urlPrefix + fieldValue.data1.strVal;
+
+                scope.api.addRemoteFile(imageURL,'image-'+imageIndex,'image');
               });
             });
           }
