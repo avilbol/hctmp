@@ -10,7 +10,8 @@
     return function(string){
       if(!string){return;}
       try{
-        string = decodeURIComponent(angular.fromJson('"' + string.replace(/\"/g, '\\"') + '"'));
+        string = decodeURIComponent(angular.fromJson('"' + string.replace(/\"/g, '\\"').replace(/%/g, '&#37;') + '"'));
+        string = string.replace(/&#37;/g, '%');
       }
       catch(error) {
         $log.debug("Error al decodificar el texto" + string, error);
