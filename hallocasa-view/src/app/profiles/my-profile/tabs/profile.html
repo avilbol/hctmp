@@ -73,11 +73,6 @@
           <md-divider></md-divider>
           <br>
           <div>
-            <div layout="row">
-              <b>{{'Profile.Data.Languages.MainLanguage.Label' | translate}}:&nbsp;</b>
-              {{vm.userData.profile.mainLanguage | unicode}}
-            </div>
-            <br>
             <v-accordion class="vAccordion--default">
               <v-pane ng-repeat="description in vm.userData.profile.userDescriptions track by $index">
                 <v-pane-header>

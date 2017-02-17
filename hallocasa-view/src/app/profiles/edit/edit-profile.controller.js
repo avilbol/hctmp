@@ -7,8 +7,7 @@
 
   /** @ngInject */
   function EditProfileController(ProfilesService, LocationService, LanguageService, toastr, $mdMedia, $mdDialog,
-                                 $document, $location, translateFilter, ImageValidatorService, SessionService,
-                                 FieldsService, user_images_url) {
+                                 $document, $location, translateFilter,  SessionService, user_images_url) {
     var vm = this;
 
     vm.loadStates = loadStates;
@@ -27,7 +26,10 @@
       var profileID = SessionService.getCurrentUser().id;
       ProfilesService.loadProfile(profileID)
         .then(function (data) {
-          data = validateUserData(data);
+          data = ProfilesService.validateUserData(data);
+          vm.languageId = data.profile.mainLanguage ? data.profile.mainLanguage.id : undefined;
+          data.profile.userLanguages  = data.profile.userDescriptions;
+
           vm.userData = data;
           vm.profileForm = data.profile;
           if(vm.profileForm.country){
@@ -41,30 +43,6 @@
           toastr.warning("Hubo un error al cargar los datos de su perfil, intentelo más tarde");
           goBack();
         })
-    }
-
-    function validateUserData(data) {
-      data.profile  = angular.isObject(data.profile) ? data.profile : {};
-      data.profile.userTypes  = angular.isArray(data.profile.userTypes) ? data.profile.userTypes : [];
-      data.profile.userDescriptions  = angular.isArray(data.profile.userDescriptions) ? data.profile.userDescriptions : [];
-      data.profile.telephoneNumber = data.profile.telephoneNumber ? Number(data.profile.telephoneNumber) : undefined;
-      var mainLanguage = _.find(data.profile.userLanguages, function (languages) {return languages.isMainLanguage});
-      vm.languageId = mainLanguage ? mainLanguage.language.id : undefined;
-      data.profile.userLanguages  = data.profile.userDescriptions;
-      ImageValidatorService.validateOrFallback(user_images_url + data.profile.imageLink, "UserDefault")
-        .then(function (image) {
-          data.profile.base64Image = image;
-        });
-      data.properties  = angular.isArray(data.properties) ? data.properties : [];
-      data.properties = _.map(data.properties, function (property) {
-        property.images = angular.isArray(property.images) ? property.images : [];
-        ImageValidatorService.validateOrFallback(property.images[0], "PropertyDefault")
-          .then(function (image) {
-            property.images[0] = image;
-          });
-        return property;
-      });
-      return data;
     }
 
     function launchLoadImageDialog(ev) {

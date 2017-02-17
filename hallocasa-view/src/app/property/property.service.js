@@ -5,7 +5,8 @@
     .module('HalloCasa.property')
     .service('PropertyService', PropertyService);
 
-  function PropertyService($q, $resource, $log, GenericRESTResource, backend_url) {
+  function PropertyService($q, $resource, $log, GenericRESTResource, backend_url, property_images_url, idSearchFilter,
+                           ImageValidatorService) {
     var service = {
       getPropertyTypes: getPropertyTypes,
       getLocation: getLocation,
@@ -15,7 +16,8 @@
       loadProperties: loadProperties,
       loadPropertiesByUserID: loadPropertiesByUserID,
       loadFieldsData: loadFieldsData,
-      saveProperty: saveProperty
+      saveProperty: saveProperty,
+      generatePropertiesPreviewData: generatePropertiesPreviewData
     };
 
     var resources = {
@@ -87,6 +89,50 @@
 
     function loadPropertiesByUserID(UserID) {
       return resources.propertiesByUser.query({id: UserID}).$promise;
+    }
+
+    function getFieldByID(fieldID, property){
+      var field = _.partial(idSearchFilter, property.fieldList)(fieldID);
+      return field && field.fieldValueList ? field.fieldValueList : undefined;
+    }
+
+    function generatePropertiesPreviewData(properties, mainLanguage) {
+      return _.map(properties, function (property) {
+        var propertyPreview = {};
+        propertyPreview.title = _.find(getFieldByID(2, property), function(title){
+          return mainLanguage.id === title.data1.intVal
+        });
+        propertyPreview.type = property.propertyKey.propertyType.lang;
+        var price = _.first(getFieldByID(5, property));
+        price = price ? price : {};
+        price.data1 = price.data1 ? price.data1 : {};
+        price.data2 = price.data2 ? price.data2 : {};
+        propertyPreview.price = {
+          "amount": price.data1.doubleVal,
+          "currencyID": price.data2.intVal
+        };
+
+        var meters = _.first(getFieldByID(6, property));
+        meters = meters ? meters : {text:{}};
+
+        propertyPreview.squareMeters = meters.text.intVal;
+        propertyPreview.description = _.find(getFieldByID(3, property), function(description){
+          return mainLanguage.id === description.data1.intVal
+        });
+
+        var image = _.find(getFieldByID(12, property), function (imageData) {
+          return imageData.data2.boolVar;
+        });
+
+        image = image && image.data1 ? image.data1.strVal : undefined;
+
+        ImageValidatorService.validateOrFallback(property_images_url + image, "PropertyDefault")
+          .then(function (image) {
+            propertyPreview.image = image;
+          });
+
+        return propertyPreview;
+      });
     }
   }
 })();

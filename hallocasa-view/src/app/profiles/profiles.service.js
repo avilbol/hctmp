@@ -5,13 +5,15 @@
     .module('HalloCasa.profiles')
     .service('ProfilesService', ProfilesService);
 
-  function ProfilesService(GenericRESTResource, $resource, $q, $log, backend_url, PropertyService) {
+  function ProfilesService(GenericRESTResource, $resource, $q, $log, backend_url, PropertyService, user_images_url,
+                           ImageValidatorService) {
     var service = {
       getServices: getServices,
       saveProfile: saveProfile,
       loadProfile: loadProfile,
       loadPublicProfiles: loadPublicProfiles,
-      loadPublicProfile: loadPublicProfile
+      loadPublicProfile: loadPublicProfile,
+      validateUserData: validateUserData
     };
 
     var resources = {
@@ -50,6 +52,24 @@
       return resources.profilePublic.consult({
         "userNumber": 7
       }).$promise;
+    }
+
+    function validateUserData(data) {
+      data.profile  = angular.isObject(data.profile) ? data.profile : {};
+      data.profile.userTypes  = angular.isArray(data.profile.userTypes) ? data.profile.userTypes : [];
+      data.profile.userLanguages  = angular.isArray(data.profile.userLanguages) ? data.profile.userLanguages : [];
+      data.profile.userDescriptions  = angular.isArray(data.profile.userDescriptions) ? data.profile.userDescriptions : [];
+      var mainLanguage = _.find(data.profile.userLanguages, _.property("isMainLanguage"));
+      data.profile.mainLanguage = mainLanguage ? mainLanguage.language : undefined;
+      data.profile.telephoneNumber = data.profile.telephoneNumber ? Number(data.profile.telephoneNumber) : undefined;
+
+      ImageValidatorService.validateOrFallback(user_images_url + data.profile.imageLink, "UserDefault")
+        .then(function (image) {
+          data.profile.image = image;
+          data.profile.base64Image = image;
+        });
+      data.properties = PropertyService.generatePropertiesPreviewData(data.properties, data.profile.mainLanguage);
+      return data;
     }
   }
 })();
