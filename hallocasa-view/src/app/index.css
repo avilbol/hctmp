@@ -242,3 +242,8 @@ v-pane {
 .searchSelectHeader md-content._md {
   max-height: 240px;
 }
+
+.md-media-lg img{
+  max-width: 152px;
+  max-height: 152px;
+}

@@ -143,9 +143,9 @@
           "flexMobile": 100,
           "flexTablet": 50,
           "flexDesktop": 33,
-          "validations": "required, minlength, maxlength",
-          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
-          "validationsParams": { "minlength": 2, "maxlength": 45}
+          "validations": "required, minlength",
+          "messagesParams": { "minlength": "2"},
+          "validationsParams": { "minlength": 2}
         },
         {
           "id": 35,
@@ -309,7 +309,6 @@
           "flexMobile": 100,
           "flexTablet": 100,
           "flexDesktop": 100,
-          "validations": "requireOnce",
           "imageURLPrefix": "propertyImagesUrl"
         },
         {

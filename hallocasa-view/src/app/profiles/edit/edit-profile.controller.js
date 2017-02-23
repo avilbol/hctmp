@@ -44,7 +44,21 @@
           //TODO: Traducción de mensaje de error
           toastr.warning("Hubo un error al cargar los datos de su perfil, intentelo más tarde");
           goBack();
+        });
+    }
+
+    function reloadProperties() {
+      var profileID = SessionService.getCurrentUser().id;
+      var mainLanguage = vm.userData.profile.mainLanguage;
+      PropertyService.loadPropertiesByUserID(profileID)
+        .then(function (properties) {
+          vm.userData.properties = PropertyService.generatePropertiesPreviewData(properties, mainLanguage);
         })
+        .catch(function () {
+          //TODO: Traducción de mensaje de error
+          toastr.warning("Hubo un error al recargar sus propiedades, intentelo más tarde");
+          goBack();
+        });
     }
 
     function launchLoadImageDialog(ev) {

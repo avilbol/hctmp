@@ -69,8 +69,11 @@
                 intVal: scope.fieldScope.identifier
               };
               scope.fieldInformation.fieldValueList[scope.fieldScope.identifier] = fieldValue;
-              scope.on("$destroy", function () {
-                delete scope.fieldInformation.fieldValueList[scope.fieldScope.identifier];
+              scope.$on("$destroy", function () {
+                var valueList = scope.fieldInformation.fieldValueList[scope.fieldScope.identifier];
+                if(!valueList.data1.intVal || !valueList.data2.strVal){
+                  delete scope.fieldInformation.fieldValueList[scope.fieldScope.identifier];
+                }
               });
               break;
           }

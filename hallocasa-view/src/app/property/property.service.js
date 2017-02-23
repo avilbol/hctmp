@@ -109,8 +109,8 @@
         price.data1 = price.data1 ? price.data1 : {};
         price.data2 = price.data2 ? price.data2 : {};
         propertyPreview.price = {
-          "amount": price.data1.doubleVal,
-          "currencyID": price.data2.intVal
+          "currencyID": price.data1.intVal,
+          "amount": price.data2.doubleVal
         };
 
         var meters = _.first(getFieldByID(6, property));
@@ -122,7 +122,7 @@
         });
 
         var image = _.find(getFieldByID(12, property), function (imageData) {
-          return imageData.data2.boolVar;
+          return imageData.data2.boolVal;
         });
 
         image = image && image.data1 ? image.data1.strVal : undefined;

@@ -21,11 +21,7 @@
       </span>
     </md-card-title-text>
   </md-card-title>
-  <md-card-content>
-    <p>
-      {{property.description.data2.strVal}}
-    </p>
-  </md-card-content>
+
   <md-card-actions layout="row" layout-align="start center">
     <md-button ng-click="vm.viewProperty($event, property)" ng-if="vm.propertyShowOptions.view">{{'Properties.view.label' | translate}}</md-button>
     <md-button ng-click="vm.editProperty($event, property)" ng-if="vm.propertyShowOptions.edit">{{'Properties.edit.label' | translate}}</md-button>

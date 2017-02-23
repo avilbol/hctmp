@@ -100,6 +100,9 @@
         propertyKey: vm.propertyDeterminants,
         fieldList: FieldsService.generateFieldValueList(vm.fieldsRender)
       };
+      if(property && property.id){
+        propertyData.id = property.id;
+      }
 
       PropertyService.saveProperty(propertyData)
         .then(function () {
