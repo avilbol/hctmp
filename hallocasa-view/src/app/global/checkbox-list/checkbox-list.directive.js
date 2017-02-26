@@ -42,8 +42,9 @@
             _.find(scope.ngModel, function (model, index) {
               var found = model[scope.trackBy] === item[scope.trackBy];
               idx = found ? index : undefined;
+              return found;
             });
-            idx = idx ? idx : -1;
+            idx = _.isNumber(idx) ? idx : -1;
           }
           else {
             idx = scope.ngModel.indexOf(item);
