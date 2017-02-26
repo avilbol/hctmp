@@ -21,8 +21,9 @@
           closeDialog();
         })
         .catch(function(){
-          //TODO: mensaje de recuperación de contraseña
-          toastr.error('Hubo un error al intentar recuperar contraseña!', 'Error!');
+          toastr.error(
+            translateFilter('Error when recovering password'),
+            translateFilter('hallocasa.global.error'));
         });
     }
 
@@ -35,9 +36,9 @@
         .catch(function(){
           closeDialog();
           $location.url("/forbidden");
-
-          //TODO: mensaje de error de token
-          toastr.error('Token inválido o vencido!', 'Error!');
+          toastr.error(
+            translateFilter('Alert.tokenexpired'),
+            translateFilter('hallocasa.global.error'));
         });
     }
 
@@ -48,6 +49,3 @@
     validateToken();
   }
 })();
-
-
-

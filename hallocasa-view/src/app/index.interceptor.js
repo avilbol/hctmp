@@ -24,14 +24,13 @@
   }
 
   /** @ngInject */
-  function TokenUnauthorizedInterceptor($injector, $q, localStorageService) {
+  function TokenUnauthorizedInterceptor($injector, $q, translateFilter, localStorageService) {
     var responseInterceptor = {
       responseError: function(response) {
         if (response.status == 401){
           var loginOptions = {};
-          if(localStorageService.get("HalloCasa.currentUser")) {
-            //TODO: traducción de mensaje de descripción
-            loginOptions.description = "Su sesión ha expirado, para continuar por favor inicie sesión de nuevo";
+          if(localStorageService.get("HalloCasa.currentUser")){
+            loginOptions.description = translateFilter("Alert.sessionexpired");
           }
           else {
             loginOptions.description = "PublicProfile.PreAuthorize.loginNeeded";

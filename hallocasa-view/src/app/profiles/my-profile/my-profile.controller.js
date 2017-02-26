@@ -6,7 +6,7 @@
     .controller('myProfileController', myProfileController);
 
   /** @ngInject */
-  function myProfileController(ProfilesService, toastr, $mdMedia, $mdDialog, $document, $location, SessionService) {
+  function myProfileController(ProfilesService, toastr, translateFilter, $mdMedia, $mdDialog, $document, $location, SessionService) {
     var vm = this;
 
     vm.viewProperty = viewProperty;
@@ -21,8 +21,8 @@
           vm.userData = data;
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Hubo un error al cargar los datos de su perfil, intentelo más tarde");
+          toastr.warning(
+            translateFilter("Error.whenloadingprofiledata"));
           goBack();
         })
     }

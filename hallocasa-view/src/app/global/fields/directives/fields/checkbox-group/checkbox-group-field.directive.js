@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('checkboxGroupField', checkboxGroupField);
 
-  function checkboxGroupField(FieldsService, toastr) {
+  function checkboxGroupField(FieldsService, translateFilter, toastr) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/checkbox-group/checkbox-group-field.html",
@@ -17,14 +17,14 @@
       link: function (scope) {
         var optionsData = scope.fieldInformation.options;
         var staticOptionsGroup = scope.fieldInformation.dropdownOptionGroup;
-        
+
         function applyValidations(){
           if(scope.fieldInformation.validations){
             scope.requireOnce = scope.fieldInformation.validations.includes("requireOnce");
             scope.requireAll = scope.fieldInformation.validations.includes("requireAll");
           }
         }
-        
+
 
         function loadOptions() {
           switch(optionsData.type){
@@ -40,8 +40,8 @@
                   scope.optionsLabel = "name";
                 })
                 .catch(function () {
-                  //TODO: Traducción de mensaje de error
-                  toastr.warning("Error al cargar opciones del servicio:", serviceId);
+                  toastr.warning(
+                    translateFilter("Error.whenloadingserviceoptions"), serviceId);
                   scope.options = [];
                 });
 

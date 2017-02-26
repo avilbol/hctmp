@@ -6,7 +6,8 @@
     .controller('ViewProfileController', ViewProfileController);
 
   /** @ngInject */
-  function ViewProfileController(ProfilesService, $location, toastr) {
+  function ViewProfileController(ProfilesService, $location,
+      translateFilter, toastr) {
     var vm = this;
 
     function loadProfile() {
@@ -22,16 +23,13 @@
           })
           .catch(function (error) {
             if(error.status === 404){
-              //TODO: Traducción del mensaje de error
-              toastr.error("No se ha podido encontrar el usuario");
-
+              toastr.error(
+                translateFilter("Warning.usernotfound"));
             }
             if(error.status === 500){
-              //TODO: Traducción del mensaje de error
-              toastr.error("Hubo un error al intentar cargar el usuario");
-
+              toastr.error(
+                translateFilter("Error.whenloadinguser"));
             }
-
             $location.url("/profile/browser");
           });
       }

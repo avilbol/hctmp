@@ -22,7 +22,7 @@
       "</md-menu-content>"+
       "</md-menu>"+
       "</div>",
-      controller: function ($scope, CurrencyService, toastr) {
+      controller: function ($scope, CurrencyService, toastr, translateFilter) {
         $scope.changeCurrency = changeCurrency;
 
         CurrencyService.loadCurrency()
@@ -33,8 +33,7 @@
             CurrencyService.setCurrentCurrency($scope.currentCurrency);
           })
           .catch(function () {
-            //TODO: Traducción de mensaje de error
-            toastr.warning("Error al cargar monedas");
+            toastr.warning(translateFilter("Error.whenloadingmoney"));
           });
 
         function changeCurrency(newCurrency) {
