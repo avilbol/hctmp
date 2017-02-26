@@ -6,7 +6,8 @@
     .controller('ViewPropertyController', ViewPropertyController);
 
   /** @ngInject */
-  function ViewPropertyController(PropertyService, $location, ImageValidatorService, toastr) {
+  function ViewPropertyController(PropertyService, $location,
+      ImageValidatorService, translateFilter, toastr) {
     var vm = this;
 
     vm.validateImage = ImageValidatorService.validateBase64;
@@ -24,16 +25,13 @@
           })
           .catch(function (error) {
             if(error.status === 404){
-              //TODO: Traducción del mensaje de error
-              toastr.error("No se ha podido encontrar la propiedad");
-
+              toastr.error(
+                translateFilter("Alert.propertynotfound"));
             }
             if(error.status === 500){
-              //TODO: Traducción del mensaje de error
-              toastr.error("Hubo un error al intentar cargar la propiedad");
-
+              toastr.error(
+                translateFilter("Error.whenloadingproperty"));
             }
-
             $location.url("/property/browser");
           });
       }

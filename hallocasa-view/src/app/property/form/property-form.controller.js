@@ -47,9 +47,8 @@
         $mdDialog.cancel();
         return;
       }
-      //TODO: Definir los textos para los otros idiomas
       var toast = $mdToast.simple()
-        .textContent(translateFilter('Properties.wizard.close.confirm.text'))
+        .textContent(translateFilter('Confirmation.ClosePropertyWizard'))
         .action(translateFilter('Common.Label.Close'))
         .highlightAction(true)
         .hideDelay(5000);
@@ -89,8 +88,8 @@
           vm.currentState = vm.state.WIZARD_2;
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar atributos de la propiedad");
+          toastr.warning(
+						translateFilter("Error.whenloadingpropertyattributes"));
         });
     }
 
@@ -110,8 +109,8 @@
           $mdDialog.cancel();
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error guardar propiedad");
+          toastr.warning(
+						translateFilter("Error.whensavingproperty"));
         });
     }
 
@@ -121,8 +120,8 @@
           vm.locations = locations;
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar ubicaciones");
+          toastr.warning(
+						translateFilter("Error.whenloadinglocations"));
         });
     }
 
@@ -132,8 +131,8 @@
           vm.proposals = proposals;
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar comprar/arrendar");
+          toastr.warning(
+						translateFilter("Error.whenloadingbuyrentoptions"));
         });
     }
 
@@ -143,8 +142,8 @@
           vm.propertyTypes = propertyTypes;
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar tipos de propiedades");
+          toastr.warning(
+						translateFilter("Error.whenloadingpropertytypes"));
         });
     }
 
@@ -154,8 +153,8 @@
           vm.countries = countries;
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar tipos países");
+          toastr.warning(
+						translateFilter("Error.whenloadingcountries"));
         });
     }
 

@@ -9,7 +9,6 @@
   function EditProfileController(ProfilesService, LocationService, LanguageService, toastr, $mdMedia, $mdDialog,
                                  $document, $location, translateFilter,  SessionService, user_images_url, PropertyService) {
     var vm = this;
-
     vm.loadStates = loadStates;
     vm.launchLoadImageDialog = launchLoadImageDialog;
     vm.loadCities = loadCities;
@@ -41,8 +40,8 @@
           setMainLanguage();
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Hubo un error al cargar los datos de su perfil, intentelo más tarde");
+          toastr.warning(
+            translateFilter("Error.whenloadingprofiledata"));
           goBack();
         });
     }
@@ -161,8 +160,8 @@
           vm.countries = countries;
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar países");
+          toastr.warning(
+            translateFilter("Error.whenloadingcountries"));
         });
     }
 
@@ -173,8 +172,8 @@
           vm.states = states;
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar Estados");
+          toastr.warning(
+            translateFilter("Error.whenloadingstates"));
         });
     }
 
@@ -185,8 +184,8 @@
           vm.cities = cities;
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar ciudades");
+          toastr.warning(
+            translateFilter("Error.whenloadingcities"));
         });
     }
 
@@ -202,8 +201,8 @@
           });
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar idiomas");
+          toastr.warning(
+            translateFilter("Error.whenloadinglanguages"));
         });
     }
 
@@ -213,8 +212,8 @@
           vm.services = services;
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al cargar servicios");
+          toastr.warning(
+            translateFilter("Error.whenloadinguserservices"));
         });
     }
 
@@ -226,12 +225,13 @@
       ProfilesService.saveProfile(formData, formID)
         .then(function () {
           vm.userData[formID] = formData;
-          //TODO: Traducción de mensaje de éxito
-          toastr.success("Perfil guardado con éxito");
+          toastr.success(
+            translateFilter("Alert.profilesavedsuccesfully"));
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Error al guardar perfil");
+          toastr.warning(
+            translateFilter("Error.whensavingprofile")
+          );
         });
 
     }

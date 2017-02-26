@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('dropdownField', dropdownField);
 
-  function dropdownField(FieldsService, toastr) {
+  function dropdownField(FieldsService, translateFilter, toastr) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/dropdown/dropdown-field.html",
@@ -34,8 +34,8 @@
               scope.options = FieldsService.processOptions(options, "NONE");
             })
             .catch(function () {
-              //TODO: Traducción de mensaje de error
-              toastr.warning("Error al cargar opciones del servicio:", serviceId);
+              toastr.warning(
+                translateFilter("Error.whenloadingserviceoptions"), serviceId);
               scope.options = [];
             });
         }
@@ -53,8 +53,8 @@
                   scope.options = FieldsService.processOptions(options, "NONE");
                 })
                 .catch(function () {
-                  //TODO: Traducción de mensaje de error
-                  toastr.warning("Error al cargar opciones del servicio:", serviceId);
+                  toastr.warning(
+                    translateFilter("Error.whenloadingserviceoptions"), serviceId);
                   scope.options = [];
                 });
               break;
