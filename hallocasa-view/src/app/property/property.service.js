@@ -17,6 +17,7 @@
       loadPropertiesByUserID: loadPropertiesByUserID,
       loadFieldsData: loadFieldsData,
       saveProperty: saveProperty,
+      deleteProperty: deleteProperty,
       generatePropertiesPreviewData: generatePropertiesPreviewData
     };
 
@@ -27,8 +28,7 @@
       propertyTypes: $resource(backend_url + "property_types", {}, GenericRESTResource),
       fieldsRender: $resource("/app/property/property-fields/render-data/fields_render.json", {}, GenericRESTResource),
       propertiesByUser: $resource(backend_url + "properties/by_user/:id", {}, GenericRESTResource),
-
-      property: $resource(backend_url + "properties", {}, GenericRESTResource),
+      property: $resource(backend_url + "properties/:id", {}, GenericRESTResource),
 
       properties: $resource(backend_url + "properties/fetch_random/:property_number", {}, GenericRESTResource),
       propertiesPublic: $resource(backend_url + "properties/search", {}, GenericRESTResource),
@@ -89,6 +89,10 @@
 
     function loadPropertiesByUserID(UserID) {
       return resources.propertiesByUser.query({id: UserID}).$promise;
+    }
+
+    function deleteProperty(id) {
+      return resources.property.delete({id: id}).$promise;
     }
 
     function getFieldByID(fieldID, property){

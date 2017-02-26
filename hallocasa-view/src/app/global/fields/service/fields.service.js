@@ -44,7 +44,14 @@
           }
 
           field = _.pick(field, "id", "fieldValueList", "bdid", "data1Type", "data2Type", "data3Type", "textType", "propertyFieldValueType");
-          field.fieldValueList = _.compact(field.fieldValueList);
+          var compactFieldValueList = [];
+          for(var index in field.fieldValueList){
+            var value = field.fieldValueList[index];
+            if(_.isObject(value)){
+              compactFieldValueList.push(value);
+            }
+          }
+          field.fieldValueList = compactFieldValueList;
 
           if(!_.isEmpty(field.fieldValueList)){
             fieldValueList.push(field);

@@ -49,7 +49,22 @@
           switch (fieldType){
             case "scope_dependent_field":
               var identifier = scope.fieldScope.identifier;
-              return (baseValidation && _.isObject(fieldValueList[identifier]));
+              //TODO: reubicación de valor del campo y de id
+              if(!baseValidation){
+                return false;
+              }
+              var foundValues;
+              _.find(fieldValueList, function (fieldValue, index) {
+                foundValues = (fieldValue.data1 && fieldValue.data1.intVal === scope.fieldScope.identifier);
+                if(foundValues){
+                  scope.relocatedIndex = scope.fieldScope.identifier * -1;
+                  fieldValueList[scope.relocatedIndex] = fieldValue;
+                  delete fieldValueList[index];
+                }
+                return foundValues;
+
+              });
+              return (baseValidation && foundValues);
             default:
               return baseValidation;
           }
@@ -57,6 +72,9 @@
 
         function buildFieldModel(fieldType) {
           if(validFieldModel(fieldType)){
+            if(scope.relocatedIndex){
+              watchDestroyField(scope.relocatedIndex);
+            }
             return;
           }
 
@@ -69,14 +87,20 @@
                 intVal: scope.fieldScope.identifier
               };
               scope.fieldInformation.fieldValueList[scope.fieldScope.identifier] = fieldValue;
-              scope.$on("$destroy", function () {
-                var valueList = scope.fieldInformation.fieldValueList[scope.fieldScope.identifier];
-                if(!valueList.data1.intVal || !valueList.data2.strVal){
-                  delete scope.fieldInformation.fieldValueList[scope.fieldScope.identifier];
-                }
-              });
+              watchDestroyField(scope.fieldScope.identifier);
+              scope.relocatedIndex = scope.fieldScope.identifier;
               break;
           }
+        }
+
+        function watchDestroyField() {
+          scope.$on("$destroy", function (identifier) {
+            var valueList = scope.fieldInformation.fieldValueList[identifier];
+            var filledField = valueList.data1 && valueList.data2 && valueList.data1.intVal && valueList.data2.strVal;
+            if(!filledField){
+              delete scope.fieldInformation.fieldValueList[identifier];
+            }
+          });
         }
 
         function detectFieldType() {

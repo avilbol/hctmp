@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function EditProfileController(ProfilesService, LocationService, LanguageService, toastr, $mdMedia, $mdDialog,
-                                 $document, $location, translateFilter,  SessionService, user_images_url) {
+                                 $document, $location, translateFilter,  SessionService, user_images_url, PropertyService) {
     var vm = this;
 
     vm.loadStates = loadStates;
@@ -81,8 +81,8 @@
     function createProperty(event) {
       var locals = {title: "Properties.add.label"};
       launchPropertyFormDialog(event,locals)
-        .then(function(property) {
-          vm.userData.properties.push(property);
+        .then(function() {
+          reloadProperties();
         });
     }
 
@@ -93,9 +93,8 @@
         property: property
       };
       launchPropertyFormDialog(event,locals)
-        .then(function(editedProperty) {
-          var index = vm.userData.properties.indexOf(property);
-          vm.userData.properties[index] = editedProperty;
+        .then(function() {
+          reloadProperties();
         });
     }
 
@@ -119,8 +118,16 @@
         .cancel(translateFilter("Properties.wizard.cancel.label"));
 
       $mdDialog.show(confirm).then(function() {
-        var index = vm.userData.properties.indexOf(property);
-        vm.userData.properties.splice(index,1);
+        PropertyService.deleteProperty(property.id)
+          .then(function () {
+            //TODO: Traducción de mensaje de éxito
+            toastr.success("Propiedad eliminada con éxito");
+            reloadProperties();
+          })
+          .catch(function () {
+            //TODO: Traducción de mensaje de error
+            toastr.warning("Error al eliminar propiedad");
+          });
       });
     }
 
