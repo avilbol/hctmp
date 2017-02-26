@@ -6,7 +6,8 @@
     .controller('UserActivationController', UserActivationController);
 
   /** @ngInject */
-  function UserActivationController(SessionService, $mdDialog, toastr, $route, $location) {
+  function UserActivationController(SessionService, $mdDialog, toastr,
+      translateFilter, $route, $location) {
 
     function activateUser() {
       var email = $route.current.params["email"];
@@ -14,16 +15,16 @@
 
       SessionService.activateUser(email, activationKey)
         .then(function(){
-          //TODO: mensaje de éxito
-          toastr.success('Su perfil ha sido activado exitosamente, ya puede iniciar sesión');
+          toastr.success(
+            translateFilter('Alert.profileactivated'));
           closeDialog();
         })
         .catch(function(){
           closeDialog();
           $location.url("/forbidden");
-
-          //TODO: mensaje de error de token
-          toastr.error('Token inválido o vencido!', 'Error!');
+          toastr.error(
+            translateFilter('Alert.tokenexpired'),
+            translateFilter('hallocasa.global.error'));
         });
     }
 
@@ -34,6 +35,3 @@
     activateUser();
   }
 })();
-
-
-

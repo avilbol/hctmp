@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .filter('dynamicCurrency', dynamicCurrency);
 
-  function dynamicCurrency(CurrencyService, idSearchFilter, numberFilter, toastr) {
+  function dynamicCurrency(CurrencyService, idSearchFilter, translateFilter, numberFilter, toastr) {
     var exchange, currency;
 
     function calculateExchange(inputCurrency, outputCurrency) {
@@ -27,8 +27,8 @@
         currency = data.currency;
       })
       .catch(function () {
-        //TODO: Traducción de mensaje de error
-        toastr.warning("Error al cargar tasas de cambio");
+        toastr.warning(
+          translateFilter("Error.whenloadingexchangerates"));
       });
 
     return function(inputMoney) {

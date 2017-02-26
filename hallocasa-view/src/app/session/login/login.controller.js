@@ -28,8 +28,9 @@
 						toastr.error(translateFilter("Login.InvalidPassword.Message"));
 					}
 					else{
-            //TODO: traducción del mensaje de error
-						toastr.error('Hubo un error al intentar acceder a su cuenta!', 'Error!');
+						toastr.error(
+							translateFilter('Error.whenrecoveringpassword'),
+							translateFilter('hallocasa.global.error'));
 					}
 				});
 		}
@@ -75,13 +76,15 @@
           closeDialog();
         })
         .catch(function(error){
-          //TODO: confirmar código de estado
           if(error.status === 403){
-            toastr.error(translateFilter("ForgotPassword.enterEmail.errorNotFound"), 'Error!');
+            toastr.error(
+							translateFilter("ForgotPassword.enterEmail.errorNotFound"),
+							translateFilter('hallocasa.global.error'));
           }
           else{
-            //TODO: traducción del mensaje de error
-            toastr.error('Hubo un error al intentar recuperar contraseña!', 'Error!');
+            toastr.error(
+							translateFilter('Error.whenrecoveringpassword'),
+							translateFilter('hallocasa.global.error'));
           }
         });
     }

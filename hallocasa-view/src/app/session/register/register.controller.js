@@ -5,7 +5,7 @@
 		.module('HalloCasa.session')
 		.controller('RegisterController', RegisterController);
 
-	function RegisterController(RegisterService, toastr, $mdDialog, LocaleService, LOCALES) {
+	function RegisterController(RegisterService, toastr, translateFilter, $mdDialog, LocaleService, LOCALES) {
 		var vm = this;
 		vm.userData = {};
 		vm.register = register;
@@ -23,11 +23,14 @@
 				})
 				.catch(function(error){
           if(error.status === 409){
-            //TODO: traducción del mensaje de error
-            toastr.error('El correo ingresado ya se encuentra asociado a una cuenta existente!', 'Error!');
+            toastr.error(
+							translateFilter('Error.emailalreadyexists'),
+							translateFilter('hallocasa.global.error'));
           }
           else{
-            toastr.error('Hubo un error al intentar acceder a su cuenta!', 'Error!');
+            toastr.error(
+							translateFilter('Error.whenuseraccountaccess'),
+							translateFilter('hallocasa.global.error'));
           }
 				});
 		}

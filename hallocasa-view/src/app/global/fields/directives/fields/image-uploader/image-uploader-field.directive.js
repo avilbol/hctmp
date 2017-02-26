@@ -58,8 +58,7 @@
                   filesKeys.push(scope.rawImages[fileIndex].key);
                 }
                 else{
-                  //TODO: Traducción de mensaje de error
-                  toastr.warning("La imagen cargada es inválida o está vacía");
+                  toastr.warning(translateFilter("Error.invalidoremptyimage"));
                   scope.api.removeByName(scope.rawImages[fileIndex].lfFileName);
                 }
               });
@@ -70,9 +69,7 @@
             })
             .catch(function (error) {
               $log.debug(error);
-              //TODO: Traducción de mensaje de error
-              toastr.info("Error al procesar imágen");
-
+              toastr.info(translateFilter("Error.whenprocessingimage"));
               _.each(imagesList, function (image) {
                 scope.api.removeByName(image.lfFileName);
               });
