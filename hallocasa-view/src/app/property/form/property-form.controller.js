@@ -107,6 +107,7 @@
       PropertyService.saveProperty(propertyData)
         .then(function () {
           toastr.success(translateFilter("property.wizard.create.succesful"));
+          $mdDialog.cancel();
         })
         .catch(function () {
           //TODO: Traducción de mensaje de error

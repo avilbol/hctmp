@@ -322,7 +322,7 @@
     },
     {
       "name": "Features",
-      "lang": "hallocasa.pending",
+      "lang": "Property.wizard.features",
       "fieldList": [
         {
           "id": 17,
@@ -408,7 +408,7 @@
     },
     {
       "name": "Property",
-      "lang": "hallocasa.pending",
+      "lang": "Property.wizard.property",
       "fieldList": [
         {
           "id": 45,
@@ -564,7 +564,7 @@
     },
     {
       "name": "Financials",
-      "lang": "hallocasa.pending",
+      "lang": "Property.wizard.financials",
       "fieldList": [
         {
           "id": 56,
