@@ -13,6 +13,7 @@
       getProposals: getProposals,
       loadPublicProperties: loadPublicProperties,
       loadProperty: loadProperty,
+      loadPropertyDetail: loadPropertyDetail,
       loadProperties: loadProperties,
       loadPropertiesByUserID: loadPropertiesByUserID,
       loadFieldsData: loadFieldsData,
@@ -29,7 +30,7 @@
       fieldsRender: $resource("/app/property/property-fields/render-data/fields_render.json", {}, GenericRESTResource),
       propertiesByUser: $resource(backend_url + "properties/by_user/:id", {}, GenericRESTResource),
       property: $resource(backend_url + "properties/:id", {}, GenericRESTResource),
-
+      propertyDetail: $resource(backend_url + "properties/detail/:id", {}, GenericRESTResource),
       properties: $resource(backend_url + "properties/fetch_random/:property_number", {}, GenericRESTResource),
       propertiesPublic: $resource(backend_url + "properties/search", {}, GenericRESTResource),
       propertyLoad: $resource("/mocks/property/loadProperty.json", {}, GenericRESTResource)
@@ -93,6 +94,10 @@
 
     function deleteProperty(id) {
       return resources.property.delete({id: id}).$promise;
+    }
+
+    function loadPropertyDetail(id) {
+      return resources.propertyDetail.show({id: id}).$promise;
     }
 
     function getFieldByID(fieldID, property){

@@ -86,25 +86,36 @@
     }
 
     function editProperty(event, property) {
-      property = getPropertyDataByID(property.id);
-      var locals = {
-        title: "Properties.edit.label",
-        property: property
-      };
-      launchPropertyFormDialog(event,locals)
-        .then(function() {
-          reloadProperties();
+      PropertyService.loadPropertyDetail(property.id)
+        .then(function (propertyDetail) {
+          var locals = {
+            title: "Properties.edit.label",
+            property: propertyDetail
+          };
+          launchPropertyFormDialog(event,locals)
+            .then(function() {
+              reloadProperties();
+            });
+        })
+        .catch(function () {
+          toastr.warning(translateFilter("Error.whenloadingproperty"));
         });
     }
 
     function viewProperty(event, property) {
-      property = getPropertyDataByID(property.id);
-      var locals = {
-        title: "Properties.view.label",
-        property: property,
-        readonly: true
-      };
-      launchPropertyFormDialog(event,locals);
+      PropertyService.loadPropertyDetail(property.id)
+        .then(function (propertyDetail) {
+          var locals = {
+            title: "Properties.edit.label",
+            property: propertyDetail,
+            readonly: true
+          };
+          launchPropertyFormDialog(event,locals);
+        })
+        .catch(function () {
+          toastr.warning(translateFilter("Error.whenloadingproperty"));
+        });
+
     }
 
     function deleteProperty(event, property) {

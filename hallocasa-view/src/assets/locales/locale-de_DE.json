@@ -875,7 +875,7 @@
   "Error.whensavingprofile": " Error.whensavingprofile (pending translation)",
   "Warning.usernotfound": " Warning.usernotfound (pending translation)",
   "Error.whenloadinguser": " Error.whenloadinguser (pending translation)",
-  "Confirmation.ClosePropertyWizard": " Confirmation.ClosePropertyWizard (pending translation)",
+  "Confirmation.ClosePropertyWizard": "Sind Sie sicher, dass Sie den Assistenten schließen möchten? Ungespeicherte Änderungen gehen verloren",
   "Error.whenloadingpropertyattributes": " Error.whenloadingpropertyattributes (pending translation)",
   "Error.whensavingproperty": " Error.whensavingproperty (pending translation)",
   "Error.whenloadinglocations": " Error.whenloadinglocations (pending translation)",
