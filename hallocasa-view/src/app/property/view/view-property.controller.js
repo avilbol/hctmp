@@ -21,7 +21,7 @@
       else{
         PropertyService.loadProperty(propertyID)
           .then(function (property) {
-            vm.property = property;
+            vm.property = PropertyService.generatePropertyDetailData(property);
           })
           .catch(function (error) {
             if(error.status === 404){

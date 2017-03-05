@@ -111,7 +111,7 @@ public class PropertyServiceImp implements PropertyService {
 	}
 
 	@Override
-	public List<Property> addPropertiesToShowableList(Integer propertyNumber) {
+	public List<Property> loadRandomPropertyList(Integer propertyNumber) {
 		Integer counter = 0;
 		if (propertyNumber == null) {
 			throw new BadRequestException("attribute 'propertyNumber' needed when searching");
@@ -120,7 +120,7 @@ public class PropertyServiceImp implements PropertyService {
 		List<String> propertyIdList = new LinkedList<>();
 		List<EntityProperty> entList = new LinkedList<>();
 		String propertyId = null;
-		while (counter++ < propertyNumber && propertyAmmount > propertyIdList.size()) {
+		while (counter++ < propertyNumber && propertyAmmount > entList.size()) {
 			do {
 				propertyIdList = new LinkedList<>();
 				propertyId = daoProperty.fetchRandomPropertyId(propertyAmmount);
@@ -264,15 +264,17 @@ public class PropertyServiceImp implements PropertyService {
 
 	private void matchType(PropertyFieldValueSpec pfValueSpec, PropertyDatatype propertyDataType, String dataStr) {
 		boolean valid = false;
-		valid = valid || (propertyDataType.equals(BOOLEAN) && pfValueSpec.getBoolVal() != null);
-		valid = valid || (propertyDataType.equals(DATE) && pfValueSpec.getDateVal() != null);
-		valid = valid || (propertyDataType.equals(DATETIME) && pfValueSpec.getDateVal() != null);
-		valid = valid || (propertyDataType.equals(DOUBLE) && pfValueSpec.getDoubleVal() != null);
-		valid = valid || (propertyDataType.equals(INT) && pfValueSpec.getIntVal() != null);
-		valid = valid || (propertyDataType.equals(DOUBLE) && pfValueSpec.getDoubleVal() != null);
-		valid = valid || (propertyDataType.equals(FILE) && pfValueSpec.getStrVal() != null);
-		valid = valid || (propertyDataType.equals(TEXT) && pfValueSpec.getStrVal() != null);
-		valid = valid || propertyDataType.equals(SAME);
+		if(propertyDataType.equals(SAME) || pfValueSpec != null){
+			valid = valid || (propertyDataType.equals(BOOLEAN) && pfValueSpec.getBoolVal() != null);
+			valid = valid || (propertyDataType.equals(DATE) && pfValueSpec.getDateVal() != null);
+			valid = valid || (propertyDataType.equals(DATETIME) && pfValueSpec.getDateVal() != null);
+			valid = valid || (propertyDataType.equals(DOUBLE) && pfValueSpec.getDoubleVal() != null);
+			valid = valid || (propertyDataType.equals(INT) && pfValueSpec.getIntVal() != null);
+			valid = valid || (propertyDataType.equals(DOUBLE) && pfValueSpec.getDoubleVal() != null);
+			valid = valid || (propertyDataType.equals(FILE) && pfValueSpec.getStrVal() != null);
+			valid = valid || (propertyDataType.equals(TEXT) && pfValueSpec.getStrVal() != null);
+			valid = valid || propertyDataType.equals(SAME);
+		}
 		if (!valid) {
 			throw new BadRequestException("Error validating data types matching: " + "please review " + dataStr);
 		}

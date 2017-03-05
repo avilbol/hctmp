@@ -116,7 +116,7 @@ public class PropertyResource extends BasicResource {
 		return Response.status(HttpStatus.SC_OK).entity("Property deleted succesfully").build();
 	}
 	
-	@POST
+	@GET
 	@Path("fetch_random")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -133,6 +133,6 @@ public class PropertyResource extends BasicResource {
 		Integer propertyNumber = Integer.parseInt(uriInfo.getQueryParameters()
 				.getFirst("property_number"));
 		return Response.status(HttpStatus.SC_OK).entity(
-				propertyService.addPropertiesToShowableList(propertyNumber)).build();
+				propertyService.loadRandomPropertyList(propertyNumber)).build();
 	}
 }

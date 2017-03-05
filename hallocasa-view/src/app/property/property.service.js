@@ -19,7 +19,8 @@
       loadFieldsData: loadFieldsData,
       saveProperty: saveProperty,
       deleteProperty: deleteProperty,
-      generatePropertiesPreviewData: generatePropertiesPreviewData
+      generatePropertiesPreviewData: generatePropertiesPreviewData,
+      generatePropertyDetailData: generatePropertyDetailData
     };
 
     var resources = {
@@ -31,9 +32,8 @@
       propertiesByUser: $resource(backend_url + "properties/by_user/:id", {}, GenericRESTResource),
       property: $resource(backend_url + "properties/:id", {}, GenericRESTResource),
       propertyDetail: $resource(backend_url + "properties/detail/:id", {}, GenericRESTResource),
-      properties: $resource(backend_url + "properties/fetch_random/:property_number", {}, GenericRESTResource),
-      propertiesPublic: $resource(backend_url + "properties/search", {}, GenericRESTResource),
-      propertyLoad: $resource("/mocks/property/loadProperty.json", {}, GenericRESTResource)
+      properties: $resource(backend_url + "properties/fetch_random", {}, GenericRESTResource),
+      propertiesPublic: $resource(backend_url + "properties/search", {}, GenericRESTResource)
     };
 
     return service;
@@ -66,12 +66,12 @@
     }
 
     function loadProperties() {
-      return resources.properties.consult({"property_number": 10}).$promise;
+      return resources.properties.query({"property_number": 10}).$promise;
     }
 
     function loadProperty(profileID) {
       $log.log("Cargar propiedad: (ID: "+profileID+")");
-      return resources.propertyLoad.show().$promise;
+      return resources.propertyDetail.show({"id":profileID}).$promise;
     }
 
     function loadFieldsData(propertyDeterminants) {
@@ -109,8 +109,10 @@
       return _.map(properties, function (property) {
         var propertyPreview = {};
         propertyPreview.id = property.id;
+        propertyPreview.mainLanguage = {id: _.first(getFieldByID(61, property)).identifier};
+        var targetLanguage = mainLanguage || propertyPreview.mainLanguage;
         propertyPreview.title = _.find(getFieldByID(2, property), function(title){
-          return mainLanguage.id === title.data1.intVal
+          return targetLanguage.id === title.data1.intVal
         });
         propertyPreview.type = property.propertyKey.propertyType.lang;
         var price = _.first(getFieldByID(5, property));
@@ -127,7 +129,7 @@
 
         propertyPreview.squareMeters = meters.text.intVal;
         propertyPreview.description = _.find(getFieldByID(3, property), function(description){
-          return mainLanguage.id === description.data1.intVal
+          return targetLanguage.id === description.data1.intVal
         });
 
         var image = _.find(getFieldByID(12, property), function (imageData) {
@@ -144,5 +146,45 @@
         return propertyPreview;
       });
     }
+
+    function generatePropertyDetailData(property, mainLanguage) {
+        var propertyDetail = {};
+        propertyDetail.id = property.id;
+        propertyDetail.mainLanguage = {id: _.first(getFieldByID(61, property)).identifier};
+        var targetLanguage = mainLanguage || propertyDetail.mainLanguage;
+        propertyDetail.title = _.find(getFieldByID(2, property), function(title){
+          return targetLanguage.id === title.data1.intVal
+        });
+        propertyDetail.type = property.propertyKey.propertyType.lang;
+        var price = _.first(getFieldByID(5, property));
+        price = price ? price : {};
+        price.data1 = price.data1 ? price.data1 : {};
+        price.data2 = price.data2 ? price.data2 : {};
+        propertyDetail.price = {
+          "currencyID": price.data1.intVal,
+          "amount": price.data2.doubleVal
+        };
+
+        var meters = _.first(getFieldByID(6, property));
+        meters = meters ? meters : {text:{}};
+
+        propertyDetail.squareMeters = meters.text.intVal;
+        propertyDetail.description = _.find(getFieldByID(3, property), function(description){
+          return targetLanguage.id === description.data1.intVal
+        });
+
+        var image = _.find(getFieldByID(12, property), function (imageData) {
+          return imageData.data2.boolVal;
+        });
+
+        image = image && image.data1 ? image.data1.strVal : undefined;
+
+        ImageValidatorService.validateOrFallback(property_images_url + image, "PropertyDefault")
+          .then(function (image) {
+            propertyDetail.image = image;
+          });
+
+        return propertyDetail;
+      };
   }
 })();

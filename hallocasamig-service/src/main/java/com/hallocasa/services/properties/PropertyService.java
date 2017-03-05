@@ -68,5 +68,5 @@ public interface PropertyService {
 	 * 		Number of properties to fetch
 	 * @return
 	 */
-	List<Property> addPropertiesToShowableList(Integer propertyNumber);
+	List<Property> loadRandomPropertyList(Integer propertyNumber);
 }

@@ -24,17 +24,8 @@
       });
 
     PropertyService.loadProperties()
-      .then(function (properties) {
-        properties = _.map(properties, function (property) {
-          property.images = angular.isArray(property.images) ? property.images : [];
-          ImageValidatorService.validateOrFallback(property.images[0], "PropertyDefault")
-            .then(function (image) {
-              property.images[0] = image;
-            });
-          return property;
-        });
-
-        vm.properties = properties;
+      .then(function (srcProperties) {
+        vm.properties = PropertyService.generatePropertiesPreviewData(srcProperties);
       });
 
   }

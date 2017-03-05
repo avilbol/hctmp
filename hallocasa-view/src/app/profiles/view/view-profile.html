@@ -139,7 +139,11 @@
           <div ng-if="vm.userData.properties.length > 0">
             <div layout="row" layout-sm="column" layout-wrap>
               <div dir-paginate="property in vm.userData.properties | itemsPerPage: 12" flex-gt-sm="50" flex-gt-xs="100" flex-xs="100">
-                <div ng-include="'app/property/templates/properties-card.html'"></div>
+                <a
+                  ng-include="'app/property/templates/properties-card.html'"
+                  ng-href="/property?id={{property.id}}"
+                  class="disable-hyperlinks-style"
+                ></a>
               </div>
             </div>
             <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
