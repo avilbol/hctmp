@@ -587,7 +587,7 @@
   "hallocasa.propertyfield.monthlyadminfeesforthelandlord": "Monthly Admin Fees for the Landlord",
   "hallocasa.propertyfield.additionalmonthlyfeesforthelandlord": "Additional Monthly Fees for the Landlord",
   "hallocasa.propertyfield.annualtaxrateontheproperty": "Annual Tax Rate on the Property",
-  "hallocasa.propertyfield.monthlyrent": "Monthly Rent",
+  "hallocasa.propertyfield.estimatedmonthlyrent": "Monthly Rent",
   "hallocasa.propertyfield.mainlanguage": "Main Language",
   "hallocasa.propertyfieldtooltip.languages": "Which languages do you want to target?",
   "hallocasa.propertyfieldtooltip.title": "Choose a Property Title",

@@ -587,7 +587,7 @@
   "hallocasa.propertyfield.monthlyadminfeesforthelandlord": "Monatliche Verwaltungsgebühren für den Vermieter",
   "hallocasa.propertyfield.additionalmonthlyfeesforthelandlord": "Monatliche weitere Gebühren für den Vermieter",
   "hallocasa.propertyfield.annualtaxrateontheproperty": "Jährliche Grundsteuer",
-  "hallocasa.propertyfield.monthlyrent": "Monatliche Mieteinnahmen",
+  "hallocasa.propertyfield.estimatedmonthlyrent": "Monatliche Mieteinnahmen",
   "hallocasa.propertyfield.mainlanguage": "Muttersprache",
   "hallocasa.propertyfieldtooltip.languages": "Welche Sprache möchten Sie in erster Linie ansprechen?",
   "hallocasa.propertyfieldtooltip.title": "Wählen Sie einen Immobilientitel",

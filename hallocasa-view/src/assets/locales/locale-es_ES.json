@@ -590,7 +590,7 @@
   "hallocasa.propertyfield.monthlyadminfeesforthelandlord": "Costos de administraci\u00F3n mensuales para el propietario",
   "hallocasa.propertyfield.additionalmonthlyfeesforthelandlord": "Costos mensuales adicionales para el propietario",
   "hallocasa.propertyfield.annualtaxrateontheproperty": "Tasa de Impuesto anual sobre la propiedad",
-  "hallocasa.propertyfield.monthlyrent": "Alquiler mes",
+  "hallocasa.propertyfield.estimatedmonthlyrent": "Alquiler mes",
   "hallocasa.propertyfield.mainlanguage": "Idioma Principal",
   "hallocasa.propertyfieldtooltip.languages": "¿Qué idiomas desea orientar?",
   "hallocasa.propertyfieldtooltip.title": "Elija un t\u00Edtulo de la propiedad",
