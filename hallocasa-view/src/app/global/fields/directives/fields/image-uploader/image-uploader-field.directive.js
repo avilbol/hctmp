@@ -15,13 +15,7 @@
         form: "=?"
       },
       link: function (scope) {
-        function applyValidations() {
-          if (scope.fieldInformation.validations) {
-            scope.fieldInformation.validations += ", mimetype, filesize";
-            scope.requireOnce = scope.fieldInformation.validations.includes("requireOnce");
-          }
-        }
-
+        scope.fieldName = scope.$id;
         scope.fieldInformation.fieldValueList = scope.fieldInformation.fieldValueList ? scope.fieldInformation.fieldValueList : [];
         scope.rawImages = [];
         var filesKeys = [];
@@ -29,6 +23,13 @@
         var previewFrame = '.lf-ng-md-file-input-thumbnails .lf-ng-md-file-input-frame';
         var previewTitle = '.lf-ng-md-file-input-x';
         scope.assignAsPrimaryImage = assignAsPrimaryImage;
+
+        function applyValidations() {
+          if (scope.fieldInformation.validations) {
+            scope.fieldInformation.validations += ", mimetype, filesize";
+            scope.requireOnce = scope.fieldInformation.validations.includes("requireOnce");
+          }
+        }
 
         function parseNewImages(amountImages) {
           var imagesList = _.rest(scope.rawImages,scope.rawImages.length - amountImages);

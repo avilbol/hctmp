@@ -1,7 +1,7 @@
 <md-input-container class="md-block">
   <label>{{fieldInformation.lang | translate}}</label>
   <input
-    name="{{fieldInformation.name}}"
+    name="{{fieldName}}"
     title="{{fieldInformation.lang | translate}}"
     ng-model="fieldInformation.fieldValueList[0].text.strVal"
     type="url"
@@ -10,7 +10,7 @@
 
   <ng-messages-generator
     form="form"
-    input-name="{{fieldInformation.name}}"
+    input-name="{{fieldName}}"
     validators="{{fieldInformation.validations}}"
   ></ng-messages-generator>
 </md-input-container>

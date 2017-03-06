@@ -15,6 +15,8 @@
         form: "=?"
       },
       link: function (scope) {
+        scope.fieldName = scope.$id;
+
         var fieldTypes =[
           {
             id: "standard_field",

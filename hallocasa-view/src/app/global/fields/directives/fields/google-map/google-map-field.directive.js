@@ -15,13 +15,14 @@
       },
       link: function (scope) {
         scope.fieldInformation.fieldValueList = scope.fieldInformation.fieldValueList ? scope.fieldInformation.fieldValueList : [];
+        scope.$on("RepaintMap", repaintMap);
 
-        scope.$on("RepaintMap", function () {
+        function repaintMap() {
           scope.refresh = false;
           $timeout(function () {
             scope.refresh = true;
           },300);
-        });
+        }
 
         function watchRawLocation() {
           var deleteWatcher = scope.$watch('location',function(){

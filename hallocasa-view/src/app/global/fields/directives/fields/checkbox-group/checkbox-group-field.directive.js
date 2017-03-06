@@ -15,6 +15,7 @@
         form: "=?"
       },
       link: function (scope) {
+        scope.fieldName = scope.$id;
         var optionsData = scope.fieldInformation.options;
         var staticOptionsGroup = scope.fieldInformation.dropdownOptionGroup;
 
@@ -24,7 +25,6 @@
             scope.requireAll = scope.fieldInformation.validations.includes("requireAll");
           }
         }
-
 
         function loadOptions() {
           switch(optionsData.type){

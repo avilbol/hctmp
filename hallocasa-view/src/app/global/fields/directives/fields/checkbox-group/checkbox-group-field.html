@@ -1,6 +1,6 @@
 <span>{{fieldInformation.lang | translate}}</span>
 <checkbox-list
-  name="{{fieldInformation.name}}"
+  name="{{fieldName}}"
   options-label="optionsLabel"
   data="options"
   ng-model="fieldInformation.fieldValueList"
@@ -9,6 +9,6 @@
 ></checkbox-list>
 <ng-messages-generator
   form="form"
-  input-name="{{fieldInformation.name}}"
+  input-name="{{fieldName}}"
   validators="{{fieldInformation.validations}}"
 ></ng-messages-generator>

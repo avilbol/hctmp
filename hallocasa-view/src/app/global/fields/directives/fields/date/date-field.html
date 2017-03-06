@@ -1,10 +1,15 @@
 <div layout="column">
   <label>{{fieldInformation.lang | translate}}</label>
-  <md-datepicker ng-model="fieldInformation.fieldValueList[0].text.dateVal" ng-required="required" md-date-filter="dateFilter"></md-datepicker>
+  <md-datepicker
+    ng-model="fieldInformation.fieldValueList[0].text.dateVal"
+    ng-required="required"
+    md-date-filter="dateFilter"
+    name="{{fieldName}}"
+  ></md-datepicker>
 
   <ng-messages-generator
     form="form"
-    input-name="{{fieldInformation.name}}"
+    input-name="{{fieldName}}"
     validators="{{fieldInformation.validations}}"
   ></ng-messages-generator>
 </div>
