@@ -88,7 +88,8 @@
         .then(function (propertyDetail) {
           var locals = {
             title: "Properties.edit.label",
-            property: propertyDetail
+            property: propertyDetail,
+            editMode: true
           };
           launchPropertyFormDialog(event,locals)
             .then(function() {
@@ -142,7 +143,7 @@
     function launchPropertyFormDialog(ev, locals) {
       locals.title = locals.title ? locals.title : "";
       locals.property = locals.property ? locals.property : {};
-      locals.readonly = locals.readonly ? locals.readonly : false;
+      locals.editMode = locals.editMode ? locals.editMode : false;
 
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
       return $mdDialog.show({
