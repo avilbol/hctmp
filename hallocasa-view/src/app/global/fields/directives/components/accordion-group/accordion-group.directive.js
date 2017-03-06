@@ -16,7 +16,11 @@
         fieldRootScope: "=?",
         form: "=?"
       },
-      link: function (scope) {
+      link: function (scope, element) {
+        var destroyWatcher = scope.$watch("title",renderTitle);
+        scope.$on("$destroy",destroyWatcher);
+        scope.$on("FormValidation:DetectInvalidFields",detectInvalidFields);
+
         function renderTitle() {
           scope.renderedTitle = "";
           _.each(scope.title, function (titleSegment) {
@@ -38,8 +42,12 @@
           });
         }
 
-        var destroyWatcher = scope.$watch("title",renderTitle);
-        scope.$on("$destroy",destroyWatcher);
+        function detectInvalidFields() {
+          var invalidContainedFields = element.find(".ng-invalid");
+          if(invalidContainedFields.length){
+            scope.accordion.expandAll();
+          }
+        }
       }
     };
   }

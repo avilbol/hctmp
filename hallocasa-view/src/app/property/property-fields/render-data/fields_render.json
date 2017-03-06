@@ -201,13 +201,6 @@
           }
         },
         {
-          "id": 10,
-          "name": "Google Maps",
-          "flexMobile": 100,
-          "flexTablet": 100,
-          "flexDesktop": 100
-        },
-        {
           "id": 37,
           "name": "Estrato (COLOMBIA)",
           "flexMobile": 100,
@@ -296,6 +289,13 @@
           "options": {
             "type": "static_options"
           }
+        },
+        {
+          "id": 10,
+          "name": "Google Maps",
+          "flexMobile": 100,
+          "flexTablet": 100,
+          "flexDesktop": 100
         }
       ]
     },

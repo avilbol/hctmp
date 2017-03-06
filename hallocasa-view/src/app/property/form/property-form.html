@@ -38,7 +38,7 @@
     </md-content>
   </md-sidenav>
 
-  <form name="createPropertyForm" novalidate ng-submit="createPropertyForm.$valid && vm.save()">
+  <form name="createPropertyForm" novalidate ng-submit="createPropertyForm.$valid && vm.save()" form-validation tab-list="vm.fieldsRender">
     <md-dialog-content>
       <md-content class="md-padding">
         <div ng-show="vm.currentState === vm.state.WIZARD_1">
@@ -50,7 +50,7 @@
             <ng-include src="vm.templateURL"></ng-include>
           </div>
           <md-tabs md-dynamic-height md-border-bottom ng-if="!vm.smallDevice">
-            <md-tab ng-repeat="tab in vm.fieldsRender" label="{{tab.lang | translate}}" ng-click="vm.handleTemplateLocation(tab.name)">
+            <md-tab ng-repeat="tab in vm.fieldsRender" label="{{tab.lang | translate}}" ng-click="vm.handleTemplateLocation(tab.name)" md-active="tab.isActive" md-on-deselect="tab.isActive = false">
               <ng-form name="{{tab.name}}">
                 <fields-interpreter
                   field-list="tab.fieldList"

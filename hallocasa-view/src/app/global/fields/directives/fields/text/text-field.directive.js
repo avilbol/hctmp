@@ -55,7 +55,7 @@
               }
               var foundValues;
               _.find(fieldValueList, function (fieldValue, index) {
-                foundValues = (fieldValue.data1 && fieldValue.data1.intVal === scope.fieldScope.identifier);
+                foundValues = (fieldValue && fieldValue.data1 && fieldValue.data1.intVal === scope.fieldScope.identifier);
                 if(foundValues){
                   scope.relocatedIndex = scope.fieldScope.identifier * -1;
                   fieldValueList[scope.relocatedIndex] = fieldValue;
@@ -96,7 +96,7 @@
         function watchDestroyField() {
           scope.$on("$destroy", function (identifier) {
             var valueList = scope.fieldInformation.fieldValueList[identifier];
-            var filledField = valueList.data1 && valueList.data2 && valueList.data1.intVal && valueList.data2.strVal;
+            var filledField = valueList && valueList.data1 && valueList.data2 && valueList.data1.intVal && valueList.data2.strVal;
             if(!filledField){
               delete scope.fieldInformation.fieldValueList[identifier];
             }
