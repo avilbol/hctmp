@@ -27,7 +27,9 @@
         function watchRawLocation() {
           var deleteWatcher = scope.$watch('location',function(){
             if(scope.location){
+              var bdid = scope.fieldInformation.fieldValueList[0].bdid;
               scope.fieldInformation.fieldValueList[0] = {
+                bdid: bdid,
                 data1: {doubleVal: scope.location.center.latitude},
                 data2: {doubleVal: scope.location.center.longitude},
                 data3: {intVal: scope.location.zoom}
@@ -46,10 +48,14 @@
               center: {
                 latitude: fieldValue.data1.doubleVal,
                 longitude: fieldValue.data2.doubleVal
-              },
-              zoom: fieldValue.data3.intVal
+              }
             };
-
+            if(fieldValue.data3 && _.isNumber(fieldValue.data3.intVal)){
+              scope.location.zoom = fieldValue.data3.intVal;
+            }
+            else{
+              scope.location.zoom = 16;
+            }
           }
         }
 
