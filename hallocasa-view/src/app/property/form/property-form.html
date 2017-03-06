@@ -38,9 +38,11 @@
           </md-tabs>
 
           <div>
-            <md-button ng-click="vm.changeState(vm.state.WIZARD_1)">{{'Properties.wizard.back.label' | translate}}</md-button>
+            <md-button ng-click="vm.changeState(vm.state.WIZARD_1)" ng-if="editMode">
+              {{'Properties.wizard.back.label' | translate}}
+            </md-button>
             <md-button ng-click="vm.closeDialog()">{{'Properties.wizard.cancel.label' | translate}}</md-button>
-            <md-button type="submit" ng-if="!vm.isReadOnly">{{'property.wizard.save' | translate}}</md-button>
+            <md-button type="submit">{{'property.wizard.save' | translate}}</md-button>
           </div>
         </div>
       </md-content>

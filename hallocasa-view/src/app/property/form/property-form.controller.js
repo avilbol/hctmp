@@ -8,8 +8,7 @@
 
   /** @ngInject */
   function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, property_images_url,
-                                  FieldsService, SessionService, $log, title, property, readonly,
-                                  $mdToast, translateFilter) {
+                                  FieldsService, SessionService, $mdToast, translateFilter, $log, title, property, editMode) {
 
 		var vm = this;
     var propertyBase = {
@@ -20,7 +19,6 @@
     };
 
     $log.log("Property: ",property);
-    vm.isReadOnly = readonly ? readonly : false;
     vm.property = angular.equals({}, property) ? propertyBase : property;
     vm.title = title;
 
@@ -36,10 +34,6 @@
     vm.handleTemplateLocation = handleTemplateLocation;
 
     function closeDialog(){
-      if(vm.isReadOnly){
-        $mdDialog.cancel();
-        return;
-      }
       var toast = $mdToast.simple()
         .textContent(translateFilter('Confirmation.ClosePropertyWizard'))
         .action(translateFilter('Common.Label.Close'))
@@ -61,6 +55,14 @@
         vm.currentState = state;
       }
     };
+
+    function detectEditMode() {
+      if(editMode){
+        loadFieldsData();
+        vm.currentState = vm.state.WIZARD_2;
+        vm.editMode = true;
+      }
+    }
 
     function loadFieldsData(){
       vm.propertyDeterminants = _.pick(vm.property.propertyKey, "propertyType", "propertyLocation", "propertyProposal", "country");
@@ -163,5 +165,6 @@
     loadPropertyTypes();
     loadLocations();
     loadProposals();
+    detectEditMode();
   }
 })();
