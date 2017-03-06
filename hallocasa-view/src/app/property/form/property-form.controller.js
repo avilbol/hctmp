@@ -7,9 +7,9 @@
 		.controller('PropertyFormController', PropertyFormController);
 
   /** @ngInject */
-  function PropertyFormController($mdDialog, PropertyService, toastr, $mdSidenav, $mdMedia, LocationService,
+  function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, property_images_url,
                                   FieldsService, SessionService, $log, title, property, readonly,
-                                  $mdToast, translateFilter, $rootScope, property_images_url) {
+                                  $mdToast, translateFilter) {
 
 		var vm = this;
     var propertyBase = {
@@ -32,15 +32,8 @@
 
     vm.save = save;
     vm.closeDialog = closeDialog;
-    vm.changeTemplate = changeTemplate;
-    vm.toggleMenu = toggleMenu;
     vm.loadCountries = loadCountries;
     vm.handleTemplateLocation = handleTemplateLocation;
-
-    vm.smallDevice = ($mdMedia('sm') || $mdMedia('xs'));
-
-    vm.templateURL = "app/property/form/tabs/basic-information.html";
-
 
     function closeDialog(){
       if(vm.isReadOnly){
@@ -156,16 +149,6 @@
           toastr.warning(
 						translateFilter("Error.whenloadingcountries"));
         });
-    }
-
-    function changeTemplate(template){
-      handleTemplateLocation(template);
-      vm.templateURL = "app/property/form/tabs/" + template + ".html";
-      toggleMenu();
-    }
-
-    function toggleMenu() {
-      $mdSidenav('addPropertyMenu').toggle();
     }
 
     function handleTemplateLocation(templateURL) {

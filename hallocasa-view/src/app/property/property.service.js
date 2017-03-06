@@ -185,6 +185,6 @@
           });
 
         return propertyDetail;
-      };
+      }
   }
 })();

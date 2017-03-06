@@ -20,13 +20,11 @@
     vm.goBack = goBack;
     vm.save = save;
     vm.propertyShowOptions = {view: true, edit: true, delete: true};
-    var propertyList;
 
     function loadProfile(){
       var profileID = SessionService.getCurrentUser().id;
       ProfilesService.loadProfile(profileID)
         .then(function (data) {
-          propertyList = data.properties;
           data = ProfilesService.validateUserData(data);
           vm.languageId = data.profile.mainLanguage ? data.profile.mainLanguage.id : undefined;
           data.profile.userLanguages  = data.profile.userDescriptions;
@@ -139,12 +137,6 @@
             toastr.warning("Error al eliminar propiedad");
           });
       });
-    }
-
-    function getPropertyDataByID(propertyID) {
-      return _.find(propertyList, function (property) {
-        return property.id === propertyID;
-      })
     }
 
     function launchPropertyFormDialog(ev, locals) {

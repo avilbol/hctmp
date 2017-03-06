@@ -57,9 +57,9 @@
               }
               var foundValues;
               _.find(fieldValueList, function (fieldValue, index) {
-                foundValues = (fieldValue && fieldValue.data1 && fieldValue.data1.intVal === scope.fieldScope.identifier);
+                foundValues = (fieldValue && fieldValue.data1 && fieldValue.data1.intVal === identifier);
                 if(foundValues){
-                  scope.relocatedIndex = scope.fieldScope.identifier * -1;
+                  scope.relocatedIndex = identifier * -1;
                   fieldValueList[scope.relocatedIndex] = fieldValue;
                   delete fieldValueList[index];
                 }
