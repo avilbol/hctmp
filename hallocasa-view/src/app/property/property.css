@@ -9,3 +9,14 @@
 .property-card-options {
   height: 230px;
 }
+
+.card-media {
+  position: relative;
+}
+
+.card-media img {
+  position:absolute;
+  top:0;
+  bottom:0;
+  margin:auto;
+}
