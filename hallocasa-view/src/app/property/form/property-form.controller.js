@@ -8,7 +8,7 @@
 
   /** @ngInject */
   function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, property_images_url,
-                                  FieldsService, SessionService, $mdToast, translateFilter, $log, title, property, editMode) {
+                                  FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode) {
 
 		var vm = this;
     var propertyBase = {
@@ -22,6 +22,7 @@
     vm.title = title;
     vm.changeTab = changeTab;
     vm.previousDisabled = true;
+    vm.showSubmit = editMode;
     var selectedTab = 0;
 
     vm.state = {
@@ -169,11 +170,16 @@
       selectedTab = direction === "Next" ? selectedTab + 1: selectedTab - 1;
       vm.fieldsRender[selectedTab].isActive = true;
       validateNavigation();
+      validateSubmit();
     }
 
     function validateNavigation() {
       vm.previousDisabled = selectedTab === 0;
       vm.nextDisabled = selectedTab === vm.fieldsRender.length - 1;
+    }
+
+    function validateSubmit() {
+      vm.showSubmit = editMode ? true : vm.nextDisabled;
     }
 
     loadCountries();

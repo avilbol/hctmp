@@ -10,8 +10,8 @@
   </md-toolbar>
 
   <form
-    name="createPropertyForm"
-    ng-submit="vm.save()"
+    name="propertyForm"
+    ng-submit="propertyForm.$valid && vm.save()"
     form-validation
     tab-list="vm.fieldsRender"
     novalidate
@@ -53,7 +53,9 @@
             <md-button ng-click="vm.changeTab('Next')" ng-disabled="vm.nextDisabled" ng-if="!vm.editMode">
               {{'Common.Label.Next' | translate}}
             </md-button>
-            <md-button type="submit">{{'property.wizard.save' | translate}}</md-button>
+            <md-button type="submit" ng-if="vm.showSubmit">
+              {{'property.wizard.save' | translate}}
+            </md-button>
           </div>
         </div>
       </md-content>
