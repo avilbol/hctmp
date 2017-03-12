@@ -18,9 +18,11 @@
       location: {}
     };
 
-    $log.log("Property: ",property);
     vm.property = angular.equals({}, property) ? propertyBase : property;
     vm.title = title;
+    vm.changeTab = changeTab;
+    vm.previousDisabled = true;
+    var selectedTab = 0;
 
     vm.state = {
       "WIZARD_1": 1,
@@ -31,7 +33,9 @@
     vm.save = save;
     vm.closeDialog = closeDialog;
     vm.loadCountries = loadCountries;
-    vm.handleTemplateLocation = handleTemplateLocation;
+    vm.handleTabLocation = handleTabLocation;
+
+    $log.log("Property: ",property);
 
     function closeDialog(){
       var toast = $mdToast.simple()
@@ -153,12 +157,26 @@
         });
     }
 
-    function handleTemplateLocation(templateURL) {
-      switch (templateURL){
+    function handleTabLocation(tabName, tabIndex) {
+      selectedTab = tabIndex;
+      validateNavigation();
+      switch (tabName){
         case "Location":
           $rootScope.$broadcast("RepaintMap");
           break;
       }
+    }
+
+    function changeTab(direction) {
+      vm.fieldsRender[selectedTab].isActive = false;
+      selectedTab = direction === "Next" ? selectedTab + 1: selectedTab - 1;
+      vm.fieldsRender[selectedTab].isActive = true;
+      validateNavigation();
+    }
+
+    function validateNavigation() {
+      vm.previousDisabled = selectedTab === 0;
+      vm.nextDisabled = selectedTab === vm.fieldsRender.length - 1;
     }
 
     loadCountries();

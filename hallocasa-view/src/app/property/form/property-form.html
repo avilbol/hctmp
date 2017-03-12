@@ -24,7 +24,15 @@
 
         <div ng-show="vm.currentState === vm.state.WIZARD_2">
           <md-tabs md-dynamic-height md-border-bottom>
-            <md-tab ng-repeat="tab in vm.fieldsRender" label="{{tab.lang | translate}}" ng-click="vm.handleTemplateLocation(tab.name)" md-active="tab.isActive" md-on-deselect="tab.isActive = false">
+            <md-tab
+              ng-repeat="tab in vm.fieldsRender"
+              label="{{tab.lang | translate}}"
+              ng-click="vm.handleTabLocation(tab.name, $index)"
+              md-active="tab.isActive"
+              md-on-deselect="tab.isActive = false"
+              md-swipe-content
+              md-center-tabs
+            >
               <ng-form name="{{tab.name}}">
                 <fields-interpreter
                   field-list="tab.fieldList"
@@ -38,10 +46,13 @@
           </md-tabs>
 
           <div>
-            <md-button ng-click="vm.changeState(vm.state.WIZARD_1)" ng-if="editMode">
-              {{'Properties.wizard.back.label' | translate}}
-            </md-button>
             <md-button ng-click="vm.closeDialog()">{{'Properties.wizard.cancel.label' | translate}}</md-button>
+            <md-button ng-click="vm.changeTab('Back')" ng-disabled="vm.previousDisabled">
+              {{'Common.Label.Back' | translate}}
+            </md-button>
+            <md-button ng-click="vm.changeTab('Next')" ng-disabled="vm.nextDisabled">
+              {{'Common.Label.Next' | translate}}
+            </md-button>
             <md-button type="submit">{{'property.wizard.save' | translate}}</md-button>
           </div>
         </div>
