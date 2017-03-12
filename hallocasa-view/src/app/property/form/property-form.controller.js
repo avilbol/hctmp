@@ -35,8 +35,6 @@
     vm.loadCountries = loadCountries;
     vm.handleTabLocation = handleTabLocation;
 
-    $log.log("Property: ",property);
-
     function closeDialog(){
       var toast = $mdToast.simple()
         .textContent(translateFilter('Confirmation.ClosePropertyWizard'))
@@ -78,7 +76,6 @@
 
       return PropertyService.loadFieldsData(payload)
         .then(function (fieldsData) {
-          $log.debug(fieldsData);
           if(vm.property.fieldList){
             fieldsData.propertyFields = FieldsService.consolidateFields(vm.property.fieldList, fieldsData.propertyFields);
           }

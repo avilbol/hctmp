@@ -29,7 +29,7 @@
         return tab;
       });
 
-      $log.debug("Campos totales: "+totalFields+", Campos renderizados: "+fieldsRendered);
+      $log.debug("Campos totales: "+totalFields+", Campos cargados: "+fieldsRendered);
 
       return fieldsRender;
     }
