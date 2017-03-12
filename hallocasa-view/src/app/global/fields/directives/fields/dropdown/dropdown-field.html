@@ -4,11 +4,11 @@
     <label>{{fieldInformation.lang | translate}}</label>
     <md-select
       ng-switch-when="static_options"
-      name="{{fieldInformation.name}}"
+      name="{{fieldName}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].identifier"
       ng-disabled="!options || options.length === 0"
-      aria-label="{{fieldInformation.name}}"
+      aria-label="{{fieldName}}"
       ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
@@ -18,11 +18,11 @@
 
     <md-select
       ng-switch-when="dynamic_options"
-      name="{{fieldInformation.name}}"
+      name="{{fieldName}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].identifier"
       ng-disabled="!options || options.length === 0"
-      aria-label="{{fieldInformation.name}}"
+      aria-label="{{fieldName}}"
       ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
@@ -32,11 +32,11 @@
 
     <md-select
       ng-switch-when="binary_options"
-      name="{{fieldInformation.name}}"
+      name="{{fieldName}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.boolVal"
       ng-disabled="!options || options.length === 0"
-      aria-label="{{fieldInformation.name}}"
+      aria-label="{{fieldName}}"
       ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.value}}">
@@ -46,11 +46,11 @@
 
     <md-select
       ng-switch-when="internal_dependency_options"
-      name="{{fieldInformation.name}}"
+      name="{{fieldName}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].identifier"
       ng-disabled="!options || options.length === 0"
-      aria-label="{{fieldInformation.name}}"
+      aria-label="{{fieldName}}"
       ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
@@ -60,11 +60,11 @@
 
     <md-select
       ng-switch-when="external_dependency_options"
-      name="{{fieldInformation.name}}"
+      name="{{fieldName}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].identifier"
       ng-disabled="!options || options.length === 0"
-      aria-label="{{fieldInformation.name}}"
+      aria-label="{{fieldName}}"
       ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
@@ -74,11 +74,11 @@
 
     <md-select
       ng-switch-when="parameter_dependency_options"
-      name="{{fieldInformation.name}}"
+      name="{{fieldName}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].identifier"
       ng-disabled="!options || options.length === 0"
-      aria-label="{{fieldInformation.name}}"
+      aria-label="{{fieldName}}"
       ng-required="required"
     >
       <md-option ng-repeat="option in options" value="{{option.identifier}}">
@@ -88,7 +88,7 @@
 
     <ng-messages-generator
       form="form"
-      input-name="{{fieldInformation.name}}"
+      input-name="{{fieldName}}"
       validators="{{fieldInformation.validations}}"
     ></ng-messages-generator>
   </md-input-container>

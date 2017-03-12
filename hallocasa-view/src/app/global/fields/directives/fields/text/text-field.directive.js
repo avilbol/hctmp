@@ -15,6 +15,8 @@
         form: "=?"
       },
       link: function (scope) {
+        scope.fieldName = scope.$id;
+
         var fieldTypes =[
           {
             id: "standard_field",
@@ -49,21 +51,27 @@
           switch (fieldType){
             case "scope_dependent_field":
               var identifier = scope.fieldScope.identifier;
-              //TODO: reubicación de valor del campo y de id
               if(!baseValidation){
                 return false;
               }
               var foundValues;
-              _.find(fieldValueList, function (fieldValue, index) {
-                foundValues = (fieldValue && fieldValue.data1 && fieldValue.data1.intVal === scope.fieldScope.identifier);
-                if(foundValues){
-                  scope.relocatedIndex = scope.fieldScope.identifier * -1;
-                  fieldValueList[scope.relocatedIndex] = fieldValue;
-                  delete fieldValueList[index];
-                }
-                return foundValues;
+              for(var index in fieldValueList){
+                var fieldValue = fieldValueList[index];
+                var indexAlreadyRelocated = Number(index) < 0;
+                foundValues = (fieldValue && fieldValue.data1 && fieldValue.data1.intVal === identifier);
 
-              });
+                if(indexAlreadyRelocated && foundValues){
+                  scope.relocatedIndex = index;
+                  break;
+                }
+
+                if(foundValues){
+                  scope.relocatedIndex = identifier * -1;
+                  fieldValueList[scope.relocatedIndex] = angular.copy(fieldValue);
+                  delete fieldValueList[index];
+                  break;
+                }
+              }
               return (baseValidation && foundValues);
             default:
               return baseValidation;

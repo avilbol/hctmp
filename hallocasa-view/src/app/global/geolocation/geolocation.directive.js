@@ -37,11 +37,12 @@
 
         function startLocation(){
           if(isValidLocation(scope.location.center)){
-            scope.mapCenter = scope.location.center;
+            scope.mapCenter = angular.copy(scope.location.center);
             return;
           }
-          scope.location.center = { latitude: 45, longitude: -73 };
-          scope.mapCenter = { latitude: 45, longitude: -73 };
+          scope.location.center = { latitude: 4, longitude: -73 };
+          scope.location.zoom = 6;
+          scope.mapCenter = { latitude: 4, longitude: -73 };
           GeolocationService.getCurrentPosition()
             .then(function (position) {
               scope.location.center.latitude = position.coords.latitude;

@@ -7,9 +7,8 @@
 		.controller('PropertyFormController', PropertyFormController);
 
   /** @ngInject */
-  function PropertyFormController($mdDialog, PropertyService, toastr, $mdSidenav, $mdMedia, LocationService,
-                                  FieldsService, SessionService, $log, title, property, readonly,
-                                  $mdToast, translateFilter, $rootScope, property_images_url) {
+  function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, property_images_url,
+                                  FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode) {
 
 		var vm = this;
     var propertyBase = {
@@ -19,10 +18,12 @@
       location: {}
     };
 
-    $log.log("Property: ",property);
-    vm.isReadOnly = readonly ? readonly : false;
     vm.property = angular.equals({}, property) ? propertyBase : property;
     vm.title = title;
+    vm.changeTab = changeTab;
+    vm.previousDisabled = true;
+    vm.showSubmit = editMode;
+    var selectedTab = 0;
 
     vm.state = {
       "WIZARD_1": 1,
@@ -32,21 +33,10 @@
 
     vm.save = save;
     vm.closeDialog = closeDialog;
-    vm.changeTemplate = changeTemplate;
-    vm.toggleMenu = toggleMenu;
     vm.loadCountries = loadCountries;
-    vm.handleTemplateLocation = handleTemplateLocation;
-
-    vm.smallDevice = ($mdMedia('sm') || $mdMedia('xs'));
-
-    vm.templateURL = "app/property/form/tabs/basic-information.html";
-
+    vm.handleTabLocation = handleTabLocation;
 
     function closeDialog(){
-      if(vm.isReadOnly){
-        $mdDialog.cancel();
-        return;
-      }
       var toast = $mdToast.simple()
         .textContent(translateFilter('Confirmation.ClosePropertyWizard'))
         .action(translateFilter('Common.Label.Close'))
@@ -69,6 +59,14 @@
       }
     };
 
+    function detectEditMode() {
+      if(editMode){
+        loadFieldsData();
+        vm.currentState = vm.state.WIZARD_2;
+        vm.editMode = true;
+      }
+    }
+
     function loadFieldsData(){
       vm.propertyDeterminants = _.pick(vm.property.propertyKey, "propertyType", "propertyLocation", "propertyProposal", "country");
       var propertyTypeGroup = vm.propertyDeterminants.propertyType.group.id;
@@ -79,7 +77,6 @@
 
       return PropertyService.loadFieldsData(payload)
         .then(function (fieldsData) {
-          $log.debug(fieldsData);
           if(vm.property.fieldList){
             fieldsData.propertyFields = FieldsService.consolidateFields(vm.property.fieldList, fieldsData.propertyFields);
           }
@@ -158,27 +155,37 @@
         });
     }
 
-    function changeTemplate(template){
-      handleTemplateLocation(template);
-      vm.templateURL = "app/property/form/tabs/" + template + ".html";
-      toggleMenu();
-    }
-
-    function toggleMenu() {
-      $mdSidenav('addPropertyMenu').toggle();
-    }
-
-    function handleTemplateLocation(templateURL) {
-      switch (templateURL){
+    function handleTabLocation(tabName, tabIndex) {
+      selectedTab = tabIndex;
+      validateNavigation();
+      switch (tabName){
         case "Location":
           $rootScope.$broadcast("RepaintMap");
           break;
       }
     }
 
+    function changeTab(direction) {
+      vm.fieldsRender[selectedTab].isActive = false;
+      selectedTab = direction === "Next" ? selectedTab + 1: selectedTab - 1;
+      vm.fieldsRender[selectedTab].isActive = true;
+      validateNavigation();
+      validateSubmit();
+    }
+
+    function validateNavigation() {
+      vm.previousDisabled = selectedTab === 0;
+      vm.nextDisabled = selectedTab === vm.fieldsRender.length - 1;
+    }
+
+    function validateSubmit() {
+      vm.showSubmit = editMode ? true : vm.nextDisabled;
+    }
+
     loadCountries();
     loadPropertyTypes();
     loadLocations();
     loadProposals();
+    detectEditMode();
   }
 })();

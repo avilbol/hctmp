@@ -45,6 +45,7 @@
           }
         ];
         var fieldValueList = scope.fieldInformation.fieldValueList;
+        scope.fieldName = scope.$id;
 
         function applyValidations() {
           if (scope.fieldInformation.validations) {

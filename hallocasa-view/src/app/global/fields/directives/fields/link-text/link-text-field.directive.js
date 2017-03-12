@@ -14,12 +14,14 @@
         form: "=?"
       },
       link: function (scope) {
+        scope.fieldName = scope.$id;
+
         function applyValidations() {
           if (scope.fieldInformation.validations) {
             scope.required = scope.fieldInformation.validations.includes("required");
           }
         }
-        
+
         applyValidations();
       }
     };

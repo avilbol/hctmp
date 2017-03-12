@@ -20,13 +20,11 @@
     vm.goBack = goBack;
     vm.save = save;
     vm.propertyShowOptions = {view: true, edit: true, delete: true};
-    var propertyList;
 
     function loadProfile(){
       var profileID = SessionService.getCurrentUser().id;
       ProfilesService.loadProfile(profileID)
         .then(function (data) {
-          propertyList = data.properties;
           data = ProfilesService.validateUserData(data);
           vm.languageId = data.profile.mainLanguage ? data.profile.mainLanguage.id : undefined;
           data.profile.userLanguages  = data.profile.userDescriptions;
@@ -90,7 +88,8 @@
         .then(function (propertyDetail) {
           var locals = {
             title: "Properties.edit.label",
-            property: propertyDetail
+            property: propertyDetail,
+            editMode: true
           };
           launchPropertyFormDialog(event,locals)
             .then(function() {
@@ -129,16 +128,10 @@
       });
     }
 
-    function getPropertyDataByID(propertyID) {
-      return _.find(propertyList, function (property) {
-        return property.id === propertyID;
-      })
-    }
-
     function launchPropertyFormDialog(ev, locals) {
       locals.title = locals.title ? locals.title : "";
       locals.property = locals.property ? locals.property : {};
-      locals.readonly = locals.readonly ? locals.readonly : false;
+      locals.editMode = locals.editMode ? locals.editMode : false;
 
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
       return $mdDialog.show({

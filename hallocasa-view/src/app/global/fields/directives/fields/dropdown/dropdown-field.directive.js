@@ -17,6 +17,8 @@
         form: "=?"
       },
       link: function (scope) {
+        scope.fieldName = scope.$id;
+
         var optionsData = scope.fieldInformation.options;
         var staticOptionsGroup = scope.fieldInformation.dropdownOptionGroup;
 

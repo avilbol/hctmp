@@ -11,6 +11,7 @@
 
     vm.viewProperty = viewProperty;
     vm.editProfile = editProfile;
+    vm.createProperty = createProperty;
     vm.goBack = goBack;
 
     function loadProfile(){
@@ -31,10 +32,32 @@
       $location.url('/property?id='+property.id);
     }
 
+    function createProperty(event) {
+      var locals = {title: "Properties.add.label"};
+      launchPropertyFormDialog(event,locals)
+        .then(function() {
+          reloadProperties();
+        });
+    }
+
+    function reloadProperties() {
+      var profileID = SessionService.getCurrentUser().id;
+      var mainLanguage = vm.userData.profile.mainLanguage;
+      PropertyService.loadPropertiesByUserID(profileID)
+        .then(function (properties) {
+          vm.userData.properties = PropertyService.generatePropertiesPreviewData(properties, mainLanguage);
+        })
+        .catch(function () {
+          //TODO: Traducción de mensaje de error
+          toastr.warning("Hubo un error al recargar sus propiedades, intentelo más tarde");
+          goBack();
+        });
+    }
+
     function launchPropertyFormDialog(ev, locals) {
       locals.title = locals.title ? locals.title : "";
       locals.property = locals.property ? locals.property : {};
-      locals.readonly = locals.readonly ? locals.readonly : false;
+      locals.editMode = locals.editMode ? locals.editMode : false;
 
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
       return $mdDialog.show({

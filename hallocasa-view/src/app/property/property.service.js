@@ -316,6 +316,6 @@
           propertyDetail.images.push({"src" : property_images_url + image.data1.strVal});
         });
         return propertyDetail;
-      };
+      }
   }
 })();

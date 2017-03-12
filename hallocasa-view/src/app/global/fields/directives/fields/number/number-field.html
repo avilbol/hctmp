@@ -4,7 +4,7 @@
     <label>{{fieldInformation.lang | translate}}</label>
     <input
       ng-switch-when="standard_field"
-      name="{{fieldInformation.name}}"
+      name="{{fieldName}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].text.intVal"
       type="number"
@@ -14,7 +14,7 @@
     >
     <input
       ng-switch-when="double_field"
-      name="{{fieldInformation.name}}"
+      name="{{fieldName}}"
       title="{{fieldInformation.lang | translate}}"
       step="0.5"
       ng-model="fieldInformation.fieldValueList[0].text.doubleVal"
@@ -25,7 +25,7 @@
     >
     <input
       ng-switch-when="scope_dependent_field"
-      name="{{fieldInformation.name}}"
+      name="{{fieldName}}"
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[fieldScope.identifier].data2.doubleVal"
       type="number"
@@ -36,7 +36,7 @@
 
     <ng-messages-generator
       form="form"
-      input-name="{{fieldInformation.name}}"
+      input-name="{{fieldName}}"
       validators="{{fieldInformation.validations}}"
       messages-params="fieldInformation.messagesParams"
     ></ng-messages-generator>

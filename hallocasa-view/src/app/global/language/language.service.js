@@ -13,6 +13,7 @@
 
     var resources = {
       languages: $resource(backend_url + "languages", {}, GenericRESTResource)
+      //languages: $resource("./mocks/language/languages", {}, GenericRESTResource)
     };
 
     return service;
