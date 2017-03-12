@@ -23,16 +23,7 @@
     function loadPropertiesPage(page) {
       PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1)
         .then(function (data) {
-          data.properties = _.map(data.properties, function (property) {
-            property.images = angular.isArray(property.images) ? property.images : [];
-            ImageValidatorService.validateOrFallback(property.images[0], "PropertyDefault")
-              .then(function (image) {
-                property.images[0] = image;
-              });
-            return property;
-          });
-
-          vm.properties = data.properties;
+          vm.properties = PropertyService.generatePropertiesPreviewData(data.propertyList);
           vm.totalProperties = data.totalProperties;
           vm.firstLoading = false;
         });

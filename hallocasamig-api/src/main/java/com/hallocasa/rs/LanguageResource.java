@@ -35,4 +35,16 @@ public class LanguageResource {
 		return Response.status(HttpStatus.SC_OK).entity(languageService.find()).build();
 	}
 	
+	@GET
+	@Path("app_lang")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Auth
+	@ApiOperation(value = "Retrieves the list of all languages used in the user interface")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	public Response getSystemLanguages() {
+		return Response.status(HttpStatus.SC_OK).entity(languageService.findSystem()).build();
+	}
+	
 }

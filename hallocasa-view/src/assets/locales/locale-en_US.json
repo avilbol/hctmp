@@ -1,6 +1,8 @@
 ﻿{
   "hallocasa.pending": "-- Pending translation --",
 	"directives.language-select.Language":"Language",
+  "global.yes":"Yes",
+  "global.no":"No",
 	"Label.Property":"Property",
 	"Label.Agent":"Agent",
 	"Label.PruchaseProcess":"Buying Process",
@@ -896,5 +898,6 @@
   "Alert.validatingrequest": "Validating request",
   "Error.emailalreadyexists": "Email already exists",
   "Alert.profileactivated": "Profile activated",
-  "Alert.activatingprofile": "Activating profile"
+  "Alert.activatingprofile": "Activating profile",
+  "Property.Detail.viewInLanguage": "Ver en el siguiente lenguaje (pending translation)"
 }

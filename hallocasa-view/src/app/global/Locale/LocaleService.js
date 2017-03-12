@@ -12,7 +12,6 @@
 
 
     var localesObj = LOCALES.locales;
-
     // locales and locales display names
     var _LOCALES = Object.keys(localesObj);
     if (!_LOCALES || _LOCALES.length === 0) {
@@ -67,6 +66,9 @@
       },
       getLocalesDisplayNames: function () {
         return _LOCALES_DISPLAY_NAMES;
+      },
+      getLanguages: function() {
+        return LOCALES.languages();
       }
     };
   }

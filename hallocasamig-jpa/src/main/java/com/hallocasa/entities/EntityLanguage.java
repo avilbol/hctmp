@@ -17,10 +17,13 @@ import com.hallocasa.entities.i.HallocasaEntity;
 @Table(name = "lang")
 @NamedQueries({
 	@NamedQuery(name = EntityLanguage.QUERY_FIND_ALL, 
-			query = "select l from EntityLanguage l")})
+			query = "select l from EntityLanguage l"),
+	@NamedQuery(name = EntityLanguage.QUERY_FIND_SYSTEM_LANG, 
+			query = "select l from EntityLanguage l WHERE l.locale IN ('es','en','de')")})
 public class EntityLanguage implements HallocasaEntity{
 
 	public static final String QUERY_FIND_ALL = "EntityLanguage.QueryFindAll";
+	public static final String QUERY_FIND_SYSTEM_LANG = "EntityLanguage.QueryFindSystemLang";
 	
 	@Id
 	@Column(name="id")

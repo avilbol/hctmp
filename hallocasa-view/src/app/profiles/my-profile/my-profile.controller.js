@@ -28,12 +28,7 @@
     }
 
     function viewProperty(event, property) {
-      var locals = {
-        title: "Properties.view.label",
-        property: property,
-        readonly: true
-      };
-      launchPropertyFormDialog(event,locals);
+      $location.url('/property?id='+property.id);
     }
 
     function launchPropertyFormDialog(ev, locals) {

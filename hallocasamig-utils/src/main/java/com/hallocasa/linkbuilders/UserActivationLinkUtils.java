@@ -29,7 +29,7 @@ public class UserActivationLinkUtils {
      *
      * @return The built URL
      */
-    public static String buildUserActivationUrl(String email, Long userId, Language language) {
+    public static String buildUserActivationUrl(String email, Long userId, Language language, String baseUrl) {
         Map<String, String> params = new HashMap<>();
         params.put("user_activation_token", generateActivationKey(userId, email));
         params.put("lang", language.getLocale());
@@ -41,11 +41,13 @@ public class UserActivationLinkUtils {
         return getAbsolutePath(ROOT_URL + USER_ACTIVATION_URL, params);
     }
     
-    public static String buildPasswordRecoveryUrl(PasswordRecoveryToken token, Language language){
+    public static String buildPasswordRecoveryUrl(PasswordRecoveryToken token, 
+    		Language language, String url){
         Map<String, String> params = new HashMap<>();
         params.put("password_recovery_token", token.getTokenContent());
         params.put("lang", language.getLocale());
-        return getAbsolutePath(ROOT_URL + PASSWORD_RECOVERY_URL, params);
+        String targetUrl = url == null ? ROOT_URL : url;
+        return getAbsolutePath(targetUrl + PASSWORD_RECOVERY_URL, params);
     }
 
     /**

@@ -47,7 +47,8 @@ public class PasswordRecoveryResource {
 				required = true, dataType = "string", paramType = "query")
 	})
 	public Response sendEmail(@Context UriInfo uriInfo) {
-		passwordRecoveryService.sendPasswordRecovery(uriInfo.getQueryParameters().getFirst("email"));
+		passwordRecoveryService.sendPasswordRecovery(
+				uriInfo.getQueryParameters().getFirst("email"), uriInfo.getBaseUri().getPath());
 		return Response.status(HttpStatus.SC_OK).entity("Email sent succesfully").build();
 	}
 	

@@ -12,7 +12,7 @@
       var rate = getCurrencyRate(inputCurrency, outputCurrency);
       var convertedCurrency = numberFilter(inputCurrency.amount * rate, 2);
 
-      return convertedCurrency + " " + outputCurrency.name;
+      return convertedCurrency + " " + outputCurrency.abbreviation;
     }
 
     function getCurrencyRate(inputCurrency, outputCurrency) {

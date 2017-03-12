@@ -12,8 +12,7 @@
     };
 
     var resources = {
-      //languages: $resource(backend_url + "languages", {}, GenericRESTResource)
-      languages: $resource("./mocks/language/languages.json", {}, GenericRESTResource)
+      languages: $resource(backend_url + "languages", {}, GenericRESTResource)
     };
 
     return service;

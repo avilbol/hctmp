@@ -103,19 +103,7 @@
     }
 
     function viewProperty(event, property) {
-      PropertyService.loadPropertyDetail(property.id)
-        .then(function (propertyDetail) {
-          var locals = {
-            title: "Properties.edit.label",
-            property: propertyDetail,
-            readonly: true
-          };
-          launchPropertyFormDialog(event,locals);
-        })
-        .catch(function () {
-          toastr.warning(translateFilter("Error.whenloadingproperty"));
-        });
-
+      $location.url('/property?id='+property.id);
     }
 
     function deleteProperty(event, property) {

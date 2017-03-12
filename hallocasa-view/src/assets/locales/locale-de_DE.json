@@ -1,6 +1,8 @@
 ﻿{
   "hallocasa.pending": "-- Pending translation --",
 	"directives.language-select.Language":"Sprache",
+  "global.yes":"Ja",
+  "global.no":"Nein",
 	"Label.Property":"Immobilien",
 	"Label.Agent":"Makler",
 	"Label.PruchaseProcess":"Kaufprozess",
@@ -890,5 +892,6 @@
   "Alert.validatingrequest": "Anfrage wird validiert",
   "Error.emailalreadyexists": "Die Email existiert bereits",
   "Alert.profileactivated": "Profil erfolgreich akitviert",
-  "Alert.activatingprofile": "Das Profil wird aktiviert"
+  "Alert.activatingprofile": "Das Profil wird aktiviert",
+  "Property.Detail.viewInLanguage": "Ver en el siguiente lenguaje (pending translation)"
 }

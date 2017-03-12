@@ -27,5 +27,15 @@ public class DAOLanguage implements IDAOLanguage {
 		return appPersistenceServices.executeNamedQuery(EntityLanguage.QUERY_FIND_ALL, new Object[] {},
 				EntityLanguage.class);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<EntityLanguage> findSystem() {
+		return appPersistenceServices.executeNamedQuery(
+				EntityLanguage.QUERY_FIND_SYSTEM_LANG, new Object[] {},
+				EntityLanguage.class);
+	}
 
 }

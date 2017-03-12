@@ -23,8 +23,10 @@ public interface PasswordRecoveryService {
 	 * Send an email with password recovery instructions
 	 * @param email
 	 * 		Email to send info
+	 * @param url
+	 * 		Url context
 	 * @throws MailServicesErrorException
 	 */
-	void sendPasswordRecovery(String email);
+	void sendPasswordRecovery(String email, String url);
 
 }
