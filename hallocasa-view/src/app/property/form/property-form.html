@@ -47,10 +47,10 @@
 
           <div>
             <md-button ng-click="vm.closeDialog()">{{'Properties.wizard.cancel.label' | translate}}</md-button>
-            <md-button ng-click="vm.changeTab('Back')" ng-disabled="vm.previousDisabled">
+            <md-button ng-click="vm.changeTab('Back')" ng-disabled="vm.previousDisabled" ng-if="!vm.editMode">
               {{'Common.Label.Back' | translate}}
             </md-button>
-            <md-button ng-click="vm.changeTab('Next')" ng-disabled="vm.nextDisabled">
+            <md-button ng-click="vm.changeTab('Next')" ng-disabled="vm.nextDisabled" ng-if="!vm.editMode">
               {{'Common.Label.Next' | translate}}
             </md-button>
             <md-button type="submit">{{'property.wizard.save' | translate}}</md-button>
