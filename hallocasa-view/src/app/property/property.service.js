@@ -237,7 +237,7 @@
           getSingleFromDropdown(40, property),
           getSingleFromDropdown(41, property),
           getSingleFromDropdown(42, property),
-          getSingleFromDropdown(43, property),
+          getSingleFromDropdown(43, property)
         ];
 
         propertyDetail.estrato = _.find(estratoOptions, function(estratoOption){
