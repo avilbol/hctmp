@@ -6,7 +6,8 @@
     .controller('myProfileController', myProfileController);
 
   /** @ngInject */
-  function myProfileController(ProfilesService, toastr, translateFilter, $mdMedia, $mdDialog, $document, $location, SessionService) {
+  function myProfileController(ProfilesService, toastr, translateFilter, $mdMedia, $mdDialog, $document, $location,
+                               SessionService, PropertyService) {
     var vm = this;
 
     vm.viewProperty = viewProperty;
