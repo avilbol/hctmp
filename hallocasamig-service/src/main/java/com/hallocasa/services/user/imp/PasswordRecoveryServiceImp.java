@@ -45,7 +45,7 @@ public class PasswordRecoveryServiceImp implements PasswordRecoveryService {
     private IDAOUser daoUser;
 
     @Override
-    public void sendPasswordRecovery(String email) {
+    public void sendPasswordRecovery(String email, String url) {
         Optional<EntityUser> entUser = daoUser.find(email);
         if(!entUser.isPresent()){
             throw new SecurityException("User with email entered, not found",
@@ -118,7 +118,7 @@ public class PasswordRecoveryServiceImp implements PasswordRecoveryService {
         return token;
     }
     
-    private String generateRecoveryPasswordLink(PasswordRecoveryToken token, Language language){
-        return UserActivationLinkUtils.buildPasswordRecoveryUrl(token, language);
+    private String generateRecoveryPasswordLink(PasswordRecoveryToken token, Language language, String url){
+        return UserActivationLinkUtils.buildPasswordRecoveryUrl(token, language, url);
     }
 }

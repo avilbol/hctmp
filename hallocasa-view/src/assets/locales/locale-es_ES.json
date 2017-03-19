@@ -1,5 +1,7 @@
 ﻿{
   "hallocasa.pending": "-- Pending translation --",
+  "global.yes":"Si",
+  "global.no":"No",
 	"directives.language-select.Language":"Lenguaje",
 	"Label.Property":"Propiedad",
 	"Label.Agent":"Agente",
@@ -899,5 +901,6 @@
   "Alert.validatingrequest": "Estamos validando su petici\u00F3n",
   "Error.emailalreadyexists": "¡El correo ingresado ya se encuentra asociado a una cuenta existente!",
   "Alert.profileactivated": "Su perfil ha sido activado exitosamente, ya puede iniciar sesi\u00F3n",
-  "Alert.activatingprofile": "Estamos activando su perfil"
+  "Alert.activatingprofile": "Estamos activando su perfil",
+  "Property.Detail.viewInLanguage": "Ver en el siguiente lenguaje"
 }

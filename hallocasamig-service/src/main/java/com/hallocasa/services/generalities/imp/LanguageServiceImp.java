@@ -35,5 +35,15 @@ public class LanguageServiceImp implements LanguageService {
 		}
 		return languageList;
 	}
+	
+	@Override
+	public List<Language> findSystem() {
+		List<Language> languageList = new ArrayList<>();
+		List<EntityLanguage> entityLangList = daoLanguage.findSystem();
+		for(EntityLanguage entLang : entityLangList){
+			languageList.add((Language) toValueObject(entLang));
+		}
+		return languageList;
+	}
 
 }

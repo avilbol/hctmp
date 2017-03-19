@@ -4,10 +4,32 @@
     <div flex-gt-sm="90" flex-gt-xs="90" flex-xs="100">
       <md-card>
         <md-card-content>
-          {{vm.property.id}}
+          <div layout="row" layout-sm="column">
+             <span flex/>
+             <span>
+               <label>{{'Property.Detail.viewInLanguage' | translate}}</label>
+             </span>
+             <md-input-container class="md-block">
+               <md-select
+                 name="guidLanguage"
+                 ng-model="vm.guidLanguage"
+                 ng-model-options="{trackBy: '$value.id'}"
+                 required
+               >
+                 <md-option ng-repeat="language in vm.guidLanguages" ng-value="language">
+                   {{language.name | unicode}}
+                 </md-option>
+               </md-select>
+             </md-input-container>
+          </div>
+          <ng-messages-generator
+            form="editProfileForm"
+            input-name="country"
+            validators="required"
+          ></ng-messages-generator>
           <div layout="row" layout-align="space-between">
             <div layout="column" flex>
-              <b>{{vm.property.description[vm.property.mainLanguage].title}}</b>
+              <b>{{vm.property.titles[vm.guidLanguage.id]}}</b>
             </div>
             <div layout="column" flex>
               {{vm.property.price | currency:"":0}}<br>
@@ -43,13 +65,13 @@
                 <md-tab label="{{'PropertyBrowse.Property.description' | translate}}">
                   <md-content class="md-padding">
                     <div layout="column">
-                      <b>{{'propertyWizardPage.property.description' | translate}} ({{vm.property.mainLanguage}})</b>
-                      {{vm.property.description[vm.property.mainLanguage].propertyDescription}}
+                      <b>{{'propertyWizardPage.property.description' | translate}} </b>
+                      {{vm.property.descriptions[vm.guidLanguage.id]}}
                     </div>
                     <br>
                     <div layout="column">
-                      <b>{{'propertyWizardPage.property.LocationDescription' | translate}} ({{vm.property.mainLanguage}})</b>
-                      {{vm.property.description[vm.property.mainLanguage].location}}
+                      <b>{{'propertyWizardPage.property.LocationDescription' | translate}}</b>
+                      {{vm.property.locationDescriptions[vm.guidLanguage.id]}}
                     </div>
                   </md-content>
                 </md-tab>
@@ -67,14 +89,14 @@
                     <md-card-title layout="row" layout-align="center center">
                       <md-card-title-media>
                         <div class="md-media-lg card-media">
-                          <img ng-src="{{vm.validateImage('assets/images/user_avatar/' + vm.property.contact.avatarURL) || 'assets/images/user_avatar/user0.jpg'}}" alt="{{ vm.property.contact.name }}">
+                          <img ng-src="http://www.hallocasa.com:64645/resources/images/users/{{vm.property.user.imageLink}}">
                         </div>
                       </md-card-title-media>
                       <md-card-title-text hide-xs>
-                        <span class="md-headline">{{vm.property.contact.name}}</span>
+                        <span class="md-headline">{{vm.property.user.firstName}} {{vm.property.user.lastName}}</span>
                         <div layout="row" layout-align="space-between">
                           <div class="md-subhead" layout="column">
-                            <item-list tablet-items="2" desktop-items="3" list="vm.property.contact.languages" display="column"></item-list>
+                            <item-list tablet-items="2" desktop-items="3" list="vm.property.user.userLanguages" display="column"></item-list>
                           </div>
                           <div class="md-subhead" layout="column">
                             <item-list tablet-items="2" desktop-items="3" list="vm.property.contact.services" display="column"></item-list>
@@ -84,20 +106,106 @@
                       </md-card-title-text>
                     </md-card-title>
                     <md-card-content>
-                      <b>{{'Profile.Data.City.Label' | translate}}: </b> {{vm.property.contact.city}}
+                      <b>{{'Profile.Data.City.Label' | translate}}: </b> {{vm.property.user.city.name}}
 
-                      <div ng-if="vm.property.contact.telephone.extension">
+                      <div ng-if="vm.property.user.telephone.extension">
                         <b>{{'Profile.Data.Telephone.Label' | translate}}: </b>
-                        ({{vm.property.contact.telephone.extension}}) {{vm.property.contact.telephone.number}}
+                        ({{vm.property.user.telephone.extension}}) {{vm.property.user.telephone.number}}
                       </div>
-                      <b>{{'PropertyBrowse.Property.email' |  translate}}: </b> {{vm.property.contact.email}}
+                      <b>{{'PropertyBrowse.Property.email' |  translate}}: </b> {{vm.property.user.email}}
                     </md-card-content>
                   </md-card>
                 </md-tab>
               </md-tabs>
             </div>
           </div>
+          <div>
+            <div>
+              <md-input-container class="md-block">
+                <b>{{'hallocasa.propertyfield.marketprice' | translate}}</b>:
+                {{vm.property.price | dynamicCurrency}}
+              </md-input-container>
+              <md-input-container class="md-block">
+                <b>{{'hallocasa.propertyfield.squaremeterstotal' | translate}}</b>:
+                {{vm.property.squareMeters}}
+              </md-input-container>
+              <md-input-container class="md-block">
+                <b>{{'hallocasa.propertyfield.department' | translate}}</b>:
+                {{vm.property.state.name}}
+                &nbsp;&nbsp;
+                <b>{{'hallocasa.propertyfield.town' | translate}}</b>:
+                {{vm.property.city.name}}
+                &nbsp;&nbsp;
+                <span ng-if="vm.property.address">
+                  <b>{{'hallocasa.propertyfield.address' | translate}}</b>:
+                  {{vm.property.address.strVal}}
+                  &nbsp;&nbsp;
+                </span>
+                <span ng-if="vm.property.neighborhood">
+                  <b>{{'hallocasa.propertyfield.locationneighborhood' | translate}}</b>:
+                  {{vm.property.neighborhood.name}}
+                </span>
+                <span ng-if="vm.property.neighborhood">
+                  <b>{{'hallocasa.propertyfield.locationneighborhood' | translate}}</b>:
+                  {{vm.property.neighborhood.name}}
+                </span>
+              </md-input-container>
+              <!--<md-input-container class="md-block">
+                <span ng-if="vm.property.video.link">
+                  <b>{{'hallocasa.propertyfield.video.link' | translate}}</b>:
+                  <a href="{{vm.property.video.link}}">{{vm.property.video}}</a>
+                </span>
+              </md-input-container>-->
+              <!--<md-input-container class="md-block">
+                <span ng-if="vm.property.rooms">
+                  <b>{{'hallocasa.propertyfield.rooms' | translate}}</b>:
+                  {{vm.property.rooms}}
+                  &nbsp;&nbsp;
+                </span>
+                <span ng-if="vm.property.bathrooms">
+                  <b>{{'hallocasa.propertyfield.bathrooms' | translate}}</b>:
+                  {{vm.property.bathrooms}}
+                  &nbsp;&nbsp;
+                </span>
+                <span ng-if="vm.property.condition">
+                  <b>{{'hallocasa.propertyfield.condition' | translate}}</b>:
+                  {{vm.property.condition}}
+                  &nbsp;&nbsp;
+                </span>
+              </md-input-container>-->
+              <md-input-container class="md-block">
+                <span ng-if="vm.property.furnished">
+                  <b>{{'hallocasa.propertyfield.furnished' | translate}}</b>:
+                  {{vm.property.furnished}}
+                  &nbsp;&nbsp;
+                </span>
+                <span ng-if="vm.property.floor">
+                  <b>{{'hallocasa.propertyfield.floor' | translate}}</b>:
+                  {{vm.property.floor}}
+                  &nbsp;&nbsp;
+                </span>
+                <span ng-if="vm.property.optionalFeatures">
+                  <b>{{'hallocasa.propertyfield.optionalFeatures' | translate}}</b>:
+                  {{vm.property.optionalFeatures}}
+                  &nbsp;&nbsp;
+                </span>
+                <span ng-if="vm.property.typeOfSoil">
+                  <b>{{'hallocasa.propertyfield.typeofsoil' | translate}}</b>:
+                  {{vm.property.typeOfSoil}}
+                  &nbsp;&nbsp;
+                </span>
+                <span ng-if="vm.property.security">
+                  <b>{{'hallocasa.propertyfield.security' | translate}}</b>:
+                  {{vm.property.security}}
+                  &nbsp;&nbsp;
+                </span>
+              </md-input-container>
+            </div>
 
+            <div layout="row" layout-sm="column">
+
+            </div>
+          </div>
         </md-card-content>
       </md-card>
 

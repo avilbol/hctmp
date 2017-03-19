@@ -6,7 +6,7 @@
     .service('PropertyService', PropertyService);
 
   function PropertyService($q, $resource, $log, GenericRESTResource, backend_url, property_images_url, idSearchFilter,
-                           ImageValidatorService) {
+                           ImageValidatorService, LocationService, translateFilter) {
     var service = {
       getPropertyTypes: getPropertyTypes,
       getLocation: getLocation,
@@ -62,7 +62,7 @@
           loadCount: false
         }
       };
-      return resources.propertiesPublic.consult(filter).$promise;
+      return resources.propertiesPublic.consultObj(filter).$promise;
     }
 
     function loadProperties() {
@@ -103,6 +103,43 @@
     function getFieldByID(fieldID, property){
       var field = _.partial(idSearchFilter, property.fieldList)(fieldID);
       return field && field.fieldValueList ? field.fieldValueList : undefined;
+    }
+
+    function getOptSingleField(fieldID, property){
+      var field = _.first(getFieldByID(fieldID, property));
+      return field ? field : {"text":{}, "data1":{}, "data2":{}, "data3":{}};
+    }
+
+    function getSingleFromDropdown(fieldID, property){
+      var field = _.partial(idSearchFilter, property.fieldList)(fieldID);
+      if(!field){
+        return undefined;
+      }
+      var dropdownOptionList = field.dropdownOptionGroup.dropdownOptionList;
+      var fieldValueId = _.first(field.fieldValueList).identifier;
+      var result = _.find(dropdownOptionList, function(dropdownOption){
+        return dropdownOption.optionId === fieldValueId;
+      });
+      result.translate = field.dropdownOptionGroup.translationManagement != 'NONE';
+      return result;
+    }
+
+    function getGroupFromDropdown(fieldID, property){
+      var field = _.partial(idSearchFilter, property.fieldList)(fieldID);
+      if(!field){
+        return undefined;
+      }
+      var dropdownOptionList = field.dropdownOptionGroup.dropdownOptionList;
+      var fieldValues = field.fieldValueList;
+      var resultStr = "";
+      _.each(fieldValues, function(fieldValueItem){
+        var result = _.find(dropdownOptionList, function(dropdownOption){
+          return dropdownOption.optionId === fieldValueItem.identifier;
+        });
+        result.translate = field.dropdownOptionGroup.translationManagement != 'NONE';
+        resultStr += ((resultStr == '') ? '' : ', ') + translateFilter(result.data1);
+      });
+      return resultStr;
     }
 
     function generatePropertiesPreviewData(properties, mainLanguage) {
@@ -147,15 +184,107 @@
       });
     }
 
-    function generatePropertyDetailData(property, mainLanguage) {
-        var propertyDetail = {};
+    function loadByLang(langElementList, selectedLanguage){
+      var selectedLangValue = _.find(langElementList, function(langElement){
+        return langElement.data1.intVal === selectedLanguage.identifier;
+      });
+      return selectedLangValue.data2.strVal;
+    }
+
+    function generatePropertyDetailData(property, selectedLanguage) {
+        var propertyDetail = {titles:{}, descriptions:{}, locationDescriptions:{}};
         propertyDetail.id = property.id;
         propertyDetail.mainLanguage = {id: _.first(getFieldByID(61, property)).identifier};
-        var targetLanguage = mainLanguage || propertyDetail.mainLanguage;
-        propertyDetail.title = _.find(getFieldByID(2, property), function(title){
-          return targetLanguage.id === title.data1.intVal
-        });
+        var targetLanguage = selectedLanguage || propertyDetail.mainLanguage;
+        propertyDetail.languages = getFieldByID(1, property);
+        propertyDetail.title = getFieldByID(2, property);
+        propertyDetail.description = getFieldByID(3, property);
+        propertyDetail.locationDescription = getFieldByID(4, property);
+        var countryId = property.propertyKey.country.id;
+        var stateId = _.first(getFieldByID(7, property)).identifier;
+        var cityId = _.first(getFieldByID(8, property)).identifier;
         propertyDetail.type = property.propertyKey.propertyType.lang;
+        propertyDetail.address = getOptSingleField(9, property).text;
+        var location = _.first(getFieldByID(10, property));
+        location = location ? location : {};
+        propertyDetail.location = {
+          "lat" : location.data1 ? location.data1.doubleVal : 0,
+          "lng" : location.data2 ? location.data2.doubleVal : 0,
+          "zoom" : location.data3 ? location.data3.doubleVal : 0
+        };
+        propertyDetail.video = {"link" : _.first(getFieldByID(13, property))};
+        propertyDetail.neighborhood = getSingleFromDropdown(15, property);
+        propertyDetail.rooms = getOptSingleField(17, property).text.intVal;
+        propertyDetail.bathooms = getOptSingleField(18, property).text.intVal;
+        propertyDetail.condition = getSingleFromDropdown(19, property);
+        propertyDetail.furnished = getOptSingleField(20, property).text.boolVal;
+        propertyDetail.floor = getOptSingleField(21, property).text.intVal;
+        propertyDetail.optionalFeatures = getGroupFromDropdown(22, property);
+        propertyDetail.suitableFor = getGroupFromDropdown(23, property);
+        propertyDetail.parkingSpots = getOptSingleField(24, property).text.intVal;
+        propertyDetail.basement = getOptSingleField(25, property).text.intVal;
+        propertyDetail.balconyRooftop = getOptSingleField(27, property).text.intVal;
+        propertyDetail.gardenTerrace = getOptSingleField(28, property).text.intVal;
+        propertyDetail.availableFrom = getOptSingleField(29, property).text.dateVal;
+        propertyDetail.rented = getOptSingleField(30, property).text.boolVal;
+        propertyDetail.metersBuilt = getOptSingleField(35, property).text.intVal;
+        propertyDetail.security = getGroupFromDropdown(36, property);
+
+        var estratoOptions = [
+          getSingleFromDropdown(37, property),
+          getSingleFromDropdown(38, property),
+          getSingleFromDropdown(39, property),
+          getSingleFromDropdown(40, property),
+          getSingleFromDropdown(41, property),
+          getSingleFromDropdown(42, property),
+          getSingleFromDropdown(43, property)
+        ];
+
+        propertyDetail.estrato = _.find(estratoOptions, function(estratoOption){
+          return estratoOption;
+        });
+        propertyDetail.kindsOfRoad = getGroupFromDropdown(44, property);
+        propertyDetail.heating = getSingleFromDropdown(45, property);
+        propertyDetail.numberOfFloors = getSingleFromDropdown(46, property);
+        propertyDetail.drinkingWater = getGroupFromDropdown(47, property);
+        propertyDetail.sewageWater = getGroupFromDropdown(48, property);
+        propertyDetail.yearOfConstruction = getSingleFromDropdown(49, property);
+        propertyDetail.methodOfConstruction = getSingleFromDropdown(50, property);
+        propertyDetail.typeOfSoil = getGroupFromDropdown(51, property);
+        propertyDetail.agriculture = getGroupFromDropdown(52, property);
+        propertyDetail.lastModernization = getSingleFromDropdown(53, property);
+        propertyDetail.priceDevelopment = getSingleFromDropdown(54, property);
+        propertyDetail.inclination = getGroupFromDropdown(55, property);
+        propertyDetail.agentFee = getSingleFromDropdown(56, property);
+
+        propertyDetail.monthlyAgentFeesForTheLandlord = getOptSingleField(57, property).text.doubleVal;
+        propertyDetail.additionalFeesForTheLandlord = getOptSingleField(58, property).text.doubleVal;
+        propertyDetail.annualTaxRateOnTheProperty = getSingleFromDropdown(59, property);
+
+        LocationService.getCountries()
+          .then(function(countries){
+            propertyDetail.country = _.find(countries, function(country){
+              return country.id === countryId;
+            });
+          });
+        LocationService.getStateByID({"country_id" : countryId})
+          .then(function(states){
+            propertyDetail.state = _.find(states, function(state){
+              return state.id === stateId;
+            });
+          });
+        LocationService.getCityByID({"state_id" : stateId})
+          .then(function(cities){
+            propertyDetail.city = _.find(cities, function(city){
+              return city.id === cityId;
+            });
+          });
+
+        _.each(propertyDetail.languages, function(propertyLanguage){
+          propertyDetail.titles[propertyLanguage.identifier] = loadByLang(propertyDetail.title, propertyLanguage);
+          propertyDetail.descriptions[propertyLanguage.identifier] = loadByLang(propertyDetail.description, propertyLanguage);
+          propertyDetail.locationDescriptions[propertyLanguage.identifier] = loadByLang(propertyDetail.locationDescription, propertyLanguage);
+        });
         var price = _.first(getFieldByID(5, property));
         price = price ? price : {};
         price.data1 = price.data1 ? price.data1 : {};
@@ -165,25 +294,27 @@
           "amount": price.data2.doubleVal
         };
 
+        var monthlyRent = _.first(getFieldByID(60, property));
+        monthlyRent = monthlyRent ? monthlyRent : {};
+        monthlyRent.data1 = monthlyRent.data1 ? monthlyRent.data1 : {};
+        monthlyRent.data2 = monthlyRent.data2 ? monthlyRent.data2 : {};
+        propertyDetail.monthlyRent = {
+          "currencyID": monthlyRent.data1.intVal,
+          "amount": monthlyRent.data2.doubleVal
+        };
+        propertyDetail.user = property.user;
+
         var meters = _.first(getFieldByID(6, property));
         meters = meters ? meters : {text:{}};
 
         propertyDetail.squareMeters = meters.text.intVal;
-        propertyDetail.description = _.find(getFieldByID(3, property), function(description){
-          return targetLanguage.id === description.data1.intVal
+        propertyDetail.description = getFieldByID(3, property);
+
+        var images = getFieldByID(12, property);
+        propertyDetail.images = [];
+        _.each(images, function(image){
+          propertyDetail.images.push({"src" : property_images_url + image.data1.strVal});
         });
-
-        var image = _.find(getFieldByID(12, property), function (imageData) {
-          return imageData.data2.boolVal;
-        });
-
-        image = image && image.data1 ? image.data1.strVal : undefined;
-
-        ImageValidatorService.validateOrFallback(property_images_url + image, "PropertyDefault")
-          .then(function (image) {
-            propertyDetail.image = image;
-          });
-
         return propertyDetail;
       }
   }

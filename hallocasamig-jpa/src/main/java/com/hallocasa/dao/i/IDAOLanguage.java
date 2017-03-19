@@ -15,5 +15,10 @@ public interface IDAOLanguage {
 	 * @return the application language list
 	 */
 	List<EntityLanguage> find();
+
+	/**
+	 * Retrieves the application language system list
+	 */
+	List<EntityLanguage> findSystem();
 	
 }

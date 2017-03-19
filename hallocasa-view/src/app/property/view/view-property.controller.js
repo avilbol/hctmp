@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function ViewPropertyController(PropertyService, $location,
-      ImageValidatorService, translateFilter, toastr) {
+      ImageValidatorService, translateFilter, toastr, LanguageService) {
     var vm = this;
 
     vm.validateImage = ImageValidatorService.validateBase64;
@@ -22,6 +22,16 @@
         PropertyService.loadProperty(propertyID)
           .then(function (property) {
             vm.property = PropertyService.generatePropertyDetailData(property);
+            LanguageService.getLanguages().then(function(langs){
+              vm.guidLanguages = _.map(vm.property.languages, function(propertyLanguage){
+                return _.find(langs, function(lang){
+                  return propertyLanguage.identifier === lang.id
+                });
+              });
+              vm.guidLanguage = _.find(vm.guidLanguages, function(guidLanguage){
+                return guidLanguage.id === vm.property.mainLanguage.id;
+              })
+            });
           })
           .catch(function (error) {
             if(error.status === 404){

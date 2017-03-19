@@ -10,9 +10,12 @@ import com.hallocasa.vo.Language;
 public interface LanguageService {
 
 	/**
-	 * Find the system languages
-	 * @return the languages of system
+	 * Find the overall language list
 	 */
 	public List<Language> find();
-	
+
+	/**
+	 * Find the system language list
+	 */
+	public List<Language> findSystem();
 }
