@@ -30,7 +30,20 @@
           }
         }
 
+        function validateFieldModel() {
+          var valueList = scope.fieldInformation.fieldValueList;
+          if(!valueList){
+            return;
+          }
+          var viewModel = scope.fieldInformation.fieldValueList[0].text.dateVal;
+          if(!_.isDate(viewModel)){
+            viewModel = new Date(viewModel);
+          }
+          scope.fieldInformation.fieldValueList[0].text.dateVal = viewModel;
+        }
+
         applyValidations();
+        validateFieldModel();
       }
     };
   }
