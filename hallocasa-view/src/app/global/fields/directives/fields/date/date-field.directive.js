@@ -30,7 +30,7 @@
           }
         }
 
-        function validateFieldModel() {
+        function validateFieldModelValue() {
           var valueList = scope.fieldInformation.fieldValueList;
           if(!valueList){
             return;
@@ -43,7 +43,7 @@
         }
 
         applyValidations();
-        validateFieldModel();
+        validateFieldModelValue();
       }
     };
   }
