@@ -55,7 +55,7 @@ public class PasswordRecoveryServiceImp implements PasswordRecoveryService {
         EntityUser entUserVal = entUser.get();
         Map<String, String> params = new HashMap<>();
         params.put("PASSWORD_LINK", generateRecoveryPasswordLink(token, 
-        		(Language) HallocasaConvert.toValueObject(entUserVal.getLanguage())));
+        		(Language) HallocasaConvert.toValueObject(entUserVal.getLanguage()), url));
         daoPasswordRecoveryToken.saveToken((EntityPasswordRecoveryToken) 
         		HallocasaConvert.toEntity(token));
         List<String> emails = new ArrayList<>();

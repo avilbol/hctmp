@@ -44,7 +44,7 @@ public class PropertyResource extends BasicResource {
 	@GET
 	@Path("detail/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Secured
+	@Auth
 	@ApiOperation(value = "Return the property with specified id", notes = "Filter the properties existing "
 			+ "in system with specified id. Returns empty if none property match the id")
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),

@@ -333,8 +333,6 @@
 	"constrains.LinkedInPattern":"This is not a valid LinkedIn profile",
 	"constrains.passwordNotMatch":"Password and its confirmation don't match",
 	"constraints.TermsAndConditions":"Please accept the Terms and Conditions",
-
-
   "hallocasa.dropdownoption.center": "Center",
   "hallocasa.dropdownoption.north": "North",
   "hallocasa.dropdownoption.northwest": "North-West",
@@ -566,6 +564,7 @@
   "hallocasa.propertyfield.country": "Country",
   "hallocasa.propertyfield.squaremetersbuilt": "Square Meters Built",
   "hallocasa.propertyfield.security": "Security",
+  "hallocasa.propertyfield.estrato": "Social Stratum",
   "hallocasa.propertyfield.estratocolombia": "Social Stratum",
   "hallocasa.propertyfield.estratopanama": "Social Stratum",
   "hallocasa.propertyfield.estratocostarica": "Social Stratum",

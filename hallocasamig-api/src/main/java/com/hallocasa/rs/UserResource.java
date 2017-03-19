@@ -62,8 +62,8 @@ public class UserResource extends BasicResource {
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
 	public Response register(
-			@ApiParam(value = "user") User user) {
-		userService.register(user);
+			@ApiParam(value = "user") User user, @Context UriInfo uriInfo) {
+		userService.register(user, uriInfo.getRequestUri().toString());
 		return Response.status(HttpStatus.SC_OK).entity(
 				"User registered succesfully").build();
 	}

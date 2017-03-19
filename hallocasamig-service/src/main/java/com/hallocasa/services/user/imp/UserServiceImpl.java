@@ -177,7 +177,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void register(User user) {
+	public void register(User user, String urlBase) {
 		try{
 			validate(user.getEmail());
 			if(user.getLanguage() == null){
@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
 						+ "with the current application language");
 			}
 			String activationUrl = UserActivationLinkUtils.buildUserActivationUrl(
-	                user.getEmail(), user.getId(), user.getLanguage());
+	                user.getEmail(), user.getId(), user.getLanguage(), urlBase);
 	        String activationKey = UserActivationLinkUtils.generateActivationKey(
 	                user.getId(), user.getEmail());
 			sendActivationLinkEmail(user, activationUrl, activationKey);

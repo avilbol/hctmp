@@ -50,7 +50,7 @@ public interface UserService {
 	 * 
 	 * @param user
 	 */
-	void register(User user);
+	void register(User user, String urlBase);
 
 	/**
 	 * Load the number of user offering services

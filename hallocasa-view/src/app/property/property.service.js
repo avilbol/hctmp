@@ -196,15 +196,15 @@
         propertyDetail.id = property.id;
         propertyDetail.mainLanguage = {id: _.first(getFieldByID(61, property)).identifier};
         var targetLanguage = selectedLanguage || propertyDetail.mainLanguage;
+        propertyDetail.propertyKey = property.propertyKey;
         propertyDetail.languages = getFieldByID(1, property);
         propertyDetail.title = getFieldByID(2, property);
         propertyDetail.description = getFieldByID(3, property);
         propertyDetail.locationDescription = getFieldByID(4, property);
-        var countryId = property.propertyKey.country.id;
         var stateId = _.first(getFieldByID(7, property)).identifier;
         var cityId = _.first(getFieldByID(8, property)).identifier;
         propertyDetail.type = property.propertyKey.propertyType.lang;
-        propertyDetail.address = getOptSingleField(9, property).text;
+        propertyDetail.address = getOptSingleField(9, property).text.strVal;
         var location = _.first(getFieldByID(10, property));
         location = location ? location : {};
         propertyDetail.location = {
@@ -215,16 +215,16 @@
         propertyDetail.video = {"link" : _.first(getFieldByID(13, property))};
         propertyDetail.neighborhood = getSingleFromDropdown(15, property);
         propertyDetail.rooms = getOptSingleField(17, property).text.intVal;
-        propertyDetail.bathooms = getOptSingleField(18, property).text.intVal;
+        propertyDetail.bathrooms = getOptSingleField(18, property).text.intVal;
         propertyDetail.condition = getSingleFromDropdown(19, property);
         propertyDetail.furnished = getOptSingleField(20, property).text.boolVal;
         propertyDetail.floor = getOptSingleField(21, property).text.intVal;
         propertyDetail.optionalFeatures = getGroupFromDropdown(22, property);
         propertyDetail.suitableFor = getGroupFromDropdown(23, property);
         propertyDetail.parkingSpots = getOptSingleField(24, property).text.intVal;
-        propertyDetail.basement = getOptSingleField(25, property).text.intVal;
-        propertyDetail.balconyRooftop = getOptSingleField(27, property).text.intVal;
-        propertyDetail.gardenTerrace = getOptSingleField(28, property).text.intVal;
+        propertyDetail.basement = getOptSingleField(25, property).text.boolVal;
+        propertyDetail.balconyRooftop = getOptSingleField(27, property).text.boolVal;
+        propertyDetail.gardenTerrace = getOptSingleField(28, property).text.boolVal;
         propertyDetail.availableFrom = getOptSingleField(29, property).text.dateVal;
         propertyDetail.rented = getOptSingleField(30, property).text.boolVal;
         propertyDetail.metersBuilt = getOptSingleField(35, property).text.intVal;
@@ -245,7 +245,7 @@
         });
         propertyDetail.kindsOfRoad = getGroupFromDropdown(44, property);
         propertyDetail.heating = getSingleFromDropdown(45, property);
-        propertyDetail.numberOfFloors = getSingleFromDropdown(46, property);
+        propertyDetail.numberOfFloors = getOptSingleField(46, property).text.intVal;
         propertyDetail.drinkingWater = getGroupFromDropdown(47, property);
         propertyDetail.sewageWater = getGroupFromDropdown(48, property);
         propertyDetail.yearOfConstruction = getSingleFromDropdown(49, property);
@@ -261,24 +261,14 @@
         propertyDetail.additionalFeesForTheLandlord = getOptSingleField(58, property).text.doubleVal;
         propertyDetail.annualTaxRateOnTheProperty = getSingleFromDropdown(59, property);
 
-        LocationService.getCountries()
-          .then(function(countries){
-            propertyDetail.country = _.find(countries, function(country){
-              return country.id === countryId;
-            });
+
+        LocationService.getStateByID({"country_id" : property.propertyKey.country.id}).then(function(states){
+            propertyDetail.state = _.first(_.where(states, {id : stateId}));
           });
-        LocationService.getStateByID({"country_id" : countryId})
-          .then(function(states){
-            propertyDetail.state = _.find(states, function(state){
-              return state.id === stateId;
-            });
+        LocationService.getCityByID({"state_id" : stateId}).then(function(cities){
+            propertyDetail.city = _.first(_.where(cities, {id : cityId}));
           });
-        LocationService.getCityByID({"state_id" : stateId})
-          .then(function(cities){
-            propertyDetail.city = _.find(cities, function(city){
-              return city.id === cityId;
-            });
-          });
+
 
         _.each(propertyDetail.languages, function(propertyLanguage){
           propertyDetail.titles[propertyLanguage.identifier] = loadByLang(propertyDetail.title, propertyLanguage);

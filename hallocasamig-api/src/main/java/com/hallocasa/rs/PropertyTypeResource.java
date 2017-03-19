@@ -31,7 +31,19 @@ public class PropertyTypeResource {
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
-	public Response getCountries() {
+	public Response getTypes() {
 		return Response.status(HttpStatus.SC_OK).entity(propertyTypeService.find()).build();
+	}
+	
+	@GET
+	@Path("/groups")
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Auth
+	@ApiOperation(value = "Retrieves the list of all property types groups")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	public Response getGroups() {
+		return Response.status(HttpStatus.SC_OK).entity(propertyTypeService.findGroups()).build();
 	}
 }
