@@ -494,6 +494,8 @@
   "hallocasa.dropdownoption.agentfeemorethan10perc": "M\u00E1s de 10%",
   "hallocasa.dropdownoption.annualtaxrateonthepropertymorethan25perc": "M\u00E1s de 25%",
   "hallocasa.propertytype.lot": "Lote",
+  "hallocasa.propertytype.standalone": "Aut\u00F3noma",
+  "hallocasa.propertytype.inhouse": "Integrada",
   "hallocasa.propertytype.warehousestandalone": "Bodega (aut\u00F3noma)",
   "hallocasa.propertytype.garagestandalone": "Garaje (aut\u00F3nomo)",
   "hallocasa.propertytype.officestandalone": "Oficina (aut\u00F3noma)",
