@@ -31,7 +31,7 @@
 	"Common.UnexpectedError.Message":"Unerwarteter Fehler",
 	"Common.TelephoneNumber.Prefix":"L\u00E4ndervorwahl",
 	"GlobalMenu.GoToProfile":"Mein Profil",
-	"GlobalMenu.GoToProperties":"Meine ImmobilienMeine Immobilien",
+	"GlobalMenu.GoToProperties":"Meine Immobilien",
 	"Header.SignUp.Button":"Profil Erstellen",
 	"Header.Login.Button":"Login",
 	"Header.Logout.Button":"Logout",

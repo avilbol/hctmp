@@ -25,7 +25,6 @@
           <div dir-paginate="property in vm.userData.properties | itemsPerPage: 12" flex-gt-sm="33" flex-gt-xs="45" flex-xs="100">
             <div
               ng-include="'app/property/templates/properties-card.html'"
-              ng-click="vm.viewProperty($event, property)"
               style="cursor: pointer"
             ></div>
           </div>
