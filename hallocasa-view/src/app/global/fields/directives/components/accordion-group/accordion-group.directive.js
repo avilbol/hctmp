@@ -32,7 +32,7 @@
                 scope.renderedTitle += titleSegment.value;
                 break;
               case "binding_field_scope":
-                scope.renderedTitle += scope.fieldScope[titleSegment.value];
+                scope.renderedTitle += "{{fieldScope['"+titleSegment.value+"'] | unicode}}";
                 break;
               default:
                 $log.warn("Tipo de segmento de título desconocido: ",titleSegment);

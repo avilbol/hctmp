@@ -28,9 +28,25 @@
           ng-model-options="{trackBy: '$value.id'}"
           required
         >
-          <md-option ng-repeat="propertyTypes in vm.propertyTypes track by $index" ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
-            {{propertyTypes.lang | translate}}
-          </md-option>
+          <md-optgroup label="{{'hallocasa.propertytype.lot' | translate}}">
+            <md-option ng-repeat="propertyTypes in vm.propertyTypes | filter: {group: {id: 1}} track by $index" ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
+              {{propertyTypes.lang | translate}}
+            </md-option>
+          </md-optgroup>
+          <md-optgroup label="{{'hallocasa.propertytype.standalone' | translate}}">
+            <md-option ng-repeat="propertyTypes in vm.propertyTypes | filter: {group: {id: 2}} track by $index" ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
+              {{propertyTypes.lang | translate}}
+            </md-option>
+          </md-optgroup>
+          <md-optgroup label="{{'hallocasa.propertytype.inhouse' | translate}}">
+            <md-option ng-repeat="propertyTypes in vm.propertyTypes | filter: {group: {id: 3}} track by $index" ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
+              {{propertyTypes.lang | translate}}
+            </md-option>
+          </md-optgroup>
+
+
+
+
         </md-select>
         <ng-messages-generator
           form="propertyInfoForm"
