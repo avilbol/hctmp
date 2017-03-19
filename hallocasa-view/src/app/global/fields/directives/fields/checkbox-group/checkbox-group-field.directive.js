@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('checkboxGroupField', checkboxGroupField);
 
-  function checkboxGroupField(FieldsService, translateFilter, toastr) {
+  function checkboxGroupField(FieldsService, translateFilter, toastr, $log) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/checkbox-group/checkbox-group-field.html",
@@ -38,6 +38,7 @@
                 .then(function (options) {
                   scope.options = FieldsService.processOptions(options, "NONE");
                   scope.optionsLabel = "name";
+                  validateFieldModelValue();
                 })
                 .catch(function () {
                   toastr.warning(
@@ -47,6 +48,27 @@
 
               break;
           }
+        }
+
+        function validateFieldModelValue() {
+          var fieldValueList = scope.fieldInformation.fieldValueList;
+          if(!fieldValueList){
+            return;
+          }
+          scope.fieldInformation.fieldValueList = _.map(fieldValueList, function (fieldValue) {
+            var fieldOption = _.find(scope.options, function (option) {
+              return option.identifier === fieldValue.identifier;
+            });
+            if(fieldOption){
+              fieldValue.name = fieldOption.name;
+              return fieldValue;
+            }
+            else {
+              $log.warn("No se ha podido encontrar los datos de la opción:", fieldValue);
+              return fieldValue;
+            }
+
+          })
         }
 
         loadOptions();

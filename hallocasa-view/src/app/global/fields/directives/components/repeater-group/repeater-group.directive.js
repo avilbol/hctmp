@@ -14,6 +14,7 @@
         fieldList: "=?",
         fieldRootScope: "=?",
         contentFlex: "=?",
+        fieldWatchParameter: "=?",
         form: "=?"
       },
       link: function (scope) {
@@ -26,6 +27,9 @@
           }
           var destroyWatcher = scope.$watch(function () {
             field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+            if(scope.fieldWatchParameter && !field.fieldValueList[0][scope.fieldWatchParameter]){
+              return;
+            }
             if (field.fieldValueList) {
               return field.fieldValueList.length;
             }
