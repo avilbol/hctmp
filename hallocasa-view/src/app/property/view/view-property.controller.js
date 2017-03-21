@@ -61,8 +61,7 @@
     };
 
     function viewProfile() {
-      $location.url("/profile");
-      $location.search('id', vm.property.contact.id);
+      $location.url("/profile?id="+vm.property.user.id);
     }
   }
 })();

@@ -79,7 +79,7 @@
                   </md-content>
                 </md-tab>
                 <md-tab label="{{'PropertyBrowse.Property.contacts' | translate}}">
-                  <md-card ng-click="vm.viewProfile()">
+                  <md-card style="cursor:pointer" ng-click="vm.viewProfile()">
                     <md-card-title layout="row" layout-align="center center">
                       <md-card-title-media>
                         <div class="md-media-lg card-media">
@@ -90,7 +90,13 @@
                         <span class="md-headline">{{vm.property.user.firstName}} {{vm.property.user.lastName}}</span>
                         <div layout="row" layout-align="space-between">
                           <div class="md-subhead" layout="column">
-                            <item-list tablet-items="2" desktop-items="3" list="vm.property.user.userLanguages" display="column"></item-list>
+                            <item-list
+                              tablet-items="2"
+                              desktop-items="3"
+                              list="vm.property.user.userLanguages"
+                              label-attribute="'language.name'"
+                              display="column"
+                            ></item-list>
                           </div>
                           <div class="md-subhead" layout="column">
                             <item-list tablet-items="2" desktop-items="3" list="vm.property.contact.services" display="column"></item-list>
@@ -326,13 +332,13 @@
 
               <span ng-if="vm.property.monthlyAgentFeesForTheLandlord">
                 <b>{{'hallocasa.propertyfield.monthlyadminfeesforthelandlord' | translate}}</b>:
-                {{vm.property.monthlyAgentFeesForTheLandlord }}%
+                {{vm.property.monthlyAgentFeesForTheLandlord }}
                 &nbsp;&nbsp;
               </span>
               <br>
               <span ng-if="vm.property.additionalFeesForTheLandlord">
                 <b>{{'hallocasa.propertyfield.additionalmonthlyfeesforthelandlord' | translate}}</b>:
-                {{vm.property.additionalFeesForTheLandlord }}%
+                {{vm.property.additionalFeesForTheLandlord }}
                 &nbsp;&nbsp;
               </span>
               <br>
@@ -344,7 +350,7 @@
               <br>
               <span ng-if="vm.property.additionalFeesForTheLandlord">
                 <b>{{'hallocasa.propertyfield.additionalmonthlyfeesforthelandlord' | translate}}</b>:
-                {{vm.property.additionalFeesForTheLandlord }}%
+                {{vm.property.additionalFeesForTheLandlord }}
                 &nbsp;&nbsp;
               </span>
 
