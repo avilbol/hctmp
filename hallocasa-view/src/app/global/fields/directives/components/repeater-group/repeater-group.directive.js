@@ -27,7 +27,7 @@
           }
           var destroyWatcher = scope.$watch(function () {
             field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
-            if(scope.fieldWatchParameter && !field.fieldValueList[0][scope.fieldWatchParameter]){
+            if(scope.fieldWatchParameter && field.fieldValueList && field.fieldValueList[0] && !field.fieldValueList[0][scope.fieldWatchParameter]){
               return;
             }
             if (field.fieldValueList) {

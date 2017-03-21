@@ -9,9 +9,14 @@
   function myProfileController(ProfilesService, toastr, translateFilter, $mdMedia, $mdDialog, $document,
       $location, SessionService, PropertyService) {
     var vm = this;
+    vm.propertyShowOptions = {view: true, edit: true, delete: true};
 
-    vm.viewProperty = viewProperty;
     vm.editProfile = editProfile;
+
+    vm.editProperty = editProperty;
+    vm.viewProperty = viewProperty;
+    vm.deleteProperty = deleteProperty;
+
     vm.createProperty = createProperty;
     vm.goBack = goBack;
 
@@ -29,8 +34,49 @@
         })
     }
 
+    function editProperty(event, property) {
+      PropertyService.loadPropertyDetail(property.id)
+        .then(function (propertyDetail) {
+          var locals = {
+            title: "Properties.edit.label",
+            property: propertyDetail,
+            editMode: true
+          };
+          launchPropertyFormDialog(event,locals)
+            .then(function() {
+              reloadProperties();
+            });
+        })
+        .catch(function () {
+          toastr.warning(translateFilter("Error.whenloadingproperty"));
+        });
+    }
+
     function viewProperty(event, property) {
       $location.url('/property?id='+property.id);
+    }
+
+    function deleteProperty(event, property) {
+      var confirm = $mdDialog.confirm()
+        .title(translateFilter("Properties.title.modal"))
+        .textContent(translateFilter("Properties.content.modal"))
+        .ariaLabel('delete property')
+        .targetEvent(event)
+        .ok(translateFilter("Properties.delete.label"))
+        .cancel(translateFilter("Properties.wizard.cancel.label"));
+
+      $mdDialog.show(confirm).then(function() {
+        PropertyService.deleteProperty(property.id)
+          .then(function () {
+            //TODO: Traducción de mensaje de éxito
+            toastr.success("Propiedad eliminada con éxito");
+            reloadProperties();
+          })
+          .catch(function () {
+            //TODO: Traducción de mensaje de error
+            toastr.warning("Error al eliminar propiedad");
+          });
+      });
     }
 
     function createProperty(event) {
