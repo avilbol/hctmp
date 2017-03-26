@@ -103,7 +103,7 @@
       PropertyService.saveProperty(propertyData)
         .then(function () {
           toastr.success(translateFilter("property.wizard.create.succesful"));
-          $mdDialog.cancel();
+          $mdDialog.hide();
         })
         .catch(function () {
           toastr.warning(
