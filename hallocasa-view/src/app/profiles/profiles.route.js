@@ -10,7 +10,8 @@
       .when('/profile', {
         templateUrl: 'app/profiles/view/view-profile.html',
         controller: 'ViewProfileController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        requiredLogin: true
       })
       .when('/profile/my-profile', {
         templateUrl: 'app/profiles/my-profile/my-profile.html',

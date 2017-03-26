@@ -16,7 +16,8 @@
       activateUser: activateUser,
       validateToken: validateToken,
       getCurrentUser: getCurrentUser,
-      launchLoginDialog: launchLoginDialog
+      launchLoginDialog: launchLoginDialog,
+      validateActiveSession: validateActiveSession
     };
 
     var currentUser;
@@ -105,6 +106,16 @@
       return resource.activateUser.show({"email": email, "activation_key": activationKey}).$promise;
     }
 
+    function validateActiveSession(message) {
+      if(!$auth.isAuthenticated()) {
+        var options = {
+          description: message,
+          allowClose: false
+        };
+        launchLoginDialog(options)
+      }
+    }
+
     function launchLoginDialog(options) {
       options = options ? options : {};
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
@@ -122,7 +133,6 @@
         fullscreen: useFullScreen
       });
     }
-
   }
 })();
 
