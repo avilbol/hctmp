@@ -17,15 +17,21 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.tika.detect.Detector;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
 import org.apache.tika.parser.AutoDetectParser;
+import org.imgscalr.Scalr;
 
 import com.hallocasa.utils.constants.exceptions.FatalException;
 import static java.lang.String.format;
+
+import java.awt.image.BufferedImage;
 
 public class FileManager {
 
@@ -69,6 +75,36 @@ public class FileManager {
 		try (OutputStream stream = new FileOutputStream(filename)) {
 		    stream.write(data);
 		    return filename;
+		} catch(IOException e){
+			throw new FatalException("Unexpected error", e);
+		}
+	}
+	
+	public static String createMinifiedImage(String dir, String filename, Integer width, Integer height){
+		try (OutputStream stream = new FileOutputStream(filename)) {
+			BufferedImage in = ImageIO.read(new File(filename));
+			int imgHeight = in.getHeight();
+			int imgWidth = in.getWidth();
+			double scaleHeight = imgHeight / height;
+			double scaleWidth = imgWidth / width;
+			double scaleCutHeight = 1;
+			double scaleCutWidth = 1;
+			if (scaleHeight > 1 || scaleWidth > 1){
+				double scale = scaleHeight > scaleWidth ? scaleHeight : scaleWidth;
+				scaleCutHeight = scale;
+				scaleCutWidth = scale;
+			}
+			int newHeight = (int)(imgHeight / scaleCutHeight);
+			int newWidth = (int)(imgWidth / scaleCutWidth);
+			BufferedImage scaledImage = Scalr.resize(in, newWidth, newHeight);
+			
+			String fileName = FilenameUtils.getName(filename);
+			String fileExt = FilenameUtils.getExtension(fileName);
+			
+			String fileLoc = dir + fileName;
+			File outputfile = new File(fileLoc);
+			ImageIO.write(scaledImage, fileExt, outputfile);
+			return fileLoc;
 		} catch(IOException e){
 			throw new FatalException("Unexpected error", e);
 		}

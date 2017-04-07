@@ -1,6 +1,6 @@
 call copy /y D:\development\hc\hallocasa-portal\hallocasamig-endpoint\pom.xml D:\development\hc\hallocasa-portal\hallocasamig-endpoint\pom-local.xml
 call copy /y D:\development\hc\hallocasa-portal\hallocasamig-endpoint\pom-server.xml D:\development\hc\hallocasa-portal\hallocasamig-endpoint\pom.xml
-SET JAVA_HOME=C:/Program Files/java/jdk1.8.0_60
+SET JAVA_HOME=C:/Program Files/java/jdk1.8.0_121
 call mvn -f D:/development/hc/hallocasa-portal/hallocasamig/pom.xml clean package resources:resources -U ^
  -Dwar.output.location=D:/development/hc/hallocasa-environment/qa_target ^
  -Dglassfish.base=/usr/local/hallocasamig/api-server ^

@@ -68,6 +68,7 @@
 		<local.glassfish.port>${glassfish.admin.port}</local.glassfish.port>
 		<war.location>${war.output.location}</war.location>
 		<files.propertyImages.rootPath>${files.propertyImages.rootpath}</files.propertyImages.rootPath>
+		<files.propertyImages.miniPath>${files.propertyImages.minipath}</files.propertyImages.miniPath>
 		<log4j.version>2.6.2</log4j.version>
 	</properties>
 

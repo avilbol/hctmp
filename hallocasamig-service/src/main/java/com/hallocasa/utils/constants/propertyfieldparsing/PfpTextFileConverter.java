@@ -1,7 +1,8 @@
 package com.hallocasa.utils.constants.propertyfieldparsing;
 
 import static com.hallocasa.filemanager.FileManager.replaceMassive;
-import static com.hallocasa.systemproperties.SystemConstants.*;
+import static com.hallocasa.systemproperties.SystemConstants.MINI_PROPERTY_IMAGES_PATH;
+import static com.hallocasa.systemproperties.SystemConstants.PROPERTY_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemProperty.get;
 
 import com.hallocasa.filemanager.FileManager;
@@ -9,7 +10,8 @@ import com.hallocasa.vo.hcfilter.properties.PropertyFieldValueSpec;
 
 public class PfpTextFileConverter implements PropertyFieldValueConverter {
 
-	private String filePathRoot = get(PROPERTY_IMAGES_PATH);
+	private String propertiesPathRoot = get(PROPERTY_IMAGES_PATH);
+	private String miniImgPropertiesPathRoot = get(MINI_PROPERTY_IMAGES_PATH);
 	
 	@Override
 	public PropertyFieldValueSpec toVo(String detail) {
@@ -31,10 +33,10 @@ public class PfpTextFileConverter implements PropertyFieldValueConverter {
 		String pref = tmpPrefix + "-";
 		if(isFilename(spec.getStrVal())){
 			String pathname = spec.getStrVal();
-			replaceMassive(filePathRoot, pathname, pref + pathname);
+			replaceMassive(propertiesPathRoot, pathname, pref + pathname);
 			return spec.getStrVal();
 		}
-		String fullFilename = FileManager.createFileFromBase64(filePathRoot, 
+		String fullFilename = FileManager.createFileFromBase64(propertiesPathRoot, 
 				spec.getStrVal(), pref + propId);
 		String[] parts = fullFilename.split("/");
 		return parts[parts.length - 1].replaceAll(pref, "");

@@ -12,6 +12,8 @@ call mvn -f D:/development/hallocasa-portal/HalloCasa/hallocasamig/pom.xml clean
  -Dmysql.pass=htGp64SK ^
  -Dfiles.propertyImages.rootPath=/usr/local/hallocasamig/property-images-qa ^
  -Dfiles.userImages.rootPath=/usr/local/hallocasamig/user-images-qa ^
+ -Dfiles.propertyImages.miniPath=/usr/local/hallocasamig/property-images-prod/mini ^
+ -Dfiles.userImages.miniPath=/usr/local/hallocasamig/user-images-prod/mini ^
  -Dapidoc.war.location=D:/development/hallocasa-environment/qa_target
 cd D:/development/hallocasa-environment/qa_target
 call del hallocasamig-endpoint-qa-1.1.0.war
