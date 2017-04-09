@@ -6,6 +6,8 @@ import javax.ws.rs.ApplicationPath;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.glassfish.jersey.client.filter.EncodingFilter;
+import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.server.ResourceConfig;
 
 @ApplicationPath("/")
@@ -30,6 +32,9 @@ public class HallocasaAppResourceConfig extends ResourceConfig {
 		LOG.info("Registrando filtros...");
 		register(com.hallocasa.rs.security.AuthenticationFilter.class);
 		register(com.hallocasa.rs.security.AuthorizationFilter.class);
+		LOG.info("Registrando optimizadores");
+		register(com.hallocasa.rs.optimization.GzipReaderInterceptor.class);
+		register(com.hallocasa.rs.optimization.GzipWriterInterceptor.class);
 		LOG.info("Registrando exception mappers...");
 		// Exception mappers
 		register(com.hallocasa.rs.mapper.SecurityExceptionMapper.class);

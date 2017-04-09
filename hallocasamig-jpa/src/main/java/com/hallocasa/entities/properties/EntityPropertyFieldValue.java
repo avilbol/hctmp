@@ -27,12 +27,17 @@ import com.hallocasa.entities.i.HallocasaEntity;
 			+ "EntityPropertyFieldValue pfv where pfv.property.id IN ?1 AND "
 			+ "(pfv.propertyField.basic = TRUE OR (pfv.propertyField.id = 12 AND pfv.data2 = 1))"),
 	@NamedQuery(name = EntityPropertyFieldValue.QUERY_DELETE_BY_PROP_ID, query = "delete from "
-			+ "EntityPropertyFieldValue pfv where pfv.property.id = ?1")})
+			+ "EntityPropertyFieldValue pfv where pfv.property.id = ?1"),
+	@NamedQuery(name = EntityPropertyFieldValue.QUERY_CLEAR_OUTDATED, query = "delete from "
+			+ "EntityPropertyFieldValue pfv where pfv.property.id = ?1 AND pfv.id NOT IN ?2")})
+	
 public class EntityPropertyFieldValue implements HallocasaEntity {
 
 	public static final String QUERY_FIND_BASIC_IN = "EntityPropertyFieldValue.QueryFindBasicIn";
 	
 	public static final String QUERY_DELETE_BY_PROP_ID = "EntityPropertyFieldValue.QueryDeleteByPropId";
+	
+	public static final String QUERY_CLEAR_OUTDATED = "EntityPropertyFieldValue.QueryClearOutdated";
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

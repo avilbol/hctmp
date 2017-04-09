@@ -3,6 +3,7 @@ package com.hallocasa.services.properties.imp;
 import static com.hallocasa.filemanager.FileManager.cleanFilesStartingWithPrefix;
 import static com.hallocasa.filemanager.FileManager.replaceMassive;
 import static com.hallocasa.systemproperties.SystemConstants.PROPERTY_IMAGES_PATH;
+import static com.hallocasa.systemproperties.SystemConstants.MINI_PROPERTY_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemProperty.get;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toEntity;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
@@ -52,7 +53,8 @@ public class PropertyServiceImp implements PropertyService {
 	@EJB
 	private PropertyCommonsService propertyCommonsService;
 
-	private String filePathRoot = get(PROPERTY_IMAGES_PATH);
+	private String propertyImagesPath = get(PROPERTY_IMAGES_PATH);
+	private String minifiedPropertyImagesPath = get(MINI_PROPERTY_IMAGES_PATH);
 
 	private static final Integer BASIC_PROPERTIES_RETURN_NUMBER = 10;
 
@@ -61,44 +63,10 @@ public class PropertyServiceImp implements PropertyService {
 	 */
 	@Override
 	public void save(Property property, String oAuthToken) {
-		if (property.getUser() == null || property.getUser().getId() == null) {
-			throw new BadRequestException("User not specified in property");
-		}
-		if (!(oAuthToken.split("\\:")[0]).equals(property.getUser().getEmail())) {
-			throw new BadRequestException("Invalid operation, inconsistent token");
-		}
-		if (property.getPropertyKey() == null) {
-			throw new BadRequestException("Property key not specified in property");
-		}
-		if (property.getPropertyKey().getPropertyType() == null) {
-			throw new BadRequestException("Property type not specified in property");
-		}
-		if (property.getPropertyKey().getPropertyLocation() == null) {
-			throw new BadRequestException("Property location not specified in property");
-		}
-		if (property.getPropertyKey().getPropertyProposal() == null) {
-			throw new BadRequestException("Property proposal not specified in property");
-		}
-		if (property.getPropertyKey().getCountry() == null) {
-			throw new BadRequestException("Country not specified in property");
-		}
-		if (property.getFieldList() == null) {
-			throw new BadRequestException("Field list not specified in property");
-		}
-		if (property.getFieldList().isEmpty()) {
-			throw new BadRequestException("Field list empty in property");
-		}
-		if (property.getPublishDate() == null) {
-			property.setPublishDate(new Date());
-		}
-		for(PropertyField pfield : property.getFieldList()){
-			validatePropertyField(pfield);
-		}
+		validatePropertyStructure(property, oAuthToken);
 		EntityProperty entityProperty = (EntityProperty) toEntity(property);
 		daoProperty.save(entityProperty);
-		String propId = entityProperty.getId();
-		cleanFilesStartingWithPrefix(filePathRoot, propId);
-		replaceMassive(filePathRoot, "new-" + propId, propId);
+		assureImageFileSystem(entityProperty.getId());
 	}
 
 	/**
@@ -182,7 +150,7 @@ public class PropertyServiceImp implements PropertyService {
 	@Override
 	public void delete(String propertyId) {
 		daoProperty.delete(propertyId);
-		cleanFilesStartingWithPrefix(filePathRoot, propertyId);
+		cleanFilesStartingWithPrefix(propertyImagesPath, propertyId);
 	}
 
 	@Override
@@ -193,6 +161,42 @@ public class PropertyServiceImp implements PropertyService {
 		resultRequest.setOrderBy(new LinkedList<>());
 		List<EntityProperty> userProperties = propertyCommonsService.getPropertyListBy(userIdProperties, resultRequest);
 		return propertyCommonsService.toValueObjectList(userProperties);
+	}
+	
+	private void validatePropertyStructure(Property property, String oAuthToken){
+		if (property.getUser() == null || property.getUser().getId() == null) {
+			throw new BadRequestException("User not specified in property");
+		}
+		if (!(oAuthToken.split("\\:")[0]).equals(property.getUser().getEmail())) {
+			throw new BadRequestException("Invalid operation, inconsistent token");
+		}
+		if (property.getPropertyKey() == null) {
+			throw new BadRequestException("Property key not specified in property");
+		}
+		if (property.getPropertyKey().getPropertyType() == null) {
+			throw new BadRequestException("Property type not specified in property");
+		}
+		if (property.getPropertyKey().getPropertyLocation() == null) {
+			throw new BadRequestException("Property location not specified in property");
+		}
+		if (property.getPropertyKey().getPropertyProposal() == null) {
+			throw new BadRequestException("Property proposal not specified in property");
+		}
+		if (property.getPropertyKey().getCountry() == null) {
+			throw new BadRequestException("Country not specified in property");
+		}
+		if (property.getFieldList() == null) {
+			throw new BadRequestException("Field list not specified in property");
+		}
+		if (property.getFieldList().isEmpty()) {
+			throw new BadRequestException("Field list empty in property");
+		}
+		if (property.getPublishDate() == null) {
+			property.setPublishDate(new Date());
+		}
+		for(PropertyField pfield : property.getFieldList()){
+			validatePropertyField(pfield);
+		}
 	}
 
 	private void validateRequest(PropertyFilterRequest request) {
@@ -287,5 +291,12 @@ public class PropertyServiceImp implements PropertyService {
 			}
 		}
 		return false;
+	}
+	
+	private void assureImageFileSystem(String propId){
+		cleanFilesStartingWithPrefix(propertyImagesPath, propId);
+		cleanFilesStartingWithPrefix(minifiedPropertyImagesPath, propId);
+		replaceMassive(propertyImagesPath, "new-" + propId, propId);
+		replaceMassive(minifiedPropertyImagesPath, "new-" + propId, propId);
 	}
 }

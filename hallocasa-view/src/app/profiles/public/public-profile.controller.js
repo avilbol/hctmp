@@ -22,7 +22,7 @@
               });
               profile.description = mainDescription ? mainDescription.value : undefined;
 
-              ImageValidatorService.validateOrFallback(user_images_url + profile.imageLink, "UserDefault")
+              ImageValidatorService.validateOrFallback(user_images_url + "/mini/" + profile.imageLink, "UserDefault")
                 .then(function (image) {
                   profile.userImage = image;
                 });

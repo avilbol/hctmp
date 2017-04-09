@@ -5,6 +5,7 @@
  */
 package com.hallocasa.services.user.imp;
 
+import static com.hallocasa.systemproperties.SystemConstants.MINI_PROPERTY_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemConstants.USER_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemProperty.get;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
@@ -36,6 +37,7 @@ import com.hallocasa.services.messaging.local.MailServices;
 import com.hallocasa.services.messaging.local.MailServices.BuildInMailType;
 import com.hallocasa.services.security.SecurityTokenService;
 import com.hallocasa.services.user.UserService;
+import com.hallocasa.utils.constants.ImageParameters;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
 import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.utils.constants.exceptions.SecurityException;
@@ -123,6 +125,9 @@ public class UserServiceImpl implements UserService {
 		if(newImage){
 			String fullFilename = FileManager.createFileFromBase64(filePathRoot, 
 					user.getBase64Image(), "user" + user.getId());
+			FileManager.createMinifiedImage(MINI_PROPERTY_IMAGES_PATH, fullFilename, 
+					ImageParameters.USER_DEFAULT_MINIFIED_IMG_WIDTH, 
+					ImageParameters.USER_DEFAULT_MINIFIED_IMG_HEIGHT);
 			String[] parts = fullFilename.split("/");
 			user.setImageLink(parts[parts.length - 1]);
 		}

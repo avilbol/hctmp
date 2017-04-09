@@ -1,15 +1,23 @@
 package com.hallocasa.utils.constants.propertyfieldparsing;
 
 import static com.hallocasa.filemanager.FileManager.replaceMassive;
-import static com.hallocasa.systemproperties.SystemConstants.*;
+import static com.hallocasa.systemproperties.SystemConstants.MINI_PROPERTY_IMAGES_PATH;
+import static com.hallocasa.systemproperties.SystemConstants.PROPERTY_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemProperty.get;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.hallocasa.filemanager.FileManager;
+import com.hallocasa.utils.constants.ImageParameters;
 import com.hallocasa.vo.hcfilter.properties.PropertyFieldValueSpec;
 
 public class PfpTextFileConverter implements PropertyFieldValueConverter {
 
-	private String filePathRoot = get(PROPERTY_IMAGES_PATH);
+	private String propertiesPathRoot = get(PROPERTY_IMAGES_PATH);
+	private String miniImgPropertiesPathRoot = get(MINI_PROPERTY_IMAGES_PATH);
+	
+	private static final Logger LOG = LogManager.getLogger(PfpTextFileConverter.class);
 	
 	@Override
 	public PropertyFieldValueSpec toVo(String detail) {
@@ -31,11 +39,20 @@ public class PfpTextFileConverter implements PropertyFieldValueConverter {
 		String pref = tmpPrefix + "-";
 		if(isFilename(spec.getStrVal())){
 			String pathname = spec.getStrVal();
-			replaceMassive(filePathRoot, pathname, pref + pathname);
+			replaceMassive(propertiesPathRoot, pathname, pref + pathname);
+			replaceMassive(miniImgPropertiesPathRoot, pathname, pref + pathname);
 			return spec.getStrVal();
 		}
-		String fullFilename = FileManager.createFileFromBase64(filePathRoot, 
+		String fullFilename = FileManager.createFileFromBase64(propertiesPathRoot, 
 				spec.getStrVal(), pref + propId);
+		LOG.debug("generating fullfilename: " + fullFilename);
+		LOG.debug("property images path: " + propertiesPathRoot);
+		LOG.debug("minified property images path: " + miniImgPropertiesPathRoot);
+		LOG.debug("generating fullfilename: " + fullFilename);
+		FileManager.createMinifiedImage(miniImgPropertiesPathRoot, fullFilename, 
+				ImageParameters.PROP_DEFAULT_MINIFIED_IMG_WIDTH, 
+				ImageParameters.PROP_DEFAULT_MINIFIED_IMG_HEIGHT);
+		LOG.debug("image minified");
 		String[] parts = fullFilename.split("/");
 		return parts[parts.length - 1].replaceAll(pref, "");
 	}

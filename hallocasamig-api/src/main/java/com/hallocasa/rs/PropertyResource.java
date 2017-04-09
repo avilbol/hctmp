@@ -102,7 +102,7 @@ public class PropertyResource extends BasicResource {
 	}
 	
 	@DELETE
-	@Path("{id}")
+	@Path("delete/{id}")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.TEXT_HTML})
 	@Secured

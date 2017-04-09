@@ -13,7 +13,7 @@
       .then(function (profiles) {
 
         profiles = _.map(profiles, function (profile) {
-          ImageValidatorService.validateOrFallback(user_images_url + profile.imageLink, "UserDefault")
+          ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, "UserDefault")
             .then(function (image) {
               profile.userImage = image;
             });

@@ -20,29 +20,49 @@ import com.hallocasa.vo.resultrequest.ResultRequest;
 
 /**
  * DAO for class {@link EntityProperty}
+ * 
  * @author Alexander Villamil
  */
 @Stateless
 public class DAOProperty implements IDAOProperty {
-	
+
 	private static final String BASIC_PROPERTY_ATTR = "NEW com.hallocasa.entities.properties.EntityProperty(p.id, p.publishDate, p.propertyType, p.propertyLocation, "
 			+ "p.propertyProposal, p.country)";
-	
+
 	@EJB
 	private AppPersistenceServices appPersistenceServices;
-	
+
 	@EJB
 	private QueryUtils queryUtils;
-	
+
+
 	@Override
 	public void save(EntityProperty property) {
+		List<Integer> idListToUpdate = findIdListToUpdate(property);
+		if (idListToUpdate.isEmpty()) {
+			appPersistenceServices.executeNamedQuery(EntityPropertyFieldValue.QUERY_DELETE_BY_PROP_ID,
+					new Object[] { property.getId() });
+		} else {
+			appPersistenceServices.executeNamedQuery(EntityPropertyFieldValue.QUERY_CLEAR_OUTDATED,
+					new Object[] { property.getId(), idListToUpdate });
+		}
 		appPersistenceServices.mergeEntity(property);
 	}
-	
+
+	private List<Integer> findIdListToUpdate(EntityProperty property) {
+		List<Integer> bdIsToUpdate = new LinkedList<Integer>();
+		for (EntityPropertyFieldValue pfv : property.getFieldValueList()) {
+			if (pfv.getId() != null) {
+				bdIsToUpdate.add(pfv.getId());
+			}
+		}
+		return bdIsToUpdate;
+	}
+
 	@Override
 	public List<String> findByUser(Integer userId) {
-		return appPersistenceServices.executeNamedQuery
-				(EntityProperty.QUERY_FIND_ID_BY_USER_ID, new Object[]{userId}, String.class);
+		return appPersistenceServices.executeNamedQuery(EntityProperty.QUERY_FIND_ID_BY_USER_ID,
+				new Object[] { userId }, String.class);
 	}
 
 	@Override
@@ -50,8 +70,7 @@ public class DAOProperty implements IDAOProperty {
 		String query = EntityProperty.QUERY_FIND_BY_ID;
 		List<Object> paramList = new LinkedList<Object>();
 		paramList.add(id);
-		return appPersistenceServices.executeSingleNamedQuery
-				(query, paramList.toArray(), EntityProperty.class);
+		return appPersistenceServices.executeSingleNamedQuery(query, paramList.toArray(), EntityProperty.class);
 	}
 
 	@Override
@@ -61,12 +80,12 @@ public class DAOProperty implements IDAOProperty {
 		paramList.add(propertyId);
 		appPersistenceServices.executeNamedQuery(query, paramList.toArray());
 	}
-	
+
 	@Override
-	public Long loadEntityShowablePropertyCount(){
-		return appPersistenceServices.executeSingleNamedQuery(
-				EntityProperty.QUERY_COUNT_ID_WITH_USER_TYPES, 
-				new Object[]{}, Long.class).get();
+	public Long loadEntityShowablePropertyCount() {
+		return appPersistenceServices
+				.executeSingleNamedQuery(EntityProperty.QUERY_COUNT_ID_WITH_USER_TYPES, new Object[] {}, Long.class)
+				.get();
 	}
 
 	/**
@@ -77,12 +96,11 @@ public class DAOProperty implements IDAOProperty {
 		String query = String.format("select %1$s from EntityProperty p where p.id IN ?1", BASIC_PROPERTY_ATTR);
 		StringBuilder resultQuery = new StringBuilder("");
 		resultQuery.append(query);
-		if(resultRequest != null){
-			resultQuery.append(queryUtils.loadOrderBySnippetQuery(resultRequest.getOrderBy(), 
-					resultRequest.getAsc()));
+		if (resultRequest != null) {
+			resultQuery.append(queryUtils.loadOrderBySnippetQuery(resultRequest.getOrderBy(), resultRequest.getAsc()));
 		}
-		return appPersistenceServices.executeQuery(resultQuery.toString(), 
-				new Object[]{idList}, EntityProperty.class);
+		return appPersistenceServices.executeQuery(resultQuery.toString(), new Object[] { idList },
+				EntityProperty.class);
 	}
 
 	/**
@@ -90,8 +108,8 @@ public class DAOProperty implements IDAOProperty {
 	 */
 	@Override
 	public List<EntityPropertyFieldValue> findValuesByPropertyIdList(List<String> idList) {
-		return appPersistenceServices.executeNamedQuery(EntityPropertyFieldValue.QUERY_FIND_BASIC_IN, 
-				new Object[]{idList}, EntityPropertyFieldValue.class);
+		return appPersistenceServices.executeNamedQuery(EntityPropertyFieldValue.QUERY_FIND_BASIC_IN,
+				new Object[] { idList }, EntityPropertyFieldValue.class);
 	}
 
 	/**
@@ -100,13 +118,12 @@ public class DAOProperty implements IDAOProperty {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<EntityProperty> findBasicRandom(Integer resultsNumber) {
-		Integer propertyNmb = appPersistenceServices.executeSingleNamedQuery(EntityProperty.QUERY_COUNT, 
-				new Object[]{}, Integer.class).get();
-		Query query = appPersistenceServices.loadNamedQuery(EntityProperty.QUERY_FIND_BASIC, 
-				new Object[]{});
+		Integer propertyNmb = appPersistenceServices
+				.executeSingleNamedQuery(EntityProperty.QUERY_COUNT, new Object[] {}, Integer.class).get();
+		Query query = appPersistenceServices.loadNamedQuery(EntityProperty.QUERY_FIND_BASIC, new Object[] {});
 		Integer rand = ThreadLocalRandom.current().nextInt(1, propertyNmb + 1);
 		query.setFirstResult(rand).setMaxResults(resultsNumber);
-        return query.getResultList();
+		return query.getResultList();
 	}
 
 	/**
@@ -116,7 +133,7 @@ public class DAOProperty implements IDAOProperty {
 	public Long findIdentifierCountByFilterRequest(String filterQuery, HashMap<String, Object> paramMap) {
 		return (Long) (appPersistenceServices.executeNativeQuery(filterQuery, paramMap).get(0));
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -124,22 +141,21 @@ public class DAOProperty implements IDAOProperty {
 	public List<String> findIdentifierListByFilterRequest(String filterQuery, HashMap<String, Object> paramMap,
 			ResultRequest resultRequest) {
 		StringBuilder resultQuery = new StringBuilder("");
-		resultQuery.append(filterQuery).append(queryUtils.loadOrderBySnippetQuery(resultRequest.getOrderBy(), 
-				resultRequest.getAsc()));
-		List<Object> objList =  appPersistenceServices.executeNativeQuery(resultQuery.toString(), paramMap, 
+		resultQuery.append(filterQuery)
+				.append(queryUtils.loadOrderBySnippetQuery(resultRequest.getOrderBy(), resultRequest.getAsc()));
+		List<Object> objList = appPersistenceServices.executeNativeQuery(resultQuery.toString(), paramMap,
 				resultRequest.getPageFrom() - 1, resultRequest.getPageTo());
 		List<String> resultList = new LinkedList<>();
-		for(Object obj : objList){
+		for (Object obj : objList) {
 			resultList.add((String) obj);
 		}
 		return resultList;
 	}
-	
+
 	@Override
 	public String fetchRandomPropertyId(Long propertyCount) {
 		Integer indexToFix = new Random().nextInt(propertyCount.intValue());
-		return appPersistenceServices.executeQuery(
-				EntityProperty.QUERY_FIND_ID_WITH_USER_TYPES,
+		return appPersistenceServices.executeQuery(EntityProperty.QUERY_FIND_ID_WITH_USER_TYPES,
 				new HashMap<String, Object>(), String.class, indexToFix);
 	}
 }
