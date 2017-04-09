@@ -1,9 +1,9 @@
-<md-card>
+<md-card class="profile-card">
   <md-card-title layout="row" layout-align="space-between start">
     <md-card-title-media>
-      <div class="md-media-md card-media">
+      <div class="md-media-md card-media profile-image">
         <img
-          ng-src="{{profile.userImage}}"
+          ng-src="{{ profile.userImage }}"
           alt="{{ profile.firstName + ' '+ profile.lastName }}"
           spinkit-image-preloader="cube-grid-spinner"
         >
@@ -11,51 +11,44 @@
       <span flex></span>
     </md-card-title-media>
     <md-card-title-text>
-      <span class="md-headline">{{profile.firstName + ' '+ profile.lastName}}</span>
-
-      <span class="md-subhead" hide-gt-sm hide-xs>
-                  {{profile.city.name | unicode}}, {{profile.country.name | unicode}}
-                </span>
-
-      <div layout="row" class="md-subhead" hide-sm>
-        <item-list
-          tablet-items="2"
-          desktop-items="3"
-          list="profile.userLanguages"
-          label-attribute="'language.name'"
-        ></item-list>
+      <div layout="row">
+        <span class="md-headline">{{profile.firstName + ' '+ profile.lastName}}</span>
       </div>
       <div layout="row">
-        <div class="md-subhead" flex-gt-sm="20" flex-gt-xs="30" flex-xs="50">
-          <item-list
-            tablet-items="2"
-            desktop-items="3"
-            list="profile.userTypes"
-            label-attribute="'lang'"
-            translate-label="true"
-            display="column"
-          ></item-list>
+        <div layout="column" flex-gt-sm="40" flex-md="100">
+          <span>{{profile.city.name | unicode}}, {{profile.country.name | unicode}}</span>
+          <div layout="row">
+            <item-list
+              tablet-items="2"
+              desktop-items="3"
+              list="profile.userLanguages"
+              label-attribute="'language.name'"
+              display="row"
+            ></item-list>
+          </div>
+          <br>
+          <div layout="row">
+            <b>
+              <item-list
+                tablet-items="2"
+                desktop-items="3"
+                list="profile.userTypes"
+                display="row"
+                label-attribute="'lang'"
+                translate-label="true"
+              ></item-list>
+            </b>
+          </div>
         </div>
-        <div class="md-subhead" flex-gt-sm="20" flex-gt-xs="30" flex-xs="50" hide-gt-sm hide-xs>
-          <item-list
-            tablet-items="2"
-            desktop-items="3"
-            list="profile.userLanguages"
-            label-attribute="'language.name'"
-            display="column"
-          ></item-list>
-        </div>
-        <div layout="column" hide-sm flex>
-          <text-limiter text="profile.description" tablet-limit="200"></text-limiter>
+        <span flex="5" hide-md></span>
+        <div layout="column" hide-md hide-sm hide-xs>
+          <text-limiter flex text="profile.description" tablet-limit="200"></text-limiter>
         </div>
       </div>
-
+      <div layout="row" hide-gt-sm show-md>
+        <text-limiter flex text="profile.description" tablet-limit="200"></text-limiter>
+      </div>
     </md-card-title-text>
   </md-card-title>
-  <md-card-content>
-    <div class="md-padding">
-      <span class="md-subhead" hide-sm>{{profile.city.name | unicode}}, {{profile.country.name | unicode}}</span>
-      <text-limiter flex hide-gt-sm hide-xs text="profile.description" tablet-limit="200"></text-limiter>
-    </div>
-  </md-card-content>
 </md-card>
+
