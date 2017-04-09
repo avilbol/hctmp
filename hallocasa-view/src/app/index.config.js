@@ -24,6 +24,7 @@
 
     //Theme configuration
     var HalloCasaTheme = $mdThemingProvider.extendPalette('indigo', {
+      '50': '#fcfcfc',
       '900': '#fe2e2e'
     });
 

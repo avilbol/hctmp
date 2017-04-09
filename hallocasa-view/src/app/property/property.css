@@ -4,6 +4,7 @@
 
 .property-card {
   height: 180px;
+  overflow: hidden;
 }
 
 .property-card-options {

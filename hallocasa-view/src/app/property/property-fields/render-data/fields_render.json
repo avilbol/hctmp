@@ -108,8 +108,8 @@
                       "flexTablet": 100,
                       "flexDesktop": 100,
                       "validations": "required, minlength, maxlength",
-                      "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
-                      "validationsParams": { "minlength": 2, "maxlength": 45}
+                      "messagesParams": { "minlength": "2 - 500", "maxlength": "2 - 500"},
+                      "validationsParams": { "minlength": 2, "maxlength": 500}
                     },
                     {
                       "id": 4,
@@ -118,8 +118,8 @@
                       "flexTablet": 100,
                       "flexDesktop": 100,
                       "validations": "required, minlength, maxlength",
-                      "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
-                      "validationsParams": { "minlength": 2, "maxlength": 45}
+                      "messagesParams": { "minlength": "2 - 500", "maxlength": "2 - 500"},
+                      "validationsParams": { "minlength": 2, "maxlength": 500}
                     }
                   ]
                 }
@@ -584,8 +584,8 @@
           "flexTablet": 50,
           "flexDesktop": 33,
           "validations": "minlength, maxlength",
-          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
-          "validationsParams": { "minlength": 2, "maxlength": 45}
+          "messagesParams": { "minlength": "2" },
+          "validationsParams": { "minlength": 2 }
         },
         {
           "id": 58,
@@ -594,8 +594,8 @@
           "flexTablet": 50,
           "flexDesktop": 33,
           "validations": "minlength, maxlength",
-          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
-          "validationsParams": { "minlength": 2, "maxlength": 45}
+          "messagesParams": { "minlength": "2"},
+          "validationsParams": { "minlength": 2}
         },
         {
           "id": 59,
@@ -622,8 +622,8 @@
           "flexTablet": 50,
           "flexDesktop": 33,
           "validations": "minlength, maxlength",
-          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
-          "validationsParams": { "minlength": 2, "maxlength": 45}
+          "messagesParams": { "minlength": "2"},
+          "validationsParams": { "minlength": 2 }
         },
         {
           "id": 30,
