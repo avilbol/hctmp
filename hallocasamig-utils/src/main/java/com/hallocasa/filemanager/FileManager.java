@@ -1,7 +1,9 @@
 package com.hallocasa.filemanager;
 
 import static com.hallocasa.randomutils.RandomUtils.alphanumericRandom;
+import static java.lang.String.format;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -16,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
@@ -29,9 +32,6 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.imgscalr.Scalr;
 
 import com.hallocasa.utils.constants.exceptions.FatalException;
-import static java.lang.String.format;
-
-import java.awt.image.BufferedImage;
 
 public class FileManager {
 
@@ -80,11 +80,11 @@ public class FileManager {
 		}
 	}
 	
-	public static String createMinifiedImage(String dir, String filename, Integer width, Integer height){
-		try (OutputStream stream = new FileOutputStream(filename)) {
-			BufferedImage in = ImageIO.read(new File(filename));
-			int imgHeight = in.getHeight();
-			int imgWidth = in.getWidth();
+	public static String createMinifiedImage(String dir, String fileLocation, Integer width, Integer height){
+		try {
+			BufferedImage in = ImageIO.read(new File(fileLocation));
+			double imgHeight = in.getHeight();
+			double imgWidth = in.getWidth();
 			double scaleHeight = imgHeight / height;
 			double scaleWidth = imgWidth / width;
 			double scaleCutHeight = 1;
@@ -98,13 +98,13 @@ public class FileManager {
 			int newWidth = (int)(imgWidth / scaleCutWidth);
 			BufferedImage scaledImage = Scalr.resize(in, newWidth, newHeight);
 			
-			String fileName = FilenameUtils.getName(filename);
+			String fileName = FilenameUtils.getName(fileLocation);
 			String fileExt = FilenameUtils.getExtension(fileName);
 			
-			String fileLoc = dir + fileName;
-			File outputfile = new File(fileLoc);
+			String minifiedFileLoc = dir + "//" + fileName;
+			File outputfile = new File(minifiedFileLoc);
 			ImageIO.write(scaledImage, fileExt, outputfile);
-			return fileLoc;
+			return minifiedFileLoc;
 		} catch(IOException e){
 			throw new FatalException("Unexpected error", e);
 		}
@@ -142,6 +142,17 @@ public class FileManager {
 	public static void main(String[] args) throws IOException{
 		String folder = "D:\\development\\hallocasa-portal-utils\\test2";
 		replaceMassive(folder, "new-accght", "accght");
+		
+		List<File> filesInFolder = Files.walk(Paths.get("D:\\development\\hallocasa-portal-utils\\test2\\currentimg"))
+                .filter(Files::isRegularFile)
+                .map(Path::toFile)
+                .collect(Collectors.toList());
+		for(File file : filesInFolder){
+			String folderForMinifiedImages = "D:\\development\\hallocasa-portal-utils\\test2\\currentimg\\mini";
+			createMinifiedImage(folderForMinifiedImages, file.getAbsolutePath(), 112, 112);
+		}
+		
+		
 		/*String fromFolder = "D:\\development\\hallocasa-portal-utils\\test/from";
 		String toFolder = "D:\\development\\hallocasa-portal-utils\\test/to";
 		String prefix = "adfght";

@@ -3,6 +3,7 @@ package com.hallocasa.services.properties.imp;
 import static com.hallocasa.filemanager.FileManager.cleanFilesStartingWithPrefix;
 import static com.hallocasa.filemanager.FileManager.replaceMassive;
 import static com.hallocasa.systemproperties.SystemConstants.PROPERTY_IMAGES_PATH;
+import static com.hallocasa.systemproperties.SystemConstants.MINI_PROPERTY_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemProperty.get;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toEntity;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
@@ -52,7 +53,8 @@ public class PropertyServiceImp implements PropertyService {
 	@EJB
 	private PropertyCommonsService propertyCommonsService;
 
-	private String filePathRoot = get(PROPERTY_IMAGES_PATH);
+	private String propertyImagesPath = get(PROPERTY_IMAGES_PATH);
+	private String minifiedPropertyImagesPath = get(MINI_PROPERTY_IMAGES_PATH);
 
 	private static final Integer BASIC_PROPERTIES_RETURN_NUMBER = 10;
 
@@ -96,9 +98,7 @@ public class PropertyServiceImp implements PropertyService {
 		}
 		EntityProperty entityProperty = (EntityProperty) toEntity(property);
 		daoProperty.save(entityProperty);
-		String propId = entityProperty.getId();
-		cleanFilesStartingWithPrefix(filePathRoot, propId);
-		replaceMassive(filePathRoot, "new-" + propId, propId);
+		assureImageFileSystem(entityProperty.getId());
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class PropertyServiceImp implements PropertyService {
 	@Override
 	public void delete(String propertyId) {
 		daoProperty.delete(propertyId);
-		cleanFilesStartingWithPrefix(filePathRoot, propertyId);
+		cleanFilesStartingWithPrefix(propertyImagesPath, propertyId);
 	}
 
 	@Override
@@ -287,5 +287,12 @@ public class PropertyServiceImp implements PropertyService {
 			}
 		}
 		return false;
+	}
+	
+	private void assureImageFileSystem(String propId){
+		cleanFilesStartingWithPrefix(propertyImagesPath, propId);
+		cleanFilesStartingWithPrefix(minifiedPropertyImagesPath, propId);
+		replaceMassive(propertyImagesPath, "new-" + propId, propId);
+		replaceMassive(minifiedPropertyImagesPath, "new-" + propId, propId);
 	}
 }
