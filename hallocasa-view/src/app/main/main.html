@@ -1,5 +1,5 @@
 <div layout="column" layout-fill ng-controller="MainController as MainCtrl">
-  <md-toolbar class="md-medium-tall" layout-align="center center" layout="row" ng-if="MainCtrl.showToolbars" md-colors="{color: 'red-A100', 'border-color': 'primary-600'}">
+  <md-toolbar class="md-medium-tall" layout-align="center center" layout="row" ng-if="MainCtrl.showToolbars" md-colors="::{backgroundColor: 'primary-50', color: 'primary-900'}" md-whiteframe="5">
     <div class="md-toolbar-tools">
       <md-button class="md-icon-button" aria-label="menu" hide-gt-sm show-md ng-click="MainCtrl.toggleMenu()">
         <i class="material-icons">menu</i>
@@ -7,41 +7,45 @@
       <md-button aria-label="main" ng-click="MainCtrl.goTo('/')">
         <img class="png-icon main-logo" flex src="./assets/images/logo-hallocasa.png">
       </md-button>
-      <span flex></span>
-      <div hide-md hide-sm hide-xs layout="row" layout-align="end stretch" class="header-medium-tall">
-        <md-button ng-click="MainCtrl.goTo('/property/browser')">
-          {{'Properties.title.label' | translate}}
-        </md-button>
-        <md-button ng-click="MainCtrl.goTo('/profile/browser')">
-          {{'Common.Label.BrowseProfiles' | translate}}
-        </md-button>
-        <md-button ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
-          {{'Header.Login.Button' | translate}}
-        </md-button>
-        <md-button class="md-primary white-border-button" ng-click="MainCtrl.launchRegisterDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
-          {{'Header.SignUp.Button' | translate}}
-        </md-button>
-        <div layout="row">
-          <md-menu ng-if="MainCtrl.isAuthenticated()" layout-fill layout="row" layout-align="center stretch">
-            <md-button ng-click='$mdOpenMenu($event)'>
-                <span>{{MainCtrl.getCurrentUserIdentifier()}}</span>
-            </md-button>
-            <md-menu-content>
-              <md-menu-item>
-                <md-button ng-click="MainCtrl.goTo('/profile/my-profile', false)">
-                  {{'GlobalMenu.GoToProfile' | translate}}
-                </md-button>
-              </md-menu-item>
-              <md-menu-item>
-                <md-button ng-click="MainCtrl.logout()">
-                  {{'Header.Logout.Button' | translate}}
-                </md-button>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu>
+      <div hide-md hide-sm hide-xs layout="row" class="header-medium-tall" flex>
+        <div layout="row" flex="20">
+          <md-button ng-click="MainCtrl.goTo('/property/browser')">
+            {{'Properties.title.label' | translate}}
+          </md-button>
+          <md-button ng-click="MainCtrl.goTo('/profile/browser')">
+            {{'Common.Label.BrowseProfiles' | translate}}
+          </md-button>
         </div>
-        <div ng-translate-language-select></div>
-        <div currency-select></div>
+        <span flex></span>
+        <div layout="row" flex="50" layout-align="end">
+          <div ng-translate-language-select></div>
+          <div currency-select></div>
+          <md-button ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
+            {{'Header.Login.Button' | translate}}
+          </md-button>
+          <md-button class="md-primary white-border-button" ng-click="MainCtrl.launchRegisterDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
+            {{'Header.SignUp.Button' | translate}}
+          </md-button>
+          <div>
+            <md-menu ng-if="MainCtrl.isAuthenticated()" layout-fill layout="row" layout-align="center stretch">
+              <md-button ng-click='$mdOpenMenu($event)'>
+                <span>{{MainCtrl.getCurrentUserIdentifier()}}</span>
+              </md-button>
+              <md-menu-content>
+                <md-menu-item>
+                  <md-button ng-click="MainCtrl.goTo('/profile/my-profile', false)">
+                    {{'GlobalMenu.GoToProfile' | translate}}
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-click="MainCtrl.logout()">
+                    {{'Header.Logout.Button' | translate}}
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </div>
+        </div>
       </div>
     </div>
   </md-toolbar >
