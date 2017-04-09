@@ -33,7 +33,7 @@ import com.hallocasa.persistence.converters.HcBooleanConverter;
 @Entity
 @Table(name = "user")
 @NamedQueries({ @NamedQuery(name = EntityUser.QUERY_FIND_BASIC_BY_EMAIL, 
-	query = "select new com.hallocasa.entities.EntityUser(u.id, u.email, "
+	query = "select new com.hallocasa.entities.EntityUser(u.id, u.email, u.firstName, "
 			+ "u.password, u.confirmedFlag, u.language, u.registerDate) "
 			+ "from EntityUser u where u.email = ?1"),
 	@NamedQuery(name = EntityUser.QUERY_FIND_BY_ID, 
@@ -136,7 +136,7 @@ public class EntityUser implements Serializable, HallocasaEntity {
 		return hash;
 	}
 
-	public EntityUser(Long id, String email, String password, 
+	public EntityUser(Long id, String email, String firstName, String password, 
 			Boolean confirmedFlag, EntityLanguage language, Date registerDate) {
 		this.id = id;
 		this.email = email;
@@ -144,6 +144,7 @@ public class EntityUser implements Serializable, HallocasaEntity {
 		this.confirmedFlag = confirmedFlag;
 		this.language = language;
 		this.registerDate = registerDate;
+		this.firstName = firstName;
 	}
 
 	/**
