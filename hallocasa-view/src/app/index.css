@@ -211,19 +211,32 @@ v-pane {
   Landing header
 */
 
-.header-image{
-  background: url('../assets/images/main-banner.jpg') no-repeat fixed top left;
-  background-size: 100%;
-  height: 100%;
-  background-position-y: 59px;
-}
-
 header {
   position: relative;
   padding: 1px 0;
   height: calc(70vh - 88px);
   max-height: 517px;
+  overflow: hidden;
 }
+
+.header-image{
+  background: url('../assets/images/header-background.jpg') no-repeat fixed top left;
+  background-size: cover;
+  height: 100%;
+  background-position-y: 88px;
+}
+
+.header-map {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.header-map img{
+  width: 60%;
+  height: auto;
+}
+
 header .intro-content {
   position: absolute;
   width: 30%;
@@ -235,6 +248,47 @@ header .intro-content {
 
 header hr {
   border-color: #0c58a6;
+}
+
+@media (max-width: 768px) {
+  header .intro-content {
+    width: 45%;
+    right: 5%;
+  }
+}
+
+@media (max-width: 425px) {
+  header {
+    height: calc(100vh - 88px);
+  }
+
+  header .intro-content {
+    width: 90%;
+    right: 5%;
+    left: 5%;
+    top: 100px;
+    text-align: center;
+  }
+
+  .header-map {
+    bottom: 10%;
+    top: initial;
+    text-align: center;
+    transform: initial;
+  }
+
+  .header-map img{
+    width: 100%;
+  }
+
+  .main-title {
+    font-size: 28px;
+  }
+
+  .sub-title {
+    font-size: 20px;
+  }
+
 }
 
 /*
