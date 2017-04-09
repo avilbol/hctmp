@@ -1,4 +1,4 @@
-USE hallocasaapp;
+USE hallocasaappmig;
 START TRANSACTION;
 INSERT INTO dropdown_option_group VALUES (27, 'Annual return on investment', false);
 UPDATE filter SET dropdown_option_group_id = 27 WHERE id = 26;

@@ -1,4 +1,4 @@
-USE hallocasaapp;
+USE hallocasaappmig;
 START TRANSACTION;
 ALTER TABLE property_field_value DROP PRIMARY KEY;
 ALTER TABLE property_field_value ADD COLUMN id INT NOT NULL PRIMARY KEY AUTO_INCREMENT;

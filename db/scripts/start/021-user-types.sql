@@ -1,4 +1,4 @@
-USE hallocasaapp;
+USE hallocasaappmig;
 drop table user_user_type;
 drop table user_type_profiles;
 drop table user_type;

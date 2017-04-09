@@ -1,9 +1,9 @@
-USE hallocasaapp;
+﻿USE hallocasaappmig;
 SET FOREIGN_KEY_CHECKS=0;
-delete from hallocasaapp.city;
-delete from hallocasaapp.state;
+delete from hallocasaappmig.city;
+delete from hallocasaappmig.state;
 
-INSERT INTO hallocasaapp.state (state_name, id, country_id)
+INSERT INTO hallocasaappmig.state (state_name, id, country_id)
 VALUES
 ('Amazonas',1,1),
 ('Antioquia',2,1),
@@ -205,7 +205,7 @@ VALUES
 
 
 
-INSERT INTO hallocasaapp.city (id, city_name, state_id)
+INSERT INTO hallocasaappmig.city (id, city_name, state_id)
 VALUES
 (33,'Medell\\u00Edn',2),
 (34,'Abejorral',2),
@@ -1176,7 +1176,7 @@ VALUES
 (999,'Carmen De Apical\\u00E1',30),
 (1000,'Casabianca',30);
 
-INSERT INTO hallocasaapp.city (id, city_name, state_id)
+INSERT INTO hallocasaappmig.city (id, city_name, state_id)
 VALUES
 (1001,'Chaparral',30),
 (1002,'Coello',30),
@@ -2179,7 +2179,7 @@ VALUES
 (1999,'Putumayo Puerto El Carmen Del Putumayo',135),
 (2000,'Shushufindi',135);
 
-INSERT INTO hallocasaapp.city (id, city_name, state_id)
+INSERT INTO hallocasaappmig.city (id, city_name, state_id)
 VALUES
 (2001,'Sucumbios  (La Bonita)',135),
 (2002,'Tarapoa',135),
@@ -3182,7 +3182,7 @@ VALUES
 (2999,'Longboat Key',147),
 (3000,'Inverness',147);
 
-INSERT INTO hallocasaapp.city (id, city_name, state_id)
+INSERT INTO hallocasaappmig.city (id, city_name, state_id)
 VALUES
 (3001,'Southwest Ranches',147),
 (3002,'Dade City',147),
@@ -4185,7 +4185,7 @@ VALUES
 (3999,'Plaquemine',156),
 (4000,'Carencro',156);
 
-INSERT INTO hallocasaapp.city (id, city_name, state_id)
+INSERT INTO hallocasaappmig.city (id, city_name, state_id)
 VALUES
 (4001,'Ponchatoula',156),
 (4002,'Walker',156),
@@ -5188,7 +5188,7 @@ VALUES
 (4999,'Haledon',169),
 (5000,'Margate City',169);
 
-INSERT INTO hallocasaapp.city (id, city_name, state_id)
+INSERT INTO hallocasaappmig.city (id, city_name, state_id)
 VALUES
 (5001,'Boonton',169),
 (5002,'Upper Saddle River',169),
@@ -6191,7 +6191,7 @@ VALUES
 (5999,'Myrtle Beach',178),
 (6000,'Aiken',178);
 
-INSERT INTO hallocasaapp.city (id, city_name, state_id)
+INSERT INTO hallocasaappmig.city (id, city_name, state_id)
 VALUES
 (6001,'Anderson',178),
 (6002,'Greer',178),
@@ -7194,7 +7194,7 @@ VALUES
 (6999,'Grafton',187),
 (7000,'Keyser',187);
 
-INSERT INTO hallocasaapp.city (id, city_name, state_id)
+INSERT INTO hallocasaappmig.city (id, city_name, state_id)
 VALUES
 (7001,'Charles Town',187),
 (7002,'Ranson Corporation',187),

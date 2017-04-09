@@ -1,4 +1,4 @@
-use hallocasaapp;
+use hallocasaappmig;
 START TRANSACTION;
 
 ALTER TABLE filter add column dropdown_option_group_id int;

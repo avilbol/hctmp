@@ -1,4 +1,4 @@
-USE hallocasaapp;
+USE hallocasaappmig;
 
 UPDATE 
  telephone_prefix 
