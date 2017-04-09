@@ -1,4 +1,4 @@
-USE hallocasaapp;
+USE hallocasaappmig;
 INSERT INTO user_type (id, name, lang, manage_tooltip, tooltip_lang)
 VALUES
 (1, 'Broker', 'hallocasa.usertype.broker.pending', 0, null),

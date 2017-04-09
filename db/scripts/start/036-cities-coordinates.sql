@@ -1,4 +1,4 @@
-USE hallocasaapp;
+USE hallocasaappmig;
 UPDATE city SET default_lat_coordinate = -34.6036844, default_lng_coordinate =-58.3815591, default_zoom = 11 WHERE id = 1516;
 UPDATE city SET default_lat_coordinate = -34.9204948, default_lng_coordinate =-57.9535657, default_zoom = 13 WHERE id = 1517;
 UPDATE city SET default_lat_coordinate = -38.0054771, default_lng_coordinate =-57.5426106, default_zoom = 11 WHERE id = 1518;

@@ -1,4 +1,4 @@
-USE hallocasaapp;
+USE hallocasaappmig;
 alter table dropdown_option_group 
 drop depends_on_lang;
 alter table dropdown_option_group 

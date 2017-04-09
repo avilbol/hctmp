@@ -1,4 +1,4 @@
-use hallocasaapp;
+use hallocasaappmig;
 START TRANSACTION;
 
 update property_field set dropdown_option_group_id = 1 where id = 15;

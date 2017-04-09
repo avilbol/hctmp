@@ -1,4 +1,4 @@
-USE hallocasaapp;
+USE hallocasaappmig;
 START TRANSACTION;
 DELETE FROM property_field_value;
 DELETE FROM property WHERE property_id = 'tEsTpRoP';

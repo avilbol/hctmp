@@ -1,3 +1,3 @@
 START TRANSACTION;
-CREATE DATABASE hallocasaapp CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE hallocasaappmig CHARACTER SET utf8 COLLATE utf8_general_ci;
 COMMIT;

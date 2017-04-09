@@ -1,4 +1,4 @@
-USE hallocasaapp;
+﻿USE hallocasaappmig;
 update currency set lang='hallocasa.currency.colombianpeso' WHERE id = 1;
 update currency set lang='hallocasa.currency.euro' WHERE id = 2;
 update currency set lang='hallocasa.currency.usdollar' WHERE id = 3;

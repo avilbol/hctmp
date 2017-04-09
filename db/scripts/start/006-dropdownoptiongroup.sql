@@ -1,4 +1,4 @@
-use hallocasaapp;
+use hallocasaappmig;
 START TRANSACTION;
 
 create table dropdown_option_group(

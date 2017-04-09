@@ -1,9 +1,9 @@
-create table hallocasaapp.lang(
+create table hallocasaappmig.lang(
     id int primary key,
     name varchar(400)
 );
 
-INSERT INTO hallocasaapp.lang values
+INSERT INTO hallocasaappmig.lang values
 (1,'English'),
 (2,'Espa\\u00F1ol'),
 (3,'Deutsch'),
