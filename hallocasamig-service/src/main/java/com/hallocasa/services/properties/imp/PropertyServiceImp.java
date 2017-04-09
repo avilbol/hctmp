@@ -63,39 +63,7 @@ public class PropertyServiceImp implements PropertyService {
 	 */
 	@Override
 	public void save(Property property, String oAuthToken) {
-		if (property.getUser() == null || property.getUser().getId() == null) {
-			throw new BadRequestException("User not specified in property");
-		}
-		if (!(oAuthToken.split("\\:")[0]).equals(property.getUser().getEmail())) {
-			throw new BadRequestException("Invalid operation, inconsistent token");
-		}
-		if (property.getPropertyKey() == null) {
-			throw new BadRequestException("Property key not specified in property");
-		}
-		if (property.getPropertyKey().getPropertyType() == null) {
-			throw new BadRequestException("Property type not specified in property");
-		}
-		if (property.getPropertyKey().getPropertyLocation() == null) {
-			throw new BadRequestException("Property location not specified in property");
-		}
-		if (property.getPropertyKey().getPropertyProposal() == null) {
-			throw new BadRequestException("Property proposal not specified in property");
-		}
-		if (property.getPropertyKey().getCountry() == null) {
-			throw new BadRequestException("Country not specified in property");
-		}
-		if (property.getFieldList() == null) {
-			throw new BadRequestException("Field list not specified in property");
-		}
-		if (property.getFieldList().isEmpty()) {
-			throw new BadRequestException("Field list empty in property");
-		}
-		if (property.getPublishDate() == null) {
-			property.setPublishDate(new Date());
-		}
-		for(PropertyField pfield : property.getFieldList()){
-			validatePropertyField(pfield);
-		}
+		validatePropertyStructure(property, oAuthToken);
 		EntityProperty entityProperty = (EntityProperty) toEntity(property);
 		daoProperty.save(entityProperty);
 		assureImageFileSystem(entityProperty.getId());
@@ -193,6 +161,42 @@ public class PropertyServiceImp implements PropertyService {
 		resultRequest.setOrderBy(new LinkedList<>());
 		List<EntityProperty> userProperties = propertyCommonsService.getPropertyListBy(userIdProperties, resultRequest);
 		return propertyCommonsService.toValueObjectList(userProperties);
+	}
+	
+	private void validatePropertyStructure(Property property, String oAuthToken){
+		if (property.getUser() == null || property.getUser().getId() == null) {
+			throw new BadRequestException("User not specified in property");
+		}
+		if (!(oAuthToken.split("\\:")[0]).equals(property.getUser().getEmail())) {
+			throw new BadRequestException("Invalid operation, inconsistent token");
+		}
+		if (property.getPropertyKey() == null) {
+			throw new BadRequestException("Property key not specified in property");
+		}
+		if (property.getPropertyKey().getPropertyType() == null) {
+			throw new BadRequestException("Property type not specified in property");
+		}
+		if (property.getPropertyKey().getPropertyLocation() == null) {
+			throw new BadRequestException("Property location not specified in property");
+		}
+		if (property.getPropertyKey().getPropertyProposal() == null) {
+			throw new BadRequestException("Property proposal not specified in property");
+		}
+		if (property.getPropertyKey().getCountry() == null) {
+			throw new BadRequestException("Country not specified in property");
+		}
+		if (property.getFieldList() == null) {
+			throw new BadRequestException("Field list not specified in property");
+		}
+		if (property.getFieldList().isEmpty()) {
+			throw new BadRequestException("Field list empty in property");
+		}
+		if (property.getPublishDate() == null) {
+			property.setPublishDate(new Date());
+		}
+		for(PropertyField pfield : property.getFieldList()){
+			validatePropertyField(pfield);
+		}
 	}
 
 	private void validateRequest(PropertyFilterRequest request) {
