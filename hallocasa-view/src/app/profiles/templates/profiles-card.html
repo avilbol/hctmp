@@ -1,7 +1,7 @@
 <md-card class="profile-card">
   <md-card-title layout="row" layout-align="space-between start">
     <md-card-title-media>
-      <div class="md-media-md card-media">
+      <div class="md-media-sm card-media profile-image">
         <img
           ng-src="{{ profile.userImage }}"
           alt="{{ profile.firstName + ' '+ profile.lastName }}"
@@ -12,27 +12,28 @@
     </md-card-title-media>
     <md-card-title-text>
       <span class="md-headline">{{profile.firstName + ' '+ profile.lastName}}</span>
-      <span class="md-subhead">{{profile.city.name | unicode}}</span>
-      <div layout="row" layout-align="space-between">
-        <div layout="column">
-          <item-list
-            tablet-items="2"
-            desktop-items="3"
-            list="profile.userLanguages"
-            label-attribute="'language.name'"
-            display="column"
-          ></item-list>
-        </div>
-        <div layout="column">
+      <span>{{profile.city.name | unicode}}</span>
+      <div layout="row">
+        <item-list
+          tablet-items="2"
+          desktop-items="3"
+          list="profile.userLanguages"
+          label-attribute="'language.name'"
+          display="row"
+        ></item-list>
+      </div>
+      <br>
+      <div layout="row">
+        <b>
           <item-list
             tablet-items="2"
             desktop-items="3"
             list="profile.userTypes"
-            display="column"
+            display="row"
             label-attribute="'lang'"
             translate-label="true"
           ></item-list>
-        </div>
+        </b>
       </div>
     </md-card-title-text>
   </md-card-title>

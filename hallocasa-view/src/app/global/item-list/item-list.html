@@ -3,19 +3,21 @@
     <span>{{::getLabel(itemList) | unicode}}</span>
     <span ng-if="$index < viewList.length - 1 ">,&nbsp;</span>
   </div>
-  <span ng-repeat-end ng-if="list.length > maxItems">
-    , {{'PublicProfile.Widget.ViewMore'| translate}}
-  </span>
+  <div ng-repeat-end ng-if="list.length > maxItems">
+    <span>,</span>
+    <span class="link">+{{list.length - maxItems}}</span>
+  </div>
 </div>
 
 <div ng-if="display === 'column'" layout="column">
   <span ng-repeat="itemList in viewList track by $index">&#8259; {{::getLabel(itemList) | unicode}}</span>
-  <span ng-repeat-end ng-if="list.length > maxItems">
-    &#8259; {{'PublicProfile.Widget.ViewMore'| translate}}
-  </span>
+  <div ng-repeat-end ng-if="list.length > maxItems">
+    <span>&#8259;</span>
+    <span class="link">+{{list.length - maxItems}}</span>
+  </div>
 </div>
 
-<md-tooltip hide-xs hide-sm>
+<md-tooltip hide-xs hide-sm ng-if="list.length > maxItems">
   <div layout="row">
     <div ng-repeat="itemList in list">
       <span>{{::getLabel(itemList) | unicode}}</span>

@@ -900,5 +900,8 @@
   "Error.emailalreadyexists": "Email already exists",
   "Alert.profileactivated": "Profile activated",
   "Alert.activatingprofile": "Activating profile",
-  "Property.Detail.viewInLanguage": "Ver en el siguiente lenguaje (pending translation)"
+  "Property.Detail.viewInLanguage": "Ver en el siguiente lenguaje (pending translation)",
+  "landing.ProfilesTitle": "Profiles",
+  "landing.PropertiesTitle": "Properties",
+  "landing.SeeMore": "See more"
 }

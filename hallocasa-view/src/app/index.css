@@ -191,6 +191,23 @@ v-pane {
 }
 
 /*
+  Fonts
+*/
+
+
+.main-title {
+  color: #737373;
+}
+
+.sub-title {
+  color: #2d2d2d;
+}
+
+.link {
+  color: #0c58a6;
+  text-decoration: underline;
+}
+/*
   Landing header
 */
 
@@ -208,7 +225,6 @@ header {
   max-height: 517px;
 }
 header .intro-content {
-  color: white;
   position: absolute;
   width: 30%;
   text-align: right;
@@ -217,17 +233,16 @@ header .intro-content {
   right: 10%;
 }
 
-
-.parallax {
-  /* The image used */
-  background-image: url('../assets/images/main-banner.jpg');
-
-  /* Full height */
-  height: 100%;
-
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+header hr {
+  border-color: #0c58a6;
 }
+
+/*
+  Cards
+*/
+
+.profile-image img{
+  border-radius: 50%;
+}
+
+
