@@ -122,182 +122,182 @@
           <div>
             <div>
               <md-input-container class="md-block">
-                <b>{{'hallocasa.propertyfield.marketprice' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.marketprice.viewlang' | translate}}</b>:
                 {{vm.property.price | dynamicCurrency}}
               </md-input-container>
               <md-input-container class="md-block">
-                <b>{{'hallocasa.propertyfield.squaremeterstotal' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.squaremeterstotal.viewlang' | translate}}</b>:
                 {{vm.property.squareMeters}}
               </md-input-container>
               <md-input-container class="md-block">
-                <b>{{'hallocasa.propertyfield.country' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.country.viewlang' | translate}}</b>:
                 {{vm.property.propertyKey.country.lang | translate}}
                 &nbsp;&nbsp;
-                <b>{{'hallocasa.propertyfield.department' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.department.viewlang' | translate}}</b>:
                 {{vm.property.state.name}}
                 &nbsp;&nbsp;
-                <b>{{'hallocasa.propertyfield.town' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.town.viewlang' | translate}}</b>:
                 {{vm.property.city.name}}
                 &nbsp;&nbsp;
                 <span ng-if="vm.property.address">
-                  <b>{{'hallocasa.propertyfield.address' | translate}}</b>:
+                  <b>{{'hallocasa.propertyfield.address.viewlang' | translate}}</b>:
                   {{vm.property.address}}
                   &nbsp;&nbsp;
                 </span>
                 <span ng-if="vm.property.neighborhood">
-                  <b>{{'hallocasa.propertyfield.locationneighborhood' | translate}}</b>:
+                  <b>{{'hallocasa.propertyfield.locationneighborhood.viewlang' | translate}}</b>:
                   {{vm.property.neighborhood.name}}
                 </span>
               </md-input-container
             </div>
             <div>
               <span ng-if="vm.property.video.link">
-                <b>{{'hallocasa.propertyfield.video' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.video.viewlang' | translate}}</b>:
                 <a href="{{vm.property.video.link.text.strVal}}">{{vm.property.video.link.text.strVal}}</a>
               </span>
               <span ng-if="vm.property.rooms">
-                <b>{{'hallocasa.propertyfield.rooms' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.rooms.viewlang' | translate}}</b>:
                 {{vm.property.rooms}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.bathrooms">
-                <b>{{'hallocasa.propertyfield.bathrooms' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.bathrooms.viewlang' | translate}}</b>:
                 {{vm.property.bathrooms}}
                 &nbsp;&nbsp;
               </span>
             </div>
             <div>
               <span ng-if="vm.property.condition">
-                <b>{{'hallocasa.propertyfield.condition' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.condition.viewlang' | translate}}</b>:
                 {{vm.property.condition.data1 | translate}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.furnished != null">
-                <b>{{'hallocasa.propertyfield.furnished' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.furnished.viewlang' | translate}}</b>:
                 {{vm.property.furnished | yesNoFilter}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.floor">
-                <b>{{'hallocasa.propertyfield.floor' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.floor.viewlang' | translate}}</b>:
                 {{vm.property.floor}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.optionalFeatures">
-                <b>{{'hallocasa.propertyfield.optionalfeatures' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.optionalfeatures.viewlang' | translate}}</b>:
                 {{vm.property.optionalFeatures}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.typeOfSoil">
-                <b>{{'hallocasa.propertyfield.typeofsoil' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.typeofsoil.viewlang' | translate}}</b>:
                 {{vm.property.typeOfSoil}}
                 &nbsp;&nbsp;
               </span>
             </div>
             <div>
               <span ng-if="vm.property.security">
-                <b>{{'hallocasa.propertyfield.security' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.security.viewlang' | translate}}</b>:
                 {{vm.property.security}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.suitableFor">
-                <b>{{'hallocasa.propertyfield.suitablefor' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.suitablefor.viewlang' | translate}}</b>:
                 {{vm.property.suitableFor}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.parkingSpots">
-                <b>{{'hallocasa.propertyfield.parkingspots' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.parkingspots.viewlang' | translate}}</b>:
                 {{vm.property.parkingSpots}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.basement != null">
-                <b>{{'hallocasa.propertyfield.basement' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.basement.viewlang' | translate}}</b>:
                 {{vm.property.basement | yesNoFilter}}
                 &nbsp;&nbsp;
               </span>
             </div>
             <div>
               <span ng-if="vm.property.balconyRooftop != null">
-                <b>{{'hallocasa.propertyfield.balconyrooftop' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.balconyrooftop.viewlang' | translate}}</b>:
                 {{vm.property.balconyRooftop | yesNoFilter}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.gardenTerrace != null">
-                <b>{{'hallocasa.propertyfield.gardenterrace' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.gardenterrace.viewlang' | translate}}</b>:
                 {{vm.property.gardenTerrace | yesNoFilter}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.availableFrom">
-                <b>{{'hallocasa.propertyfield.availablefrom' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.availablefrom.viewlang' | translate}}</b>:
                 {{vm.property.availableFrom | date:'MMMM yyyy'}}
                 &nbsp;&nbsp;
               </span>
             </div>
             <div>
               <span ng-if="vm.property.rented">
-                <b>{{'hallocasa.propertyfield.rented' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.rented.viewlang' | translate}}</b>:
                 {{vm.property.rented | boolVal}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.metersBuilt">
-                <b>{{'hallocasa.propertyfield.squaremetersbuilt' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.squaremetersbuilt.viewlang' | translate}}</b>:
                 {{vm.property.metersBuilt}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.estrato">
-                <b>{{'hallocasa.propertyfield.estrato' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.estrato.viewlang' | translate}}</b>:
                 {{vm.property.estrato.data1}}
                 &nbsp;&nbsp;
               </span>
             </div>
             <div>
               <span ng-if="vm.property.kindsOfRoad">
-                <b>{{'hallocasa.propertyfield.kindofroad' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.kindofroad.viewlang' | translate}}</b>:
                 {{vm.property.kindsOfRoad}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.heating">
-                <b>{{'hallocasa.propertyfield.heating' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.heating.viewlang' | translate}}</b>:
                 {{vm.property.heating.data1 | translate}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.numberOfFloors">
-                <b>{{'hallocasa.propertyfield.numberoffloors' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.numberoffloors.viewlang' | translate}}</b>:
                 {{vm.property.numberOfFloors | translate}}
                 &nbsp;&nbsp;
               </span>
             </div>
             <div>
               <span ng-if="vm.property.drinkingWater">
-                <b>{{'hallocasa.propertyfield.drinkingwater' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.drinkingwater.viewlang | translate}}</b>:
                 {{vm.property.drinkingWater | translate}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.sewageWater">
-                <b>{{'hallocasa.propertyfield.sewagewater' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.sewagewater.viewlang' | translate}}</b>:
                 {{vm.property.sewageWater | translate}}
                 &nbsp;&nbsp;
               </span>
 
               <span ng-if="vm.property.yearOfConstruction">
-                <b>{{'hallocasa.propertyfield.yearofconstruction' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.yearofconstruction.viewlang' | translate}}</b>:
                 {{vm.property.yearOfConstruction.data1 | translate}}
                 &nbsp;&nbsp;
               </span>
             </div>
             <div>
               <span ng-if="vm.property.methodOfConstruction">
-                <b>{{'hallocasa.propertyfield.methodofconstruction' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.methodofconstruction.viewlang' | translate}}</b>:
                 {{vm.property.methodOfConstruction.data1 | translate}}
                 &nbsp;&nbsp;
               </span>
               <span ng-if="vm.property.typeOfSoil">
-                <b>{{'hallocasa.propertyfield.typeofsoil' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.typeofsoil.viewlang' | translate}}</b>:
                 {{vm.property.typeOfSoil}}
                 &nbsp;&nbsp;
               </span>
 
               <span ng-if="vm.property.agriculture">
-                <b>{{'hallocasa.propertyfield.agriculture' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.agriculture.viewlang' | translate}}</b>:
                 {{vm.property.agriculture}}
                 &nbsp;&nbsp;
               </span>
@@ -305,19 +305,19 @@
             <div>
 
               <span ng-if="vm.property.lastModernization">
-                <b>{{'hallocasa.propertyfield.lastmodernization' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.lastmodernization.viewlang' | translate}}</b>:
                 {{vm.property.lastModernization.data1 | translate}}
                 &nbsp;&nbsp;
               </span>
 
               <span ng-if="vm.property.priceDevelopment">
-                <b>{{'hallocasa.propertyfield.pricedevelopmentinlast5years' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.pricedevelopmentinlast5years.viewlang' | translate}}</b>:
                 {{vm.property.priceDevelopment.data1 | translate}}
                 &nbsp;&nbsp;
               </span>
 
               <span ng-if="vm.property.inclination">
-                <b>{{'hallocasa.propertyfield.inclination' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.inclination.viewlang' | translate}}</b>:
                 {{vm.property.inclination}}
                 &nbsp;&nbsp;
               </span>
@@ -325,31 +325,31 @@
             <div>
 
               <span ng-if="vm.property.agentFee">
-                <b>{{'hallocasa.propertyfield.agentfee' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.agentfee.viewlang' | translate}}</b>:
                 {{vm.property.agentFee.data1}}
                 &nbsp;&nbsp;
               </span>
 
               <span ng-if="vm.property.monthlyAgentFeesForTheLandlord">
-                <b>{{'hallocasa.propertyfield.monthlyadminfeesforthelandlord' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.monthlyadminfeesforthelandlord.viewlang' | translate}}</b>:
                 {{vm.property.monthlyAgentFeesForTheLandlord }}
                 &nbsp;&nbsp;
               </span>
               <br>
               <span ng-if="vm.property.additionalFeesForTheLandlord">
-                <b>{{'hallocasa.propertyfield.additionalmonthlyfeesforthelandlord' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.additionalmonthlyfeesforthelandlord.viewlang' | translate}}</b>:
                 {{vm.property.additionalFeesForTheLandlord }}
                 &nbsp;&nbsp;
               </span>
               <br>
               <span ng-if="vm.property.annualTaxRateOnTheProperty">
-                <b>{{'hallocasa.propertyfield.annualtaxrateontheproperty' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.annualtaxrateontheproperty.viewlang' | translate}}</b>:
                 {{vm.property.annualTaxRateOnTheProperty.data1}}
                 &nbsp;&nbsp;
               </span>
               <br>
               <span ng-if="vm.property.additionalFeesForTheLandlord">
-                <b>{{'hallocasa.propertyfield.additionalmonthlyfeesforthelandlord' | translate}}</b>:
+                <b>{{'hallocasa.propertyfield.additionalmonthlyfeesforthelandlord.viewlang' | translate}}</b>:
                 {{vm.property.additionalFeesForTheLandlord }}
                 &nbsp;&nbsp;
               </span>
