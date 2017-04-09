@@ -2,6 +2,7 @@
 
 var path = require('path');
 var gulp = require('gulp');
+var gzip = require('gulp-gzip');
 var conf = require('./conf');
 
 var $ = require('gulp-load-plugins')({

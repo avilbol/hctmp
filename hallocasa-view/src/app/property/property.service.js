@@ -31,6 +31,7 @@
       fieldsRender: $resource("/app/property/property-fields/render-data/fields_render.json", {}, GenericRESTResource),
       propertiesByUser: $resource(backend_url + "properties/by_user/:id", {}, GenericRESTResource),
       property: $resource(backend_url + "properties/:id", {}, GenericRESTResource),
+      propertyDelete: $resource(backend_url + "properties/delete/:id", {}, GenericRESTResource),
       propertyDetail: $resource(backend_url + "properties/detail/:id", {}, GenericRESTResource),
       properties: $resource(backend_url + "properties/fetch_random", {}, GenericRESTResource),
       propertiesPublic: $resource(backend_url + "properties/search", {}, GenericRESTResource)
@@ -93,7 +94,7 @@
     }
 
     function deleteProperty(id) {
-      return resources.property.delete({id: id}).$promise;
+      return resources.propertyDelete.delete({id: id}).$promise;
     }
 
     function loadPropertyDetail(id) {
@@ -175,7 +176,7 @@
 
         image = image && image.data1 ? image.data1.strVal : undefined;
 
-        ImageValidatorService.validateOrFallback(property_images_url + image, "PropertyDefault")
+        ImageValidatorService.validateOrFallback(property_images_url + "/mini/" + image, "PropertyDefault")
           .then(function (image) {
             propertyPreview.image = image;
           });

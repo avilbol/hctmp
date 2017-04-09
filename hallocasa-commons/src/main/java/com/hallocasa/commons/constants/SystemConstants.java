@@ -34,7 +34,6 @@ public class SystemConstants {
     public static final String CURRENCY_LAYER_API_KEY = get("Api.CurrencyLayer.ApiKey");
     
     
-    
     //public static final String MAIL_CHIMP_NEWSLETTER_LIST_ID = "c2730bb54f"; // Newsletter list
 
 }

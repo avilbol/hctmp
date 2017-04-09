@@ -4,7 +4,7 @@
 
   angular
     .module('HalloCasa')
-    .constant('AppVersion', '0.0.1')
+    .constant('AppVersion', '1.1.0')
     .constant('INTERCOM_APPID', 't6itp8rl')
     .constant('WOOTRIC_APPID', 'NPS-ead65c4a')
     .constant('moment', moment)
@@ -25,13 +25,13 @@
       'preferredLocale': 'es_ES'
     })
     .constant('GenericRESTResource', {
-      query: { method: 'GET', isArray: true },
-      create: { method: 'POST' },
-      consult: { method: 'POST', isArray: true },
-      consultObj: { method: 'POST'},
-      show: { method: 'GET' },
-      update: { method: 'PUT', params: {id: '@id'} },
-      delete: { method: 'DELETE', params: {id: '@id'} }
+      query: { method: 'GET', isArray: true, headers: {'Content-Encoding' : 'gzip'} },
+      create: { method: 'POST', headers: {'Content-Encoding' : 'gzip'} },
+      consult: { method: 'POST', isArray: true, headers: {'Content-Encoding' : 'gzip'} },
+      consultObj: { method: 'POST', headers: {'Content-Encoding' : 'gzip'}},
+      show: { method: 'GET', headers: {'Content-Encoding' : 'gzip'} },
+      update: { method: 'PUT', params: {id: '@id'}, headers: {'Content-Encoding' : 'gzip'} },
+      delete: { method: 'DELETE', params: {id: '@id'}, headers: {'Content-Encoding' : 'gzip'} }
     })
     .constant('ApplicationCredentials', {
       'client-id': 'hallocasa_frontend',
