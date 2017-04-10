@@ -192,7 +192,7 @@
       return selectedLangValue.data2.strVal;
     }
 
-    function generatePropertyDetailData(property, selectedLanguage) {
+    function generatePropertyDetailData(property) {
         var propertyDetail = {titles:{}, descriptions:{}, locationDescriptions:{}};
         propertyDetail.id = property.id;
         propertyDetail.mainLanguage = {id: _.first(getFieldByID(61, property)).identifier};
