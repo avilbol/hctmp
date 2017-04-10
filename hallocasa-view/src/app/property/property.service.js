@@ -196,7 +196,6 @@
         var propertyDetail = {titles:{}, descriptions:{}, locationDescriptions:{}};
         propertyDetail.id = property.id;
         propertyDetail.mainLanguage = {id: _.first(getFieldByID(61, property)).identifier};
-        var targetLanguage = selectedLanguage || propertyDetail.mainLanguage;
         propertyDetail.propertyKey = property.propertyKey;
         propertyDetail.languages = getFieldByID(1, property);
         propertyDetail.title = getFieldByID(2, property);
