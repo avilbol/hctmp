@@ -117,7 +117,7 @@
 
     function blogRedirection(section) {
       var currentLanguage = LocaleService.getLocaleDisplayName();
-      $window.open( BlogLinks[currentLanguage][section], '_blank');
+      return BlogLinks[currentLanguage][section];
     }
 
     function toolbarsHideHandler() {

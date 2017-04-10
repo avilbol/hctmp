@@ -12,7 +12,7 @@
       template:
       "<div>"+
       "<md-menu layout-fill layout='row' layout-align='center stretch'>"+
-      "<md-button ng-click='$mdOpenMenu($event)' aria-label='Open currency dropdown'>"+
+      "<md-button ng-click='$mdMenu.open($event)' aria-label='Open currency dropdown' class='bold-hover'>"+
       "<div>{{currentCurrency.abbreviation}}</div>"+
       "</md-button>"+
       "<md-menu-content>"+

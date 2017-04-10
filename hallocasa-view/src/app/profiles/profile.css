@@ -2,3 +2,7 @@
   height: 180px;
   overflow: hidden;
 }
+
+.profile-card img{
+  border-radius: 50%;
+}

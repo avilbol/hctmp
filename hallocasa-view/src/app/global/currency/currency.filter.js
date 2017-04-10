@@ -5,14 +5,14 @@
     .module('HalloCasa.global')
     .filter('dynamicCurrency', dynamicCurrency);
 
-  function dynamicCurrency(CurrencyService, idSearchFilter, translateFilter, numberFilter, toastr) {
+  function dynamicCurrency(CurrencyService, idSearchFilter, translateFilter, numberFilter, toastr, $sce) {
     var exchange, currency;
 
     function calculateExchange(inputCurrency, outputCurrency) {
       var rate = getCurrencyRate(inputCurrency, outputCurrency);
       var convertedCurrency = numberFilter(inputCurrency.amount * rate, 2);
 
-      return convertedCurrency + " " + outputCurrency.abbreviation;
+      return $sce.trustAsHtml("<b>" + convertedCurrency + "</b> " + outputCurrency.abbreviation);
     }
 
     function getCurrencyRate(inputCurrency, outputCurrency) {

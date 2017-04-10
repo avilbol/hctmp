@@ -25,6 +25,7 @@
     //Theme configuration
     var HalloCasaTheme = $mdThemingProvider.extendPalette('indigo', {
       '50': '#fcfcfc',
+      '600': '#07407b',
       '900': '#0c58a6'
     });
 
@@ -61,7 +62,8 @@
 
     //Icons configuration
     $mdIconProvider
-      .icon("flipboard", "assets/icons/Logomark_DIGITAL_White_500X500.svg", 24);
+      .icon("flipboard", "assets/icons/Logomark_DIGITAL_White_500X500.svg", 24)
+      .icon("squaremeters", "assets/icons/squaremeters.svg", 24);
 
     //URL Sanitization
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype|chrome-extension):/);

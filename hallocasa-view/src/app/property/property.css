@@ -2,22 +2,54 @@
   height: 400px;
 }
 
+/*
+  Property card
+*/
+
 .property-card {
-  height: 180px;
+  overflow: hidden;
+  height: 360px;
+}
+
+.property-card .title{
+  font-size: 18px;
+  color: #000;
+  margin: 5px 0 5px 0;
+}
+
+.property-card .subtitle{
+  font-size: 14px;
+  color: #000;
+  opacity: 0.87;
+  margin: 5px 0 5px 0;
+}
+
+.property-card .header{
+  position: relative;
+  height: 200px;
+  color: #0c58a6;
+}
+
+.property-card .price {
+  position: absolute;
+  top: 20px;
+  padding: 8px 15px;
+  background-color: #fff;
+}
+
+.property-card .image {
+  height: 200px;
   overflow: hidden;
 }
-
-.property-card-options {
-  height: 230px;
+.property-card .image img{
+  width: 100%;
 }
 
-.card-media {
-  position: relative;
+.property-card md-card-title{
+  padding-top: 16px;
 }
 
-.card-media img {
-  position:absolute;
-  top:0;
-  bottom:0;
-  margin:auto;
+.property-card.options {
+  height: 395px;
 }
+

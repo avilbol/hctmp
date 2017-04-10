@@ -1,27 +1,22 @@
-<md-card ng-class="{'property-card': !vm.propertyShowOptions, 'property-card-options': vm.propertyShowOptions}">
-  <md-card-title layout="row" layout-align="space-between start">
-    <md-card-title-media>
-      <div class="md-media-lg card-media">
-        <img flex ng-src="{{property.image}}" alt="{{ property.title.data2.strVal }}" spinkit-image-preloader='cube-grid-spinner'>
-      </div>
-      <span flex></span>
-    </md-card-title-media>
+<md-card class="property-card" ng-class="{'options': vm.propertyShowOptions}">
+  <div class="header">
+    <div class="price" ng-bind-html="property.price | dynamicCurrency" md-whiteframe="2"></div>
+    <div class="image">
+      <img flex ng-src="{{property.image}}" alt="{{ property.title.data2.strVal }}" spinkit-image-preloader="cube-grid-spinner">
+    </div>
+  </div>
+  <md-card-title>
     <md-card-title-text>
-      <span class="md-headline">
-        <b>{{property.description.data2.strVal}}</b>
-      </span>
-      <span class="md-subhead">
-        {{property.type | translate}}
-      </span>
-      <span>
-        <b>{{property.price | dynamicCurrency}}</b>
-      </span>
-      <span class="md-subhead">
-        {{property.squareMeters}} m²
-      </span>
+      <h2 class="title">{{property.title.data2.strVal}}</h2>
+      <h2 class="subtitle">{{property.type | translate}}</h2>
     </md-card-title-text>
   </md-card-title>
-
+  <md-card-content>
+    <b>
+      <md-icon md-svg-icon="squaremeters"></md-icon>
+      {{property.squareMeters}} m²
+    </b>
+  </md-card-content>
   <md-card-actions layout="row" layout-align="start center">
     <md-button ng-click="vm.viewProperty($event, property)" ng-if="vm.propertyShowOptions.view">{{'Properties.view.label' | translate}}</md-button>
     <md-button ng-click="vm.editProperty($event, property)" ng-if="vm.propertyShowOptions.edit">{{'Properties.edit.label' | translate}}</md-button>
