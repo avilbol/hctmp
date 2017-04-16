@@ -1,20 +1,19 @@
-<md-content flex class="container">
-  <md-virtual-repeat-container ng-style="vm.getListHeight()">
-    <div layout="row" layout-align="center" class="header-background">
-      <header class="header-image"></header>
+<md-content>
+    <div layout="row" layout-align="center">
       <div flex-gt-sm="70" flex-gt-xs="80" flex-xs="100">
-        <div md-virtual-repeat="profile in vm.profiles" md-on-demand>
+        <div ng-repeat="profile in vm.profiles" infinity-scroll container="#mainContainer" fetch-more="vm.fetchRangeProfiles()" distance-load="20">
           <a
             ng-include="'app/profiles/templates/big-profiles-card.html'"
             ng-href="/profile?id={{profile.id}}"
             class="disable-hyperlinks-style"
             ng-show="profile"
           ></a>
-          <div layout="row" layout-align="center" ng-show="!profile" >
-            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-          </div>
         </div>
       </div>
     </div>
-  </md-virtual-repeat-container>
+  <br>
+  <div layout="row" layout-align="center">
+    <md-progress-circular md-mode="indeterminate" ng-disabled="!vm.showLoading"></md-progress-circular>
+  </div>
+  <br>
 </md-content>

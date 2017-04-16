@@ -6,35 +6,33 @@
     .controller('PublicProfileController', PublicProfileController);
 
   /** @ngInject */
-  function PublicProfileController(ProfilesService, ImageValidatorService, $scope, VirtualRepeatUtilsService,
-                                   user_images_url, $q) {
+  function PublicProfileController(ProfilesService) {
     var vm = this;
-    vm.getListHeight = VirtualRepeatUtilsService.heightCalculator(".container", $scope);
-    vm.profiles = VirtualRepeatUtilsService.getVirtualRepeatInstance(loadProfiles, 10);
+    var excludeIdList = [];
+    var amountProfiles = 5;
 
-    function loadProfiles(start, finish) {
-      return $q(function (success, reject) {
-        ProfilesService.loadPublicProfiles(start, finish)
-          .then(function (profiles) {
-            profiles = _.map(profiles, function (profile) {
-              var mainDescription = _.find(profile.userDescriptions, function (description) {
-                return description.language.id === profile.mainSpokenLanguage.id;
-              });
-              profile.description = mainDescription ? mainDescription.value : undefined;
+    vm.fetchRangeProfiles = fetchRangeProfiles;
+    vm.profiles = [];
+    vm.showLoading = true;
 
-              ImageValidatorService.validateOrFallback(user_images_url + "/mini/" + profile.imageLink, "UserDefault")
-                .then(function (image) {
-                  profile.userImage = image;
-                });
-              return profile;
+    function fetchRangeProfiles() {
+      if(!vm.showLoading){
+        return;
+      }
+      ProfilesService.loadPublicProfiles(excludeIdList, amountProfiles)
+        .then(function (profiles) {
+          _.each(profiles, function (profile) {
+            excludeIdList.push(profile.id);
+            var mainDescription = _.find(profile.userDescriptions, function (description) {
+              return description.language.id === profile.mainSpokenLanguage.id;
             });
-            success(profiles);
-          })
-          .catch(function () {
-            reject();
+            profile.description = mainDescription ? mainDescription.value : undefined;
+            vm.profiles.push(profile);
           });
-      });
+          vm.showLoading = profiles.length > 0 && profiles.length === amountProfiles;
+        });
     }
 
+    fetchRangeProfiles();
   }
 })();

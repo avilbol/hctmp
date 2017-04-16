@@ -12,7 +12,6 @@
       saveProfile: saveProfile,
       loadProfile: loadProfile,
       loadPublicProfiles: loadPublicProfiles,
-      loadPublicProfile: loadPublicProfile,
       validateUserData: validateUserData
     };
 
@@ -41,17 +40,27 @@
       });
     }
 
-    function loadPublicProfile() {
-      return resources.profilePublic.consult({
-        "userNumber": 7
-      }).$promise;
-    }
+    function loadPublicProfiles(excludeIdList, amount, imageFallback) {
+      excludeIdList = excludeIdList ? excludeIdList : [];
+      imageFallback = imageFallback ? imageFallback : "UserDefault";
+      amount = amount ? amount : 5;
 
-    function loadPublicProfiles(start, finish) {
-      $log.log("Cargar rango de perfiles: ("+start+" - "+finish+")");
-      return resources.profilePublic.consult({
-        "userNumber": 7
-      }).$promise;
+      return $q(function (success, reject) {
+        resources.profilePublic.consult({excludeIdList: excludeIdList, userNumber: amount}).$promise
+          .then(function (profiles) {
+            profiles = _.map(profiles, function (profile) {
+              ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, imageFallback)
+                .then(function (image) {
+                  profile.userImage = image;
+                });
+              return profile;
+            });
+            success(profiles)
+          })
+          .catch(function () {
+            reject();
+          });
+      });
     }
 
     function validateUserData(data) {

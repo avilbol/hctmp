@@ -6,20 +6,11 @@
     .controller('LandingController', LandingController);
 
   /** @ngInject */
-  function LandingController(ProfilesService, PropertyService, ImageValidatorService, user_images_url) {
+  function LandingController(ProfilesService, PropertyService) {
     var vm = this;
 
-    ProfilesService.loadPublicProfile()
+    ProfilesService.loadPublicProfiles()
       .then(function (profiles) {
-
-        profiles = _.map(profiles, function (profile) {
-          ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, "UserDefault")
-            .then(function (image) {
-              profile.userImage = image;
-            });
-          return profile;
-        });
-
         vm.profiles = profiles;
       });
 
