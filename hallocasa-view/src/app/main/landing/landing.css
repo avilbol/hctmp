@@ -10,7 +10,7 @@ header {
   background: url('../../../assets/images/header-background.jpg') no-repeat fixed top left;
   background-size: cover;
   height: 100%;
-  background-position-y: 88px;
+  top: -88px !important;
 }
 
 .header-map {

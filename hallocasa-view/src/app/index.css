@@ -190,6 +190,22 @@ v-pane {
 }
 
 /*
+  Parallax efect
+*/
+#mainContainer {
+  perspective: 1px;
+}
+
+.parallax {
+  transform: translateZ(-1px) scale(2.5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/*
   Buttons
 */
 
