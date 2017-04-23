@@ -3,6 +3,7 @@ package com.hallocasa.rs;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -46,9 +47,9 @@ public class PasswordRecoveryResource {
 		@ApiImplicitParam(name = "email", value = "The email to send recovery password proces",
 				required = true, dataType = "string", paramType = "query")
 	})
-	public Response sendEmail(@Context UriInfo uriInfo) {
+	public Response sendEmail(@Context UriInfo uriInfo, @HeaderParam("Origin") String origin) {
 		passwordRecoveryService.sendPasswordRecovery(
-				uriInfo.getQueryParameters().getFirst("email"), uriInfo.getRequestUri().toString());
+				uriInfo.getQueryParameters().getFirst("email"), origin);
 		return Response.status(HttpStatus.SC_OK).entity("Email sent succesfully").build();
 	}
 	

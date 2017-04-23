@@ -962,7 +962,8 @@
 	"Alert.profileactivated": "Su perfil ha sido activado exitosamente, ya puede iniciar sesi\u00F3n",
 	"Alert.activatingprofile": "Estamos activando su perfil",
 	"Property.Detail.viewInLanguage": "Ver en el siguiente lenguaje",
-    "landing.ProfilesTitle": "Perfiles",
-    "landing.PropertiesTitle": "Propiedades",
-    "landing.SeeMore": "Ver más"
+  "landing.ProfilesTitle": "Perfiles",
+  "landing.PropertiesTitle": "Propiedades",
+  "landing.SeeMore": "Ver más",
+	"Error.inactiveAccount": "Su cuenta se encuentra inactiva. En su correo encontrará instrucciones para activarla"
 }

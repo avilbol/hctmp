@@ -961,5 +961,6 @@
   "Property.Detail.viewInLanguage": "Ver en el siguiente lenguaje (pending translation)",
   "landing.ProfilesTitle": "Profiles",
   "landing.PropertiesTitle": "Properties",
-  "landing.SeeMore": "See more"
+  "landing.SeeMore": "See more",
+  "Error.inactiveAccount": "Your account is inactive. Please activate it going to your email"
 }

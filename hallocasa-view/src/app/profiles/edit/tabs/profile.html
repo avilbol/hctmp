@@ -155,7 +155,7 @@
         </div>
 
 
-        <v-pane ng-if="vm.profileForm.userTypes.length > 0">
+        <v-pane ng-if="vm.profileForm.userTypes.length > 0" expanded>
           <v-pane-header>
             {{'Profile.Data.Languages.Label' | translate}}
           </v-pane-header>
@@ -178,7 +178,7 @@
           </v-pane-content>
         </v-pane>
 
-        <v-pane ng-if="vm.profileForm.userLanguages.length > 0">
+        <v-pane ng-if="vm.profileForm.userLanguages.length > 0" expanded>
           <v-pane-header>
             {{'Profile.Data.Description.Label' | translate}}
           </v-pane-header>

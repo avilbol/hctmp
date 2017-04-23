@@ -76,15 +76,15 @@ public class PasswordRecoveryServiceImp implements PasswordRecoveryService {
     	if (passwordRecoveryRequest.getNewPassword() == null) {
             throw new BadRequestException("this request must include the new password");
         }
-    	if (passwordRecoveryRequest.getPaswordRecoveryToken() == null) {
+    	if (passwordRecoveryRequest.getPasswordRecoveryToken() == null) {
             throw new BadRequestException("this request must include the password recovery token");
         }
-        if (passwordRecoveryRequest.getPaswordRecoveryToken().getIdAssociated() == null) {
+        if (passwordRecoveryRequest.getPasswordRecoveryToken().getIdAssociated() == null) {
             throw new BadRequestException("this request must include the user id to update");
         }
         validatePasswordRecoveryToken(passwordRecoveryRequest
-    			.getPaswordRecoveryToken().getTokenContent());
-        PasswordRecoveryToken token = passwordRecoveryRequest.getPaswordRecoveryToken();
+    			.getPasswordRecoveryToken().getTokenContent());
+        PasswordRecoveryToken token = passwordRecoveryRequest.getPasswordRecoveryToken();
         String codecPassword = CodecUtils.encryptPassword(passwordRecoveryRequest.getNewPassword());
         daoUser.updatePassword(token.getIdAssociated().longValue(), codecPassword);
         daoPasswordRecoveryToken.deleteToken(token.getIdAssociated());

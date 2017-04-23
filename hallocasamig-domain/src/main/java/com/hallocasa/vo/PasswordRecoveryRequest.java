@@ -10,7 +10,7 @@ public class PasswordRecoveryRequest implements ValueObject, Serializable{
 	
 	private String newPassword;
 	
-	private PasswordRecoveryToken paswordRecoveryToken;
+	private PasswordRecoveryToken passwordRecoveryToken;
 	
 	public PasswordRecoveryRequest() {
 		super();
@@ -18,13 +18,13 @@ public class PasswordRecoveryRequest implements ValueObject, Serializable{
 	
 	public PasswordRecoveryRequest(PasswordRecoveryToken passwordRecoveryToken) {
 		super();
-		this.paswordRecoveryToken = passwordRecoveryToken;
+		this.passwordRecoveryToken = passwordRecoveryToken;
 	}
 
 	public PasswordRecoveryRequest(String newPassword, PasswordRecoveryToken passwordRecoveryToken) {
 		super();
 		this.newPassword = newPassword;
-		this.paswordRecoveryToken = passwordRecoveryToken;
+		this.passwordRecoveryToken = passwordRecoveryToken;
 	}
 
 	public String getNewPassword() {
@@ -35,11 +35,11 @@ public class PasswordRecoveryRequest implements ValueObject, Serializable{
 		this.newPassword = newPassword;
 	}
 
-	public PasswordRecoveryToken getPaswordRecoveryToken() {
-		return paswordRecoveryToken;
+	public PasswordRecoveryToken getPasswordRecoveryToken() {
+		return passwordRecoveryToken;
 	}
 
-	public void setPaswordRecoveryToken(PasswordRecoveryToken paswordRecoveryToken) {
-		this.paswordRecoveryToken = paswordRecoveryToken;
+	public void setPasswordRecoveryToken(PasswordRecoveryToken paswordRecoveryToken) {
+		this.passwordRecoveryToken = paswordRecoveryToken;
 	}
 }
