@@ -5,7 +5,7 @@
  */
 package com.hallocasa.services.user.imp;
 
-import static com.hallocasa.systemproperties.SystemConstants.MINI_PROPERTY_IMAGES_PATH;
+import static com.hallocasa.systemproperties.SystemConstants.MINI_USER_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemConstants.USER_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemProperty.get;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
@@ -55,6 +55,7 @@ import com.hallocasa.vo.dto.UserListRequest;
 public class UserServiceImpl implements UserService {
 
 	private String filePathRoot = get(USER_IMAGES_PATH);
+	private String miniFilePathRoot = get(MINI_USER_IMAGES_PATH);
 	
 
 	private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
@@ -125,7 +126,7 @@ public class UserServiceImpl implements UserService {
 		if(newImage){
 			String fullFilename = FileManager.createFileFromBase64(filePathRoot, 
 					user.getBase64Image(), "user" + user.getId());
-			FileManager.createMinifiedImage(MINI_PROPERTY_IMAGES_PATH, fullFilename, 
+			FileManager.createMinifiedImage(miniFilePathRoot, fullFilename, 
 					ImageParameters.USER_DEFAULT_MINIFIED_IMG_WIDTH, 
 					ImageParameters.USER_DEFAULT_MINIFIED_IMG_HEIGHT);
 			String[] parts = fullFilename.split("/");

@@ -60,7 +60,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
 					SecurityException.INVALID_AUTH_CODE);
 		}
 		if (!entUser.get().getConfirmedFlag()) {
-			throw new SecurityException("The user is inactive", 
+			throw new SecurityException("Error.inactiveAccount", 
 					SecurityException.FORBIDDEN);
 		}
 		// creates result object

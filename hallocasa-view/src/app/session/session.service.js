@@ -91,9 +91,7 @@
     function sendRecoveryPassword(password, token) {
       var recoveryData = {
         newPassword: password,
-        passwordRecoveryToken:{
-          tokenContent: token
-        }
+        passwordRecoveryToken: token.passwordRecoveryToken
       };
       return resource.updatePassword.create(recoveryData).$promise;
     }
@@ -138,12 +136,3 @@
     }
   }
 })();
-
-
-
-
-
-
-
-
-

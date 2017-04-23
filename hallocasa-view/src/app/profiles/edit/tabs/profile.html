@@ -129,11 +129,11 @@
             <telephone layout="row" ng-model="vm.profileForm" label="{{'Profile.Data.Telephone.Label' | translate}}"></telephone>
             <md-input-container class="md-block">
               <label>{{'Profile.Data.Website.Label' | translate}}</label>
-              <input name="website" ng-model="vm.profileForm.webSite" type="url">
+              <input name="website" ng-model="vm.profileForm.webSite" ng-pattern="vm.urlRegex">
               <ng-messages-generator
                 form="editProfileForm"
                 input-name="website"
-                validators="url"
+                validators="urlValidator"
               ></ng-messages-generator>
             </md-input-container>
           </div>
@@ -155,7 +155,7 @@
         </div>
 
 
-        <v-pane ng-if="vm.profileForm.userTypes.length > 0">
+        <v-pane ng-if="vm.profileForm.userTypes.length > 0" expanded>
           <v-pane-header>
             {{'Profile.Data.Languages.Label' | translate}}
           </v-pane-header>
@@ -178,7 +178,7 @@
           </v-pane-content>
         </v-pane>
 
-        <v-pane ng-if="vm.profileForm.userLanguages.length > 0">
+        <v-pane ng-if="vm.profileForm.userLanguages.length > 0" expanded>
           <v-pane-header>
             {{'Profile.Data.Description.Label' | translate}}
           </v-pane-header>

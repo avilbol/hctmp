@@ -24,14 +24,9 @@
           closeDialog();
 				})
 				.catch(function(error){
-					if(error.status === 401){
-						toastr.error(translateFilter("Login.InvalidPassword.Message"));
-					}
-					else{
-						toastr.error(
-							translateFilter('Error.whenrecoveringpassword'),
-							translateFilter('hallocasa.global.error'));
-					}
+					var msg = (error.status === 401) ? "Login.InvalidPassword.Message" :
+						(error.status === 403 ? error.data.message : "Error.whenuseraccountaccess");
+					toastr.error(translateFilter(msg), translateFilter('hallocasa.global.error'));
 				});
 		}
 
