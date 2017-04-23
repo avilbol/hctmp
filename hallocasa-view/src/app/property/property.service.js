@@ -153,6 +153,7 @@
           return targetLanguage.id === title.data1.intVal
         });
         propertyPreview.type = property.propertyKey.propertyType.lang;
+        propertyPreview.country = property.propertyKey.country;
         var price = _.first(getFieldByID(5, property));
         price = price ? price : {};
         price.data1 = price.data1 ? price.data1 : {};

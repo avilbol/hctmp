@@ -20,6 +20,7 @@
     vm.goBack = goBack;
     vm.save = save;
     vm.propertyShowOptions = {view: true, edit: true, delete: true};
+    vm.urlRegex = "^[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\:\'\/\\\+=&amp;%\$#_]*)$";
 
     function loadProfile(){
       var profileID = SessionService.getCurrentUser().id;

@@ -11,11 +11,13 @@
       <h2 class="subtitle">{{property.type | translate}}</h2>
     </md-card-title-text>
   </md-card-title>
-  <md-card-content>
+  <md-card-content layout="row">
     <b>
       <md-icon md-svg-icon="squaremeters"></md-icon>
-      {{property.squareMeters}} m²
+      {{property.squareMeters}}
     </b>
+    <span flex></span>
+    <span>{{property.country.name}}</span>
   </md-card-content>
   <md-card-actions layout="row" layout-align="start center">
     <md-button ng-click="vm.viewProperty($event, property)" ng-if="vm.propertyShowOptions.view">{{'Properties.view.label' | translate}}</md-button>

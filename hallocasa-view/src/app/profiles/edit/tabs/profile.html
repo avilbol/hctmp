@@ -129,11 +129,11 @@
             <telephone layout="row" ng-model="vm.profileForm" label="{{'Profile.Data.Telephone.Label' | translate}}"></telephone>
             <md-input-container class="md-block">
               <label>{{'Profile.Data.Website.Label' | translate}}</label>
-              <input name="website" ng-model="vm.profileForm.webSite" type="url">
+              <input name="website" ng-model="vm.profileForm.webSite" ng-pattern="vm.urlRegex">
               <ng-messages-generator
                 form="editProfileForm"
                 input-name="website"
-                validators="url"
+                validators="urlValidator"
               ></ng-messages-generator>
             </md-input-container>
           </div>

@@ -96,6 +96,7 @@
 	"Image.Edition.FinishCrop":"Cropping finished",
 	"Image.Edition.Delete.Error":"Error finishing image crop",
 	"Image.Edition.Succesful":"Image uploaded succesfully",
+  "Image.Property.Edition.Header.Detail":"Upload an image (png/jpg/jpeg)",
 	"Profile.General.Panel.Title":"Your Basic Data",
 	"Profile.Service.Panel.Title":"Your service Profile",
 	"Profile.Edit.Button":"Edit",

@@ -96,6 +96,7 @@
 	"Image.Edition.FinishCrop":"Finalizar reajuste",
 	"Image.Edition.Delete.Error":"Error al finalizar el ajuste de imagen",
 	"Image.Edition.Succesful":"Imagen subida satisfactoriamente",
+	"Image.Property.Edition.Header.Detail":"Suba una imagen de los formatos siguentes: png/jpg/jpeg",
 	"Profile.General.Panel.Title":"Su perfil general",
 	"Profile.Service.Panel.Title":"Su perfil de servicio",
 	"Profile.Edit.Button":"Editar",

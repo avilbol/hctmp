@@ -14,7 +14,7 @@
   <div ng-message="max" ng-if="messages.maxlength">
     {{'constraints.Range' | translate}} {{messagesParams.maxlength}}
   </div>
-  <div ng-message="url" ng-if="messages.url">
+  <div ng-message="pattern" ng-if="messages.urlValidator">
     {{'constraints.UrlPattern' | translate}}
   </div>
   <div ng-message="url" ng-if="messages.linkedInPattern">
