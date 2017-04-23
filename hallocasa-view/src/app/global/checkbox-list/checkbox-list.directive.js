@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('checkboxList', checkboxList);
 
-  function checkboxList(translateFilter) {
+  function checkboxList(translateFilter, resolveFilter) {
     return {
       restrict: 'EA',
       require: 'ngModel',
@@ -40,7 +40,7 @@
           var idx;
           if(scope.trackBy){
             _.find(scope.ngModel, function (model, index) {
-              var found = model[scope.trackBy] === item[scope.trackBy];
+              var found = resolveFilter(model,scope.trackBy) === resolveFilter(item,scope.trackBy);
               idx = found ? index : undefined;
               return found;
             });
@@ -63,18 +63,7 @@
           scope.ngModel = scope.ngModel ? scope.ngModel : [];
           if(scope.trackBy){
             return _.find(scope.ngModel, function (listElement) {
-              var listElementValue = angular.copy(listElement);
-              var itemValue = angular.copy(item);
-              try{
-                _.each(scope.attributeTrack, function (attribute) {
-                  listElementValue = listElementValue[attribute];
-                  itemValue = itemValue[attribute];
-                });
-                return listElementValue && itemValue && listElementValue === itemValue;
-              }
-              catch (err){
-                return false;
-              }
+              return resolveFilter(listElement, scope.trackBy) === resolveFilter(item, scope.trackBy);
             });
           }
           else {
@@ -97,13 +86,7 @@
             scope.label = scope.optionsLabel.split(".");
         });
 
-        var watcherTB = scope.$watch("trackBy", function () {
-          if(scope.trackBy)
-            scope.attributeTrack = scope.trackBy.split(".");
-        });
-
         scope.$on("$destroy", watcherOL);
-        scope.$on("$destroy", watcherTB);
 
         ngModel.$validators.requireOnce = function(modelValue) {
           scope.requireOnceValidator = scope.requireOnce ? modelValue && modelValue.length > 0 : true;
