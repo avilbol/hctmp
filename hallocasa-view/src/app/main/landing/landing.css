@@ -85,3 +85,7 @@ header .sub-title {
   }
 
 }
+
+.landing-cards-group{
+  max-width: 1140px;
+}

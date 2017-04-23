@@ -1,12 +1,5 @@
 <div layout="row" ng-if="display === 'row'">
-  <div ng-repeat="itemList in viewList track by $index">
-    <span>{{::getLabel(itemList) | unicode}}</span>
-    <span ng-if="$index < viewList.length - 1 ">,&nbsp;</span>
-  </div>
-  <div ng-repeat-end ng-if="list.length > maxItems">
-    <span>,</span>
-    <span class="link">+{{list.length - maxItems}}</span>
-  </div>
+  <span ng-bind-html="::generateRowLabel()"></span>
 </div>
 
 <div ng-if="display === 'column'" layout="column">

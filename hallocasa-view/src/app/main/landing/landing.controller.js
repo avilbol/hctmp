@@ -8,13 +8,15 @@
   /** @ngInject */
   function LandingController(ProfilesService, PropertyService) {
     var vm = this;
+    var amountProfiles = 6;
+    var amountProperties = 3;
 
-    ProfilesService.loadPublicProfiles()
+    ProfilesService.loadPublicProfiles([], amountProfiles)
       .then(function (profiles) {
         vm.profiles = profiles;
       });
 
-    PropertyService.loadProperties()
+    PropertyService.loadProperties(amountProperties)
       .then(function (srcProperties) {
         vm.properties = PropertyService.generatePropertiesPreviewData(srcProperties);
       });

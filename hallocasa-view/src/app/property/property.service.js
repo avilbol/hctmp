@@ -66,8 +66,11 @@
       return resources.propertiesPublic.consultObj(filter).$promise;
     }
 
-    function loadProperties() {
-      return resources.properties.query({"property_number": 10}).$promise;
+    function loadProperties(amount) {
+      var data = {
+        property_number: amount ? amount : 10
+      };
+      return resources.properties.query(data).$promise;
     }
 
     function loadProperty(profileID) {

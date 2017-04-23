@@ -16,45 +16,47 @@
   </header>
 
   <br><br>
+  <div layout="column" layout-align="center center">
+    <div class="landing-cards-group">
+      <div ng-if="vm.properties.length > 0">
+        <div layout="row">
+          <span flex="5"></span>
+          <h1 class="md-headline main-title">{{'landing.PropertiesTitle' | translate}}</h1>
+        </div>
+        <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
+          <div ng-repeat="property in vm.properties" flex-gt-sm="30" flex-gt-xs="45" flex-xs="100">
+            <a
+              ng-include="'app/property/templates/properties-card.html'"
+              ng-href="/property?id={{property.id}}"
+              class="disable-hyperlinks-style"
+            ></a>
+          </div>
+        </div>
+        <div layout="row" layout-align="center">
+          <md-button class="md-raised md-primary" href="/property/browser">{{'landing.SeeMore' | translate}}</md-button>
+        </div>
+      </div>
 
-  <div ng-if="vm.properties.length > 0">
-    <div layout="row">
-      <span flex="5"></span>
-      <h1 class="md-headline main-title">{{'landing.PropertiesTitle' | translate}}</h1>
-    </div>
-    <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
-      <div ng-repeat="property in vm.properties" flex-gt-sm="30" flex-gt-xs="45" flex-xs="100">
-        <a
-          ng-include="'app/property/templates/properties-card.html'"
-          ng-href="/property?id={{property.id}}"
-          class="disable-hyperlinks-style"
-        ></a>
+      <md-divider ></md-divider>
+
+      <div ng-if="vm.profiles.length > 0">
+        <div layout="row">
+          <span flex="5"></span>
+          <h1 class="md-headline main-title">{{'landing.ProfilesTitle' | translate}}</h1>
+        </div>
+        <div layout="row" layout-sm="column" layout-wrap layout-align="center">
+          <div ng-repeat="profile in vm.profiles" flex-gt-sm="30" flex-gt-xs="45" flex-xs="100">
+            <a
+              ng-include="'app/profiles/templates/profiles-card.html'"
+              ng-href="/profile?id={{profile.id}}"
+              class="disable-hyperlinks-style"
+            ></a>
+          </div>
+        </div>
+        <div layout="row" layout-align="center">
+          <md-button class="md-raised md-primary" href="/profile/browser">{{'landing.SeeMore' | translate}}</md-button>
+        </div>
       </div>
     </div>
-    <div layout="row" layout-align="center">
-      <md-button class="md-raised md-primary" href="/property/browser">{{'landing.SeeMore' | translate}}</md-button>
-    </div>
   </div>
-
-  <md-divider ></md-divider>
-
-  <div ng-if="vm.profiles.length > 0">
-    <div layout="row">
-      <span flex="5"></span>
-      <h1 class="md-headline main-title">{{'landing.ProfilesTitle' | translate}}</h1>
-    </div>
-    <div layout="row" layout-sm="column" layout-wrap layout-align="center">
-      <div ng-repeat="profile in vm.profiles" flex-gt-sm="30" flex-gt-xs="45" flex-xs="100">
-        <a
-          ng-include="'app/profiles/templates/profiles-card.html'"
-          ng-href="/profile?id={{profile.id}}"
-          class="disable-hyperlinks-style"
-        ></a>
-      </div>
-    </div>
-    <div layout="row" layout-align="center">
-      <md-button class="md-raised md-primary" href="/profile/browser">{{'landing.SeeMore' | translate}}</md-button>
-    </div>
-  </div>
-
 </md-content>

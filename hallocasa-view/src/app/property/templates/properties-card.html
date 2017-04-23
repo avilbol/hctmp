@@ -1,8 +1,7 @@
 <md-card class="property-card" ng-class="{'options': vm.propertyShowOptions}">
   <div class="header">
     <div class="price" ng-bind-html="property.price | dynamicCurrency" md-whiteframe="2"></div>
-    <div class="image">
-      <img flex ng-src="{{property.image}}" alt="{{ property.title.data2.strVal }}" spinkit-image-preloader="cube-grid-spinner">
+    <div class="image" ng-style="{background: 'url(' + property.image + ')'}">
     </div>
   </div>
   <md-card-title>

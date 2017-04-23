@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('itemList', itemList);
 
-  function itemList($mdMedia, translateFilter) {
+  function itemList($mdMedia, translateFilter, unicodeFilter) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/item-list/item-list.html",
@@ -22,6 +22,7 @@
         scope.mobileItems = angular.isNumber(scope.mobileItems) ? scope.mobileItems : 2;
         scope.tabletItems = angular.isNumber(scope.tabletItems) ? scope.tabletItems : 4;
         scope.desktopItems = angular.isNumber(scope.desktopItems) ? scope.desktopItems : 7;
+        scope.generateRowLabel = generateRowLabel;
         scope.display = scope.display ? scope.display : "row";
 
         scope.$watchCollection("[mobileItems, tabletItems, desktopItems, list]", calculateList);
@@ -69,6 +70,20 @@
             label = label[attribute];
           });
           label = scope.translateLabel ? translateFilter(label) : label;
+          return label;
+        }
+
+        function generateRowLabel() {
+          var label = "";
+          _.each(scope.viewList, function (itemList, index) {
+            label += unicodeFilter(getLabel(itemList));
+            if(index < scope.viewList.length - 1){
+              label += ", ";
+            }
+          });
+          if(scope.list.length > scope.maxItems){
+            label += ", " + "<span class='link'>+" + (scope.list.length - scope.maxItems) + "</span>";
+          }
           return label;
         }
       }

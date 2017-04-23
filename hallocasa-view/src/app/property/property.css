@@ -40,6 +40,8 @@
 .property-card .image {
   height: 200px;
   overflow: hidden;
+  background-size: cover !important;
+  background-position: center !important;
 }
 .property-card .image img{
   width: 100%;
