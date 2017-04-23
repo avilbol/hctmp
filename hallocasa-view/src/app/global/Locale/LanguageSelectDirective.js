@@ -13,7 +13,7 @@
       "<div>"+
       "<md-menu layout-fill layout='row' layout-align='center stretch'>"+
       "<md-button ng-click='$mdMenu.open($event)' aria-label='Open language dropdown' class='bold-hover'>"+
-      "<div>{{'directives.language-select.Language' | translate}}</div>"+
+      "<div>{{currentLanguage}}</div>"+
       "</md-button>"+
       "<md-menu-content>"+
       "<md-menu-item ng-repeat='localesDisplayName in localesDisplayNames'>" +
@@ -24,12 +24,13 @@
       "</div>",
       controller: function ($scope) {
         $scope.currentLocaleDisplayName = LocaleService.getLocaleDisplayName();
+        $scope.currentLanguage = $scope.currentLocaleDisplayName;
         $scope.localesDisplayNames = LocaleService.getLocalesDisplayNames();
         $scope.visible = $scope.localesDisplayNames &&
-          $scope.localesDisplayNames.length > 1;
-
+          $scope.localesDisplayNames.length > 1
         $scope.changeLanguage = function (locale) {
           LocaleService.setLocaleByDisplayName(locale);
+          $scope.currentLanguage = locale;
         };
       }
     };
