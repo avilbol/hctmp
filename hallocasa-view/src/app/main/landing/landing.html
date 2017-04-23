@@ -17,7 +17,7 @@
 
   <br><br>
   <div layout="column" layout-align="center center">
-    <div class="landing-cards-group">
+    <div class="landing-cards-group" layout-fill>
       <div ng-if="vm.properties.length > 0">
         <div layout="row">
           <span flex="5"></span>
@@ -37,9 +37,9 @@
         </div>
       </div>
 
-      <md-divider ></md-divider>
+      <br><br><br>
 
-      <div ng-if="vm.profiles.length > 0">
+      <div ng-if="vm.profiles.length > 0" layout-fill>
         <div layout="row">
           <span flex="5"></span>
           <h1 class="md-headline main-title">{{'landing.ProfilesTitle' | translate}}</h1>
