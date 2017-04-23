@@ -110,7 +110,8 @@
       if(!$auth.isAuthenticated()) {
         var options = {
           description: message,
-          allowClose: false
+          allowClose: false,
+          escapeToClose: false
         };
         launchLoginDialog(options)
       }
@@ -118,6 +119,7 @@
 
     function launchLoginDialog(options) {
       options = options ? options : {};
+      options.escapeToClose = _.isUndefined(options.escapeToClose) ? true : options.escapeToClose;
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
       return $mdDialog.show({
         controller: "LoginController",
@@ -130,6 +132,7 @@
         },
         targetEvent: options.targetEvent,
         clickOutsideToClose: options.clickOutsideToClose,
+        escapeToClose: options.escapeToClose,
         fullscreen: useFullScreen
       });
     }
