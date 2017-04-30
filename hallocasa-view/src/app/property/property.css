@@ -12,6 +12,10 @@
   width: 342px;
 }
 
+.property-card .highlight-text{
+  color: #0c58a6;
+}
+
 .property-card .title{
   font-size: 18px;
   color: #000;
@@ -28,7 +32,6 @@
 .property-card .header{
   position: relative;
   height: 200px;
-  color: #0c58a6;
 }
 
 .property-card .price {
@@ -54,5 +57,10 @@
 
 .property-card.options {
   height: 395px;
+}
+
+.property-card.detail-view{
+  width: auto;
+  height: auto;
 }
 

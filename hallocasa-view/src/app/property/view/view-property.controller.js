@@ -7,13 +7,21 @@
 
   /** @ngInject */
   function ViewPropertyController(PropertyService, $location,
-      ImageValidatorService, translateFilter, toastr, LanguageService, property_images_url, user_images_url) {
+      ImageValidatorService, translateFilter, toastr, LanguageService, property_images_url, user_images_url, $timeout) {
     var vm = this;
 
     vm.validateImage = ImageValidatorService.validateBase64;
     vm.viewProfile = viewProfile;
     vm.propertyImagesUrl = property_images_url;
     vm.userImagesUrl = user_images_url;
+    vm.repaintMap = repaintMap;
+
+    function repaintMap() {
+      vm.refresh = false;
+      $timeout(function () {
+        vm.refresh = true;
+      },300);
+    }
 
     function loadProperty() {
       var propertyID = $location.search().id;
@@ -26,12 +34,11 @@
             vm.property = PropertyService.generatePropertyDetailData(property);
             LanguageService.getLanguages().then(function(langs){
               vm.guidLanguages = _.map(vm.property.languages, function(propertyLanguage){
-                return _.extend({}, propertyLanguage,
-                  {name : _.first(_.where(langs, {id: propertyLanguage.identifier})).name});
+                return _.find(langs, function (languageData) {
+                  return propertyLanguage.identifier === languageData.id;
+                });
               });
-              vm.guidLanguage = _.find(vm.guidLanguages, function(guidLanguage){
-                return guidLanguage.identifier === vm.property.mainLanguage.id;
-              })
+              vm.guidLanguage = vm.property.mainLanguage.id;
             });
           })
           .catch(function (error) {
