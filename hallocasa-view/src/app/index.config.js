@@ -76,7 +76,10 @@
 
     //Intercom configuration
     $intercomProvider.appID(INTERCOM_APPID);
-    $intercomProvider.asyncLoading(true)
+    $intercomProvider.asyncLoading(true);
+
+    //Translate loader, user for debug purposes, comment on production environment
+    $translateProvider.useLoader('translateDebugger');
 
   }
 
