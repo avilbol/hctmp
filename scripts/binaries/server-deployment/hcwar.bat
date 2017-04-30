@@ -50,8 +50,6 @@ call mvn -f %developroot%\hallocasamig\pom.xml clean package resources:resources
  -Dmysql.pass=htGp64SK ^
  -Dfiles.propertyImages.rootPath=%propertyimagespath% ^
  -Dfiles.userImages.rootPath=%userimagespath% ^
- -Dfiles.propertyImages.miniPath=%propertyimagespath%/mini ^
- -Dfiles.userImages.miniPath=%userimagespath%/mini ^
  -Dapidoc.war.location=%warloc%
 call copy /y %developroot%\hallocasamig-endpoint\pom-local.xml %developroot%\hallocasamig-endpoint\pom.xml
 cd /d %warloc%
