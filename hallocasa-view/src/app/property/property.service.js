@@ -264,7 +264,7 @@
         propertyDetail.monthlyAgentFeesForTheLandlord = getOptSingleField(57, property).text.doubleVal;
         propertyDetail.additionalFeesForTheLandlord = getOptSingleField(58, property).text.doubleVal;
         propertyDetail.annualTaxRateOnTheProperty = getSingleFromDropdown(59, property);
-
+        propertyDetail.country = property.propertyKey.country;
 
         LocationService.getStateByID({"country_id" : property.propertyKey.country.id}).then(function(states){
             propertyDetail.state = _.first(_.where(states, {id : stateId}));

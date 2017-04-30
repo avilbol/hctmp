@@ -1,0 +1,68 @@
+<md-card class="property-card detail-view">
+  <div class="header">
+    <div class="price highlight-text" ng-bind-html="vm.property.price | dynamicCurrency" md-whiteframe="2"></div>
+    <div class="image" ng-style="{background: 'url(' + vm.property.images[0].src + ')'}">
+    </div>
+  </div>
+  <md-card-title>
+    <md-card-title-text>
+      <div layout="row">
+        <div layout="column" flex>
+          <span class="md-subhead">{{'hallocasa.propertyfield.country' | translate}}</span>
+          <span>
+            <b class="highlight-text">{{vm.property.country.name}}</b>
+          </span>
+        </div>
+        <div layout="column" flex>
+          <span class="md-subhead">{{'hallocasa.propertyfield.propertytype' | translate}}</span>
+          <span><b class="highlight-text">
+            {{vm.property.type | translate}}</b>
+          </span>
+        </div>
+        <div layout="column" flex>
+          <span class="md-subhead">{{'hallocasa.propertyfield.squaremeterstotal' | translate}}</span>
+          <span>
+            <b class="highlight-text">{{vm.property.squareMeters}} m²</b>
+          </span>
+        </div>
+      </div>
+    </md-card-title-text>
+  </md-card-title>
+  <md-card-content>
+    <v-accordion class="vAccordion--default" layout-fill layout="row" layout-wrap layout-align="space-between">
+      <v-pane flex="45">
+        <v-pane-header>
+          {{'Profile.Data.Description.Label' | translate}} ({{description.language.name | unicode}})
+        </v-pane-header>
+        <v-pane-content>
+          {{description.value | unicode}}
+        </v-pane-content>
+      </v-pane>
+      <v-pane flex="45">
+        <v-pane-header>
+          {{'Profile.Data.Description.Label' | translate}} ({{description.language.name | unicode}})
+        </v-pane-header>
+        <v-pane-content>
+          {{description.value | unicode}}
+        </v-pane-content>
+      </v-pane>
+      <v-pane flex="45">
+        <v-pane-header>
+          {{'Profile.Data.Description.Label' | translate}} ({{description.language.name | unicode}})
+        </v-pane-header>
+        <v-pane-content>
+          {{description.value | unicode}}
+        </v-pane-content>
+      </v-pane>
+      <v-pane flex="45">
+        <v-pane-header>
+          {{'Profile.Data.Description.Label' | translate}} ({{description.language.name | unicode}})
+        </v-pane-header>
+        <v-pane-content>
+          {{description.value | unicode}}
+        </v-pane-content>
+      </v-pane>
+    </v-accordion>
+
+  </md-card-content>
+</md-card>
