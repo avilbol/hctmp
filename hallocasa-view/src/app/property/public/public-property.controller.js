@@ -6,7 +6,7 @@
     .controller('PublicPropertyController', PublicPropertyController);
 
   /** @ngInject */
-  function PublicPropertyController(PropertyService, ImageValidatorService, $mdSidenav) {
+  function PublicPropertyController(PropertyService, $mdSidenav) {
     var vm = this;
     vm.loadPropertiesPage = loadPropertiesPage;
     vm.toggleFilters = toggleFilters;
@@ -14,6 +14,7 @@
     vm.properties = [];
     vm.totalProperties = 0;
     vm.propertiesPerPage = 10;
+    vm.totalAmount = [10,20,50,100];
     vm.firstLoading = true;
 
     vm.pagination = {

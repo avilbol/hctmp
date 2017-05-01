@@ -36,6 +36,7 @@
             </md-tab>
             <md-tab label="{{'Properties.title.Location' | translate}}" ng-click="vm.repaintMap()">
               <md-content class="md-padding">
+                {{vm.property.location}}
                 <geolocation
                   location="vm.property.location"
                   refresh="vm.refresh"
