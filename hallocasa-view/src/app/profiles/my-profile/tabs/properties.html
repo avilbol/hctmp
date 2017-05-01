@@ -23,11 +23,10 @@
         <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
           <div ng-repeat="property in vm.userData.properties" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
             <div flex="100" layout="row" layout-align="center">
-              <a
+              <div
                 ng-include="'app/property/templates/properties-card.html'"
-                ng-href="/property?id={{property.id}}"
                 class="disable-hyperlinks-style"
-              ></a>
+              ></div>
             </div>
           </div>
         </div>
