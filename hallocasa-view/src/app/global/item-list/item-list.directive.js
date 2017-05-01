@@ -74,6 +74,10 @@
         }
 
         function generateRowLabel() {
+          if(!scope.viewList){
+            return;
+          }
+
           var label = "";
           _.each(scope.viewList, function (itemList, index) {
             label += unicodeFilter(getLabel(itemList));
