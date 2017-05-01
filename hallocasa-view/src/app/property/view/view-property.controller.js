@@ -8,8 +8,6 @@
   /** @ngInject */
   function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, $timeout) {
     var vm = this;
-
-    vm.viewProfile = viewProfile;
     vm.repaintMap = repaintMap;
 
     function repaintMap() {
@@ -69,9 +67,5 @@
       controls: true,
       clicking: true
     };
-
-    function viewProfile() {
-      $location.url("/profile?id="+vm.profile.id);
-    }
   }
 })();
