@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('itemList', itemList);
 
-  function itemList($mdMedia, translateFilter, unicodeFilter) {
+  function itemList($mdMedia, translateFilter, unicodeFilter, resolveFilter) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/item-list/item-list.html",
@@ -25,14 +25,8 @@
         scope.generateRowLabel = generateRowLabel;
         scope.display = scope.display ? scope.display : "row";
 
-        scope.$watchCollection("[mobileItems, tabletItems, desktopItems, list]", calculateList);
-        scope.$watch(function() { return $mdMedia('xs'); }, calculateList);
-        scope.$watch(function() { return $mdMedia('sm'); }, calculateList);
-        scope.$watch(function() { return $mdMedia('gt-sm'); }, calculateList);
-        scope.$watch("labelAttribute", function () {
-          if(scope.labelAttribute)
-            scope.label = scope.labelAttribute.split(".");
-        });
+        scope.$watch("labelAttribute",updateLabel);
+        scope.$watch("list",updateLabel);
 
         scope.getLabel = getLabel;
 
@@ -63,12 +57,28 @@
           }
         }
 
+        function updateLabel(oldVal, newVal) {
+          if(oldVal === newVal && scope.label){
+            return;
+          }
+          calculateList();
+
+          if(scope.display === "row"){
+            scope.label = generateRowLabel();
+          }
+          else{
+            scope.label = [];
+            _.each(scope.viewList, function (itemList) {
+              scope.label.push(getLabel(itemList));
+            });
+          }
+        }
+
         function getLabel(element) {
-          if(!scope.label){return element;}
-          var label = angular.copy(element);
-          _.each(scope.label, function (attribute) {
-            label = label[attribute];
-          });
+          if(!scope.labelAttribute){
+            return !_.isObject(element) ? element : undefined;
+          }
+          var label = resolveFilter(element, scope.labelAttribute);
           label = scope.translateLabel ? translateFilter(label) : label;
           return label;
         }
@@ -80,12 +90,14 @@
 
           var label = "";
           _.each(scope.viewList, function (itemList, index) {
-            label += unicodeFilter(getLabel(itemList));
+            var rawLabel = getLabel(itemList);
+            if(!rawLabel){return;}
+            label += unicodeFilter(rawLabel);
             if(index < scope.viewList.length - 1){
               label += ", ";
             }
           });
-          if(scope.list.length > scope.maxItems){
+          if(label && scope.list.length > scope.maxItems){
             label += ", " + "<span class='link'>+" + (scope.list.length - scope.maxItems) + "</span>";
           }
           return label;

@@ -1,19 +1,19 @@
 <div layout="row" ng-if="display === 'row'">
-  <span ng-bind-html="::generateRowLabel()"></span>
+  <span ng-bind-html="label"></span>
 </div>
 
 <div ng-if="display === 'column'" layout="column">
-  <span ng-repeat="itemList in viewList track by $index">&#8259; {{::getLabel(itemList) | unicode}}</span>
+  <span ng-repeat="itemList in label track by $index">&#8259; {{itemList | unicode}}</span>
   <div ng-repeat-end ng-if="list.length > maxItems">
     <span>&#8259;</span>
     <span class="link">+{{list.length - maxItems}}</span>
   </div>
 </div>
 
-<md-tooltip hide-xs hide-sm ng-if="list.length > maxItems">
+<md-tooltip hide-xs hide-sm ng-if="label.length > maxItems">
   <div layout="row">
-    <div ng-repeat="itemList in list">
-      <span>{{::getLabel(itemList) | unicode}}</span>
+    <div ng-repeat="itemList in label track by $index">
+      <span>{{itemList | unicode}}</span>
       <span ng-if="$index < list.length - 1 ">,&nbsp;</span>
     </div>
   </div>
