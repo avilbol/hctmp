@@ -74,6 +74,9 @@
         }
 
         scope.events = {click: function(mapModel, eventName, originalEventArgs){
+          if(scope.readonly){
+            return;
+          }
           scope.$apply(function(){
             var e = originalEventArgs[0];
             scope.location.center.latitude = e.latLng.lat();
