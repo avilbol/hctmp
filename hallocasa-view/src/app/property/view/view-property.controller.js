@@ -6,14 +6,10 @@
     .controller('ViewPropertyController', ViewPropertyController);
 
   /** @ngInject */
-  function ViewPropertyController(PropertyService, $location,
-      ImageValidatorService, translateFilter, toastr, LanguageService, property_images_url, user_images_url, $timeout) {
+  function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, $timeout) {
     var vm = this;
 
-    vm.validateImage = ImageValidatorService.validateBase64;
     vm.viewProfile = viewProfile;
-    vm.propertyImagesUrl = property_images_url;
-    vm.userImagesUrl = user_images_url;
     vm.repaintMap = repaintMap;
 
     function repaintMap() {
@@ -32,14 +28,9 @@
         PropertyService.loadProperty(propertyID)
           .then(function (property) {
             vm.property = PropertyService.generatePropertyDetailData(property);
-            LanguageService.getLanguages().then(function(langs){
-              vm.guidLanguages = _.map(vm.property.languages, function(propertyLanguage){
-                return _.find(langs, function (languageData) {
-                  return propertyLanguage.identifier === languageData.id;
-                });
-              });
-              vm.guidLanguage = vm.property.mainLanguage.id;
-            });
+            vm.profile = vm.property.user;
+
+            loadLanguages(vm.property.languages);
           })
           .catch(function (error) {
             if(error.status === 404){
@@ -54,6 +45,18 @@
           });
       }
     }
+
+    function loadLanguages(languages) {
+      LanguageService.getLanguages().then(function(langs){
+        vm.guidLanguages = _.map(languages, function(propertyLanguage){
+          return _.find(langs, function (languageData) {
+            return propertyLanguage.identifier === languageData.id;
+          });
+        });
+        vm.guidLanguage = vm.property.mainLanguage.id;
+      });
+    }
+
     loadProperty();
 
     vm.optionsCarousel = {
@@ -68,7 +71,7 @@
     };
 
     function viewProfile() {
-      $location.url("/profile?id="+vm.property.user.id);
+      $location.url("/profile?id="+vm.profile.id);
     }
   }
 })();

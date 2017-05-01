@@ -1,7 +1,7 @@
 <md-content layout="row" layout-align="center">
   <div class="landing-cards-group" layout-fill>
     <div layout="row">
-      <h1>{{vm.property.titles[vm.guidLanguage.identifier]}}</h1>
+      <h1>{{vm.property.titles[vm.guidLanguage]}}</h1>
     </div>
     <div layout="row" layout-wrap>
       <div class="column" flex="60">
@@ -35,52 +35,21 @@
               </md-content>
             </md-tab>
             <md-tab label="{{'Properties.title.Location' | translate}}" ng-click="vm.repaintMap()">
-              <md-content class="md-padding">
-                {{vm.property.location}}
+              <md-content class="md-padding" ng-if="vm.property.location">
                 <geolocation
                   location="vm.property.location"
                   refresh="vm.refresh"
+                  readonly="true"
                 ></geolocation>
               </md-content>
             </md-tab>
             <md-tab label="{{'PropertyBrowse.Property.contacts' | translate}}">
-              <md-card style="cursor:pointer" ng-click="vm.viewProfile()">
-                <md-card-title layout="row" layout-align="center center">
-                  <md-card-title-media>
-                    <div class="md-media-lg card-media">
-                      <img ng-src="{{vm.userImagesUrl}}/{{vm.property.user.imageLink}}">
-                    </div>
-                  </md-card-title-media>
-                  <md-card-title-text hide-xs>
-                    <span class="md-headline">{{vm.property.user.firstName}} {{vm.property.user.lastName}}</span>
-                    <div layout="row" layout-align="space-between">
-                      <div class="md-subhead" layout="column">
-                        <item-list
-                          tablet-items="2"
-                          desktop-items="3"
-                          list="vm.property.user.userLanguages"
-                          label-attribute="'language.name'"
-                          display="column"
-                        ></item-list>
-                      </div>
-                      <div class="md-subhead" layout="column">
-                        <item-list tablet-items="2" desktop-items="3" list="vm.property.contact.services" display="column"></item-list>
-                      </div>
-                      <span flex-gt-sm="50" flex-gt-xs="30" flex-xs="0"></span>
-                    </div>
-                  </md-card-title-text>
-                </md-card-title>
-                <md-card-content>
-                  <b>{{'Profile.Data.City.Label' | translate}}: </b> {{vm.property.user.city.name | unicode}}
-
-                  <div ng-if="vm.property.user.telephone.extension">
-                    <b>{{'Profile.Data.Telephone.Label' | translate}}: </b>
-                    ({{vm.property.user.telephone.extension}}) {{vm.property.user.telephone.number}}
-                  </div>
-                  <b>{{'PropertyBrowse.Property.email' |  translate}}: </b> {{vm.property.user.email}}
-                </md-card-content>
-              </md-card>
-              <!--<div ng-include="'app/profiles/templates/profiles-card.html'"></div>-->
+              <a
+                ng-href="/profile?id={{vm.profile.id}}"
+                ng-include="'app/profiles/templates/detail-profile-card.html'"
+                class="disable-hyperlinks-style"
+              >
+              </a>
             </md-tab>
           </md-tabs>
         </md-card>
