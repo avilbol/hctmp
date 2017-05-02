@@ -1,5 +1,5 @@
-<span>{{fieldInformation.lang | translate}}</span>
 <div ng-if="!readonly">
+  <span>{{fieldInformation.lang | translate}}</span>
   <checkbox-list
     name="{{fieldName}}"
     options-label="optionsLabel"
@@ -15,7 +15,8 @@
   ></ng-messages-generator>
 </div>
 
-<div ng-if="readonly">
+<div ng-if="readonly && fieldInformation.fieldValueList" layout="row">
+  <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
   <item-list
     tablet-items="2"
     desktop-items="3"

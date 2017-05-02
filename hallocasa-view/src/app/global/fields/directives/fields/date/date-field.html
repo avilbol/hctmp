@@ -1,4 +1,4 @@
-<div layout="column">
+<div layout="column" ng-if="!readonly">
   <label>{{fieldInformation.lang | translate}}</label>
   <md-datepicker
     ng-model="fieldInformation.fieldValueList[0].text.dateVal"
@@ -12,4 +12,8 @@
     input-name="{{fieldName}}"
     validators="{{fieldInformation.validations}}"
   ></ng-messages-generator>
+</div>
+<div ng-if="readonly">
+  <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
+  <span>{{fieldInformation.fieldValueList[0].text.dateVal | date}}</span>
 </div>

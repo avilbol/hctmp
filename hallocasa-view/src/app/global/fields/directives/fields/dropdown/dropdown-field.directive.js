@@ -63,8 +63,8 @@
               break;
             case "binary_options":
               scope.options = [
-                {name: "Yes", value: true},
-                {name: "No", value: false}
+                {name: translateFilter("global.yes"), value: true},
+                {name: translateFilter("global.no"), value: false}
               ];
               break;
             case "internal_dependency_options":
@@ -77,6 +77,10 @@
                 }
                 var destroyInDependencyWatcher = scope.$watch(function () {
                   field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+                  if(!scope.options[0].name && field.fieldValueList[0].name){
+                    scope.options = field.fieldValueList;
+                  }
+
                   if(field.fieldValueList){
                     return field.fieldValueList.length;
                   }

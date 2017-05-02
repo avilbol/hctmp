@@ -1,4 +1,4 @@
-<md-input-container class="md-block">
+<md-input-container class="md-block" ng-if="!readonly">
   <label>{{fieldInformation.lang | translate}}</label>
   <input
     name="{{fieldName}}"
@@ -14,3 +14,9 @@
     validators="{{fieldInformation.validations}}"
   ></ng-messages-generator>
 </md-input-container>
+<div ng-if="readonly && fieldInformation.fieldValueList[0].text.strVal">
+  <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
+  <a ng-href="{{fieldInformation.fieldValueList[0].text.strVal}}">
+    {{fieldInformation.fieldValueList[0].text.strVal}}
+  </a>
+</div>

@@ -1,6 +1,6 @@
 <div ng-switch="fieldType.id">
 
-  <md-input-container class="md-block">
+  <md-input-container class="md-block" ng-if="!readonly">
     <label>{{fieldInformation.lang | translate}}</label>
     <input
       ng-switch-when="standard_field"
@@ -41,4 +41,15 @@
       messages-params="fieldInformation.messagesParams"
     ></ng-messages-generator>
   </md-input-container>
+
+  <div ng-if="readonly && (
+    fieldInformation.fieldValueList[0].text.intVal > 0 ||
+    fieldInformation.fieldValueList[0].text.doubleVal > 0 ||
+    fieldInformation.fieldValueList[fieldScope.identifier].data2.doubleVal > 0)"
+  >
+    <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
+    <span ng-switch-when="standard_field"> {{fieldInformation.fieldValueList[0].text.intVal}}</span>
+    <span ng-switch-when="double_field"> {{fieldInformation.fieldValueList[0].text.doubleVal}}</span>
+    <span ng-switch-when="scope_dependent_field"> {{fieldInformation.fieldValueList[fieldScope.identifier].data2.doubleVal}}</span>
+  </div>
 </div>

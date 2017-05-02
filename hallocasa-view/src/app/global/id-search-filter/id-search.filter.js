@@ -7,10 +7,11 @@
 
   /** @ngInject */
   function idSearch() {
-    return function(list, id, property) {
+    return function(list, id, property, identifierName) {
+      identifierName = identifierName ? identifierName : "id";
       id = id ? Number(id) : id;
       var elementFound = _.find(list, function (element) {
-        return element.id === id;
+        return element[identifierName] === id;
       });
       if(!property){
         return elementFound;
