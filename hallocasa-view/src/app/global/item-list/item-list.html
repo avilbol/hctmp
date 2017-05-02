@@ -10,10 +10,10 @@
   </div>
 </div>
 
-<md-tooltip hide-xs hide-sm ng-if="label.length > maxItems">
+<md-tooltip hide-xs hide-sm ng-if="list.length > maxItems">
   <div layout="row">
-    <div ng-repeat="itemList in label track by $index">
-      <span>{{itemList | unicode}}</span>
+    <div ng-repeat="itemList in list track by $index">
+      <span>{{::getLabel(itemList) | unicode}}</span>
       <span ng-if="$index < list.length - 1 ">,&nbsp;</span>
     </div>
   </div>
