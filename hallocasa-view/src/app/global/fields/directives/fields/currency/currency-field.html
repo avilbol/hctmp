@@ -30,9 +30,8 @@
       </md-option>
     </md-select>
   </md-input-container>
-  <div ng-if="readonly && fieldInformation.fieldValueList[0].data2.doubleVal > 0">
+  <div ng-if="readonly && price">
     <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
-    <span>{{fieldInformation.fieldValueList[0].data2.doubleVal}}</span>
-    <span>{{options[fieldInformation.fieldValueList[0].data1.intVal].abbreviation}}</span>
+    <span ng-bind-html="price | dynamicCurrency"></span>
   </div>
 </div>

@@ -13,7 +13,7 @@
     validators="{{fieldInformation.validations}}"
   ></ng-messages-generator>
 </div>
-<div ng-if="readonly">
+<div ng-if="readonly && fieldInformation.fieldValueList[0].text.dateVal">
   <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
   <span>{{fieldInformation.fieldValueList[0].text.dateVal | date}}</span>
 </div>
