@@ -1,4 +1,4 @@
-<div layout="row" layout-wrap>
+<div layout="row" layout-wrap layout-align="space-between">
   <div ng-repeat="field in fieldList" flex-gt-sm="{{field.flexDesktop}}" flex-gt-xs="{{field.flexTablet}}" flex-xs="{{field.flexMobile}}">
 
     <!--Fields detector-->
@@ -78,7 +78,7 @@
     <div ng-switch="field.id">
       <accordion-group
         ng-switch-when="accordion_group"
-        title="field.title"
+        group-title="field.title"
         field-list="field.fieldList"
         field-scope="fieldScope"
         field-root-scope="fieldRootScope"
@@ -97,6 +97,16 @@
         form="form"
         readonly="readonly"
       ></repeater-group>
+      <flat-group
+        ng-switch-when="flat_group"
+        group-title="field.title"
+        field-list="field.fieldList"
+        field-scope="fieldScope"
+        field-root-scope="fieldRootScope"
+        additional-parameters="additionalParameters"
+        form="form"
+        readonly="readonly"
+      ></flat-group>
     </div>
   </div>
 </div>
