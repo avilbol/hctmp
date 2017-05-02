@@ -1,14 +1,26 @@
 <span>{{fieldInformation.lang | translate}}</span>
-<checkbox-list
-  name="{{fieldName}}"
-  options-label="optionsLabel"
-  data="options"
-  ng-model="fieldInformation.fieldValueList"
-  require-once="requireOnce"
-  track-by="'identifier'"
-></checkbox-list>
-<ng-messages-generator
-  form="form"
-  input-name="{{fieldName}}"
-  validators="{{fieldInformation.validations}}"
-></ng-messages-generator>
+<div ng-if="!readonly">
+  <checkbox-list
+    name="{{fieldName}}"
+    options-label="optionsLabel"
+    data="options"
+    ng-model="fieldInformation.fieldValueList"
+    require-once="requireOnce"
+    track-by="'identifier'"
+  ></checkbox-list>
+  <ng-messages-generator
+    form="form"
+    input-name="{{fieldName}}"
+    validators="{{fieldInformation.validations}}"
+  ></ng-messages-generator>
+</div>
+
+<div ng-if="readonly">
+  <item-list
+    tablet-items="2"
+    desktop-items="3"
+    list="fieldInformation.fieldValueList"
+    display="row"
+    label-attribute="optionsLabel"
+  ></item-list>
+</div>

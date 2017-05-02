@@ -3,16 +3,75 @@
 
     <!--Fields detector-->
     <div ng-switch="field.propertyFieldType.id">
-      <dropdown-field ng-switch-when="1" field-scope="fieldScope" field-information="field" additional-parameters="additionalParameters" field-root-scope="fieldRootScope" form="formName"></dropdown-field>
-      <text-field ng-switch-when="2" field-scope="fieldScope" field-information="field" form="form"></text-field>
-      <checkbox-group-field ng-switch-when="3" field-scope="fieldScope" field-information="field" form="form"></checkbox-group-field>
-      <image-uploader-field ng-switch-when="4" field-scope="fieldScope" field-information="field" additional-parameters="additionalParameters" form="form"></image-uploader-field>
-      <link-text-field ng-switch-when="5" field-scope="fieldScope" field-information="field" form="form"></link-text-field>
-      <number-field ng-switch-when="6" field-scope="fieldScope" field-information="field" form="form"></number-field>
-      <dropdown-field ng-switch-when="7" field-scope="fieldScope" field-information="field" form="form"></dropdown-field>
-      <date-field ng-switch-when="8" field-scope="fieldScope" field-information="field" form="form"></date-field>
-      <currency-field ng-switch-when="9" field-scope="fieldScope" field-information="field" form="form"></currency-field>
-      <google-map-field ng-switch-when="10" field-scope="fieldScope" field-information="field" form="form"></google-map-field>
+      <dropdown-field
+        ng-switch-when="1"
+        field-scope="fieldScope"
+        field-information="field"
+        additional-parameters="additionalParameters"
+        field-root-scope="fieldRootScope"
+        form="formName"
+        readonly="readonly"
+      ></dropdown-field>
+      <text-field
+        ng-switch-when="2"
+        field-scope="fieldScope"
+        field-information="field"
+        form="form"
+        readonly="readonly"
+      ></text-field>
+      <checkbox-group-field
+        ng-switch-when="3"
+        field-scope="fieldScope"
+        field-information="field"
+        form="form"
+        readonly="readonly"
+      ></checkbox-group-field>
+      <image-uploader-field
+        ng-switch-when="4"
+        field-information="field"
+        additional-parameters="additionalParameters"
+        form="form"
+        readonly="readonly"
+      ></image-uploader-field>
+      <link-text-field
+        ng-switch-when="5"
+        field-information="field"
+        form="form"
+        readonly="readonly"
+      ></link-text-field>
+      <number-field
+        ng-switch-when="6"
+        field-scope="fieldScope"
+        field-information="field"
+        form="form"
+        readonly="readonly"
+      ></number-field>
+      <dropdown-field
+        ng-switch-when="7"
+        field-scope="fieldScope"
+        field-information="field"
+        form="form"
+        readonly="readonly"
+      ></dropdown-field>
+      <date-field
+        ng-switch-when="8"
+        field-scope="fieldScope"
+        field-information="field"
+        form="form"
+        readonly="readonly"
+      ></date-field>
+      <currency-field
+        ng-switch-when="9"
+        field-information="field"
+        form="form"
+        readonly="readonly"
+      ></currency-field>
+      <google-map-field
+        ng-switch-when="10"
+        field-information="field"
+        form="form"
+        readonly="readonly"
+      ></google-map-field>
     </div>
 
     <!--Components detector-->
@@ -25,6 +84,7 @@
         field-root-scope="fieldRootScope"
         additional-parameters="additionalParameters"
         form="form"
+        readonly="readonly"
       ></accordion-group>
       <repeater-group
         ng-switch-when="repeater_group"
@@ -35,6 +95,7 @@
         field-watch-parameter="field.watchAttribute"
         additional-parameters="additionalParameters"
         form="form"
+        readonly="readonly"
       ></repeater-group>
     </div>
   </div>

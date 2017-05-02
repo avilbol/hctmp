@@ -14,7 +14,8 @@
         fieldInformation: "=",
         additionalParameters: "=?",
         fieldRootScope: "=?",
-        form: "=?"
+        form: "=?",
+        readonly: "=?"
       },
       link: function (scope) {
         scope.fieldName = scope.$id;

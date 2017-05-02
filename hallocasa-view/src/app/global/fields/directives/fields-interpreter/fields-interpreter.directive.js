@@ -15,7 +15,8 @@
         fieldRootScope: "=?",
         additionalParameters: "=?",
         formName: "=?",
-        form: "=?"
+        form: "=?",
+        readonly: "=?"
       },
       link: function (scope) {
         if(!scope.form){

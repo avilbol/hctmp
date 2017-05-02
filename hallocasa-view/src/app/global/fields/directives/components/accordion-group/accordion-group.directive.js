@@ -14,7 +14,9 @@
         fieldList: "=",
         fieldScope: "=?",
         fieldRootScope: "=?",
-        form: "=?"
+        additionalParameters: "=?",
+        form: "=?",
+        readonly: "=?"
       },
       link: function (scope, element) {
         var destroyWatcher = scope.$watch("title",renderTitle);

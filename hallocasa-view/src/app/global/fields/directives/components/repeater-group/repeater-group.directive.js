@@ -15,7 +15,9 @@
         fieldRootScope: "=?",
         contentFlex: "=?",
         fieldWatchParameter: "=?",
-        form: "=?"
+        additionalParameters: "=?",
+        form: "=?",
+        readonly: "=?"
       },
       link: function (scope) {
         var fieldPath = FieldsService.getFieldPathByID(scope.idField, scope.fieldRootScope);

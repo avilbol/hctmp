@@ -12,7 +12,8 @@
       scope: {
         fieldScope: "=?",
         fieldInformation: "=",
-        form: "=?"
+        form: "=?",
+        readonly: "=?"
       },
       link: function (scope) {
         scope.fieldName = scope.$id;
@@ -31,6 +32,7 @@
             case "static_options":
               scope.options = FieldsService.processOptions(staticOptionsGroup.dropdownOptionList, staticOptionsGroup.translationManagement);
               scope.optionsLabel = "data1";
+              validateFieldModelValue();
               break;
             case "dynamic_options":
               var serviceId = optionsData.serviceId;
@@ -60,15 +62,14 @@
               return option.identifier === fieldValue.identifier;
             });
             if(fieldOption){
-              fieldValue.name = fieldOption.name;
-              return fieldValue;
+              return fieldOption;
             }
             else {
               $log.warn("No se ha podido encontrar los datos de la opción:", fieldValue);
               return fieldValue;
             }
 
-          })
+          });
         }
 
         loadOptions();

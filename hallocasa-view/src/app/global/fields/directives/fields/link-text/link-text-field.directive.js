@@ -11,7 +11,8 @@
       templateUrl: "app/global/fields/directives/fields/link-text/link-text-field.html",
       scope: {
         fieldInformation: "=",
-        form: "=?"
+        form: "=?",
+        readonly: "=?"
       },
       link: function (scope) {
         scope.fieldName = scope.$id;

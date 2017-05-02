@@ -11,7 +11,8 @@
       templateUrl: "app/global/fields/directives/fields/currency/currency-field.html",
       scope: {
         fieldInformation: "=",
-        form: "=?"
+        form: "=?",
+        readonly: "=?"
       },
       link: function (scope) {
         scope.fieldName = scope.$id;

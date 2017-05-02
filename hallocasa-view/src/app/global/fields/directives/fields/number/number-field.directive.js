@@ -12,7 +12,8 @@
       scope: {
         fieldScope: "=?",
         fieldInformation: "=",
-        form: "=?"
+        form: "=?",
+        readonly: "=?"
       },
       link: function (scope) {
         var fieldTypes = [

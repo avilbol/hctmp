@@ -11,7 +11,8 @@
       templateUrl: "app/global/fields/directives/fields/google-map/google-map-field.html",
       scope: {
         fieldInformation: "=",
-        form: "=?"
+        form: "=?",
+        readonly: "=?"
       },
       link: function (scope) {
         scope.fieldInformation.fieldValueList = scope.fieldInformation.fieldValueList ? scope.fieldInformation.fieldValueList : [];
