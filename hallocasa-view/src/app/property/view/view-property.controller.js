@@ -6,7 +6,8 @@
     .controller('ViewPropertyController', ViewPropertyController);
 
   /** @ngInject */
-  function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, $timeout) {
+  function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, $timeout,
+                                  FieldsService ) {
     var vm = this;
     vm.repaintMap = repaintMap;
 
@@ -25,6 +26,7 @@
       else{
         PropertyService.loadProperty(propertyID)
           .then(function (property) {
+            loadPropertyDetailFields(property);
             vm.property = PropertyService.generatePropertyDetailData(property);
             vm.profile = vm.property.user;
 
@@ -53,6 +55,25 @@
         });
         vm.guidLanguage = vm.property.mainLanguage.id;
       });
+    }
+
+    function loadPropertyDetailFields(property) {
+      var propertyDeterminants = _.pick(property.propertyKey, "propertyType", "propertyLocation", "propertyProposal", "country");
+      propertyDeterminants.propertyType.id = propertyDeterminants.propertyType.group.id;
+      vm.formatedPropertyDeterminants = _.mapObject(propertyDeterminants, function (val) { return val.id; });
+
+      return PropertyService.loadPropertyDetailFieldsData(propertyDeterminants)
+        .then(function (fieldsData) {
+          if(property.fieldList){
+            fieldsData.propertyFields = FieldsService.consolidateFields(property.fieldList, fieldsData.propertyFields);
+          }
+          vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.propertyFormRender);
+          vm.propertyDetail = property;
+        })
+        .catch(function () {
+          toastr.warning(
+            translateFilter("Error.whenloadingpropertyattributes"));
+        });
     }
 
     loadProperty();
