@@ -10,7 +10,7 @@
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/components/accordion-group/accordion-group.html",
       scope: {
-        title: "=?",
+        groupTitle: "=?",
         fieldList: "=",
         fieldScope: "=?",
         fieldRootScope: "=?",
@@ -19,13 +19,13 @@
         readonly: "=?"
       },
       link: function (scope, element) {
-        var destroyWatcher = scope.$watch("title",renderTitle);
+        var destroyWatcher = scope.$watch("groupTitle",renderTitle);
         scope.$on("$destroy",destroyWatcher);
         scope.$on("FormValidation:DetectInvalidFields",detectInvalidFields);
 
         function renderTitle() {
           scope.renderedTitle = "";
-          _.each(scope.title, function (titleSegment) {
+          _.each(scope.groupTitle, function (titleSegment) {
             switch (titleSegment.type){
               case "translate_key":
                 scope.renderedTitle += translateFilter(titleSegment.value);
