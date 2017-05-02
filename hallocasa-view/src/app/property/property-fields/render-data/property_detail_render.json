@@ -1,0 +1,490 @@
+[
+  {
+    "id": "flat_group",
+    "title": [
+      {
+        "type": "translate_key",
+        "value": "Property.wizard.location"
+      }
+    ],
+    "flexMobile": 100,
+    "flexTablet": 45,
+    "flexDesktop": 45,
+    "fieldList":[
+      {
+        "id": 7,
+        "name": "Department",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "parameter_dependency_options",
+          "parameterName": "country",
+          "parameterPayload": "country_id",
+          "serviceId": "States"
+        },
+        "validations": "required"
+      },
+      {
+        "id": 8,
+        "name": "Town",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "external_dependency_options",
+          "fieldId": 7,
+          "serviceId": "Cities",
+          "parameterPayload": "state_id"
+        }
+      },
+      {
+        "id": 15,
+        "name": "Neighborhood",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 37,
+        "name": "Estrato (COLOMBIA)",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 38,
+        "name": "Estrato (PANAMA)",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 39,
+        "name": "Estrato (COSTA RICA)",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 40,
+        "name": "Estrato (CHILE)",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 41,
+        "name": "Estrato (ARGENTINA)",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 42,
+        "name": "Estrato (PERU)",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 43,
+        "name": "Estrato (ECUADOR)",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 9,
+        "name": "Address",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "validations": "maxlength",
+        "messagesParams": { "maxlength": "0 - 100"},
+        "validationsParams": { "maxlength": 100}
+      },
+      {
+        "id": 44,
+        "name": "Via de Accesso a la Propiedad (Kind of Road).",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      }
+    ]
+  },
+  {
+    "id": "flat_group",
+    "title": [
+      {
+        "type": "translate_key",
+        "value": "Property.wizard.financials"
+      }
+    ],
+    "flexMobile": 100,
+    "flexTablet": 45,
+    "flexDesktop": 45,
+    "fieldList": [
+      {
+        "id": 56,
+        "name": "Agent Fee",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 57,
+        "name": "Monthly Admin Fees for the Landlord + Currency Dropdown",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "validations": "minlength, maxlength",
+        "messagesParams": { "minlength": "2" },
+        "validationsParams": { "minlength": 2 }
+      },
+      {
+        "id": 58,
+        "name": "Additional Monthly Fees for the Landlord + Currency Dropdown",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "validations": "minlength, maxlength",
+        "messagesParams": { "minlength": "2"},
+        "validationsParams": { "minlength": 2}
+      },
+      {
+        "id": 59,
+        "name": "Annual Tax Rate on the Property",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 29,
+        "name": "Available From",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "validations": "noPastDate"
+      },
+      {
+        "id": 60,
+        "name": "Monthly Rent",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "validations": "minlength, maxlength",
+        "messagesParams": { "minlength": "2"},
+        "validationsParams": { "minlength": 2 }
+      },
+      {
+        "id": 30,
+        "name": "Rented",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "binary_options"
+        }
+      }
+    ]
+  },
+  {
+    "id": "flat_group",
+    "title": [
+      {
+        "type": "translate_key",
+        "value": "Property.wizard.property"
+      }
+    ],
+    "flexMobile": 100,
+    "flexTablet": 45,
+    "flexDesktop": 45,
+    "fieldList": [
+      {
+        "id": 45,
+        "name": "Heating",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 24,
+        "name": "Parking Spots",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "validations": "maxlength",
+        "messagesParams": { "maxlength": "0 - 999"},
+        "validationsParams": { "maxlength": 999}
+      },
+      {
+        "id": 46,
+        "name": "Number of Floors",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "validations": "maxlength",
+        "messagesParams": { "maxlength": "0 - 999"},
+        "validationsParams": { "maxlength": 999}
+      },
+      {
+        "id": 25,
+        "name": "Basement",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "binary_options"
+        }
+      },
+      {
+        "id": 27,
+        "name": "Balcony / Rooftop",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "binary_options"
+        }
+      },
+      {
+        "id": 28,
+        "name": "Garden / Terrace",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "binary_options"
+        }
+      },
+      {
+        "id": 47,
+        "name": "Drinking Water",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 48,
+        "name": "Sewage Water",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 49,
+        "name": "Year of Contruction",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 50,
+        "name": "Method of Construction",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 51,
+        "name": "Type of Soil",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 52,
+        "name": "Agriculture",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 53,
+        "name": "Last Modernization",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 54,
+        "name": "Price Development in last 5 Years",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 55,
+        "name": "Inclination",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      }
+    ]
+  },
+  {
+    "id": "flat_group",
+    "title": [
+      {
+        "type": "translate_key",
+        "value": "Property.wizard.features"
+      }
+    ],
+    "flexMobile": 100,
+    "flexTablet": 45,
+    "flexDesktop": 45,
+    "fieldList": [
+      {
+        "id": 17,
+        "name": "Rooms",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "validations": "maxlength",
+        "messagesParams": { "maxlength": "0 - 999"},
+        "validationsParams": { "maxlength": 999}
+      },
+      {
+        "id": 18,
+        "name": "Bathrooms",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "validations": "maxlength",
+        "messagesParams": { "maxlength": "0 - 999"},
+        "validationsParams": { "maxlength": 999}
+      },
+      {
+        "id": 19,
+        "name": "Condition",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 20,
+        "name": "Furnished",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "binary_options"
+        }
+      },
+      {
+        "id": 36,
+        "name": "Security",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 21,
+        "name": "Floor",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "validations": "maxlength",
+        "messagesParams": { "maxlength": "0 - 999"},
+        "validationsParams": { "maxlength": 999}
+      },
+      {
+        "id": 22,
+        "name": "Optional Features",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 23,
+        "name": "Suitable For",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 13,
+        "name": "Video",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 33
+      }
+    ]
+  }
+]

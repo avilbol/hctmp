@@ -26,23 +26,27 @@
           <md-tabs md-dynamic-height md-border-bottom>
             <md-tab
               ng-repeat="tab in vm.fieldsRender"
-              label="{{tab.lang | translate}}"
               ng-click="vm.handleTabLocation(tab.name, $index)"
               md-active="tab.isActive"
               md-on-deselect="tab.isActive = false"
               md-swipe-content
               md-center-tabs
             >
-              <ng-form name="{{tab.name}}">
-                <fields-interpreter
-                  field-list="tab.fieldList"
-                  form-name="tab.name"
-                  field-root-scope="vm.fieldsRender"
-                  additional-parameters="vm.formatedPropertyDeterminants"
-                  readonly="true"
-                  flex
-                ></fields-interpreter>
-              </ng-form>
+              <md-tab-label>
+                <span ng-bind-html="tab.lang | translate"></span>
+              </md-tab-label>
+              <md-tab-body>
+                <ng-form name="{{tab.name}}">
+                  <fields-interpreter
+                    field-list="tab.fieldList"
+                    form-name="tab.name"
+                    field-root-scope="vm.fieldsRender"
+                    additional-parameters="vm.formatedPropertyDeterminants"
+                    readonly="false"
+                    flex
+                  ></fields-interpreter>
+                </ng-form>
+              </md-tab-body>
             </md-tab>
           </md-tabs>
 

@@ -80,7 +80,7 @@
           if(vm.property.fieldList){
             fieldsData.propertyFields = FieldsService.consolidateFields(vm.property.fieldList, fieldsData.propertyFields);
           }
-          vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.fieldsRender.tabList);
+          vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.propertyFormRender.tabList);
 
           vm.currentState = vm.state.WIZARD_2;
         })
