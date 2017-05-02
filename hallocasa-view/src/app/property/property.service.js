@@ -6,7 +6,7 @@
     .service('PropertyService', PropertyService);
 
   function PropertyService($q, $resource, $log, GenericRESTResource, backend_url, property_images_url, user_images_url,
-                           idSearchFilter, ImageValidatorService, LocationService, translateFilter) {
+                           idSearchFilter, ImageValidatorService) {
     var service = {
       getPropertyTypes: getPropertyTypes,
       getLocation: getLocation,
@@ -119,43 +119,6 @@
     function getFieldByID(fieldID, property){
       var field = _.partial(idSearchFilter, property.fieldList)(fieldID);
       return field && field.fieldValueList ? field.fieldValueList : undefined;
-    }
-
-    function getOptSingleField(fieldID, property){
-      var field = _.first(getFieldByID(fieldID, property));
-      return field ? field : {"text":{}, "data1":{}, "data2":{}, "data3":{}};
-    }
-
-    function getSingleFromDropdown(fieldID, property){
-      var field = _.partial(idSearchFilter, property.fieldList)(fieldID);
-      if(!field){
-        return undefined;
-      }
-      var dropdownOptionList = field.dropdownOptionGroup.dropdownOptionList;
-      var fieldValueId = _.first(field.fieldValueList).identifier;
-      var result = _.find(dropdownOptionList, function(dropdownOption){
-        return dropdownOption.optionId === fieldValueId;
-      });
-      result.translate = field.dropdownOptionGroup.translationManagement != 'NONE';
-      return result;
-    }
-
-    function getGroupFromDropdown(fieldID, property){
-      var field = _.partial(idSearchFilter, property.fieldList)(fieldID);
-      if(!field){
-        return undefined;
-      }
-      var dropdownOptionList = field.dropdownOptionGroup.dropdownOptionList;
-      var fieldValues = field.fieldValueList;
-      var resultStr = "";
-      _.each(fieldValues, function(fieldValueItem){
-        var result = _.find(dropdownOptionList, function(dropdownOption){
-          return dropdownOption.optionId === fieldValueItem.identifier;
-        });
-        result.translate = field.dropdownOptionGroup.translationManagement != 'NONE';
-        resultStr += ((resultStr == '') ? '' : ', ') + translateFilter(result.data1);
-      });
-      return resultStr;
     }
 
     function generatePropertiesPreviewData(properties, mainLanguage) {
