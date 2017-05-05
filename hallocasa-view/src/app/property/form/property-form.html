@@ -36,16 +36,18 @@
                 <span ng-bind-html="tab.lang | translate"></span>
               </md-tab-label>
               <md-tab-body>
-                <ng-form name="{{tab.name}}">
-                  <fields-interpreter
-                    field-list="tab.fieldList"
-                    form-name="tab.name"
-                    field-root-scope="vm.fieldsRender"
-                    additional-parameters="vm.formatedPropertyDeterminants"
-                    readonly="false"
-                    flex
-                  ></fields-interpreter>
-                </ng-form>
+                <md-content>
+                  <ng-form name="{{tab.name}}">
+                    <fields-interpreter
+                      field-list="tab.fieldList"
+                      form-name="tab.name"
+                      field-root-scope="vm.fieldsRender"
+                      additional-parameters="vm.formatedPropertyDeterminants"
+                      readonly="false"
+                      flex
+                    ></fields-interpreter>
+                  </ng-form>
+                </md-content>
               </md-tab-body>
             </md-tab>
           </md-tabs>

@@ -1,42 +1,44 @@
-<div ng-if="!vm.userData.profile.userTypes || vm.userData.profile.userTypes.length === 0">
-  <md-card>
-    <md-card-content>
-      <h1>
-        {{'Profile.Message.noServices' | translate}}
-      </h1>
-    </md-card-content>
-  </md-card>
-</div>
-
-<div ng-if="vm.userData.profile.userTypes.length > 0">
-  <div layout="row" layout-align="end center">
-    <md-button class="md-raised" ng-click="vm.createProperty($event)">
-      {{'Properties.add.label' | translate}}
-    </md-button>
+<md-content>
+  <div ng-if="!vm.userData.profile.userTypes || vm.userData.profile.userTypes.length === 0">
+    <md-card>
+      <md-card-content>
+        <h1>
+          {{'Profile.Message.noServices' | translate}}
+        </h1>
+      </md-card-content>
+    </md-card>
   </div>
 
-  <h1 ng-if="vm.userData.properties.length === 0">
-    {{'Properties.none.property' | translate}}
-  </h1>
+  <div ng-if="vm.userData.profile.userTypes.length > 0">
+    <div layout="row" layout-align="end center">
+      <md-button class="md-raised" ng-click="vm.createProperty($event)">
+        {{'Properties.add.label' | translate}}
+      </md-button>
+    </div>
 
-  <div layout="column" layout-align="center center">
-    <div class="landing-cards-group" layout-fill>
-      <div ng-if="vm.userData.properties.length > 0">
-        <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
-          <div ng-repeat="property in vm.userData.properties" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
-            <div flex="100" layout="row" layout-align="center">
-              <div
-                ng-include="'app/property/templates/properties-card.html'"
-                class="disable-hyperlinks-style"
-              ></div>
+    <h1 ng-if="vm.userData.properties.length === 0">
+      {{'Properties.none.property' | translate}}
+    </h1>
+
+    <div layout="column" layout-align="center center">
+      <div class="landing-cards-group" layout-fill>
+        <div ng-if="vm.userData.properties.length > 0">
+          <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
+            <div ng-repeat="property in vm.userData.properties" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
+              <div flex="100" layout="row" layout-align="center">
+                <div
+                  ng-include="'app/property/templates/properties-card.html'"
+                  class="disable-hyperlinks-style"
+                ></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div layout="row" layout-align="center">
-          <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+          <div layout="row" layout-align="center">
+            <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-</div>
+  </div>
+</md-content>
