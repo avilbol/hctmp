@@ -6,8 +6,6 @@ import javax.ws.rs.ApplicationPath;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.glassfish.jersey.client.filter.EncodingFilter;
-import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.server.ResourceConfig;
 
 @ApplicationPath("/")
@@ -20,9 +18,11 @@ public class HallocasaAppResourceConfig extends ResourceConfig {
 
 	/**
 	 * Constructor por defecto.
+	 * @throws InterruptedException 
 	 */
-	public HallocasaAppResourceConfig() {
+	public HallocasaAppResourceConfig() throws InterruptedException {
 		super();
+		Thread.sleep(2000);
 		packages("io.swagger.jaxrs.json");
         packages("io.swagger.jaxrs.listing");
 		LOG.info("Inicio de la configuraci\u00F3n de la aplicaci\u00F3n.");
