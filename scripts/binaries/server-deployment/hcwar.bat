@@ -37,8 +37,6 @@ IF "%2"=="prod" (SET warloc=%prodtarget%)
 IF "%2"=="qa" (SET warloc=%qatarget%)
 IF "%2"=="dev" (SET warloc=%devtarget%)
 
-call copy /y %developroot%\hallocasamig-endpoint\pom.xml %developroot%\hallocasamig-endpoint\pom-local.xml
-call copy /y %developroot%\hallocasamig-endpoint\pom-server.xml %developroot%\hallocasamig-endpoint\pom.xml
 SET JAVA_HOME=%javahome%
 call mvn -f %developroot%\hallocasamig\pom.xml clean package resources:resources -U ^
  -Dwar.output.location=%warloc% ^
