@@ -5,6 +5,16 @@ var gulp = require('gulp');
 var gzip = require('gulp-gzip');
 var conf = require('./conf');
 
+var argv = require('yargs').argv;
+var isEnv = (argv.env === undefined) ? false : true;
+
+var qaDistFolder = "/root/hallocasa/environments/qa/tomcat/webapps/ROOT/"
+var prodDistFolder = "/root/hallocasa/environments/prod/tomcat/webapps/ROOT/"
+
+if (isEnv && (argv.env === "prod" || argv.env === "qa")) {
+	conf.paths.dist = (argv.env === "prod") ? prodDistFolder : qaDistFolder;
+}
+
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'del']
 });
