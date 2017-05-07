@@ -33,6 +33,7 @@ import com.hallocasa.entities.EntityUser;
 import com.hallocasa.filemanager.FileManager;
 import com.hallocasa.linkbuilders.UserActivationLinkUtils;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
+import com.hallocasa.services.messaging.local.MailChimpServices;
 import com.hallocasa.services.messaging.local.MailServices;
 import com.hallocasa.services.messaging.local.MailServices.BuildInMailType;
 import com.hallocasa.services.security.SecurityTokenService;
@@ -46,6 +47,7 @@ import com.hallocasa.utils.constants.parsing.HallocasaConvert;
 import com.hallocasa.utils.security.CodecUtils;
 import com.hallocasa.vo.User;
 import com.hallocasa.vo.dto.UserListRequest;
+import com.hallocasa.vo.mail.MailChimpMergeVars.TypeEnum;
 
 /**
  * 
@@ -66,6 +68,9 @@ public class UserServiceImpl implements UserService {
 	
 	@EJB
 	private MailServices mailServices;
+	
+	@EJB
+	private MailChimpServices mailchimpServices;
 	
 	@EJB
 	private SecurityTokenService securityTokenService;
@@ -137,6 +142,7 @@ public class UserServiceImpl implements UserService {
 			FileManager.cleanFilesStartingWithPrefix(filePathRoot, oldImageLink);
 		}
 	}
+	
 	@Override
 	public Integer loadUserCount() {
 		// TODO Auto-generated method stub
@@ -199,6 +205,8 @@ public class UserServiceImpl implements UserService {
 			user.setRegisterDate(new Date());
 			user.setConfirmedFlag(false);
 			save(user, null);
+			mailchimpServices.subscribeNewUser(user.getEmail(), user.getEmail(),
+		            "", user.getLanguage(), TypeEnum.PUBLISHER);
 		} catch(MailServicesErrorException e){
 			throw new FatalException("Unexpected error", e);
 		}
