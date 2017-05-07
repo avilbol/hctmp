@@ -1,0 +1,23 @@
+.ng-view-container{
+  min-height: calc(100vh - 227px);
+}
+
+.png-icon{
+  margin: 5px auto auto;
+  padding: 0;
+  display: inline-block;
+  background-repeat: no-repeat no-repeat;
+  pointer-events: none;
+}
+
+.main-logo{
+  min-width: 142px;
+  max-width: 142px;
+  height: auto;
+}
+
+.main-logo-xl{
+  min-width: 200px;
+  max-width: 200px;
+  height: auto;
+}

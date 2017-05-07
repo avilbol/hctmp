@@ -1,11 +1,29 @@
-/*@import url(//fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);*/
-@import url(//fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext);
+/*
+  fonts
+*/
+
+/* latin-ext */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(../assets/fonts/lato.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(../assets/fonts/lato-regular.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
 
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v17/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(../assets/fonts/material-icons.woff2) format('woff2');
 }
 
 .material-icons {
@@ -37,10 +55,6 @@ html {
   font-family: 'Lato', serif;
 }
 
-[layout=row] {
-  flex-direction: row;
-}
-
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -48,135 +62,16 @@ html {
   padding: 0.2em 0;
 }
 
-.png-icon{
-  margin: 5px auto auto;
-  padding: 0;
-  display: inline-block;
-  background-repeat: no-repeat no-repeat;
-  pointer-events: none;
-}
+/*
+  Cards
+*/
 
-.main-logo{
-  min-width: 142px;
-  max-width: 142px;
-  height: auto;
-}
-
-.main-logo-xl{
-  min-width: 200px;
-  max-width: 200px;
-  height: auto;
+md-card a{
+  word-break: break-all;
 }
 
 md-card-title-media{
   margin-right: 8px;
-}
-
-.md-xl {
-  height: 200px;
-  min-height: 200px;
-  max-height: 200px;
-}
-
-.header-height{
-  min-height: calc(70vh - 88px);
-}
-
-.header-background > header{
-  position: absolute;
-  z-index: 0;
-}
-
-.header-background > div{
-  z-index: 1
-}
-
-.img-profile img {
-  width: 200px;
-  height: 200px;
-}
-
-.cropArea {
-  background: #E4E4E4;
-  overflow: hidden;
-  width:300px;
-  height:200px;
-}
-
-@media (min-width: 768px) {
-  .cropArea {
-    width:300px;
-    height:200px;
-  }
-}
-
-@media (min-width: 1025px) {
-  .cropArea {
-    width:500px;
-    height:350px;
-  }
-}
-
-.white-border-button{
-	border-color: white;
-    border: 1px solid;
-}
-
-@media (min-width: 960px) {
-  .ng-view-container {
-    min-height: calc(100% - 88px);
-  }
-}
-
-@media (max-width: 960px) {
-  .ng-view-container {
-    min-height: calc(100% - 204px);
-  }
-}
-
-v-pane {
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
-  margin-bottom: 10px;
-  padding: 5px;
-}
-
-.image-responsive {
-  width: 100%;
-  height: auto;
-}
-
-.vertical-center{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.carousel-3d-loader-circle div {
-  display: none;
-}
-
-.disable-hyperlinks-style{
-  color: inherit;
-  text-decoration: inherit;
-}
-
-.searchSelectHeader .search-header-searchbox {
-  border: none;
-  outline: none;
-  height: 100%;
-  width: 100%;
-  padding: 0; }
-.searchSelectHeader .search-select-header {
-  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
-  padding-left: 11px;
-  height: 48px;
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: auto; }
-.searchSelectHeader md-content._md {
-  max-height: 240px;
 }
 
 .md-media-lg img{
@@ -184,8 +79,9 @@ v-pane {
   max-height: 152px;
 }
 
-.link {
-  color: #0c58a6;
+.disable-hyperlinks-style{
+  color: inherit;
+  text-decoration: inherit;
 }
 
 /*
@@ -219,4 +115,31 @@ v-pane {
 
 .menu-button {
   position: absolute;
+}
+
+/*
+  Accordion
+*/
+v-pane {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+/*
+  Toolbar
+*/
+
+.md-xl {
+  height: 200px;
+  min-height: 200px;
+  max-height: 200px;
+}
+
+/*
+  Generic design utilities
+*/
+
+.link {
+  color: #0c58a6;
 }

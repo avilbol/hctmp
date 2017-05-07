@@ -1,0 +1,20 @@
+.cropArea {
+  background: #E4E4E4;
+  overflow: hidden;
+  width:300px;
+  height:200px;
+}
+
+@media (min-width: 768px) {
+  .cropArea {
+    width:300px;
+    height:200px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .cropArea {
+    width:500px;
+    height:350px;
+  }
+}

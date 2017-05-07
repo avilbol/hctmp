@@ -6,3 +6,8 @@
 .profile-card img{
   border-radius: 50%;
 }
+
+.img-profile img {
+  width: 200px;
+  height: 200px;
+}
