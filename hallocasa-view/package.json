@@ -47,7 +47,8 @@
     "phantomjs": "~1.9.18",
     "uglify-save-license": "~0.4.1",
     "wiredep": "~2.2.2",
-    "wrench": "~1.5.8"
+    "wrench": "~1.5.8",
+    "yargs": "^8.0.1"
   },
   "engines": {
     "node": ">=0.10.0"
