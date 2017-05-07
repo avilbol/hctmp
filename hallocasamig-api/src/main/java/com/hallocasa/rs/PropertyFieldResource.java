@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import org.apache.http.HttpStatus;
 
+import com.hallocasa.rs.security.Auth;
 import com.hallocasa.rs.security.Secured;
 import com.hallocasa.services.properties.PropertyFieldService;
 import com.hallocasa.services.properties.PropertyListerService;
@@ -38,7 +39,7 @@ public class PropertyFieldResource {
 	@Path("/filter_by_key")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Secured
+	@Auth
 	@ApiOperation(value = "Retrieves the list of property fields that will be showed when selecting the type, proposal, "
 			+ "location, and country specified", notes = "All the property keys are required, otherwise system generate a bad request, because "
 					+ "without all the parameters, it is not posible filter the property fields")
