@@ -307,7 +307,7 @@
 	"PropertyBrowse.State": "Departamento",
 	"Blog.ReadMore": "Leer M\u00e1s",
 	"Tooltip.Profile.LinkedInHelp": "Ingrese la url de su perfil p\u00fablico de LinkedIn. La encuentra debajo de su imagen en Linkedin",
-	"Tooltip.Profile.SkypeHelp": "Ingrese su nombre de usuario de Skype. Aseg\U+00FArese que haga clic en \u0022Permitir que cualquiera pueda contactar conmigo\u0022 en las opciones de Skype.",
+	"Tooltip.Profile.SkypeHelp": "Ingrese su nombre de usuario de Skype. Aseg\u00farese que haga clic en \u0022Permitir que cualquiera pueda contactar conmigo\u0022 en las opciones de Skype.",
 	"Tooltip.Profile.UserTypesHelp": "Por favor marque todos los servicios que quiera ofrecer",
 	"constraints.AssertFalse": "Debe ser falso",
 	"constraints.AssertTrue": "Debe ser verdadero",
