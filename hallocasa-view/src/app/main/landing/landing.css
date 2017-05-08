@@ -7,10 +7,9 @@ header {
 }
 
 .header-image{
-  background: url('../../../assets/images/header-background.jpg') no-repeat fixed top left;
-  background-size: cover;
   height: 100%;
   top: -88px !important;
+  background: #f2f2f2 url('../../../assets/images/header-background.jpg') no-repeat fixed top left;
 }
 
 .header-map {
@@ -46,6 +45,9 @@ header .sub-title {
 }
 
 @media (max-width: 768px) {
+  .header-image{
+    background: #f2f2f2 url('../../../assets/images/header-background-tablet.jpg') no-repeat fixed top left;
+  }
   header .intro-content {
     width: 45%;
     right: 5%;
@@ -53,6 +55,9 @@ header .sub-title {
 }
 
 @media (max-width: 425px) {
+  .header-image{
+    background: #f2f2f2 url('../../../assets/images/header-background-mobile.jpg') no-repeat fixed top left;
+  }
   header {
     height: calc(100vh - 88px);
   }
