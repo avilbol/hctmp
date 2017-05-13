@@ -1,5 +1,14 @@
+.flat-group-container{
+  margin: 15px 0 15px 0;
+}
+
+.flat-group-title{
+  margin-bottom: 15px;
+}
+
 .flat-group-title hr{
   border-color: #0c58a6;
+  margin-top: 15px;
 }
 
 .flat-group-title span{
