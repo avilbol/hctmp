@@ -16,7 +16,7 @@
       {{property.squareMeters}} m²
     </b>
     <span flex></span>
-    <span>{{property.country.name}}</span>
+    <span>{{property.country.lang | translate}}</span>
   </md-card-content>
   <md-card-actions layout="row" layout-align="start center">
     <md-button ng-click="vm.viewProperty($event, property)" ng-if="vm.propertyShowOptions.view">{{'Properties.view.label' | translate}}</md-button>
