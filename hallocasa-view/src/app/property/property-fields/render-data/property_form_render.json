@@ -198,7 +198,10 @@
           "flexTablet": 50,
           "flexDesktop": 33,
           "options": {
-            "type": "static_options"
+            "type": "external_dependency_options",
+            "fieldId": 8,
+            "serviceId": "Neighborhoods",
+            "parameterPayload": "city_id"
           }
         },
         {
@@ -639,4 +642,3 @@
     }
   ]
 }
-
