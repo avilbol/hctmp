@@ -9,7 +9,7 @@ public class Neighborhood implements ValueObject, Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String name;
+	private String lang;
 	private Boolean genericUse;
 	private Boolean dependsOnLang;
 
@@ -21,12 +21,12 @@ public class Neighborhood implements ValueObject, Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getLang() {
+		return lang;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 
 	public Boolean getGenericUse() {

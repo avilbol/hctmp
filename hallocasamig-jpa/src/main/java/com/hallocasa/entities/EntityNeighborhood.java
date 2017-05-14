@@ -31,8 +31,8 @@ public class EntityNeighborhood implements HallocasaEntity {
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "name")
-	private String name;
+	@Column(name = "lang")
+	private String lang;
 
 	@JoinColumn(name = "city_id", referencedColumnName = "id")
 	@ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -54,12 +54,12 @@ public class EntityNeighborhood implements HallocasaEntity {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getLang() {
+		return lang;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLang(String lang) {
+		this.lang = lang;
 	}
 
 	public EntityCity getCity() {
