@@ -53,7 +53,7 @@ public class PropertyResource extends BasicResource {
 	public Response findProperty(@ApiParam(value = "property id") @PathParam("id") String id) {
 		Optional<Property> property = propertyService.findById(id);
 		if (!property.isPresent()) {
-			return Response.status(HttpStatus.SC_OK).entity(new Property()).build();
+			return Response.status(HttpStatus.SC_NOT_FOUND).entity("Property not found").build();
 		}
 		return Response.status(HttpStatus.SC_OK).entity(property.get()).build();
 	}
