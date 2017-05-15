@@ -93,7 +93,7 @@
     ></ng-messages-generator>
   </md-input-container>
 
-  <div ng-if="readonly && (fieldInformation.fieldValueList[0].identifier || fieldInformation.fieldValueList[0].text.boolVal)">
+  <div ng-if="readonly && (fieldInformation.fieldValueList[0].identifier || fieldInformation.fieldValueList[0].text)">
     <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
     <span ng-switch-when="static_options">{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'data1':'identifier' | unicode}}</span>
     <span ng-switch-when="dynamic_options">{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier' | unicode}}</span>
