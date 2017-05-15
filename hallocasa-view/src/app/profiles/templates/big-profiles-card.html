@@ -16,7 +16,7 @@
       </div>
       <div layout="row">
         <div layout="column" flex-gt-sm="40" flex-md="100">
-          <span>{{profile.city.name | unicode}}, {{profile.country.name | unicode}}</span>
+          <span>{{profile.city.name | unicode}}, {{profile.country.lang | translate}}</span>
           <div layout="row">
             <item-list
               tablet-items="2"
@@ -51,4 +51,3 @@
     </md-card-title-text>
   </md-card-title>
 </md-card>
-

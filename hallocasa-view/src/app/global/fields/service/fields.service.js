@@ -107,6 +107,9 @@
         case "Cities":
           servicePromise = LocationService.getCityByID(payload);
           break;
+        case "Neighborhoods":
+          servicePromise = LocationService.getNeighborhoodsByCityID(payload);
+          break;
         case "Currency":
           servicePromise = CurrencyService.loadCurrency();
           break;
@@ -145,7 +148,8 @@
           break;
         case "PARTIAL":
           parseOptionString = function (option) {
-            option.data1 = option.dependsOnLang ? LanguageService.translate(option.data1, option.name) : option.data1;
+            option.data1 = option.dependsOnLang ? LanguageService.translate(option.data1 || option.lang, option.name) : option.data1;
+            option.name = option.dependsOnLang ? option.data1 : option.name || option.lang;
             return option;
           };
           break;

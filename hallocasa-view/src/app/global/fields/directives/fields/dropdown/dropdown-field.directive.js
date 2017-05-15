@@ -34,7 +34,9 @@
           serviceParameters[parameterName] = parameterValue;
           FieldsService.loadOptionsByServiceId(serviceId, serviceParameters)
             .then(function (options) {
-              scope.options = FieldsService.processOptions(options, "NONE");
+              var translationManagement = _.find(options, function(option){
+                return option.dependsOnLang}) ? "PARTIAL" : "NONE";
+              scope.options = FieldsService.processOptions(options, translationManagement);
             })
             .catch(function () {
               toastr.warning(

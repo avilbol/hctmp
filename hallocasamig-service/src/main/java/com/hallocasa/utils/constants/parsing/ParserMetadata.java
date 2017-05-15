@@ -19,6 +19,7 @@ import com.hallocasa.entities.EntityHcFilterCondition;
 import com.hallocasa.entities.EntityHcFilterNature;
 import com.hallocasa.entities.EntityHcFilterType;
 import com.hallocasa.entities.EntityLanguage;
+import com.hallocasa.entities.EntityNeighborhood;
 import com.hallocasa.entities.EntityPasswordRecoveryToken;
 import com.hallocasa.entities.EntityState;
 import com.hallocasa.entities.EntityUser;
@@ -47,6 +48,7 @@ import com.hallocasa.vo.Currency;
 import com.hallocasa.vo.CurrencyExchangeDataSummary;
 import com.hallocasa.vo.Example;
 import com.hallocasa.vo.Language;
+import com.hallocasa.vo.Neighborhood;
 import com.hallocasa.vo.PasswordRecoveryToken;
 import com.hallocasa.vo.State;
 import com.hallocasa.vo.User;
@@ -107,6 +109,7 @@ public class ParserMetadata {
 		clazzEquivalenceMap.put(Country.class, EntityCountry.class);
 		clazzEquivalenceMap.put(State.class, EntityState.class);
 		clazzEquivalenceMap.put(City.class, EntityCity.class);
+		clazzEquivalenceMap.put(Neighborhood.class, EntityNeighborhood.class);
 		clazzEquivalenceMap.put(Currency.class, EntityCurrency.class);
 		clazzEquivalenceMap.put(Language.class, EntityLanguage.class);
 		clazzEquivalenceMap.put(DropdownOption.class, EntityDropdownOption.class);
@@ -130,22 +133,21 @@ public class ParserMetadata {
 		parserMap.put(Property.class, new PropertyParser());
 		parserMap.put(User.class, new UserParser());
 	}
-	
-	public static Set<Class<?>> getWrapperTypes()
-    {
-        Set<Class<?>> ret = new HashSet<Class<?>>();
-        ret.add(Boolean.class);
-        ret.add(Character.class);
-        ret.add(Byte.class);
-        ret.add(Short.class);
-        ret.add(Integer.class);
-        ret.add(Long.class);
-        ret.add(Float.class);
-        ret.add(Double.class);
-        ret.add(Void.class);
-        ret.add(String.class);
-        return ret;
-    }
+
+	public static Set<Class<?>> getWrapperTypes() {
+		Set<Class<?>> ret = new HashSet<Class<?>>();
+		ret.add(Boolean.class);
+		ret.add(Character.class);
+		ret.add(Byte.class);
+		ret.add(Short.class);
+		ret.add(Integer.class);
+		ret.add(Long.class);
+		ret.add(Float.class);
+		ret.add(Double.class);
+		ret.add(Void.class);
+		ret.add(String.class);
+		return ret;
+	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static <U, V> Parser<U, V> getParser(Class clazz) {
