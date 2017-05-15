@@ -15,6 +15,14 @@
       <md-icon md-svg-icon="squaremeters"></md-icon>
       {{property.squareMeters}} m²
     </b>
+    <b ng-if="property.rooms">
+      <md-icon md-svg-icon="squaremeters"></md-icon>
+      {{property.rooms}}
+    </b>
+    <b ng-if="property.bathrooms">
+      <md-icon md-svg-icon="squaremeters"></md-icon>
+      {{property.bathrooms}}
+    </b>
     <span flex></span>
     <span>{{property.country.lang | translate}}</span>
   </md-card-content>
