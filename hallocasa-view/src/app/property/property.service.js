@@ -121,6 +121,12 @@
       return field && field.fieldValueList ? field.fieldValueList : undefined;
     }
 
+    function getNumericValue(fieldID, property){
+      var numericObj = _.first(getFieldByID(fieldID, property));
+      numericObj = numericObj ? numericObj : {text:{}};
+      return numericObj.text.intVal;
+    }
+
     function generatePropertiesPreviewData(properties, mainLanguage) {
       return _.map(properties, function (property) {
         var propertyPreview = {};
@@ -141,10 +147,10 @@
           "amount": price.data2.doubleVal
         };
 
-        var meters = _.first(getFieldByID(6, property));
-        meters = meters ? meters : {text:{}};
+        propertyPreview.squareMeters = getNumericValue(6, property);
+        propertyPreview.rooms = getNumericValue(17, property);
+        propertyPreview.bathrooms = getNumericValue(18, property);
 
-        propertyPreview.squareMeters = meters.text.intVal;
         propertyPreview.description = _.find(getFieldByID(3, property), function(description){
           return targetLanguage.id === description.data1.intVal
         });
