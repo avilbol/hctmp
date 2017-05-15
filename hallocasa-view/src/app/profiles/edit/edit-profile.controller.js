@@ -7,7 +7,8 @@
 
   /** @ngInject */
   function EditProfileController(ProfilesService, LocationService, LanguageService, toastr, $mdMedia, $mdDialog,
-                                 $document, $location, translateFilter,  SessionService, user_images_url, PropertyService) {
+                                 $document, $location, translateFilter,  SessionService, user_images_url, PropertyService,
+                                 ImagesFallbackList) {
     var vm = this;
     vm.loadStates = loadStates;
     vm.launchLoadImageDialog = launchLoadImageDialog;
@@ -213,6 +214,12 @@
     function save(data, formID) {
       var formData = angular.copy(vm[data]);
       formData.userDescriptions = formData.userLanguages;
+      if(formData.base64Image === ImagesFallbackList.UserDefault && !formData.imageLink){
+        toastr.warning(
+          translateFilter("Error.invalidoremptyimage")
+        );
+        return;
+      }
       var imageLink = user_images_url + formData.imageLink;
       formData.base64Image = imageLink !== formData.base64Image ? formData.base64Image : undefined;
       ProfilesService.saveProfile(formData, formID)
