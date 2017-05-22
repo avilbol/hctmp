@@ -79,7 +79,7 @@
                 }
                 var destroyInDependencyWatcher = scope.$watch(function () {
                   field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
-                  if(scope.options > 0 && !scope.options[0].name && field.fieldValueList[0].name){
+                  if(scope.options.length > 0 && !scope.options[0].name && field.fieldValueList[0].name){
                     scope.options = field.fieldValueList;
                   }
 
