@@ -6,8 +6,7 @@
     .controller('ViewProfileController', ViewProfileController);
 
   /** @ngInject */
-  function ViewProfileController(ProfilesService, $location,
-      translateFilter, toastr) {
+  function ViewProfileController(ProfilesService, $location, translateFilter, toastr, $log) {
     var vm = this;
 
     function loadProfile() {
@@ -26,6 +25,10 @@
                 return true;
               }
             });
+            if(!vm.selectedDescription){
+              $log.warn("No se ha encontrado el lenguaje principal para el perfil");
+              vm.selectedDescription = _.first(vm.userData.profile.userDescriptions);
+            }
           })
           .catch(function (error) {
             if(error.status === 404){
