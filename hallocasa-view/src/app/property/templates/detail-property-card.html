@@ -8,26 +8,26 @@
   </div>
   <md-card-title>
     <md-card-title-text>
-      <div layout="row">
-        <div layout="column" flex>
+      <div layout="row" layout-wrap>
+        <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="50">
           <span class="md-subhead">{{'hallocasa.propertyfield.country' | translate}}</span>
           <span>
             <b class="highlight-text">{{vm.property.country.lang | translate}}</b>
           </span>
         </div>
-        <div layout="column" flex>
+        <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="50">
           <span class="md-subhead">{{'hallocasa.propertyfield.propertytype' | translate}}</span>
           <span><b class="highlight-text">
             {{vm.property.type | translate}}</b>
           </span>
         </div>
-        <div layout="column" flex>
+        <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="50">
           <span class="md-subhead">{{'hallocasa.propertyfield.squaremeterstotal' | translate}}</span>
           <span>
             <b class="highlight-text">{{vm.property.squareMeters | number}} m²</b>
           </span>
         </div>
-        <div layout="column" flex>
+        <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="50">
           <span class="md-subhead">{{'hallocasa.propertyfield.propertyproposal' | translate}}</span>
           <span>
             <b class="highlight-text">{{vm.property.propertyProposal | translate}}</b>
