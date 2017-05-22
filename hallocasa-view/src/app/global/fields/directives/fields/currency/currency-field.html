@@ -25,7 +25,7 @@
       aria-label="{{fieldName}}"
       ng-required="required || fieldInformation.fieldValueList[0].data2.doubleVal > 0"
     >
-      <md-option ng-repeat="option in options" value="{{option.id}}">
+      <md-option ng-repeat="option in options" ng-value="option.id">
         {{option.abbreviation}}
       </md-option>
     </md-select>

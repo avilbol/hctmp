@@ -11,7 +11,7 @@
       aria-label="{{fieldName}}"
       ng-required="required"
     >
-      <md-option ng-repeat="option in options" value="{{option.identifier}}">
+      <md-option ng-repeat="option in options" ng-value="option.identifier">
         {{option.data1 | unicode}}
       </md-option>
     </md-select>
@@ -25,7 +25,7 @@
       aria-label="{{fieldName}}"
       ng-required="required"
     >
-      <md-option ng-repeat="option in options" value="{{option.identifier}}">
+      <md-option ng-repeat="option in options" ng-value="option.identifier">
         {{option.name | unicode}}
       </md-option>
     </md-select>
@@ -39,7 +39,7 @@
       aria-label="{{fieldName}}"
       ng-required="required"
     >
-      <md-option ng-repeat="option in options" value="{{option.value}}">
+      <md-option ng-repeat="option in options" ng-value="option.value">
         {{option.name | unicode}}
       </md-option>
     </md-select>
@@ -53,7 +53,7 @@
       aria-label="{{fieldName}}"
       ng-required="required"
     >
-      <md-option ng-repeat="option in options" value="{{option.identifier}}">
+      <md-option ng-repeat="option in options" ng-value="option.identifier">
         {{option.name | unicode}}
       </md-option>
     </md-select>
@@ -67,7 +67,7 @@
       aria-label="{{fieldName}}"
       ng-required="required"
     >
-      <md-option ng-repeat="option in options" value="{{option.identifier}}">
+      <md-option ng-repeat="option in options" ng-value="option.identifier">
         {{option.name | unicode}}
       </md-option>
     </md-select>
@@ -81,7 +81,7 @@
       aria-label="{{fieldName}}"
       ng-required="required"
     >
-      <md-option ng-repeat="option in options" value="{{option.identifier}}">
+      <md-option ng-repeat="option in options" ng-value="option.identifier">
         {{option.name | unicode}}
       </md-option>
     </md-select>
