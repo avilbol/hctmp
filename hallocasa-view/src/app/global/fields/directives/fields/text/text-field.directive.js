@@ -102,8 +102,8 @@
           }
         }
 
-        function watchDestroyField() {
-          scope.$on("$destroy", function (identifier) {
+        function watchDestroyField(identifier) {
+          scope.$on("$destroy", function () {
             var valueList = scope.fieldInformation.fieldValueList[identifier];
             var filledField = valueList && valueList.data1 && valueList.data2 && valueList.data1.intVal && valueList.data2.strVal;
             if(!filledField){
