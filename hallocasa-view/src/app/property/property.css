@@ -63,3 +63,7 @@
   width: auto;
   height: auto;
 }
+
+.property-card .available-services b{
+  margin-right: 8px;
+}
