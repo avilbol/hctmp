@@ -138,6 +138,7 @@
         });
         propertyPreview.type = property.propertyKey.propertyType.lang;
         propertyPreview.country = property.propertyKey.country;
+        propertyPreview.propertyProposal = property.propertyKey.propertyProposal.lang;
         var price = _.first(getFieldByID(5, property));
         price = price ? price : {};
         price.data1 = price.data1 ? price.data1 : {};
