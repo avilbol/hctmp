@@ -63,7 +63,9 @@
     //Icons configuration
     $mdIconProvider
       .icon("flipboard", "assets/icons/Logomark_DIGITAL_White_500X500.svg", 24)
-      .icon("squaremeters", "assets/icons/squaremeters.svg", 24);
+      .icon("squaremeters", "assets/icons/squaremeters.svg", 24)
+      .icon("bed", "assets/icons/bed.svg", 24)
+      .icon("toilet", "assets/icons/toilet.svg", 24);
 
     //URL Sanitization
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype|chrome-extension):/);

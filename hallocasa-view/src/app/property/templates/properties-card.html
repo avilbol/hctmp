@@ -10,20 +10,21 @@
       <h2 class="subtitle">{{property.type | translate}}</h2>
     </md-card-title-text>
   </md-card-title>
-  <md-card-content layout="row">
-    <b>
-      <md-icon md-svg-icon="squaremeters"></md-icon>
-      {{property.squareMeters}} m²
-    </b>
-    <b ng-if="property.rooms">
-      <md-icon md-svg-icon="squaremeters"></md-icon>
-      {{property.rooms}}
-    </b>
-    <b ng-if="property.bathrooms">
-      <md-icon md-svg-icon="squaremeters"></md-icon>
-      {{property.bathrooms}}
-    </b>
-    <span flex></span>
+  <md-card-content layout="row" layout-align="space-between">
+    <div layout="row" layout-align="space-between">
+      <b>
+        <md-icon md-svg-icon="squaremeters"></md-icon>
+        {{property.squareMeters}} m²
+      </b>
+      <b ng-if="property.rooms">
+        <md-icon md-svg-icon="bed"></md-icon>
+        {{property.rooms}}
+      </b>
+      <b ng-if="property.bathrooms">
+        <md-icon md-svg-icon="toilet"></md-icon>
+        {{property.bathrooms}}
+      </b>
+    </div>
     <span>{{property.country.lang | translate}}</span>
   </md-card-content>
   <md-card-actions layout="row" layout-align="start center">
