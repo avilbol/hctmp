@@ -188,6 +188,7 @@
       propertyDetail.locationDescription = getFieldByID(4, property);
       propertyDetail.type = property.propertyKey.propertyType.lang;
       propertyDetail.country = property.propertyKey.country;
+      propertyDetail.propertyProposal = property.propertyKey.propertyProposal.lang;
 
       var location = _.first(getFieldByID(10, property));
       location = location ? location : {};
