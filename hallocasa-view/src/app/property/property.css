@@ -8,7 +8,7 @@
 
 .property-card {
   overflow: hidden;
-  height: 360px;
+  height: 330px;
   width: 342px;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .property-card md-card-title{
-  padding-top: 16px;
+  padding-top: 8px;
 }
 
 .property-card.options {
@@ -83,4 +83,8 @@
   position: absolute;
   left: 0;
   z-index: 1;
+}
+
+.property-card md-card-content{
+  padding-bottom: 0;
 }
