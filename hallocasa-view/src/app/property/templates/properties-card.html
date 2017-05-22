@@ -14,7 +14,7 @@
     <div layout="row" layout-align="space-between">
       <b>
         <md-icon md-svg-icon="squaremeters"></md-icon>
-        {{property.squareMeters}} m²
+        {{property.squareMeters | number}} m²
       </b>
       <b ng-if="property.rooms">
         <md-icon md-svg-icon="bed"></md-icon>
