@@ -102,18 +102,25 @@
             </div>
             <div layout="column" flex>
               <div>
-                <div layout="row">
-                  <b>{{'Profile.Data.Languages.MainLanguage.Label' | translate}}:&nbsp;</b>
-                  {{vm.userData.profile.mainLanguage.name | unicode}}
-                </div>
+                <md-input-container class="md-block">
+                  <label>{{"Profile.Data.Languages.Label" | translate}}</label>
+                  <md-select
+                    ng-model="vm.selectedDescription"
+                    aria-label="Select language"
+                  >
+                    <md-option ng-repeat="descriptionLanguage in vm.userData.profile.userDescriptions" ng-value="descriptionLanguage">
+                      {{descriptionLanguage.language.name | unicode}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
                 <br>
                 <v-accordion class="vAccordion--default">
-                  <v-pane ng-repeat="description in vm.userData.profile.userDescriptions track by $index">
+                  <v-pane expanded>
                     <v-pane-header>
-                      {{'Profile.Data.Description.Label' | translate}} ({{description.language.name | unicode}})
+                      {{'Profile.Data.Description.Label' | translate}}
                     </v-pane-header>
                     <v-pane-content>
-                      {{description.value | unicode}}
+                      {{vm.selectedDescription.value | unicode}}
                     </v-pane-content>
                   </v-pane>
                 </v-accordion>

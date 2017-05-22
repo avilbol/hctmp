@@ -20,6 +20,12 @@
           .then(function (data) {
             data = ProfilesService.validateUserData(data);
             vm.userData = data;
+            _.find(vm.userData.profile.userDescriptions, function (description) {
+              if(description.language.id === data.profile.mainLanguage.id){
+                vm.selectedDescription = description;
+                return true;
+              }
+            });
           })
           .catch(function (error) {
             if(error.status === 404){
