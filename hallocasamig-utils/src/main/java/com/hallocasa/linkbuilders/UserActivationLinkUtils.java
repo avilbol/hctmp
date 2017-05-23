@@ -38,7 +38,8 @@ public class UserActivationLinkUtils {
 		} catch (UnsupportedEncodingException e) {
 			throw new FatalException("Unexpected error", e);
 		}
-        return getAbsolutePath(ROOT_URL + USER_ACTIVATION_URL, params);
+        String targetUrl = baseUrl == null ? ROOT_URL : baseUrl;
+        return getAbsolutePath(targetUrl + USER_ACTIVATION_URL, params);
     }
     
     public static String buildPasswordRecoveryUrl(PasswordRecoveryToken token, 
