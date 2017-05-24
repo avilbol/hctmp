@@ -68,13 +68,11 @@
       $mdDialog.show(confirm).then(function() {
         PropertyService.deleteProperty(property.id)
           .then(function () {
-            //TODO: Traducción de mensaje de éxito
-            toastr.success("Propiedad eliminada con éxito");
+            toastr.success(translateFilter("Properties.Delete.Succesful"));
             reloadProperties();
           })
           .catch(function () {
-            //TODO: Traducción de mensaje de error
-            toastr.warning("Error al eliminar propiedad");
+            toastr.warning(translateFilter("Error.whendeletingproperty"));
           });
       });
     }
@@ -95,8 +93,7 @@
           vm.userData.properties = PropertyService.generatePropertiesPreviewData(properties);
         })
         .catch(function () {
-          //TODO: Traducción de mensaje de error
-          toastr.warning("Hubo un error al recargar sus propiedades, intentelo más tarde");
+          toastr.warning(translateFilter("Error.whenreloadingproperties"));
           goBack();
         });
     }
