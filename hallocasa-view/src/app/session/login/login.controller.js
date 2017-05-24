@@ -56,7 +56,7 @@
         parent: $document.body,
         locals: {
           description: "",
-          allowClose: true
+          allowClose: vm.allowClose
         },
         clickOutsideToClose:true,
         fullscreen: useFullScreen
