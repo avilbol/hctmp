@@ -92,7 +92,7 @@
       var mainLanguage = vm.userData.profile.mainLanguage;
       PropertyService.loadPropertiesByUserID(profileID)
         .then(function (properties) {
-          vm.userData.properties = PropertyService.generatePropertiesPreviewData(properties, mainLanguage);
+          vm.userData.properties = PropertyService.generatePropertiesPreviewData(properties);
         })
         .catch(function () {
           //TODO: Traducción de mensaje de error
