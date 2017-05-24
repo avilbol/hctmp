@@ -58,7 +58,8 @@
           description: "",
           allowClose: vm.allowClose
         },
-        clickOutsideToClose:true,
+        clickOutsideToClose: vm.allowClose,
+        escapeToClose: vm.allowClose,
         fullscreen: useFullScreen
       });
     }
