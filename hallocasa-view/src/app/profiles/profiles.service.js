@@ -77,7 +77,7 @@
           data.profile.image = image;
           data.profile.base64Image = image;
         });
-      data.properties = PropertyService.generatePropertiesPreviewData(data.properties, data.profile.mainLanguage);
+      data.properties = PropertyService.generatePropertiesPreviewData(data.properties);
       return data;
     }
   }
