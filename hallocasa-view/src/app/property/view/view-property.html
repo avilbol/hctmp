@@ -44,12 +44,14 @@
               </md-content>
             </md-tab>
             <md-tab label="{{'PropertyBrowse.Property.contacts' | translate}}">
-              <a
-                ng-href="/profile?id={{vm.profile.id}}"
-                ng-include="'app/profiles/templates/detail-profile-card.html'"
-                class="disable-hyperlinks-style"
-              >
-              </a>
+              <md-content>
+                <a
+                  ng-href="/profile?id={{vm.profile.id}}"
+                  ng-include="'app/profiles/templates/detail-profile-card.html'"
+                  class="disable-hyperlinks-style"
+                >
+                </a>
+              </md-content>
             </md-tab>
           </md-tabs>
         </md-card>
