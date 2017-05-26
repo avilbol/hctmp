@@ -103,6 +103,7 @@
         templateUrl: 'app/session/register/register.html',
         parent: $document.body,
         targetEvent: ev,
+        allowClose:true,
         clickOutsideToClose:true,
         fullscreen: useFullScreen
       });

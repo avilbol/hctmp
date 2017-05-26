@@ -5,13 +5,14 @@
 		.module('HalloCasa.session')
 		.controller('RegisterController', RegisterController);
 
-	function RegisterController(RegisterService, toastr, translateFilter, $mdDialog, LocaleService, LOCALES) {
+	function RegisterController(RegisterService, toastr, translateFilter, $mdDialog, allowClose, LocaleService, LOCALES) {
 		var vm = this;
 		vm.userData = {};
 		vm.register = register;
     vm.closeDialog = closeDialog;
     vm.showTerms = showTerms;
     vm.closeTerms = closeTerms;
+    vm.allowClose = allowClose;
 
 		function register(){
       var currentLanguage = LocaleService.getLocaleDisplayName();

@@ -56,9 +56,10 @@
         parent: $document.body,
         locals: {
           description: "",
-          allowClose: true
+          allowClose: vm.allowClose
         },
-        clickOutsideToClose:true,
+        clickOutsideToClose: vm.allowClose,
+        escapeToClose: vm.allowClose,
         fullscreen: useFullScreen
       });
     }
