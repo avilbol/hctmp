@@ -12,6 +12,12 @@
   width: 342px;
 }
 
+@media (max-width: 342px){
+  .property-card {
+    width: 287px;
+  }
+}
+
 .property-card .highlight-text{
   color: #0c58a6;
 }
