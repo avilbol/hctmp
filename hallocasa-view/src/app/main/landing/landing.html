@@ -20,7 +20,7 @@
         <div layout="row" layout-margin>
           <h1 class="md-headline main-title">{{'landing.PropertiesTitle' | translate}}</h1>
         </div>
-        <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
+        <div layout="row" layout-align="center" layout-wrap>
           <div ng-repeat="property in vm.properties" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
             <div flex="100" layout="row" layout-align="center">
               <a
@@ -42,7 +42,7 @@
         <div layout="row">
           <h1 class="md-headline main-title">{{'landing.ProfilesTitle' | translate}}</h1>
         </div>
-        <div layout="row" layout-sm="column" layout-wrap layout-align="center">
+        <div layout="row" layout-wrap layout-align="center">
           <div ng-repeat="profile in vm.profiles" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
             <a
               ng-include="'app/profiles/templates/profiles-card.html'"

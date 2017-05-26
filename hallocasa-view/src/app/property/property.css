@@ -16,6 +16,9 @@
   .property-card {
     width: 287px;
   }
+  .property-card .image{
+    height: 168px;
+  }
 }
 
 .property-card .highlight-text{
