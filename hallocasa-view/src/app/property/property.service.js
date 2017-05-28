@@ -62,7 +62,7 @@
           pageTo: finish+1,
           orderByMostRecent: false,
           orderByLessRecent: false,
-          loadCount: true
+          loadCount: false
         }
       };
       return resources.propertiesPublic.consultObj(filter).$promise;
