@@ -87,7 +87,6 @@
 
     function reloadProperties() {
       var profileID = SessionService.getCurrentUser().id;
-      var mainLanguage = vm.userData.profile.mainLanguage;
       PropertyService.loadPropertiesByUserID(profileID)
         .then(function (properties) {
           vm.userData.properties = PropertyService.generatePropertiesPreviewData(properties);
