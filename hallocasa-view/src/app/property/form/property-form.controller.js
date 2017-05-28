@@ -158,6 +158,7 @@
     function handleTabLocation(tabName, tabIndex) {
       selectedTab = tabIndex;
       validateNavigation();
+      validateSubmit();
       switch (tabName){
         case "Location":
           $rootScope.$broadcast("RepaintMap");
