@@ -25,7 +25,7 @@
       PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1)
         .then(function (data) {
           vm.properties = PropertyService.generatePropertiesPreviewData(data.propertyList);
-          vm.totalProperties = data.totalProperties;
+          vm.totalProperties = data.count;
           vm.firstLoading = false;
         });
     }
