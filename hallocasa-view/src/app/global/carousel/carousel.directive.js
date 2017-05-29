@@ -22,7 +22,6 @@
           if(!scope.images || !scope.images.length){
             return;
           }
-          var index = 0;
           scope.currentImage = 0;
 
           if(interval){
@@ -30,9 +29,7 @@
           }
 
           interval = $interval(function () {
-            index++;
-            scope.direction = "right";
-            scope.currentImage = index % scope.images.length;
+            nextImage()
           }, 5000);
         }
 
