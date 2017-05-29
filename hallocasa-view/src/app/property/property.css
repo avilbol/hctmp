@@ -84,6 +84,7 @@
   padding-bottom: 58.47%;
   float: left;
   height: 0;
+  overflow: hidden;
 }
 
 .property-card img {

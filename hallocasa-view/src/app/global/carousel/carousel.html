@@ -1,0 +1,11 @@
+<img ng-animate-swap="currentImage" ng-src="{{images[currentImage]}}" class="swap-animation" ng-class="[direction]"/>
+
+<div ng-if="images.length > 1">
+  <md-button class="md-icon-button md-raised next-button" ng-click="nextImage()" aria-label="next image">
+    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+  </md-button>
+
+  <md-button class="md-icon-button md-raised previous-button" ng-click="previousImage()" aria-label="previous image">
+    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+  </md-button>
+</div>

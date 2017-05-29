@@ -3,7 +3,7 @@
     <div class="price highlight-text" ng-bind-html="vm.property.price | dynamicCurrency" md-whiteframe="2"></div>
 
     <div class="imageContainer">
-      <img ng-src="{{vm.property.images[0]}}" />
+      <carousel images="vm.property.images"></carousel>
     </div>
   </div>
   <md-card-title>

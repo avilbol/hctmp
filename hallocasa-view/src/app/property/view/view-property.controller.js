@@ -7,9 +7,10 @@
 
   /** @ngInject */
   function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, $timeout,
-                                  FieldsService ) {
+                                  FieldsService) {
     var vm = this;
     vm.repaintMap = repaintMap;
+    vm.currentImage = 0;
 
     function repaintMap() {
       vm.refresh = false;
@@ -77,16 +78,5 @@
     }
 
     loadProperty();
-
-    vm.optionsCarousel = {
-      sourceProp: 'src',
-      visible: 3,
-      perspective: 35,
-      startSlide: 0,
-      border: 0,
-      loop: true,
-      controls: true,
-      clicking: true
-    };
   }
 })();

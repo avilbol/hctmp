@@ -1,0 +1,48 @@
+.swap-animation.ng-enter, .swap-animation.ng-leave {
+  transition:0.5s ease all;
+}
+.swap-animation.right.ng-enter {
+  left: -100%;
+}
+.swap-animation.right.ng-enter-active {
+  left: 0;
+}
+.swap-animation.right.ng-leave {
+  left: 0;
+}
+.swap-animation.right.ng-leave-active {
+  left: 100%;
+}
+
+
+.swap-animation.left.ng-enter {
+  left: 100%;
+}
+.swap-animation.left.ng-enter-active {
+  left: 0;
+}
+.swap-animation.left.ng-leave {
+  left: 0;
+}
+.swap-animation.left.ng-leave-active {
+  left: -100%;
+}
+
+.previous-button {
+  position: absolute;
+  z-index: 5;
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+.next-button {
+  position: absolute;
+  z-index: 5;
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
