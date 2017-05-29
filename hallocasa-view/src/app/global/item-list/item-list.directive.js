@@ -16,7 +16,8 @@
         desktopItems: "=?",
         display: "@?",
         labelAttribute: "=?",
-        translateLabel: "=?"
+        translateLabel: "=?",
+        translateVal: "=?"
       },
       link: function (scope) {
         scope.mobileItems = angular.isNumber(scope.mobileItems) ? scope.mobileItems : 2;
@@ -27,6 +28,7 @@
 
         scope.$watch("labelAttribute",updateLabel);
         scope.$watch("list",updateLabel);
+        scope.$watch("translateVal",updateLabel);
 
         scope.getLabel = getLabel;
 
@@ -84,6 +86,7 @@
         }
 
         function generateRowLabel() {
+          console.log("generateRowLabel");
           if(!scope.viewList){
             return;
           }
