@@ -1,6 +1,5 @@
 <md-content>
   <div layout="row" layout-align="center">
-    <header class="header-image"></header>
     <div flex-gt-sm="90" flex-gt-xs="90" flex-xs="100">
       <md-card>
         <md-card-title>
@@ -8,8 +7,8 @@
             <span class="md-headline">{{'Profile.General.Panel.Title' | translate}}</span>
           </md-card-title-text>
         </md-card-title>
-        <md-card-content flex-gt-sm="50" flex-gt-xs="50" flex-xs="100">
-          <div layout="column">
+        <md-card-content>
+          <div layout="column" flex-gt-sm="50" flex-gt-xs="50" flex-xs="100">
             <div layout="row">
               <b>{{'Profile.Data.Name.Label' | translate}}:&nbsp;</b>
               <span>{{vm.userData.profile.firstName}} {{vm.userData.profile.lastName}}</span>
