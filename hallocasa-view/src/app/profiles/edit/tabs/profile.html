@@ -39,7 +39,7 @@
       </md-card-title-text>
     </md-card-title>
     <md-card-content>
-      <v-accordion class="vAccordion--default" multiple>
+      <v-accordion class="vAccordion--default">
         <v-pane expanded>
           <v-pane-header>
             {{'Profile.Data.Services.Label' | translate}}
@@ -55,108 +55,109 @@
             ></checkbox-list>
           </v-pane-content>
         </v-pane>
+      </v-accordion>
 
-        <div layout="row" layout-wrap flex ng-if="vm.profileForm.userTypes.length > 0">
-          <div layout="column" layout-align="center center" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100" class="img-profile">
-            <md-button ng-click="vm.launchLoadImageDialog()">{{'Image.Edition' | translate}}</md-button>
-            <img
-              ng-src="{{vm.profileForm.base64Image}}"
-              alt="{{ profile.name }}"
-              spinkit-image-preloader='cube-grid-spinner'
-            >
-          </div>
-          <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
-            <md-input-container class="md-block">
-              <label>{{'Profile.Data.Country.Label' | translate}}</label>
-              <md-select
-                name="country"
-                ng-model="vm.profileForm.country"
-                ng-model-options="{trackBy: '$value.id'}"
-                ng-change="vm.loadStates()"
-                required
-              >
-                <md-option ng-repeat="country in vm.countries" ng-value="country">
-                  {{country.lang | translate}}
-                </md-option>
-              </md-select>
-              <ng-messages-generator
-                form="editProfileForm"
-                input-name="country"
-                validators="required"
-              ></ng-messages-generator>
-            </md-input-container>
-
-            <md-input-container class="md-block">
-              <label>{{'Profile.Data.State.Label' | translate}}</label>
-              <md-select
-                name="state"
-                ng-model="vm.profileForm.state"
-                ng-model-options="{trackBy: '$value.id'}"
-                ng-change="vm.loadCities()"
-                ng-disabled="!vm.profileForm.country"
-                required
-              >
-                <md-option ng-repeat="state in vm.states" ng-value="state">
-                  {{state.name | unicode}}
-                </md-option>
-              </md-select>
-              <ng-messages-generator
-                form="editProfileForm"
-                input-name="state"
-                validators="required"
-              ></ng-messages-generator>
-            </md-input-container>
-
-            <md-input-container class="md-block">
-              <label>{{'Profile.Data.City.Label' | translate}}</label>
-              <md-select
-                name="city"
-                ng-model="vm.profileForm.city"
-                ng-model-options="{trackBy: '$value.id'}"
-                ng-disabled="!vm.profileForm.state"
-                required
-              >
-                <md-option ng-repeat="city in vm.cities" ng-value="city">
-                  {{city.name | unicode}}
-                </md-option>
-              </md-select>
-              <ng-messages-generator
-                form="editProfileForm"
-                input-name="city"
-                validators="required"
-              ></ng-messages-generator>
-            </md-input-container>
-          </div>
-          <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
-            <telephone layout="row" ng-model="vm.profileForm" label="{{'Profile.Data.Telephone.Label' | translate}}"></telephone>
-            <md-input-container class="md-block">
-              <label>{{'Profile.Data.Website.Label' | translate}}</label>
-              <input name="website" ng-model="vm.profileForm.webSite" ng-pattern="vm.urlRegex">
-              <ng-messages-generator
-                form="editProfileForm"
-                input-name="website"
-                validators="urlValidator"
-              ></ng-messages-generator>
-            </md-input-container>
-          </div>
-          <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
-            <md-input-container class="md-block">
-              <label>{{'Profile.Data.Linkedin.Label' | translate}}</label>
-              <input name="linkedin" ng-model="vm.profileForm.linkedIn" type="url">
-              <ng-messages-generator
-                form="editProfileForm"
-                input-name="linkedin"
-                validators="linkedInPattern"
-              ></ng-messages-generator>
-            </md-input-container>
-            <md-input-container class="md-block">
-              <label>{{'Profile.Data.Skype.Label' | translate}}</label>
-              <input name="skype" ng-model="vm.profileForm.skype" type="text">
-            </md-input-container>
-          </div>
+      <div layout="row" ng-if="vm.profileForm.userTypes.length > 0">
+        <div layout="column" layout-align="center center" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100" class="img-profile">
+          <md-button ng-click="vm.launchLoadImageDialog()">{{'Image.Edition' | translate}}</md-button>
+          <img
+            ng-src="{{vm.profileForm.base64Image}}"
+            alt="{{ profile.name }}"
+            spinkit-image-preloader='cube-grid-spinner'
+          >
         </div>
+        <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
+          <md-input-container class="md-block">
+            <label>{{'Profile.Data.Country.Label' | translate}}</label>
+            <md-select
+              name="country"
+              ng-model="vm.profileForm.country"
+              ng-model-options="{trackBy: '$value.id'}"
+              ng-change="vm.loadStates()"
+              required
+            >
+              <md-option ng-repeat="country in vm.countries" ng-value="country">
+                {{country.lang | translate}}
+              </md-option>
+            </md-select>
+            <ng-messages-generator
+              form="editProfileForm"
+              input-name="country"
+              validators="required"
+            ></ng-messages-generator>
+          </md-input-container>
 
+          <md-input-container class="md-block">
+            <label>{{'Profile.Data.State.Label' | translate}}</label>
+            <md-select
+              name="state"
+              ng-model="vm.profileForm.state"
+              ng-model-options="{trackBy: '$value.id'}"
+              ng-change="vm.loadCities()"
+              ng-disabled="!vm.profileForm.country"
+              required
+            >
+              <md-option ng-repeat="state in vm.states" ng-value="state">
+                {{state.name | unicode}}
+              </md-option>
+            </md-select>
+            <ng-messages-generator
+              form="editProfileForm"
+              input-name="state"
+              validators="required"
+            ></ng-messages-generator>
+          </md-input-container>
 
+          <md-input-container class="md-block">
+            <label>{{'Profile.Data.City.Label' | translate}}</label>
+            <md-select
+              name="city"
+              ng-model="vm.profileForm.city"
+              ng-model-options="{trackBy: '$value.id'}"
+              ng-disabled="!vm.profileForm.state"
+              required
+            >
+              <md-option ng-repeat="city in vm.cities" ng-value="city">
+                {{city.name | unicode}}
+              </md-option>
+            </md-select>
+            <ng-messages-generator
+              form="editProfileForm"
+              input-name="city"
+              validators="required"
+            ></ng-messages-generator>
+          </md-input-container>
+        </div>
+        <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
+          <telephone layout="row" ng-model="vm.profileForm" label="{{'Profile.Data.Telephone.Label' | translate}}"></telephone>
+          <md-input-container class="md-block">
+            <label>{{'Profile.Data.Website.Label' | translate}}</label>
+            <input name="website" ng-model="vm.profileForm.webSite" ng-pattern="vm.urlRegex">
+            <ng-messages-generator
+              form="editProfileForm"
+              input-name="website"
+              validators="urlValidator"
+            ></ng-messages-generator>
+          </md-input-container>
+        </div>
+        <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
+          <md-input-container class="md-block">
+            <label>{{'Profile.Data.Linkedin.Label' | translate}}</label>
+            <input name="linkedin" ng-model="vm.profileForm.linkedIn" type="url">
+            <ng-messages-generator
+              form="editProfileForm"
+              input-name="linkedin"
+              validators="linkedInPattern"
+            ></ng-messages-generator>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>{{'Profile.Data.Skype.Label' | translate}}</label>
+            <input name="skype" ng-model="vm.profileForm.skype" type="text">
+          </md-input-container>
+        </div>
+      </div>
+
+      <v-accordion class="vAccordion--default" multiple>
         <v-pane ng-if="vm.profileForm.userTypes.length > 0" expanded>
           <v-pane-header>
             {{'Profile.Data.Languages.Label' | translate}}
