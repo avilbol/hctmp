@@ -57,7 +57,7 @@
         </v-pane>
       </v-accordion>
 
-      <div layout="row" ng-if="vm.profileForm.userTypes.length > 0">
+      <div layout="row" layout-wrap ng-if="vm.profileForm.userTypes.length > 0">
         <div layout="column" layout-align="center center" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100" class="img-profile">
           <md-button ng-click="vm.launchLoadImageDialog()">{{'Image.Edition' | translate}}</md-button>
           <img
