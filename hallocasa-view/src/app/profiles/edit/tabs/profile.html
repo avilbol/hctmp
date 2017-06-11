@@ -5,28 +5,30 @@
         <span class="md-headline">{{'Profile.General.Panel.Title' | translate}}</span>
       </md-card-title-text>
     </md-card-title>
-    <md-card-content flex-gt-sm="50" flex-gt-xs="50" flex-xs="100">
-      <md-input-container class="md-block">
-        <label>{{'Profile.Data.Name.Label' | translate}}</label>
-        <input name="name" ng-model="vm.profileForm.firstName" type="text" ng-required="true" ng-minlength="2" ng-maxlength="45">
-        <ng-messages-generator
-          form="editProfileForm"
-          input-name="name"
-          validators="required, minlength, maxlength"
-          messages-params="{ minlength: '2 - 45', maxlength: '2 - 45'}"
-        ></ng-messages-generator>
-      </md-input-container>
-      <md-input-container class="md-block">
-        <label>{{'Profile.Data.LastName.Label' | translate}}</label>
-        <input name="lastName" ng-model="vm.profileForm.lastName" type="text" ng-required="true" ng-minlength="2" ng-maxlength="45">
-        <ng-messages-generator
-          form="editProfileForm"
-          input-name="lastName"
-          validators="required, minlength, maxlength"
-          messages-params="{ minlength: '2 - 45', maxlength: '2 - 45'}"
-        ></ng-messages-generator>
-      </md-input-container>
-      <b>{{'Profile.Data.Email.Label' | translate}}: </b> <span>{{vm.profileForm.email || "..."}}</span>
+    <md-card-content>
+      <div flex-gt-sm="50" flex-gt-xs="50" flex-xs="100">
+        <md-input-container class="md-block">
+          <label>{{'Profile.Data.Name.Label' | translate}}</label>
+          <input name="name" ng-model="vm.profileForm.firstName" type="text" ng-required="true" ng-minlength="2" ng-maxlength="45">
+          <ng-messages-generator
+            form="editProfileForm"
+            input-name="name"
+            validators="required, minlength, maxlength"
+            messages-params="{ minlength: '2 - 45', maxlength: '2 - 45'}"
+          ></ng-messages-generator>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label>{{'Profile.Data.LastName.Label' | translate}}</label>
+          <input name="lastName" ng-model="vm.profileForm.lastName" type="text" ng-required="true" ng-minlength="2" ng-maxlength="45">
+          <ng-messages-generator
+            form="editProfileForm"
+            input-name="lastName"
+            validators="required, minlength, maxlength"
+            messages-params="{ minlength: '2 - 45', maxlength: '2 - 45'}"
+          ></ng-messages-generator>
+        </md-input-container>
+        <b>{{'Profile.Data.Email.Label' | translate}}: </b> <span>{{vm.profileForm.email || "..."}}</span>
+      </div>
     </md-card-content>
   </md-card>
 
@@ -216,6 +218,7 @@
       </v-accordion>
     </md-card-content>
   </md-card>
+
   <md-button class="md-raised" aria-label="cancel" ng-click="vm.goBack()">
     {{'Properties.cancel.label' | translate}}
   </md-button>
