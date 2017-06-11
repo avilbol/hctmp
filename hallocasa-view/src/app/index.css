@@ -39,6 +39,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Support for IE. */
+  -webkit-font-feature-settings: 'liga';
   font-feature-settings: 'liga';
 }
 
@@ -80,10 +81,13 @@ md-card-title-media{
 */
 #mainContainer {
   perspective: 1px;
+  -webkit-perspective: 1px;
 }
 
 .parallax {
   transform: translateZ(-1px) scale(2.5);
+  -ms-transform: scale(1); /* IE 9 */
+  -webkit-transform: translateZ(-1px) scale(2.5); /* Chrome, Safari, Opera */
   position: absolute;
   top: 0;
   right: 0;
@@ -112,6 +116,7 @@ md-card-title-media{
   Accordion
 */
 v-pane {
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
   margin-bottom: 10px;
   padding: 5px;
