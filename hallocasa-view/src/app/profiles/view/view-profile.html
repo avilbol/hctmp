@@ -145,11 +145,8 @@
           </h1>
 
           <div layout="column" layout-align="center center">
-            <div class="landing-cards-group" layout-fill>
+            <div class="landing-cards-group">
               <div ng-if="vm.userData.properties.length > 0">
-                <div layout="row" layout-margin>
-                  <h1 class="md-headline main-title">{{'landing.PropertiesTitle' | translate}}</h1>
-                </div>
                 <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
                   <div dir-paginate="property in vm.userData.properties | itemsPerPage: 12" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
                     <div flex="100" layout="row" layout-align="center">
@@ -169,7 +166,6 @@
           </div>
         </md-card-content>
       </md-card>
-
     </div>
   </div>
 </md-content>
