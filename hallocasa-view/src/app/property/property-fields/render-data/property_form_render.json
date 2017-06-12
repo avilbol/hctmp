@@ -585,7 +585,7 @@
           "name": "Monthly Admin Fees for the Landlord + Currency Dropdown",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33,
+          "flexDesktop": 60,
           "validations": "minlength, maxlength",
           "messagesParams": { "minlength": "2" },
           "validationsParams": { "minlength": 2 }
@@ -595,7 +595,7 @@
           "name": "Additional Monthly Fees for the Landlord + Currency Dropdown",
           "flexMobile": 100,
           "flexTablet": 50,
-          "flexDesktop": 33,
+          "flexDesktop": 60,
           "validations": "minlength, maxlength",
           "messagesParams": { "minlength": "2"},
           "validationsParams": { "minlength": 2}
