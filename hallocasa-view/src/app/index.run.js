@@ -20,7 +20,8 @@
   }
 
   function loadSafariCSS() {
-    $('head').append('<link rel="stylesheet" id="customSafari" type="text/css" href="./assets/css/layout-wrap-fix.css">');
+    angular.element('head')
+      .append('<link rel="stylesheet" id="customSafari" type="text/css" href="./assets/css/layout-wrap-fix.css">');
   }
 
 })();
