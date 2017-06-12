@@ -214,6 +214,16 @@
         "validationsParams": { "minlength": 2 }
       },
       {
+        "id": 62,
+        "name": "Return on investment",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
+      },
+      {
         "id": 30,
         "name": "Rented",
         "flexMobile": 100,
