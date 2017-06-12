@@ -155,8 +155,8 @@
           "flexTablet": 50,
           "flexDesktop": 33,
           "validations": "minlength, maxlength",
-          "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
-          "validationsParams": { "minlength": 2, "maxlength": 45}
+          "messagesParams": { "minlength": "2"},
+          "validationsParams": { "minlength": 2}
         }
       ]
     },

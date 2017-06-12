@@ -24,7 +24,7 @@
       <div class="landing-cards-group">
         <div ng-if="vm.userData.properties.length > 0">
           <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
-            <div ng-repeat="property in vm.userData.properties" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
+            <div dir-paginate="property in vm.userData.properties | itemsPerPage: 12" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
               <div flex="100" layout="row" layout-align="center">
                 <div
                   ng-include="'app/property/templates/properties-card.html'"

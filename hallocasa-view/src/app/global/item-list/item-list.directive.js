@@ -86,7 +86,6 @@
         }
 
         function generateRowLabel() {
-          console.log("generateRowLabel");
           if(!scope.viewList){
             return;
           }

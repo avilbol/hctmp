@@ -6,6 +6,7 @@
           ng-src="{{ profile.userImage }}"
           alt="{{ profile.firstName + ' '+ profile.lastName }}"
           spinkit-image-preloader="cube-grid-spinner"
+          class="profile-image"
         >
       </div>
       <span flex></span>
@@ -42,12 +43,9 @@
           </div>
         </div>
         <span flex="5" hide-md></span>
-        <div layout="column" hide-md hide-sm hide-xs>
+        <div layout="column" hide-sm hide-xs>
           <text-limiter flex text="profile.description" tablet-limit="200"></text-limiter>
         </div>
-      </div>
-      <div layout="row" hide-gt-sm show-md>
-        <text-limiter flex text="profile.description" tablet-limit="200"></text-limiter>
       </div>
     </md-card-title-text>
   </md-card-title>

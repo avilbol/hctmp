@@ -6,10 +6,10 @@ var gzip = require('gulp-gzip');
 var conf = require('./conf');
 
 var argv = require('yargs').argv;
-var isEnv = (argv.env === undefined) ? false : true;
+var isEnv = (argv.env !== undefined);
 
-var qaDistFolder = "/root/hallocasa/environments/qa/tomcat/webapps/ROOT/"
-var prodDistFolder = "/root/hallocasa/environments/prod/tomcat/webapps/ROOT/"
+var qaDistFolder = "/root/hallocasa/environments/qa/tomcat/webapps/ROOT/";
+var prodDistFolder = "/root/hallocasa/environments/prod/tomcat/webapps/ROOT/";
 
 if (isEnv && (argv.env === "prod" || argv.env === "qa")) {
 	conf.paths.dist = (argv.env === "prod") ? prodDistFolder : qaDistFolder;
@@ -96,7 +96,7 @@ gulp.task('other', function () {
 
   return gulp.src([
     path.join(conf.paths.src, '/**/*'),
-    path.join('!' + conf.paths.src, '/**/*.{html,css,js}')
+    path.join('!' + conf.paths.src, '/**/*.{html,js}')
   ])
     .pipe(fileFilter)
     .pipe(gulp.dest(path.join(conf.paths.dist, '/')));
