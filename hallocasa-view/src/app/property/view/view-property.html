@@ -32,6 +32,11 @@
                   <b>{{'propertyWizardPage.property.LocationDescription' | translate}}</b>
                   {{vm.property.locationDescriptions[vm.guidLanguage]}}
                 </div>
+                <br>
+                <div layout="column">
+                  <b>{{'propertyWizardPage.property.PublishDate' | translate}}</b>
+                  {{vm.property.publishDate | date : 'short'}}
+                </div>
               </md-content>
             </md-tab>
             <md-tab label="{{'Properties.title.Location' | translate}}" ng-click="vm.repaintMap()">
