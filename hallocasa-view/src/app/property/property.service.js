@@ -237,6 +237,7 @@
           propertyDetail.user.userImage = image;
         });
 
+      propertyDetail.publishDate = property.publishDate;
       return propertyDetail;
     }
   }
