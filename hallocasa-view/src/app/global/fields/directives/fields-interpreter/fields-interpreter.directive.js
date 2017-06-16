@@ -29,6 +29,15 @@
             }
           });
         }
+
+        scope.multipleFieldsInfo = function(field){
+          if(field.options.type !== "Dynamic Info"){
+            return [];
+          }
+          return _.pluck(_.filter(fieldList, function(field) {
+            return _.contains(field.options.relatedFields, field.id);
+          }), "fieldValueList");
+        }
       }
     };
   }
