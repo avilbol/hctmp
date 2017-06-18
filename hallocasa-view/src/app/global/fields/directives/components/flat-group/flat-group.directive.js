@@ -22,6 +22,10 @@
         var destroyWatcher = scope.$watch("groupTitle",renderTitle);
         scope.$on("$destroy",destroyWatcher);
 
+        scope.showTitle = function() {
+          return _.some(scope.fieldList, _.partial(_.has, _, "fieldValueList"));
+        }
+
         function renderTitle() {
           scope.renderedTitle = "";
           _.each(scope.groupTitle, function (titleSegment) {

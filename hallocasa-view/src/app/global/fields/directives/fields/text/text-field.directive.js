@@ -18,6 +18,8 @@
       link: function (scope) {
         scope.fieldName = scope.$id;
 
+        console.log(scope.fieldInformation);
+
         var fieldTypes =[
           {
             id: "standard_field",

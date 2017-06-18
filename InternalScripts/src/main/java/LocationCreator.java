@@ -19,18 +19,22 @@ public class LocationCreator {
 	static Map<String, City> citiesMap = new HashMap<String, City>();
 	static List<Neighborhood> neighborhoodsList = new ArrayList<Neighborhood>();
 	
-	static int stateConsecutive = 139;
-	static int cityConsecutive = 2265;
-	static int neighboorhoodConsecutive = 7449;
+	//static int stateConsecutive = 139;
+	//static int cityConsecutive = 2265;
+	//static int neighboorhoodConsecutive = 7449;
+	
+	static int stateConsecutive = 0;
+	static int cityConsecutive = 0;
+	static int neighboorhoodConsecutive = 0;
 
 	public static void main(String[] args) {
-		/*run(1, "Colombia", 2242);
+		run(1, "Colombia", 2242);
 		run(2, "Argentina", 4250);
 		run(3, "Chile", 347);
 		run(4, "Panama", 577);
 		run(5, "Peru", 1025);
 		run(8, "Costa Rica", 343);
-		run(9, "Ecuador", 545);*/
+		run(9, "Ecuador", 545);
 		run(6, "Canada", 2678);
 		//run(7, "EEUU", 2242);
 		//run(10, "Mexico", 2242);
@@ -65,6 +69,9 @@ public class LocationCreator {
 				row = sheet.getRow(r);
 				String e0 = row.getCell(0).getStringCellValue();
 				String e1 = row.getCell(1).getStringCellValue();
+				if(row.getCell(2) == null){
+					continue;
+				}
 				String e2 = row.getCell(2).getStringCellValue();
 				String e3 = null;
 				try{

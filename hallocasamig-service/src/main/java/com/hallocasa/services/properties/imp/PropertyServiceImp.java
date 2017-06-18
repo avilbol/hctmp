@@ -17,6 +17,7 @@ import static com.hallocasa.vo.hcfilter.properties.PropertyDatatype.SAME;
 import static com.hallocasa.vo.hcfilter.properties.PropertyDatatype.TEXT;
 import static java.lang.String.format;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -57,6 +58,8 @@ public class PropertyServiceImp implements PropertyService {
 	private String minifiedPropertyImagesPath = get(MINI_PROPERTY_IMAGES_PATH);
 
 	private static final Integer BASIC_PROPERTIES_RETURN_NUMBER = 10;
+	
+	private static final Integer RETURN_ON_INVESTMENT_FIELD_ID = 62;
 
 	/**
 	 * {@inheritDoc}
@@ -64,9 +67,31 @@ public class PropertyServiceImp implements PropertyService {
 	@Override
 	public void save(Property property, String oAuthToken) {
 		validatePropertyStructure(property, oAuthToken);
+		complementProperty(property);
 		EntityProperty entityProperty = (EntityProperty) toEntity(property);
 		daoProperty.save(entityProperty);
 		assureImageFileSystem(entityProperty.getId());
+	}
+
+	private void complementProperty(Property property) {			
+		PropertyField newPfield = null;
+		for(PropertyField propertyField : property.getFieldList()){
+			if(propertyField.getId().equals(RETURN_ON_INVESTMENT_FIELD_ID)){
+				newPfield = propertyField;
+			}
+		}
+		newPfield = (newPfield == null) ? returnOnInvestmentPfield() : newPfield;
+		newPfield.getFieldValueList().get(0).getText().setDoubleVal(0.65);
+	}
+	
+	private PropertyField returnOnInvestmentPfield(){
+		PropertyField propertyField = new PropertyField();
+		propertyField.setId(RETURN_ON_INVESTMENT_FIELD_ID);
+		PropertyFieldValue fieldValue = new PropertyFieldValue();
+		PropertyFieldValueSpec valueSpec = new PropertyFieldValueSpec();
+		fieldValue.setText(valueSpec);
+		propertyField.setFieldValueList(Arrays.asList(fieldValue));
+		return propertyField;
 	}
 
 	/**
