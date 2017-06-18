@@ -144,3 +144,17 @@ v-pane {
 .link {
   color: #0c58a6;
 }
+
+/*
+  Fixes invisible tabs on OS X Yosemite with Chrome
+*/
+
+md-tabs.md-dynamic-height md-tabs-content-wrapper {
+  overflow: hidden;
+}
+
+@media (min-width:426px) {
+  md-tabs-wrapper {
+    display: initial;
+  }
+}
