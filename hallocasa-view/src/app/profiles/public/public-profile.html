@@ -13,7 +13,18 @@
     </div>
   <br>
   <div layout="row" layout-align="center">
-    <md-progress-circular md-mode="indeterminate" ng-disabled="!vm.showLoading"></md-progress-circular>
+    <md-progress-circular md-mode="indeterminate" ng-disabled="!vm.showLoading" ng-if="!vm.isSafari"></md-progress-circular>
+    <md-button
+      ng-click="vm.fetchRangeProfiles()"
+      ng-if="vm.showLoading && vm.isSafari && vm.profiles.length"
+      ng-disabled="vm.isLoading"
+      class="md-primary md-raised"
+    >
+      <div layout="row" layout-align="center">
+        <md-progress-circular md-mode="indeterminate" md-diameter="20" ng-if="vm.isLoading"></md-progress-circular>
+        <span ng-if="!vm.isLoading">{{'PublicProfile.BrowseProfile.loadMore' | translate}}</span>
+      </div>
+    </md-button>
   </div>
   <br>
 </md-content>

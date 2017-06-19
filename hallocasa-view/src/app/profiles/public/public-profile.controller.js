@@ -6,7 +6,7 @@
     .controller('PublicProfileController', PublicProfileController);
 
   /** @ngInject */
-  function PublicProfileController(ProfilesService) {
+  function PublicProfileController(ProfilesService, BrowserDetectionService) {
     var vm = this;
     var excludeIdList = [];
     var amountProfiles = 5;
@@ -14,11 +14,14 @@
     vm.fetchRangeProfiles = fetchRangeProfiles;
     vm.profiles = [];
     vm.showLoading = true;
+    vm.isLoading = false;
+    vm.isSafari = BrowserDetectionService.detectBrowser().ISSAFARI;
 
     function fetchRangeProfiles() {
       if(!vm.showLoading){
         return;
       }
+      vm.isLoading = true;
       ProfilesService.loadPublicProfiles(excludeIdList, amountProfiles)
         .then(function (profiles) {
           _.each(profiles, function (profile) {
@@ -30,6 +33,9 @@
             vm.profiles.push(profile);
           });
           vm.showLoading = profiles.length > 0 && profiles.length === amountProfiles;
+        })
+        .finally(function () {
+          vm.isLoading = false;
         });
     }
 
