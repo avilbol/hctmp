@@ -35,6 +35,9 @@
   <div ng-message="required" ng-if="messages.termsAndConditions">
     {{'SignUp.Form.TermsAndConditions' | translate}}
   </div>
+  <div ng-message="required" ng-if="messages.recaptcha">
+    {{'SignUp.Form.requiredRecaptcha' | translate}}
+  </div>
   <div ng-message="requireOnce" ng-if="messages.requireOnce">
     {{'constraints.NotNull' | translate}}
   </div>

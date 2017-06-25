@@ -52,6 +52,22 @@
           ></ng-messages-generator>
         </md-input-container>
 
+        <md-input-container  class="md-block">
+          <div
+            vc-recaptcha
+            name="recaptcha"
+            key="'6LcpzyYUAAAAAL-o3-8b0L2AYYTgA2xOuJfZjRVG'"
+            ng-model="recaptchaResponse"
+            ng-required="true"
+            lang="vm.currentLanguage"
+          ></div>
+          <ng-messages-generator
+            form="loginForm"
+            input-name="recaptcha"
+            validators="recaptcha"
+          ></ng-messages-generator>
+        </md-input-container>
+
 
         <md-input-container layout="column" layout-align="center center">
           <md-button class="md-primary md-raised" type="submit">
