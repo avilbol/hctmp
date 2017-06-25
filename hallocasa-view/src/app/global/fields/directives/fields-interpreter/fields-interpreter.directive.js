@@ -34,7 +34,7 @@
           if(field.options.type !== "Dynamic Info"){
             return [];
           }
-          return _.pluck(_.filter(fieldList, function(field) {
+          return _.pluck(_.filter(scope.fieldList, function(field) {
             return _.contains(field.options.relatedFields, field.id);
           }), "fieldValueList");
         }
