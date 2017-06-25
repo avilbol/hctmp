@@ -17,7 +17,8 @@
       validateToken: validateToken,
       getCurrentUser: getCurrentUser,
       launchLoginDialog: launchLoginDialog,
-      validateActiveSession: validateActiveSession
+      validateActiveSession: validateActiveSession,
+      isAuthenticated: isAuthenticated
     };
 
     var currentUser;
@@ -47,6 +48,8 @@
           .then(function (auth) {
             $auth.setToken(auth.data.securityToken.tokenValue);
             setCurrentUser(auth.data.user);
+            setSessionExpiration(auth.data.securityToken);
+
             $intercom.boot(currentUser);
             WootricService.boot(currentUser);
             resolve(currentUser);
@@ -58,12 +61,20 @@
     }
 
     function logout() {
-      if(!$auth.isAuthenticated()){
+      if(!isAuthenticated()){
         return {};
       }
       clearCurrentUser();
+      localStorageService.remove("sessionExpiration");
       $auth.logout();
       $intercom.shutdown();
+    }
+
+    function setSessionExpiration(securityToken) {
+      var expiresIn = securityToken.expiresIn;
+      var registered = securityToken.registered;
+      var expirationDate = new Date(registered).setMilliseconds(expiresIn);
+      localStorageService.set("sessionExpiration", expirationDate);
     }
 
     function setCurrentUser(userData) {
@@ -72,7 +83,7 @@
     }
 
     function getCurrentUser() {
-      if(!$auth.isAuthenticated()){
+      if(!isAuthenticated()){
         return {};
       }
       currentUser = currentUser ? currentUser : localStorageService.get("currentUser");
@@ -105,7 +116,9 @@
     }
 
     function validateActiveSession(message) {
-      if(!$auth.isAuthenticated()) {
+      var activeSession = isAuthenticated();
+
+      if(!activeSession) {
         var options = {
           description: message,
           allowClose: false,
@@ -113,6 +126,22 @@
         };
         launchLoginDialog(options)
       }
+
+      return activeSession;
+    }
+
+    function isAuthenticated() {
+      if(!$auth.isAuthenticated()){
+        return false;
+      }
+
+      var sessionExpiration = localStorageService.get("sessionExpiration");
+
+      if(!sessionExpiration){
+        return false;
+      }
+
+      return (Date.now() < sessionExpiration);
     }
 
     function launchLoginDialog(options) {
