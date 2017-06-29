@@ -6,13 +6,14 @@
     .service('CurrencyService', CurrencyService);
 
   /** @ngInject */
-  function CurrencyService ($q, $resource, GenericRESTResource, backend_url) {
+  function CurrencyService ($q, $resource, GenericRESTResource, backend_url, idSearchFilter, numberFilter) {
     var service = {
       loadCurrencyData: loadCurrencyData,
       loadCurrency: loadCurrency,
       loadExchange: loadExchange,
       setCurrentCurrency: setCurrentCurrency,
-      getCurrentCurrency: getCurrentCurrency
+      getCurrentCurrency: getCurrentCurrency,
+      calculateExchange: calculateExchange
     };
 
     var resources = {
@@ -47,6 +48,49 @@
     function getCurrentCurrency() {
       return currentCurrency;
     }
+
+    function calculateExchange(inputCurrency, outputCurrency) {
+      return loadCurrencyData()
+        .then(function (data) {
+          return doRate(data);
+        })
+        .catch(function () {
+          toastr.warning(
+            translateFilter("Error.whenloadingexchangerates"));
+        });
+    }
+
+    function doRate(data){
+      return new Promise(function(resolve, reject){
+        exchange = data.exchange;
+        currency = data.currency;
+        inputCurrency = idSearchFilter(currency, inputCurrency.currencyID).abbreviation;
+        outputCurrency = idSearchFilter(currency, outputCurrency.id).abbreviation;
+        var rate = exchange[inputCurrency][outputCurrency];
+        resolve(numberFilter(inputCurrency.amount * rate, 2));
+      });
+    }
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   }
 })();

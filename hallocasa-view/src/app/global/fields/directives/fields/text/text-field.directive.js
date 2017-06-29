@@ -36,6 +36,9 @@
               "data2Type":"TEXT",
               "data3Type":"SAME"
             }
+          },
+          {
+            id: "computed_field_value"
           }
         ];
         var fieldValueList = scope.fieldInformation.fieldValueList;
@@ -48,6 +51,7 @@
 
         function validFieldModel(fieldType) {
           var baseValidation = (_.isArray(fieldValueList) && fieldValueList.length > 0);
+          baseValidation = baseValidation || scope.fieldInformation.overwriterValue;
 
           switch (fieldType){
             case "scope_dependent_field":
@@ -112,17 +116,24 @@
           });
         }
 
-        function detectFieldType() {
-          var fieldTypeDescriptor =  _.pick(scope.fieldInformation, "textType", "data1Type", "data2Type", "data3Type");
-          scope.fieldType = _.find(fieldTypes, function (fieldType) {
+        function detectByDescriptor(fieldTypeDescriptor){
+          return _.find(fieldTypes, function (fieldType) {
             return _.isEqual(fieldType.fieldDescriptor, fieldTypeDescriptor);
           });
+        }
 
+        function detectByFieldInfo(fieldInfo){
+          return fieldInfo.overwriterValue ? fieldTypes[2] : undefined;
+        }
+
+        function detectFieldType() {
+          var fieldTypeDescriptor =  _.pick(scope.fieldInformation, "textType", "data1Type", "data2Type", "data3Type");
+          scope.fieldType = detectByDescriptor(fieldTypeDescriptor);
+          scope.fieldType = scope.fieldType || detectByFieldInfo(scope.fieldInformation);
           if(!scope.fieldType){
             $log.warn("No reconoce descriptor de tipo de campo de texto:", fieldTypeDescriptor);
             return;
           }
-
           buildFieldModel(scope.fieldType.id);
         }
 

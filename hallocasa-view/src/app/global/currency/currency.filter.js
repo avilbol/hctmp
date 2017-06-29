@@ -8,10 +8,17 @@
   function dynamicCurrency(CurrencyService, idSearchFilter, translateFilter, numberFilter, toastr, $sce) {
     var exchange, currency;
 
-    function calculateExchange(inputCurrency, outputCurrency) {
+    function calculateExchange(inputCurrency, outputCurrency, loadConvertedCrcy) {
       var rate = getCurrencyRate(inputCurrency, outputCurrency);
-      var convertedCurrency = numberFilter(inputCurrency.amount * rate, 2);
+      var convertedCurrency = inputCurrency.amount * rate;
 
+      if(loadConvertedCrcy){
+        return {
+          "currencyID": outputCurrency.id,
+          "amount": convertedCurrency
+        }
+      }
+      convertedCurrency = numberFilter(convertedCurrency, 2);
       return $sce.trustAsHtml("<b>" + convertedCurrency + "</b> " + outputCurrency.abbreviation);
     }
 
@@ -31,11 +38,11 @@
           translateFilter("Error.whenloadingexchangerates"));
       });
 
-    return function(inputMoney) {
+    return function(inputMoney, loadConvertedCrcy) {
       var outputCurrency = CurrencyService.getCurrentCurrency();
       if(exchange){
         try{
-          return calculateExchange(inputMoney, outputCurrency);
+          return calculateExchange(inputMoney, outputCurrency, loadConvertedCrcy);
         }
         catch(err){
           return "...";

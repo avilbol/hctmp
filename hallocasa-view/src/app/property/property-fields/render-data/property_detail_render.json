@@ -220,9 +220,8 @@
         "flexTablet": 100,
         "flexDesktop": 100,
         "options": {
-          "type": "dynamic_info",
-          "compute": "calculateRoi",
-          "params": [30]
+          "type": "computed_inside",
+          "operation": "calculateRoi"
         }
       },
       {

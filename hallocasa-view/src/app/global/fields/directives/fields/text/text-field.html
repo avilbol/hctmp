@@ -33,5 +33,6 @@
     <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
     <span ng-switch-when="standard_field">{{::fieldInformation.fieldValueList[0].text.strVal}}</span>
     <span ng-switch-when="scope_dependent_field">{{::fieldInformation.fieldValueList[relocatedIndex].data2.strVal}}</span>
+    <span ng-switch-when="computed_field_value">{{::fieldInformation.overwriterValue}}</span>
   </div>
 </div>

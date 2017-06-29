@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .service('FieldsService', FieldsService);
 
-  function FieldsService(LanguageService, LocationService, CurrencyService,$q, $log) {
+  function FieldsService(LanguageService, LocationService, CurrencyService, DataCalcService, $q, $log) {
     var service = {
       generateFieldsRender: generateFieldsRender,
       loadOptionsByServiceId: loadOptionsByServiceId,
@@ -26,6 +26,7 @@
       fieldsRendered = 0;
       fieldsRender = _.map(fieldsRender, function(tab){
         tab.fieldList = concatFieldsData(tab.fieldList, fieldsDataList);
+        tab.fieldList = postProcessFieldList(tab.fieldList, fieldsDataList);
         return tab;
       });
 
@@ -75,16 +76,26 @@
           }
 
           var fieldData = searchFieldById(field.id, fieldsDataList);
-          if(!fieldData){
+          var options = field.options || {};
+          if(!fieldData && options.type != 'computed_inside'){
             delete fieldList[fieldIndex];
           }
-          else {
+          if(fieldData) {
             fieldList[fieldIndex] = _.extend(fieldData, field);
             fieldsRendered += 1;
           }
         })
         .compact()
         .value();
+    }
+
+    function postProcessFieldList(fieldList, fieldsDataList){
+      _.each(fieldList, function(field){
+        if(_.has(field, "options") && field.options.type == 'computed_inside'){
+          field.overwriterValue = DataCalcService[field.options.operation](fieldsDataList);
+        }
+      });
+      return fieldList;
     }
 
     function isComponentField(field) {
