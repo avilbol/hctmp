@@ -103,6 +103,8 @@
               watchDestroyField(scope.fieldScope.identifier);
               scope.relocatedIndex = scope.fieldScope.identifier;
               break;
+            case "computed_field_value":
+              scope.fieldInformation.propertyFieldType = scope.fieldInformation.options.propertyFieldType;
           }
         }
 

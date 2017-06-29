@@ -90,9 +90,13 @@
     }
 
     function postProcessFieldList(fieldList, fieldsDataList){
-      _.each(fieldList, function(field){
-        if(_.has(field, "options") && field.options.type == 'computed_inside'){
+      _.each(fieldList, function(field, fieldIndex){
+        var computedInside = _.has(field, "options") && field.options.type == 'computed_inside';
+        if(computedInside){
           field.overwriterValue = DataCalcService[field.options.operation](fieldsDataList);
+        }
+        if(computedInside && !field.overwriterValue){
+          delete fieldList[fieldIndex];
         }
       });
       return fieldList;

@@ -219,6 +219,10 @@
         "flexMobile": 100,
         "flexTablet": 100,
         "flexDesktop": 100,
+        "propertyFieldType": {
+            "id" : 2
+        },
+        "lang": "hallocasa.propertyfield.returnoninvestment",
         "options": {
           "type": "computed_inside",
           "operation": "calculateRoi"
