@@ -23,7 +23,9 @@
         scope.$on("$destroy",destroyWatcher);
 
         scope.showTitle = function() {
-          return _.some(scope.fieldList, _.partial(_.has, _, "fieldValueList"));
+          return _.some(scope.fieldList, function(fieldItem){
+            return _.has(fieldItem, "fieldValueList") && fieldItem.fieldValueList.length > 0;
+          });
         }
 
         function renderTitle() {
