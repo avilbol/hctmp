@@ -19,7 +19,8 @@
       vm.userData.language = LOCALES.languages[currentLanguage];
 			RegisterService.makeRegister(vm.userData)
 				.then(function(){
-          toastr.success('Usuario creado con éxito');
+          toastr.success(translateFilter("SignUp.Form.Success.Message") + '\r\n' +
+            translateFilter("SignUp.Form.Success.EmailSent"));
           closeDialog();
 				})
 				.catch(function(error){
