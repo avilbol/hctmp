@@ -34,8 +34,15 @@
           serviceParameters[parameterName] = parameterValue;
           FieldsService.loadOptionsByServiceId(serviceId, serviceParameters)
             .then(function (options) {
-              var translationManagement = _.find(options, function(option){
-                return option.dependsOnLang}) ? "PARTIAL" : "NONE";
+              var translationManagement;
+              if(scope.readonly){
+                translationManagement = "NONE";
+              }
+              else{
+                translationManagement = _.find(options, function(option){
+                  return option.dependsOnLang}) ? "PARTIAL" : "NONE";
+              }
+
               scope.options = FieldsService.processOptions(options, translationManagement);
               disableDefaultKeyDownHandler();
             })
@@ -72,7 +79,7 @@
 
         function staticOptionsHandler(){
           var optionsList = staticOptionsGroup.dropdownOptionList;
-          var translationManagement = staticOptionsGroup.translationManagement;
+          var translationManagement =  scope.readonly ? "NONE" : staticOptionsGroup.translationManagement;
           scope.options = FieldsService.processOptions(optionsList, translationManagement);
         }
 

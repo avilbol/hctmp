@@ -137,6 +137,7 @@
       switch (translationManagement){
         case "NONE":
           parseOptionString = function (option) {
+            option.name = _.isUndefined(option.name) ? option.lang : option.name;
             return option;
           };
           break;
