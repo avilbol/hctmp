@@ -47,92 +47,123 @@
         }
 
         function loadOptions() {
-          var serviceId, fieldId, field, parameterName, fieldPath;
           switch(optionsData.type){
             case "static_options":
-              scope.options = FieldsService.processOptions(staticOptionsGroup.dropdownOptionList, staticOptionsGroup.translationManagement);
+              staticOptionsHandler();
               break;
             case "dynamic_options":
-              serviceId = optionsData.serviceId;
-              FieldsService.loadOptionsByServiceId(serviceId)
-                .then(function (options) {
-                  scope.options = FieldsService.processOptions(options, "NONE");
-                })
-                .catch(function () {
-                  toastr.warning(
-                    translateFilter("Error.whenloadingserviceoptions"), serviceId);
-                  scope.options = [];
-                });
+              dynamicOptionsHandler();
               break;
             case "binary_options":
-              scope.options = [
-                {name: translateFilter("global.yes"), value: true},
-                {name: translateFilter("global.no"), value: false}
-              ];
+              binaryOptionsHandler();
               break;
             case "internal_dependency_options":
-              fieldId = optionsData.fieldId;
-              fieldPath = FieldsService.getFieldPathByID(fieldId, scope.fieldRootScope);
-              if(fieldPath) {
-                field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
-                if (field.fieldValueList) {
-                  scope.options = field.fieldValueList;
-                }
-                var destroyInDependencyWatcher = scope.$watch(function () {
-                  field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
-                  var unlistedOptions = scope.options && scope.options.length > 0 && !scope.options[0].name;
-                  var fieldWithName = field.fieldValueList && field.fieldValueList.length > 0 && field.fieldValueList[0].name;
-
-                  if((!scope.options || unlistedOptions) && fieldWithName){
-                    scope.options = field.fieldValueList;
-                  }
-
-                  if(field.fieldValueList){
-                    return field.fieldValueList.length;
-                  }
-                },function (newValue, oldValue) {
-                  if(newValue !== oldValue){
-                    scope.options = field.fieldValueList;
-                  }
-                });
-                scope.$on("$destroy",destroyInDependencyWatcher);
-              }
-
+              internalDependencyOptionsHandler();
               break;
             case "external_dependency_options":
-              serviceId = optionsData.serviceId;
-              fieldId = optionsData.fieldId;
-              parameterName = optionsData.parameterPayload;
-              fieldPath = FieldsService.getFieldPathByID(fieldId, scope.fieldRootScope);
-              if(fieldPath){
-                field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
-                if(field.fieldValueList){
-                  var parameterValue = field.fieldValueList[0].identifier;
-                  loadDependentOptions(serviceId, parameterName, parameterValue);
-                }
-
-                var destroyExDependencyWatcher = scope.$watch(function () {
-                  var field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
-                  if(field.fieldValueList){
-                    return field.fieldValueList[0].identifier;
-                  }
-                },function (newValue, oldValue) {
-                  if(newValue !== oldValue){
-                    loadDependentOptions(serviceId, parameterName, newValue);
-                  }
-                });
-
-                scope.$on("$destroy",destroyExDependencyWatcher);
-              }
+              externalDependencyOptionsHandler();
               break;
             case "parameter_dependency_options":
-              serviceId = optionsData.serviceId;
-              parameterName = optionsData.parameterPayload;
-              parameterValue = scope.additionalParameters[optionsData.parameterName];
-              loadDependentOptions(serviceId, parameterName, parameterValue);
+              parameterDependencyOptionsHandler();
               break;
 
           }
+        }
+
+        function staticOptionsHandler(){
+          var optionsList = staticOptionsGroup.dropdownOptionList;
+          var translationManagement = staticOptionsGroup.translationManagement;
+          scope.options = FieldsService.processOptions(optionsList, translationManagement);
+        }
+
+        function dynamicOptionsHandler(){
+          var serviceId = optionsData.serviceId;
+          FieldsService.loadOptionsByServiceId(serviceId)
+            .then(function (options) {
+              scope.options = FieldsService.processOptions(options, "NONE");
+            })
+            .catch(function () {
+              toastr.warning(
+                translateFilter("Error.whenloadingserviceoptions"), serviceId);
+              scope.options = [];
+            });
+        }
+
+        function binaryOptionsHandler(){
+          scope.options = [
+            {name: translateFilter("global.yes"), value: true},
+            {name: translateFilter("global.no"), value: false}
+          ];
+        }
+
+        function internalDependencyOptionsHandler(){
+          var fieldId = optionsData.fieldId;
+          var fieldPath = FieldsService.getFieldPathByID(fieldId, scope.fieldRootScope);
+          var field;
+
+          if(!fieldPath) {
+            return;
+          }
+          field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+          if (field.fieldValueList) {
+            scope.options = field.fieldValueList;
+          }
+          var destroyInDependencyWatcher = scope.$watch(function () {
+            field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+            var unlistedOptions = scope.options && scope.options.length > 0 && !scope.options[0].name;
+            var fieldWithName = field.fieldValueList && field.fieldValueList.length > 0 && field.fieldValueList[0].name;
+
+            if((!scope.options || unlistedOptions) && fieldWithName){
+              scope.options = field.fieldValueList;
+            }
+
+            if(field.fieldValueList){
+              return field.fieldValueList.length;
+            }
+          },function (newValue, oldValue) {
+            if(newValue !== oldValue){
+              scope.options = field.fieldValueList;
+            }
+          });
+          scope.$on("$destroy",destroyInDependencyWatcher);
+        }
+
+        function externalDependencyOptionsHandler(){
+          var serviceId = optionsData.serviceId;
+          var fieldId = optionsData.fieldId;
+          var parameterName = optionsData.parameterPayload;
+          var field;
+          var fieldPath = FieldsService.getFieldPathByID(fieldId, scope.fieldRootScope);
+
+          if(!fieldPath){
+            return;
+          }
+          field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+          if(field.fieldValueList){
+            var parameterValue = field.fieldValueList[0].identifier;
+            loadDependentOptions(serviceId, parameterName, parameterValue);
+          }
+
+          var destroyExDependencyWatcher = scope.$watch(function () {
+            var field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+            if(field.fieldValueList){
+              return field.fieldValueList[0].identifier;
+            }
+          },function (newValue, oldValue) {
+            if(newValue !== oldValue){
+              loadDependentOptions(serviceId, parameterName, newValue);
+            }
+          });
+
+          scope.$on("$destroy",destroyExDependencyWatcher);
+
+        }
+
+        function parameterDependencyOptionsHandler(){
+          var serviceId = optionsData.serviceId;
+          var parameterName = optionsData.parameterPayload;
+          var parameterValue = scope.additionalParameters[optionsData.parameterName];
+          loadDependentOptions(serviceId, parameterName, parameterValue);
         }
 
         function disableDefaultKeyDownHandler() {
