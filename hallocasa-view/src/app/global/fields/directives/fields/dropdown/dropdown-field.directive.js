@@ -17,7 +17,7 @@
         form: "=?",
         readonly: "=?"
       },
-      link: function (scope) {
+      link: function (scope, element) {
         scope.fieldName = scope.$id;
 
         var optionsData = scope.fieldInformation.options;
@@ -37,6 +37,7 @@
               var translationManagement = _.find(options, function(option){
                 return option.dependsOnLang}) ? "PARTIAL" : "NONE";
               scope.options = FieldsService.processOptions(options, translationManagement);
+              disableDefaultKeyDownHandler();
             })
             .catch(function () {
               toastr.warning(
@@ -132,6 +133,12 @@
               break;
 
           }
+        }
+
+        function disableDefaultKeyDownHandler() {
+          element.find('input').on('keydown', function(ev) {
+            ev.stopPropagation();
+          });
         }
 
         loadOptions();

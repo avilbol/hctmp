@@ -963,5 +963,6 @@
 	"landing.ProfilesTitle": "Profile",
 	"landing.PropertiesTitle": "Immobilien",
 	"landing.SeeMore": "Mehr",
-	"Error.inactiveAccount": "Ihr Konto ist inaktiv. Bitte aktivieren Sie Ihr Konto, indem Sie zu Ihrem Email Postfach gehen."
+	"Error.inactiveAccount": "Ihr Konto ist inaktiv. Bitte aktivieren Sie Ihr Konto, indem Sie zu Ihrem Email Postfach gehen.",
+  "placeholder.search": "Suche..."
 }

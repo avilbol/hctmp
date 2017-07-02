@@ -65,9 +65,17 @@
       ng-model="fieldInformation.fieldValueList[0].identifier"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldName}}"
+      md-on-close="searchTerm = ''"
+      data-md-container-class="selectHeader"
       ng-required="required"
     >
-      <md-option ng-repeat="option in options" ng-value="option.identifier">
+      <md-select-header class="select-header">
+        <input ng-model="searchTerm"
+               type="search"
+               placeholder="{{'placeholder.search' | translate}}"
+               class="header-searchbox md-text">
+      </md-select-header>
+      <md-option ng-repeat="option in options | filter: searchTerm" ng-value="option.identifier">
         {{option.name | unicode}}
       </md-option>
     </md-select>
@@ -79,9 +87,17 @@
       ng-model="fieldInformation.fieldValueList[0].identifier"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldName}}"
+      md-on-close="searchTerm = ''"
+      data-md-container-class="selectHeader"
       ng-required="required"
     >
-      <md-option ng-repeat="option in options" ng-value="option.identifier">
+      <md-select-header class="select-header">
+        <input ng-model="searchTerm"
+               type="search"
+               placeholder="{{'placeholder.search' | translate}}"
+               class="header-searchbox md-text">
+      </md-select-header>
+      <md-option ng-repeat="option in options | filter: searchTerm" ng-value="option.identifier">
         {{option.name | unicode}}
       </md-option>
     </md-select>

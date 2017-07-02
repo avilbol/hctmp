@@ -963,5 +963,6 @@
 	"landing.ProfilesTitle": "Profiles",
 	"landing.PropertiesTitle": "Properties",
 	"landing.SeeMore": "More",
-	"Error.inactiveAccount": "Your account is inactive. Please activate it going to your email"
+	"Error.inactiveAccount": "Your account is inactive. Please activate it going to your email",
+  "placeholder.search": "Search..."
 }
