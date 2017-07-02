@@ -6,14 +6,13 @@
     .service('CurrencyService', CurrencyService);
 
   /** @ngInject */
-  function CurrencyService ($q, $resource, GenericRESTResource, backend_url, idSearchFilter, numberFilter) {
+  function CurrencyService ($q, $resource, GenericRESTResource, backend_url, idSearchFilter) {
     var service = {
       loadCurrencyData: loadCurrencyData,
       loadCurrency: loadCurrency,
       loadExchange: loadExchange,
       setCurrentCurrency: setCurrentCurrency,
-      getCurrentCurrency: getCurrentCurrency,
-      calculateExchange: calculateExchange
+      getCurrentCurrency: getCurrentCurrency
     };
 
     var resources = {
