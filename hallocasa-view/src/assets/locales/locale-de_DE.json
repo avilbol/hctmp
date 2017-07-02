@@ -55,7 +55,7 @@
 	"SignUp.Form.Success.EmailSent": "Eine Best\u00E4tigungsmail wurde an Ihre Email Adresse gesendet. Schauen Sie in Ihrem Postfach nach.",
 	"SignUp.Form.TermsAndConditions": "Nutzungsbedingungen",
 	"SignUp.Form.TermsAndConditions.Accept": "Ich akzeptiere die Nutzungsbedingungen",
-  "SignUp.Form.requiredRecaptcha": "Du musst beweisen, dass ein Mensch ist",
+  "SignUp.Form.requiredRecaptcha": "Beweisen Sie, dass Sie ein Mensch sind",
 	"Login.Dialog.Title": "Login",
 	"Login.Form.Email": "Email",
 	"Login.Form.Password": "Passwort",
