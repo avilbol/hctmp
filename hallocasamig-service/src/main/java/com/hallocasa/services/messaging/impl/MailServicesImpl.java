@@ -119,10 +119,11 @@ public class MailServicesImpl implements MailServices {
         // send the message
         try {
             Message message = new MimeMessage(mailSession);
+            message.setHeader("Content-Type", "text/html;charset=UTF-8");
             message.setRecipients(Message.RecipientType.TO, InternetAddress
                     .parse(addresses));
             message.setSubject(subject);
-            message.setContent(body, "text/html");
+            message.setContent(body, "text/html;charset=UTF-8");
 
             Transport.send(message);
 
