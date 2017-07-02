@@ -20,7 +20,6 @@
       },
       link: function (scope) {
         if(!scope.form){
-          console.log("additionalParameters: " + scope.additionalParameters);
           var destroyWatcher = scope.$watch("[formName, form]", function () {
             if(!scope.form && scope.formName){
               scope.form = scope.$parent[scope.formName];
