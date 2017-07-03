@@ -135,8 +135,8 @@
           "flexDesktop": 33,
           "validations": "required, minlength, maxlength",
           "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
-          "validationsParams": { "minlength": 2, "maxlength": 45}
-
+          "validationsParams": { "minlength": 2, "maxlength": 45},
+          "fixCurrency": true
         },
         {
           "id": 6,
@@ -588,7 +588,8 @@
           "flexDesktop": 60,
           "validations": "minlength, maxlength",
           "messagesParams": { "minlength": "2" },
-          "validationsParams": { "minlength": 2 }
+          "validationsParams": { "minlength": 2 },
+          "fixCurrency": true
         },
         {
           "id": 58,
@@ -626,7 +627,8 @@
           "flexDesktop": 33,
           "validations": "minlength, maxlength",
           "messagesParams": { "minlength": "2"},
-          "validationsParams": { "minlength": 2 }
+          "validationsParams": { "minlength": 2 },
+          "fixCurrency": true
         },
         {
           "id": 30,

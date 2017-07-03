@@ -90,6 +90,27 @@
         ></ng-messages-generator>
       </md-input-container>
     </div>
+
+    <div layout-gt-sm="row" layout-gt-xs="row" layout-xs="column">
+      <md-input-container class="md-block" flex>
+        <label>{{'Property.wizard.currencytouse' | translate}}</label>
+        <md-select
+          name="currencyToUse"
+          ng-model="vm.property.propertyKey.currencyToUse"
+          ng-model-options="{trackBy: '$value.id'}"
+          required
+        >
+          <md-option ng-repeat="currency in vm.currencies" ng-value="currency" ng-disabled="vm.isReadOnly">
+            {{currency.abbreviation}}
+          </md-option>
+        </md-select>
+        <ng-messages-generator
+          form="propertyInfoForm"
+          input-name="currencyToUse"
+          validators="required"
+        ></ng-messages-generator>
+      </md-input-container>
+    </div>
   </div>
   <div>
     <md-button ng-click="vm.closeDialog()">{{'Properties.wizard.cancel.label' | translate}}</md-button>

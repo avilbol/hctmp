@@ -22,6 +22,7 @@
       title="{{fieldInformation.lang | translate}}"
       ng-model="fieldInformation.fieldValueList[0].data1.intVal"
       ng-disabled="!options || options.length === 0"
+      ng-if="!fieldInformation.fixCurrency"
       aria-label="{{fieldName}}"
       ng-required="required || fieldInformation.fieldValueList[0].data2.doubleVal > 0"
     >
@@ -29,6 +30,7 @@
         {{option.abbreviation}}
       </md-option>
     </md-select>
+    <span ng-bind-html="abbreviation" ng-if="fieldInformation.fixCurrency"></span>
   </md-input-container>
   <div ng-if="readonly && price">
     <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
