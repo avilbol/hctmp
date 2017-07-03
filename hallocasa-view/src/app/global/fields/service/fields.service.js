@@ -12,6 +12,7 @@
       processOptions: processOptions,
       getFieldPathByID: getFieldPathByID,
       getFieldByPath: getFieldByPath,
+      getFieldById: getFieldById,
       generateFieldValueList: generateFieldValueList,
       consolidateFields: consolidateFields
     };
@@ -173,7 +174,7 @@
           parseOptionString = _.identity;
       }
 
-      var parseFunction = _.compose(cleanOption, detectOptionID, parseOptionString);
+      var parseFunction = _.compose(detectOptionID, parseOptionString);
       return _.map(optionsList, parseFunction);
     }
 
@@ -211,6 +212,11 @@
         return isSoughtField;
       });
       return fieldPath;
+    }
+
+    function getFieldById(fieldID, fieldRootScope) {
+      var fieldPath = getFieldPathByID(fieldID, fieldRootScope);
+      return getFieldByPath(fieldPath, fieldRootScope);
     }
 
     function getFieldByPath(fieldPath, fieldRootScope) {

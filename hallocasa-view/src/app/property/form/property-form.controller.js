@@ -7,7 +7,7 @@
 		.controller('PropertyFormController', PropertyFormController);
 
   /** @ngInject */
-  function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, property_images_url,
+  function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, $scope, property_images_url,
                                   FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode) {
 
 		var vm = this;
@@ -81,7 +81,7 @@
             fieldsData.propertyFields = FieldsService.consolidateFields(vm.property.fieldList, fieldsData.propertyFields);
           }
           vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.propertyFormRender.tabList);
-
+          addWatchers();
           vm.currentState = vm.state.WIZARD_2;
         })
         .catch(function () {
@@ -181,6 +181,22 @@
 
     function validateSubmit() {
       vm.showSubmit = editMode ? true : vm.nextDisabled;
+    }
+
+    function addWatchers() {
+      addCityWithGoogleMapsDependency();
+    }
+
+    function addCityWithGoogleMapsDependency(){
+      var cityFieldId = 8;
+      var gmapsFieldId = 10;
+      $scope.cityField = FieldsService.getFieldById(cityFieldId, vm.fieldsRender);
+      var gmapsField = FieldsService.getFieldById(gmapsFieldId, vm.fieldsRender);
+      $scope.$watch("cityField", function(cityField){
+        if(cityField.selectedOption){
+          gmapsField.coordinatesSource = cityField.selectedOption;
+        }
+      }, true);
     }
 
     loadCountries();
