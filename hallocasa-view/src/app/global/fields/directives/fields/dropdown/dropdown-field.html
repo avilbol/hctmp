@@ -110,15 +110,15 @@
   </md-input-container>
 
   <div ng-if="readonly && (fieldInformation.fieldValueList[0].identifier || fieldInformation.fieldValueList[0].text)">
-    <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
-    <span ng-switch-when="static_options">{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'data1':'identifier' | translate}}</span>
-    <span ng-switch-when="dynamic_options">{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier' | translate}}</span>
-    <span ng-switch-when="binary_options">
-      {{fieldInformation.fieldValueList[0].text.boolVal ? 'global.yes' : 'global.no' | translate}}
+    <b translate>{{fieldInformation.lang}}:&nbsp;</b>
+    <span ng-switch-when="static_options" translate>{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'data1':'identifier'}}</span>
+    <span ng-switch-when="dynamic_options" translate>{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier'}}</span>
+    <span ng-switch-when="binary_options" translate>
+      {{fieldInformation.fieldValueList[0].text.boolVal ? 'global.yes' : 'global.no'}}
     </span>
-    <span ng-switch-when="internal_dependency_options">{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier' | translate}}</span>
-    <span ng-switch-when="parameter_dependency_options">{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier' | translate}}</span>
-    <span ng-switch-when="external_dependency_options">{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier' | translate}}</span>
+    <span ng-switch-when="internal_dependency_options" translate>{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier'}}</span>
+    <span ng-switch-when="parameter_dependency_options" translate>{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier'}}</span>
+    <span ng-switch-when="external_dependency_options" translate>{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier'}}</span>
   </div>
 
 </div>

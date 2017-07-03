@@ -94,7 +94,7 @@
             var rawLabel = getLabel(itemList);
             if(!rawLabel){return;}
             if(scope.translateLabel){
-              label += "{{'"+rawLabel+"' | translate}}";
+              label += "<span translate>"+rawLabel+"</span>";
             }
             else{
               label += unicodeFilter(rawLabel);
