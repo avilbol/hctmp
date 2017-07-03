@@ -55,6 +55,7 @@
 	"SignUp.Form.Success.EmailSent": "Un correo de confirmaci\u00F3n le ha sido enviado",
 	"SignUp.Form.TermsAndConditions": "T\u00E9rminos y Condiciones",
 	"SignUp.Form.TermsAndConditions.Accept": "Acepto los T\u00E9rminos y Condiciones",
+  "SignUp.Form.requiredRecaptcha": "Debe comprobar que es un humano",
 	"Login.Dialog.Title": "Ingresar",
 	"Login.Form.Email": "Correo",
 	"Login.Form.Password": "Contrase\u00F1a",
@@ -963,5 +964,6 @@
 	"landing.ProfilesTitle": "Perfiles",
 	"landing.PropertiesTitle": "Propiedades",
 	"landing.SeeMore": "Ver más",
-	"Error.inactiveAccount": "Su cuenta se encuentra inactiva. En su correo encontrará instrucciones para activarla"
+	"Error.inactiveAccount": "Su cuenta se encuentra inactiva. En su correo encontrará instrucciones para activarla",
+  "placeholder.search": "Buscar..."
 }

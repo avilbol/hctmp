@@ -1,9 +1,13 @@
 <div layout="row" ng-if="display === 'row'">
-  <span ng-bind-html="label"></span>
+  <span compile="label"></span>
 </div>
 
 <div ng-if="display === 'column'" layout="column">
-  <span ng-repeat="itemList in label track by $index">&#8259; {{itemList | unicode}}</span>
+  <span ng-repeat="itemList in label track by $index">
+    &#8259;
+    <span ng-if="!translateLabel">{{itemList | unicode}}</span>
+    <span ng-if="translateLabel" translate>{{itemList}}</span>
+  </span>
   <div ng-repeat-end ng-if="list.length > maxItems">
     <span>&#8259;</span>
     <span class="link">+{{list.length - maxItems}}</span>
@@ -13,7 +17,8 @@
 <md-tooltip hide-xs hide-sm ng-if="list.length > maxItems">
   <div layout="row">
     <div ng-repeat="itemList in list track by $index">
-      <span>{{::getLabel(itemList) | unicode}}</span>
+      <span ng-if="!translateLabel">{{::getLabel(itemList) | unicode}}</span>
+      <span ng-if="translateLabel" translate>{{getLabel(itemList)}}</span>
       <span ng-if="$index < list.length - 1 ">,&nbsp;</span>
     </div>
   </div>

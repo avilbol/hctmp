@@ -37,13 +37,19 @@
               </md-tab-label>
               <md-tab-body>
                 <md-content>
-                  <ng-form name="{{tab.name}}">
+                  <ng-form name="{{tab.name}}" ng-init="fieldRendered = false">
+                    <div layout="row" layout-align="center" ng-if="!fieldRendered">
+                      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                    </div>
                     <fields-interpreter
                       field-list="tab.fieldList"
                       form-name="tab.name"
                       field-root-scope="vm.fieldsRender"
                       additional-parameters="vm.formatedPropertyDeterminants"
                       readonly="false"
+                      field-rendered="fieldRendered"
+                      ng-show="fieldRendered"
+                      ng-cloak
                       flex
                     ></fields-interpreter>
                   </ng-form>
@@ -51,7 +57,9 @@
               </md-tab-body>
             </md-tab>
           </md-tabs>
-
+          <div layout="row" layout-align="center" ng-if="!vm.fieldsRender">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+          </div>
           <div>
             <md-button ng-click="vm.closeDialog()">{{'Properties.wizard.cancel.label' | translate}}</md-button>
             <md-button ng-click="vm.changeTab('Back')" ng-disabled="vm.previousDisabled" ng-if="!vm.editMode">

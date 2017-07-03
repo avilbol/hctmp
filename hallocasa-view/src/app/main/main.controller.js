@@ -6,8 +6,8 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService, $auth,
-                          LocaleService, BlogLinks, $window, $rootScope, $route, AppVersion) {
+  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService, LocaleService,
+                          BlogLinks, $rootScope, $route, AppVersion) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
@@ -16,7 +16,7 @@
     //Menu elements handlers
     vm.launchLoginDialog = launchLoginDialog;
     vm.launchRegisterDialog = launchRegisterDialog;
-    vm.isAuthenticated = isAuthenticated;
+    vm.isAuthenticated = SessionService.isAuthenticated;
     vm.launchPrivacyStatementDialog = launchPrivacyStatementDialog;
     vm.logout = SessionService.logout;
     vm.goTo = goTo;
@@ -43,10 +43,6 @@
     function getCurrentUserIdentifier() {
       var currentUser = SessionService.getCurrentUser();
       return currentUser.firstName ? currentUser.firstName : currentUser.email;
-    }
-
-    function isAuthenticated() {
-      return $auth.isAuthenticated();
     }
 
     function launchLoginDialog(ev) {

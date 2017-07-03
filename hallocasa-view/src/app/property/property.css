@@ -21,6 +21,15 @@
   }
 }
 
+@media (min-width: 1140px){
+  .property-card {
+    width: 362px;
+  }
+  .property-card .image{
+    height: 212px;
+  }
+}
+
 .property-card .highlight-text{
   color: #0c58a6;
 }

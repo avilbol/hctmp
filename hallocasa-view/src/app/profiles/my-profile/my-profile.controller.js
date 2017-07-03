@@ -35,6 +35,10 @@
     }
 
     function editProperty(event, property) {
+      var activeSession = SessionService.validateActiveSession("PublicProfile.PreAuthorize.loginNeeded");
+      if(!activeSession){
+        return
+      }
       PropertyService.loadPropertyDetail(property.id)
         .then(function (propertyDetail) {
           var locals = {
@@ -57,6 +61,10 @@
     }
 
     function deleteProperty(event, property) {
+      var activeSession = SessionService.validateActiveSession("PublicProfile.PreAuthorize.loginNeeded");
+      if(!activeSession){
+        return
+      }
       var confirm = $mdDialog.confirm()
         .title(translateFilter("Properties.title.modal"))
         .textContent(translateFilter("Properties.content.modal"))
@@ -78,6 +86,10 @@
     }
 
     function createProperty(event) {
+      var activeSession = SessionService.validateActiveSession("PublicProfile.PreAuthorize.loginNeeded");
+      if(!activeSession){
+        return
+      }
       var locals = {title: "Properties.add.label"};
       launchPropertyFormDialog(event,locals)
         .then(function() {

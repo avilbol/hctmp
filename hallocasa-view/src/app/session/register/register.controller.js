@@ -13,6 +13,7 @@
     vm.showTerms = showTerms;
     vm.closeTerms = closeTerms;
     vm.allowClose = allowClose;
+    vm.currentLanguage = LOCALES.languages[LocaleService.getLocaleDisplayName()].locale;
 
 		function register(){
       var currentLanguage = LocaleService.getLocaleDisplayName();

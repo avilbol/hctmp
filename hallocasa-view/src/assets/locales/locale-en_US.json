@@ -55,6 +55,7 @@
 	"SignUp.Form.Success.EmailSent": "A confirmation email has been sent to your email address. Check your inbox.",
 	"SignUp.Form.TermsAndConditions": "Terms and Conditions",
 	"SignUp.Form.TermsAndConditions.Accept": "I accept the Terms and Conditions",
+  "SignUp.Form.requiredRecaptcha": "You must prove that are a human",
 	"Login.Dialog.Title": "Login",
 	"Login.Form.Email": "Email",
 	"Login.Form.Password": "Password",
@@ -963,5 +964,6 @@
 	"landing.ProfilesTitle": "Profiles",
 	"landing.PropertiesTitle": "Properties",
 	"landing.SeeMore": "More",
-	"Error.inactiveAccount": "Your account is inactive. Please activate it going to your email"
+	"Error.inactiveAccount": "Your account is inactive. Please activate it going to your email",
+  "placeholder.search": "Search..."
 }
