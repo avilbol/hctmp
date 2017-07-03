@@ -30,26 +30,35 @@
         function loadOptions() {
           switch(optionsData.type){
             case "static_options":
-              scope.options = FieldsService.processOptions(staticOptionsGroup.dropdownOptionList, staticOptionsGroup.translationManagement);
-              scope.optionsLabel = "data1";
-              validateFieldModelValue();
+              staticOptionsHandler();
               break;
             case "dynamic_options":
-              var serviceId = optionsData.serviceId;
-              FieldsService.loadOptionsByServiceId(serviceId)
-                .then(function (options) {
-                  scope.options = FieldsService.processOptions(options, "NONE");
-                  scope.optionsLabel = "name";
-                  validateFieldModelValue();
-                })
-                .catch(function () {
-                  toastr.warning(
-                    translateFilter("Error.whenloadingserviceoptions"), serviceId);
-                  scope.options = [];
-                });
-
+              dynamicOptionsHandler();
               break;
           }
+        }
+
+        function staticOptionsHandler(){
+          var optionsList = staticOptionsGroup.dropdownOptionList;
+          var translationManagement =  scope.readonly ? "NONE" : staticOptionsGroup.translationManagement;
+          scope.options = FieldsService.processOptions(optionsList, translationManagement);
+          scope.optionsLabel = "data1";
+          validateFieldModelValue();
+        }
+
+        function dynamicOptionsHandler() {
+          var serviceId = optionsData.serviceId;
+          FieldsService.loadOptionsByServiceId(serviceId)
+            .then(function (options) {
+              scope.options = FieldsService.processOptions(options, "NONE");
+              scope.optionsLabel = "name";
+              validateFieldModelValue();
+            })
+            .catch(function () {
+              toastr.warning(
+                translateFilter("Error.whenloadingserviceoptions"), serviceId);
+              scope.options = [];
+            });
         }
 
         function validateFieldModelValue() {

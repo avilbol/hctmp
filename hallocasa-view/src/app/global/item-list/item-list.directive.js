@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('itemList', itemList);
 
-  function itemList($mdMedia, translateFilter, unicodeFilter, resolveFilter) {
+  function itemList($mdMedia, unicodeFilter, resolveFilter) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/item-list/item-list.html",
@@ -81,7 +81,6 @@
             return !_.isObject(element) ? element : undefined;
           }
           var label = resolveFilter(element, scope.labelAttribute);
-          label = scope.translateLabel ? translateFilter(label) : label;
           return label;
         }
 
@@ -94,7 +93,12 @@
           _.each(scope.viewList, function (itemList, index) {
             var rawLabel = getLabel(itemList);
             if(!rawLabel){return;}
-            label += unicodeFilter(rawLabel);
+            if(scope.translateLabel){
+              label += "{{'"+rawLabel+"' | translate}}";
+            }
+            else{
+              label += unicodeFilter(rawLabel);
+            }
             if(index < scope.viewList.length - 1){
               label += ", ";
             }
