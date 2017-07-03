@@ -178,9 +178,18 @@
             ev.stopPropagation();
           });
         }
+		
+		function addWatchers(){
+		  scope.$watch('fieldInformation.fieldValueList[0].identifier', function(identifier) {
+            scope.fieldInformation.selectedOption = _.find(scope.options, function(option){
+              return option.identifier === identifier;
+            });
+          });
+        }
 
         loadOptions();
         applyValidations();
+		addWatchers();
       }
     };
   }

@@ -8,7 +8,7 @@
 
   /** @ngInject */
   function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, $scope, property_images_url,
-                                  FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode) {
+                                  FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode, CurrencyService) {
 
 		var vm = this;
     var propertyBase = {
@@ -17,6 +17,11 @@
       description: {},
       location: {}
     };
+
+    
+    CurrencyService.loadCurrency().then(function(currencies){
+      vm.currencies = currencies;
+    });
 
     vm.property = angular.equals({}, property) ? propertyBase : property;
     vm.title = title;
@@ -68,7 +73,7 @@
     }
 
     function loadFieldsData(){
-      vm.propertyDeterminants = _.pick(vm.property.propertyKey, "propertyType", "propertyLocation", "propertyProposal", "country");
+      vm.propertyDeterminants = _.pick(vm.property.propertyKey, "propertyType", "propertyLocation", "propertyProposal", "country", "currencyToUse");
       var propertyTypeGroup = vm.propertyDeterminants.propertyType.group.id;
       vm.formatedPropertyDeterminants = _.mapObject(vm.propertyDeterminants, function (val) { return val.id; });
       vm.formatedPropertyDeterminants.propertyImagesUrl = property_images_url;
