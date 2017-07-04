@@ -22,12 +22,6 @@
         var destroyWatcher = scope.$watch("groupTitle",renderTitle);
         scope.$on("$destroy",destroyWatcher);
 
-        scope.showTitle = function() {
-          return _.some(scope.fieldList, function(fieldItem){
-            return _.has(fieldItem, "fieldValueList") && fieldItem.fieldValueList.length > 0;
-          });
-        }
-
         function renderTitle() {
           scope.renderedTitle = "";
           _.each(scope.groupTitle, function (titleSegment) {

@@ -34,6 +34,15 @@
             });
           }
         }
+
+        scope.showField = function(field) {
+          if(!scope.readonly || !field.fieldList){
+            return true;
+          }
+          return _.some(field.fieldList, function(fieldItem){
+            return _.has(fieldItem, "fieldValueList") && fieldItem.fieldValueList.length > 0;
+          });
+        }
         /*
          * This code will run after
          * templateUrl has been loaded, cloned
