@@ -36,7 +36,7 @@
         }
 
         scope.showField = function(field) {
-          if(!scope.readonly || !field.fieldList){
+          if(!scope.readonly || !field || !field.fieldList){
             return true;
           }
           return _.some(field.fieldList, function(fieldItem){

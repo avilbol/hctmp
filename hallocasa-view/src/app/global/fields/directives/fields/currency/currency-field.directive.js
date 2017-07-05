@@ -28,11 +28,11 @@
           var currencyItem = _.find(options, function(option){
             return option.id === currencyID;
           });
-          return currencyItem.abbreviation;
+          return currencyItem && currencyItem.abbreviation;
         }
 
         function initCurrencyIDInFieldValueList(currencyID){
-          if(scope.fieldInformation.fieldValueList){
+          if(!currencyID || scope.fieldInformation.fieldValueList){
             return;
           }
           scope.fieldInformation.fieldValueList = [
@@ -45,10 +45,9 @@
         }
 
         function loadCurrencyID(fieldValueList){
-          var currencyID = null;
-          var existingCrcyID = fieldValueList && _.isArray(fieldValueList) && !_.isEmpty(fieldValueList);
-          var wizardCrcyID = !currencyID && scope.fieldInformation.fixCurrency && scope.additionalParameters.currencyToUse;
-          return existingCrcyID ? fieldValueList[0].data1.intVal : (wizardCrcyID ? scope.additionalParameters.currencyToUse : null);
+          var crcyIdExists = fieldValueList && _.isArray(fieldValueList) && !_.isEmpty(fieldValueList);
+          var crcyIdInWizard = scope.fieldInformation.fixCurrency && scope.additionalParameters.currencyToUse;
+          return crcyIdExists ? fieldValueList[0].data1.intVal : (crcyIdInWizard ? scope.additionalParameters.currencyToUse : null);
         }
 
         function loadCurrencyData() {
