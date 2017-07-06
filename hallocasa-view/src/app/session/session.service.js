@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function SessionService($mdMedia, $mdDialog, $document, $auth, $q, GenericRESTResource, backend_url ,$resource,
-                          ApplicationCredentials, localStorageService, $intercom, WootricService) {
+                          ApplicationCredentials, localStorageService, $intercom, WootricService, $rootScope) {
     var service = {
       login: login,
       logout: logout,
@@ -124,7 +124,12 @@
           allowClose: false,
           escapeToClose: false
         };
-        launchLoginDialog(options)
+        launchLoginDialog(options);
+
+        var destroyRouteListener = $rootScope.$on('$routeChangeStart', function (){
+          destroyRouteListener();
+          $mdDialog.cancel();
+        });
       }
 
       return activeSession;
