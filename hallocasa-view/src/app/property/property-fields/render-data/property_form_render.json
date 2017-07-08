@@ -599,7 +599,8 @@
           "flexDesktop": 60,
           "validations": "minlength, maxlength",
           "messagesParams": { "minlength": "2"},
-          "validationsParams": { "minlength": 2}
+          "validationsParams": { "minlength": 2},
+          "fixCurrency": true
         },
         {
           "id": 59,
