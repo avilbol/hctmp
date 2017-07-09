@@ -8,7 +8,7 @@
 
   /** @ngInject */
   function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, $scope, property_images_url,
-                                  FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode, CurrencyService) {
+                                  FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode, CurrencyService, DataCalcService) {
 
 		var vm = this;
     var propertyBase = {
@@ -72,6 +72,12 @@
       }
     }
 
+    function addCurrencyToUseInEditionMode(fieldList){
+      var currencyToUse = DataCalcService.loadCurrentCurrency(fieldList);
+      vm.formatedPropertyDeterminants.currencyToUse = currencyToUse;
+      vm.property.propertyKey.currencyToUse = {id : currencyToUse};
+    }
+
     function loadFieldsData(){
       vm.propertyDeterminants = _.pick(vm.property.propertyKey, "propertyType", "propertyLocation", "propertyProposal", "country", "currencyToUse");
       var propertyTypeGroup = vm.propertyDeterminants.propertyType.group.id;
@@ -84,6 +90,9 @@
         .then(function (fieldsData) {
           if(vm.property.fieldList){
             fieldsData.propertyFields = FieldsService.consolidateFields(vm.property.fieldList, fieldsData.propertyFields);
+          }
+          if(editMode){
+            addCurrencyToUseInEditionMode(fieldsData.propertyFields);
           }
           vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.propertyFormRender.tabList);
           addWatchers();

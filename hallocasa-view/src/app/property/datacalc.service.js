@@ -10,7 +10,8 @@
 
   function DataCalcService($log, monthly_rent_fiid, marketprice_fiid, landlord_fee_fiid, dynamicCurrencyFilter, numberFilter) {
     var service = {
-      calculateRoi : calculateRoi
+      calculateRoi : calculateRoi,
+      loadCurrentCurrency : loadCurrentCurrency
     };
 
     return service;
@@ -23,6 +24,10 @@
     }
 
     function isValidRoiCalcField(field){
+      return isValidCurrencyField(field);
+    }
+
+    function isValidCurrencyField(field){
       var valid = true;
       valid = valid && field;
       valid = valid && _.has(field, "fieldValueList");
@@ -61,6 +66,11 @@
       var roiComputable = _.every(selectedFields, isValidRoiCalcField);
       var roi = roiComputable ? roiOf(monthlyRentField, landlordFeeField, marketpriceField) : undefined;
       return roi ? (numberFilter(roi * 100, 2) + '%') : undefined;
+    }
+
+    function loadCurrentCurrency(fieldList){
+      var marketpriceField = searchFieldById(fieldList, marketprice_fiid);
+      return isValidCurrencyField(marketpriceField) ? marketpriceField.fieldValueList[0].data1.intVal : null;
     }
   }
 })();
