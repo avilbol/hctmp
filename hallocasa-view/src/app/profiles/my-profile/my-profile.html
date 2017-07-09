@@ -1,9 +1,9 @@
 <md-content>
   <md-tabs md-dynamic-height md-border-bottom>
-    <md-tab label="{{'GlobalMenu.GoToProfile' | translate}}">
+    <md-tab label="{{'GlobalMenu.GoToProfile' | translate}}" md-active="vm.activeProfileTab()">
       <ng-include src="'app/profiles/my-profile/tabs/profile.html'"></ng-include>
     </md-tab>
-    <md-tab label="{{'GlobalMenu.GoToProperties' | translate}}">
+    <md-tab label="{{'GlobalMenu.GoToProperties' | translate}}" md-active="vm.activePropertiesTab()">
       <ng-include src="'app/profiles/my-profile/tabs/properties.html'"></ng-include>
     </md-tab>
   </md-tabs>

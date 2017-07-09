@@ -20,6 +20,16 @@
     vm.createProperty = createProperty;
     vm.goBack = goBack;
 
+    vm.activePropertiesTab = function(){
+      var tab = $location.search().tab;
+      return tab === "my-properties";
+    }
+
+    vm.activeProfileTab = function(){
+      var tab = $location.search().tab;
+      return tab === "my-profile";
+    }
+
     function loadProfile(){
       var profileID = SessionService.getCurrentUser().id;
       ProfilesService.loadProfile(profileID)
