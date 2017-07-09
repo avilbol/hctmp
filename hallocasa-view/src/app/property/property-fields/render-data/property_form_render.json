@@ -365,7 +365,7 @@
           "flexTablet": 50,
           "flexDesktop": 33,
           "options": {
-            "type": "binary_options"
+            "type": "static_options"
           }
         },
         {
@@ -451,7 +451,7 @@
           "flexTablet": 50,
           "flexDesktop": 33,
           "options": {
-            "type": "binary_options"
+            "type": "static_options"
           }
         },
         {

@@ -389,6 +389,8 @@
 	"hallocasa.dropdownoption.heatingnone": "None",
 	"hallocasa.dropdownoption.fullbasement": "Full Basement",
 	"hallocasa.dropdownoption.partialbasement": "Partial Basement",
+	"hallocasa.dropdownoption.fullyfurnished": "Fully Furnished",
+	"hallocasa.dropdownoption.partiallyfurnished": "Partially Furnished",
 	"hallocasa.dropdownoption.basementnone": "None",
 	"hallocasa.dropdownoption.well": "Well",
 	"hallocasa.dropdownoption.freshwater": "Fresh water",
