@@ -402,6 +402,8 @@
 	"hallocasa.dropdownoption.sewagewaterother": "Andere",
 	"hallocasa.dropdownoption.sewagewaternone": "Nicht vorhanden",
 	"hallocasa.dropdownoption.newproject": "Neues Projekt",
+	"hallocasa.dropdownoption.earlierthan1800": "Früher als 1800",
+	"hallocasa.dropdownoption.earlierthan1950": "Früher als 1950",
 	"hallocasa.dropdownoption.withinlast10years": "Innerhalb der letzen 10 Jahre",
 	"hallocasa.dropdownoption.withinlast20years": "Innerhalb der letzen 20 Jahre",
 	"hallocasa.dropdownoption.withinlast30years": "Innerhalb der letzen 30 Jahre",
