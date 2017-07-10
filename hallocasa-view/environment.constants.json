@@ -1,0 +1,12 @@
+{
+  "qa": {
+    "backend_url": "http://www.hallocasa.com:64647/hallocasa-api/",
+    "user_images_url": "http://www.hallocasa.com:64645/resources/images/users/",
+    "property_images_url": "http://www.hallocasa.com:64645/resources/images/properties/"
+  },
+  "production": {
+    "backend_url": "http://www.hallocasa.com:64649/hallocasa-api/",
+    "user_images_url": "http://www.hallocasa.com/resources/images/users/",
+    "property_images_url": "http://www.hallocasa.com/resources/images/properties/"
+  }
+}
