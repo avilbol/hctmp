@@ -7,7 +7,7 @@ var gutil = require("gulp-util");
 
 gulp.task('environment-config', function () {
   var environment;
-  if(argv.environment && (argv.environment === "qa" || argv.environment === "production")){
+  if(argv.environment && (argv.environment === "qa" || argv.environment === "prod")){
     environment = argv.environment;
   }
   else{

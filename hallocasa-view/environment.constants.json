@@ -4,7 +4,7 @@
     "user_images_url": "http://www.hallocasa.com:64645/resources/images/users/",
     "property_images_url": "http://www.hallocasa.com:64645/resources/images/properties/"
   },
-  "production": {
+  "prod": {
     "backend_url": "http://www.hallocasa.com:64649/hallocasa-api/",
     "user_images_url": "http://www.hallocasa.com/resources/images/users/",
     "property_images_url": "http://www.hallocasa.com/resources/images/properties/"
