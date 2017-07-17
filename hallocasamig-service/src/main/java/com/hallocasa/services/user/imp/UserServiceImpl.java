@@ -205,8 +205,6 @@ public class UserServiceImpl implements UserService {
 			user.setRegisterDate(new Date());
 			user.setConfirmedFlag(false);
 			save(user, null);
-			mailchimpServices.subscribeNewUser(user.getEmail(), user.getEmail(),
-		            "", user.getLanguage(), TypeEnum.PUBLISHER);
 		} catch(MailServicesErrorException e){
 			throw new FatalException("Unexpected error", e);
 		}
