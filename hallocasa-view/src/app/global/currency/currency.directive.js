@@ -7,11 +7,10 @@
 
   function currencySelect() {
     return {
-      restrict: 'A',
+      restrict: 'AE',
       replace: true,
       template:
-      "<div>"+
-      "<md-menu layout-fill layout='row' layout-align='center stretch'>"+
+      "<md-menu flex>"+
       "<md-button ng-click='$mdMenu.open($event)' aria-label='Open currency dropdown' class='bold-hover'>"+
       "<div>{{currentCurrency.abbreviation}}</div>"+
       "</md-button>"+
@@ -20,8 +19,7 @@
       "<md-button ng-click='changeCurrency(currency)'>{{currency.abbreviation}}</md-button>" +
       "</md-menu-item>"+
       "</md-menu-content>"+
-      "</md-menu>"+
-      "</div>",
+      "</md-menu>",
       controller: function ($scope, CurrencyService, toastr, translateFilter) {
         $scope.changeCurrency = changeCurrency;
 
