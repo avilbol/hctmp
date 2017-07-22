@@ -5,7 +5,7 @@
 		.module('HalloCasa.session')
 		.controller('RegisterController', RegisterController);
 
-	function RegisterController(RegisterService, toastr, translateFilter, $mdDialog, allowClose, LocaleService, LOCALES) {
+	function RegisterController(RegisterService, MailchimpService, toastr, translateFilter, $mdDialog, allowClose, LocaleService, LOCALES) {
 		var vm = this;
 		vm.userData = {};
 		vm.register = register;
@@ -20,6 +20,7 @@
       vm.userData.language = LOCALES.languages[currentLanguage];
 			RegisterService.makeRegister(vm.userData)
 				.then(function(){
+          MailchimpService.subscribeNewUser(vm.userData);
           toastr.success(translateFilter("SignUp.Form.Success.Message") + '\r\n' +
             translateFilter("SignUp.Form.Success.EmailSent"));
           closeDialog();
