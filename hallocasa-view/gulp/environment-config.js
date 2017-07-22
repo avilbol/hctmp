@@ -17,7 +17,7 @@ gulp.task('environment-config', function () {
   gutil.log("Configuring application for: " + environment);
 
   gulp.src('environment.constants.json')
-    .pipe(gulpNgConfig('HalloCasa.enviroment.constants', {
+    .pipe(gulpNgConfig('HalloCasa.environment.constants', {
       environment: environment
     }))
     .pipe(gulp.dest('./src/app'));
