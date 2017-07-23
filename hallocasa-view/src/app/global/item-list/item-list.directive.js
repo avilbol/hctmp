@@ -28,7 +28,6 @@
 
         scope.$watch("labelAttribute",updateLabel);
         scope.$watch("list",updateLabel);
-        scope.$watch("translateVal",updateLabel);
 
         scope.getLabel = getLabel;
 
