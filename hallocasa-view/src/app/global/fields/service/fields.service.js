@@ -143,10 +143,6 @@
       return option;
     }
 
-    function cleanOption(option) {
-      return _.pick(option, "identifier", "name", "data1");
-    }
-
     function processOptions(optionsList, translationManagement) {
       var parseOptionString;
 
