@@ -7,6 +7,9 @@
     .constant('AppVersion', '1.1.0')
     .constant('INTERCOM_APPID', 't6itp8rl')
     .constant('WOOTRIC_APPID', 'NPS-ead65c4a')
+    .constant('MAILCHIMP_AID', 'degopolis')
+    .constant('MAILCHIMP_UID', 'a610f13810ee445b291161c90')
+    .constant('MAILCHIMP_ID', 'e8425f4d8d')
     .constant('moment', moment)
     .constant('LOCALES', {
       'locales': {
