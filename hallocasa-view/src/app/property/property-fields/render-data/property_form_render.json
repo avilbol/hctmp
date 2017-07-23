@@ -299,7 +299,11 @@
           "name": "Google Maps",
           "flexMobile": 100,
           "flexTablet": 100,
-          "flexDesktop": 100
+          "flexDesktop": 100,
+          "options": {
+            "type": "internal_dependency_options",
+            "fieldId": 8
+          }
         }
       ]
     },

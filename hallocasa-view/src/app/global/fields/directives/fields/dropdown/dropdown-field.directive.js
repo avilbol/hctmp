@@ -44,6 +44,7 @@
               }
 
               scope.options = FieldsService.processOptions(options, translationManagement);
+              scope.fieldInformation.fieldOptions = scope.options;
               disableDefaultKeyDownHandler();
             })
             .catch(function () {
