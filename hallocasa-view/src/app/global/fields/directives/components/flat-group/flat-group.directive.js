@@ -19,11 +19,11 @@
         readonly: "=?"
       },
       link: function (scope) {
-        var destroyWatcher = scope.$watch("groupTitle",renderTitle);
+        var destroyWatcher = scope.$watch("groupTitle", scope.renderTitle);
         scope.$on("$destroy",destroyWatcher);
 
-        function renderTitle() {
-          scope.renderedTitle = "";
+        scope.renderTitle = function(){
+          scope.renderedTitle = '';
           _.each(scope.groupTitle, function (titleSegment) {
             switch (titleSegment.type){
               case "translate_key":
@@ -41,6 +41,7 @@
             }
             scope.renderedTitle += " ";
           });
+          return scope.renderedTitle;
         }
       }
     };
