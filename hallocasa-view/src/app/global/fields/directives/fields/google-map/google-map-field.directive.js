@@ -62,22 +62,8 @@
           }
         }
 
-        function processNewCoordinatesSource(coordinatesSource){
-          if(coordinatesSource){
-              scope.location.center.latitude = coordinatesSource.defaultLatCoordinate;
-              scope.location.center.longitude = coordinatesSource.defaultLngCoordinate;
-              var validZoom = coordinatesSource.defaultZoom && coordinatesSource.defaultZoom != 0;
-              scope.location.zoom = validZoom ? coordinatesSource.defaultZoom : 16;
-            }
-        }
-
-        function addWatchers(){
-          scope.$watch("fieldInformation.coordinatesSource", processNewCoordinatesSource);
-        }
-
         loadLocation();
         watchRawLocation();
-        addWatchers();
       }
     };
   }
