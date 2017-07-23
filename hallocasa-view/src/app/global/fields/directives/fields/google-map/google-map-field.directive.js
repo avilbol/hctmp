@@ -5,18 +5,29 @@
     .module('HalloCasa.global')
     .directive('googleMapField', googleMapField);
 
-  function googleMapField($timeout) {
+  function googleMapField($timeout, FieldsService) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/google-map/google-map-field.html",
       scope: {
         fieldInformation: "=",
+        fieldRootScope: "=?",
         form: "=?",
         readonly: "=?"
       },
       link: function (scope) {
+        var optionsData = scope.fieldInformation.options;
+
         scope.fieldInformation.fieldValueList = scope.fieldInformation.fieldValueList ? scope.fieldInformation.fieldValueList : [];
         scope.$on("RepaintMap", repaintMap);
+
+        function loadOptions() {
+          switch(optionsData.type){
+            case "internal_dependency_options":
+              internalDependencyOptionsHandler();
+              break;
+          }
+        }
 
         function repaintMap() {
           scope.refresh = false;
@@ -62,22 +73,44 @@
           }
         }
 
-        function processNewCoordinatesSource(coordinatesSource){
-          if(coordinatesSource){
-              scope.location.center.latitude = coordinatesSource.defaultLatCoordinate;
-              scope.location.center.longitude = coordinatesSource.defaultLngCoordinate;
-              var validZoom = coordinatesSource.defaultZoom && coordinatesSource.defaultZoom != 0;
-              scope.location.zoom = validZoom ? coordinatesSource.defaultZoom : 16;
+        function internalDependencyOptionsHandler(){
+          var fieldId = optionsData.fieldId;
+          var fieldPath = FieldsService.getFieldPathByID(fieldId, scope.fieldRootScope);
+          var field;
+
+          if(!fieldPath) {
+            return;
+          }
+          field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+          if (field.fieldValueList) {
+            scope.options = field.fieldValueList;
+          }
+          var destroyInDependencyWatcher = scope.$watch(function () {
+            field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+
+            var fieldWithIdentifier = field.fieldValueList && field.fieldValueList[0] && _.isNumber(field.fieldValueList[0].identifier);
+
+            if(fieldWithIdentifier){
+              return field.fieldValueList[0].identifier;
             }
+          },function (newIdentifier, oldIdentifier) {
+            if(newIdentifier === oldIdentifier){
+              return;
+            }
+            var optionSelected = _.find(field.fieldOptions, function (option) {
+              return field.fieldValueList[0].identifier === option.id
+            });
+
+            scope.location.center.latitude = optionSelected.defaultLatCoordinate;
+            scope.location.center.longitude = optionSelected.defaultLngCoordinate;
+            scope.location.zoom = optionSelected.defaultZoom;
+          });
+          scope.$on("$destroy",destroyInDependencyWatcher);
         }
 
-        function addWatchers(){
-          scope.$watch("fieldInformation.coordinatesSource", processNewCoordinatesSource);
-        }
-
+        loadOptions();
         loadLocation();
         watchRawLocation();
-        addWatchers();
       }
     };
   }

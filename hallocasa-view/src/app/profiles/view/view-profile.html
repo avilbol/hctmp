@@ -5,7 +5,7 @@
       <md-card>
         <md-card-title layout="row" layout-align="center center">
           <md-card-title-media>
-            <div class="md-media-lg card-media">
+            <div class="md-media-lg card-media profile-image-container">
               <img
                 ng-src="{{vm.userData.profile.image}}"
                 alt="{{ vm.profile.firstName }}"
@@ -84,6 +84,7 @@
           <br>
           <div layout-gt-sm="row" layout-gt-xs="column" layout-xs="column">
             <div layout="column" flex-gt-sm="20">
+              <b>{{'Profile.Data.Email.Label' | translate}}: </b> {{vm.userData.profile.email}}
               <b>{{'Profile.Data.Country.Label' | translate}}: </b> {{vm.userData.profile.country.lang | translate}}
               <b>{{'Profile.Data.State.Label' | translate}}: </b> {{vm.userData.profile.state.name | unicode}}
               <b>{{'Profile.Data.City.Label' | translate}}: </b> {{vm.userData.profile.city.name | unicode}}

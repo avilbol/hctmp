@@ -20,8 +20,12 @@
         </div>
         <span flex></span>
         <div layout="row" flex="50" layout-align="end">
-          <div ng-translate-language-select></div>
-          <div currency-select></div>
+          <div>
+            <ng-translate-language-select></ng-translate-language-select>
+          </div>
+          <div>
+            <currency-select></currency-select>
+          </div>
           <md-button ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!MainCtrl.isAuthenticated()" class="bold-hover">
             {{'Header.Login.Button' | translate}}
           </md-button>
@@ -77,8 +81,8 @@
             {{'Header.SignUp.Button' | translate}}
           </md-button>
         </md-list-item>
-        <div ng-if="MainCtrl.isAuthenticated()">
-          <md-menu layout-fill layout="row" layout-align="center stretch">
+        <md-list-item class="menu-item-left-align">
+          <md-menu ng-if="MainCtrl.isAuthenticated()" flex>
             <md-button ng-click='$mdMenu.open($event)'>
               <div>{{MainCtrl.getCurrentUserIdentifier()}}</div>
             </md-button>
@@ -95,10 +99,12 @@
               </md-menu-item>
             </md-menu-content>
           </md-menu>
-        </div>
-        <md-list-item ng-translate-language-select>
         </md-list-item>
-        <md-list-item currency-select>
+        <md-list-item>
+          <ng-translate-language-select class="menu-item-left-align"></ng-translate-language-select>
+        </md-list-item>
+        <md-list-item>
+          <currency-select class="menu-item-left-align"></currency-select>
         </md-list-item>
       </md-list>
     </md-content>

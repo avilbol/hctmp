@@ -7,10 +7,10 @@
     .constant('AppVersion', '1.1.0')
     .constant('INTERCOM_APPID', 't6itp8rl')
     .constant('WOOTRIC_APPID', 'NPS-ead65c4a')
+    .constant('MAILCHIMP_AID', 'degopolis')
+    .constant('MAILCHIMP_UID', 'a610f13810ee445b291161c90')
+    .constant('MAILCHIMP_ID', 'e8425f4d8d')
     .constant('moment', moment)
-    .constant('backend_url', "http://www.hallocasa.com:64647/hallocasa-api/")
-    .constant('user_images_url', "http://www.hallocasa.com:64645/resources/images/users/")
-    .constant('property_images_url', "http://www.hallocasa.com:64645/resources/images/properties/")
     .constant('LOCALES', {
       'locales': {
         'es_ES': 'Español',
@@ -25,13 +25,13 @@
       'preferredLocale': 'es_ES'
     })
     .constant('GenericRESTResource', {
-      query: { method: 'GET', isArray: true, headers: {'Content-Encoding' : 'gzip'} },
-      create: { method: 'POST', headers: {'Content-Encoding' : 'gzip'} },
-      consult: { method: 'POST', isArray: true, headers: {'Content-Encoding' : 'gzip'} },
-      consultObj: { method: 'POST', headers: {'Content-Encoding' : 'gzip'}},
-      show: { method: 'GET', headers: {'Content-Encoding' : 'gzip'} },
-      update: { method: 'PUT', params: {id: '@id'}, headers: {'Content-Encoding' : 'gzip'} },
-      delete: { method: 'DELETE', params: {id: '@id'}, headers: {'Content-Encoding' : 'gzip'} }
+      query: { method: 'GET', isArray: true},
+      create: { method: 'POST'},
+      consult: { method: 'POST', isArray: true},
+      consultObj: { method: 'POST'},
+      show: { method: 'GET'},
+      update: { method: 'PUT', params: {id: '@id'}},
+      delete: { method: 'DELETE', params: {id: '@id'}}
     })
     .constant('ApplicationCredentials', {
       'client-id': 'hallocasa_frontend',

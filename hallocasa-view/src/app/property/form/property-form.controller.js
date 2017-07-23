@@ -7,8 +7,9 @@
 		.controller('PropertyFormController', PropertyFormController);
 
   /** @ngInject */
-  function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, $scope, property_images_url,
-                                  FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode, CurrencyService) {
+  function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, property_images_url,
+                                  FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode,
+                                  CurrencyService, DataCalcService) {
 
 		var vm = this;
     var propertyBase = {
@@ -18,7 +19,7 @@
       location: {}
     };
 
-    
+
     CurrencyService.loadCurrency().then(function(currencies){
       vm.currencies = currencies;
     });
@@ -72,6 +73,12 @@
       }
     }
 
+    function addCurrencyToUseInEditionMode(fieldList){
+      var currencyToUse = DataCalcService.loadCurrentCurrency(fieldList);
+      vm.formatedPropertyDeterminants.currencyToUse = currencyToUse;
+      vm.property.propertyKey.currencyToUse = {id : currencyToUse};
+    }
+
     function loadFieldsData(){
       vm.propertyDeterminants = _.pick(vm.property.propertyKey, "propertyType", "propertyLocation", "propertyProposal", "country", "currencyToUse");
       var propertyTypeGroup = vm.propertyDeterminants.propertyType.group.id;
@@ -85,8 +92,10 @@
           if(vm.property.fieldList){
             fieldsData.propertyFields = FieldsService.consolidateFields(vm.property.fieldList, fieldsData.propertyFields);
           }
+          if(editMode){
+            addCurrencyToUseInEditionMode(fieldsData.propertyFields);
+          }
           vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.propertyFormRender.tabList);
-          addWatchers();
           vm.currentState = vm.state.WIZARD_2;
         })
         .catch(function () {
@@ -186,22 +195,6 @@
 
     function validateSubmit() {
       vm.showSubmit = editMode ? true : vm.nextDisabled;
-    }
-
-    function addWatchers() {
-      addCityWithGoogleMapsDependency();
-    }
-
-    function addCityWithGoogleMapsDependency(){
-      var cityFieldId = 8;
-      var gmapsFieldId = 10;
-      $scope.cityField = FieldsService.getFieldById(cityFieldId, vm.fieldsRender);
-      var gmapsField = FieldsService.getFieldById(gmapsFieldId, vm.fieldsRender);
-      $scope.$watch("cityField", function(cityField){
-        if(cityField.selectedOption){
-          gmapsField.coordinatesSource = cityField.selectedOption;
-        }
-      }, true);
     }
 
     loadCountries();

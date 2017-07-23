@@ -223,6 +223,7 @@
             "id" : 2
         },
         "lang": "hallocasa.propertyfield.returnoninvestment",
+        "tooltipLang": "hallocasa.propertyfieldtooltip.returnoninvestment",
         "options": {
           "type": "computed_inside",
           "operation": "calculateRoi"
@@ -289,7 +290,7 @@
         "flexTablet": 100,
         "flexDesktop": 100,
         "options": {
-          "type": "binary_options"
+          "type": "static_options"
         }
       },
       {
@@ -453,7 +454,7 @@
         "flexTablet": 100,
         "flexDesktop": 100,
         "options": {
-          "type": "binary_options"
+          "type": "static_options"
         }
       },
       {

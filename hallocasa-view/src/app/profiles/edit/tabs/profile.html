@@ -60,11 +60,13 @@
       <div layout="row" layout-wrap ng-if="vm.profileForm.userTypes.length > 0">
         <div layout="column" layout-align="center center" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100" class="img-profile">
           <md-button ng-click="vm.launchLoadImageDialog()">{{'Image.Edition' | translate}}</md-button>
-          <img
-            ng-src="{{vm.profileForm.base64Image}}"
-            alt="{{ profile.name }}"
-            spinkit-image-preloader='cube-grid-spinner'
-          >
+          <div class="profile-image-container">
+            <img
+              ng-src="{{vm.profileForm.base64Image}}"
+              alt="{{ profile.name }}"
+              spinkit-image-preloader='cube-grid-spinner'
+            >
+          </div>
         </div>
         <div layout="column" flex-gt-sm="25" flex-gt-xs="50" flex-xs="100">
           <md-input-container class="md-block">

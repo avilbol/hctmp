@@ -36,5 +36,35 @@ public class City {
 		return String.format("(%1$s, '%2$s', %3$s, %4$s, %5$s, %6$s),"
 				, id, name, stateId, defaultLatCoordinate, defaultLngCoordinate, defaultZoom);
 	}
+
+
+	public Double getDefaultLatCoordinate() {
+		return defaultLatCoordinate;
+	}
+
+
+	public void setDefaultLatCoordinate(Double defaultLatCoordinate) {
+		this.defaultLatCoordinate = defaultLatCoordinate;
+	}
+
+
+	public Double getDefaultLngCoordinate() {
+		return defaultLngCoordinate;
+	}
+
+
+	public void setDefaultLngCoordinate(Double defaultLngCoordinate) {
+		this.defaultLngCoordinate = defaultLngCoordinate;
+	}
+
+
+	public Integer getDefaultZoom() {
+		return defaultZoom;
+	}
+
+
+	public void setDefaultZoom(Integer defaultZoom) {
+		this.defaultZoom = defaultZoom;
+	}
 	
 }

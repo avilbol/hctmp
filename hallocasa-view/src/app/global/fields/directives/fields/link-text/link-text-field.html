@@ -15,7 +15,12 @@
   ></ng-messages-generator>
 </md-input-container>
 <div ng-if="readonly && fieldInformation.fieldValueList[0].text.strVal">
-  <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
+  <b>
+    <span translate>{{fieldInformation.lang}}:&nbsp;</span>
+    <md-tooltip>
+      <span translate>{{fieldInformation.tooltipLang}}</span>
+    </md-tooltip>
+  </b>
   <a ng-href="{{fieldInformation.fieldValueList[0].text.strVal}}">
     {{fieldInformation.fieldValueList[0].text.strVal}}
   </a>

@@ -19,24 +19,20 @@ public class LocationCreator {
 	static Map<String, City> citiesMap = new HashMap<String, City>();
 	static List<Neighborhood> neighborhoodsList = new ArrayList<Neighborhood>();
 	
-	//static int stateConsecutive = 139;
-	//static int cityConsecutive = 2265;
-	//static int neighboorhoodConsecutive = 7449;
-	
-	static int stateConsecutive = 0;
-	static int cityConsecutive = 0;
-	static int neighboorhoodConsecutive = 0;
+	static int stateConsecutive = 151;
+	static int cityConsecutive = 3348;
+	static int neighboorhoodConsecutive = 9077;
 
 	public static void main(String[] args) {
-		run(1, "Colombia", 2242);
-		run(2, "Argentina", 4250);
-		run(3, "Chile", 347);
-		run(4, "Panama", 577);
-		run(5, "Peru", 1025);
-		run(8, "Costa Rica", 343);
-		run(9, "Ecuador", 545);
-		run(6, "Canada", 2678);
-		//run(7, "EEUU", 2242);
+		//run(1, "Colombia", 2242);
+		//run(2, "Argentina", 4250);
+		//run(3, "Chile", 347);
+		//run(4, "Panama", 577);
+		//run(5, "Peru", 1025);
+		//run(8, "Costa Rica", 343);
+		//run(9, "Ecuador", 545);
+		//run(6, "Canada", 2678);
+		run(7, "USA", 42202);
 		//run(10, "Mexico", 2242);
 	}
 
@@ -46,8 +42,11 @@ public class LocationCreator {
 			XSSFSheet sheet = wb.getSheetAt(0);
 			XSSFRow row;
 
-			for (int r = 0; r < rows; r++) {
+			for (int r = 0; r < 7123; r++) {
 				row = sheet.getRow(r);
+				if(row == null){
+					System.out.println("stop");
+				}
 				String e0 = row.getCell(0).getStringCellValue();
 				String e1 = row.getCell(1).getStringCellValue();
 				String e2 = row.getCell(2).getStringCellValue();
@@ -73,12 +72,20 @@ public class LocationCreator {
 					continue;
 				}
 				String e2 = row.getCell(2).getStringCellValue();
-				String e3 = null;
+				Integer e3 = null;
 				try{
-					e3 = row.getCell(3).getStringCellValue();
+					e3 = (int) row.getCell(3).getNumericCellValue();
 				}catch(NullPointerException e){}
 				String stateKey = stateKey(e0, e1);
 				String cityKey = cityKey(e0, e1, e2);
+				
+				Double latitude = null;
+				Double longitude = null;
+				try{
+					latitude = row.getCell(5).getNumericCellValue();
+					longitude = row.getCell(6).getNumericCellValue();
+				} catch(Exception e){}
+				
 				if (statesMap.get(stateKey) == null && !e1.trim().isEmpty()) {
 					State state = new State(e1, ++stateConsecutive, countryId);
 					statesMap.put(stateKey, state);
@@ -86,6 +93,9 @@ public class LocationCreator {
 				State state = statesMap.get(stateKey);
 				if (citiesMap.get(cityKey) == null && !e2.trim().isEmpty()) {
 					City city = new City(e2, ++cityConsecutive, state.id);
+					city.setDefaultLatCoordinate(latitude);
+					city.setDefaultLngCoordinate(longitude);
+					city.setDefaultZoom(latitude != null ? 5 : null);
 					citiesMap.put(cityKey, city);
 				}
 				City city = citiesMap.get(cityKey);
@@ -95,11 +105,8 @@ public class LocationCreator {
 					city.defaultLngCoordinate = oldCity.defaultLngCoordinate;
 					city.defaultZoom = oldCity.defaultZoom;
 				}
-				if(e3 != null && !e3.trim().isEmpty()){
-					if(city == null){
-						System.out.println("stop");
-					}
-					neighborhoodsList.add(new Neighborhood(e3, ++neighboorhoodConsecutive, city.id));
+				if(e3 != null){
+					neighborhoodsList.add(new Neighborhood(String.valueOf(e3), ++neighboorhoodConsecutive, city.id));
 				}
 			}
 		} catch (Exception e) {

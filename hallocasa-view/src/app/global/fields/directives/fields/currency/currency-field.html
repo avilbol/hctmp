@@ -1,7 +1,6 @@
 <div layout="row">
   <md-input-container class="md-icon-float md-block" flex="70" ng-if="!readonly">
     <label>{{fieldInformation.lang | translate}}</label>
-    <md-icon md-font-set="material-icons"> attach_money </md-icon>
     <input
       name="{{fieldName}}"
       title="{{fieldInformation.lang | translate}}"
@@ -33,7 +32,12 @@
     <span ng-bind-html="abbreviation" ng-if="fieldInformation.fixCurrency"></span>
   </md-input-container>
   <div ng-if="readonly && price">
-    <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
+    <b>
+      <span translate>{{fieldInformation.lang}}:&nbsp;</span>
+      <md-tooltip>
+        <span translate>{{fieldInformation.tooltipLang}}</span>
+      </md-tooltip>
+    </b>
     <span ng-bind-html="price | dynamicCurrency"></span>
   </div>
 </div>
