@@ -223,6 +223,7 @@
             "id" : 2
         },
         "lang": "hallocasa.propertyfield.returnoninvestment",
+        "tooltipLang": "hallocasa.propertyfieldtooltip.returnoninvestment",
         "options": {
           "type": "computed_inside",
           "operation": "calculateRoi"

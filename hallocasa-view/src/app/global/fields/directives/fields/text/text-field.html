@@ -30,7 +30,12 @@
     ></ng-messages-generator>
   </md-input-container>
   <div ng-if="readonly && (fieldInformation.fieldValueList[0].text.strVal || fieldInformation.fieldValueList[relocatedIndex].data2.strVal || fieldInformation.overwriterValue) ">
-    <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
+    <b>
+      <span translate>{{fieldInformation.lang}}:&nbsp;</span>
+      <md-tooltip>
+        <span translate>{{fieldInformation.tooltipLang}}</span>
+      </md-tooltip>
+    </b>
     <span ng-switch-when="standard_field">{{::fieldInformation.fieldValueList[0].text.strVal}}</span>
     <span ng-switch-when="scope_dependent_field">{{::fieldInformation.fieldValueList[relocatedIndex].data2.strVal}}</span>
     <span ng-switch-when="computed_field_value">{{::fieldInformation.overwriterValue}}</span>

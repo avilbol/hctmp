@@ -14,6 +14,11 @@
   ></ng-messages-generator>
 </div>
 <div ng-if="readonly && fieldInformation.fieldValueList[0].text.dateVal">
-  <b>{{fieldInformation.lang | translate}}:&nbsp;</b>
+  <b>
+    <span translate>{{fieldInformation.lang}}:&nbsp;</span>
+    <md-tooltip>
+      <span translate>{{fieldInformation.tooltipLang}}</span>
+    </md-tooltip>
+  </b>
   <span>{{fieldInformation.fieldValueList[0].text.dateVal | date}}</span>
 </div>
