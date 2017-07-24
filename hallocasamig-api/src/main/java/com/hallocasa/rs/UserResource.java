@@ -8,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -48,8 +49,11 @@ public class UserResource extends BasicResource {
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
 	public Response fetchRandomUsers(
 			@ApiParam(value = "user_list_request") UserListRequest userListRequest) {
+		CacheControl cacheControl = new CacheControl();
+		cacheControl.setMaxAge(604800); // TODO: Define this in 1 week parameterized
 		return Response.status(HttpStatus.SC_OK).entity(
-				userService.addUsersToShowableList(userListRequest)).build();
+				userService.addUsersToShowableList(userListRequest))
+					.cacheControl(cacheControl).build();
 	}
 	
 	@POST

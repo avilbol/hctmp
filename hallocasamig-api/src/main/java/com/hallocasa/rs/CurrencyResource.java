@@ -34,7 +34,7 @@ public class CurrencyResource {
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
 	public Response getCurrencies() {
 		CacheControl cacheControl = new CacheControl();
-		cacheControl.setMaxAge(592000); // TODO: Define this in 1 week parameterized
+		cacheControl.setMaxAge(604800); // TODO: Define this in 1 week parameterized
 		return Response.status(HttpStatus.SC_OK).entity(currencyService.find())
 				.cacheControl(cacheControl).build();
 	}

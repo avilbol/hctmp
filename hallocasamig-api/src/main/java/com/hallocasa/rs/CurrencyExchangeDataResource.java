@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -32,7 +33,10 @@ public class CurrencyExchangeDataResource {
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
 	public Response getCurrencyExchangeDataList() {
-		return Response.status(HttpStatus.SC_OK).entity(currencyExchangeDataService.findExchangeRates()).build();
+		CacheControl cacheControl = new CacheControl();
+		cacheControl.setMaxAge(604800); // TODO: Define this in 1 week parameterized
+		return Response.status(HttpStatus.SC_OK).entity(currencyExchangeDataService.findExchangeRates())
+				.cacheControl(cacheControl).build();
 	}
 	
 }
