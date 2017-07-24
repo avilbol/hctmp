@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -19,9 +20,9 @@ public class LocationCreator {
 	static Map<String, City> citiesMap = new HashMap<String, City>();
 	static List<Neighborhood> neighborhoodsList = new ArrayList<Neighborhood>();
 	
-	static int stateConsecutive = 151;
-	static int cityConsecutive = 3348;
-	static int neighboorhoodConsecutive = 9077;
+	static int stateConsecutive = 243;
+	static int cityConsecutive = 36107;
+	static int neighboorhoodConsecutive = 193890;
 
 	public static void main(String[] args) {
 		//run(1, "Colombia", 2242);
@@ -32,8 +33,11 @@ public class LocationCreator {
 		//run(8, "Costa Rica", 343);
 		//run(9, "Ecuador", 545);
 		//run(6, "Canada", 2678);
-		run(7, "USA", 42202);
+		//run(7, "USA", 42202);
 		//run(10, "Mexico", 2242);
+		run(11, "Germany", 19670);
+		run(12, "Australia", 16079);
+		run(13, "Spain", 8229);
 	}
 
 	private static void run(int countryId, String countryName, Integer rows) {
@@ -72,9 +76,9 @@ public class LocationCreator {
 					continue;
 				}
 				String e2 = row.getCell(2).getStringCellValue();
-				Integer e3 = null;
+				String e3 = null;
 				try{
-					e3 = (int) row.getCell(3).getNumericCellValue();
+					e3 = getValue(row.getCell(3));
 				}catch(NullPointerException e){}
 				String stateKey = stateKey(e0, e1);
 				String cityKey = cityKey(e0, e1, e2);
@@ -106,7 +110,7 @@ public class LocationCreator {
 					city.defaultZoom = oldCity.defaultZoom;
 				}
 				if(e3 != null){
-					neighborhoodsList.add(new Neighborhood(String.valueOf(e3), ++neighboorhoodConsecutive, city.id));
+					neighborhoodsList.add(new Neighborhood(e3, ++neighboorhoodConsecutive, city.id));
 				}
 			}
 		} catch (Exception e) {
@@ -165,6 +169,16 @@ public class LocationCreator {
 			}
 
 		}
+	}
+	
+	private static String getValue(Cell cell){
+		String value = "";
+		try{
+			value =  cell.getStringCellValue();
+		}catch(IllegalStateException e){
+			value = (int)cell.getNumericCellValue() + "";
+		}
+		return value;
 	}
 
 	private static String cityKey(String country, String state, String city) {
