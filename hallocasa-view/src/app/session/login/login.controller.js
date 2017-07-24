@@ -5,7 +5,7 @@
 		.module('HalloCasa.session')
 		.controller('LoginController', LoginController);
 
-	function LoginController(SessionService, toastr, $mdDialog, description, allowClose, $log, translateFilter, $mdMedia, $document) {
+	function LoginController(SessionService, toastr, $mdDialog, description, allowClose, $log, translateFilter, $mdMedia, $document, $location) {
 		var vm = this;
 		vm.userData = {};
 		vm.login = login;
@@ -70,6 +70,7 @@
           $log.debug(response);
           toastr.success(translateFilter("ForgotPassword.enterEmail.sent"));
           closeDialog();
+          $location.url('/');
         })
         .catch(function(error){
           if(error.status === 403){
@@ -82,6 +83,7 @@
 							translateFilter('Error.whenrecoveringpassword'),
 							translateFilter('hallocasa.global.error'));
           }
+          $location.url('/');
         });
     }
 
