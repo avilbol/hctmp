@@ -58,7 +58,7 @@
     $translateProvider.preferredLanguage(LOCALES.preferredLocale);// is applied on first load
     $translateProvider.useLocalStorage();// saves selected language to localStorage
 
-    tmhDynamicLocaleProvider.localeLocationPattern('http://www.hallocasa.com/resources/libs/angular-locale_{{locale}}.js');
+    tmhDynamicLocaleProvider.localeLocationPattern('http://www.hallocasa.com/resources/js/angular-locale_{{locale}}.js');
 
     //Icons configuration
     $mdIconProvider
