@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function SessionService($mdMedia, $mdDialog, $document, $auth, $q, GenericRESTResource, backend_url ,$resource,
-                          ApplicationCredentials, localStorageService, $intercom, WootricService, $rootScope) {
+                          ApplicationCredentials, localStorageService, $intercom, WootricService, $rootScope, $location) {
     var service = {
       login: login,
       logout: logout,
@@ -67,6 +67,7 @@
       clearCurrentUser();
       localStorageService.remove("sessionExpiration");
       $auth.logout();
+      $location.url("/");
       $intercom.shutdown();
     }
 
