@@ -89,9 +89,13 @@
 
           if(!_.isUndefined(deleteFile)){
             scope.fieldInformation.fieldValueList.splice(deleteFile, 1);
+            var totalImages = scope.fieldInformation.fieldValueList.length;
             filesKeys.splice(deleteFile, 1);
             primaryImage = primaryImage === deleteFile ? undefined : primaryImage;
             primaryImage = primaryImage > deleteFile ? primaryImage - 1 : primaryImage;
+            primaryImage = _.isUndefined(primaryImage) && totalImages ? totalImages - 1 : primaryImage;
+
+            setPreviewAsPrimary(primaryImage);
           }
         }
 
@@ -103,9 +107,9 @@
             },500);
           }
           else {
-            var titleFrame = angular.element(imageFrame.querySelector(previewTitle));
-            titleFrame.html("x");
+            var titleFrame = angular.element(imageFrame).find(previewTitle);
             titleFrame.removeClass("primary-image");
+            titleFrame.find(".titleText").html("");
           }
         }
 
@@ -117,9 +121,9 @@
             },500);
           }
           else {
-            var titleFrame = angular.element(imageFrame.querySelector(previewTitle));
-            titleFrame.html("("+translateFilter('Properties.multi.image.button')+") x");
+            var titleFrame = angular.element(imageFrame).find(previewTitle);
             titleFrame.addClass("primary-image");
+            titleFrame.find(".titleText").html("("+translateFilter('Properties.multi.image.button')+") ");
           }
         }
 
