@@ -7,9 +7,9 @@
     .constant('AppVersion', '1.1.0')
     .constant('INTERCOM_APPID', 't6itp8rl')
     .constant('WOOTRIC_APPID', 'NPS-ead65c4a')
-    .constant('MAILCHIMP_AID', 'degopolis')
-    .constant('MAILCHIMP_UID', 'a610f13810ee445b291161c90')
-    .constant('MAILCHIMP_ID', 'e8425f4d8d')
+    .constant('MAILCHIMP_AID', 'hallocasa.us10')
+    .constant('MAILCHIMP_UID', '34633f8bf6d14b7ef0e8b6bbb')
+    .constant('MAILCHIMP_ID', '645de5e37b')
     .constant('moment', moment)
     .constant('LOCALES', {
       'locales': {
