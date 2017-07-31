@@ -34,9 +34,9 @@
   <div ng-if="readonly && price">
     <b>
       <span translate>{{fieldInformation.lang}}:&nbsp;</span>
-      <md-tooltip>
-        <span translate>{{fieldInformation.tooltipLang}}</span>
-      </md-tooltip>
+      <!--<md-tooltip>-->
+        <!--<span translate>{{fieldInformation.tooltipLang}}</span>-->
+      <!--</md-tooltip>-->
     </b>
     <span ng-bind-html="price | dynamicCurrency"></span>
   </div>

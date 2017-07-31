@@ -14,7 +14,7 @@
 
     var resources = {
       register: $resource(backend_url+'user/register', {}, GenericRESTResource),
-      subscribe: $resource("//"+MAILCHIMP_AID+".us3.list-manage.com/subscribe/post-json?u="+MAILCHIMP_UID+"&amp;id="+MAILCHIMP_ID, {}, {
+      subscribe: $resource("//"+MAILCHIMP_AID+".list-manage.com/subscribe/post-json?u="+MAILCHIMP_UID+"&id="+MAILCHIMP_ID, {}, {
         jsonp: {method: 'JSONP'}
       })
     };
