@@ -45,8 +45,8 @@ public class EntityPropertyType implements HallocasaEntity {
 	private EntityPropertyTypeGroup group;
 	
 	@Convert(converter=HcBooleanConverter.class)
-	@Column(name = "isActive")
-	private Boolean isActive;
+	@Column(name = "is_active")
+	private Boolean active;
 
 	public Integer getId() {
 		return id;
@@ -80,11 +80,11 @@ public class EntityPropertyType implements HallocasaEntity {
 		this.group = group;
 	}
 
-	public Boolean getIsActive() {
-		return isActive;
+	public Boolean getActive() {
+		return active;
 	}
 
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

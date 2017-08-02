@@ -14,7 +14,7 @@ public class PropertyType implements ValueObject, Serializable {
 	
 	private String lang;
 	
-	private Boolean isActive;
+	private Boolean active;
 	
 	private PropertyTypeGroup group;
 
@@ -50,11 +50,11 @@ public class PropertyType implements ValueObject, Serializable {
 		this.group = group;
 	}
 
-	public Boolean isActive() {
-		return isActive;
+	public Boolean getActive() {
+		return active;
 	}
 
-	public void setActive(Boolean isActive) {
-		this.isActive = isActive;
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }
