@@ -492,6 +492,7 @@
 	"hallocasa.propertytypegroup.lots": "Lotes",
 	"hallocasa.propertytypegroup.commerceindustry": "Comercio e industria",
 	"hallocasa.propertytypegroup.living": "Vivienda",
+	"hallocasa.propertytype.lot": "Lote",
 	"hallocasa.propertytype.warehousestandalone": "Almac\u00E9n",
 	"hallocasa.propertytype.garagestandalone": "Garaje",
 	"hallocasa.propertytype.officestandalone": "Oficina",

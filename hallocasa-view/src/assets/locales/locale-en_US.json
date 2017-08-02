@@ -492,6 +492,7 @@
 	"hallocasa.propertytypegroup.lots": "Lots",
 	"hallocasa.propertytypegroup.commerceindustry": "Commerce & Industry",
 	"hallocasa.propertytypegroup.living": "Living",
+	"hallocasa.propertytype.lot": "Lot",
 	"hallocasa.propertytype.warehousestandalone": "Warehouse",
 	"hallocasa.propertytype.garagestandalone": "Garage",
 	"hallocasa.propertytype.officestandalone": "Office",
