@@ -150,7 +150,7 @@
       PropertyService.getPropertyTypes()
         .then(function (propertyTypes) {
           vm.propertyTypes = _.filter(propertyTypes, function (propertyType) {
-            return propertyType.isActive;
+            return propertyType.active;
           });
         })
         .catch(function () {
