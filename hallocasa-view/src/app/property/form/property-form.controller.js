@@ -19,7 +19,6 @@
       location: {}
     };
 
-
     CurrencyService.loadCurrency().then(function(currencies){
       vm.currencies = currencies;
     });
@@ -150,7 +149,9 @@
     function loadPropertyTypes() {
       PropertyService.getPropertyTypes()
         .then(function (propertyTypes) {
-          vm.propertyTypes = propertyTypes;
+          vm.propertyTypes = _.filter(propertyTypes, function (propertyType) {
+            return propertyType.isActive;
+          });
         })
         .catch(function () {
           toastr.warning(
