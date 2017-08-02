@@ -14,6 +14,8 @@ public class PropertyType implements ValueObject, Serializable {
 	
 	private String lang;
 	
+	private boolean isActive;
+	
 	private PropertyTypeGroup group;
 
 	public Integer getId() {
@@ -46,5 +48,13 @@ public class PropertyType implements ValueObject, Serializable {
 
 	public void setGroup(PropertyTypeGroup group) {
 		this.group = group;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 }
