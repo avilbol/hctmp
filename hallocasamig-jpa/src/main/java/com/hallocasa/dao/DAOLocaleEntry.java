@@ -27,7 +27,7 @@ public class DAOLocaleEntry implements IDAOLocaleEntry {
 
 	@Override
 	public List<EntityLocaleEntry> find(String locale) {
-		return appPersistenceServices.executeNamedQuery(EntityLocaleEntry.QUERY_FIND_ALL, 
+		return appPersistenceServices.executeNamedQuery(EntityLocaleEntry.QUERY_FIND_BY_LOCALE, 
 				new Object[] {locale},
 				EntityLocaleEntry.class);
 	}
