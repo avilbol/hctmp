@@ -1,12 +1,14 @@
 package com.hallocasa.rs;
 
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
+import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -17,11 +19,11 @@ import javax.ws.rs.core.Response;
 import org.apache.http.HttpStatus;
 
 import com.hallocasa.rs.security.Secured;
+import com.hallocasa.services.generalities.LocalizationService;
 import com.hallocasa.vo.dto.LocaleEntryDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -29,6 +31,19 @@ import io.swagger.annotations.ApiResponses;
 @Api(value="/locales", tags = "locales")
 public class LocaleResource {
 
+	@EJB
+	LocalizationService localizationService;
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@ApiOperation(value = "Returns all language list locale entries")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	public Response find() throws IllegalAccessException, InvocationTargetException {
+		return Response.status(HttpStatus.SC_OK).entity(localizationService.find()).build();
+	}
+	
 	@GET
 	@Path("/{locale}")
 	@Produces({ MediaType.APPLICATION_JSON })
@@ -37,53 +52,55 @@ public class LocaleResource {
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
 	public Response getLanguages(@PathParam("locale") String locale) {
-		Map<String, String> test = new HashMap<String, String>();
-		test.put("hola", locale);
-		test.put("hallocasa.propertytype.industrial_building", "Industrieobjekt");
-		test.put("hallocasa.propertytype.mini_golf_course", "Minigolfplatz");
-		test.put("hallocasa.propertytype.motel", "Motel");
-		test.put("hallocasa.propertytype.nursing_home", "Pflegeheim");
-		test.put("hallocasa.propertytype.sports_facility", "Sportanlage");
-		return Response.status(HttpStatus.SC_OK).entity(test).build();
-	}
-	
-	@GET
-	@Path("/ui-internationalization/entries")
-	@Produces({ MediaType.APPLICATION_JSON })
-	@ApiOperation(value = "Returns locale language list for manipulation in api")
-	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
-			@ApiResponse(code = 500, message = "If server internal error"),
-			@ApiResponse(code = 200, message = "Ok. Generated resource") })
-	public Response getLocaleUiEntries() {
-		List<LocaleEntryDTO> test = new LinkedList<LocaleEntryDTO>();
-		LocaleEntryDTO dto = new LocaleEntryDTO();
-		dto.setDe("hallo");
-		dto.setEn("hello");
-		dto.setEs("hola");
-		dto.setPnemonic("salutation");
-		dto.setLangKey("hallocasa.global.salutation");
-		test.add(dto);
-		dto = new LocaleEntryDTO();
-		dto.setDe("Auf Wiedersehen");
-		dto.setEn("Bye");
-		dto.setEs("Adios");
-		dto.setPnemonic("salutation2");
-		dto.setLangKey("hallocasa.global.salutation2");
-		test.add(dto);
-		return Response.status(HttpStatus.SC_OK).entity(test).build();
+		return Response.status(HttpStatus.SC_OK).entity(localizationService.find(locale)).build();
 	}
 	
 	@POST
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.TEXT_HTML})
-	@Secured
-	@ApiOperation(value = "Create or update the property supplied", 
-		notes = "Consider that only user can save its properties")
+	@ApiOperation(value = "Create or update the locale translation list")
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
-	public Response saveLocaleEntry(@ApiParam("property to persist") LocaleEntryDTO localeEntry) {
-		return Response.status(HttpStatus.SC_OK).entity("Locale entry saved succesfully").build();
+	public Response saveLocaleEntries(
+			@HeaderParam("security-key") String securityKey, List<LocaleEntryDTO> localeEntries) 
+					throws IllegalArgumentException, IllegalAccessException, 
+					InvocationTargetException, NoSuchMethodException {
+		localizationService.save(localeEntries, securityKey);
+		return Response.status(HttpStatus.SC_OK).entity("Locale entries saved succesfully").build();
 	}
 	
+	@POST
+	@Path("/key-value-translations/{locale}")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.TEXT_HTML})
+	@ApiOperation(value = "Create or update the key value translations")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	public Response saveKeyValueTranslations(
+			@HeaderParam("security-key") String securityKey, 
+			@PathParam("locale") String locale, 
+			Map<String, String> keyValueList) throws IllegalArgumentException, IllegalAccessException, 
+			InvocationTargetException, NoSuchMethodException {
+		localizationService.save(keyValueList, locale, securityKey);
+		return Response.status(HttpStatus.SC_OK).entity("Key - values locale entries saved succesfully").build();
+	}
+	
+	@DELETE
+	@Path("/{pnemonic}")
+	@Produces({ MediaType.TEXT_HTML})
+	@Secured
+	@ApiOperation(value = "Delete a locale entry with all translations related")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	public Response delete(
+			@HeaderParam("security-key") String securityKey, 
+			@PathParam("pnemonic") String pnemonic, 
+			Map<String, String> keyValueList) throws IllegalArgumentException, IllegalAccessException, 
+			InvocationTargetException, NoSuchMethodException {
+		localizationService.delete(pnemonic, securityKey);
+		return Response.status(HttpStatus.SC_OK).entity("Delete operation executed succesfully").build();
+	}
 }

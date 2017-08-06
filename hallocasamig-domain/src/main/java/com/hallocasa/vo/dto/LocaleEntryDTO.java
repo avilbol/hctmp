@@ -7,10 +7,19 @@ package com.hallocasa.vo.dto;
 public class LocaleEntryDTO {
 
 	private String pnemonic;
-	private String langKey;
-	private String en;
-	private String es;
-	private String de;
+	private String description;
+	private String enUS;
+	private String esES;
+	private String deDE;
+	
+	public LocaleEntryDTO() {
+		super();
+	}
+
+	public LocaleEntryDTO(String pnemonic) {
+		super();
+		this.pnemonic = pnemonic;
+	}
 	
 	public String getPnemonic() {
 		return pnemonic;
@@ -20,35 +29,41 @@ public class LocaleEntryDTO {
 		this.pnemonic = pnemonic;
 	}
 
-	public String getLangKey() {
-		return langKey;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setLangKey(String langKey) {
-		this.langKey = langKey;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public String getEn() {
-		return en;
+	public String getEnUS() {
+		return enUS;
 	}
-	
-	public void setEn(String en) {
-		this.en = en;
+
+	public void setEnUS(String enUS) {
+		this.enUS = enUS;
 	}
-	
-	public String getEs() {
-		return es;
+
+	public String getEsES() {
+		return esES;
 	}
-	
-	public void setEs(String es) {
-		this.es = es;
+
+	public void setEsES(String esES) {
+		this.esES = esES;
 	}
-	
-	public String getDe() {
-		return de;
+
+	public String getDeDE() {
+		return deDE;
 	}
-	
-	public void setDe(String de) {
-		this.de = de;
+
+	public void setDeDE(String deDE) {
+		this.deDE = deDE;
+	}
+
+	@Override
+	public String toString() {
+		return "LocaleEntryDTO [pnemonic=" + pnemonic + ", description=" + description + ", enUS=" + enUS + ", esES="
+				+ esES + ", deDE=" + deDE + "]";
 	}
 }

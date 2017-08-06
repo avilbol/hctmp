@@ -122,7 +122,6 @@ public class ParserMetadata {
 		clazzEquivalenceMap.put(UserLanguage.class, EntityUserLanguage.class);
 		clazzEquivalenceMap.put(UserDescription.class, EntityUserDescription.class);
 		clazzEquivalenceMap.put(PasswordRecoveryToken.class, EntityPasswordRecoveryToken.class);
-		clazzEquivalenceMap.put(LocaleEntry.class, EntityLocaleEntry.class);
 	}
 
 	/**

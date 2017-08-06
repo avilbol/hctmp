@@ -21,4 +21,6 @@ public class SystemConstants {
 	public static final String MAIL_CHIMP_API_KEY = "Email.MailChimp.ApiKey";
 	
     public static final String MAIL_CHIMP_TEST1_LIST_ID = "Email.MailChimp.Test1ListId";
+    
+    public static final String LOCALIZATION_UI_AUTHORIZATION_KEY = "Localization.Ui.AuthorizationKey";
 }
