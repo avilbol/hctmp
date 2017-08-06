@@ -196,12 +196,17 @@ public class LocalizationServiceImp implements LocalizationService {
 		for(Field field : attributes){
 			String fieldname = field.getName();
 			String localeRep = localeEquivalence.get(fieldname);
+			String fieldValue = BeanUtils.getProperty(dtoEntry, fieldname);
+			if(localeRep != null && fieldValue == null){
+				throw new BadRequestException("Error in the request. Please review that all locale entries "
+						+ "contain the locale " + fieldname);
+			}
 			if(localeRep != null){
 				EntityLocaleEntry entityLocaleEntry = new EntityLocaleEntry();
 				entityLocaleEntry.setPnemonic(dtoEntry.getPnemonic());
 				entityLocaleEntry.setLocale(localeRep);
 				entityLocaleEntry.setDescription(dtoEntry.getDescription());
-				entityLocaleEntry.setLangValue(BeanUtils.getProperty(dtoEntry, fieldname));
+				entityLocaleEntry.setLangValue(fieldValue);
 				localeEntryList.add(entityLocaleEntry);
 			}
 		}
