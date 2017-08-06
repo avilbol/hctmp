@@ -39,7 +39,7 @@ public class DAOLocaleEntry implements IDAOLocaleEntry {
 
 	@Override
 	public void delete(String pnemonic) {
-		appPersistenceServices.executeUpdate(EntityLocaleEntry.QUERY_DELETE_BY_PNEMONIC_ITEM, 
+		appPersistenceServices.executeNamedQuery(EntityLocaleEntry.QUERY_DELETE_BY_PNEMONIC_ITEM, 
 				new Object[] {pnemonic});
 	}
 }
