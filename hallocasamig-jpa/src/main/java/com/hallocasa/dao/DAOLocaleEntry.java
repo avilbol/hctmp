@@ -3,6 +3,7 @@ package com.hallocasa.dao;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 
 import com.hallocasa.dao.i.IDAOLocaleEntry;
 import com.hallocasa.entities.EntityLocaleEntry;
@@ -12,6 +13,7 @@ import com.hallocasa.jpaservices.i.AppPersistenceServices;
  * Data access object for crud locale entry definitions
  * @author avilbol
  */
+@Stateless
 public class DAOLocaleEntry implements IDAOLocaleEntry {
 
 	@EJB
