@@ -90,16 +90,14 @@ public class LocaleResource {
 	@DELETE
 	@Path("/{pnemonic}")
 	@Produces({ MediaType.TEXT_HTML})
-	@Secured
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@ApiOperation(value = "Delete a locale entry with all translations related")
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
 	public Response delete(
 			@HeaderParam("security-key") String securityKey, 
-			@PathParam("pnemonic") String pnemonic, 
-			Map<String, String> keyValueList) throws IllegalArgumentException, IllegalAccessException, 
-			InvocationTargetException, NoSuchMethodException {
+			@PathParam("pnemonic") String pnemonic) {
 		localizationService.delete(pnemonic, securityKey);
 		return Response.status(HttpStatus.SC_OK).entity("Delete operation executed succesfully").build();
 	}
