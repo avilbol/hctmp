@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('itemList', itemList);
 
-  function itemList($mdMedia, unicodeFilter, resolveFilter) {
+  function itemList($mdMedia, unicodeFilter, resolveFilter, $mdDialog) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/item-list/item-list.html",
@@ -25,6 +25,13 @@
         scope.desktopItems = angular.isNumber(scope.desktopItems) ? scope.desktopItems : 7;
         scope.generateRowLabel = generateRowLabel;
         scope.display = scope.display ? scope.display : "row";
+
+
+        console.log('Item-List');
+        console.log(scope);
+        //modal
+        scope.openModal = openModal;
+        // scope.modalName = scope.list[0].name;
 
         scope.$watch("labelAttribute",updateLabel);
         scope.$watch("list",updateLabel);
@@ -106,6 +113,44 @@
             label += ", " + "<span class='link'>+" + (scope.list.length - scope.maxItems) + "</span>";
           }
           return label;
+        }
+
+        // Add array List to show in modal
+        function generateRowModalLabel() {
+          var label = [];
+          _.each(scope.list, function (itemList, index) {
+            var rawLabel = getLabel(itemList);
+            label.push(rawLabel);
+          });
+          return label;
+        }
+
+        // Open modal when list is > maxItems
+        function openModal(ev) {
+          var modalList = generateRowModalLabel();
+
+          $mdDialog.show({
+                controller: DialogController,
+                templateUrl: 'dialog-item-list.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                fullscreen:false,
+                locals: {
+                  items: modalList,
+                  translateLabel: scope.translateLabel
+                }
+          });
+        }
+
+        // Controller to Modal
+        function DialogController($scope, $mdDialog, items, translateLabel) {
+          $scope.items = items;
+          $scope.translateLabel = translateLabel;
+
+          $scope.closeDialog = function() {
+            $mdDialog.cancel();
+          };
         }
       }
     };

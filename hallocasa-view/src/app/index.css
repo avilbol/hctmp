@@ -143,6 +143,7 @@ v-pane {
 
 .link {
   color: #0c58a6;
+  cursor: pointer;
 }
 
 .selectHeader {

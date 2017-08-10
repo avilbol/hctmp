@@ -1,0 +1,20 @@
+<md-dialog aria-label="items-list">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <!--<h2>{{'Common.Label.PrivacyStatement' | translate}}</h2>-->
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="closeDialog()">
+            <i class="material-icons">close</i>
+            </md-button>
+        </div>
+    </md-toolbar> 
+    <md-dialog-content layout="row" style="padding: 10px"> 
+        <div layout="column">
+            <div ng-repeat="itemList in items track by $index">
+                &#8259;
+                <span ng-if="!translateLabel">{{itemList | unicode}}</span>
+                <span ng-if="translateLabel" translate>{{itemList}}</span>
+            </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>

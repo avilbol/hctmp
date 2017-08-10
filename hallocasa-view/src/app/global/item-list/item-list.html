@@ -10,7 +10,8 @@
   </span>
   <div ng-repeat-end ng-if="list.length > maxItems">
     <span>&#8259;</span>
-    <span class="link">+{{list.length - maxItems}}</span>
+    <span class="link" ng-click="openModal($event)">+{{list.length - maxItems}}</span>
+    
   </div>
 </div>
 

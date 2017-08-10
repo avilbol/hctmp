@@ -1,0 +1,23 @@
+<md-dialog layout-padding>
+    <!--<md-toolbar>
+    <div class="md-toolbar-tools">
+        <div ng-repeat-end ng-if="list.length > maxItems">
+        <p ng-repeat="itemList in list track by $index">
+        {{::getLabel(element) | unicode}}
+        </p>
+    </div>
+    </md-toolbar>-->
+    <md-dialog-content layout="row"> 
+    <span ng-repeat="itemList in items">
+        &#8259;
+        <span ng-if="!translateLabel">{{itemList | unicode}}</span>
+        <span ng-if="translateLabel" translate>{{itemList}}</span>
+    </span>
+    <!--{{ list.length }}-->
+    <!--<span ng-repeat="itemList in label">
+        &#8259;
+        <span ng-if="!translateLabel">{{itemList | unicode}}</span>
+        <span ng-if="translateLabel" translate>{{itemList}}</span>
+    </span>-->
+    </md-dialog-content>
+</md-dialog>
