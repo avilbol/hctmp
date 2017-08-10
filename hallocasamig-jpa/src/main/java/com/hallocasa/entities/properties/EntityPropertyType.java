@@ -1,6 +1,7 @@
 package com.hallocasa.entities.properties;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.hallocasa.entities.i.HallocasaEntity;
+import com.hallocasa.persistence.converters.HcBooleanConverter;
 
 /**
  * This entity represents a type property
@@ -41,6 +43,10 @@ public class EntityPropertyType implements HallocasaEntity {
 	@JoinColumn(name = "group_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private EntityPropertyTypeGroup group;
+	
+	@Convert(converter=HcBooleanConverter.class)
+	@Column(name = "is_active")
+	private Boolean active;
 
 	public Integer getId() {
 		return id;
@@ -72,5 +78,13 @@ public class EntityPropertyType implements HallocasaEntity {
 
 	public void setGroup(EntityPropertyTypeGroup group) {
 		this.group = group;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 }

@@ -18,6 +18,7 @@
     <class>com.hallocasa.entities.EntityHcFilterNature</class>
     <class>com.hallocasa.entities.EntityHcFilterType</class>
     <class>com.hallocasa.entities.EntityLanguage</class>
+    <class>com.hallocasa.entities.EntityLocaleEntry</class>
     <class>com.hallocasa.entities.EntityPasswordRecoveryToken</class>
     <class>com.hallocasa.entities.EntityState</class>
     <class>com.hallocasa.entities.EntityUser</class>
