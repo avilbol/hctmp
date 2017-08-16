@@ -26,9 +26,6 @@
         scope.generateRowLabel = generateRowLabel;
         scope.display = scope.display ? scope.display : "row";
 
-
-        console.log('Item-List');
-        console.log(scope);
         //modal
         scope.openModal = openModal;
         // scope.modalName = scope.list[0].name;

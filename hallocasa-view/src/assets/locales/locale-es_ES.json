@@ -993,6 +993,7 @@
 	"Error.whenloadingexchangerates": "Error al cargar tasas de cambio",
 	"Error.whenloadingserviceoptions": "Error al cargar opciones del servicio",
 	"Error.invalidoremptyimage": "La imagen cargada es inválida o está vacía",
+	"Error.invalidorSizeimage": "La imagen cargada debe tener un ancho mayor a ",
 	"Error.whenprocessingimage": "Error al procesar imagen",
 	"Warning.datemaynotlieinthepast": "Date may not lie in the past",
 	"Alert.sessionexpired": "Su sesi\u00F3n ha expirado, para continuar por favor inicie sesi\u00F3n de nuevo",

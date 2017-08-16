@@ -27,7 +27,7 @@
       image.src = imageURL;
 
       return deferred.promise;
-    }
+    }   
 
     function validateOrFallback(imageURL, imageFallbackId) {
       return $q(function (resolve) {
@@ -36,7 +36,7 @@
             resolve(imageURL);
           })
           .catch(function () {
-            resolve(ImagesFallbackList[imageFallbackId]);
+            resolve(  [imageFallbackId]);
           });
       });
     }

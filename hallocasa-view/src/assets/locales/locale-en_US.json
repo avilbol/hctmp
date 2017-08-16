@@ -993,6 +993,7 @@
 	"Error.whenloadingexchangerates": "Error when loading exchange rates",
 	"Error.whenloadingserviceoptions": "Error when loading service options",
 	"Error.invalidoremptyimage": "Invalid or empty image",
+	"Error.invalidorSizeimage": "The image has to have a minimum width of ",
 	"Error.whenprocessingimage": "Error when processing image",
 	"Warning.datemaynotlieinthepast": "Date may not lie in the past",
 	"Alert.sessionexpired": "Session expired",

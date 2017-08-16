@@ -13,7 +13,8 @@
         fieldInformation: "=",
         additionalParameters: "=?",
         form: "=?",
-        readonly: "=?"
+        readonly: "=?",
+        maxWidth: "="
       },
       link: function (scope) {
         scope.fieldName = scope.$id;
@@ -33,6 +34,8 @@
         }
 
         function parseNewImages(amountImages) {
+          console.log('Se ejecuta al agregar nueva imagen');
+
           var imagesList = _.rest(scope.rawImages,scope.rawImages.length - amountImages);
           var blobList = _.map(_.reject(imagesList, _.property('isRemote')), _.property('lfFile'));
 
@@ -49,6 +52,7 @@
                 var fileIndex = scope.rawImages.length - amountImages + imageIndex;
 
                 var validImage = ImageValidatorService.validateBase64(imageEncoded);
+                
                 if(validImage){
                   var imageData = {
                     data1: {},
@@ -58,11 +62,24 @@
                   imageData.data1.strVal = imageEncoded;
                   scope.fieldInformation.fieldValueList.push(imageData);
                   filesKeys.push(scope.rawImages[fileIndex].key);
+
+                  // check image width, this is because image.onload is async
+                  var image = new Image();
+                  var width = 0;
+                  image.src = imageEncoded;
+                  image.onload = function() {
+                    width = this.width;
+                    if(width < scope.maxWidth){
+                      toastr.warning(translateFilter("Error.invalidorSizeimage") + scope.maxWidth + 'px');
+                      scope.api.removeByName(scope.rawImages[fileIndex].lfFileName);
+                    } 
+                  };
                 }
                 else{
                   toastr.warning(translateFilter("Error.invalidoremptyimage"));
                   scope.api.removeByName(scope.rawImages[fileIndex].lfFileName);
                 }
+                
               });
               if(_.isUndefined(primaryImage) && !_.isEmpty(scope.rawImages)){
                 var firstImageIndex = scope.rawImages.length - amountImages;

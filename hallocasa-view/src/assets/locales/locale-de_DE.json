@@ -993,6 +993,7 @@
 	"Error.whenloadingexchangerates": " Fehler beim Laden der Umrechnung aufgetreten",
 	"Error.whenloadingserviceoptions": " Fehler beim Laden der Dienstleistungen aufgetreten",
 	"Error.invalidoremptyimage": " Ungeeignetes oder leeres Bild",
+	"Error.invalidorSizeimage": "Die Breite des Bildes muss mindestens ",
 	"Error.whenprocessingimage": " Fehler beim Laden des Bildes aufgetreten",
 	"Warning.datemaynotlieinthepast": " Das Datum darf nicht in der Vergangenheit liegen",
 	"Alert.sessionexpired": " Ihre Session ist abgelaufen",
