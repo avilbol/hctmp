@@ -5,11 +5,21 @@
         <label>{{'Profile.Data.Country.Label' | translate}}</label>
         <md-select
           name="country"
+          aria-label="country"
+          title="{{Profile.Data.Country.Label | translate}}"
           ng-model="vm.property.propertyKey.country"
           ng-model-options="{trackBy: '$value.id'}"
-          required
-        >
-          <md-option ng-repeat="country in vm.countries" ng-value="country" ng-disabled="vm.isReadOnly">
+          md-on-close="searchCountryTerm = ''"
+          data-md-container-class="selectHeader"
+          ng-required="required">
+          <md-select-header class="select-header">
+            <input ng-model="vm.searchCountryTerm"
+                  type="search"
+                  placeholder="{{'placeholder.search' | translate}}"
+                  class="header-searchbox md-text"
+                  onkeydown="mdSelectOnKeyDownOverride(event)">
+          </md-select-header>
+          <md-option ng-repeat="country in vm.countries | filter: vm.searchCountryTerm" ng-value="country" ng-disabled="vm.isReadOnly">
             {{country.lang | translate}}
           </md-option>
         </md-select>
@@ -26,21 +36,28 @@
           name="propertyTypes"
           ng-model="vm.property.propertyKey.propertyType"
           ng-model-options="{trackBy: '$value.id'}"
-          required
-        >
+          data-md-container-class="selectHeader"
+          required>
+          <md-select-header class="select-header">
+            <input ng-model="vm.searchPropertyTypeTerm"
+                  type="search"
+                  placeholder="{{'placeholder.search' | translate}}"
+                  class="header-searchbox md-text"
+                  onkeydown="mdSelectOnKeyDownOverride(event)">
+          </md-select-header>
           <md-optgroup label="{{'hallocasa.propertytypegroup.lots' | translate}}">
-            <md-option ng-repeat="propertyTypes in vm.propertyTypes | filter: {group: {id: 1}} track by $index" ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
-              {{propertyTypes.lang | translate}}
+            <md-option ng-repeat="propertyTypes in vm.propertyTypesLots | filter: vm.searchPropertyTypeTerm " ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
+              {{propertyTypes.langTrans}}
             </md-option>
           </md-optgroup>
           <md-optgroup label="{{'hallocasa.propertytypegroup.commerceindustry' | translate}}">
-            <md-option ng-repeat="propertyTypes in vm.propertyTypes | filter: {group: {id: 2}} track by $index" ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
-              {{propertyTypes.lang | translate}}
+            <md-option ng-repeat="propertyTypes in vm.propertyTypesIndustry | filter: vm.searchPropertyTypeTerm " ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
+              {{propertyTypes.langTrans}}
             </md-option>
           </md-optgroup>
           <md-optgroup label="{{'hallocasa.propertytypegroup.living' | translate}}">
-            <md-option ng-repeat="propertyTypes in vm.propertyTypes | filter: {group: {id: 3}} track by $index" ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
-              {{propertyTypes.lang | translate}}
+            <md-option ng-repeat="propertyTypes in vm.propertyTypesLiving | filter: vm.searchPropertyTypeTerm " ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
+              {{propertyTypes.langTrans}}
             </md-option>
           </md-optgroup>
         </md-select>

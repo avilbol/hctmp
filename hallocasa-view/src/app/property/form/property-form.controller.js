@@ -9,7 +9,7 @@
   /** @ngInject */
   function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, property_images_url,
                                   FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode,
-                                  CurrencyService, DataCalcService) {
+                                  CurrencyService, DataCalcService, $window) {
 
 		var vm = this;
     var propertyBase = {
@@ -29,6 +29,20 @@
     vm.previousDisabled = true;
     vm.showSubmit = editMode;
     var selectedTab = 0;
+
+    vm.searchCountryTerm;
+    vm.searchPropertyTypeTerm;
+
+    vm.propertyTypesLots = [];
+    vm.propertyTypesIndustry = [];
+    vm.propertyTypesLiving = [];
+
+    // The md-select directive eats keydown events for some quick select
+    // logic. Since we have a search input here, we don't need that logic.
+    $window.mdSelectOnKeyDownOverride = function(event) { 
+      event.stopPropagation();
+    }
+    
 
     vm.state = {
       "WIZARD_1": 1,
@@ -151,6 +165,21 @@
         .then(function (propertyTypes) {
           vm.propertyTypes = _.filter(propertyTypes, function (propertyType) {
             return propertyType.active;
+          });
+
+          vm.propertyTypesLots = _.filter(vm.propertyTypes, function (propertyType) {
+            propertyType.langTrans = translateFilter(propertyType.lang);
+            return propertyType.group.id == 1;
+          });
+
+          vm.propertyTypesIndustry = _.filter(vm.propertyTypes, function (propertyType) {
+            propertyType.langTrans = translateFilter(propertyType.lang);
+            return propertyType.group.id == 2;
+          });
+
+          vm.propertyTypesLiving = _.filter(vm.propertyTypes, function (propertyType) {
+            propertyType.langTrans = translateFilter(propertyType.lang);
+            return propertyType.group.id == 3;
           });
         })
         .catch(function () {

@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('itemList', itemList);
 
-  function itemList($mdMedia, unicodeFilter, resolveFilter, $mdDialog) {
+  function itemList($mdMedia, unicodeFilter, resolveFilter, $mdDialog, $document) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/item-list/item-list.html",
@@ -115,7 +115,7 @@
         // Add array List to show in modal
         function generateRowModalLabel() {
           var label = [];
-          _.each(scope.list, function (itemList, index) {
+          _.each(scope.list, function (itemList) {
             var rawLabel = getLabel(itemList);
             label.push(rawLabel);
           });
@@ -129,7 +129,7 @@
           $mdDialog.show({
                 controller: DialogController,
                 templateUrl: 'dialog-item-list.tmpl.html',
-                parent: angular.element(document.body),
+                parent: angular.element($document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 fullscreen:false,

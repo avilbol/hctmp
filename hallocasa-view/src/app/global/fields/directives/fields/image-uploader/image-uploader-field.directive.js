@@ -34,7 +34,6 @@
         }
 
         function parseNewImages(amountImages) {
-          console.log('Se ejecuta al agregar nueva imagen');
 
           var imagesList = _.rest(scope.rawImages,scope.rawImages.length - amountImages);
           var blobList = _.map(_.reject(imagesList, _.property('isRemote')), _.property('lfFile'));
