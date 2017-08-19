@@ -6,7 +6,7 @@
     .controller('PublicPropertyController', PublicPropertyController);
 
   /** @ngInject */
-  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService) {
+  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope) {
     var vm = this;
     var filtersSidernavPromise = $mdSidenav('propertyFilters', true);
     var filtersSidernav;
@@ -25,8 +25,8 @@
       current: 1
     };
 
-    function loadPropertiesPage(page) {
-      PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1)
+    function loadPropertiesPage(page, filterList) {
+      PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1, filterList)
         .then(function (data) {
           vm.properties = PropertyService.generatePropertiesPreviewData(data.propertyList);
           vm.totalProperties = data.count;
@@ -58,6 +58,12 @@
         });
     }
 
+    function listenFiltersChanges() {
+      $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+        loadPropertiesPage(1, [filterInformation])
+      });
+    }
+
     filtersSidernavPromise.then(function(instance) {
       filtersSidernav = instance;
       filtersSidernav.onClose(function () {
@@ -68,5 +74,6 @@
 
     loadPropertiesPage(1);
     loadFilters();
+    listenFiltersChanges();
   }
 })();

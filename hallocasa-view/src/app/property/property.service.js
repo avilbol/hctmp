@@ -56,10 +56,11 @@
       return resources.propertyProposals.query().$promise;
     }
 
-    function loadPublicProperties(start, finish) {
+    function loadPublicProperties(start, finish, filterList) {
       $log.log("Cargar rango de propiedades: ("+start+" - "+finish+")");
+      filterList = filterList ? filterList : [];
       var filter = {
-        filterList: [],
+        filterList: filterList,
         resultRequest:{
           pageFrom: start+1,
           pageTo: finish+1,

@@ -6,13 +6,14 @@
       ng-switch-when="static_options"
       name="{{fieldName}}"
       title="{{title | translate}}"
-      ng-model="filterInformation.value"
+      ng-model="selectedOptions"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldName}}"
       placeholder="{{title | translate}}"
       ng-required="required"
+      ng-change="emitSelectedOption(selectedOptions)"
     >
-      <md-option ng-repeat="option in options" ng-value="option.identifier" compile="option.tmplTranslate"></md-option>
+      <md-option ng-repeat="option in options" ng-value="option" compile="option.tmplTranslate"></md-option>
     </md-select>
   </md-input-container>
 </div>
