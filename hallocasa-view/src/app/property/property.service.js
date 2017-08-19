@@ -21,7 +21,8 @@
       saveProperty: saveProperty,
       deleteProperty: deleteProperty,
       generatePropertiesPreviewData: generatePropertiesPreviewData,
-      generatePropertyDetailData: generatePropertyDetailData
+      generatePropertyDetailData: generatePropertyDetailData,
+      loadPropertiesFilters: loadPropertiesFilters
     };
 
     var resources = {
@@ -36,7 +37,9 @@
       propertyDelete: $resource(backend_url + "properties/delete/:id", {}, GenericRESTResource),
       propertyDetail: $resource(backend_url + "properties/detail/:id", {}, GenericRESTResource),
       properties: $resource(backend_url + "properties/fetch_random", {}, GenericRESTResource),
-      propertiesPublic: $resource(backend_url + "properties/search", {}, GenericRESTResource)
+      propertiesPublic: $resource(backend_url + "properties/search", {}, GenericRESTResource),
+      propertiesFilters: $resource(backend_url + "property_filters", {}, GenericRESTResource),
+      propertyFiltersRender: $resource("/app/property/property-fields/render-data/property_filter_render.json", {}, GenericRESTResource)
     };
 
     return service;
@@ -239,6 +242,15 @@
 
       propertyDetail.publishDate = property.publishDate;
       return propertyDetail;
+    }
+
+    function loadPropertiesFilters() {
+      var promises = {
+        propertyFilters: resources.propertiesFilters.query().$promise,
+        propertyFiltersRender: resources.propertyFiltersRender.query().$promise
+      };
+
+      return $q.all(promises);
     }
   }
 })();

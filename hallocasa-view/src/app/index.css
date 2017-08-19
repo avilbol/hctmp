@@ -183,3 +183,18 @@ md-tabs.md-dynamic-height md-tabs-content-wrapper {
     display: initial;
   }
 }
+
+/*
+  Sidernav's into ng-view
+*/
+.inner-view-sidenav {
+  height: calc(100vh - 88px);
+}
+
+/*
+  Disable scrolling on current tag
+*/
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}

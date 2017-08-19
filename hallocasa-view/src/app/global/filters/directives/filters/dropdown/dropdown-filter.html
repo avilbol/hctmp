@@ -1,0 +1,18 @@
+<div ng-switch="filterInformation.filter.options.type">
+  <md-input-container class="md-block">
+    <label translate>{{title}}</label>
+
+    <md-select
+      ng-switch-when="static_options"
+      name="{{fieldName}}"
+      title="{{title | translate}}"
+      ng-model="filterInformation.value"
+      ng-disabled="!options || options.length === 0"
+      aria-label="{{fieldName}}"
+      placeholder="{{title | translate}}"
+      ng-required="required"
+    >
+      <md-option ng-repeat="option in options" ng-value="option.identifier" compile="option.tmplTranslate"></md-option>
+    </md-select>
+  </md-input-container>
+</div>
