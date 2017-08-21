@@ -13,6 +13,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -45,13 +46,13 @@ public class LocaleResource {
 	}
 	
 	@GET
-	@Path("/{locale}")
+	@Path("/translations")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@ApiOperation(value = "Returns locale language list")
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
 			@ApiResponse(code = 500, message = "If server internal error"),
 			@ApiResponse(code = 200, message = "Ok. Generated resource") })
-	public Response getLanguages(@PathParam("locale") String locale) {
+	public Response getLanguages(@QueryParam("lang") String locale) {
 		return Response.status(HttpStatus.SC_OK).entity(localizationService.find(locale)).build();
 	}
 	

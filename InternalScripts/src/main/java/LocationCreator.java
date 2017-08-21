@@ -20,9 +20,9 @@ public class LocationCreator {
 	static Map<String, City> citiesMap = new HashMap<String, City>();
 	static List<Neighborhood> neighborhoodsList = new ArrayList<Neighborhood>();
 	
-	static int stateConsecutive = 243;
-	static int cityConsecutive = 36107;
-	static int neighboorhoodConsecutive = 193890;
+	static int stateConsecutive = 286;
+	static int cityConsecutive = 68601;
+	static int neighboorhoodConsecutive = 237865;
 
 	public static void main(String[] args) {
 		//run(1, "Colombia", 2242);
@@ -35,9 +35,14 @@ public class LocationCreator {
 		//run(6, "Canada", 2678);
 		//run(7, "USA", 42202);
 		//run(10, "Mexico", 2242);
-		run(11, "Germany", 19670);
-		run(12, "Australia", 16079);
-		run(13, "Spain", 8229);
+		//run(11, "Germany", 19670);
+		//run(12, "Australia", 16079);
+		//run(13, "Spain", 8229);
+		run(14, "Uruguay", 317);
+		run(15, "Paraguay", 319);
+		run(16, "Nicaragua", 928);
+		run(17, "Switzerland", 4120);
+		run(18, "Austria", 2588);
 	}
 
 	private static void run(int countryId, String countryName, Integer rows) {
