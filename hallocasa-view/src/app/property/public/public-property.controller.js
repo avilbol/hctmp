@@ -6,8 +6,12 @@
     .controller('PublicPropertyController', PublicPropertyController);
 
   /** @ngInject */
-  function PublicPropertyController(PropertyService, $mdSidenav) {
+  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope) {
     var vm = this;
+    var filtersSidernavPromise = $mdSidenav('propertyFilters', true);
+    var filtersSidernav;
+    var mainContainer = angular.element("#mainContainer");
+
     vm.loadPropertiesPage = loadPropertiesPage;
     vm.toggleFilters = toggleFilters;
 
@@ -21,19 +25,55 @@
       current: 1
     };
 
-    function loadPropertiesPage(page) {
-      PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1)
+    function loadPropertiesPage(page, filterList) {
+      PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1, filterList)
         .then(function (data) {
           vm.properties = PropertyService.generatePropertiesPreviewData(data.propertyList);
           vm.totalProperties = data.count;
           vm.firstLoading = false;
+        })
+        .catch(function () {
+          toastr.warning(
+            translateFilter("hallocasa.global.error"));
         });
     }
 
     function toggleFilters() {
-      $mdSidenav('propertyFilters').toggle();
+      filtersSidernav.toggle();
+      if(filtersSidernav.isOpen()){
+        mainContainer.addClass("stop-scrolling");
+        mainContainer.bind('touchmove', function(e){e.preventDefault()});
+      }
+
     }
 
+    function loadFilters() {
+      PropertyService.loadPropertiesFilters()
+        .then(function (filtersData) {
+          vm.filters = FiltersService.generateFiltersRender(filtersData.propertyFilters, filtersData.propertyFiltersRender);
+        })
+        .catch(function () {
+          toastr.warning(
+            translateFilter("hallocasa.global.error"));
+        });
+    }
+
+    function listenFiltersChanges() {
+      $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+        loadPropertiesPage(1, [filterInformation])
+      });
+    }
+
+    filtersSidernavPromise.then(function(instance) {
+      filtersSidernav = instance;
+      filtersSidernav.onClose(function () {
+        mainContainer.removeClass("stop-scrolling");
+        mainContainer.unbind('touchmove');
+      });
+    });
+
     loadPropertiesPage(1);
+    //loadFilters();
+    //listenFiltersChanges();
   }
 })();
