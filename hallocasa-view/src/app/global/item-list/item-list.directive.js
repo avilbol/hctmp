@@ -107,7 +107,7 @@
             }
           });
           if(label && scope.list.length > scope.maxItems){
-            label += ", " + "<span class='link'>+" + (scope.list.length - scope.maxItems) + "</span>";
+            label += ", " + "<span class='link' ng-click='openModal($event)'>+" + (scope.list.length - scope.maxItems) + "</span>";
           }
           return label;
         }
