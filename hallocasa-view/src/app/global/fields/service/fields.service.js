@@ -163,9 +163,10 @@
           break;
         case "PARTIAL":
           parseOptionString = function (option) {
-            option.tmplTranslate = option.data1 = option.dependsOnLang ? "<span translate>" + option.data1 || option.lang + "</span>" : option.data1;
-            option.data1 = option.dependsOnLang ? LanguageService.translate(option.data1 || option.lang, option.name) : option.data1;
-            option.name = option.dependsOnLang ? option.data1 : option.name || option.lang;
+            var langToUse = option.data1 || option.lang;
+            option.tmplTranslate = option.data1 = option.dependsOnLang ? "<span translate>" + langToUse + "</span>" : option.data1;
+            option.data1 = option.dependsOnLang ? LanguageService.translate(langToUse, option.name) : option.data1;
+            option.name = option.dependsOnLang ? option.data1 : langToUse;
             return option;
           };
           break;
