@@ -71,6 +71,7 @@
 		<files.propertyImages.rootPath>${files.propertyImages.rootpath}</files.propertyImages.rootPath>
 		<files.propertyImages.miniPath>${files.propertyImages.minipath}</files.propertyImages.miniPath>
 		<app.version>${app.version}</app.version>
+		<app.environment>${app.environment}</app.environment>
 		<localization.ui.authorizationkey>${Localization.Ui.AuthorizationKey}</localization.ui.authorizationkey>
 		<log4j.version>2.6.2</log4j.version>
 	</properties>
