@@ -42,7 +42,7 @@
         function emitSelectedOption(selectedOptions) {
           var selectionPayload = {
             propertyFilter: scope.filterInformation,
-            selectedFilterOptions: [{data1: selectedOptions}]
+            selectedFilterOptions: [_.pick(selectedOptions, "optionId")]
           };
           $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
         }

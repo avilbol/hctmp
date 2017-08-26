@@ -13,16 +13,16 @@
     .constant('moment', moment)
     .constant('LOCALES', {
       'locales': {
-        'es_ES': 'Español',
-        'en_US': 'English',
-        'de_DE': 'Deutsch'
+        'es-ES': 'Español',
+        'en-US': 'English',
+        'de-DE': 'Deutsch'
       },
       'languages': {
         'English': {'id': 1, 'locale': 'en'},
         'Español': {'id': 2, 'locale': 'es'},
         'Deutsch': {'id': 3, 'locale': 'de'}
       },
-      'preferredLocale': 'es_ES'
+      'preferredLocale': 'es-ES'
     })
     .constant('GenericRESTResource', {
       query: { method: 'GET', isArray: true},

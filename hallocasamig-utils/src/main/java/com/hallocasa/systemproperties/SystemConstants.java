@@ -11,6 +11,8 @@ public class SystemConstants {
 	public static final String MINI_USER_IMAGES_PATH = "files.userImages.miniPath";
 	
 	public static final String APP_VERSION = "App.Version";
+	
+	public static final String APP_ENVIRONMENT = "App.Environment";
 
 	public static final String CURRENCY_LAYER_URL = "Api.CurrencyLayer.Url";
 	

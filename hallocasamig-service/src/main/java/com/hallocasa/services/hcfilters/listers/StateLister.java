@@ -52,7 +52,8 @@ public class StateLister implements HcLister {
 	
 	private StateService getStateService(){
 		if(stateService == null){
-			String stateServiceJndi = String.format("java:global/hallocasamig-endpoint-%s/StateServiceImp",
+			String stateServiceJndi = String.format("java:global/hallocasamig-endpoint-%1$s-%2$s/StateServiceImp",
+					SystemProperty.get(SystemConstants.APP_ENVIRONMENT),
 					SystemProperty.get(SystemConstants.APP_VERSION));
 			try {
 				stateService = (StateService) InitialContext.doLookup(stateServiceJndi);
