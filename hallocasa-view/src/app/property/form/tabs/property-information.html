@@ -38,13 +38,7 @@
           ng-model-options="{trackBy: '$value.id'}"
           data-md-container-class="selectHeader"
           required>
-          <md-select-header class="select-header">
-            <input ng-model="vm.searchPropertyTypeTerm"
-                  type="search"
-                  placeholder="{{'placeholder.search' | translate}}"
-                  class="header-searchbox md-text"
-                  onkeydown="mdSelectOnKeyDownOverride(event)">
-          </md-select-header>
+          
           <md-optgroup label="{{'hallocasa.propertytypegroup.lots' | translate}}">
             <md-option ng-repeat="propertyTypes in vm.propertyTypesLots | filter: vm.searchPropertyTypeTerm " ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
               {{propertyTypes.langTrans}}
