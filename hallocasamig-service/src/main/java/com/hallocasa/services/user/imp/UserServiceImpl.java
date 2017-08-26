@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService {
 		List<Long> userIdList = null;
 		List<EntityUser> entList = new LinkedList<EntityUser>();
 		while (counter++ < userListRequest.getUserNumber() && 
-				profileAmmount >= entList.size()) {
+				profileAmmount > entList.size()) {
 			do {
 				userIdList = new LinkedList<>();
 				userId = daoUser.fetchRandomUserId(profileAmmount, 
