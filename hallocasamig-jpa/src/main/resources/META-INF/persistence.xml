@@ -20,6 +20,7 @@
     <class>com.hallocasa.entities.EntityLanguage</class>
     <class>com.hallocasa.entities.EntityLocaleEntry</class>
     <class>com.hallocasa.entities.EntityPasswordRecoveryToken</class>
+    <class>com.hallocasa.entities.EntityPreferredSetting</class>
     <class>com.hallocasa.entities.EntityState</class>
     <class>com.hallocasa.entities.EntityUser</class>
     <class>com.hallocasa.entities.EntityUserDescription</class>
