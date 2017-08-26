@@ -164,11 +164,23 @@ public class UserServiceImpl implements UserService {
 				userIdList = new LinkedList<>();
 				userId = daoUser.fetchRandomUserId(profileAmmount, 
 						userListRequest.getExcludeIdList());
-			} while (duplicateId(userId, entList));
+			} while (duplicateId(userId, entList) || nullId(userId));
+			LOG.info("Adding user id: " + userId);
 			userIdList.add(userId);
 			entList.addAll(daoUser.loadUserListByIdList(userIdList));
 		}
 		return toValueObjectList(entList);
+	}
+	
+	/**
+	 * Detects if a specified long id is empty or null
+	 * @param id
+	 * 		the long id to validate
+	 * @return
+	 * 		true if the long id is null or zero
+	 */
+	private boolean nullId(Long id){
+		return id == null || id == 0l;
 	}
 	
 	private boolean duplicateId(Long id, List<EntityUser> userIdList) {
