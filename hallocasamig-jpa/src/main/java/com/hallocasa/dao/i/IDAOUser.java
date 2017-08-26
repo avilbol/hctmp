@@ -29,4 +29,13 @@ public interface IDAOUser {
 	List<EntityUser> loadUserListByIdList(List<Long> idList);
 
 	void updatePassword(Long userId, String newPassword);
+
+	/**
+	 * Load count of showable of user excluding specified ids
+	 * @param excludeIdList
+	 * 		Id list to exclude
+	 * @return
+	 * 		Count of showable users excluded specified list
+	 */
+	Long loadEntityShowableUserCount(List<Long> excludeIdList);
 }

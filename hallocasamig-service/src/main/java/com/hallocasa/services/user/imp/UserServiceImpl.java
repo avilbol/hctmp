@@ -154,33 +154,22 @@ public class UserServiceImpl implements UserService {
 		if(userListRequest.getUserNumber() == null){
 			throw new BadRequestException("attribute 'userNumber' needed when searching");
 		}
-		Long profileAmmount = daoUser.loadEntityShowableUserCount();
+		Long count = daoUser.loadEntityShowableUserCount(userListRequest.getExcludeIdList());
 		Long userId = null;
 		List<Long> userIdList = null;
 		List<EntityUser> entList = new LinkedList<EntityUser>();
 		while (counter++ < userListRequest.getUserNumber() && 
-				profileAmmount > entList.size()) {
+				count > entList.size()) {
 			do {
 				userIdList = new LinkedList<>();
-				userId = daoUser.fetchRandomUserId(profileAmmount, 
+				userId = daoUser.fetchRandomUserId(count, 
 						userListRequest.getExcludeIdList());
-			} while (duplicateId(userId, entList) || nullId(userId));
+			} while (duplicateId(userId, entList));
 			LOG.info("Adding user id: " + userId);
 			userIdList.add(userId);
 			entList.addAll(daoUser.loadUserListByIdList(userIdList));
 		}
 		return toValueObjectList(entList);
-	}
-	
-	/**
-	 * Detects if a specified long id is empty or null
-	 * @param id
-	 * 		the long id to validate
-	 * @return
-	 * 		true if the long id is null or zero
-	 */
-	private boolean nullId(Long id){
-		return id == null || id == 0l;
 	}
 	
 	private boolean duplicateId(Long id, List<EntityUser> userIdList) {

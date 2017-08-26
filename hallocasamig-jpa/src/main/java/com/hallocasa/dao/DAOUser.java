@@ -49,6 +49,18 @@ public class DAOUser implements IDAOUser {
 				EntityUser.QUERY_COUNT_LIST_WITH_USER_TYPES, 
 				new Object[]{}, Long.class).get(0);
 	}
+	
+	@Override
+	public Long loadEntityShowableUserCount(List<Long> excludeIdList) {
+		HashMap<String, Object> params = new HashMap<>();
+		StringBuilder query = new StringBuilder(EntityUser.QUERY_COUNT_LIST_WITH_USER_TYPES);
+		if(excludeIdList != null && !excludeIdList.isEmpty()){
+			query.append(" AND u.id NOT IN ?1 ");
+			params.put("1", excludeIdList);
+		}
+		return appPersistenceServices.executeQuery(
+				query.toString(), params, Long.class).get(0);
+	}
 
 	@Override
 	public List<EntityUser> loadUserListByIdList(List<Long> idList) {
