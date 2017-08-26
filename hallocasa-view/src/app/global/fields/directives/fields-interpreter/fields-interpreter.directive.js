@@ -18,7 +18,6 @@
         form: "=?",
         readonly: "=?",
         fieldRendered: "=?"
-
       },
       link: function (scope) {
 

@@ -53,7 +53,8 @@ public class CityLister implements HcLister {
 	
 	private CityService getCityService(){
 		if(cityService == null){
-			String cityServiceJndi = String.format("java:global/hallocasamig-endpoint-%s/CityServiceImp",
+			String cityServiceJndi = String.format("java:global/hallocasamig-endpoint-%1$s-%2$s/CityServiceImp",
+					SystemProperty.get(SystemConstants.APP_ENVIRONMENT),
 					SystemProperty.get(SystemConstants.APP_VERSION));
 			try {
 				cityService = (CityService) InitialContext.doLookup(cityServiceJndi);

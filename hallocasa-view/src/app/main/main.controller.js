@@ -107,6 +107,8 @@
 
     function goTo(url, closeMenu) {
       $location.url(url);
+      angular.element("#mainContainer").animate({ scrollTop: 0 }, "slow");
+
       if(closeMenu){
         toggleMenu();
       }
