@@ -19,7 +19,7 @@ import com.hallocasa.entities.i.HallocasaEntity;
 @Entity
 @Table(name = "preferred_settings")
 @NamedQueries({
-		@NamedQuery(name = EntityPreferredSetting.QUERY_FIND, query = "select e from EntityPreferredSetting") })
+		@NamedQuery(name = EntityPreferredSetting.QUERY_FIND, query = "select e from EntityPreferredSetting e") })
 public class EntityPreferredSetting implements HallocasaEntity {
 
 	/**
