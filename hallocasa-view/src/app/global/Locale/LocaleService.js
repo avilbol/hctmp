@@ -7,7 +7,9 @@
 
   function LocaleService($translate, LOCALES, $rootScope, tmhDynamicLocale, $log, $document) {
     $translate.onReady(function () {
-      tmhDynamicLocale.set($translate.use().toLowerCase().replace(/_/g, '-'));
+      var currentLanguage = $translate.use();
+      if(currentLanguage)
+        tmhDynamicLocale.set($translate.use().toLowerCase().replace(/_/g, '-'));
     });
 
 

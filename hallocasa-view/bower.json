@@ -17,7 +17,7 @@
     "angular-translate": "2.11.1",
     "angular-translate-handler-log": "2.11.1",
     "angular-translate-loader-static-files": "2.11.1",
-	"angular-translate-loader-url": "2.11.1",
+	  "angular-translate-loader-url": "2.11.1",
     "angular-translate-storage-local": "2.11.1",
     "animate.css": "3.5.2",
     "components-font-awesome": "4.6.3",
