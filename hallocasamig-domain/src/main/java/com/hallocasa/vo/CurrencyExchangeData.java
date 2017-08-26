@@ -23,6 +23,7 @@ public class CurrencyExchangeData implements ValueObject, Serializable {
 	private Double AUD;
 
 	public Double getUSD() {
+	   
 		return USD;
 	}
 

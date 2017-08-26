@@ -1,8 +1,7 @@
 package com.hallocasa.services.currencies;
 
+import java.util.Map;
 import java.util.Optional;
-
-import com.hallocasa.vo.CurrencyExchangeDataSummary;
 
 /**
  * Contract for service that manage exchange rates
@@ -10,7 +9,12 @@ import com.hallocasa.vo.CurrencyExchangeDataSummary;
  */
 public interface CurrencyExchangeDataService {
 
-	public CurrencyExchangeDataSummary findExchangeRates();
+	/**
+	 * Generates map DTO with exchange rates in system currencies
+	 * @return
+	 * 		map DTO with exchange rates in system currencies
+	 */
+	public Map<String, Map<String, Double>> findExchangeRates();
 
 	public void refreshExchangeRates();
 	

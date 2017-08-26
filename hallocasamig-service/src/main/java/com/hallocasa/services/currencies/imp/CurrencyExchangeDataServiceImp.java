@@ -16,11 +16,7 @@ import java.util.Optional;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
-
 import com.hallocasa.dao.i.IDAOCurrencyExchangeData;
-import com.hallocasa.entities.EntityCurrency;
 import com.hallocasa.entities.EntityCurrencyExchangeData;
 import com.hallocasa.jsonmanager.JsonManager;
 import com.hallocasa.services.currencies.CurrencyExchangeDataConverter;
@@ -28,8 +24,6 @@ import com.hallocasa.services.currencies.CurrencyExchangeDataService;
 import com.hallocasa.services.currencies.CurrencyService;
 import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.vo.Currency;
-import com.hallocasa.vo.CurrencyExchangeData;
-import com.hallocasa.vo.CurrencyExchangeDataSummary;
 
 @Stateless
 public class CurrencyExchangeDataServiceImp implements CurrencyExchangeDataService {
@@ -49,7 +43,7 @@ public class CurrencyExchangeDataServiceImp implements CurrencyExchangeDataServi
 	private static final String QUOTES_PROPERTY_NAME = "quotes";
 	
 	@Override
-	public CurrencyExchangeDataSummary findExchangeRates() {
+	public Map<String, Map<String, Double>> findExchangeRates() {
 		if(!daoCurrencyExchangeData.isTodayUpdated()){
 			refreshExchangeRates();
 		}
@@ -58,7 +52,6 @@ public class CurrencyExchangeDataServiceImp implements CurrencyExchangeDataServi
 		} catch(IllegalAccessException | NoSuchMethodException | InvocationTargetException e){
 			throw new FatalException("Unexpected error. " + e);
 		}
-		
 	}
 
 	@Override
@@ -84,25 +77,15 @@ public class CurrencyExchangeDataServiceImp implements CurrencyExchangeDataServi
 		return daoCurrencyExchangeData.findRate(currencyFromId, currencyToId);
 	}
 	
-	private CurrencyExchangeDataSummary toSummary(List<EntityCurrencyExchangeData> exchangeList) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
-		CurrencyExchangeDataSummary summary = new CurrencyExchangeDataSummary();
-		summary.setAUD(new CurrencyExchangeData());
-		summary.setCOP(new CurrencyExchangeData());
-		summary.setGBP(new CurrencyExchangeData());
-		summary.setCAD(new CurrencyExchangeData());
-		summary.setCHF(new CurrencyExchangeData());
-		summary.setUSD(new CurrencyExchangeData());
-		summary.setEUR(new CurrencyExchangeData());
-		summary.setARS(new CurrencyExchangeData());
-		summary.setCRC(new CurrencyExchangeData());
-		summary.setPAB(new CurrencyExchangeData());
-		summary.setCLP(new CurrencyExchangeData());
-		summary.setMXN(new CurrencyExchangeData());
+	private Map<String, Map<String, Double>> toSummary(List<EntityCurrencyExchangeData> exchangeList) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+		Map<String, Map<String, Double>> summary = new HashMap<>();
 		for(EntityCurrencyExchangeData exchangeData : exchangeList){
-			EntityCurrency crcyFrom = exchangeData.getCurrencyFrom();
-			EntityCurrency crcyTo = exchangeData.getCurrencyTo();
-			CurrencyExchangeData crcyExData = (CurrencyExchangeData) PropertyUtils.getProperty(summary, crcyFrom.getAbbreviation());
-			BeanUtils.setProperty(crcyExData, crcyTo.getAbbreviation(), exchangeData.getRateExchange());
+			String from = exchangeData.getCurrencyFrom().getAbbreviation();
+			String to = exchangeData.getCurrencyTo().getAbbreviation();
+			Map<String, Double> exchangeMap = summary.get(from);
+			exchangeMap = exchangeMap == null ? new HashMap<String, Double>() : exchangeMap;
+			exchangeMap.put(to, exchangeData.getRateExchange());
+			summary.put(from, exchangeMap);
 		}
 		return summary;
 	}
