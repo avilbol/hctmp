@@ -8,7 +8,7 @@
   /** @ngInject */
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
                   localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider,
-                  $mdThemingProvider, uiGmapGoogleMapApiProvider, $intercomProvider, INTERCOM_APPID) {
+                  $mdThemingProvider, uiGmapGoogleMapApiProvider, $intercomProvider, INTERCOM_APPID, backend_url) {
 
     //Inject interceptors
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
@@ -51,12 +51,10 @@
     // Default sanitize value strategy
     $translateProvider.useSanitizeValueStrategy('escape');
 
-    $translateProvider.useStaticFilesLoader({
-      prefix: 'assets/locales/locale-',// path to translations files
-      suffix: '.json'// suffix, currently- extension of the translations
-    });
-    $translateProvider.preferredLanguage(LOCALES.preferredLocale);// is applied on first load
-    $translateProvider.useLocalStorage();// saves selected language to localStorage
+    console.log(backend_url + '/hallocasa-api/locales/translations');
+    $translateProvider.useUrlLoader(backend_url + '/hallocasa-api/locales/translations');
+    $translateProvider.preferredLanguage('es-ES');// is applied on first load
+    //$translateProvider.useLocalStorage();// saves selected language to localStorage
 
     tmhDynamicLocaleProvider.localeLocationPattern('http://www.hallocasa.com/resources/js/angular-locale_{{locale}}.js');
 
