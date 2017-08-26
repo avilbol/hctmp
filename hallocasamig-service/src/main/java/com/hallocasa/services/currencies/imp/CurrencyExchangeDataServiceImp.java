@@ -93,6 +93,11 @@ public class CurrencyExchangeDataServiceImp implements CurrencyExchangeDataServi
 		summary.setCHF(new CurrencyExchangeData());
 		summary.setUSD(new CurrencyExchangeData());
 		summary.setEUR(new CurrencyExchangeData());
+		summary.setARS(new CurrencyExchangeData());
+		summary.setCRC(new CurrencyExchangeData());
+		summary.setPAB(new CurrencyExchangeData());
+		summary.setCLP(new CurrencyExchangeData());
+		summary.setMXN(new CurrencyExchangeData());
 		for(EntityCurrencyExchangeData exchangeData : exchangeList){
 			EntityCurrency crcyFrom = exchangeData.getCurrencyFrom();
 			EntityCurrency crcyTo = exchangeData.getCurrencyTo();

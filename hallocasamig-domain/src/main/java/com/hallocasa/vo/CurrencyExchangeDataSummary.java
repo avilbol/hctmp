@@ -9,19 +9,18 @@ public class CurrencyExchangeDataSummary implements ValueObject, Serializable{
 	private static final long serialVersionUID = -1077001400697489369L;
 
 	private CurrencyExchangeData USD;
-
 	private CurrencyExchangeData EUR;
-
 	private CurrencyExchangeData GBP;
-
 	private CurrencyExchangeData COP;
-
 	private CurrencyExchangeData CAD;
-
 	private CurrencyExchangeData CHF;
-
 	private CurrencyExchangeData AUD;
-
+	private CurrencyExchangeData MXN;
+	private CurrencyExchangeData PAB;
+	private CurrencyExchangeData CRC;
+	private CurrencyExchangeData ARS;
+	private CurrencyExchangeData CLP;
+	
 	public CurrencyExchangeData getUSD() {
 		return USD;
 	}
@@ -76,5 +75,45 @@ public class CurrencyExchangeDataSummary implements ValueObject, Serializable{
 
 	public void setAUD(CurrencyExchangeData aUD) {
 		AUD = aUD;
+	}
+
+	public CurrencyExchangeData getMXN() {
+		return MXN;
+	}
+
+	public void setMXN(CurrencyExchangeData mXN) {
+		MXN = mXN;
+	}
+
+	public CurrencyExchangeData getPAB() {
+		return PAB;
+	}
+
+	public void setPAB(CurrencyExchangeData pAB) {
+		PAB = pAB;
+	}
+
+	public CurrencyExchangeData getCRC() {
+		return CRC;
+	}
+
+	public void setCRC(CurrencyExchangeData cRC) {
+		CRC = cRC;
+	}
+
+	public CurrencyExchangeData getARS() {
+		return ARS;
+	}
+
+	public void setARS(CurrencyExchangeData aRS) {
+		ARS = aRS;
+	}
+
+	public CurrencyExchangeData getCLP() {
+		return CLP;
+	}
+
+	public void setCLP(CurrencyExchangeData cLP) {
+		CLP = cLP;
 	}
 }
