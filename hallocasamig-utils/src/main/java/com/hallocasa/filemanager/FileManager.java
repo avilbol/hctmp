@@ -3,8 +3,6 @@ package com.hallocasa.filemanager;
 import static com.hallocasa.randomutils.RandomUtils.alphanumericRandom;
 import static java.lang.String.format;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
@@ -19,9 +17,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
@@ -146,36 +147,14 @@ public class FileManager {
 	}
 	
 	public static void main(String[] args) throws IOException{
-		String fileLocation = "D:\\development\\hallocasa-portal-utils\\property-images\\mini\\tEsTpRoP-randomrc.jpg";
-		String backLocation = "D:\\development\\hallocasa-portal-utils\\property-images\\gradient.jpg";
-		String fileLocationOut = "D:\\development\\hallocasa-portal-utils\\property-images\\mini\\bordered.jpg";
-		BufferedImage background = ImageIO.read(new File(backLocation));
-		BufferedImage source = ImageIO.read(new File(fileLocation));
-		int borderedImageWidth = 388;
-		int borderedImageHeight = 259;
-		int borderWidth = (borderedImageWidth - source.getWidth()) / 2;
-		int borderHeightDown = borderedImageHeight - source.getHeight();
-		System.out.println(borderWidth);
-		System.out.println(borderHeightDown);
-		BufferedImage img = new BufferedImage(borderedImageWidth, borderedImageHeight, BufferedImage.TYPE_3BYTE_BGR);
-		img.createGraphics();
-		Graphics2D g = (Graphics2D) img.getGraphics();
-		g.setColor(Color.WHITE);
-		//g.fillRect(0, 0, borderedImageWidth, borderedImageHeight);
-		g.drawImage(background, 0, 0, borderedImageWidth, 
-				borderedImageHeight, 0, 0, background.getWidth(), background.getHeight(), null);
-		g.drawImage(source, borderWidth, 0, borderedImageWidth - borderWidth, 
-				borderedImageHeight - borderHeightDown, 0, 0, source.getWidth(), source.getHeight(), null);
-		ImageIO.write(img, "jpg", new File(fileLocationOut));
-		
-		/*List<File> filesInFolder = Files.walk(Paths.get("D:\\development\\hallocasa-portal-utils\\property-images"))
+		List<File> filesInFolder = Files.walk(Paths.get("C:\\Users\\avilbol\\Pictures\\mine"))
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
                 .collect(Collectors.toList());
 		for(File file : filesInFolder){
-			String folderForMinifiedImages = "D:\\development\\hallocasa-portal-utils\\property-images\\mini";
+			String folderForMinifiedImages = "C:\\Users\\avilbol\\Pictures\\mine-minified";
 			createMinifiedImage(folderForMinifiedImages, file.getAbsolutePath(), 388, 259);
-		}*/
+		}
 	}
 	
 	public static List<String> fileList(String directory) {
