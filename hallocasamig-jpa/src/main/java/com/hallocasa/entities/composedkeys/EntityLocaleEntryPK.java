@@ -1,11 +1,14 @@
 package com.hallocasa.entities.composedkeys;
 
+import java.io.Serializable;
+
 /**
  * Composite primary key for locale entry element
  * @author avilbol
  */
-public class EntityLocaleEntryPK {
+public class EntityLocaleEntryPK implements Serializable {
 
+	private static final long serialVersionUID = 8171579644999414438L;
 	private String pnemonic;
 	private String locale;
 	
