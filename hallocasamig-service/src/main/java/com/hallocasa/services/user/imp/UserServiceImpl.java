@@ -47,7 +47,8 @@ import com.hallocasa.utils.constants.parsing.HallocasaConvert;
 import com.hallocasa.utils.security.CodecUtils;
 import com.hallocasa.vo.User;
 import com.hallocasa.vo.dto.UserListRequest;
-import com.hallocasa.vo.mail.MailChimpMergeVars.TypeEnum;
+
+import com.avsoft.commons.AvsFileManager;
 
 /**
  * 
@@ -131,7 +132,7 @@ public class UserServiceImpl implements UserService {
 		if(newImage){
 			String fullFilename = FileManager.createFileFromBase64(filePathRoot, 
 					user.getBase64Image(), "user" + user.getId());
-			FileManager.createMinifiedImage(miniFilePathRoot, fullFilename, 
+			AvsFileManager.createMinifiedImage(miniFilePathRoot, fullFilename, 
 					ImageParameters.USER_DEFAULT_MINIFIED_IMG_WIDTH, 
 					ImageParameters.USER_DEFAULT_MINIFIED_IMG_HEIGHT);
 			String[] parts = fullFilename.split("/");

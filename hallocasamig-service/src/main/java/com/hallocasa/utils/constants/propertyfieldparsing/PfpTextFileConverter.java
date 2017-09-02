@@ -8,6 +8,7 @@ import static com.hallocasa.systemproperties.SystemProperty.get;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.avsoft.commons.AvsFileManager;
 import com.hallocasa.filemanager.FileManager;
 import com.hallocasa.utils.constants.ImageParameters;
 import com.hallocasa.vo.hcfilter.properties.PropertyFieldValueSpec;
@@ -49,7 +50,7 @@ public class PfpTextFileConverter implements PropertyFieldValueConverter {
 		LOG.debug("property images path: " + propertiesPathRoot);
 		LOG.debug("minified property images path: " + miniImgPropertiesPathRoot);
 		LOG.debug("generating fullfilename: " + fullFilename);
-		FileManager.createMinifiedImage(miniImgPropertiesPathRoot, fullFilename, 
+		AvsFileManager.createMinifiedImage(miniImgPropertiesPathRoot, fullFilename, 
 				ImageParameters.PROP_DEFAULT_MINIFIED_IMG_WIDTH, 
 				ImageParameters.PROP_DEFAULT_MINIFIED_IMG_HEIGHT);
 		LOG.debug("image minified");
