@@ -87,6 +87,7 @@ public class AvsFileManager {
 	
 	public static String createMinifiedImage(String dir, String fileLocation, Integer width, Integer height){
 		try {
+			ImageIO.scanForPlugins();
 			Iterator<ImageReader> readers = ImageIO.getImageReadersByFormatName("JPEG");
 		    ImageReader reader = null;
 		    while(readers.hasNext()) {
