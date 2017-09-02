@@ -6,7 +6,7 @@
     .controller('PublicPropertyController', PublicPropertyController);
 
   /** @ngInject */
-  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope) {
+  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope, $scope) {
     var vm = this;
     var filtersSidernavPromise = $mdSidenav('propertyFilters', true);
     var filtersSidernav;
@@ -59,9 +59,11 @@
     }
 
     function listenFiltersChanges() {
-      $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+      var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
         loadPropertiesPage(1, [filterInformation])
       });
+
+      $scope.$on("$destroy", destroyListener);
     }
 
     filtersSidernavPromise.then(function(instance) {
