@@ -7,7 +7,8 @@
 
   /** @ngInject */
   function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService, LocaleService,
-                          BlogLinks, $rootScope, $route, AppVersion) {
+                          BlogLinks, $rootScope, $route, AppVersion, $translate, CurrencyService, IpInfoService,
+                          PreferredSettingsService, LOCALES) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
@@ -23,6 +24,9 @@
     vm.goUp = goUp;
     vm.blogRedirection = blogRedirection;
     vm.getCurrentUserIdentifier = getCurrentUserIdentifier;
+
+    $translate.use('en-US');
+    loadGlobalPreferredSettings();
 
     $scope.$watch(function() { return $mdMedia('sm') || $mdMedia('xs'); }, function(small) {
       vm.screenIsSmall = small;
@@ -134,6 +138,33 @@
       if($route.current.isUserActivarion){
         launchUserActivationDialog();
       }
+    }
+
+    /**
+      **  Query the back system for ip of machine requester which answer with his respective
+      **  country and location details. Next, the system request the hallocasa back with that country in
+      **  order to know currency and language preferredm which it will load in system 
+    **/
+    function loadGlobalPreferredSettings() {
+      var locationFound, settings;
+      IpInfoService.getLocation()
+        .then(function(location){
+          locationFound = location;
+          return PreferredSettingsService.getPreferredSettings();
+        })
+        .then(function(preferredSettings){
+          var settingToUse = searchByCountryCode(preferredSettings,locationFound.countryCode);
+          var currencyToUse = settingToUse ? settingToUse.firstCurrency : {id: 3, abbreviation: "USD"};
+          var localeToUse = settingToUse ? settingToUse.locale : LOCALES.defaultLocale;
+          CurrencyService.setCurrentCurrency(currencyToUse);
+          $translate.use(localeToUse);
+        });
+    }
+
+    function searchByCountryCode(preferredSettings, countryCode){
+      return _.find(preferredSettings, function(preferredSetting){
+        return preferredSetting.countryCode == countryCode;
+      });
     }
 
     toolbarsHideHandler();

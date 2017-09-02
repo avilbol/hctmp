@@ -11,7 +11,7 @@
     var requestInterceptor = {
       request: function(config) {
         var authRequest = backend_url + "security/auth";
-        if(config.url === authRequest){
+        if(config.url === authRequest || !config.url.startsWith(backend_url)){
           return config;
         }
         config.headers["O-Auth-Client-Id"] = ApplicationCredentials["client-id"];
