@@ -4,6 +4,24 @@
 
     <md-select
       ng-switch-when="static_options"
+      ng-if="filterInformation.filter.filterType.allowMultiple"
+      name="{{fieldName}}"
+      title="{{title | translate}}"
+      ng-model="selectedOptions"
+      ng-disabled="!options || options.length === 0"
+      aria-label="{{fieldName}}"
+      placeholder="{{title | translate}}"
+      ng-required="required"
+      data-md-container-class="selectHeader"
+      ng-change="emitSelectedOption(selectedOptions)"
+      multiple
+    >
+      <div ng-include="'selectContent'"></div>
+    </md-select>
+
+    <md-select
+      ng-switch-when="static_options"
+      ng-if="!filterInformation.filter.filterType.allowMultiple"
       name="{{fieldName}}"
       title="{{title | translate}}"
       ng-model="selectedOptions"
@@ -14,13 +32,25 @@
       data-md-container-class="selectHeader"
       ng-change="emitSelectedOption(selectedOptions)"
     >
-      <md-select-header class="select-header" ng-if="filterInformation.filter.filterType.useSearch">
-        <input ng-model="search.data1"
-               type="search"
-               placeholder="{{'placeholder.search' | translate}}"
-               class="header-searchbox md-text">
-      </md-select-header>
-      <md-option ng-repeat="option in options  | filter: search" ng-value="option" compile="option.tmplTranslate"></md-option>
+      <div ng-include="'selectContent'"></div>
     </md-select>
   </md-input-container>
 </div>
+
+
+<script type="text/ng-template" id="selectContent">
+  <md-select-header class="select-header" ng-if="filterInformation.filter.filterType.useSearch">
+    <input
+      ng-model="search.data1"
+      type="search"
+      placeholder="{{'placeholder.search' | translate}}"
+      class="header-searchbox md-text"
+    >
+  </md-select-header>
+  <md-option
+    ng-repeat="option in options  | filter: search"
+    ng-value="option"
+  >
+    <span compile="option.tmplTranslate"></span>
+  </md-option>
+</script>

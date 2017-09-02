@@ -60,7 +60,12 @@
 
     function listenFiltersChanges() {
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-        loadPropertiesPage(1, [filterInformation])
+        if(_.isEmpty(filterInformation.selectedFilterOptions)){
+          loadPropertiesPage(1);
+        }
+        else{
+          loadPropertiesPage(1, [filterInformation]);
+        }
       });
 
       $scope.$on("$destroy", destroyListener);

@@ -22,6 +22,7 @@
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
         scope.emitSelectedOption = emitSelectedOption;
         scope.search = {};
+        scope.vegetables = ['Corn' ,'Onions' ,'Kale' ,'Arugula' ,'Peas', 'Zucchini'];
 
         function loadOptions() {
           if(!optionsData){
@@ -41,9 +42,13 @@
         }
 
         function emitSelectedOption(selectedOptions) {
+          var selectedFilterOptions = _.isArray(selectedOptions) ?
+            _.map(selectedOptions, _.partial(_.pick, _, "optionId")) :
+            [_.pick(selectedOptions, "optionId")];
+
           var selectionPayload = {
             propertyFilter: scope.filterInformation,
-            selectedFilterOptions: [_.pick(selectedOptions, "optionId")]
+            selectedFilterOptions: selectedFilterOptions
           };
           $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
         }
@@ -57,7 +62,7 @@
         }
 
         function postRender() {
-          element.find(".select-header input").on("keydown", function(ev) {
+          element.find("input").on("keydown", function(ev) {
             ev.stopPropagation();
           });
         }
