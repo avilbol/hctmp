@@ -11,6 +11,7 @@
     var filtersSidernavPromise = $mdSidenav('propertyFilters', true);
     var filtersSidernav;
     var mainContainer = angular.element("#mainContainer");
+    var selectedFilters = [];
 
     vm.loadPropertiesPage = loadPropertiesPage;
     vm.toggleFilters = toggleFilters;
@@ -60,12 +61,22 @@
 
     function listenFiltersChanges() {
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+        var selectedIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
+          return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
+        });
+
         if(_.isEmpty(filterInformation.selectedFilterOptions)){
-          loadPropertiesPage(1);
+          selectedFilters.splice(selectedIndex, 1);
         }
         else{
-          loadPropertiesPage(1, [filterInformation]);
+          if(selectedIndex === -1){
+            selectedFilters.push(filterInformation);
+          }
+          else{
+            selectedFilters[selectedIndex] = filterInformation;
+          }
         }
+        loadPropertiesPage(1, selectedFilters);
       });
 
       $scope.$on("$destroy", destroyListener);
