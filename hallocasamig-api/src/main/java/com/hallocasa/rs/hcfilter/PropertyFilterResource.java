@@ -16,7 +16,7 @@ import javax.ws.rs.core.UriInfo;
 
 import org.apache.http.HttpStatus;
 
-import com.hallocasa.rs.security.Secured;
+import com.hallocasa.rs.security.Auth;
 import com.hallocasa.rs.utils.ResourceUtils;
 import com.hallocasa.services.hcfilters.PropertyFilterService;
 import com.hallocasa.services.properties.PropertyListerService;
@@ -43,7 +43,7 @@ public class PropertyFilterResource {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Secured
+	@Auth
 	@ApiOperation(value = "Retrieves the list of property filters", notes = "Return from the property list elements, theirs that allows to property filters")
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
 			@ApiResponse(code = 500, message = "If server internal error"),
@@ -61,7 +61,7 @@ public class PropertyFilterResource {
 	
 	@POST
 	@Path("by_property_keys")
-	@Secured
+	@Auth
 	@Produces({ MediaType.APPLICATION_JSON })
 	@ApiOperation(value = "Show the filter list which its property field could show when "
 			+ "a set of property keys have been selected", 
@@ -81,7 +81,7 @@ public class PropertyFilterResource {
 	@Path("/options/{filter_id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON })
-	@Secured
+	@Auth
 	@ApiOperation(value = "Return the options to offer to the user in property filter, given selected options of "
 			+ "parent property filters", notes = "The property filter must exist, and must have listers associated")
 	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
