@@ -73,7 +73,7 @@
     });
 
     loadPropertiesPage(1);
-    //loadFilters();
-    //listenFiltersChanges();
+    loadFilters();
+    listenFiltersChanges();
   }
 })();
