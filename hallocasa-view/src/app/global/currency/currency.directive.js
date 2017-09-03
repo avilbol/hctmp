@@ -20,15 +20,21 @@
       "</md-menu-item>"+
       "</md-menu-content>"+
       "</md-menu>",
-      controller: function ($scope, CurrencyService, toastr, translateFilter) {
+      controller: function ($scope, CurrencyService, CURRENCIES, toastr, translateFilter) {
         $scope.changeCurrency = changeCurrency;
+
+        $scope.$watch('currencyState.currentCurrency', function(currentCurrency){
+          if(!currentCurrency || ($scope.currentCurrency && currentCurrency.id == $scope.currentCurrency.id)){
+            return;
+          }
+          var currencyId = currentCurrency ? currentCurrency.id : CURRENCIES.defaultCurrencyId;
+          $scope.currentCurrency = loadSpecificCurrency(currencyId);
+        });
 
         CurrencyService.loadCurrency()
           .then(function (data) {
             $scope.currencyList = data;
-            $scope.currentCurrency = data[0];
-
-            CurrencyService.setCurrentCurrency($scope.currentCurrency);
+            $scope.currencyState =  CurrencyService.getCurrencyState();
           })
           .catch(function () {
             toastr.warning(translateFilter("Error.whenloadingmoney"));
@@ -37,6 +43,12 @@
         function changeCurrency(newCurrency) {
           $scope.currentCurrency = newCurrency;
           CurrencyService.setCurrentCurrency(newCurrency);
+        }
+
+        function loadSpecificCurrency(idToSearch){
+          return _.find($scope.currencyList, function(currencyItem){
+            return currencyItem.id == idToSearch;
+          });
         }
 
       }

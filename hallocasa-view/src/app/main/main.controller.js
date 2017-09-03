@@ -24,8 +24,7 @@
     vm.goUp = goUp;
     vm.blogRedirection = blogRedirection;
     vm.getCurrentUserIdentifier = getCurrentUserIdentifier;
-
-    $translate.use('en-US');
+    
     loadGlobalPreferredSettings();
 
     $scope.$watch(function() { return $mdMedia('sm') || $mdMedia('xs'); }, function(small) {
@@ -154,8 +153,9 @@
         })
         .then(function(preferredSettings){
           var settingToUse = searchByCountryCode(preferredSettings,locationFound.countryCode);
-          var currencyToUse = settingToUse ? settingToUse.firstCurrency : {id: 3, abbreviation: "USD"};
+          var currencyToUse = settingToUse ? settingToUse.firstCurrency : settingToUse;
           var localeToUse = settingToUse ? settingToUse.locale : LOCALES.defaultLocale;
+          vm.currentCurrrency = currencyToUse;
           CurrencyService.setCurrentCurrency(currencyToUse);
           $translate.use(localeToUse);
         });

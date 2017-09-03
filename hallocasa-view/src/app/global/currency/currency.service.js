@@ -12,7 +12,8 @@
       loadCurrency: loadCurrency,
       loadExchange: loadExchange,
       setCurrentCurrency: setCurrentCurrency,
-      getCurrentCurrency: getCurrentCurrency
+      getCurrentCurrency: getCurrentCurrency,
+      getCurrencyState: getCurrencyState
     };
 
     var resources = {
@@ -20,7 +21,7 @@
       exchange: $resource(backend_url + "currency_exchange_data", {}, GenericRESTResource)
     };
 
-    var currentCurrency;
+    var currencyState = {};
 
     return service;
 
@@ -41,11 +42,15 @@
     }
 
     function setCurrentCurrency(currency) {
-      currentCurrency = currency;
+      currencyState.currentCurrency = currency;
     }
 
     function getCurrentCurrency() {
-      return currentCurrency;
+      return currencyState.currentCurrency;
+    }
+
+    function getCurrencyState() {
+      return currencyState;
     }
   }
 })();

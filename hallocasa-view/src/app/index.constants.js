@@ -24,6 +24,9 @@
       },
       'defaultLocale': 'en-US'
     })
+    .constant('CURRENCIES', {
+      'defaultCurrencyId' : 3 // Constant for USD - Dollar
+    })
     .constant('GenericRESTResource', {
       query: { method: 'GET', isArray: true},
       create: { method: 'POST'},
