@@ -1,0 +1,76 @@
+
+<!--md-input-container.md-block(md-no-float)//- input(ng-model="location.address" type="text" placeholder="Address")    
+-->
+<md-button class="md-raised" ng-click="showPrerenderedDialog($event)">New Lenguages</md-button>
+<h2>Lenguages List    </h2>
+<!--md-card(md-theme="default" md-theme-watch ng-show="locationInfo.visible")  
+md-card-title
+    md-card-title-text
+        span.md-headline {{ locationInfo.address }}
+        span.md-subhead Address: {{ locationInfo.formatted_address }}
+        span.md-subhead Latitude: {{ locationInfo.latitude }}
+        span.md-subhead Longitude: {{ locationInfo.longitude }}
+md-card-actions(layout="row" layout-align="end center")
+    md-button(ng-click="clean()") Clean     
+    md-button(ng-click="addLocation()") Add to List        
+
+-->
+<md-list-item class="md-3-line" ng-repeat="lenguage in lenguages">
+  <div class="md-list-item-text">
+    <h4>{{ lenguage.name }}</h4>
+    <p>Code: {{ lenguage.code }}</p>
+  </div>
+  <md-button class="md-secondary" ng-click="editLenguage(lenguage, $event)">Edit</md-button>
+  <md-button class="md-secondary" ng-click="deleteLenguage(lenguage)">Remove</md-button>
+</md-list-item>
+<!-- mdt-table(mdt-row="{data: lenguages,'table-row-id-key': 'id','column-keys': ['name', 'code', 'edit', 'deleted']}")
+mdt-header-row
+    mdt-column(align-rule="left") Name                      
+    mdt-column(align-rule="left") Code                      
+    mdt-column(align-rule="left") Edit                      
+    mdt-column(align-rule="left") Delete 
+
+mdt-custom-cell(column-key="edit")   
+    md-button.md-secondary(ng-click="editLenguage(lenguage, $event)") Edit  
+
+mdt-custom-cell(column-key="deleted")   
+    md-button.md-secondary(ng-click="deleteLenguage(lenguage)") Remove 
+          
+          
+                    
+
+-->
+<div style="visibility: hidden;">
+  <div class="md-dialog-container" id="myDialog">
+    <md-dialog layout-padding>
+      <form name="lenguageForm">
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <h2 ng-show="!bandEditLenguage">New Lenguage</h2>
+            <h2 ng-show="bandEditLenguage">Edit Lenguage</h2>
+          </div>
+        </md-toolbar>
+        <md-dialog-content layout-gt-sm="row">    
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Lenguage name</label>
+            <input ng-model="language.name" name="name" required>
+            <div ng-messages="lenguageForm.name.$error" ng-if="lenguageForm.name.$touched">
+              <div ng-message="required">Please enter a Name</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Lenguage Code</label>
+            <input ng-model="language.code" name="code" required>
+            <div ng-messages="lenguageForm.code.$error" ng-if="lenguageForm.name.$touched">
+              <div ng-message="required">Please enter a Code</div>
+            </div>
+          </md-input-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+          <md-button ng-click="closeModal()">Close</md-button><span flex></span>
+          <md-button ng-click="saveLanguage()" type="submit" style="margin-right:20px;" ng-disabled="lenguageForm.$invalid">Save</md-button>
+        </md-dialog-actions>
+      </form>
+    </md-dialog>
+  </div>
+</div>

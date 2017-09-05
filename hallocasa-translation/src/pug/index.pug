@@ -1,0 +1,12 @@
+doctype html
+html(lang="en", ng-app="HalloCasaAdmin")
+  head
+    title= pageTitle
+    include partials/_styles
+    include partials/_scripts
+    base(href="/")
+  body.ng-scope.layout-column(ng-controller="MainController as MainCtrl")
+    md-content
+      .content(layout="column", layout-align-sm="center center", layout-align-md="center center")
+        include partials/_header
+        md-content#main(ng-view)

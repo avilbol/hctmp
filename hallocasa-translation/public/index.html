@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="HalloCasaAdmin">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="assets/js/lib/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="assets/js/lib/angular-toastr/dist/angular-toastr.min.css">
+    <link rel="stylesheet" href="assets/js/lib/md-data-table/dist/md-data-table-style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <!-- Angular material required Angular.js Libraries-->
+    <script type="text/javascript" src="assets/js/lib/angular/angular.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular-animate/angular-animate.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular-aria/angular-aria.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular-messages/angular-messages.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular-resource/angular-resource.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular-sanitize/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular-material-icons/angular-material-icons.min.js"></script>
+    <!-- Angular Data Table-->
+    <script type="text/javascript" src="assets/js/lib/md-data-table/dist/md-data-table.js"></script>
+    <script type="text/javascript" src="assets/js/lib/md-data-table/dist/md-data-table-templates.js"></script>
+    <!-- Load Firebase-->
+    <!-- Angular Material Library-->
+    <script type="text/javascript" src="assets/js/lib/angular-material/angular-material.min.js"></script>
+    <!-- Lodash-->
+    <script type="text/javascript" src="assets/js/lib/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="assets/js/lib/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+    <!-- Angular Google Maps-->
+    <!--script.
+    var config = {
+        apiKey: "AIzaSyBfBEsG0vAG1rag-TLUsZ7qcsELvV0FLEI",
+        authDomain: "test-frontend-colombia.firebaseapp.com",
+        databaseURL: "https://test-frontend-colombia.firebaseio.com",
+        projectId: "test-frontend-colombia",
+        storageBucket: "test-frontend-colombia.appspot.com",
+        messagingSenderId: "989187249149"
+    };
+    firebase.initializeApp(config);
+    
+    -->
+    <!-- Angular Code-->
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <base href="/">
+  </head>
+  <body class="ng-scope layout-column" ng-controller="MainController as MainCtrl">
+    <md-content>
+      <div class="content" layout="column" layout-align-sm="center center" layout-align-md="center center">
+        <md-toolbar>
+          <div class="md-toolbar-tools">
+            <md-button ng-click="MainCtrl.goTo('/')">Manage Translations</md-button>
+          </div>
+        </md-toolbar>
+        <md-content id="main" ng-view></md-content>
+      </div>
+    </md-content>
+  </body>
+</html>
