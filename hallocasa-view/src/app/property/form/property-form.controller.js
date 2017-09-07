@@ -60,7 +60,9 @@
         .textContent(translateFilter('Confirmation.ClosePropertyWizard'))
         .action(translateFilter('Common.Label.Close'))
         .highlightAction(true)
-        .hideDelay(5000);
+        .hideDelay(100000)
+        .position('top center')
+        .toastClass('md-toast-property');
 
       $mdToast.show(toast).then(function (response) {
         if (response === 'ok') {

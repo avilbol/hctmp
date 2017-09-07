@@ -17,8 +17,8 @@
 
     vm.properties = [];
     vm.totalProperties = 0;
-    vm.propertiesPerPage = 10;
-    vm.totalAmount = [10,20,50,100];
+    vm.propertiesPerPage = 100;
+    vm.totalAmount = [100,150,200];
     vm.firstLoading = true;
 
     vm.pagination = {
