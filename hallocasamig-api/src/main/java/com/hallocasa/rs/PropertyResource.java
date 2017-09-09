@@ -59,6 +59,21 @@ public class PropertyResource extends BasicResource {
 	}
 	
 	@GET
+	@Path("detail-preview/{id}")
+	@Produces({ MediaType.TEXT_HTML})
+	public Response previewProperty(@ApiParam(value = "property id") @PathParam("id") String id) {
+		Optional<Property> property = propertyService.findById(id);
+		String htmlResponse = "<html><head><body>%1$s</body></head></html>";
+		if (!property.isPresent()) {
+			htmlResponse = String.format(htmlResponse, "Not found");
+			return Response.status(HttpStatus.SC_NOT_FOUND).entity(htmlResponse).build();
+		}
+		htmlResponse = String.format(htmlResponse, property.get().getFieldList()
+				.get(0).getFieldValueList().get(0).getText().getStrVal());
+		return Response.status(HttpStatus.SC_OK).entity(htmlResponse).build();
+	}
+	
+	@GET
 	@Path("by_user/{id}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Auth
