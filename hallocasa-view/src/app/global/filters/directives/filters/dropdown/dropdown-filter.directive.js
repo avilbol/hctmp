@@ -22,7 +22,9 @@
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
         scope.emitSelectedOption = emitSelectedOption;
         scope.search = {};
-        scope.vegetables = ['Corn' ,'Onions' ,'Kale' ,'Arugula' ,'Peas', 'Zucchini'];
+        scope.selectAll = selectAll;
+        scope.selectedOptions = [];
+        scope.selectAllButtonTranstationKey = "placeholder.selectAll";
 
         function loadOptions() {
           if(!optionsData){
@@ -65,6 +67,18 @@
           element.find("input").on("keydown", function(ev) {
             ev.stopPropagation();
           });
+        }
+
+        function selectAll() {
+          if(scope.selectedOptions.length === scope.options.length){
+            scope.selectedOptions = [];
+            scope.selectAllButtonTranstationKey = "placeholder.selectAll";
+          }
+          else{
+            scope.selectedOptions = scope.options;
+            scope.selectAllButtonTranstationKey = "placeholder.deselectAll";
+          }
+          emitSelectedOption(scope.selectedOptions);
         }
 
         loadOptions();
