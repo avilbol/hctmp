@@ -1,5 +1,6 @@
 package com.hallocasa.services.properties;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,4 +70,13 @@ public interface PropertyService {
 	 * @return
 	 */
 	List<Property> loadRandomPropertyList(Integer propertyNumber);
+
+	/**
+	 * Preview in html, detailed property by its id
+	 * @param id
+	 * @param locale
+	 * @return
+	 * @throws IOException 
+	 */
+	String previewById(String id, String locale) throws IOException;
 }

@@ -145,7 +145,7 @@
       **  order to know currency and language preferredm which it will load in system 
     **/
     function loadGlobalPreferredSettings() {
-      var locationFound, settings;
+      var locationFound;
       IpInfoService.getLocation()
         .then(function(location){
           locationFound = location;
