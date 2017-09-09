@@ -95,7 +95,7 @@ public class FlatPropertyParser {
 		if(fieldValueList == null || fieldValueList.isEmpty()){
 			return null;
 		}
-		return String.format(CURRENCY_PRES, fieldValueList.get(0).getText().getIntVal());
+		return String.format(CURRENCY_PRES, fieldValueList.get(0).getData2().getDoubleVal());
 	}
 
 	private String processByLocale(List<PropertyFieldValue> fieldValueList, String locale) {
@@ -114,6 +114,9 @@ public class FlatPropertyParser {
 	}
 	
 	public Integer localeEquivalent(String locale){
+		if(locale == null){
+			return EN_ID;
+		}
 		if(locale.equals("es") || locale.equals("ES")){
 			return ES_ID;
 		}

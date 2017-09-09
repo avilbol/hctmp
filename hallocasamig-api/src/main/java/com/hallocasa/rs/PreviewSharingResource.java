@@ -18,6 +18,7 @@ import com.hallocasa.services.generalities.PreviewSharingService;
  * Resources for html-templates of preview sharing
  * @author Alexander Villamil
  */
+@Path("/previews")
 public class PreviewSharingResource {
 
 	@EJB
