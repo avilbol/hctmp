@@ -18,7 +18,7 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 
 	@Override
 	public String homePreview() throws IOException {
-		File htmlTemplateFile = new File("html-templates/index-preview.html");
+		File htmlTemplateFile = new File("index-preview.html");
 		String htmlString = FileUtils.readFileToString(htmlTemplateFile);
 		return htmlString;
 	}

@@ -183,13 +183,13 @@ public class PropertyServiceImp implements PropertyService {
 	public String previewById(String id, String locale) throws IOException {
 		Optional<EntityProperty> entityProperty = daoProperty.findById(id);
 		if (!entityProperty.isPresent()) {
-			File htmlTemplateFile = new File("html-templates/property-not-found.html");
+			File htmlTemplateFile = new File("property-not-found.html");
 			return FileUtils.readFileToString(htmlTemplateFile);
 		}
 		Property property = (Property) toValueObject(entityProperty.get());
 		FlatPropertyParser parser = new FlatPropertyParser();
 		FlatProperty flatProperty = parser.transform(property, locale);
-		File htmlTemplateFile = new File("html-templates/property-preview.html");
+		File htmlTemplateFile = new File("property-preview.html");
 		String htmlString = FileUtils.readFileToString(htmlTemplateFile);
 		htmlString = htmlString.replace("#{flatProperty.basicDescription}", flatProperty.getBasicDescription());
 		htmlString = htmlString.replace("#{flatProperty.locationDescription}", flatProperty.getLocationDescription());
