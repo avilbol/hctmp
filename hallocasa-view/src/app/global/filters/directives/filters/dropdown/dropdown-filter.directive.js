@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('dropdownFilter', dropdownFilter);
 
-  function dropdownFilter(FieldsService, $rootScope, $timeout) {
+  function dropdownFilter(FieldsService, $rootScope, $timeout, translateFilter, unicodeFilter) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/filters/dropdown/dropdown-filter.html",
@@ -22,8 +22,8 @@
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
         scope.emitSelectedOption = emitSelectedOption;
         scope.search = {};
+        scope.selected = {options: []};
         scope.selectAll = selectAll;
-        scope.selectedOptions = [];
         scope.selectAllButtonTranstationKey = "placeholder.selectAll";
 
         function loadOptions() {
@@ -34,19 +34,56 @@
             case "static_options":
               staticOptionsHandler();
               break;
+            case "dynamic_options":
+              dynamicOptionsHandler();
+              break;
           }
         }
 
         function staticOptionsHandler(){
-          var staticOptionsGroup = scope.filterInformation.propertyField.dropdownOptionGroup;
-          var optionsList = staticOptionsGroup.dropdownOptionList;
+          var staticOptionsGroup, optionsList;
+          if(scope.filterInformation.filter.usePropertyField){
+            staticOptionsGroup= scope.filterInformation.propertyField.dropdownOptionGroup;
+            optionsList = staticOptionsGroup.dropdownOptionList;
+          }
+          else{
+            staticOptionsGroup= scope.filterInformation.filter.dropdownOptionGroup;
+            optionsList = staticOptionsGroup.dropdownOptionList;
+          }
+
           scope.options = FieldsService.processOptions(optionsList, staticOptionsGroup.translationManagement);
         }
 
+        function dynamicOptionsHandler() {
+          var serviceId = optionsData.serviceId;
+          var translationManagement = optionsData.translationManagement ? optionsData.translationManagement : "NONE";
+          FieldsService.loadOptionsByServiceId(serviceId)
+            .then(function (options) {
+              options = FieldsService.processOptions(options, translationManagement);
+              scope.options = _.map(options, function (option) {
+                option.optionId = option.id;
+                option.tmplTranslate = unicodeFilter(option.tmplTranslate);
+                return option;
+              });
+
+              scope.optionsLabel = "name";
+            })
+            .catch(function () {
+              toastr.warning(
+                translateFilter("Error.whenloadingserviceoptions"), serviceId);
+              scope.options = [];
+            });
+        }
+
         function emitSelectedOption(selectedOptions) {
-          var selectedFilterOptions = _.isArray(selectedOptions) ?
-            _.map(selectedOptions, _.partial(_.pick, _, "optionId")) :
-            [_.pick(selectedOptions, "optionId")];
+          var selectedFilterOptions;
+          if(_.isArray(selectedOptions)){
+            selectedFilterOptions =  _.map(selectedOptions, _.partial(_.pick, _, "optionId"))
+          }
+          else{
+            var option = _.pick(selectedOptions, "optionId");
+            selectedFilterOptions = _.isEmpty(option) ? [] : [option];
+          }
 
           var selectionPayload = {
             propertyFilter: scope.filterInformation,
@@ -70,15 +107,15 @@
         }
 
         function selectAll() {
-          if(scope.selectedOptions.length === scope.options.length){
-            scope.selectedOptions = [];
+          if(scope.selected.options.length === scope.options.length){
+            scope.selected.options = [];
             scope.selectAllButtonTranstationKey = "placeholder.selectAll";
           }
           else{
-            scope.selectedOptions = scope.options;
+            scope.selected.options = scope.options;
             scope.selectAllButtonTranstationKey = "placeholder.deselectAll";
           }
-          emitSelectedOption(scope.selectedOptions);
+          emitSelectedOption(scope.selected.options);
         }
 
         loadOptions();

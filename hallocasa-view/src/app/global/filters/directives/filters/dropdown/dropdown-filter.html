@@ -1,19 +1,18 @@
-<div ng-switch="filterInformation.filter.options.type">
+
   <md-input-container class="md-block">
     <label translate>{{title}}</label>
 
     <md-select
-      ng-switch-when="static_options"
       ng-if="filterInformation.filter.filterType.allowMultiple"
       name="{{fieldName}}"
       title="{{title | translate}}"
-      ng-model="selectedOptions"
+      ng-model="selected.options"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldName}}"
       placeholder="{{title | translate}}"
       ng-required="required"
       data-md-container-class="selectHeader"
-      ng-change="emitSelectedOption(selectedOptions)"
+      ng-change="emitSelectedOption(selected.options)"
       md-on-close="search = {}"
       multiple
     >
@@ -21,23 +20,22 @@
     </md-select>
 
     <md-select
-      ng-switch-when="static_options"
       ng-if="!filterInformation.filter.filterType.allowMultiple"
       name="{{fieldName}}"
       title="{{title | translate}}"
-      ng-model="selectedOptions"
+      ng-model="selected.options"
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldName}}"
       placeholder="{{title | translate}}"
       ng-required="required"
       data-md-container-class="selectHeader"
-      ng-change="emitSelectedOption(selectedOptions)"
+      ng-change="emitSelectedOption(selected.options)"
       md-on-close="search = {}"
     >
       <div ng-include="'selectContent'"></div>
     </md-select>
   </md-input-container>
-</div>
+
 
 
 <script type="text/ng-template" id="selectContent">
@@ -55,6 +53,9 @@
       <span translate>{{selectAllButtonTranstationKey}}</span>
     </md-button>
   </md-select-header>
+  <md-option ng-if="!filterInformation.filter.filterType.allowMultiple" translate>
+    {{'placeholder.selectPlaceholder'}}
+  </md-option>
   <md-option
     ng-repeat="option in options  | filter: search"
     ng-value="option"

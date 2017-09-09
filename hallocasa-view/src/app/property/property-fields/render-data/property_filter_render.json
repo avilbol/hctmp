@@ -16,21 +16,36 @@
         "name": "Property types",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100
+        "flexDesktop": 100,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "PropertyTypes",
+          "translationManagement": "TOTAL"
+        }
       },
       {
         "id": 2,
         "name": "Buy / Rent",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100
+        "flexDesktop": 100,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "PropertyProposals",
+          "translationManagement": "TOTAL"
+        }
       },
       {
         "id": 3,
         "name": "Property locations",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100
+        "flexDesktop": 100,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "PropertyLocations",
+          "translationManagement": "TOTAL"
+        }
       },
       {
         "id": 4,
@@ -62,7 +77,11 @@
         "name": "Country",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100
+        "flexDesktop": 100,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "Country"
+        }
       },
       {
         "id": 8,
@@ -90,7 +109,10 @@
         "name": "Annual Return on Investment",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100
+        "flexDesktop": 100,
+        "options": {
+          "type": "static_options"
+        }
       },
       {
         "id": 28,
