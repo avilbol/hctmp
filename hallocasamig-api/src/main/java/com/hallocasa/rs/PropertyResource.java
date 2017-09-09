@@ -2,6 +2,7 @@ package com.hallocasa.rs;
 
 import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_TOKEN_HEADER;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import javax.ejb.EJB;
@@ -13,6 +14,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -56,6 +58,14 @@ public class PropertyResource extends BasicResource {
 			return Response.status(HttpStatus.SC_NOT_FOUND).entity("Property not found").build();
 		}
 		return Response.status(HttpStatus.SC_OK).entity(property.get()).build();
+	}
+	
+	@GET
+	@Path("detail-preview/{id}")
+	@Produces({ MediaType.TEXT_HTML})
+	public Response previewProperty(@PathParam("id") String id, @QueryParam("lang") String locale) throws IOException {
+		return Response.status(HttpStatus.SC_OK)
+				.entity(propertyService.previewById(id, locale)).build();
 	}
 	
 	@GET

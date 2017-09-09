@@ -51,7 +51,7 @@
                 var fileIndex = scope.rawImages.length - amountImages + imageIndex;
 
                 var validImage = ImageValidatorService.validateBase64(imageEncoded);
-                
+
                 if(validImage){
                   var imageData = {
                     data1: {},
@@ -71,14 +71,14 @@
                     if(width < scope.maxWidth){
                       toastr.warning(translateFilter("Error.invalidorSizeimage") + scope.maxWidth + 'px');
                       scope.api.removeByName(scope.rawImages[fileIndex].lfFileName);
-                    } 
+                    }
                   };
                 }
                 else{
                   toastr.warning(translateFilter("Error.invalidoremptyimage"));
                   scope.api.removeByName(scope.rawImages[fileIndex].lfFileName);
                 }
-                
+
               });
               if(_.isUndefined(primaryImage) && !_.isEmpty(scope.rawImages)){
                 var firstImageIndex = scope.rawImages.length - amountImages;
@@ -110,6 +110,7 @@
             primaryImage = primaryImage === deleteFile ? undefined : primaryImage;
             primaryImage = primaryImage > deleteFile ? primaryImage - 1 : primaryImage;
             primaryImage = _.isUndefined(primaryImage) && totalImages ? totalImages - 1 : primaryImage;
+            primaryImage = primaryImage === deleteFile ? 0 : primaryImage;
 
             setPreviewAsPrimary(primaryImage);
           }
