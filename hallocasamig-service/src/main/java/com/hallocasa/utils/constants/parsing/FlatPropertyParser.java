@@ -80,8 +80,8 @@ public class FlatPropertyParser {
 		}
 		PropertyFieldValue selectedPropertyFieldValue = null;
 		for(PropertyFieldValue fieldValue : fieldValueList){
-			Integer data2Entry = fieldValue.getData2().getIntVal();
-			if(data2Entry == 1){
+			Boolean data2Entry = fieldValue.getData2().getBoolVal();
+			if(data2Entry){
 				selectedPropertyFieldValue = fieldValue;
 			}
 		}
