@@ -37,7 +37,7 @@
         cleanModel();
 
         TranslationService.loadLocales().then(function(locations){
-            // vm.locations = locations;
+            vm.locations = locations;
             // console.log('Locations ', vm.locations);
 
             // vm.locations = [
