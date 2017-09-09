@@ -2,6 +2,7 @@ package com.hallocasa.rs;
 
 import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_TOKEN_HEADER;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import javax.ejb.EJB;
@@ -13,6 +14,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -61,16 +63,9 @@ public class PropertyResource extends BasicResource {
 	@GET
 	@Path("detail-preview/{id}")
 	@Produces({ MediaType.TEXT_HTML})
-	public Response previewProperty(@ApiParam(value = "property id") @PathParam("id") String id) {
-		Optional<Property> property = propertyService.findById(id);
-		String htmlResponse = "<html><head><body>%1$s</body></head></html>";
-		if (!property.isPresent()) {
-			htmlResponse = String.format(htmlResponse, "Not found");
-			return Response.status(HttpStatus.SC_NOT_FOUND).entity(htmlResponse).build();
-		}
-		htmlResponse = String.format(htmlResponse, property.get().getFieldList()
-				.get(0).getFieldValueList().get(0).getText().getStrVal());
-		return Response.status(HttpStatus.SC_OK).entity(htmlResponse).build();
+	public Response previewProperty(@PathParam("id") String id, @QueryParam("lang") String locale) throws IOException {
+		return Response.status(HttpStatus.SC_OK)
+				.entity(propertyService.previewById(id, locale)).build();
 	}
 	
 	@GET
