@@ -18,15 +18,26 @@
 
         var vm = this;
 
+        //Init Vars
+        // vm.environment = 'qa';
+
+        vm.environments = [
+            { id: 1, name: 'QA' },
+            { id: 2, name: 'Production' },
+            { id: 3, name: 'QA + Production' }
+        ];
+        vm.environment = { id: 1, name: 'QA' };
+
         vm.openModal = openModal;
         vm.newTranslation = newTranslation;
+        
         $scope.editTranslation = editTranslation;
         $scope.deleteTranslation = deleteTranslation;
 
         cleanModel();
 
         TranslationService.loadLocales().then(function(locations){
-            vm.locations = locations;
+            // vm.locations = locations;
             // console.log('Locations ', vm.locations);
 
             // vm.locations = [
@@ -93,15 +104,25 @@
 
             var isConfirmDelete = confirm('Do you want delete this translation?');
             if (isConfirmDelete) {
-                console.log('Deleted element');
+
+                TranslationService.deleteLocale(translation.pnemonic)
+                .then(function(elem){
+                    // vm.locations = locations;
+                    toastr.success('Delete Completed!');
+
+                    TranslationService.loadLocales().then(function(locations){
+                        vm.locations = locations;
+                    });
+                })
+                .catch(function () {
+                    toastr.error('Try delete this element Late', 'Error');
+                });
             } else {
                 return false;
             }
         }
 
         function newTranslation(){
-            // toastr.info('We are open today from 10 to 22', 'Information');
-
             cleanModel();
             openModal(false);
         }
@@ -126,17 +147,8 @@
 
         // Controller to Modal
         function DialogController($scope, $mdDialog, elem, edit, TranslationService,toastr) {
-            // var vmm = this;
-
             $scope.translation = elem;
-            // $scope.model = {
-            //     edit: edit
-            // };
             $scope.edit = edit;
-
-            // vmm.edit = edit;
-            // vmm.closeDialog = closeDialog;
-            // vmm.saveTranslation = saveTranslation;
 
 
             $scope.closeDialog = function closeDialog() {
@@ -144,16 +156,12 @@
                 $mdDialog.cancel();
             };
 
-            
-
             $scope.saveTranslation = function saveTranslation() {
                 console.log('Information SAVING', $scope.translation);
 
                 TranslationService.saveLocale($scope.translation)
                 .then(function(locations){
-                    // vm.locations = locations;
                     toastr.success('Save Completed!');
-                    console.log('Guardo ', locations);
 
                     TranslationService.loadLocales().then(function(locations){
                         vm.locations = locations;
@@ -162,7 +170,6 @@
                     $scope.closeDialog();
                 })
                 .catch(function () {
-                    console.log('Ocurrio un error al guardar')
                     toastr.error('Try Late', 'Error');
                 });
             }

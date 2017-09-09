@@ -1,4 +1,10 @@
 
+<md-content class="md-padding">
+  <label>Select an Environment</label>
+  <md-select ng-model="vm.environment" placeholder="Select an Environment" ng-model-options="{trackBy: '$value.id'}">
+    <md-option ng-value="env" ng-repeat="env in vm.environments">{{ env.name }}</md-option>
+  </md-select>
+</md-content>
 <h3>Manage all Translations</h3>
 <md-button class="md-secondary" ng-click="vm.newTranslation()">New Translation</md-button>
 <!--ng-map(center="[41,-87]" zoom="1" style="height: 500px;")

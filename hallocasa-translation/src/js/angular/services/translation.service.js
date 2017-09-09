@@ -14,7 +14,8 @@
                                 security_key) {
     var service = {
         loadLocales: loadLocales,
-        saveLocale: saveLocale
+        saveLocale: saveLocale,
+        deleteLocale: deleteLocale
     //   getCurrentPosition: getCurrentPosition
     };
 
@@ -53,42 +54,19 @@
       }
 
       return $http(req);
+    }
 
-      // return $http(backend_url + "locales/", {
-      //         "pnemonic": item.pnemonic,
-      //         "description": item.description,
-      //         "enUS": item.enUS,
-      //         "esES": item.esES,
-      //         "deDE": item.deDE
-      //       }, {
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //         'security-key': security_key
-      //       }
-      // });
+    function deleteLocale(item){
 
+      var req = {
+        method: 'DELETE',
+        url: backend_url + "locales/" + item,
+        headers: {
+          'security-key': security_key
+        }
+      }
 
-      // var resource = $resource(backend_url + "locales", {}, {
-      //   'save': {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json ; charset=UTF-8',
-      //       'security-key': security_key
-      //     }
-      //   }
-      // });  
-      // var DirectoryApi = $resource(backend_url, null, {
-      //     move: {
-      //         url: backend_url,
-      //         headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-      //         transformRequest: function (param) {
-      //             return $.param(param);
-      //         },
-      //         method: 'POST'
-      //     },
-      // });
-
-      // return resource.save(item).$promise;
+      return $http(req);
     }
 
     // function getCurrentPosition() {

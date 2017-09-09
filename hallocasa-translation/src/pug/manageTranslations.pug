@@ -1,5 +1,11 @@
+md-content.md-padding
+    label Select an Environment
+    md-select(ng-model="vm.environment" placeholder="Select an Environment" ng-model-options="{trackBy: '$value.id'}")
+        md-option(ng-value="env" ng-repeat="env in vm.environments") {{ env.name }}
+
 h3 Manage all Translations
 md-button.md-secondary(ng-click="vm.newTranslation()") New Translation
+
 //- md-content.md-padding
     md-tabs(md-selected="selectedIndex" md-border-bottom md-autoselect)
         md-tab(ng-repeat="tab in lenguages"
