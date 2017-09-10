@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('dropdownFilter', dropdownFilter);
 
-  function dropdownFilter(FieldsService, $rootScope, $timeout, translateFilter, unicodeFilter) {
+  function dropdownFilter(FieldsService, $rootScope, $timeout, translateFilter, unicodeFilter, toastr) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/filters/dropdown/dropdown-filter.html",
