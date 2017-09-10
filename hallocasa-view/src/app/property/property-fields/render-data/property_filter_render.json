@@ -16,21 +16,36 @@
         "name": "Property types",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100
+        "flexDesktop": 100,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "PropertyTypes",
+          "translationManagement": "TOTAL"
+        }
       },
       {
         "id": 2,
         "name": "Buy / Rent",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100
+        "flexDesktop": 100,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "PropertyProposals",
+          "translationManagement": "TOTAL"
+        }
       },
       {
         "id": 3,
         "name": "Property locations",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100
+        "flexDesktop": 100,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "PropertyLocations",
+          "translationManagement": "TOTAL"
+        }
       },
       {
         "id": 4,
@@ -62,99 +77,15 @@
         "name": "Country",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 8,
-        "name": "Department",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 9,
-        "name": "Town",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 10,
-        "name": "Neighborhood",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
+        "flexDesktop": 100,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "Country"
+        }
       },
       {
         "id": 26,
         "name": "Annual Return on Investment",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 28,
-        "name": "Estrato - Colombia",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "static_options"
-        }
-      },
-      {
-        "id": 29,
-        "name": "Estrato - Chile",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "static_options"
-        }
-      },
-      {
-        "id": 30,
-        "name": "Estrato - Costa Rica",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "static_options"
-        }
-      },
-      {
-        "id": 31,
-        "name": "Estrato - Ecuador",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "static_options"
-        }
-      },
-      {
-        "id": 32,
-        "name": "Estrato - Panamá",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "static_options"
-        }
-      },
-      {
-        "id": 33,
-        "name": "Estrato - Perú",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "static_options"
-        }
-      },
-      {
-        "id": 34,
-        "name": "Estrato - Argentina",
         "flexMobile": 100,
         "flexTablet": 100,
         "flexDesktop": 100,
@@ -177,20 +108,6 @@
     "flexDesktop": 100,
     "filterList": [
       {
-        "id": 12,
-        "name": "Rooms",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 13,
-        "name": "Bathrooms",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
         "id": 14,
         "name": "Condition",
         "flexMobile": 100,
@@ -211,13 +128,6 @@
         }
       },
       {
-        "id": 16,
-        "name": "Floor",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
         "id": 17,
         "name": "Optional Features",
         "flexMobile": 100,
@@ -236,13 +146,6 @@
         "options": {
           "type": "static_options"
         }
-      },
-      {
-        "id": 19,
-        "name": "Parking Spots",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
       },
       {
         "id": 20,

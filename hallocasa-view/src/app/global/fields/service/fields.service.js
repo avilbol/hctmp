@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .service('FieldsService', FieldsService);
 
-  function FieldsService(LanguageService, LocationService, CurrencyService, DataCalcService, $q, $log) {
+  function FieldsService(LanguageService, LocationService, CurrencyService, DataCalcService, $q, $log, PropertyService) {
     var service = {
       generateFieldsRender: generateFieldsRender,
       loadOptionsByServiceId: loadOptionsByServiceId,
@@ -78,7 +78,7 @@
 
           var fieldData = searchFieldById(field.id, fieldsDataList);
           var options = field.options || {};
-          if(!fieldData && options.type != 'computed_inside'){
+          if(!fieldData && options.type !== 'computed_inside'){
             delete fieldList[fieldIndex];
           }
           if(fieldData) {
@@ -92,7 +92,7 @@
 
     function postProcessFieldList(fieldList, fieldsDataList){
       _.each(fieldList, function(field, fieldIndex){
-        var computedInside = _.has(field, "options") && field.options.type == 'computed_inside';
+        var computedInside = _.has(field, "options") && field.options.type === 'computed_inside';
         if(computedInside){
           field.overwriterValue = DataCalcService[field.options.operation](fieldsDataList);
         }
@@ -117,6 +117,9 @@
         case "Languages":
           servicePromise = LanguageService.getLanguages();
           break;
+        case "Country":
+          servicePromise = LocationService.getCountries();
+          break;
         case "States":
           servicePromise = LocationService.getStateByID(payload);
           break;
@@ -129,6 +132,35 @@
         case "Currency":
           servicePromise = CurrencyService.loadCurrency();
           break;
+        case "PropertyProposals":
+          servicePromise = $q(function (resolve) {
+            langToData1Processor(PropertyService.getProposals(), resolve);
+          });
+          break;
+        case "PropertyLocations":
+          servicePromise = $q(function (resolve) {
+            langToData1Processor(PropertyService.getLocation(), resolve);
+          });
+          break;
+        case "PropertyTypes":
+          servicePromise = $q(function (resolve) {
+            PropertyService.getPropertyTypes()
+              .then(function (propertyTypes) {
+                propertyTypes = _.filter(propertyTypes, function (propertyType) {
+                  return propertyType.active;
+                });
+
+                propertyTypes = _.map(propertyTypes, function (propertyType) {
+                  propertyType.data1 = propertyType.lang;
+                  return propertyType;
+                });
+                resolve(propertyTypes);
+              })
+              .catch(function () {
+                resolve([]);
+              });
+          });
+          break;
         default:
           $log.warn("No se reconoce el id del servicio:", serviceId);
           servicePromise = $q(function (resolve) {
@@ -136,6 +168,19 @@
           });
       }
       return servicePromise;
+    }
+
+    function langToData1Processor(promise, resolve) {
+      promise
+        .then(function (data) {
+          resolve(_.map(data, function (dataElement) {
+            dataElement.data1 = dataElement.lang;
+            return dataElement;
+          }));
+        })
+        .catch(function () {
+          resolve([]);
+        });
     }
 
     function detectOptionID(option) {
@@ -180,7 +225,7 @@
     }
 
     function getFieldPathByID(fieldID, fieldRootScope) {
-      var fieldPath;
+      var fieldPath = undefined;
       var fieldFound =_.find(fieldRootScope, function (tab, tabIndex) {
         fieldPath = getFieldPathInFieldsList(fieldID, tab.fieldList);
         var fieldFound = fieldPath.length > 0;
@@ -224,7 +269,7 @@
       fieldPath = angular.copy(fieldPath);
       var tabIndex = fieldPath.shift();
       var fieldList = fieldRootScope[tabIndex].fieldList;
-      var field;
+      var field = undefined;
       _.each(fieldPath, function (patch) {
         field = fieldList[patch];
         fieldList = field.fieldList;
