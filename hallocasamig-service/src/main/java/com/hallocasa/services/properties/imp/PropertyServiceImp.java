@@ -19,6 +19,8 @@ import static java.lang.String.format;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,7 +32,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.tika.io.IOUtils;
 
+import com.avsoft.commons.AvsFileManager;
 import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.services.hcfilters.filterworkers.FilterWorker;
@@ -189,8 +193,8 @@ public class PropertyServiceImp implements PropertyService {
 		Property property = (Property) toValueObject(entityProperty.get());
 		FlatPropertyParser parser = new FlatPropertyParser();
 		FlatProperty flatProperty = parser.transform(property, locale);
-		File htmlTemplateFile = new File("property-preview.html");
-		String htmlString = FileUtils.readFileToString(htmlTemplateFile);
+		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("property-preview.html");
+		String htmlString = AvsFileManager.loadInputStreamToString(in);
 		htmlString = htmlString.replace("#{flatProperty.basicDescription}", flatProperty.getBasicDescription());
 		htmlString = htmlString.replace("#{flatProperty.locationDescription}", flatProperty.getLocationDescription());
 		htmlString = htmlString.replace("#{flatProperty.title}", flatProperty.getTitle());
