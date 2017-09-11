@@ -17,10 +17,8 @@ import static com.hallocasa.vo.hcfilter.properties.PropertyDatatype.SAME;
 import static com.hallocasa.vo.hcfilter.properties.PropertyDatatype.TEXT;
 import static java.lang.String.format;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,9 +28,6 @@ import java.util.Optional;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.tika.io.IOUtils;
 
 import com.avsoft.commons.AvsFileManager;
 import com.hallocasa.dao.i.properties.IDAOProperty;
@@ -187,8 +182,8 @@ public class PropertyServiceImp implements PropertyService {
 	public String previewById(String id, String locale) throws IOException {
 		Optional<EntityProperty> entityProperty = daoProperty.findById(id);
 		if (!entityProperty.isPresent()) {
-			File htmlTemplateFile = new File("property-not-found.html");
-			return FileUtils.readFileToString(htmlTemplateFile);
+			InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("property-not-found.html");
+			return AvsFileManager.loadInputStreamToString(in);
 		}
 		Property property = (Property) toValueObject(entityProperty.get());
 		FlatPropertyParser parser = new FlatPropertyParser();

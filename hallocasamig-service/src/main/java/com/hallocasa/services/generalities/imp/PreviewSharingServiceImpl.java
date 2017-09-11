@@ -1,13 +1,13 @@
 package com.hallocasa.services.generalities.imp;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.ejb.Stateless;
 
-import org.apache.commons.io.FileUtils;
-
+import com.avsoft.commons.AvsFileManager;
 import com.hallocasa.services.generalities.PreviewSharingService;
+import com.hallocasa.services.properties.imp.PropertyServiceImp;
 
 /**
  * Implementation of service for sharing html previews
@@ -18,8 +18,7 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 
 	@Override
 	public String homePreview() throws IOException {
-		File htmlTemplateFile = new File("index-preview.html");
-		String htmlString = FileUtils.readFileToString(htmlTemplateFile);
-		return htmlString;
+		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("index-preview.html");
+		return AvsFileManager.loadInputStreamToString(in);
 	}
 }
