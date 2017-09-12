@@ -15,6 +15,8 @@ import javax.ejb.Stateless;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.http.HttpStatus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.hallocasa.dao.i.IDAOLocaleEntry;
 import com.hallocasa.entities.EntityLocaleEntry;
@@ -35,6 +37,11 @@ public class LocalizationServiceImp implements LocalizationService {
 	 * Key for avoid unauthorized access
 	 */
 	private String localizationUiAuthorizationKey = get(LOCALIZATION_UI_AUTHORIZATION_KEY); 
+	
+	/**
+	 * Log 
+	 */
+	private static final Logger LOG = LogManager.getLogger(LocalizationServiceImp.class);
 	
 	@EJB
 	IDAOLocaleEntry daoLocaleEntry;
@@ -67,6 +74,7 @@ public class LocalizationServiceImp implements LocalizationService {
 	@Override
 	public Map<String, String> findByPnemonic(String pnemonic) {
 		List<EntityLocaleEntry> entityList = daoLocaleEntry.findByPnemonic(pnemonic);
+		LOG.info(entityList);
 		Map<String, String> localeEntryMap = new HashMap<>();
 		for(EntityLocaleEntry localeEntry : entityList){
 			String locale = localeNamingService.standardize(localeEntry.getLocale());

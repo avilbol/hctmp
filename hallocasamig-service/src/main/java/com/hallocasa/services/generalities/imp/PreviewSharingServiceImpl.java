@@ -54,7 +54,7 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	private LocalizationService localizationService;
 	
 	/**
-	 * Log del mapper
+	 * Log 
 	 */
 	private static final Logger LOG = LogManager.getLogger(PreviewSharingServiceImpl.class);
 	
@@ -72,7 +72,6 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	public String homePreview(String locale, String browserLocale) throws IOException {
 		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("index-preview.html");
 		String htmlString = AvsFileManager.loadInputStreamToString(in);
-		LOG.info("Home preview html: " + htmlString);
 		htmlString = htmlString.replace("#{app.server.url}", SystemProperty.get(SystemConstants.APP_SERVER_URL));
 		String standardLocale = localeNamingService.standardize(locale, browserLocale);
 		return translateHomeTemplate(htmlString, standardLocale);
