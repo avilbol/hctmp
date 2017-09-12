@@ -69,7 +69,6 @@
 		<war.location>${war.output.location}</war.location>
 		<app.version>${hcapp.version}</app.version>
 		<app.environment>${hcapp.environment}</app.environment>
-		<app.server.url>${server.url}</app.server.url>
 		<localization.ui.authorizationkey>${Localization.Ui.AuthorizationKey}</localization.ui.authorizationkey>
 		<log4j.version>2.6.2</log4j.version>
 	</properties>
