@@ -18,6 +18,7 @@ import org.apache.http.HttpStatus;
 
 import com.hallocasa.dao.i.IDAOLocaleEntry;
 import com.hallocasa.entities.EntityLocaleEntry;
+import com.hallocasa.services.generalities.LocaleNamingService;
 import com.hallocasa.services.generalities.LocalizationService;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
 import com.hallocasa.utils.constants.exceptions.SecurityException;
@@ -38,6 +39,9 @@ public class LocalizationServiceImp implements LocalizationService {
 	@EJB
 	IDAOLocaleEntry daoLocaleEntry;
 	
+	@EJB
+	LocaleNamingService localeNamingService;
+	
 	@Override
 	public List<LocaleEntryDTO> find() throws IllegalAccessException, InvocationTargetException {
 		List<EntityLocaleEntry> entityList = daoLocaleEntry.find();
@@ -56,6 +60,17 @@ public class LocalizationServiceImp implements LocalizationService {
 		Map<String, String> localeEntryMap = new HashMap<>();
 		for(EntityLocaleEntry localeEntry : entityList){
 			localeEntryMap.put(localeEntry.getPnemonic(), localeEntry.getLangValue());
+		}
+		return localeEntryMap;
+	}
+	
+	@Override
+	public Map<String, String> findByPnemonic(String pnemonic) {
+		List<EntityLocaleEntry> entityList = daoLocaleEntry.findByPnemonic(pnemonic);
+		Map<String, String> localeEntryMap = new HashMap<>();
+		for(EntityLocaleEntry localeEntry : entityList){
+			String locale = localeNamingService.standardize(localeEntry.getLocale());
+			localeEntryMap.put(locale, localeEntry.getLangValue());
 		}
 		return localeEntryMap;
 	}

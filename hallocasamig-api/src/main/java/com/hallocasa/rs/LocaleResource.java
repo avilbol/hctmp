@@ -19,7 +19,6 @@ import javax.ws.rs.core.Response;
 
 import org.apache.http.HttpStatus;
 
-import com.hallocasa.rs.security.Secured;
 import com.hallocasa.services.generalities.LocalizationService;
 import com.hallocasa.vo.dto.LocaleEntryDTO;
 

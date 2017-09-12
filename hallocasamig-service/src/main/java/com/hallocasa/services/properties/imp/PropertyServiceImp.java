@@ -17,8 +17,6 @@ import static com.hallocasa.vo.hcfilter.properties.PropertyDatatype.SAME;
 import static com.hallocasa.vo.hcfilter.properties.PropertyDatatype.TEXT;
 import static java.lang.String.format;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,19 +27,17 @@ import java.util.Optional;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import com.avsoft.commons.AvsFileManager;
 import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.properties.EntityProperty;
+import com.hallocasa.services.generalities.LocaleNamingService;
 import com.hallocasa.services.hcfilters.filterworkers.FilterWorker;
 import com.hallocasa.services.properties.PropertyCommonsService;
 import com.hallocasa.services.properties.PropertyService;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
-import com.hallocasa.utils.constants.parsing.FlatPropertyParser;
 import com.hallocasa.utils.resolvers.FilterWorkerOptionRes;
 import com.hallocasa.vo.hcfilter.FilterWorkerOption;
 import com.hallocasa.vo.hcfilter.PropertyFilterRequest;
 import com.hallocasa.vo.hcfilter.PropertyFilterResult;
-import com.hallocasa.vo.hcfilter.properties.FlatProperty;
 import com.hallocasa.vo.hcfilter.properties.Property;
 import com.hallocasa.vo.hcfilter.properties.PropertyDatatype;
 import com.hallocasa.vo.hcfilter.properties.PropertyFieldValue;
@@ -58,6 +54,9 @@ public class PropertyServiceImp implements PropertyService {
 
 	@EJB
 	private PropertyCommonsService propertyCommonsService;
+	
+	@EJB
+	private LocaleNamingService localeNamingService;
 
 	private String propertyImagesPath = get(PROPERTY_IMAGES_PATH);
 	private String minifiedPropertyImagesPath = get(MINI_PROPERTY_IMAGES_PATH);
@@ -172,29 +171,6 @@ public class PropertyServiceImp implements PropertyService {
 		}
 		Property property = (Property) toValueObject(entityProperty.get());
 		return Optional.of(property);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 * @throws IOException 
-	 */
-	@Override
-	public String previewById(String id, String locale) throws IOException {
-		Optional<EntityProperty> entityProperty = daoProperty.findById(id);
-		if (!entityProperty.isPresent()) {
-			InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("property-not-found.html");
-			return AvsFileManager.loadInputStreamToString(in);
-		}
-		Property property = (Property) toValueObject(entityProperty.get());
-		FlatPropertyParser parser = new FlatPropertyParser();
-		FlatProperty flatProperty = parser.transform(property, locale);
-		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("property-preview.html");
-		String htmlString = AvsFileManager.loadInputStreamToString(in);
-		htmlString = htmlString.replace("#{flatProperty.basicDescription}", flatProperty.getBasicDescription());
-		htmlString = htmlString.replace("#{flatProperty.locationDescription}", flatProperty.getLocationDescription());
-		htmlString = htmlString.replace("#{flatProperty.title}", flatProperty.getTitle());
-		htmlString = htmlString.replace("#{flatProperty.urlImage}", flatProperty.getUrlImage());
-		return htmlString;
 	}
 
 	/**

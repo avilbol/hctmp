@@ -42,4 +42,11 @@ public class DAOLocaleEntry implements IDAOLocaleEntry {
 		appPersistenceServices.executeNamedQuery(EntityLocaleEntry.QUERY_DELETE_BY_PNEMONIC_ITEM, 
 				new Object[] {pnemonic});
 	}
+
+	@Override
+	public List<EntityLocaleEntry> findByPnemonic(String pnemonic) {
+		return appPersistenceServices.executeNamedQuery(EntityLocaleEntry.QUERY_FIND_BY_PNEMONIC, 
+				new Object[] {pnemonic},
+				EntityLocaleEntry.class);
+	}
 }

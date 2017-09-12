@@ -19,9 +19,9 @@ public interface LocalizationService {
 	public List<LocaleEntryDTO> find() throws IllegalAccessException, InvocationTargetException;
 	
 	/**
-	 * Build a json key-value locale for specific locale definition language
+	 * Build a map key-value locale for specific locale definition language
 	 * @param locale
-	 * 		The locale to query in order to build json key-value
+	 * 		The locale to query in order to build map key-value
 	 * @return
 	 * 		A map key-value with overall locale elements
 	 */
@@ -63,4 +63,13 @@ public interface LocalizationService {
 	 * 		Security key to avoid unauthorized applications use
 	 */
 	public void delete(String pnemonic, String securityKey);
+
+	/**
+	 * Build a map key-value locale for specific pnemonic definition
+	 * @param pnemonic
+	 * 		The pnemonic to query
+	 * @return
+	 * 		A map key-value with overall pnemonic element translations
+	 */
+	public Map<String, String> findByPnemonic(String pnemonic);
 }

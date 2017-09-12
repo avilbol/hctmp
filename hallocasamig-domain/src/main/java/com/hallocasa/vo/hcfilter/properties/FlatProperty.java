@@ -1,7 +1,5 @@
 package com.hallocasa.vo.hcfilter.properties;
 
-import java.math.BigDecimal;
-
 /**
  * This value object represents an hallocasa property with fields 
  * traduced to everything readable internall properties
