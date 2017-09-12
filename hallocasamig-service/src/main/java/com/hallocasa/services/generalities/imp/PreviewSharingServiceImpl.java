@@ -164,10 +164,10 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 		for(String pnemonic : pnemonicList){
 			Map<String, String> localeEntry = localizationService.findByPnemonic(pnemonic);
 			String translatedText = localeEntry.get(standardLocale);
-			LOG.info(translatedText);
 			String expressionToTranslate = "#{"+ pnemonic +" | translate}";
 			text = text.replace(expressionToTranslate, translatedText == null ? pnemonic : translatedText);
 		}
+		LOG.info(text);
 		return text;
 	}
 	
