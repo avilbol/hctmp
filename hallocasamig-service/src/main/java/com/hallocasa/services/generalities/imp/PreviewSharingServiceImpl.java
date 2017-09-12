@@ -14,6 +14,9 @@ import java.util.Optional;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.avsoft.commons.AvsFileManager;
 import com.hallocasa.dao.i.IDAOUser;
 import com.hallocasa.dao.i.properties.IDAOProperty;
@@ -51,6 +54,11 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	private LocalizationService localizationService;
 	
 	/**
+	 * Log del mapper
+	 */
+	private static final Logger LOG = LogManager.getLogger(PreviewSharingServiceImpl.class);
+	
+	/**
 	 * Reference to image url default when the property has no image
 	 */
 	private static final String NO_PROPERTY_IMAGE_URL = "no-image-property.png";
@@ -64,6 +72,7 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	public String homePreview(String locale, String browserLocale) throws IOException {
 		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("index-preview.html");
 		String htmlString = AvsFileManager.loadInputStreamToString(in);
+		LOG.info("Home preview html: " + htmlString);
 		htmlString = htmlString.replace("#{app.server.url}", SystemProperty.get(SystemConstants.APP_SERVER_URL));
 		String standardLocale = localeNamingService.standardize(locale, browserLocale);
 		return translateHomeTemplate(htmlString, standardLocale);
