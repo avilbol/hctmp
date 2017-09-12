@@ -1,8 +1,8 @@
 package com.hallocasa.services.generalities.imp;
 
+import static com.hallocasa.systemproperties.SystemConstants.APP_SERVER_URL;
+import static com.hallocasa.systemproperties.SystemProperty.get;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
-import static com.hallocasa.utils.constants.parsing.flat.FlatParserConstants.PROFILE_IMAGES_SITE_URL;
-import static com.hallocasa.utils.constants.parsing.flat.FlatParserConstants.PROPERTY_IMAGES_SITE_URL;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +64,7 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	public String homePreview(String locale, String browserLocale) throws IOException {
 		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("index-preview.html");
 		String htmlString = AvsFileManager.loadInputStreamToString(in);
-		htmlString = htmlString.replace("#{app.server.url}",SystemProperty.get(SystemConstants.APP_SERVER_URL));
+		htmlString = htmlString.replace("#{app.server.url}", SystemProperty.get(SystemConstants.APP_SERVER_URL));
 		String standardLocale = localeNamingService.standardize(locale, browserLocale);
 		return translateHomeTemplate(htmlString, standardLocale);
 	}
@@ -172,7 +172,8 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	private String propertyImageUrl(FlatProperty flatProperty){
 		String urlImage = flatProperty.getUrlImage();
 		boolean emptyUrlImage = urlImage == null || urlImage.isEmpty();
-		return emptyUrlImage ? NO_PROPERTY_IMAGE_URL : PROPERTY_IMAGES_SITE_URL + urlImage;
+		String propertyImageSiteUrl = get(APP_SERVER_URL) + "/resources/images/properties/";
+		return emptyUrlImage ? NO_PROPERTY_IMAGE_URL : propertyImageSiteUrl + urlImage;
 	}
 	
 	/**
@@ -184,7 +185,8 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	 */
 	private String profileImageUrl(FlatUser flatUser){
 		String urlImage = flatUser.getImageUrl();
+		String profileImagesSiteUrl = get(APP_SERVER_URL) + "/resources/images/users/";
 		boolean emptyUrlImage = urlImage == null || urlImage.isEmpty();
-		return emptyUrlImage ? NO_PROFILE_IMAGE_URL : PROFILE_IMAGES_SITE_URL + urlImage;
+		return emptyUrlImage ? NO_PROFILE_IMAGE_URL : profileImagesSiteUrl + urlImage;
 	}
 }

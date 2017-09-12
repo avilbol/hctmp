@@ -19,8 +19,6 @@ public class FlatParserConstants {
 	public static final Integer IMAGE_PROP_FIELD_ID = 12;
 	public static final Integer ROOMS_PROP_FIELD_ID = 17;
 	public static final Integer BATHROOMS_PROP_FIELD_ID = 18;
-	public static final String PROFILE_IMAGES_SITE_URL = get(APP_SERVER_URL) + "/resources/images/users";
-	public static final String PROPERTY_IMAGES_SITE_URL = get(APP_SERVER_URL) + "/resources/images/properties";
 	public static final String CURRENCY_PRES = "%1$s COP"; // TODO: Do dynamic
 	
 	/**
