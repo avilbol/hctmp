@@ -39,7 +39,7 @@ public class PreviewSharingResource {
 	 */
 	@GET
 	@Path("home")
-	@Produces({ MediaType.TEXT_HTML})
+	@Produces({ MediaType.TEXT_HTML + ";charset=utf-8"})
 	public Response previewProperty(@QueryParam("lang") String locale,
 			@HeaderParam("Accept-Language") String browserLocale) throws IOException {
 		return Response.status(HttpStatus.SC_OK)
@@ -59,7 +59,7 @@ public class PreviewSharingResource {
 	 */
 	@GET
 	@Path("property/{id}")
-	@Produces({ MediaType.TEXT_HTML})
+	@Produces({ MediaType.TEXT_HTML + ";charset=utf-8"})
 	public Response previewProperty(@PathParam("id") String id, @QueryParam("lang") String locale,
 			@HeaderParam("Accept-Language") String browserLang) throws IOException {
 		return Response.status(HttpStatus.SC_OK)
@@ -79,7 +79,7 @@ public class PreviewSharingResource {
 	 */
 	@GET
 	@Path("profile/{id}")
-	@Produces({ MediaType.TEXT_HTML})
+	@Produces({ MediaType.TEXT_HTML + ";charset=utf-8"})
 	public Response previewProfile(@PathParam("id") Long id, @QueryParam("lang") String locale,
 			@HeaderParam("Accept-Language") String browserLang) throws IOException {
 		return Response.status(HttpStatus.SC_OK)
