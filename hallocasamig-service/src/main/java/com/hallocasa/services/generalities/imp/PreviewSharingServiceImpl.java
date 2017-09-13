@@ -78,13 +78,13 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	@Override
 	public String previewPropertyById(String id, String locale, String browserLocale) throws IOException {
 		Optional<EntityProperty> entityProperty = daoProperty.findById(id);
-		String standardLocale = localeNamingService.standardize(locale, browserLocale);
+		List<String> standardLocaleList = localeNamingService.standardizeMultiple(locale, browserLocale);
 		if (!entityProperty.isPresent()) {
-			return notFoundTemplate("property-not-found.html", standardLocale);
+			return notFoundTemplate("property-not-found.html", standardLocaleList.get(0));
 		}
 		Property property = (Property) toValueObject(entityProperty.get());
 		FlatPropertyParser parser = new FlatPropertyParser();
-		FlatProperty flatProperty = parser.transform(property, standardLocale);
+		FlatProperty flatProperty = parser.transform(property, standardLocaleList);
 		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("property-preview.html");
 		String htmlString = AvsFileManager.loadInputStreamToString(in);
 		htmlString = htmlString.replace("#{flatProperty.basicDescription}", flatProperty.getBasicDescription());
