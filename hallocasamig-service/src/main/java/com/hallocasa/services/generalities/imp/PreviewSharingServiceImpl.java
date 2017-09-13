@@ -26,8 +26,6 @@ import com.hallocasa.services.generalities.LocaleNamingService;
 import com.hallocasa.services.generalities.LocalizationService;
 import com.hallocasa.services.generalities.PreviewSharingService;
 import com.hallocasa.services.properties.imp.PropertyServiceImp;
-import com.hallocasa.systemproperties.SystemConstants;
-import com.hallocasa.systemproperties.SystemProperty;
 import com.hallocasa.utils.constants.parsing.flat.FlatProfileParser;
 import com.hallocasa.utils.constants.parsing.flat.FlatPropertyParser;
 import com.hallocasa.vo.hcfilter.properties.FlatProperty;
@@ -61,18 +59,18 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	/**
 	 * Reference to image url default when the property has no image
 	 */
-	private static final String NO_PROPERTY_IMAGE_URL = "no-image-property.png";
+	private static final String NO_PROPERTY_IMAGE_URL = "/resources/images/default/no-image-property.png";
 	
 	/**
 	 * Reference to image url default when the user has no image
 	 */
-	private static final String NO_PROFILE_IMAGE_URL = "no-image-user.png";
+	private static final String NO_PROFILE_IMAGE_URL = "/resources/images/default/no-image-user.png";
 	
 	@Override
 	public String homePreview(String locale, String browserLocale) throws IOException {
 		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("index-preview.html");
 		String htmlString = AvsFileManager.loadInputStreamToString(in);
-		htmlString = htmlString.replace("#{app.server.url}", SystemProperty.get(SystemConstants.APP_SERVER_URL));
+		htmlString = htmlString.replace("#{app.server.url}", get(APP_SERVER_URL));
 		String standardLocale = localeNamingService.standardize(locale, browserLocale);
 		return translateHomeTemplate(htmlString, standardLocale);
 	}
@@ -82,9 +80,7 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 		Optional<EntityProperty> entityProperty = daoProperty.findById(id);
 		String standardLocale = localeNamingService.standardize(locale, browserLocale);
 		if (!entityProperty.isPresent()) {
-			InputStream in = PreviewSharingServiceImpl.class.getClassLoader().getResourceAsStream("property-not-found.html");
-			String htmlString = AvsFileManager.loadInputStreamToString(in);
-			return translatePropertyNotFoundTemplate(htmlString, standardLocale);
+			return notFoundTemplate("property-not-found.html", standardLocale);
 		}
 		Property property = (Property) toValueObject(entityProperty.get());
 		FlatPropertyParser parser = new FlatPropertyParser();
@@ -103,9 +99,7 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 		Optional<EntityUser> entityProfile = daoUser.find(id);
 		String standardLocale = localeNamingService.standardize(locale, browserLocale);
 		if (!entityProfile.isPresent()) {
-			InputStream in = PreviewSharingServiceImpl.class.getClassLoader().getResourceAsStream("profile-not-found.html");
-			String htmlString = AvsFileManager.loadInputStreamToString(in);
-			return translatePropertyNotFoundTemplate(htmlString, standardLocale);
+			return notFoundTemplate("profile-not-found.html", standardLocale);
 		}
 		FlatProfileParser parser = new FlatProfileParser();
 		FlatUser flatUser = parser.transform(entityProfile.get(), standardLocale);
@@ -167,8 +161,23 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 			String expressionToTranslate = "#{"+ pnemonic +" | translate}";
 			text = text.replace(expressionToTranslate, translatedText == null ? pnemonic : translatedText);
 		}
-		LOG.info(text);
 		return text;
+	}
+	
+	/**
+	 * Create html template for not found (either property or property) item
+	 * @param templateUrl
+	 * 		The template html url to load
+	 * @param standardLocale
+	 * 		the locale standardized to use as reference
+	 * @return
+	 * @throws IOException
+	 */
+	private String notFoundTemplate(String templateUrl, String standardLocale) throws IOException{
+		InputStream in = PreviewSharingServiceImpl.class.getClassLoader().getResourceAsStream(templateUrl);
+		String htmlString = AvsFileManager.loadInputStreamToString(in);
+		htmlString = htmlString.replace("#{app.server.url}", get(APP_SERVER_URL));
+		return translatePropertyNotFoundTemplate(htmlString, standardLocale);
 	}
 	
 	/**
@@ -181,8 +190,8 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	private String propertyImageUrl(FlatProperty flatProperty){
 		String urlImage = flatProperty.getUrlImage();
 		boolean emptyUrlImage = urlImage == null || urlImage.isEmpty();
-		String propertyImageSiteUrl = get(APP_SERVER_URL) + "/resources/images/properties/";
-		return emptyUrlImage ? NO_PROPERTY_IMAGE_URL : propertyImageSiteUrl + urlImage;
+		String imagePath = emptyUrlImage ? null : "/resources/images/properties/" + urlImage;
+		return String.format("%1$s%2$s", get(APP_SERVER_URL), emptyUrlImage ? NO_PROPERTY_IMAGE_URL : imagePath); 
 	}
 	
 	/**
@@ -193,9 +202,9 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	 * 		The adequate image url
 	 */
 	private String profileImageUrl(FlatUser flatUser){
-		String urlImage = flatUser.getImageUrl();
-		String profileImagesSiteUrl = get(APP_SERVER_URL) + "/resources/images/users/";
-		boolean emptyUrlImage = urlImage == null || urlImage.isEmpty();
-		return emptyUrlImage ? NO_PROFILE_IMAGE_URL : profileImagesSiteUrl + urlImage;
+		String imageUrl = flatUser.getImageUrl();
+		boolean emptyUrlImage = imageUrl == null || imageUrl.isEmpty();
+		String imagePath = emptyUrlImage ? null : "/resources/images/users/" + imageUrl;
+		return String.format("%1$s%2$s", get(APP_SERVER_URL), emptyUrlImage ? NO_PROFILE_IMAGE_URL : imagePath); 
 	}
 }
