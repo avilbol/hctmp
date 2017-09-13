@@ -6,7 +6,6 @@ import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -58,9 +57,9 @@ public class PreviewSharingResource {
 	 * 		If there is an error reading the html file sources
 	 */
 	@GET
-	@Path("property/{id}")
+	@Path("property")
 	@Produces({ MediaType.TEXT_HTML + ";charset=utf-8"})
-	public Response previewProperty(@PathParam("id") String id, @QueryParam("lang") String locale,
+	public Response previewProperty(@QueryParam("id") String id, @QueryParam("lang") String locale,
 			@HeaderParam("Accept-Language") String browserLang) throws IOException {
 		return Response.status(HttpStatus.SC_OK)
 				.entity(previewSharingService.previewPropertyById(id, locale, browserLang)).build();
@@ -78,9 +77,9 @@ public class PreviewSharingResource {
 	 * 		If there is an error reading the html file sources
 	 */
 	@GET
-	@Path("profile/{id}")
+	@Path("profile")
 	@Produces({ MediaType.TEXT_HTML + ";charset=utf-8"})
-	public Response previewProfile(@PathParam("id") Long id, @QueryParam("lang") String locale,
+	public Response previewProfile(@QueryParam("id") Long id, @QueryParam("lang") String locale,
 			@HeaderParam("Accept-Language") String browserLang) throws IOException {
 		return Response.status(HttpStatus.SC_OK)
 				.entity(previewSharingService.previewProfileById(id, locale, browserLang)).build();
