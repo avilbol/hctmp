@@ -1,5 +1,8 @@
 package com.hallocasa.services.generalities.imp;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.ejb.Stateless;
 
 import com.hallocasa.services.generalities.LocaleNamingService;
@@ -46,7 +49,18 @@ public class LocaleNamingServiceImp implements LocaleNamingService {
 	public String standardize(String customizedLocale, String browserLocale) {
 		return standardize(generatedLocale(customizedLocale) ? customizedLocale : browserLocale);
 	}
-
+	
+	@Override
+	public List<String> standardizeMultiple(String customizedLocale, String browserLocale) {
+		List<String> standardList = new LinkedList<String>();
+		standardList.add(standardize(customizedLocale, browserLocale));
+		if(browserLocale != null){
+			standardList.add(standardize(browserLocale));
+		}
+		return standardList;
+	}
+	
+	
 	/**
 	 * Transforms the locale to suit the standardization
 	 * @param rawLocale

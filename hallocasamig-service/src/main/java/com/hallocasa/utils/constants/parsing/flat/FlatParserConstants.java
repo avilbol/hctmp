@@ -1,8 +1,5 @@
 package com.hallocasa.utils.constants.parsing.flat;
 
-import static com.hallocasa.systemproperties.SystemConstants.APP_SERVER_URL;
-import static com.hallocasa.systemproperties.SystemProperty.get;
-
 /**
  * Constants to use in flat parsers
  * @author avilbol
@@ -20,6 +17,12 @@ public class FlatParserConstants {
 	public static final Integer ROOMS_PROP_FIELD_ID = 17;
 	public static final Integer BATHROOMS_PROP_FIELD_ID = 18;
 	public static final String CURRENCY_PRES = "%1$s COP"; // TODO: Do dynamic
+	
+	/**
+	 * Locale response map keys
+	 */
+	public static final String TEXT_KEY = "text-key";
+	public static final String FOUND_KEY = "found-key";
 	
 	/**
 	 * Loads equivalent locale id in database according to the locale in string format

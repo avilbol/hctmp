@@ -97,12 +97,12 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 	@Override
 	public String previewProfileById(Long id, String locale, String browserLocale) throws IOException {
 		Optional<EntityUser> entityProfile = daoUser.find(id);
-		String standardLocale = localeNamingService.standardize(locale, browserLocale);
+		List<String> standardLocaleList = localeNamingService.standardizeMultiple(locale, browserLocale);
 		if (!entityProfile.isPresent()) {
-			return notFoundTemplate("profile-not-found.html", standardLocale);
+			return notFoundTemplate("profile-not-found.html", standardLocaleList.get(0));
 		}
 		FlatProfileParser parser = new FlatProfileParser();
-		FlatUser flatUser = parser.transform(entityProfile.get(), standardLocale);
+		FlatUser flatUser = parser.transform(entityProfile.get(), standardLocaleList);
 		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("profile-preview.html");
 		String htmlString = AvsFileManager.loadInputStreamToString(in);
 		htmlString = htmlString.replace("#{flatUser.userDescription}", flatUser.getUserDescription());
