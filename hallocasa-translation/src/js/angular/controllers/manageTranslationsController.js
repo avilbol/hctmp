@@ -30,14 +30,19 @@
 
         vm.openModal = openModal;
         vm.newTranslation = newTranslation;
+        vm.changeEnviroment = changeEnviroment;
         
         $scope.editTranslation = editTranslation;
         $scope.deleteTranslation = deleteTranslation;
 
         cleanModel();
 
-        TranslationService.loadLocales().then(function(locations){
-            vm.locations = locations;
+
+
+        TranslationService.loadLocales(1).then(function(locations){
+            console.log(locations.data);
+
+            vm.locations = locations.data;
             // console.log('Locations ', vm.locations);
 
             // vm.locations = [
@@ -78,6 +83,12 @@
             // if ( current + 1 )                $log.debug('Hello ' + selected.title + '!');
         });
 
+        function changeEnviroment(){
+            TranslationService.loadLocales(vm.environment.id).then(function(locations){
+                vm.locations = locations.data;
+            });
+        }
+
         // Find element by pnemonic and open modal
         function editTranslation(id){
             console.log('Start find', id);
@@ -105,13 +116,13 @@
             var isConfirmDelete = confirm('Do you want delete this translation?');
             if (isConfirmDelete) {
 
-                TranslationService.deleteLocale(translation.pnemonic)
+                TranslationService.deleteLocale(translation.pnemonic, vm.environment.id)
                 .then(function(elem){
                     // vm.locations = locations;
                     toastr.success('Delete Completed!');
 
-                    TranslationService.loadLocales().then(function(locations){
-                        vm.locations = locations;
+                    TranslationService.loadLocales(vm.environment.id).then(function(locations){
+                        vm.locations = locations.data;
                     });
                 })
                 .catch(function () {
@@ -140,13 +151,14 @@
                 fullscreen:false,
                 locals: {
                     elem: vm.translation,
-                    edit: editVal
+                    edit: editVal,
+                    type: vm.environment.id
                 }
             });
         }
 
         // Controller to Modal
-        function DialogController($scope, $mdDialog, elem, edit, TranslationService,toastr) {
+        function DialogController($scope, $mdDialog, elem, edit, type, TranslationService,toastr) {
             $scope.translation = elem;
             $scope.edit = edit;
 
@@ -159,12 +171,14 @@
             $scope.saveTranslation = function saveTranslation() {
                 console.log('Information SAVING', $scope.translation);
 
-                TranslationService.saveLocale($scope.translation)
+                TranslationService.saveLocale($scope.translation, type)
                 .then(function(locations){
                     toastr.success('Save Completed!');
 
-                    TranslationService.loadLocales().then(function(locations){
-                        vm.locations = locations;
+                    TranslationService.loadLocales(type).then(function(locations){
+                        console.log('Load locations modal ' + type);
+                        console.log(locations.data);
+                        vm.locations = locations.data;
                     });
 
                     $scope.closeDialog();

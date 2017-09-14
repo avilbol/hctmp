@@ -1,7 +1,7 @@
 
 <md-content class="md-padding">
   <label>Select an Environment</label>
-  <md-select ng-model="vm.environment" placeholder="Select an Environment" ng-model-options="{trackBy: '$value.id'}">
+  <md-select ng-model="vm.environment" placeholder="Select an Environment" ng-model-options="{trackBy: '$value.id'}" ng-change="vm.changeEnviroment()">
     <md-option ng-value="env" ng-repeat="env in vm.environments">{{ env.name }}</md-option>
   </md-select>
 </md-content>
