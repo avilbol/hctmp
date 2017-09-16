@@ -7,11 +7,18 @@
         filter-information="filterData"
         filters-root-scope="filtersRootScope"
       ></dropdown-filter>
+
       <binary-filter
         ng-switch-when="YESNO"
         filter-information="filterData"
         filters-root-scope="filtersRootScope"
       ></binary-filter>
+
+      <range-filter
+        ng-switch-when="RANGE"
+        filter-information="filterData"
+        filters-root-scope="filtersRootScope"
+      ></range-filter>
     </div>
 
     <!--Components detector-->

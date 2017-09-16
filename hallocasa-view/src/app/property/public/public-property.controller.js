@@ -72,6 +72,9 @@
           case "YESNO":
             processBinarySelection(filterInformation, filterIndex);
             break;
+          case "RANGE":
+            processRangeSelection(filterInformation, filterIndex);
+            break;
         }
 
         loadPropertiesPage(1, selectedFilters);
@@ -112,6 +115,15 @@
             selectedFilters.splice(filterIndex, 1);
           }
           break;
+      }
+    }
+
+    function processRangeSelection(filterInformation, filterIndex) {
+      if(filterIndex === -1){
+        selectedFilters.push(filterInformation);
+      }
+      else{
+        selectedFilters[filterIndex] = filterInformation;
       }
     }
 
