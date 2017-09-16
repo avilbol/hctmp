@@ -61,25 +61,58 @@
 
     function listenFiltersChanges() {
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-        var selectedIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
+        var filterIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
           return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
         });
 
-        if(_.isEmpty(filterInformation.selectedFilterOptions)){
-          selectedFilters.splice(selectedIndex, 1);
+        switch(filterInformation.propertyFilter.filter.filterType.filterTypeNature){
+          case "DROPDOWN":
+            processDropdownSelection(filterInformation, filterIndex);
+            break;
+          case "YESNO":
+            processBinarySelection(filterInformation, filterIndex);
+            break;
         }
-        else{
-          if(selectedIndex === -1){
-            selectedFilters.push(filterInformation);
-          }
-          else{
-            selectedFilters[selectedIndex] = filterInformation;
-          }
-        }
+
         loadPropertiesPage(1, selectedFilters);
       });
 
       $scope.$on("$destroy", destroyListener);
+    }
+
+    function processDropdownSelection(filterInformation, filterIndex) {
+      if(_.isEmpty(filterInformation.selectedFilterOptions)){
+        selectedFilters.splice(filterIndex, 1);
+      }
+      else{
+        if(filterIndex === -1){
+          selectedFilters.push(filterInformation);
+        }
+        else{
+          selectedFilters[filterIndex] = filterInformation;
+        }
+      }
+    }
+
+    function processBinarySelection(filterInformation, filterIndex) {
+      switch (filterInformation.binaryFilterType){
+        case "Dropdown":
+          if(filterIndex === -1){
+            selectedFilters.push(filterInformation);
+          }
+          else{
+            selectedFilters[filterIndex] = filterInformation;
+          }
+          break;
+        case "Checkbox":
+          if(filterIndex === -1 && filterInformation.apply){
+            selectedFilters.push(filterInformation);
+          }
+          else{
+            selectedFilters.splice(filterIndex, 1);
+          }
+          break;
+      }
     }
 
     filtersSidernavPromise.then(function(instance) {
