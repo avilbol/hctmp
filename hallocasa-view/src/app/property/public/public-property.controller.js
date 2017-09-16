@@ -6,19 +6,20 @@
     .controller('PublicPropertyController', PublicPropertyController);
 
   /** @ngInject */
-  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope) {
+  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope, $scope) {
     var vm = this;
     var filtersSidernavPromise = $mdSidenav('propertyFilters', true);
     var filtersSidernav;
     var mainContainer = angular.element("#mainContainer");
+    var selectedFilters = [];
 
     vm.loadPropertiesPage = loadPropertiesPage;
     vm.toggleFilters = toggleFilters;
 
     vm.properties = [];
     vm.totalProperties = 0;
-    vm.propertiesPerPage = 10;
-    vm.totalAmount = [10,20,50,100];
+    vm.propertiesPerPage = 100;
+    vm.totalAmount = [100,150,200];
     vm.firstLoading = true;
 
     vm.pagination = {
@@ -59,9 +60,26 @@
     }
 
     function listenFiltersChanges() {
-      $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-        loadPropertiesPage(1, [filterInformation])
+      var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+        var selectedIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
+          return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
+        });
+
+        if(_.isEmpty(filterInformation.selectedFilterOptions)){
+          selectedFilters.splice(selectedIndex, 1);
+        }
+        else{
+          if(selectedIndex === -1){
+            selectedFilters.push(filterInformation);
+          }
+          else{
+            selectedFilters[selectedIndex] = filterInformation;
+          }
+        }
+        loadPropertiesPage(1, selectedFilters);
       });
+
+      $scope.$on("$destroy", destroyListener);
     }
 
     filtersSidernavPromise.then(function(instance) {
@@ -73,7 +91,7 @@
     });
 
     loadPropertiesPage(1);
-    //loadFilters();
-    //listenFiltersChanges();
+    loadFilters();
+    listenFiltersChanges();
   }
 })();

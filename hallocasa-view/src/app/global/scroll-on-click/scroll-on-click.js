@@ -8,7 +8,7 @@
   function scrollOnClick() {
     return {
         restrict: 'A',
-        link: function (scope, element, attrs) {
+        link: function (scope, element) {
 
             element.on('click', function () {
                 angular.element("#mainContainer").animate({ scrollTop: 0 }, "slow");

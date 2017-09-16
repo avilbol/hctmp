@@ -198,3 +198,41 @@ md-tabs.md-dynamic-height md-tabs-content-wrapper {
   height: 100%;
   overflow: hidden;
 }
+
+/*
+  Toast wizard 
+*/
+.md-toast-property{
+  
+}
+.md-toast-property .md-toast-content {
+  display: -webkit-flex !important;
+  display: flex !important;
+  -webkit-flex-direction: column !important;
+  flex-direction: column !important;
+}
+
+.md-toast-property .md-toast-content span{
+  margin-top: -20px;
+}
+
+.md-toast-property .md-toast-content .md-button{
+  margin-left: auto;
+}
+
+.md-toast-property .md-toast-content .md-button span{
+  color: #2881E3;
+  font-weight: bold;
+}
+
+@media (min-width: 960px) {
+	md-toast.md-toast-property {
+		margin-left: auto;
+		margin-right: auto;
+		left: 75%;
+    top: 35%;
+		right: auto;
+		transform: translateX(-50%);
+		padding: 0px;
+	}
+}

@@ -2,8 +2,8 @@ package com.hallocasa.services.properties.imp;
 
 import static com.hallocasa.filemanager.FileManager.cleanFilesStartingWithPrefix;
 import static com.hallocasa.filemanager.FileManager.replaceMassive;
-import static com.hallocasa.systemproperties.SystemConstants.PROPERTY_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemConstants.MINI_PROPERTY_IMAGES_PATH;
+import static com.hallocasa.systemproperties.SystemConstants.PROPERTY_IMAGES_PATH;
 import static com.hallocasa.systemproperties.SystemProperty.get;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toEntity;
 import static com.hallocasa.utils.constants.parsing.HallocasaConvert.toValueObject;
@@ -29,6 +29,7 @@ import javax.ejb.Stateless;
 
 import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.properties.EntityProperty;
+import com.hallocasa.services.generalities.LocaleNamingService;
 import com.hallocasa.services.hcfilters.filterworkers.FilterWorker;
 import com.hallocasa.services.properties.PropertyCommonsService;
 import com.hallocasa.services.properties.PropertyService;
@@ -53,6 +54,9 @@ public class PropertyServiceImp implements PropertyService {
 
 	@EJB
 	private PropertyCommonsService propertyCommonsService;
+	
+	@EJB
+	private LocaleNamingService localeNamingService;
 
 	private String propertyImagesPath = get(PROPERTY_IMAGES_PATH);
 	private String minifiedPropertyImagesPath = get(MINI_PROPERTY_IMAGES_PATH);

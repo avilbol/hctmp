@@ -67,9 +67,6 @@
 		<local.app.path>http://localhost:${glassfish.app.port}/hallocasa-api</local.app.path>
 		<local.glassfish.port>${glassfish.admin.port}</local.glassfish.port>
 		<war.location>${war.output.location}</war.location>
-		<files.propertyImages.rootPath>${files.propertyImages.rootpath}</files.propertyImages.rootPath>
-		<files.propertyImages.rootPath>${files.propertyImages.rootpath}</files.propertyImages.rootPath>
-		<files.propertyImages.miniPath>${files.propertyImages.minipath}</files.propertyImages.miniPath>
 		<app.version>${hcapp.version}</app.version>
 		<app.environment>${hcapp.environment}</app.environment>
 		<localization.ui.authorizationkey>${Localization.Ui.AuthorizationKey}</localization.ui.authorizationkey>

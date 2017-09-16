@@ -88,6 +88,12 @@ public class FileManager {
 	
 	public static String createMinifiedImage(String dir, String fileLocation, Integer width, Integer height){
 		try {
+			Iterator readers = ImageIO.getImageReadersByFormatName("JPEG");
+		    ImageReader reader = null;
+		    while(readers.hasNext()) {
+		        reader = (ImageReader)readers.next();
+		        LOG.info(reader);
+		    }
 			BufferedImage in = ImageIO.read(new File(fileLocation));
 			double imgHeight = in.getHeight();
 			double imgWidth = in.getWidth();
@@ -147,14 +153,20 @@ public class FileManager {
 	}
 	
 	public static void main(String[] args) throws IOException{
-		List<File> filesInFolder = Files.walk(Paths.get("C:\\Users\\avilbol\\Pictures\\mine"))
+		Iterator readers = ImageIO.getImageReadersByFormatName("JPEG");
+	    ImageReader reader = null;
+	    while(readers.hasNext()) {
+	        reader = (ImageReader)readers.next();
+	        System.out.println(reader);
+	    }
+		/*List<File> filesInFolder = Files.walk(Paths.get("C:\\Users\\avilbol\\Pictures\\mine"))
                 .filter(Files::isRegularFile)
                 .map(Path::toFile)
                 .collect(Collectors.toList());
 		for(File file : filesInFolder){
 			String folderForMinifiedImages = "C:\\Users\\avilbol\\Pictures\\mine-minified";
 			createMinifiedImage(folderForMinifiedImages, file.getAbsolutePath(), 388, 259);
-		}
+		}*/
 	}
 	
 	public static List<String> fileList(String directory) {

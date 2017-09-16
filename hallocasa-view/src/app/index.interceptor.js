@@ -14,6 +14,10 @@
         if(config.url === authRequest){
           return config;
         }
+        if(!config.url.startsWith(backend_url)){
+          config.headers = {};
+          return config;
+        }
         config.headers["O-Auth-Client-Id"] = ApplicationCredentials["client-id"];
         config.headers["O-Auth-Code"] = ApplicationCredentials["code"];
         return config;

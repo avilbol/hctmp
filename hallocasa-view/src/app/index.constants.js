@@ -22,7 +22,10 @@
         'Español': {'id': 2, 'locale': 'es'},
         'Deutsch': {'id': 3, 'locale': 'de'}
       },
-      'preferredLocale': 'es-ES'
+      'defaultLocale': 'en-US'
+    })
+    .constant('CURRENCIES', {
+      'defaultCurrencyId' : 3 // Constant for USD - Dollar
     })
     .constant('GenericRESTResource', {
       query: { method: 'GET', isArray: true},

@@ -12,6 +12,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,6 +30,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tika.detect.Detector;
+import org.apache.tika.io.IOUtils;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
 import org.apache.tika.parser.AutoDetectParser;
@@ -59,6 +61,23 @@ public class AvsFileManager {
 		}
 	}
 	
+	/**
+	 * Process an Input Stream and generates a String 
+	 * @param in
+	 * 		The input stream to review
+	 * @return
+	 * 		The string in the input stream
+	 * @throws IOException
+	 * 		If is there any problem loading Input Stream
+	 */
+	public static String loadInputStreamToString(InputStream in) throws IOException{
+		File file = File.createTempFile("temp", "tmp");
+	    file.deleteOnExit();
+	    FileOutputStream out = new FileOutputStream(file);
+	    IOUtils.copy(in, out);
+	    return FileUtils.readFileToString(file, Charset.forName("utf-8"));
+	}
+	
 	public static String encodeToBase64(String dir, String filename){
 		try{
 			File file = new File(dir + "/" + filename);
@@ -87,6 +106,7 @@ public class AvsFileManager {
 	
 	public static String createMinifiedImage(String dir, String fileLocation, Integer width, Integer height){
 		try {
+			ImageIO.scanForPlugins();
 			Iterator<ImageReader> readers = ImageIO.getImageReadersByFormatName("JPEG");
 		    ImageReader reader = null;
 		    while(readers.hasNext()) {

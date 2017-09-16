@@ -52,7 +52,6 @@
     $translateProvider.useSanitizeValueStrategy('escape');
 
     $translateProvider.useUrlLoader(backend_url+'/hallocasa-api/locales/translations');
-    $translateProvider.preferredLanguage(LOCALES.preferredLocale);// is applied on first load
     $translateProvider.useLocalStorage();// saves selected language to localStorage
 
     tmhDynamicLocaleProvider.localeLocationPattern('http://www.hallocasa.com/resources/js/angular-locale_{{locale}}.js');

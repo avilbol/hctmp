@@ -41,11 +41,16 @@ public class EntityPreferredSetting implements HallocasaEntity {
 	private String locale;
 
 	/**
-	 * Country of preferred settings
+	 * Country code of preferred settings
 	 */
-	@JoinColumn(name = "country_id", referencedColumnName = "id")
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private EntityCountry country;
+	@Column(name = "country_code")
+	private String countryCode;
+	
+	/**
+	 * Country name of preferred settings
+	 */
+	@Column(name = "country_name")
+	private String countryName;
 	
 	/**
 	 * Currency for the country
@@ -77,12 +82,20 @@ public class EntityPreferredSetting implements HallocasaEntity {
 		this.locale = locale;
 	}
 
-	public EntityCountry getCountry() {
-		return country;
+	public String getCountryCode() {
+		return countryCode;
 	}
 
-	public void setCountry(EntityCountry country) {
-		this.country = country;
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
 	}
 
 	public EntityCurrency getFirstCurrency() {

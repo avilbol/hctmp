@@ -23,9 +23,14 @@ public class PreferredSetting implements ValueObject, Serializable {
 	private String locale;
 
 	/**
-	 * Country of preferred settings
+	 * Country code of preferred settings
 	 */
-	private Country country;
+	private String countryCode;
+	
+	/**
+	 * Country name of preferred settings
+	 */
+	private String countryName;
 	
 	/**
 	 * Currency for the country
@@ -45,12 +50,20 @@ public class PreferredSetting implements ValueObject, Serializable {
 		this.locale = locale;
 	}
 
-	public Country getCountry() {
-		return country;
+	public String getCountryCode() {
+		return countryCode;
 	}
 
-	public void setCountry(Country country) {
-		this.country = country;
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
+
+	public String getCountryName() {
+		return countryName;
+	}
+
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
 	}
 
 	public Currency getFirstCurrency() {
