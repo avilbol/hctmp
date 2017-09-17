@@ -122,10 +122,14 @@
         "name": "Furnished",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "static_options"
-        }
+        "flexDesktop": 100
+      },
+      {
+        "id": 16,
+        "name": "Floor",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100
       },
       {
         "id": 17,
@@ -148,6 +152,13 @@
         }
       },
       {
+        "id": 19,
+        "name": "Parking Spots",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100
+      },
+      {
         "id": 20,
         "name": "Basement",
         "flexMobile": 100,
@@ -162,30 +173,21 @@
         "name": "Balcony/Rooftop",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "binary_options"
-        }
+        "flexDesktop": 100
       },
       {
         "id": 23,
         "name": "Garden",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "binary_options"
-        }
+        "flexDesktop": 100
       },
       {
         "id": 25,
         "name": "Rented",
         "flexMobile": 100,
         "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "binary_options"
-        }
+        "flexDesktop": 100
       },
       {
         "id": 27,
