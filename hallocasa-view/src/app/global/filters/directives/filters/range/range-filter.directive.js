@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('rangeFilter', rangeFilter);
 
-  function rangeFilter($rootScope, $timeout) {
+  function rangeFilter($rootScope, $timeout, CurrencyService) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/filters/range/range-filter.html",
@@ -18,14 +18,27 @@
         var ngModelTimeOut;
 
         scope.fieldName = scope.$id;
+        scope.currentCurrency = CurrencyService.getCurrentCurrency;
         scope.title = scope.filterInformation.filter.usePropertyField ?
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
+        scope.filterInformation.filter.options = scope.filterInformation.filter.options ?
+          scope.filterInformation.filter.options : {};
+        scope.filterInformation.filter.options.step = scope.filterInformation.filter.options.step ?
+          scope.filterInformation.filter.options.step : 1;
+        scope.filterInformation.filter.options.buffer = scope.filterInformation.filter.options.buffer ?
+          scope.filterInformation.filter.options.buffer : 10;
+
         scope.emitSelectedOption = emitSelectedOption;
+
         /*
-        scope.floor = scope.filterInformation.filter.minValue;
-        scope.ceiling = scope.filterInformation.filter.maxValue;
-        scope.lowValue = scope.filterInformation.filter.minValue;
-        scope.highValue = scope.filterInformation.filter.maxValue;
+        if(filterInformation.filter.filterType.validateMin){
+          scope.floor = scope.filterInformation.filter.minValue;
+          scope.lowValue = scope.filterInformation.filter.minValue;
+        }
+        if(filterInformation.filter.filterType.validateMax){
+          scope.ceiling = scope.filterInformation.filter.maxValue;
+          scope.highValue = scope.filterInformation.filter.maxValue;
+        }
         */
 
         /*
