@@ -35,7 +35,6 @@ public class MailChimpServicesImpl implements MailChimpServices {
         // reuse the same MailChimpClient object whenever possible
         MailChimpClient mailChimpClient = new MailChimpClient();
         SubscribeMethod subscribeMethod = new SubscribeMethod();
-
         subscribeMethod.apikey = get(MAIL_CHIMP_API_KEY);
         subscribeMethod.id = get(MAIL_CHIMP_TEST1_LIST_ID);
         subscribeMethod.email = new Email();

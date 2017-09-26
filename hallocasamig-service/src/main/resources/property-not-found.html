@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta property="og:title" content="Not found" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta property="og:title" content="#{hallocasa.property.notfound | translate}" />
+<meta property="og:description" content="#{hallocasa.property.notfound.explanation | translate}" />
+<meta property="og:image" content="#{app.server.url}/resources/images/default/not-found.png" />
+<meta property="og:type" content="website" />
+<meta property="og:image:width" content="200" />
+<meta property="og:image:height" content="100" />
 </head>
 <body>
 	<p>
-		Property entered in URL Not found
+		#{hallocasa.property.notfound.explanation | translate}
 	</p>
-	<img src="https://openclipart.org/image/2400px/svg_to_png/211479/Simple-Image-Not-Found-Icon.png">
+	<img src="#{app.server.url}/resources/images/default/not-found.png" style="width:100px">
 </body>
 </html>

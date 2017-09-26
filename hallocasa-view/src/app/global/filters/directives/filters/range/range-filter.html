@@ -1,0 +1,20 @@
+<span translate>{{title}}</span>
+<div ng-switch="filterInformation.filter.filterType.rangeFieldPresentation">
+  <div ng-switch-when="INTEGER">
+    <slider
+      ng-model="lowValue"
+      ng-model-range="highValue"
+      floor="{{floor}}"
+      buffer="10"
+      ceiling="{{ceiling}}"
+      ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
+    >
+    </slider>
+  </div>
+  <div ng-switch-when="DATE">
+    <!-- No implemented -->
+  </div>
+  <div ng-switch-when="CURRENCY">
+    <!-- No implemented -->
+  </div>
+</div>

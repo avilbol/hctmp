@@ -6,11 +6,12 @@
     .controller('PublicPropertyController', PublicPropertyController);
 
   /** @ngInject */
-  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope) {
+  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope, $scope) {
     var vm = this;
     var filtersSidernavPromise = $mdSidenav('propertyFilters', true);
     var filtersSidernav;
     var mainContainer = angular.element("#mainContainer");
+    var selectedFilters = [];
 
     vm.loadPropertiesPage = loadPropertiesPage;
     vm.toggleFilters = toggleFilters;
@@ -59,9 +60,71 @@
     }
 
     function listenFiltersChanges() {
-      $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-        loadPropertiesPage(1, [filterInformation])
+      var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+        var filterIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
+          return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
+        });
+
+        switch(filterInformation.propertyFilter.filter.filterType.filterTypeNature){
+          case "DROPDOWN":
+            processDropdownSelection(filterInformation, filterIndex);
+            break;
+          case "YESNO":
+            processBinarySelection(filterInformation, filterIndex);
+            break;
+          case "RANGE":
+            processRangeSelection(filterInformation, filterIndex);
+            break;
+        }
+
+        loadPropertiesPage(1, selectedFilters);
       });
+
+      $scope.$on("$destroy", destroyListener);
+    }
+
+    function processDropdownSelection(filterInformation, filterIndex) {
+      if(_.isEmpty(filterInformation.selectedFilterOptions)){
+        selectedFilters.splice(filterIndex, 1);
+      }
+      else{
+        if(filterIndex === -1){
+          selectedFilters.push(filterInformation);
+        }
+        else{
+          selectedFilters[filterIndex] = filterInformation;
+        }
+      }
+    }
+
+    function processBinarySelection(filterInformation, filterIndex) {
+      switch (filterInformation.binaryFilterType){
+        case "Dropdown":
+          if(filterIndex === -1){
+            selectedFilters.push(filterInformation);
+          }
+          else{
+            selectedFilters[filterIndex] = filterInformation;
+          }
+          break;
+        case "Checkbox":
+          if(filterIndex === -1 && filterInformation.apply){
+            selectedFilters.push(filterInformation);
+          }
+          else{
+            selectedFilters.splice(filterIndex, 1);
+          }
+          break;
+      }
+    }
+
+    function processRangeSelection(filterInformation, filterIndex) {
+      if(filterIndex === -1){
+        selectedFilters.push(filterInformation);
+      }
+      else{
+        selectedFilters[filterIndex] = filterInformation;
+      }
     }
 
     filtersSidernavPromise.then(function(instance) {
@@ -73,7 +136,7 @@
     });
 
     loadPropertiesPage(1);
-    //loadFilters();
-    //listenFiltersChanges();
+    loadFilters();
+    listenFiltersChanges();
   }
 })();

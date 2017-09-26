@@ -1,7 +1,6 @@
 package com.hallocasa.dao.i;
 
 import java.util.List;
-import java.util.Map;
 
 import com.hallocasa.entities.EntityLocaleEntry;
 
@@ -40,4 +39,13 @@ public interface IDAOLocaleEntry {
 	 * 		pnemonic (alias key) of entry to delete
 	 */
 	public void delete(String pnemonic);
+
+	/**
+	 * Returns the overall locale entries for specific pnemonic
+	 * @param pnemonic
+	 * 		pnemonic (alias key) to use as filter
+	 * @return
+	 * 		The locale entries of pnemonic specified
+	 */
+	public List<EntityLocaleEntry> findByPnemonic(String pnemonic);
 }
