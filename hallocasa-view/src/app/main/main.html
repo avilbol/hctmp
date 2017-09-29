@@ -111,7 +111,7 @@
   </md-sidenav>
   <md-content flex id="mainContainer">
     <md-content ng-view flex layout="column" class="ng-view-container"></md-content>
-    <md-toolbar ng-class="{'md-medium-tall': !MainCtrl.screenIsSmall, 'md-xl': MainCtrl.screenIsSmall}" ng-if="MainCtrl.showToolbars">
+    <md-toolbar ng-class="{'md-xl': MainCtrl.screenIsSmall}" ng-if="MainCtrl.showToolbars">
       <div layout="column" layout-gt-sm="row" flex layout-align="center center">
         <span layout-margin></span>
         <div flex layout="column" class="md-subhead" flex-order-sm="1" flex-order-xs="1">
@@ -127,6 +127,9 @@
             <md-button target="_blank" ng-href="{{MainCtrl.blogRedirection('blog')}}">
               {{'Common.Label.Blog' | translate}}
             </md-button>
+          </div>
+          <div layout="row" layout-align-sm="center" layout-align-xs="center">
+            <a class="md-button" href="mailto:contact@hallocasa.com">contact@hallocasa.com</a>
           </div>
         </div>
 
