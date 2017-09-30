@@ -145,7 +145,7 @@
 
             $mdDialog.show({
                 controller: DialogController,
-                templateUrl: '../../dialog.new.lenguages.tmpl.html',
+                templateUrl: '/hc-admin/dialog.new.lenguages.tmpl.html',
                 parent: angular.element(document.body),
                 clickOutsideToClose: true,
                 fullscreen:false,
