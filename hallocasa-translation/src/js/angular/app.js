@@ -40,9 +40,9 @@
         ])
         .config(function($routeProvider, $locationProvider, toastrConfig) {
             $routeProvider
-                .when('/', {
+                .when('/hc-admin', {
                     // url: '/manage-translations',
-                    templateUrl: '../../manageTranslations.html',
+                    templateUrl: '/hc-admin/manageTranslations.html',
                     controller: 'ManageTranslationsController',
                     controllerAs: 'vm'
                 });
