@@ -43,6 +43,11 @@
                     {{'GlobalMenu.GoToProfile' | translate}}
                   </md-button>
                 </md-menu-item>
+                <md-menu-item ng-if="MainCtrl.isAdmin()">
+                  <md-button ng-click="MainCtrl.redirectAd()">
+                     {{'GlobalMenu.GoToProfile' | translate}} Admin
+                  </md-button>
+                </md-menu-item>
                 <md-menu-item>
                   <md-button ng-click="MainCtrl.logout()">
                     {{'Header.Logout.Button' | translate}}

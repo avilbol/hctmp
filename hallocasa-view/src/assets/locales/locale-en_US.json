@@ -32,6 +32,7 @@
 	"Common.TelephoneNumber.Prefix": "Country Code",
 	"GlobalMenu.GoToProfile": "My Profile",
 	"GlobalMenu.GoToProperties": "My Properties",
+	"GlobalMenu.GoToAdmin": "Administration",
 	"Header.SignUp.Button": "Publish For Free",
 	"Header.Login.Button": "Login",
 	"Header.Logout.Button": "Logout",
