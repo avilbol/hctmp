@@ -30,24 +30,45 @@
 
         scope.emitSelectedOption = emitSelectedOption;
 
-        /*
-        if(filterInformation.filter.filterType.validateMin){
-          scope.floor = scope.filterInformation.filter.minValue;
-          scope.lowValue = scope.filterInformation.filter.minValue;
-        }
-        if(filterInformation.filter.filterType.validateMax){
-          scope.ceiling = scope.filterInformation.filter.maxValue;
-          scope.highValue = scope.filterInformation.filter.maxValue;
-        }
-        */
+        function initialize() {
+          switch (scope.filterInformation.filter.filterType.rangeFieldPresentation){
+            case "INTEGER":
+            case "DOUBLE":
+            case "CURRENCY":
+              // if(scope.filterInformation.filter.filterType.validateMin){
+              //   scope.floor = scope.filterInformation.filter.minValue;
+              //   scope.lowValue = scope.filterInformation.filter.minValue;
+              // }
+              // if(scope.filterInformation.filter.filterType.validateMax){
+              //   scope.ceiling = scope.filterInformation.filter.maxValue;
+              //   scope.highValue = scope.filterInformation.filter.maxValue;
+              // }
 
-        /*
-        * TODO: Temporal test values, delete when returned values from backend has valid values
-        * */
-        scope.floor = 0;
-        scope.ceiling = 1000;
-        scope.lowValue = 0;
-        scope.highValue = 1000;
+              /*
+              * TODO: Temporal test values, delete when returned values from backend has valid values
+              * */
+              scope.floor = 0;
+              scope.ceiling = 1000;
+              scope.lowValue = 0;
+              scope.highValue = 1000;
+
+              break;
+            case "DATE":
+              // if(scope.filterInformation.filter.filterType.validateMin){
+              //   scope.lowValue = new Date(scope.filterInformation.filter.minValue);
+              // }
+              // if(scope.filterInformation.filter.filterType.validateMax){
+              //   scope.highValue = new Date(scope.filterInformation.filter.maxValue);
+              // }
+
+              /*
+              * TODO: Temporal test values, delete when returned values from backend has valid values
+              * */
+              scope.lowValue = new Date();
+              scope.highValue = new Date();
+              break;
+          }
+        }
 
         function emitSelectedOption(range) {
           if(ngModelTimeOut){
@@ -56,15 +77,24 @@
           }
           ngModelTimeOut = $timeout(function(){
             var selectionPayload = {
-              "minValue": range.lowValue,
-              "maxValue": range.highValue,
               propertyFilter: scope.filterInformation,
               rangeFilterType: scope.rangeFilterType
             };
+            if(scope.filterInformation.filter.filterType.rangeFieldPresentation === "DATE"){
+              selectionPayload.minDateValue = range.lowValue;
+              selectionPayload.maxDateValue = range.highValue;
+            }
+            else{
+              selectionPayload.minValue = range.lowValue;
+              selectionPayload.maxValue = range.highValue;
+            }
+
             $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
             ngModelTimeOut = null;
           },500);
         }
+
+        initialize();
       }
     };
   }

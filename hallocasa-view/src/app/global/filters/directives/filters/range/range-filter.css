@@ -9,3 +9,7 @@
 .input-range-filter .errorMessage{
   position: fixed;
 }
+
+.input-range-filter .md-datepicker-button{
+  display: none;
+}

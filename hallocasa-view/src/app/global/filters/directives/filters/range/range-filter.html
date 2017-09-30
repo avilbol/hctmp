@@ -26,7 +26,7 @@
       <div ng-include="'numericInputRange'"></div>
     </div>
     <div ng-switch-when="DATE">
-      <!-- No implemented -->
+      <div ng-include="'dateInputRange'"></div>
     </div>
     <div ng-switch-when="CURRENCY" layout="row">
       <b>{{currentCurrency().abbreviation}}&nbsp;:&nbsp;</b>
@@ -85,4 +85,38 @@
     ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
   >
   </slider>
+</script>
+
+<script type="text/ng-template" id="dateInputRange">
+  <div layout="row" layout-align="center center" class="input-range-filter">
+    <form name="inputRangeForm">
+      <md-input-container flex="40">
+        <md-datepicker
+          name="inputLowValue"
+          ng-model="lowValue"
+          md-max-date="highValue"
+          aria-label="{{title}}"
+          ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
+        ></md-datepicker>
+        <div ng-messages="inputRangeForm.$error">
+          <div class="errorMessage" ng-if="inputRangeForm.$error.maxdate">
+            <span translate>{{"constraints.Past"}}</span> <span>{{highValue | date}}</span>
+          </div>
+          <div class="errorMessage" ng-if="inputRangeForm.$error.mindate">
+            <span translate>{{"constraints.Future"}}</span> <span>{{lowValue | date}}</span>
+          </div>
+        </div>
+      </md-input-container>
+      <span flex="10">-</span>
+      <md-input-container flex="40">
+        <md-datepicker
+          name="inputMaxValue"
+          ng-model="highValue"
+          md-min-date="lowValue"
+          aria-label="{{title}}"
+          ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
+        ></md-datepicker>
+      </md-input-container>
+    </form>
+  </div>
 </script>
