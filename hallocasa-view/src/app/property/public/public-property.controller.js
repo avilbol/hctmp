@@ -6,9 +6,9 @@
     .controller('PublicPropertyController', PublicPropertyController);
 
   /** @ngInject */
-  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope, $scope) {
+  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope, $scope, $mdComponentRegistry) {
     var vm = this;
-    var filtersSidernavPromise = $mdSidenav('propertyFilters', true);
+    var filtersSidernavPromise = $mdComponentRegistry.when('propertyFilters');
     var filtersSidernav;
     var mainContainer = angular.element("#mainContainer");
     var selectedFilters = [];
@@ -127,8 +127,8 @@
       }
     }
 
-    filtersSidernavPromise.then(function(instance) {
-      filtersSidernav = instance;
+    filtersSidernavPromise.then(function() {
+      filtersSidernav = $mdSidenav("propertyFilters");
       filtersSidernav.onClose(function () {
         mainContainer.removeClass("stop-scrolling");
         mainContainer.unbind('touchmove');
