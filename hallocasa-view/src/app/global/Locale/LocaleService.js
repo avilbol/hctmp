@@ -5,7 +5,7 @@
     .module('HalloCasa')
     .service('LocaleService', LocaleService);
 
-  function LocaleService($translate, LOCALES, $rootScope, tmhDynamicLocale, $log, $document) {
+  function LocaleService($translate, LOCALES, $rootScope, tmhDynamicLocale, $log, $document, $location) {
     $translate.onReady(function () {
       var currentLanguage = $translate.use();
       if(currentLanguage)
@@ -43,6 +43,14 @@
       $translate.use(locale);
     };
 
+    // set current language on URL as query string
+    var updateURLQueryString = function () {
+      currentLocale = currentLocale ? currentLocale : $translate.use();
+      var language = LOCALES.locales[currentLocale];
+      var minLocale = LOCALES.languages[language].locale;
+      $location.search("lang", minLocale);
+    };
+
     // EVENTS
     // on successful applying translations by angular-translate
     var watch = $rootScope.$on('$translateChangeSuccess', function (event, data) {
@@ -50,9 +58,15 @@
 
       // asking angular-dynamic-locale to load and apply proper AngularJS $locale setting
       tmhDynamicLocale.set(data.language.toLowerCase().replace(/_/g, '-'));
+
+      // set current language on URL as query string
+      updateURLQueryString();
     });
 
+    var watchLocation = $rootScope.$on('$locationChangeSuccess', updateURLQueryString);
+
     $rootScope.$on('$destroy',watch);
+    $rootScope.$on('$destroy',watchLocation);
 
     return {
       getLocaleDisplayName: function () {
