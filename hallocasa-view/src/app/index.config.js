@@ -3,12 +3,15 @@
 
   angular
     .module('HalloCasa')
-    .config(config);
+    .config(config)
+    .run(run);
 
+  var $filter;
   /** @ngInject */
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
                   localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider,
-                  $mdThemingProvider, uiGmapGoogleMapApiProvider, $intercomProvider, INTERCOM_APPID, backend_url) {
+                  $mdThemingProvider, uiGmapGoogleMapApiProvider, $intercomProvider, INTERCOM_APPID, backend_url,
+                  $mdDateLocaleProvider) {
 
     //Inject interceptors
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
@@ -79,6 +82,17 @@
     //Translate loader, user for debug purposes, comment on production environment
     $translateProvider.useLoader('translateDebugger');
 
+    //Localization for date fields
+
+    $mdDateLocaleProvider.formatDate = function(date) {
+      return $filter("date")(date);
+    };
+
+  }
+
+  /** @ngInject */
+  function run($injector) {
+    $filter = $injector.get("$filter");
   }
 
 })();
