@@ -128,7 +128,11 @@
     }
 
     filtersSidernavPromise.then(function() {
+      if(filtersSidernav){
+        filtersSidernav.destroy();
+      }
       filtersSidernav = $mdSidenav("propertyFilters");
+      $scope.$on("$destroy", filtersSidernav.destroy);
       filtersSidernav.onClose(function () {
         mainContainer.removeClass("stop-scrolling");
         mainContainer.unbind('touchmove');
