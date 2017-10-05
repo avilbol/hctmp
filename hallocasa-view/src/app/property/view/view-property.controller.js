@@ -7,10 +7,26 @@
 
   /** @ngInject */
   function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, $timeout,
-                                  FieldsService) {
+                                  FieldsService, Mailto) {
     var vm = this;
     vm.repaintMap = repaintMap;
     vm.currentImage = 0;
+    vm.mailInfo = '';
+
+    function loadEmailInfo() {
+      var recepient = vm.profile.email;
+      var newPathPropertyEn = $location.$$host + '/property?id=' + vm.property.id + '&lang=en';
+      var newPathPropertyEs = $location.$$host + '/property?id=' + vm.property.id + '&lang=es';
+      var newPathPropertyDe = $location.$$host + '/property?id=' + vm.property.id + '&lang=de';
+      var options = {
+        subject: "HalloCasa: " + vm.property.titles[vm.guidLanguage],
+        body: "Hi, I am interested in your property: " + newPathPropertyEn + "\n" +
+              "Hola, estoy interesado en su propiedad: " + newPathPropertyEs + "\n" +
+              "Hallo, Ich bin an Ihrer Immobilie interessiert: " + newPathPropertyDe
+      };
+
+      vm.mailInfo = Mailto.url(recepient, options);
+    }
 
     function repaintMap() {
       vm.refresh = false;
@@ -31,7 +47,11 @@
             vm.property = PropertyService.generatePropertyDetailData(property);
             vm.profile = vm.property.user;
 
+            
             loadLanguages(vm.property.languages);
+            
+
+            
           })
           .catch(function (error) {
             if(error.status === 404){
@@ -55,6 +75,7 @@
           });
         });
         vm.guidLanguage = vm.property.mainLanguage.id;
+        loadEmailInfo();
       });
     }
 
@@ -78,5 +99,6 @@
     }
 
     loadProperty();
+    
   }
 })();
