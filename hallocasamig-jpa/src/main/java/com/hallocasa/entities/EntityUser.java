@@ -140,7 +140,7 @@ public class EntityUser implements Serializable, HallocasaEntity {
 	}
 
 	public EntityUser(Long id, String email, String firstName, String password, 
-			Boolean confirmedFlag, EntityLanguage language, Date registerDate) {
+			Boolean confirmedFlag, EntityLanguage language, Date registerDate, String role) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
@@ -148,6 +148,7 @@ public class EntityUser implements Serializable, HallocasaEntity {
 		this.language = language;
 		this.registerDate = registerDate;
 		this.firstName = firstName;
+		this.role = role;
 	}
 
 	/**
