@@ -96,7 +96,9 @@ public class CurrencyFilterWorker implements FilterWorker {
 
 	@Override
 	public void validate(PropertyFilterSubmission filterSubmission) {
-		if(filterSubmission.getMinCrcyValue() == null && filterSubmission.getMaxCrcyValue() == null){
+		if((filterSubmission.getMinCrcyValue() == null && filterSubmission.getMaxCrcyValue() == null) ||
+				(!filterSubmission.getMinCrcyValue().isValid()
+				&& !filterSubmission.getMaxCrcyValue().isValid())){
 			throw new BadRequestException("If you want to use currency filters, "
 					+ "you must send 'minCrcyValue' or 'maxCrcyValue' attributes");
 		}

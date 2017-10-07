@@ -31,4 +31,8 @@ public class CurrencyAmmount implements ValueObject, Serializable {
 	public void setAmmount(BigDecimal ammount) {
 		this.ammount = ammount;
 	}
+	
+	public boolean isValid(){
+		return this != null && this.getAmmount() != null && this.getCurrency() != null;
+	}
 }
