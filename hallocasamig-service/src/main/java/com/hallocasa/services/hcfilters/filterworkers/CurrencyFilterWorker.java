@@ -3,6 +3,7 @@ package com.hallocasa.services.hcfilters.filterworkers;
 import java.util.Map;
 
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
+import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 
 public class CurrencyFilterWorker implements FilterWorker {
@@ -91,5 +92,13 @@ public class CurrencyFilterWorker implements FilterWorker {
 			throw new BadRequestException("In this filter you are forced to send at least one range (min or max)");
 		}
 		return minCrcyId == null ? maxCrcyId : minCrcyId;
+	}
+
+	@Override
+	public void validate(PropertyFilterSubmission filterSubmission) {
+		if(filterSubmission.getMinCrcyValue() == null && filterSubmission.getMaxCrcyValue() == null){
+			throw new BadRequestException("If you want to use currency filters, "
+					+ "you must send 'minCrcyValue' or 'maxCrcyValue' attributes");
+		}
 	}
 }

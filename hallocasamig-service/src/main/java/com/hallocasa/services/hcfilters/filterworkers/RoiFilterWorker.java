@@ -2,6 +2,8 @@ package com.hallocasa.services.hcfilters.filterworkers;
 
 import java.util.Map;
 
+import com.hallocasa.utils.constants.exceptions.BadRequestException;
+import com.hallocasa.vo.hcfilter.RangeFieldPresentation;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 import com.hallocasa.vo.options.DropdownOption;
 
@@ -69,8 +71,16 @@ public class RoiFilterWorker implements FilterWorker {
 				" left join (" + 
 				" select cast(data2 as decimal(15,2)) as monthly_rent, property_id from property_field_value  " + 
 				" where property_field_id=60 GROUP BY property_id) monthly_rent_data" + 
-				" on monthly_rent_data.property_id = p0.property_id";
-		
+				" on monthly_rent_data.property_id = p0.property_id";	
+	}
+	
+	@Override
+	public void validate(PropertyFilterSubmission filterSubmission) {
+		if(filterSubmission.getSelectedFilterOptions() == null || 
+				filterSubmission.getSelectedFilterOptions().isEmpty()){
+			throw new BadRequestException("If you want to use roi filter, "
+					+ "you must send non-empty 'selectedFilterOptions' attribute");
+		}
 	}
 
 	@Override

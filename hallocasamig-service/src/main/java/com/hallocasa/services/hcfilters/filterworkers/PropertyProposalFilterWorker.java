@@ -36,4 +36,7 @@ public class PropertyProposalFilterWorker implements FilterWorker {
 		return counter;
 	}
 
+	@Override
+	public void validate(PropertyFilterSubmission filterSubmission) {
+	}
 }

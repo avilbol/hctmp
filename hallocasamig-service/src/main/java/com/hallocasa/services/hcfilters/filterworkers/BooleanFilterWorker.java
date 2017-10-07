@@ -2,6 +2,7 @@ package com.hallocasa.services.hcfilters.filterworkers;
 
 import java.util.Map;
 
+import com.hallocasa.utils.constants.exceptions.BadRequestException;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 
 public class BooleanFilterWorker implements FilterWorker {
@@ -42,5 +43,9 @@ public class BooleanFilterWorker implements FilterWorker {
 		Integer counter = attrNumber;
 		params.put(String.valueOf(counter++), filterSubmission.isApply() ? "1" : "0");
 		return counter;
+	}
+	
+	@Override
+	public void validate(PropertyFilterSubmission filterSubmission) {
 	}
 }

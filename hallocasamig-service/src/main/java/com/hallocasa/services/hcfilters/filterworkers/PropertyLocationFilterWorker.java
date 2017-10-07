@@ -35,4 +35,8 @@ public class PropertyLocationFilterWorker implements FilterWorker {
 		}
 		return counter;
 	}
+	
+	@Override
+	public void validate(PropertyFilterSubmission filterSubmission) {
+	}
 }
