@@ -96,6 +96,9 @@ public class EntityUser implements Serializable, HallocasaEntity {
 	@Column(name = "skype")
 	private String skype;
 	
+	@Column(name = "role")
+	private String role;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "register_date")
 	private Date registerDate;
@@ -388,5 +391,13 @@ public class EntityUser implements Serializable, HallocasaEntity {
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }
