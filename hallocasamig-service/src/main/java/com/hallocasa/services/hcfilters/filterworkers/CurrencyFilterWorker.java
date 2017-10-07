@@ -66,7 +66,7 @@ public class CurrencyFilterWorker implements FilterWorker {
 
 	@Override
 	public String loadWhereQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
-		String lwStr =  "pf%1$d = 1 AND ";
+		String lwStr =  " pf%1$d = 1 AND ";
 		String lwStrFormatted = String.format(lwStr, filterSubmission.getPropertyFilter()
 				.getPropertyField().getId());
 		StringBuilder condition = new StringBuilder(lwStrFormatted);

@@ -261,7 +261,7 @@ public class PropertyServiceImp implements PropertyService {
 			filterWorker.validate(filterSubmission);
 			fieldBuilder.append(", " + filterWorker.loadParametersQuery(filterSubmission, attrNumber));
 			joinBuilder.append(filterWorker.loadJoinQuery(filterSubmission, attrNumber));
-			filterBuilder.append(filterBuilder.toString().isEmpty() ? " WHERE" : " AND ")
+			filterBuilder.append(filterBuilder.toString().isEmpty() ? " WHERE " : " AND ")
 					.append(filterWorker.loadWhereQuery(filterSubmission, attrNumber));
 			attrNumber = filterWorker.addParams(filterSubmission, paramMap, attrNumber);
 		}
