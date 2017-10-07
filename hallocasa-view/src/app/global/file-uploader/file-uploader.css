@@ -16,15 +16,51 @@
 .lf-ng-md-file-input .lf-ng-md-file-input-preview-container.disabled {
   background-color: rgba(0, 0, 0, 0.03);
 }
-.lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-x {
-  float: none;
-  text-align: right;
-  margin-bottom: 5px;
+
+.lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-frame .md-icon-background {
+  display: block;
+  position: absolute;
+  top: -100%;
+  opacity: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  /*font-size: 70px;*/
 }
-.lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-x:focus {
-  outline: none;
-  border: 0;
+
+.lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-frame:hover .md-icon-background {
+  opacity: 1; /* added */
+  top: 0; /* added */
+  z-index: 500;
 }
+
+.lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-frame md-icon {
+  display: block;
+  position: absolute;
+  top: -100%;
+  opacity: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+
+  color: #ffffff;
+  font-size: 50px;
+}
+
+.lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-frame:hover md-icon {
+  opacity: 1; /* added */
+  top: 0; /* added */
+  z-index: 500;
+}
+
+
 .lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-drag {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -44,24 +80,43 @@
   color: rgba(0, 0, 0, 0.26);
 }
 .lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-frame {
-  -moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+  /*-moz-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
-  display: table;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);*/
+  /*display: table;*/
   margin: 8px;
   height: 160px;
-  border: 1px solid #ddd;
-  padding: 6px;
+  width: 160px;
+  /*border: 1px solid #ddd;*/
+  /*padding: 6px;*/
   float: left;
   text-align: center;
   vertical-align: middle;
+  border-radius: 50%;
+
+  position: relative;
+  display: inline-block; /* added */
+  overflow: hidden; /* added */
 }
+
+.lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-frame + .primary-image-container {
+  border: 4px solid #145AA4 !important;
+}
+
+.lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-frame:hover {
+  background-color:  rgba(0, 0, 0, 0.4);
+  z-index: 200;
+
+}
+
 .lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-frame:focus {
   outline: none;
 }
 .lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-frame > img {
   height: 160px;
-  max-width: 100%;
+  /*max-width: 100%;*/
+  width: 160px;
+  border-radius: 50%;
 }
 .lf-ng-md-file-input .lf-ng-md-file-input-preview-container .lf-ng-md-file-input-frame > video {
   height: 160px;
@@ -171,6 +226,20 @@
   -webkit-border-radius: 0;
   border-radius: 0 0 0 0;
 }
+.lf-ng-md-file-input-button-add {
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+
+  background-color: #D3D3D3;
+  /*display: none;
+  position: absolute;*/
+  width: 160px;
+  height: 160px;
+
+  font-size: 180px;
+  color: #ffffff;
+}
 .lf-ng-md-file-input .lf-ng-md-file-input-container .md-raised.lf-ng-md-file-input-button .lf-ng-md-file-input-tag {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
@@ -185,6 +254,7 @@
 }
 .lf-ng-md-file-input .lf-ng-md-file-input-container .md-raised .lf-ng-md-file-input-tag {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
   opacity: 0;
   display: block;
   position: absolute;
