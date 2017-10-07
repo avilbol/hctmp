@@ -34,7 +34,7 @@ import com.hallocasa.persistence.converters.HcBooleanConverter;
 @Table(name = "user")
 @NamedQueries({ @NamedQuery(name = EntityUser.QUERY_FIND_BASIC_BY_EMAIL, 
 	query = "select new com.hallocasa.entities.EntityUser(u.id, u.email, u.firstName, "
-			+ "u.password, u.confirmedFlag, u.language, u.registerDate) "
+			+ "u.password, u.confirmedFlag, u.language, u.registerDate, u.role) "
 			+ "from EntityUser u where u.email = ?1"),
 	@NamedQuery(name = EntityUser.QUERY_FIND_BY_ID, 
 		query = "select u from EntityUser u where u.id = ?1"),
