@@ -1,6 +1,6 @@
 <md-content>
   <div layout="row">
-    <md-button class="md-raised md-primary" ng-click="vm.toggleFilters()">
+    <md-button class="md-raised md-primary" ng-click="vm.openFiltersDialog($event)">
       {{'PropertyBrowse.Filters' | translate}}
     </md-button>
     <span flex></span>
@@ -49,27 +49,33 @@
   </div>
 </md-content>
 
-
-<md-sidenav class="md-sidenav-left md-whiteframe-z2 inner-view-sidenav" md-component-id="propertyFilters">
-  <md-toolbar class="md-whiteframe-4dp">
-    <h1 class="md-toolbar-tools">
-      <span>{{'PropertyBrowse.Filters' | translate}}</span>
-      <span flex></span>
-      <md-button class="md-icon-button" ng-click="vm.toggleFilters()" aria-label="close">
-        <i class="fa fa-close"></i>
-      </md-button>
-    </h1>
-  </md-toolbar>
-  <md-content layout-padding ng-init="filtersRendered = false">
-    <div layout="row" layout-align="center" ng-if="!filtersRendered">
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-    </div>
-    <filters-interpreter
-      filters-list="vm.filters"
-      filters-root-scope="vm.filters"
-      filters-rendered="filtersRendered"
-      flex
-      ng-cloak
-    ></filters-interpreter>
-  </md-content>
-</md-sidenav>
+<div style="visibility: hidden">
+  <div class="md-dialog-container" id="propertyFilters">
+    <md-dialog>
+      <md-toolbar class="md-whiteframe-4dp">
+        <h1 class="md-toolbar-tools">
+          <span>{{'PropertyBrowse.Filters' | translate}}</span>
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="vm.closeFiltersDialog()" aria-label="close">
+            <i class="fa fa-close"></i>
+          </md-button>
+        </h1>
+      </md-toolbar>
+      <md-content layout-padding ng-init="filtersRendered = false">
+        <div layout="row" layout-align="center" ng-if="!filtersRendered">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <filters-interpreter
+          filters-list="vm.filters"
+          filters-root-scope="vm.filters"
+          filters-rendered="filtersRendered"
+          flex
+          ng-cloak
+        ></filters-interpreter>
+        <md-button ng-click="vm.closeFiltersDialog()" class="md-primary">
+          {{'placeholder.search' | translate}}
+        </md-button>
+      </md-content>
+    </md-dialog>
+  </div>
+</div>
