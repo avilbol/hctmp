@@ -2,8 +2,6 @@
   <div layout="row" layout-align="center">
     <header class="header-image"></header>
     <div flex-gt-sm="90" flex-gt-xs="90" flex-xs="100">
-      <h2 class="md-headline title-profile">{{vm.userData.profile.firstName}} {{vm.userData.profile.lastName}}</h2>
-
       <md-card>
         <md-card-title layout="row" layout-align="center center">
           <md-card-title-media>
@@ -135,46 +133,40 @@
         </md-card-content>
       </md-card>
 
-      <div layout="column" layout-align="center left" layout-wrap>
-        <h2 class="md-headline title-profile title-property title-property">{{'Properties.title.label' | translate}}</h2>
-      </div>  
 
-      <!--<div layout="column" layout-align="center center">-->
-      <div layout="column">
-        <h1 ng-if="vm.userData.properties.length === 0">
-          {{'Properties.none.property' | translate}}
-        </h1>
-        <!--<div class="landing-cards-group">-->
-        <div ng-if="vm.userData.properties.length > 0">
-          <!--<div layout="row" layout-sm="column" layout-align="center" layout-wrap>-->
-          <div layout="row" layout-sm="column" layout-wrap>
-            <div dir-paginate="property in vm.userData.properties | itemsPerPage: 12" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
-              <div flex="100" layout="row" layout-align="center">
-                <a
-                  ng-include="'app/property/templates/properties-card.html'"
-                  ng-href="/property?id={{property.id}}"
-                  class="disable-hyperlinks-style"
-                ></a>
-              </div>
-            </div>
-          </div>
-          <div layout="row" layout-align="center">
-            <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
-          </div>
-        </div>
-        <!--</div>-->
-      </div>
-      
-      <!--<md-card>
+      <md-card>
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline">{{'Properties.title.label' | translate}}</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
-          
+          <h1 ng-if="vm.userData.properties.length === 0">
+            {{'Properties.none.property' | translate}}
+          </h1>
+
+          <div layout="column" layout-align="center center">
+            <div class="landing-cards-group">
+              <div ng-if="vm.userData.properties.length > 0">
+                <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
+                  <div dir-paginate="property in vm.userData.properties | itemsPerPage: 12" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
+                    <div flex="100" layout="row" layout-align="center">
+                      <a
+                        ng-include="'app/property/templates/properties-card.html'"
+                        ng-href="/property?id={{property.id}}"
+                        class="disable-hyperlinks-style"
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+                <div layout="row" layout-align="center">
+                  <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
         </md-card-content>
-      </md-card>-->
+      </md-card>
     </div>
   </div>
 </md-content>
