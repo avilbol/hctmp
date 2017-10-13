@@ -80,13 +80,28 @@
               propertyFilter: scope.filterInformation,
               rangeFilterType: scope.rangeFilterType
             };
-            if(scope.filterInformation.filter.filterType.rangeFieldPresentation === "DATE"){
-              selectionPayload.minDateValue = range.lowValue;
-              selectionPayload.maxDateValue = range.highValue;
-            }
-            else{
-              selectionPayload.minValue = range.lowValue;
-              selectionPayload.maxValue = range.highValue;
+
+            switch (scope.filterInformation.filter.filterType.rangeFieldPresentation){
+              case "DATE":
+                selectionPayload.minDateValue = range.lowValue;
+                selectionPayload.maxDateValue = range.highValue;
+                break;
+
+              case "CURRENCY":
+                var currencyID = scope.currentCurrency().id;
+                selectionPayload.minCrcyValue = {
+                  currency: {id: currencyID},
+                  ammount: range.lowValue
+                };
+                selectionPayload.maxCrcyValue = {
+                  currency: {id: currencyID},
+                  ammount: range.highValue
+                };
+                break;
+
+              default:
+                selectionPayload.minValue = range.lowValue;
+                selectionPayload.maxValue = range.highValue;
             }
 
             $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);

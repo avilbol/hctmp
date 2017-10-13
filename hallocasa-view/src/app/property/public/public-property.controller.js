@@ -117,7 +117,6 @@
     function openFiltersDialog($event) {
       filtersDialog = $mdDialog.show({
         contentElement: "#propertyFilters",
-        parent: angular.element(document.body),
         targetEvent: $event,
         clickOutsideToClose: true
       });
