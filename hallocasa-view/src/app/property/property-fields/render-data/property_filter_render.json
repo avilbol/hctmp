@@ -15,8 +15,8 @@
         "id": 1,
         "name": "Property types",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
           "serviceId": "PropertyTypes",
@@ -27,8 +27,8 @@
         "id": 2,
         "name": "Buy / Rent",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
           "serviceId": "PropertyProposals",
@@ -39,8 +39,8 @@
         "id": 3,
         "name": "Property locations",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
           "serviceId": "PropertyLocations",
@@ -51,33 +51,19 @@
         "id": 4,
         "name": "Languages",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
           "serviceId": "Languages"
         }
       },
       {
-        "id": 5,
-        "name": "Market Price",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 6,
-        "name": "Square Meters Total",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
         "id": 7,
         "name": "Country",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
           "serviceId": "Country"
@@ -87,11 +73,25 @@
         "id": 26,
         "name": "Annual Return on Investment",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "static_options"
         }
+      },
+      {
+        "id": 5,
+        "name": "Market Price",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 6,
+        "name": "Square Meters Total",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
       }
     ]
   },
@@ -111,32 +111,35 @@
         "id": 14,
         "name": "Condition",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "static_options"
         }
       },
       {
-        "id": 15,
-        "name": "Furnished",
+        "id": 20,
+        "name": "Basement",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "static_options"
+        }
       },
       {
         "id": 16,
         "name": "Floor",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
+        "flexTablet": 50,
+        "flexDesktop": 33
       },
       {
         "id": 17,
         "name": "Optional Features",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "static_options"
         }
@@ -145,8 +148,8 @@
         "id": 18,
         "name": "Suitable For",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "static_options"
         }
@@ -155,46 +158,43 @@
         "id": 19,
         "name": "Parking Spots",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 20,
-        "name": "Basement",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "static_options"
-        }
-      },
-      {
-        "id": 22,
-        "name": "Balcony/Rooftop",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 23,
-        "name": "Garden",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 25,
-        "name": "Rented",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
+        "flexTablet": 50,
+        "flexDesktop": 33
       },
       {
         "id": 27,
         "name": "Available from",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 22,
+        "name": "Balcony/Rooftop",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 23,
+        "name": "Garden",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 25,
+        "name": "Rented",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 15,
+        "name": "Furnished",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
       }
     ]
   }

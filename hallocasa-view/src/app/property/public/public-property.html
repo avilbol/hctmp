@@ -52,29 +52,29 @@
 <div style="visibility: hidden">
   <div class="md-dialog-container" id="propertyFilters">
     <md-dialog>
-      <md-toolbar class="md-whiteframe-4dp">
-        <h1 class="md-toolbar-tools">
-          <span>{{'PropertyBrowse.Filters' | translate}}</span>
-          <span flex></span>
-          <md-button class="md-icon-button" ng-click="vm.closeFiltersDialog()" aria-label="close">
+      <md-content layout-padding>
+        <div layout="row" layout-align="end center">
+          <md-button class="md-icon-button md-primary" ng-click="vm.closeFiltersDialog()" aria-label="close">
             <i class="fa fa-close"></i>
           </md-button>
-        </h1>
-      </md-toolbar>
-      <md-content layout-padding ng-init="filtersRendered = false">
-        <div layout="row" layout-align="center" ng-if="!filtersRendered">
+        </div>
+        <div layout="row" layout-align="center" ng-if="!vm.filtersRendered">
           <md-progress-circular md-mode="indeterminate"></md-progress-circular>
         </div>
         <filters-interpreter
           filters-list="vm.filters"
           filters-root-scope="vm.filters"
-          filters-rendered="filtersRendered"
-          flex
+          filters-rendered="vm.filtersRendered"
           ng-cloak
         ></filters-interpreter>
-        <md-button ng-click="vm.closeFiltersDialog()" class="md-primary">
-          {{'placeholder.search' | translate}}
-        </md-button>
+        <div layout="row" layout-align="end center">
+          <md-button ng-click="vm.clearFilters()" class="md-raised">
+            {{'placeholder.clear' | translate}}
+          </md-button>
+          <md-button ng-click="vm.closeFiltersDialog()" class="md-raised md-primary">
+            {{'placeholder.search' | translate}}
+          </md-button>
+        </div>
       </md-content>
     </md-dialog>
   </div>
