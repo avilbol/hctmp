@@ -6,21 +6,21 @@
     .controller('PublicPropertyController', PublicPropertyController);
 
   /** @ngInject */
-  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope, $scope, $mdComponentRegistry) {
+  function PublicPropertyController(PropertyService, translateFilter, toastr, FiltersService, $rootScope, $scope, $mdDialog) {
     var vm = this;
-    var filtersSidernavPromise = $mdComponentRegistry.when('propertyFilters');
-    var filtersSidernav;
-    var mainContainer = angular.element("#mainContainer");
     var selectedFilters = [];
+    var filtersDialog;
 
+    vm.openFiltersDialog = openFiltersDialog;
+    vm.closeFiltersDialog = closeFiltersDialog;
     vm.loadPropertiesPage = loadPropertiesPage;
-    vm.toggleFilters = toggleFilters;
-
     vm.properties = [];
     vm.totalProperties = 0;
     vm.propertiesPerPage = 100;
     vm.totalAmount = [100,150,200];
     vm.firstLoading = true;
+    vm.filtersRendered = false;
+    vm.clearFilters = clearFilters;
 
     vm.pagination = {
       current: 1
@@ -37,15 +37,6 @@
           toastr.warning(
             translateFilter("hallocasa.global.error"));
         });
-    }
-
-    function toggleFilters() {
-      filtersSidernav.toggle();
-      if(filtersSidernav.isOpen()){
-        mainContainer.addClass("stop-scrolling");
-        mainContainer.bind('touchmove', function(e){e.preventDefault()});
-      }
-
     }
 
     function loadFilters() {
@@ -76,8 +67,6 @@
             processRangeSelection(filterInformation, filterIndex);
             break;
         }
-
-        loadPropertiesPage(1, selectedFilters);
       });
 
       $scope.$on("$destroy", destroyListener);
@@ -127,17 +116,24 @@
       }
     }
 
-    filtersSidernavPromise.then(function() {
-      if(filtersSidernav){
-        filtersSidernav.destroy();
-      }
-      filtersSidernav = $mdSidenav("propertyFilters");
-      $scope.$on("$destroy", filtersSidernav.destroy);
-      filtersSidernav.onClose(function () {
-        mainContainer.removeClass("stop-scrolling");
-        mainContainer.unbind('touchmove');
+    function openFiltersDialog($event) {
+      filtersDialog = $mdDialog.show({
+        contentElement: "#propertyFilters",
+        targetEvent: $event,
+        clickOutsideToClose: true
       });
-    });
+      filtersDialog.finally(function () {
+        loadPropertiesPage(1, selectedFilters);
+      });
+    }
+
+    function closeFiltersDialog() {
+      $mdDialog.hide();
+    }
+
+    function clearFilters() {
+      //TODO: Implement clear filters
+    }
 
     loadPropertiesPage(1);
     loadFilters();
