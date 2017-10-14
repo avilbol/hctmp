@@ -7,11 +7,14 @@
 
   /** @ngInject */
   function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, $timeout,
-                                  FieldsService, Mailto) {
+                                  FieldsService, Mailto, LocaleService, $translate) {
     var vm = this;
     vm.repaintMap = repaintMap;
+    vm.openDialogRenren = openDialogRenren;
     vm.currentImage = 0;
     vm.mailInfo = '';
+    vm.sharedMailInfo = '';
+    vm.sharedURL = '';
 
     function loadEmailInfo() {
       var recepient = vm.profile.email;
@@ -26,6 +29,35 @@
       };
 
       vm.mailInfo = Mailto.url(recepient, options);
+    }
+
+    function sharedEmailInfo() {
+      // var recepient = vm.profile.email;
+      var newPathPropertyEn = $location.$$host + '/property?id=' + vm.property.id + '&lang=en';
+      var newPathPropertyEs = $location.$$host + '/property?id=' + vm.property.id + '&lang=es';
+      var newPathPropertyDe = $location.$$host + '/property?id=' + vm.property.id + '&lang=de';
+      var options = {
+        subject: "HalloCasa: " + vm.property.titles[vm.guidLanguage],
+        body: "New Real Estate Object: " + newPathPropertyEn + "\n" +
+              "Neues Immobilienobjekt" + newPathPropertyEs + "\n" +
+              "Nueva Propiedad Inmobiliaria" + newPathPropertyDe
+      };
+
+      vm.sharedMailInfo = Mailto.url('', options);
+    }
+
+    function openDialogRenren(){
+      var left = Math.round((screen.width/2)-(w/2));
+      var top = Math.round((screen.height/2)-(h/2));
+      var url = 'http://widget.renren.com/dialog/share?resourceUrl=' + vm.sharedURL + '&title=' + vm.property.titles[vm.guidLanguage] + '&description=' + vm.property.descriptions[vm.guidLanguage] + '&lang=' + LocaleService.getCurrentLenguage();
+      window.open(url,'popup','width=600,height=600' + ', top=' + top + ', left=' + left); 
+      return false;
+      
+    }
+
+    function loadURLShared() {
+      var url = 'http://www.hallocasa.com:64645' + '/property?id=' + vm.property.id + '&lang=' + LocaleService.getCurrentLenguage();
+      vm.sharedURL = url;
     }
 
     function repaintMap() {
@@ -75,7 +107,12 @@
           });
         });
         vm.guidLanguage = vm.property.mainLanguage.id;
+        
+        loadURLShared();
+
         loadEmailInfo();
+
+        sharedEmailInfo();
       });
     }
 

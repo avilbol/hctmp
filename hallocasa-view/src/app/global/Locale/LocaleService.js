@@ -69,6 +69,12 @@
     $rootScope.$on('$destroy',watchLocation);
 
     return {
+      getCurrentLenguage: function () {
+        currentLocale = currentLocale ? currentLocale : $translate.use();
+        var language = LOCALES.locales[currentLocale];
+        var minLocale = LOCALES.languages[language].locale;
+        return minLocale;
+      },
       getLocaleDisplayName: function () {
         currentLocale = currentLocale ? currentLocale : $translate.use();
         return localesObj[currentLocale];
