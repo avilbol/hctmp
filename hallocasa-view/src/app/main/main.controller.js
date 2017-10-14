@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService, LocaleService,
+  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, $window, SessionService, LocaleService,
                           BlogLinks, $rootScope, $route, AppVersion, $translate, CurrencyService, IpInfoService,
                           PreferredSettingsService, LOCALES) {
     var vm = this;
@@ -18,9 +18,11 @@
     vm.launchLoginDialog = launchLoginDialog;
     vm.launchRegisterDialog = launchRegisterDialog;
     vm.isAuthenticated = SessionService.isAuthenticated;
+    vm.isAdmin = isAdmin;
     vm.launchPrivacyStatementDialog = launchPrivacyStatementDialog;
     vm.logout = SessionService.logout;
     vm.goTo = goTo;
+    vm.redirectAd = redirectAd;
     vm.goUp = goUp;
     vm.blogRedirection = blogRedirection;
     vm.getCurrentUserIdentifier = getCurrentUserIdentifier;
@@ -117,6 +119,12 @@
       }
     }
 
+    function redirectAd() {
+
+      // console.log($location.host() + '/hc-admin');
+      $window.open('http:///www.hallocasa.com:64645/hc-admin', '_blank');
+    }
+
     function blogRedirection(section) {
       var currentLanguage = LocaleService.getLocaleDisplayName();
       return BlogLinks[currentLanguage][section];
@@ -165,6 +173,10 @@
       return _.find(preferredSettings, function(preferredSetting){
         return preferredSetting.countryCode == countryCode;
       });
+    }
+
+    function isAdmin(){
+      return true;
     }
 
     toolbarsHideHandler();

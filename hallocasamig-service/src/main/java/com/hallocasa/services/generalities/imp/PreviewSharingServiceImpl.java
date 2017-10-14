@@ -87,6 +87,7 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 		FlatProperty flatProperty = parser.transform(property, standardLocaleList);
 		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("property-preview.html");
 		String htmlString = AvsFileManager.loadInputStreamToString(in);
+		htmlString = htmlString.replace("#{app.server.url}", get(APP_SERVER_URL));
 		htmlString = htmlString.replace("#{flatProperty.basicDescription}", flatProperty.getBasicDescription());
 		htmlString = htmlString.replace("#{flatProperty.locationDescription}", flatProperty.getLocationDescription());
 		htmlString = htmlString.replace("#{flatProperty.title}", flatProperty.getTitle());
@@ -105,6 +106,7 @@ public class PreviewSharingServiceImpl implements PreviewSharingService {
 		FlatUser flatUser = parser.transform(entityProfile.get(), standardLocaleList);
 		InputStream in = PropertyServiceImp.class.getClassLoader().getResourceAsStream("profile-preview.html");
 		String htmlString = AvsFileManager.loadInputStreamToString(in);
+		htmlString = htmlString.replace("#{app.server.url}", get(APP_SERVER_URL));
 		htmlString = htmlString.replace("#{flatUser.userDescription}", flatUser.getUserDescription());
 		htmlString = htmlString.replace("#{flatUser.email}", flatUser.getEmail());
 		htmlString = htmlString.replace("#{flatUser.firstname}", flatUser.getFirstname());

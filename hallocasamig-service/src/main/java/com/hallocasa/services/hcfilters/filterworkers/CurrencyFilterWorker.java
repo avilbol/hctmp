@@ -3,6 +3,7 @@ package com.hallocasa.services.hcfilters.filterworkers;
 import java.util.Map;
 
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
+import com.hallocasa.utils.constants.exceptions.FatalException;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 
 public class CurrencyFilterWorker implements FilterWorker {
@@ -65,7 +66,7 @@ public class CurrencyFilterWorker implements FilterWorker {
 
 	@Override
 	public String loadWhereQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
-		String lwStr =  "pf%1$d = 1 AND ";
+		String lwStr =  " pf%1$d = 1 AND ";
 		String lwStrFormatted = String.format(lwStr, filterSubmission.getPropertyFilter()
 				.getPropertyField().getId());
 		StringBuilder condition = new StringBuilder(lwStrFormatted);
@@ -91,5 +92,15 @@ public class CurrencyFilterWorker implements FilterWorker {
 			throw new BadRequestException("In this filter you are forced to send at least one range (min or max)");
 		}
 		return minCrcyId == null ? maxCrcyId : minCrcyId;
+	}
+
+	@Override
+	public void validate(PropertyFilterSubmission filterSubmission) {
+		if((filterSubmission.getMinCrcyValue() == null && filterSubmission.getMaxCrcyValue() == null) ||
+				(!filterSubmission.getMinCrcyValue().isValid()
+				&& !filterSubmission.getMaxCrcyValue().isValid())){
+			throw new BadRequestException("If you want to use currency filters, "
+					+ "you must send 'minCrcyValue' or 'maxCrcyValue' attributes");
+		}
 	}
 }

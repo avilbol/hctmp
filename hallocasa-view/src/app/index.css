@@ -188,7 +188,7 @@ md-tabs.md-dynamic-height md-tabs-content-wrapper {
   Sidernav's into ng-view
 */
 .inner-view-sidenav {
-  height: calc(100vh - 88px);
+  max-height: calc(100vh - 88px);
 }
 
 /*

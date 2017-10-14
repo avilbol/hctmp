@@ -1,0 +1,15 @@
+.input-range-filter{
+  height: 37px;
+}
+
+.input-range-filter span{
+  text-align: center;
+}
+
+.input-range-filter .errorMessage{
+  position: fixed;
+}
+
+.input-range-filter .md-datepicker-button{
+  display: none;
+}

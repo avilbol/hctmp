@@ -38,10 +38,19 @@
         </b>
       </div>
       <br>
-      <div layout="row">
+      <!--<div layout="row">
         <b>{{'PropertyBrowse.Property.email' |  translate}}: &nbsp;</b>
         <a ng-href="mailto: {{vm.profile.email}}">{{vm.profile.email}}</a>
+      </div>-->
+      <div layout="row">
+        <md-button class="md-primary md-raised button-contact"  ng-href="{{vm.mailInfo}}">Contact</md-button>
       </div>
+      <br>
+      <br>
+      <br>
+      <!--<md-button class="md-primary md-raised" ng-click="MainCtrl.launchRegisterDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
+        {{'Header.SignUp.Button' | translate}}
+      </md-button>-->
     </md-card-title-text>
   </md-card-title>
 </md-card>

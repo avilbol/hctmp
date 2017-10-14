@@ -258,9 +258,10 @@ public class PropertyServiceImp implements PropertyService {
 		for (PropertyFilterSubmission filterSubmission : request.getFilterList()) {
 			FilterWorkerOption fwo = filterSubmission.getPropertyFilter().getFilter().getFilterWorkerOption();
 			FilterWorker filterWorker = FilterWorkerOptionRes.getFilterWorker(fwo);
+			filterWorker.validate(filterSubmission);
 			fieldBuilder.append(", " + filterWorker.loadParametersQuery(filterSubmission, attrNumber));
 			joinBuilder.append(filterWorker.loadJoinQuery(filterSubmission, attrNumber));
-			filterBuilder.append(filterBuilder.toString().isEmpty() ? " WHERE" : " AND ")
+			filterBuilder.append(filterBuilder.toString().isEmpty() ? " WHERE " : " AND ")
 					.append(filterWorker.loadWhereQuery(filterSubmission, attrNumber));
 			attrNumber = filterWorker.addParams(filterSubmission, paramMap, attrNumber);
 		}

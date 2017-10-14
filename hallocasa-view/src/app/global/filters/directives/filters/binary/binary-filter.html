@@ -1,0 +1,40 @@
+<div ng-switch="binaryFilterType">
+  <md-input-container ng-switch-when="Dropdown" class="md-block">
+    <label translate>{{title}}</label>
+      <md-select
+        name="{{fieldName}}"
+        title="{{title | translate}}"
+        ng-model="selected"
+        aria-label="{{fieldName}}"
+        placeholder="{{title | translate}}"
+        ng-change="emitSelectedOption(selected)"
+      >
+        <md-option ng-value="true" translate>
+          {{'global.yes'}}
+        </md-option>
+        <md-option ng-value="false" translate>
+          {{'global.no'}}
+        </md-option>
+      </md-select>
+  </md-input-container>
+
+  <div ng-switch-when="Checkbox">
+    <md-checkbox
+      name="{{fieldName}}"
+      title="{{title | translate}}"
+      ng-model="selected"
+      aria-label="{{fieldName}}"
+      placeholder="{{title | translate}}"
+      ng-change="emitSelectedOption(selected)"
+    >
+      <span translate>{{title}}</span>
+    </md-checkbox>
+  </div>
+
+  <div ng-switch-when="Radio">
+    <!-- No implemented -->
+  </div>
+  <div ng-switch-when="Text">
+    <!-- No implemented -->
+  </div>
+</div>

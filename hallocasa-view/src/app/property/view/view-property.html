@@ -12,9 +12,13 @@
           <md-tabs md-dynamic-height md-border-bottom>
             <md-tab label="{{'PropertyBrowse.Property.description' | translate}}">
               <md-content class="md-padding">
-                <div layout="column">
+                <div layout="column" ng-if="vm.guidLanguages.length == 1">
+                  {{ vm.guidLanguages[0].name | unicode }}
+                </div>
+                <div layout="column" ng-if="vm.guidLanguages.length > 1">
                   <md-input-container class="md-block" flex>
                     <md-select
+                      ng-if="vm.guidLanguages.length > 1" 
                       ng-model="vm.guidLanguage"
                       aria-label="Select language"
                       required

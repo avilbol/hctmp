@@ -6,9 +6,9 @@
     .controller('PublicPropertyController', PublicPropertyController);
 
   /** @ngInject */
-  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope, $scope) {
+  function PublicPropertyController(PropertyService, $mdSidenav, translateFilter, toastr, FiltersService, $rootScope, $scope, $mdComponentRegistry) {
     var vm = this;
-    var filtersSidernavPromise = $mdSidenav('propertyFilters', true);
+    var filtersSidernavPromise = $mdComponentRegistry.when('propertyFilters');
     var filtersSidernav;
     var mainContainer = angular.element("#mainContainer");
     var selectedFilters = [];
@@ -61,29 +61,78 @@
 
     function listenFiltersChanges() {
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-        var selectedIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
+        var filterIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
           return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
         });
 
-        if(_.isEmpty(filterInformation.selectedFilterOptions)){
-          selectedFilters.splice(selectedIndex, 1);
+        switch(filterInformation.propertyFilter.filter.filterType.filterTypeNature){
+          case "DROPDOWN":
+            processDropdownSelection(filterInformation, filterIndex);
+            break;
+          case "YESNO":
+            processBinarySelection(filterInformation, filterIndex);
+            break;
+          case "RANGE":
+            processRangeSelection(filterInformation, filterIndex);
+            break;
         }
-        else{
-          if(selectedIndex === -1){
-            selectedFilters.push(filterInformation);
-          }
-          else{
-            selectedFilters[selectedIndex] = filterInformation;
-          }
-        }
+
         loadPropertiesPage(1, selectedFilters);
       });
 
       $scope.$on("$destroy", destroyListener);
     }
 
-    filtersSidernavPromise.then(function(instance) {
-      filtersSidernav = instance;
+    function processDropdownSelection(filterInformation, filterIndex) {
+      if(_.isEmpty(filterInformation.selectedFilterOptions)){
+        selectedFilters.splice(filterIndex, 1);
+      }
+      else{
+        if(filterIndex === -1){
+          selectedFilters.push(filterInformation);
+        }
+        else{
+          selectedFilters[filterIndex] = filterInformation;
+        }
+      }
+    }
+
+    function processBinarySelection(filterInformation, filterIndex) {
+      switch (filterInformation.binaryFilterType){
+        case "Dropdown":
+          if(filterIndex === -1){
+            selectedFilters.push(filterInformation);
+          }
+          else{
+            selectedFilters[filterIndex] = filterInformation;
+          }
+          break;
+        case "Checkbox":
+          if(filterIndex === -1 && filterInformation.apply){
+            selectedFilters.push(filterInformation);
+          }
+          else{
+            selectedFilters.splice(filterIndex, 1);
+          }
+          break;
+      }
+    }
+
+    function processRangeSelection(filterInformation, filterIndex) {
+      if(filterIndex === -1){
+        selectedFilters.push(filterInformation);
+      }
+      else{
+        selectedFilters[filterIndex] = filterInformation;
+      }
+    }
+
+    filtersSidernavPromise.then(function() {
+      if(filtersSidernav){
+        filtersSidernav.destroy();
+      }
+      filtersSidernav = $mdSidenav("propertyFilters");
+      $scope.$on("$destroy", filtersSidernav.destroy);
       filtersSidernav.onClose(function () {
         mainContainer.removeClass("stop-scrolling");
         mainContainer.unbind('touchmove');

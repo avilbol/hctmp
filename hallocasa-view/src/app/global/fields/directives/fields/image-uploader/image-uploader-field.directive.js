@@ -23,6 +23,7 @@
         var filesKeys = [];
         var primaryImage;
         var previewFrame = '.lf-ng-md-file-input-thumbnails .lf-ng-md-file-input-frame';
+        var previewContainerFrame = '.lf-ng-md-file-input-frame';
         var previewTitle = '.lf-ng-md-file-input-x';
         scope.assignAsPrimaryImage = assignAsPrimaryImage;
 
@@ -125,6 +126,9 @@
           }
           else {
             var titleFrame = angular.element(imageFrame).find(previewTitle);
+            angular.element(imageFrame).removeClass('primary-image-container');
+            // var containerFrame = angular.element(imageFrame).find('.lf-ng-md-file-input-frame');
+            // containerFrame.removeClass("primary-image-container");
             titleFrame.removeClass("primary-image");
             titleFrame.find(".titleText").html("");
           }
@@ -139,7 +143,12 @@
           }
           else {
             var titleFrame = angular.element(imageFrame).find(previewTitle);
+            angular.element(imageFrame).addClass('primary-image-container');
+            // console.log('conainer-frame');
+            // console.log(containerFrame);
+            
             titleFrame.addClass("primary-image");
+            // containerFrame.addClass("primary-image-container");
             titleFrame.find(".titleText").html("("+translateFilter('Properties.multi.image.button')+") ");
           }
         }

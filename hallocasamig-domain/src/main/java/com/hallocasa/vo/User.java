@@ -32,6 +32,7 @@ public class User implements ValueObject {
 	private Country country;
 	private State state;
 	private City city;
+	private String role;
 	
 	public String getEmail() {
 		return email;
@@ -164,5 +165,11 @@ public class User implements ValueObject {
 	}
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

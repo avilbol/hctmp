@@ -35,4 +35,8 @@ public class PropertyTypeFilterWorker implements FilterWorker {
 		}
 		return counter;
 	}
+	
+	@Override
+	public void validate(PropertyFilterSubmission filterSubmission) {
+	}
 }

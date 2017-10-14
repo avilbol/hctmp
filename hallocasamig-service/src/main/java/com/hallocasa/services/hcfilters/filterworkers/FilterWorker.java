@@ -9,6 +9,8 @@ import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
  */
 public interface FilterWorker {
 	
+	public void validate(PropertyFilterSubmission filterSubmission);
+	
 	public Integer addParams(PropertyFilterSubmission filterSubmission, Map<String, Object> params, 
 			Integer attrNumber);
 
