@@ -59,7 +59,7 @@
     }
 
     function loadURLShared() {
-      var url = 'http://www.hallocasa.com:64645' + '/property?id=' + vm.property.id + '&lang=' + LocaleService.getCurrentLenguage();
+      var url = $location.$$host + '/property?id=' + vm.property.id + '&lang=' + LocaleService.getCurrentLenguage();
       vm.sharedURL = url;
 
       vm.textWhatsApp = translateFilter("Properties.shared.link.textTwitter") + ': ' + vm.property.titles[vm.guidLanguage] + ', ' + vm.property.descriptions[vm.guidLanguage];
