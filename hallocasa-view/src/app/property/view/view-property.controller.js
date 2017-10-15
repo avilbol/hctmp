@@ -15,6 +15,8 @@
     vm.mailInfo = '';
     vm.sharedMailInfo = '';
     vm.sharedURL = '';
+    vm.sharedURLWhatsApp = '';
+    vm.textWhatsApp = '';
 
     function loadEmailInfo() {
       var recepient = vm.profile.email;
@@ -39,16 +41,17 @@
       var options = {
         subject: "HalloCasa: " + vm.property.titles[vm.guidLanguage],
         body: "New Real Estate Object: " + newPathPropertyEn + "\n" +
-              "Neues Immobilienobjekt" + newPathPropertyEs + "\n" +
-              "Nueva Propiedad Inmobiliaria" + newPathPropertyDe
+              "Neues Immobilienobjekt: " + newPathPropertyEs + "\n" +
+              "Nueva Propiedad Inmobiliaria: " + newPathPropertyDe
       };
 
       vm.sharedMailInfo = Mailto.url('', options);
     }
 
     function openDialogRenren(){
-      var left = Math.round((screen.width/2)-(w/2));
-      var top = Math.round((screen.height/2)-(h/2));
+      console.log('Open renren');
+      var left = Math.round((screen.width/2)-(600/2));
+      var top = Math.round((screen.height/2)-(600/2));
       var url = 'http://widget.renren.com/dialog/share?resourceUrl=' + vm.sharedURL + '&title=' + vm.property.titles[vm.guidLanguage] + '&description=' + vm.property.descriptions[vm.guidLanguage] + '&lang=' + LocaleService.getCurrentLenguage();
       window.open(url,'popup','width=600,height=600' + ', top=' + top + ', left=' + left); 
       return false;
@@ -58,6 +61,10 @@
     function loadURLShared() {
       var url = 'http://www.hallocasa.com:64645' + '/property?id=' + vm.property.id + '&lang=' + LocaleService.getCurrentLenguage();
       vm.sharedURL = url;
+
+      vm.textWhatsApp = translateFilter("Properties.shared.link.textTwitter") + ': ' + vm.property.titles[vm.guidLanguage] + ', ' + vm.property.descriptions[vm.guidLanguage];
+      var urlWs = 'whatsapp://send?text=' + encodeURIComponent(vm.textWhatsApp) + '%0A' + encodeURIComponent(vm.sharedURL);
+      vm.sharedURLWhatsApp = urlWs;
     }
 
     function repaintMap() {
