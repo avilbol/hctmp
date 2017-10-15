@@ -120,7 +120,8 @@
       filtersDialog = $mdDialog.show({
         contentElement: "#propertyFilters",
         targetEvent: $event,
-        clickOutsideToClose: true
+        clickOutsideToClose: true,
+        fullscreen: true
       });
       filtersDialog.finally(function () {
         loadPropertiesPage(1, selectedFilters);
