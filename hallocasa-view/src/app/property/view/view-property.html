@@ -64,6 +64,76 @@
             </md-tab>
           </md-tabs>
         </md-card>
+        <div layout="row" layout-wrap>
+          <div class="column" flex-gt-sm="50" flex-gt-xs="60" flex-xs="100">
+            <md-card flex="100">
+              <md-card-content class="shared-card">
+                <a href="#"
+                    socialshare
+                    socialshare-provider="facebook"
+                    socialshare-via="486070851774293"
+                    socialshare-type="share"
+                    socialshare-quote="{{'Properties.shared.link.textTwitter' | translate}}"
+                    socialshare-url="{{vm.sharedURL}}">
+                  <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+                </a>
+                <a href="#"
+                    socialshare
+                    socialshare-provider="twitter"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{'Properties.shared.link.textTwitter' | translate}}"
+                    socialshare-hashtags="Realestate, Immobilien, Inmuebles">
+                  <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+                </a>
+                <a href="#"
+                    socialshare
+                    socialshare-provider="linkedin"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{vm.property.titles[vm.guidLanguage]}}"
+                    socialshare-description="{{vm.property.descriptions[vm.guidLanguage]}}">
+                      <i class="fa fa-linkedin fa-2x" aria-hidden="true"></i>
+                </a>
+                <a href="{{vm.sharedMailInfo}}">
+                      <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                </a>
+                <a href="#"
+                    socialshare
+                    socialshare-provider="whatsapp"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{'Properties.shared.link.textTwitter' | translate}}: *{{vm.property.titles[vm.guidLanguage]}}*, {{vm.property.descriptions[vm.guidLanguage]}}">
+                      <i class="fa fa-whatsapp fa-2x" aria-hidden="true"></i>
+                </a>
+                <a href="#"
+                    socialshare
+                    socialshare-provider="vk"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{vm.property.titles[vm.guidLanguage]}}"
+                    socialshare-description="{{vm.property.descriptions[vm.guidLanguage]}}"
+                    socialshare-media="{{vm.property.images[0]}}">
+                      <i class="fa fa-vk fa-2x" aria-hidden="true"></i>
+                </a>
+                <a href="#"
+                    socialshare
+                    socialshare-provider="xing"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{vm.property.titles[vm.guidLanguage]}}: {{vm.property.descriptions[vm.guidLanguage]}}">
+                      <i class="fa fa-xing fa-2x" aria-hidden="true"></i>
+                </a>
+                <a href="#" target="popup" ng-click="vm.openDialogRenren()">
+                      <i class="fa fa-renren fa-2x" aria-hidden="true"></i>
+                </a>
+              </md-card-content>
+            </md-card>
+          </div>  
+          
+
+          
+          <!--<md-button target="_blank" ng-href="https://www.facebook.com/hallo.csa" class="md-icon-button" aria-label="Facebook">
+            <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+          </md-button>
+          <a href="#">Facebook</a>
+          <a href="#">Facebook</a>-->
+        </div>  
       </div>
     </div>
   </div>
