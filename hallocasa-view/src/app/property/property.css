@@ -137,3 +137,34 @@
   color: #0c58a6;
   margin-right: 10px;
 }
+
+.md-fab {
+  background-color: #0c58a6;
+}
+
+.md-button.md-fab.btn-shared {
+  margin: 6px 6px;
+  /*color : rgb(49, 46, 46);*/
+  background-color: #0c58a6;
+  /*border-radius: 10px 0 0 10px;
+  font-size: 16px;*/
+}
+
+.md-button.md-fab.btn-shared:not([disabled]):hover {
+  background-color: #0e64ba;
+  /*line-height: 4rem;
+  width: 4rem;
+  height: 4rem;*/
+  /*color: white;*/
+}
+
+.md-button.md-fab.btn-shared:not([disabled]):focus {
+  background-color: #0e64ba;
+  /*color: white;*/
+}
+
+.md-button.md-fab.md-mini {
+      line-height: 2.2rem;
+      width: 2rem;
+      height: 2rem;
+}
