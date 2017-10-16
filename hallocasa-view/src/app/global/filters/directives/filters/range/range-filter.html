@@ -76,11 +76,11 @@
 
 <script type="text/ng-template" id="numericSliderRange">
   <slider
-    ng-model="lowValue"
-    ng-model-range="highValue"
-    floor="{{floor}}"
+    ng-model="range.lowValue"
+    ng-model-range="range.highValue"
+    floor="{{range.floor}}"
     buffer="{{filterInformation.filter.options.buffer}}"
-    ceiling="{{ceiling}}"
+    ceiling="{{range.ceiling}}"
     step="{{filterInformation.filter.options.step}}"
     ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
   >
