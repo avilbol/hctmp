@@ -118,8 +118,16 @@
           emitSelectedOption(scope.selected.options);
         }
 
+        function watchCleanFilter() {
+          var watcher = $rootScope.$on("FilterSystem:clearFilters", function () {
+            scope.selected.options = [];
+          });
+          scope.$on("$destroy", watcher);
+        }
+
         loadOptions();
         watchRender();
+        watchCleanFilter();
       }
     };
   }

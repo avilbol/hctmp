@@ -27,6 +27,7 @@
           scope.filterInformation.filter.options.step : 1;
         scope.filterInformation.filter.options.buffer = scope.filterInformation.filter.options.buffer ?
           scope.filterInformation.filter.options.buffer : 10;
+        scope.range = {};
 
         scope.emitSelectedOption = emitSelectedOption;
 
@@ -36,41 +37,41 @@
             case "DOUBLE":
             case "CURRENCY":
               // if(scope.filterInformation.filter.filterType.validateMin){
-              //   scope.floor = scope.filterInformation.filter.minValue;
-              //   scope.lowValue = scope.filterInformation.filter.minValue;
+              //   scope.range.floor = scope.filterInformation.filter.minValue;
+              //   scope.range.lowValue = scope.filterInformation.filter.minValue;
               // }
               // if(scope.filterInformation.filter.filterType.validateMax){
-              //   scope.ceiling = scope.filterInformation.filter.maxValue;
-              //   scope.highValue = scope.filterInformation.filter.maxValue;
+              //   scope.range.ceiling = scope.filterInformation.filter.maxValue;
+              //   scope.range.highValue = scope.filterInformation.filter.maxValue;
               // }
 
               /*
               * TODO: Temporal test values, delete when returned values from backend has valid values
               * */
-              scope.floor = 0;
-              scope.ceiling = 1000;
-              scope.lowValue = 0;
-              scope.highValue = 1000;
+              scope.range.floor = 0;
+              scope.range.ceiling = 1000;
+              scope.range.lowValue = 0;
+              scope.range.highValue = 1000;
 
               break;
             case "DATE":
               // if(scope.filterInformation.filter.filterType.validateMin){
-              //   scope.lowValue = new Date(scope.filterInformation.filter.minValue);
+              //   scope.range.lowValue = new Date(scope.filterInformation.filter.minValue);
               // }
               // if(scope.filterInformation.filter.filterType.validateMax){
-              //   scope.highValue = new Date(scope.filterInformation.filter.maxValue);
+              //   scope.range.highValue = new Date(scope.filterInformation.filter.maxValue);
               // }
 
               /*
               * TODO: Temporal test values, delete when returned values from backend has valid values
               * */
-              scope.lowValue = new Date();
-              scope.highValue = new Date();
+              scope.range.lowValue = new Date();
+              scope.range.highValue = new Date();
               break;
           }
         }
 
-        function emitSelectedOption(range) {
+        function emitSelectedOption() {
           if(ngModelTimeOut){
             //if there is already a timeout in process cancel it
             $timeout.cancel(ngModelTimeOut);
@@ -83,25 +84,25 @@
 
             switch (scope.filterInformation.filter.filterType.rangeFieldPresentation){
               case "DATE":
-                selectionPayload.minDateValue = range.lowValue;
-                selectionPayload.maxDateValue = range.highValue;
+                selectionPayload.minDateValue = scope.range.lowValue;
+                selectionPayload.maxDateValue = scope.range.highValue;
                 break;
 
               case "CURRENCY":
                 var currencyID = scope.currentCurrency().id;
                 selectionPayload.minCrcyValue = {
                   currency: {id: currencyID},
-                  ammount: range.lowValue
+                  ammount: scope.range.lowValue
                 };
                 selectionPayload.maxCrcyValue = {
                   currency: {id: currencyID},
-                  ammount: range.highValue
+                  ammount: scope.range.highValue
                 };
                 break;
 
               default:
-                selectionPayload.minValue = range.lowValue;
-                selectionPayload.maxValue = range.highValue;
+                selectionPayload.minValue = scope.range.lowValue;
+                selectionPayload.maxValue = scope.range.highValue;
             }
 
             $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
@@ -109,7 +110,13 @@
           },500);
         }
 
+        function watchCleanFilter() {
+          var watcher = $rootScope.$on("FilterSystem:clearFilters", initialize);
+          scope.$on("$destroy", watcher);
+        }
+
         initialize();
+        watchCleanFilter();
       }
     };
   }

@@ -133,7 +133,8 @@
     }
 
     function clearFilters() {
-      //TODO: Implement clear filters
+      selectedFilters = [];
+      $rootScope.$broadcast("FilterSystem:clearFilters");
     }
 
     loadPropertiesPage(1);
