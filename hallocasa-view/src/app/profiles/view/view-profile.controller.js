@@ -37,8 +37,7 @@
     }
 
     function loadURLShared() {
-      // var url = $location.$$host + '/profile?id=' + $location.search().id + '&lang=' + LocaleService.getCurrentLenguage();
-      var url = "http://www.hallocasa.com:64645" + '/profile?id=' + $location.search().id + '&lang=' + LocaleService.getCurrentLenguage();
+      var url = $location.$$host + '/profile?id=' + $location.search().id + '&lang=' + LocaleService.getCurrentLenguage();
       vm.sharedURL = url;
 
       vm.textWhatsApp = translateFilter("Profile.Shared.TextInfo") + ': ';
