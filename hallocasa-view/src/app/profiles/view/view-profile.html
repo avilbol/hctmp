@@ -2,8 +2,9 @@
   <div layout="row" layout-align="center">
     <header class="header-image"></header>
     <div flex-gt-sm="90" flex-gt-xs="90" flex-xs="100">
-      <h2 class="md-headline title-profile">{{vm.userData.profile.firstName}} {{vm.userData.profile.lastName}}</h2>
-
+      <div layout="column" layout-align="center left" layout-wrap>
+        <h2 class="md-headline title-profile">{{vm.userData.profile.firstName}} {{vm.userData.profile.lastName}}</h2>
+      </div>
       <md-card>
         <md-card-title layout-gt-sm="row" layout-gt-xs="column" layout-xs="column" layout-align="center center">
           <md-card-title-media>
@@ -39,26 +40,77 @@
               </div>
               <div layout-sm="column" layout-align="center center" layout-wrap>
                 <b>{{vm.userData.profile.email}}</b>
-                <!--<md-button class="md-raised md-primary button-profile-contact" aria-label="social" ng-href="mailto:{{vm.userData.profile.email}}" ng-if="vm.userData.profile.linkedIn">
-                  CONTACT
-                </md-button>-->
               </div>
-              
-              <span flex-gt-sm="50" flex-gt-xs="30" flex-xs="0"></span>
             </div>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
           <div layout="column" layout-align="center left" layout-wrap>
-              <span class="title-profile-blue">Share</span>
+              <span class="title-profile-blue">{{'Profile.Shared.Title' | translate}}</span>
+          </div>
+          <div layout="" class="shared-card-profile" layout-align="center left"> 
+                <md-button class="md-fab md-mini btn-shared-profile" href="#"
+                    socialshare
+                    socialshare-provider="facebook"
+                    socialshare-via="486070851774293"
+                    socialshare-type="share"
+                    socialshare-quote="{{'Profile.Shared.TextInfo' | translate}}"
+                    socialshare-url="{{vm.sharedURL}}">
+                  <i class="fa fa-facebook" aria-hidden="true"></i>
+                </md-button>
+                <md-button class="md-fab md-mini btn-shared-profile" href="#"
+                    socialshare
+                    socialshare-provider="twitter"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{'Profile.Shared.TextInfo' | translate}}"
+                    socialshare-hashtags="Realestate, Immobilien, Inmuebles">
+                  <i class="fa fa-twitter" aria-hidden="true"></i>
+                </md-button>
+                <md-button class="md-fab md-mini btn-shared-profile" href="#"
+                    socialshare
+                    socialshare-provider="linkedin"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{'Profile.Shared.TextInfo' | translate}}">
+                      <i class="fa fa-linkedin" aria-hidden="true"></i>
+                </md-button>
+                <md-button class="md-fab md-mini btn-shared-profile" href="{{vm.sharedMailInfo}}">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                </md-button>
+                <md-button class="md-fab md-mini btn-shared-profile hide-md hide-lg hide-xl" class="hide-md hide-lg" href="{{vm.sharedURLWhatsApp}}">
+                      <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                </md-button>
+
+                <md-button class="md-fab md-mini btn-shared-profile" href="#"
+                    socialshare
+                    socialshare-provider="vk"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{'Profile.Shared.TextInfo' | translate}}"
+                    socialshare-media="{{vm.userData.profile.image}}">
+                      <i class="fa fa-vk" aria-hidden="true"></i>
+                </md-button>
+                <md-button class="md-fab md-mini btn-shared-profile" href="#"
+                    socialshare
+                    socialshare-provider="xing"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{'Profile.Shared.TextInfo' | translate}}">
+                      <i class="fa fa-xing" aria-hidden="true"></i>
+                </md-button>
+                <md-button class="md-fab md-mini btn-shared-profile" ng-click="vm.openDialogRenren()">
+                      <i class="fa fa-renren" aria-hidden="true"></i>
+                </md-button>
+                <md-button class="md-fab md-mini btn-shared-profile" href="#"
+                    socialshare
+                    socialshare-provider="weibo"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{'Profile.Shared.TextInfo' | translate}}">
+                      <i class="fa fa-weibo" aria-hidden="true"></i>
+                </md-button>
           </div>
           <br>
           <div layout="column" layout-align="center left" layout-wrap>
-              <span class="title-profile-blue">Information</span>
+              <span class="title-profile-blue">{{'Profile.Information.Title' | translate}}</span>
           </div>
           <div layout-gt-sm="row" layout-gt-xs="column" layout-xs="column">
-            
-
             <div layout="column" flex-gt-sm="30">
               <div layout="row" layout-align="left center" class="text-information" layout-align="start center">
                 <b>{{'Profile.Data.Country.Label' | translate}}: &nbsp;</b> {{vm.userData.profile.country.lang | translate}}
@@ -69,10 +121,7 @@
               <div layout="row" layout-align="left center" class="text-information" layout-align="start center">
                 <b>{{'Profile.Data.City.Label' | translate}}: &nbsp;</b> {{vm.userData.profile.city.name | unicode}}
               </div>
-              
               <br>
-              
-              
             </div>
             <div layout="column" flex-gt-sm="70">
               <div layout="row" layout-align="left center" ng-if="vm.userData.profile.telephonePrefix.prefix">
@@ -111,18 +160,15 @@
                   </a>
                 </div>
               </div>
-              <!--<b>{{'Profile.Data.Email.Label' | translate}}: </b> {{vm.userData.profile.email}}-->
             </div>
           </div>
-
-
           <div layout"column property-description">
             <div layout="column" layout-align="center left" layout-wrap>
               <span class="title-profile-blue">{{'Profile.Data.Description.Label' | translate}}</span>
             </div> 
-            <div layout="column">
+            <div layout="column" flex-gt-sm="30">
               <md-input-container>
-                <md-select
+               <md-select
                   ng-model="vm.selectedDescription"
                   aria-label="Select language"
                 >
@@ -130,8 +176,9 @@
                     {{descriptionLanguage.language.name | unicode}}
                   </md-option>
                 </md-select>
-              </md-input-container>
-              <br>
+              </md-input-container>  
+            </div>  
+            <div layout="column">
               <span>
                 {{vm.selectedDescription.value | unicode}}
               </span>
@@ -139,19 +186,14 @@
           </div>
         </md-card-content>
       </md-card>
-
       <div layout="column" layout-align="center left" layout-wrap>
         <h2 class="md-headline title-profile title-property title-property">{{'Properties.title.label' | translate}}</h2>
       </div>  
-
-      <!--<div layout="column" layout-align="center center">-->
       <div layout="column">
         <h1 ng-if="vm.userData.properties.length === 0">
           {{'Properties.none.property' | translate}}
         </h1>
-        <!--<div class="landing-cards-group">-->
         <div ng-if="vm.userData.properties.length > 0">
-          <!--<div layout="row" layout-sm="column" layout-align="center" layout-wrap>-->
           <div layout="row" layout-sm="column" layout-wrap>
             <div dir-paginate="property in vm.userData.properties | itemsPerPage: 12" flex-gt-sm="33" flex-gt-xs="50" flex-xs="100">
               <div flex="100" layout="row" layout-align="center">
@@ -167,19 +209,7 @@
             <dir-pagination-controls boundary-links="true"></dir-pagination-controls>
           </div>
         </div>
-        <!--</div>-->
       </div>
-      
-      <!--<md-card>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">{{'Properties.title.label' | translate}}</span>
-          </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-          
-        </md-card-content>
-      </md-card>-->
     </div>
   </div>
 </md-content>

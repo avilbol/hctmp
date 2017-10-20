@@ -67,7 +67,7 @@
       .icon("toilet", "assets/icons/toilet.svg", 24);
 
     //URL Sanitization
-    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype|chrome-extension):/);
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype|chrome-extension|whatsapp):/);
 
     //Gmaps configurations
     uiGmapGoogleMapApiProvider.configure({

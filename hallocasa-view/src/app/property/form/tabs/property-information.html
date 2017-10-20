@@ -37,7 +37,7 @@
           ng-model="vm.property.propertyKey.propertyType"
           ng-model-options="{trackBy: '$value.id'}"
           data-md-container-class="selectHeader"
-          md-on-close="vm.searchPropertyTypeTerm = ''"
+          md-on-close="<vm class="searchPropertyTypeTerm"></vm> = ''"
           required>
           
           <md-optgroup label="{{'hallocasa.propertytypegroup.lots' | translate}}">
