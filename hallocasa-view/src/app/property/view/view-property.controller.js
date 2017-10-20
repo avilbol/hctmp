@@ -101,9 +101,6 @@
         vm.guidLanguage = vm.property.mainLanguage.id;
         
         loadURLShared();
-
-        loadEmailInfo();
-
         sharedEmailInfo();
       });
     }

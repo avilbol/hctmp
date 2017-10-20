@@ -119,6 +119,13 @@
                 <md-button class="md-fab md-mini btn-shared" ng-click="vm.openDialogRenren()">
                       <i class="fa fa-renren" aria-hidden="true"></i>
                 </md-button>
+                <md-button class="md-fab md-mini btn-shared" href="#"
+                    socialshare
+                    socialshare-provider="weibo"
+                    socialshare-url="{{vm.sharedURL}}"
+                    socialshare-text="{{vm.property.titles[vm.guidLanguage]}}: {{vm.property.descriptions[vm.guidLanguage]}}">
+                      <i class="fa fa-weibo" aria-hidden="true"></i>
+                </md-button>
               </md-card-content>
             </md-card>
           </div>  
