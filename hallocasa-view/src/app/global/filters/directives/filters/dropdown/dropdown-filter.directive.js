@@ -17,7 +17,7 @@
       link: function (scope, element) {
         var optionsData = scope.filterInformation.filter.options;
 
-        scope.fieldName = scope.$id;
+        scope.filterName = scope.$id;
         scope.title = scope.filterInformation.filter.usePropertyField ?
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
         scope.emitSelectedOption = emitSelectedOption;
@@ -121,10 +121,63 @@
         function watchCleanFilter() {
           var watcher = $rootScope.$on("FilterSystem:clearFilters", function () {
             scope.selected.options = [];
+            if(scope.filterInformation.filter.showingStepList.length){
+              displayFilter(false);
+            }
           });
           scope.$on("$destroy", watcher);
         }
 
+        function internalDependencyShowHandler(filterId, dependentValue){
+          displayFilter(false);
+
+          var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+            if(filterInformation.propertyFilter.filter.id === filterId){
+              var showFilter = _.find(filterInformation.selectedFilterOptions, function (selectedOption) {
+                return selectedOption.optionId === dependentValue;
+              });
+              displayFilter(showFilter);
+            }
+          });
+
+          scope.$on("$destroy", destroyListener);
+        }
+
+        function externalOptionsDependencyHandler(filterId){
+          displayFilter(false);
+
+          var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+            if(filterInformation.propertyFilter.filter.id === filterId){
+              var showFilter = filterInformation.selectedFilterOptions.length > 0;
+              displayFilter(showFilter);
+
+              //TODO: Load options by external service
+              scope.options = [];
+            }
+          });
+
+          scope.$on("$destroy", destroyListener);
+        }
+
+        function detectConditionalShowFilter() {
+          var showingStepList = scope.filterInformation.filter.showingStepList;
+          if(showingStepList.length){
+            var filterId = _.first(showingStepList).filterCondition.filterId;
+            if(_.isObject(optionsData) && optionsData.showOnSpecificID){
+              internalDependencyShowHandler(filterId, optionsData.showOnSpecificID);
+            }
+            else{
+              externalOptionsDependencyHandler(filterId);
+            }
+          }
+        }
+
+        function displayFilter(show) {
+          var displayValue = show ? "initial" : "none";
+          element.closest(".filterContainer").css("display",displayValue);
+        }
+
+        detectConditionalShowFilter();
         loadOptions();
         watchRender();
         watchCleanFilter();
