@@ -25,6 +25,7 @@
         scope.selected = {options: []};
         scope.selectAll = selectAll;
         scope.selectAllButtonTranstationKey = "placeholder.selectAll";
+        var selectionState = "selectAll";
 
         function loadOptions() {
           if(!optionsData){
@@ -107,11 +108,13 @@
         }
 
         function selectAll() {
-          if(scope.selected.options.length === scope.options.length){
+          if(selectionState === "deselectAll"){
+            selectionState = "selectAll";
             scope.selected.options = [];
             scope.selectAllButtonTranstationKey = "placeholder.selectAll";
           }
           else{
+            selectionState = "deselectAll";
             scope.selected.options = scope.options;
             scope.selectAllButtonTranstationKey = "placeholder.deselectAll";
           }
