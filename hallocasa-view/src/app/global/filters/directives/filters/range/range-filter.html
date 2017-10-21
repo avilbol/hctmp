@@ -11,7 +11,7 @@
       <!-- No implemented -->
     </div>
     <div ng-switch-when="CURRENCY">
-      <b>{{currentCurrency().abbreviation}}&nbsp;:&nbsp;</b>
+      <!--<b>{{currentCurrency().abbreviation}}&nbsp;:&nbsp;</b>-->
       <div ng-include="'numericSliderRange'"></div>
     </div>
   </div>
@@ -43,11 +43,11 @@
         <input
           name="inputLowValue"
           type="number"
-          ng-model="lowValue"
-          ng-max="highValue"
+          ng-model="range.lowValue"
+          ng-max="range.highValue"
           aria-label="{{title}}"
           step="{{filterInformation.filter.options.step}}"
-          ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
+          ng-change="emitSelectedOption()"
         >
         <div ng-messages="inputRangeForm.$error">
           <div class="errorMessage" ng-if="inputRangeForm.$error.max">
@@ -63,11 +63,11 @@
         <input
           name="inputMaxValue"
           type="number"
-          ng-model="highValue"
-          ng-min="lowValue"
+          ng-model="range.highValue"
+          ng-min="range.lowValue"
           aria-label="{{title}}"
           step="{{filterInformation.filter.options.step}}"
-          ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
+          ng-change="emitSelectedOption()"
         >
       </md-input-container>
     </form>
@@ -76,12 +76,13 @@
 
 <script type="text/ng-template" id="numericSliderRange">
   <slider
-    ng-model="lowValue"
-    ng-model-range="highValue"
-    floor="{{floor}}"
+    ng-model="range.lowValue"
+    ng-model-range="range.highValue"
+    floor="{{range.floor}}"
     buffer="{{filterInformation.filter.options.buffer}}"
-    ceiling="{{ceiling}}"
+    ceiling="{{range.ceiling}}"
     step="{{filterInformation.filter.options.step}}"
+    translate-fn="viewValueProcessor"
     ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
   >
   </slider>
@@ -93,8 +94,8 @@
       <md-input-container flex="45">
         <md-datepicker
           name="inputLowValue"
-          ng-model="lowValue"
-          md-max-date="highValue"
+          ng-model="range.lowValue"
+          md-max-date="range.highValue"
           aria-label="{{title}}"
           ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
         ></md-datepicker>
@@ -111,8 +112,8 @@
       <md-input-container flex="45">
         <md-datepicker
           name="inputMaxValue"
-          ng-model="highValue"
-          md-min-date="lowValue"
+          ng-model="range.highValue"
+          md-min-date="range.lowValue"
           aria-label="{{title}}"
           ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
         ></md-datepicker>

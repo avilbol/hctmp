@@ -19,11 +19,12 @@
         scope.title = scope.filterInformation.filter.usePropertyField ?
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
         scope.emitSelectedOption = emitSelectedOption;
+        scope.filter = {selected: false};
 
-        function emitSelectedOption(checked) {
+        function emitSelectedOption() {
           var selectionPayload = {
             propertyFilter: scope.filterInformation,
-            apply: checked,
+            apply: scope.filter.selected,
             binaryFilterType: scope.binaryFilterType
           };
           $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
@@ -52,7 +53,15 @@
           scope.binaryFilterType = "Dropdown";
         }
 
+        function watchCleanFilter() {
+          var watcher = $rootScope.$on("FilterSystem:clearFilters", function () {
+            scope.filter.selected = false;
+          });
+          scope.$on("$destroy", watcher);
+        }
+
         detectBinaryFilterType();
+        watchCleanFilter();
       }
     };
   }

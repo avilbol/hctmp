@@ -70,13 +70,101 @@
         }
       },
       {
-        "id": 26,
-        "name": "Annual Return on Investment",
+        "id": 8,
+        "name": "Department",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 9,
+        "name": "Town",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 10,
+        "name": "Neighborhood",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 28,
+        "name": "Estrato - Colombia",
         "flexMobile": 100,
         "flexTablet": 50,
         "flexDesktop": 33,
         "options": {
-          "type": "static_options"
+          "type": "static_options",
+          "showOnSpecificID": 1
+        }
+      },
+      {
+        "id": 29,
+        "name": "Estrato - Chile",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "static_options",
+          "showOnSpecificID": 3
+        }
+      },
+      {
+        "id": 30,
+        "name": "Estrato - Costa Rica",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "static_options",
+          "showOnSpecificID": 8
+        }
+      },
+      {
+        "id": 31,
+        "name": "Estrato - Ecuador",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "static_options",
+          "showOnSpecificID": 9
+        }
+      },
+      {
+        "id": 32,
+        "name": "Estrato - Panamá",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "static_options",
+          "showOnSpecificID": 4
+        }
+      },
+      {
+        "id": 33,
+        "name": "Estrato - Perú",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "static_options",
+          "showOnSpecificID": 5
+        }
+      },
+      {
+        "id": 34,
+        "name": "Estrato - Argentina",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "static_options",
+          "showOnSpecificID": 2
         }
       },
       {
@@ -84,14 +172,29 @@
         "name": "Market Price",
         "flexMobile": 100,
         "flexTablet": 50,
-        "flexDesktop": 33
+        "flexDesktop": 33,
+        "options":{
+          "range": {
+            "prefixString": "$",
+            "floor": 0,
+            "ceiling": 100
+          }
+        }
       },
       {
         "id": 6,
         "name": "Square Meters Total",
         "flexMobile": 100,
         "flexTablet": 50,
-        "flexDesktop": 33
+        "flexDesktop": 33,
+        "options":{
+          "step": 100,
+          "range": {
+            "suffixString": "m\u00B2",
+            "floor": 0,
+            "ceiling": 10000
+          }
+        }
       }
     ]
   },
@@ -159,7 +262,14 @@
         "name": "Parking Spots",
         "flexMobile": 100,
         "flexTablet": 50,
-        "flexDesktop": 33
+        "flexDesktop": 33,
+        "options":{
+          "step": 10,
+          "range": {
+            "floor": 0,
+            "ceiling": 100
+          }
+        }
       },
       {
         "id": 27,
@@ -195,6 +305,21 @@
         "flexMobile": 100,
         "flexTablet": 50,
         "flexDesktop": 33
+      },
+      {
+        "id": 26,
+        "name": "Annual Return on Investment",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "static_options",
+          "range": {
+            "suffixString": "%",
+            "floor": 0,
+            "ceiling": 100
+          }
+        }
       }
     ]
   }

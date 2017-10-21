@@ -19,6 +19,7 @@
 
         scope.fieldName = scope.$id;
         scope.currentCurrency = CurrencyService.getCurrentCurrency;
+        scope.viewValueProcessor = viewValueProcessor;
         scope.title = scope.filterInformation.filter.usePropertyField ?
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
         scope.filterInformation.filter.options = scope.filterInformation.filter.options ?
@@ -27,6 +28,7 @@
           scope.filterInformation.filter.options.step : 1;
         scope.filterInformation.filter.options.buffer = scope.filterInformation.filter.options.buffer ?
           scope.filterInformation.filter.options.buffer : 10;
+        scope.range = {};
 
         scope.emitSelectedOption = emitSelectedOption;
 
@@ -35,42 +37,27 @@
             case "INTEGER":
             case "DOUBLE":
             case "CURRENCY":
-              // if(scope.filterInformation.filter.filterType.validateMin){
-              //   scope.floor = scope.filterInformation.filter.minValue;
-              //   scope.lowValue = scope.filterInformation.filter.minValue;
-              // }
-              // if(scope.filterInformation.filter.filterType.validateMax){
-              //   scope.ceiling = scope.filterInformation.filter.maxValue;
-              //   scope.highValue = scope.filterInformation.filter.maxValue;
-              // }
+              if(scope.filterInformation.filter.filterType.validateMin){
+                scope.range.floor = scope.filterInformation.filter.options.range.floor;
+              }
+              if(scope.filterInformation.filter.filterType.validateMax){
+                scope.range.ceiling = scope.filterInformation.filter.options.range.ceiling;
+              }
 
-              /*
-              * TODO: Temporal test values, delete when returned values from backend has valid values
-              * */
-              scope.floor = 0;
-              scope.ceiling = 1000;
-              scope.lowValue = 0;
-              scope.highValue = 1000;
+              if(scope.filterInformation.filter.filterType.useSlider){
+                scope.range.lowValue = scope.range.floor;
+                scope.range.highValue = scope.range.ceiling;
+              }
 
               break;
             case "DATE":
-              // if(scope.filterInformation.filter.filterType.validateMin){
-              //   scope.lowValue = new Date(scope.filterInformation.filter.minValue);
-              // }
-              // if(scope.filterInformation.filter.filterType.validateMax){
-              //   scope.highValue = new Date(scope.filterInformation.filter.maxValue);
-              // }
-
-              /*
-              * TODO: Temporal test values, delete when returned values from backend has valid values
-              * */
-              scope.lowValue = new Date();
-              scope.highValue = new Date();
+              scope.range.lowValue = new Date();
+              scope.range.highValue = new Date();
               break;
           }
         }
 
-        function emitSelectedOption(range) {
+        function emitSelectedOption() {
           if(ngModelTimeOut){
             //if there is already a timeout in process cancel it
             $timeout.cancel(ngModelTimeOut);
@@ -83,25 +70,25 @@
 
             switch (scope.filterInformation.filter.filterType.rangeFieldPresentation){
               case "DATE":
-                selectionPayload.minDateValue = range.lowValue;
-                selectionPayload.maxDateValue = range.highValue;
+                selectionPayload.minDateValue = scope.range.lowValue;
+                selectionPayload.maxDateValue = scope.range.highValue;
                 break;
 
               case "CURRENCY":
                 var currencyID = scope.currentCurrency().id;
                 selectionPayload.minCrcyValue = {
                   currency: {id: currencyID},
-                  ammount: range.lowValue
+                  ammount: scope.range.lowValue
                 };
                 selectionPayload.maxCrcyValue = {
                   currency: {id: currencyID},
-                  ammount: range.highValue
+                  ammount: scope.range.highValue
                 };
                 break;
 
               default:
-                selectionPayload.minValue = range.lowValue;
-                selectionPayload.maxValue = range.highValue;
+                selectionPayload.minValue = scope.range.lowValue;
+                selectionPayload.maxValue = scope.range.highValue;
             }
 
             $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
@@ -109,7 +96,27 @@
           },500);
         }
 
+        function watchCleanFilter() {
+          var watcher = $rootScope.$on("FilterSystem:clearFilters", initialize);
+          scope.$on("$destroy", watcher);
+        }
+
+        function viewValueProcessor(value) {
+          var rangeConfig = scope.filterInformation.filter.options.range;
+          if(!rangeConfig){ return value; }
+
+          var prefixString = rangeConfig.prefixString ? rangeConfig.prefixString : "";
+          var suffixString = rangeConfig.suffixString ? rangeConfig.suffixString : "";
+
+          if(Number(value) === scope.range.ceiling){
+            prefixString = "+" + prefixString;
+          }
+
+          return prefixString + value + suffixString;
+        }
+
         initialize();
+        watchCleanFilter();
       }
     };
   }
