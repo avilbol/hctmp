@@ -34,6 +34,16 @@ public class StateServiceImp implements StateService {
 		return toValueObject(daoState.findByCountriesId(countryIdList));
 	}
 	
+	@Override
+	public List<State> findByParentId(Integer parentId) {
+		return findByCountryId(parentId);
+	}
+
+	@Override
+	public List<State> findByParentIdList(List<Integer> parentIdList) {
+		return findByCountriesId(parentIdList);
+	}
+	
 	private List<State> toValueObject(List<EntityState> entList){
 		List<State> stateList = new LinkedList<State>();
 		for(EntityState entState : entList){

@@ -25,5 +25,14 @@ public interface IDAONeighborhood {
 	 * 		Neighborhood list with generic purpose
 	 */
 	List<EntityNeighborhood> findGenericUse();
+
+	/**
+	 * Find neighborhoods with the specified city ids
+	 * @param cityId
+	 * 		The city identifiers that neighborhoods must have
+	 * @return
+	 * 		Neighborhoods that have any of the specified city ids
+	 */
+	List<EntityNeighborhood> findByCityIds(List<Integer> cityIds);
 	
 }
