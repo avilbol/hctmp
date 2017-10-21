@@ -175,8 +175,9 @@
         "flexDesktop": 33,
         "options":{
           "range": {
+            "prefixString": "$",
             "floor": 0,
-            "ceiling": 1000000
+            "ceiling": 100
           }
         }
       },
@@ -189,8 +190,9 @@
         "options":{
           "step": 100,
           "range": {
+            "suffixString": "m\u00B2",
             "floor": 0,
-            "ceiling": 1000000
+            "ceiling": 10000
           }
         }
       }
@@ -313,6 +315,7 @@
         "options": {
           "type": "static_options",
           "range": {
+            "suffixString": "%",
             "floor": 0,
             "ceiling": 100
           }

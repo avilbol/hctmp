@@ -19,6 +19,7 @@
 
         scope.fieldName = scope.$id;
         scope.currentCurrency = CurrencyService.getCurrentCurrency;
+        scope.viewValueProcessor = viewValueProcessor;
         scope.title = scope.filterInformation.filter.usePropertyField ?
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
         scope.filterInformation.filter.options = scope.filterInformation.filter.options ?
@@ -98,6 +99,20 @@
         function watchCleanFilter() {
           var watcher = $rootScope.$on("FilterSystem:clearFilters", initialize);
           scope.$on("$destroy", watcher);
+        }
+
+        function viewValueProcessor(value) {
+          var rangeConfig = scope.filterInformation.filter.options.range;
+          if(!rangeConfig){ return value; }
+
+          var prefixString = rangeConfig.prefixString ? rangeConfig.prefixString : "";
+          var suffixString = rangeConfig.suffixString ? rangeConfig.suffixString : "";
+
+          if(Number(value) === scope.range.ceiling){
+            prefixString = "+" + prefixString;
+          }
+
+          return prefixString + value + suffixString;
         }
 
         initialize();

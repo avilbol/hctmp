@@ -82,6 +82,7 @@
     buffer="{{filterInformation.filter.options.buffer}}"
     ceiling="{{range.ceiling}}"
     step="{{filterInformation.filter.options.step}}"
+    translate-fn="viewValueProcessor"
     ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
   >
   </slider>
