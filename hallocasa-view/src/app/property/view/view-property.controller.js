@@ -34,7 +34,6 @@
     }
 
     function openDialogRenren(){
-      console.log('Open renren');
       var left = Math.round((screen.width/2)-(600/2));
       var top = Math.round((screen.height/2)-(600/2));
       var url = 'http://widget.renren.com/dialog/share?resourceUrl=' + vm.sharedURL + '&title=' + vm.property.titles[vm.guidLanguage] + '&description=' + vm.property.descriptions[vm.guidLanguage] + '&lang=' + LocaleService.getCurrentLenguage();
