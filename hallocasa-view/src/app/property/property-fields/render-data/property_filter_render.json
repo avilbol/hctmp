@@ -187,6 +187,7 @@
         "flexTablet": 50,
         "flexDesktop": 33,
         "options":{
+          "step": 100,
           "range": {
             "floor": 0,
             "ceiling": 1000000
@@ -261,6 +262,7 @@
         "flexTablet": 50,
         "flexDesktop": 33,
         "options":{
+          "step": 10,
           "range": {
             "floor": 0,
             "ceiling": 100
