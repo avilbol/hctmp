@@ -235,7 +235,14 @@
         "name": "Floor",
         "flexMobile": 100,
         "flexTablet": 50,
-        "flexDesktop": 33
+        "flexDesktop": 33,
+        "options":{
+          "step": 10,
+          "range": {
+            "floor": 0,
+            "ceiling": 100
+          }
+        }
       },
       {
         "id": 17,
