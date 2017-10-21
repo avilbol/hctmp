@@ -2,9 +2,10 @@ package com.hallocasa.services.generalities.location;
 
 import java.util.List;
 
+import com.hallocasa.services.generalities.Listable;
 import com.hallocasa.vo.State;
 
-public interface StateService {
+public interface StateService extends Listable<State> {
 
 	/**
 	 * Find the states with the specified country id
