@@ -172,14 +172,26 @@
         "name": "Market Price",
         "flexMobile": 100,
         "flexTablet": 50,
-        "flexDesktop": 33
+        "flexDesktop": 33,
+        "options":{
+          "range": {
+            "floor": 0,
+            "ceiling": 1000000
+          }
+        }
       },
       {
         "id": 6,
         "name": "Square Meters Total",
         "flexMobile": 100,
         "flexTablet": 50,
-        "flexDesktop": 33
+        "flexDesktop": 33,
+        "options":{
+          "range": {
+            "floor": 0,
+            "ceiling": 1000000
+          }
+        }
       }
     ]
   },
@@ -247,7 +259,13 @@
         "name": "Parking Spots",
         "flexMobile": 100,
         "flexTablet": 50,
-        "flexDesktop": 33
+        "flexDesktop": 33,
+        "options":{
+          "range": {
+            "floor": 0,
+            "ceiling": 100
+          }
+        }
       },
       {
         "id": 27,
@@ -291,7 +309,11 @@
         "flexTablet": 50,
         "flexDesktop": 33,
         "options": {
-          "type": "static_options"
+          "type": "static_options",
+          "range": {
+            "floor": 0,
+            "ceiling": 100
+          }
         }
       }
     ]

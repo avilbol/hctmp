@@ -36,35 +36,20 @@
             case "INTEGER":
             case "DOUBLE":
             case "CURRENCY":
-              // if(scope.filterInformation.filter.filterType.validateMin){
-              //   scope.range.floor = scope.filterInformation.filter.minValue;
-              //   scope.range.lowValue = scope.filterInformation.filter.minValue;
-              // }
-              // if(scope.filterInformation.filter.filterType.validateMax){
-              //   scope.range.ceiling = scope.filterInformation.filter.maxValue;
-              //   scope.range.highValue = scope.filterInformation.filter.maxValue;
-              // }
+              if(scope.filterInformation.filter.filterType.validateMin){
+                scope.range.floor = scope.filterInformation.filter.options.range.floor;
+              }
+              if(scope.filterInformation.filter.filterType.validateMax){
+                scope.range.ceiling = scope.filterInformation.filter.options.range.ceiling;
+              }
 
-              /*
-              * TODO: Temporal test values, delete when returned values from backend has valid values
-              * */
-              scope.range.floor = 0;
-              scope.range.ceiling = 1000;
-              scope.range.lowValue = 0;
-              scope.range.highValue = 1000;
+              if(scope.filterInformation.filter.filterType.useSlider){
+                scope.range.lowValue = scope.range.floor;
+                scope.range.highValue = scope.range.ceiling;
+              }
 
               break;
             case "DATE":
-              // if(scope.filterInformation.filter.filterType.validateMin){
-              //   scope.range.lowValue = new Date(scope.filterInformation.filter.minValue);
-              // }
-              // if(scope.filterInformation.filter.filterType.validateMax){
-              //   scope.range.highValue = new Date(scope.filterInformation.filter.maxValue);
-              // }
-
-              /*
-              * TODO: Temporal test values, delete when returned values from backend has valid values
-              * */
               scope.range.lowValue = new Date();
               scope.range.highValue = new Date();
               break;
