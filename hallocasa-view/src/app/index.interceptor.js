@@ -14,7 +14,7 @@
         if(config.url === authRequest){
           return config;
         }
-        if(!config.url.startsWith(backend_url)){
+        if(!config.url.indexOf(backend_url) === 0){
           config.headers = {};
           return config;
         }
@@ -31,7 +31,7 @@
   function TokenUnauthorizedInterceptor($injector, $q, translateFilter, localStorageService) {
     var responseInterceptor = {
       responseError: function(response) {
-        if (response.status == 401){
+        if (response.status === 401){
           var loginOptions = {};
           if(localStorageService.get("HalloCasa.currentUser")){
             loginOptions.description = translateFilter("Alert.sessionexpired");
