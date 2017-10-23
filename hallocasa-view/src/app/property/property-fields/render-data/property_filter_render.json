@@ -237,11 +237,12 @@
         "flexTablet": 50,
         "flexDesktop": 33,
         "options":{
-          "step": 10,
+          "step": 1,
           "range": {
-            "floor": 0,
-            "ceiling": 100
-          }
+            "floor": -1,
+            "ceiling": 20
+          },
+          "buffer": 1
         }
       },
       {
@@ -271,11 +272,12 @@
         "flexTablet": 50,
         "flexDesktop": 33,
         "options":{
-          "step": 10,
+          "step": 1,
           "range": {
             "floor": 0,
-            "ceiling": 100
-          }
+            "ceiling": 20
+          },
+          "buffer": 1
         }
       },
       {

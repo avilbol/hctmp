@@ -115,7 +115,7 @@
           var suffixString = rangeConfig.suffixString ? rangeConfig.suffixString : "";
 
           if(Number(value) === scope.range.ceiling){
-            prefixString = "+" + prefixString;
+            suffixString = suffixString + "+";
           }
 
           return prefixString + value + suffixString;
