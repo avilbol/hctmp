@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.ejb.Local;
 
 import com.hallocasa.entities.EntityUser;
+import com.hallocasa.vo.resultrequest.ResultRequest;
 
 
 /**
@@ -38,4 +39,10 @@ public interface IDAOUser {
 	 * 		Count of showable users excluded specified list
 	 */
 	Long loadEntityShowableUserCount(List<Long> excludeIdList);
+
+	List<Long> findIdentifierListByFilterRequest(String filterQuery, ResultRequest resultRequest);
+
+	Long findIdentifierCountByFilterRequest(String filterQuery);
+
+	List<EntityUser> findByUserIdList(List<Long> idList, ResultRequest resultRequest);
 }

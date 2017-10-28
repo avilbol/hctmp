@@ -24,10 +24,12 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.avsoft.commons.AvsFileManager;
 import com.hallocasa.dao.i.IDAOUser;
 import com.hallocasa.entities.EntityUser;
 import com.hallocasa.filemanager.FileManager;
@@ -45,10 +47,16 @@ import com.hallocasa.utils.constants.exceptions.SecurityException;
 import com.hallocasa.utils.constants.exceptions.ServiceException;
 import com.hallocasa.utils.constants.parsing.HallocasaConvert;
 import com.hallocasa.utils.security.CodecUtils;
+import com.hallocasa.vo.City;
+import com.hallocasa.vo.Country;
+import com.hallocasa.vo.Language;
+import com.hallocasa.vo.State;
 import com.hallocasa.vo.User;
+import com.hallocasa.vo.UserType;
 import com.hallocasa.vo.dto.UserListRequest;
-
-import com.avsoft.commons.AvsFileManager;
+import com.hallocasa.vo.hcfilter.UserFilterRequest;
+import com.hallocasa.vo.hcfilter.UserFilterResult;
+import com.hallocasa.vo.resultrequest.ResultRequest;
 
 /**
  * 
@@ -85,6 +93,117 @@ public class UserServiceImpl implements UserService {
 		}
 		return (User) toValueObject(entUser.get());
 	}
+	
+	@Override
+	public UserFilterResult find(UserFilterRequest request) {
+		ResultRequest resultRequest = request.getResultRequest();
+		validateRequest(resultRequest);
+		String query = generateQuery(EntityUser.QUERY_SEARCH_BY_FILTERS, request);
+		String countQuery = generateQuery(EntityUser.QUERY_COUNT_SEARCH_BY_FILTERS, request);
+		resultRequest.setOrderBy(new LinkedList<>());
+		boolean sortByLessRecent = resultRequest.getOrderByLessRecent() != null 
+				&& resultRequest.getOrderByLessRecent();
+		boolean sortByMostRecent = resultRequest.getOrderByMostRecent() != null
+				&& resultRequest.getOrderByMostRecent();
+		if (sortByLessRecent || sortByMostRecent) {
+			resultRequest.getOrderBy().add("register_date");
+		}
+		request.getResultRequest().setAsc(resultRequest.getOrderByLessRecent());
+		List<Long> filteredUserIds = daoUser.findIdentifierListByFilterRequest(query,
+				resultRequest);
+		if (sortByLessRecent || sortByMostRecent) {
+			resultRequest.getOrderBy().set(0, "u.registerDate");
+		}
+		List<EntityUser> users = daoUser.findByUserIdList(filteredUserIds, resultRequest);
+		List<User> resultList = toValueObjectList(users);
+		Long count = null;
+		if (resultRequest.getLoadCount() != null && resultRequest.getLoadCount()) {
+			count = daoUser.findIdentifierCountByFilterRequest(countQuery);
+		}
+		return new UserFilterResult(count, resultList);
+	}
+	
+	private void validateRequest(ResultRequest resultRequest) {
+		boolean sortByLessRecent = resultRequest.getOrderByLessRecent() != null
+				&& resultRequest.getOrderByLessRecent();
+		boolean sortByMostRecent = resultRequest.getOrderByMostRecent() != null
+				&& resultRequest.getOrderByMostRecent();
+		if (sortByMostRecent && sortByLessRecent) {
+			throw new BadRequestException("Sort by most recent and less recent? really?");
+		}
+		if (resultRequest.getPageFrom() == null || resultRequest.getPageTo() == null) {
+			throw new BadRequestException("You must specify pagination (start and end index)");
+		}
+		if (resultRequest.getPageFrom() > resultRequest.getPageTo()) {
+			throw new BadRequestException("Pagination start index greater than end index? really?");
+		}
+	}
+	
+	private String generateQuery(String queryBase, UserFilterRequest request) {
+		StringBuilder builder = new StringBuilder(queryBase);
+		if(request.getName() != null && !request.getName().trim().isEmpty()){
+			String condition = " AND (first_name LIKE '%%1$s%' "
+					+ "OR last_name LIKE '%%1$s%' OR web_site LIKE '%%1$s%')";
+			builder.append(String.format(condition, request.getName()));
+		}
+		if(request.getCountries() != null && !request.getCountries().isEmpty()){
+			String condition = " AND us.country_id IN (%1$s)";
+			List<String> identifiers = new ArrayList<>();
+			for(Country country : request.getCountries()){
+				identifiers.add(String.valueOf(country.getId()));
+			}
+			String params = StringUtils.join(identifiers.toArray(), ",");
+			builder.append(String.format(condition, params));
+		}
+		if(request.getStates() != null && !request.getStates().isEmpty()){
+			String condition = " AND us.state_id IN (%1$s)";
+			List<String> identifiers = new ArrayList<>();
+			for(State state : request.getStates()){
+				identifiers.add(String.valueOf(state.getId()));
+			}
+			String params = StringUtils.join(identifiers.toArray(), ",");
+			builder.append(String.format(condition, params));
+		}
+		if(request.getCities() != null && !request.getCities().isEmpty()){
+			String condition = " AND us.city_id IN (%1$s)";
+			List<String> identifiers = new ArrayList<>();
+			for(City city : request.getCities()){
+				identifiers.add(String.valueOf(city.getId()));
+			}
+			String params = StringUtils.join(identifiers.toArray(), ",");
+			builder.append(String.format(condition, params));
+		}
+		if(request.getUserTypes() != null && !request.getUserTypes().isEmpty()){
+			String condition = " AND ut.user_type_id IN (%1$s)";
+			List<String> identifiers = new ArrayList<>();
+			for(UserType userType : request.getUserTypes()){
+				identifiers.add(String.valueOf(userType.getId()));
+			}
+			String params = StringUtils.join(identifiers.toArray(), ",");
+			builder.append(String.format(condition, params));
+		}
+		if(request.getLanguages() != null && !request.getLanguages().isEmpty()){
+			String condition = " AND us.language IN (%1$s)";
+			List<String> identifiers = new ArrayList<>();
+			for(Language language : request.getLanguages()){
+				identifiers.add(String.valueOf(language.getId()));
+			}
+			String params = StringUtils.join(identifiers.toArray(), ",");
+			builder.append(String.format(condition, params));
+		}
+		if(request.getCountries() != null && !request.getCountries().isEmpty()){
+			String condition = " AND us.country_id IN (%1$s)";
+			List<String> identifiers = new ArrayList<>();
+			for(Country country : request.getCountries()){
+				identifiers.add(String.valueOf(country.getId()));
+			}
+			String params = StringUtils.join(identifiers.toArray(), ",");
+			builder.append(String.format(condition, params));
+		}
+		return builder.toString();
+	}
+	
+	
 	
 	@Override
 	public void validate(String email) {

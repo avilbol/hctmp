@@ -36,6 +36,10 @@ import com.hallocasa.persistence.converters.HcBooleanConverter;
 	query = "select new com.hallocasa.entities.EntityUser(u.id, u.email, u.firstName, "
 			+ "u.password, u.confirmedFlag, u.language, u.registerDate, u.role) "
 			+ "from EntityUser u where u.email = ?1"),
+	@NamedQuery(name = EntityUser.QUERY_FIND_BASIC_BY_ID_LIST, 
+	query = "select new com.hallocasa.entities.EntityUser(u.id, u.email, u.firstName, "
+			+ "u.password, u.confirmedFlag, u.language, u.registerDate, u.role) "
+			+ "from EntityUser u where u.id IN ?1"),
 	@NamedQuery(name = EntityUser.QUERY_FIND_BY_ID, 
 		query = "select u from EntityUser u where u.id = ?1"),
 	@NamedQuery(name = EntityUser.QUERY_FIND_BY_ID_LIST, 
@@ -52,8 +56,15 @@ public class EntityUser implements Serializable, HallocasaEntity {
 	public static final String QUERY_ID_LIST_WITH_USER_TYPES = "select u.id from EntityUser u "
 			+ "WHERE size(u.userTypes) > 0";
 	public static final String QUERY_FIND_BY_ID_LIST = "EntityUser.FindByIdList";
+	public static final String QUERY_FIND_BASIC_BY_ID_LIST = "EntityUser.FindBasicByIdList";
 	public static final String QUERY_COUNT_LIST_WITH_USER_TYPES = "select count(u) from EntityUser u  "
 			+ "WHERE size(u.userTypes) > 0";
+	
+	public static final String QUERY_SEARCH_BY_FILTERS = "SELECT DISTINCT us.id "
+			+ "FROM user us, user_user_type ut WHERE us.id = ut.user_id";
+	
+	public static final String QUERY_COUNT_SEARCH_BY_FILTERS = "SELECT count(DISTINCT us.id) "
+			+ "FROM user us, user_user_type ut WHERE us.id = ut.user_id";
 	
 	/* instance variables */
 	@Id

@@ -10,6 +10,8 @@ import java.util.List;
 import com.hallocasa.services.messaging.exceptions.MailServicesErrorException;
 import com.hallocasa.vo.User;
 import com.hallocasa.vo.dto.UserListRequest;
+import com.hallocasa.vo.hcfilter.UserFilterRequest;
+import com.hallocasa.vo.hcfilter.UserFilterResult;
 
 /**
  * Service class for users of system hallocasa
@@ -88,4 +90,11 @@ public interface UserService {
 	 * 		Content of user token to delete
 	 */
 	void logout(String userTokenTokenContent);
+
+	/**
+	 * filter users by specific request filter
+	 * @param request
+	 * @return
+	 */
+	UserFilterResult find(UserFilterRequest request);
 }
