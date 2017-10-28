@@ -81,7 +81,7 @@ public class DAOUser implements IDAOUser {
 				resultRequest.getPageFrom() - 1, resultRequest.getPageTo());
 		List<Long> resultList = new LinkedList<>();
 		for (Object obj : objList) {
-			resultList.add(Long.parseLong((String) obj));
+			resultList.add(Long.parseLong(String.valueOf(obj)));
 		}
 		return resultList;
 	}
