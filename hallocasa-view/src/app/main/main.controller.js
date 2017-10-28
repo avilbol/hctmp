@@ -166,7 +166,11 @@
           vm.currentCurrrency = currencyToUse;
           CurrencyService.setCurrentCurrency(currencyToUse);
           $translate.use(localeToUse);
-        });
+        })
+        .catch(function(err)){
+          console.log(err);
+          $translate.use(LOCALES.defaultLocale);
+        };
     }
 
     function searchByCountryCode(preferredSettings, countryCode){
