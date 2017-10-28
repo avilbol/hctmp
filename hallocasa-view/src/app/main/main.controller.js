@@ -169,6 +169,7 @@
         })
         .catch(function(err){
           console.log(err);
+          CurrencyService.setCurrentCurrency({"id":3, "abbreviation":"USD"}});
           $translate.use(LOCALES.defaultLocale);
         });
     }
