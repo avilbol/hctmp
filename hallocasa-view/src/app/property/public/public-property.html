@@ -17,7 +17,7 @@
           ng-model="vm.order.publishDate"
           aria-label="Order by publish date"
           placeholder="{{'propertyWizardPage.property.PublishDate' | translate}}"
-          ng-change="vm.loadPropertiesPage(1)"
+          ng-change="vm.sortProperties()"
         >
           <md-option ng-value="'mostRecent'" translate>
             {{'PropertiesFilters.orderBy.mostRecent'}}

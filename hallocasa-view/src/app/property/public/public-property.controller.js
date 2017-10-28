@@ -22,6 +22,7 @@
     vm.firstLoading = true;
     vm.filtersRendered = false;
     vm.clearFilters = clearFilters;
+    vm.sortProperties = sortProperties;
 
     vm.pagination = {
       current: 1
@@ -136,6 +137,10 @@
     function clearFilters() {
       selectedFilters = [];
       $rootScope.$broadcast("FilterSystem:clearFilters");
+    }
+
+    function sortProperties(){
+      loadPropertiesPage(1, selectedFilters);
     }
 
     loadPropertiesPage(1);
