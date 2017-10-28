@@ -1,8 +1,33 @@
-<md-content>
-  <div layout="row">
+<md-content layout-padding>
+  <div layout="row" layout-align="center center">
     <md-button class="md-raised md-primary" ng-click="vm.openFiltersDialog($event)">
       {{'PropertyBrowse.Filters' | translate}}
     </md-button>
+    <div ng-if="vm.totalProperties > 0">
+      <b>{{vm.totalProperties}}</b>
+      <span>{{'PropertiesFilters.PropertiesCount' | translate}}</span>
+    </div>
+    <span flex="5"></span>
+    <div ng-if="vm.totalProperties > 0">
+      <b>{{'PropertiesFilters.SortBy' | translate}}:</b>
+      <md-input-container>
+        <label translate>{{'propertyWizardPage.property.PublishDate'}}</label>
+        <md-select
+          title="{{'propertyWizardPage.property.PublishDate' | translate}}"
+          ng-model="vm.order.publishDate"
+          aria-label="Order by publish date"
+          placeholder="{{'propertyWizardPage.property.PublishDate' | translate}}"
+          ng-change="vm.loadPropertiesPage(1)"
+        >
+          <md-option ng-value="'mostRecent'" translate>
+            {{'PropertiesFilters.orderBy.mostRecent'}}
+          </md-option>
+          <md-option ng-value="'lessRecent'" translate>
+            {{'PropertiesFilters.orderBy.lessRecent'}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
     <span flex></span>
     <md-input-container>
       <md-select ng-model="vm.propertiesPerPage" aria-label="properties per page">

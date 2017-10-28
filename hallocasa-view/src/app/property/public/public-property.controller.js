@@ -16,6 +16,7 @@
     vm.loadPropertiesPage = loadPropertiesPage;
     vm.properties = [];
     vm.totalProperties = 0;
+    vm.order = {};
     vm.propertiesPerPage = 100;
     vm.totalAmount = [100,150,200];
     vm.firstLoading = true;
@@ -27,7 +28,7 @@
     };
 
     function loadPropertiesPage(page, filterList) {
-      PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1, filterList)
+      PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1, filterList, vm.order)
         .then(function (data) {
           vm.properties = PropertyService.generatePropertiesPreviewData(data.propertyList);
           vm.totalProperties = data.count;
