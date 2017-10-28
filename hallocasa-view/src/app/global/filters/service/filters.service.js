@@ -11,7 +11,7 @@
     };
 
     var totalFilters, filtersRendered;
-    var componentsIdentifiers = ["accordion_group"];
+    var componentsIdentifiers = ["accordion_group", "separator_group"];
 
     return service;
 
