@@ -23,7 +23,10 @@
         scope.title = scope.filterInformation.filter.usePropertyField ?
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
         scope.filterInformation.filter.options = scope.filterInformation.filter.options ?
-          scope.filterInformation.filter.options : {};
+          scope.filterInformation.filter.options : {range: {
+            floor: 0,
+            ceiling: 100
+          }};
         scope.filterInformation.filter.options.step = scope.filterInformation.filter.options.step ?
           scope.filterInformation.filter.options.step : 1;
         scope.filterInformation.filter.options.buffer = scope.filterInformation.filter.options.buffer ?
@@ -37,10 +40,8 @@
             case "INTEGER":
             case "DOUBLE":
             case "CURRENCY":
-              if(scope.filterInformation.filter.filterType.validateMin){
+              if(scope.filterInformation.filter.options.range){
                 scope.range.floor = scope.filterInformation.filter.options.range.floor;
-              }
-              if(scope.filterInformation.filter.filterType.validateMax){
                 scope.range.ceiling = scope.filterInformation.filter.options.range.ceiling;
               }
 
@@ -72,6 +73,7 @@
               case "DATE":
                 selectionPayload.minDateValue = scope.range.lowValue;
                 selectionPayload.maxDateValue = scope.range.highValue;
+
                 break;
 
               case "CURRENCY":
@@ -80,15 +82,19 @@
                   currency: {id: currencyID},
                   ammount: scope.range.lowValue
                 };
-                selectionPayload.maxCrcyValue = {
-                  currency: {id: currencyID},
-                  ammount: scope.range.highValue
-                };
+                if(scope.range.highValue !== scope.range.ceiling) {
+                  selectionPayload.maxCrcyValue = {
+                    currency: {id: currencyID},
+                    ammount: scope.range.highValue
+                  };
+                }
                 break;
 
               default:
                 selectionPayload.minValue = scope.range.lowValue;
-                selectionPayload.maxValue = scope.range.highValue;
+                if(scope.range.highValue !== scope.range.ceiling) {
+                  selectionPayload.maxValue = scope.range.highValue;
+                }
             }
 
             $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
@@ -109,7 +115,7 @@
           var suffixString = rangeConfig.suffixString ? rangeConfig.suffixString : "";
 
           if(Number(value) === scope.range.ceiling){
-            prefixString = "+" + prefixString;
+            suffixString = suffixString + "+";
           }
 
           return prefixString + value + suffixString;
