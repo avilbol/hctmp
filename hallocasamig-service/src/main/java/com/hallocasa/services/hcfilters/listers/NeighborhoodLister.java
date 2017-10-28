@@ -35,7 +35,7 @@ public class NeighborhoodLister extends HcLister<Neighborhood> {
 		try {
 			return (NeighborhoodService) InitialContext.doLookup(neighborhoodServiceJndi);
 		} catch (NamingException e) {
-			throw new FatalException("Lookup for state service failed", e);
+			throw new FatalException("Lookup for neighborhood service failed", e);
 		}
 	}
 }

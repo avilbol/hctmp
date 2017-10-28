@@ -2,6 +2,7 @@ package com.hallocasa.services.properties;
 
 import java.util.List;
 
+import com.hallocasa.services.generalities.Listable;
 import com.hallocasa.vo.hcfilter.properties.PropertyType;
 import com.hallocasa.vo.hcfilter.properties.dto.PropertyTypeGroupDTO;
 
@@ -10,7 +11,7 @@ import com.hallocasa.vo.hcfilter.properties.dto.PropertyTypeGroupDTO;
  * 
  * @author avillamil
  */
-public interface PropertyTypeService {
+public interface PropertyTypeService extends Listable<PropertyType> {
 
 	/**
 	 * Find all property types available on system
