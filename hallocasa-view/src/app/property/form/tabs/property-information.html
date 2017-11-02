@@ -39,7 +39,6 @@
           data-md-container-class="selectHeader"
           md-on-close="vm.searchPropertyTypeTerm = ''"
           required>
-          
           <md-optgroup label="{{'hallocasa.propertytypegroup.lots' | translate}}">
             <md-option ng-repeat="propertyTypes in vm.propertyTypesLots | filter: vm.searchPropertyTypeTerm " ng-value="propertyTypes" ng-disabled="vm.isReadOnly">
               {{propertyTypes.langTrans}}
