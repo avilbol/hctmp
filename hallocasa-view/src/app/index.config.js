@@ -52,7 +52,9 @@
     $translateProvider.useMissingTranslationHandlerLog();
 
     // Default sanitize value strategy
-    $translateProvider.useSanitizeValueStrategy('escape');
+    // $translateProvider.useSanitizeValueStrategy('escape');
+    // show special character like '&' in placeholder or other attributes
+    $translateProvider.useSanitizeValueStrategy(null);
 
     $translateProvider.useUrlLoader(backend_url+'/hallocasa-api/locales/translations');
     $translateProvider.useLocalStorage();// saves selected language to localStorage

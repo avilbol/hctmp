@@ -6,7 +6,7 @@
     .controller('ViewProfileController', ViewProfileController);
 
   /** @ngInject */
-  function ViewProfileController(ProfilesService, $location, translateFilter, toastr, $log, LocaleService, Mailto) {
+  function ViewProfileController(ProfilesService, $location, translateFilter, toastr, $log, LocaleService, Mailto, $window) {
     var vm = this;
     vm.openDialogRenren = openDialogRenren;
     vm.sharedMailInfo = '';
@@ -18,7 +18,7 @@
       var left = Math.round((screen.width/2)-(600/2));
       var top = Math.round((screen.height/2)-(600/2));
       var url = 'http://widget.renren.com/dialog/share?resourceUrl=' + vm.sharedURL + '&title=' + translateFilter("Profile.Shared.TextInfo") + '&lang=' + LocaleService.getCurrentLenguage();
-      window.open(url,'popup','width=600,height=600' + ', top=' + top + ', left=' + left); 
+      $window.open(url,'popup','width=600,height=600' + ', top=' + top + ', left=' + left); 
       return false;
     }
 

@@ -547,6 +547,8 @@
         };
         //call back function
         scope.onFileClick = function(lfFile) {
+
+          
           if(angular.isFunction(scope.lfOnFileClick)){
             scope.lfFiles.every(function(obj,idx){
               if(obj.key == lfFile.key){

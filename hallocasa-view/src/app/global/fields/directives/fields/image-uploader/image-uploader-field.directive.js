@@ -117,38 +117,36 @@
           }
         }
 
-        function unsetPreviewAsPrimary(primaryImage) {
-          var imageFrame = angular.element(previewFrame)[primaryImage];
+        function unsetPreviewAsPrimary(image) {
+          var imageFrame = angular.element(previewFrame)[image];
           if(!imageFrame){
             $timeout(function () {
-              unsetPreviewAsPrimary(primaryImage);
+              unsetPreviewAsPrimary(image);
             },500);
           }
           else {
             var titleFrame = angular.element(imageFrame).find(previewTitle);
             angular.element(imageFrame).removeClass('primary-image-container');
-            // var containerFrame = angular.element(imageFrame).find('.lf-ng-md-file-input-frame');
-            // containerFrame.removeClass("primary-image-container");
+            
             titleFrame.removeClass("primary-image");
             titleFrame.find(".titleText").html("");
           }
         }
 
-        function setPreviewAsPrimary(primaryImage) {
-          var imageFrame = angular.element(previewFrame)[primaryImage];
+        function setPreviewAsPrimary(image) {
+          var imageFrameAll = angular.element(previewFrame);
+
+          var imageFrame = angular.element(previewFrame)[image];
           if(!imageFrame){
             $timeout(function () {
-              setPreviewAsPrimary(primaryImage);
+              setPreviewAsPrimary(image);
             },500);
           }
           else {
             var titleFrame = angular.element(imageFrame).find(previewTitle);
             angular.element(imageFrame).addClass('primary-image-container');
-            // console.log('conainer-frame');
-            // console.log(containerFrame);
             
             titleFrame.addClass("primary-image");
-            // containerFrame.addClass("primary-image-container");
             titleFrame.find(".titleText").html("("+translateFilter('Properties.multi.image.button')+") ");
           }
         }
@@ -179,6 +177,9 @@
         }
 
         function assignAsPrimaryImage(image) {
+          // remove class primary-image
+          angular.element(angular.element(previewFrame)).removeClass('primary-image-container');
+
           if(_.isNumber(primaryImage)){
             unsetPreviewAsPrimary(primaryImage);
             scope.fieldInformation.fieldValueList[primaryImage].data2.boolVal = false;

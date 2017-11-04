@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, $timeout,
-                                  FieldsService, Mailto, LocaleService, $translate) {
+                                  FieldsService, Mailto, LocaleService, $window) {
     var vm = this;
     vm.repaintMap = repaintMap;
     vm.openDialogRenren = openDialogRenren;
@@ -37,7 +37,7 @@
       var left = Math.round((screen.width/2)-(600/2));
       var top = Math.round((screen.height/2)-(600/2));
       var url = 'http://widget.renren.com/dialog/share?resourceUrl=' + vm.sharedURL + '&title=' + vm.property.titles[vm.guidLanguage] + '&description=' + vm.property.descriptions[vm.guidLanguage] + '&lang=' + LocaleService.getCurrentLenguage();
-      window.open(url,'popup','width=600,height=600' + ', top=' + top + ', left=' + left); 
+      $window.open(url,'popup','width=600,height=600' + ', top=' + top + ', left=' + left); 
       return false;
       
     }

@@ -29,6 +29,7 @@
     vm.previousDisabled = true;
     vm.showSubmit = editMode;
     var selectedTab = 0;
+    vm.buttonSaveStatus = false;
 
     vm.searchCountryTerm;
     vm.searchPropertyTypeTerm;
@@ -120,24 +121,35 @@
     }
 
     function save() {
-      var propertyData = {
-        user: SessionService.getCurrentUser(),
-        propertyKey: vm.propertyDeterminants,
-        fieldList: FieldsService.generateFieldValueList(vm.fieldsRender)
-      };
-      if(property && property.id){
-        propertyData.id = property.id;
-      }
 
-      PropertyService.saveProperty(propertyData)
-        .then(function () {
-          toastr.success(translateFilter("property.wizard.create.succesful"));
-          $mdDialog.hide();
-        })
-        .catch(function () {
-          toastr.warning(
-						translateFilter("Error.whensavingproperty"));
-        });
+      // length image
+      var imageLength = vm.fieldsRender[2].fieldList[0].fieldValueList.length;
+
+      if (imageLength <= 0) {
+        toastr.warning(translateFilter("Error.invalidoremptyimage"));
+      } else {
+        // make button save disabled
+        vm.buttonSaveStatus = true;
+
+        var propertyData = {
+          user: SessionService.getCurrentUser(),
+          propertyKey: vm.propertyDeterminants,
+          fieldList: FieldsService.generateFieldValueList(vm.fieldsRender)
+        };
+        if(property && property.id){
+          propertyData.id = property.id;
+        }
+
+        PropertyService.saveProperty(propertyData)
+          .then(function () {
+            toastr.success(translateFilter("property.wizard.create.succesful"));
+            $mdDialog.hide();
+          })
+          .catch(function () {
+            toastr.warning(
+        			translateFilter("Error.whensavingproperty"));
+          });
+      }
     }
 
     function loadLocations() {
