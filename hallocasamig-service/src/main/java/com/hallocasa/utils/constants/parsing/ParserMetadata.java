@@ -135,6 +135,9 @@ public class ParserMetadata {
 		parserMap.put(HcFilterType.class, new HcFilterTypeParser());
 		parserMap.put(Property.class, new PropertyParser());
 		parserMap.put(User.class, new UserParser());
+		parserMap.put(City.class, new CityParser());
+		parserMap.put(State.class, new StateParser());
+		parserMap.put(Neighborhood.class, new NeighborhoodParser());
 	}
 
 	public static Set<Class<?>> getWrapperTypes() {

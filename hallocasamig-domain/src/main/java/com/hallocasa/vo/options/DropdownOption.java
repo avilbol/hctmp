@@ -1,6 +1,8 @@
 package com.hallocasa.vo.options;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.hallocasa.vo.i.ValueObject;
 
@@ -33,6 +35,8 @@ public class DropdownOption implements ValueObject, Serializable {
     private String data8;
     
     private Boolean dependsOnLang;
+    
+    private Map<String, Integer> parentInfo;
 
 	public Integer getOptionId() {
 		return optionId;
@@ -121,4 +125,17 @@ public class DropdownOption implements ValueObject, Serializable {
 	public void setDependsOnLang(Boolean dependsOnLang) {
 		this.dependsOnLang = dependsOnLang;
 	}
+
+	public Map<String, Integer> getParentInfo() {
+		return parentInfo;
+	}
+
+	public void addToParentInfo(String key, Integer value) {
+		if(this.parentInfo == null){
+			this.parentInfo = new HashMap<>();
+		}
+		this.parentInfo.put(key, value);
+	}
+	
+	
 }

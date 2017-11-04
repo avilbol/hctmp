@@ -21,6 +21,7 @@ public class PropertyTypeLister extends HcLister<PropertyType> {
 		DropdownOption opt = new DropdownOption();
 		opt.setOptionId(propertyType.getId());
 		opt.setData1(propertyType.getLang());
+		opt.addToParentInfo("groupId", propertyType.getGroup().getId());
 		return opt;
 	}
 	
