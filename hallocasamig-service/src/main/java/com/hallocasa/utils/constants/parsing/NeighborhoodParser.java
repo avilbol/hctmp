@@ -15,9 +15,11 @@ public class NeighborhoodParser extends CustomizedParser {
 	public void transform(ValueObject vo, HallocasaEntity ent) {
 		Neighborhood voNeighborhood = (Neighborhood) vo;
 		EntityNeighborhood entNeighborhood = (EntityNeighborhood) ent;
-		voNeighborhood.setCountryId(entNeighborhood.getCity().getState().getCountry().getId());
-		voNeighborhood.setStateId(entNeighborhood.getCity().getState().getId());
-		voNeighborhood.setCityId(entNeighborhood.getCity().getId());
+		if(entNeighborhood.getGenericUse()!= null && !entNeighborhood.getGenericUse()){
+			voNeighborhood.setCountryId(entNeighborhood.getCity().getState().getCountry().getId());
+			voNeighborhood.setStateId(entNeighborhood.getCity().getState().getId());
+			voNeighborhood.setCityId(entNeighborhood.getCity().getId());
+		}
 	}
 
 	@Override
