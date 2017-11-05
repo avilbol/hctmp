@@ -16,6 +16,8 @@
       },
       link: function (scope, element) {
         var optionsData = scope.filterInformation.filter.options;
+        var showingStepList = scope.filterInformation.filter.showingStepList;
+        var conditionalFilter = (_.isObject(optionsData) && optionsData.conditionalFilter);
 
         scope.filterName = scope.$id;
         scope.title = scope.filterInformation.filter.usePropertyField ?
@@ -124,14 +126,14 @@
         function watchCleanFilter() {
           var watcher = $rootScope.$on("FilterSystem:clearFilters", function () {
             scope.selected.options = [];
-            if(scope.filterInformation.filter.showingStepList.length){
+            if(showingStepList.length){
               displayFilter(false);
             }
           });
           scope.$on("$destroy", watcher);
         }
 
-        function internalDependencyShowHandler(filterId, dependentValue, conditionalFilter){
+        function internalDependencyShowHandler(filterId, dependentValue){
           if(!conditionalFilter) {
             displayFilter(false);
           }
@@ -148,35 +150,11 @@
           scope.$on("$destroy", destroyListener);
         }
 
-        function externalOptionsDependencyHandler(filterId, conditionalFilter){
-          if(!conditionalFilter){
-            displayFilter(false);
-          }
-
-          var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-            if(filterInformation.propertyFilter.filter.id === filterId){
-              var showFilter = filterInformation.selectedFilterOptions.length > 0;
-              displayFilter(showFilter);
-
-              //TODO: Load options by external service
-              scope.options = [];
-            }
-          });
-
-          scope.$on("$destroy", destroyListener);
-        }
-
         function detectConditionalShowFilter() {
-          var showingStepList = scope.filterInformation.filter.showingStepList;
-          var conditionalFilter = (optionsData && optionsData.conditionalFilter);
-
           if(showingStepList.length){
             var filterId = _.first(showingStepList).filterCondition.filterId;
             if(_.isObject(optionsData) && optionsData.showOnSpecificID){
-              internalDependencyShowHandler(filterId, optionsData.showOnSpecificID, conditionalFilter);
-            }
-            else{
-              externalOptionsDependencyHandler(filterId, conditionalFilter);
+              internalDependencyShowHandler(filterId, optionsData.showOnSpecificID);
             }
           }
         }
