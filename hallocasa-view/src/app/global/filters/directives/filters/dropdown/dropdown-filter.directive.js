@@ -131,8 +131,10 @@
           scope.$on("$destroy", watcher);
         }
 
-        function internalDependencyShowHandler(filterId, dependentValue){
-          displayFilter(false);
+        function internalDependencyShowHandler(filterId, dependentValue, conditionalFilter){
+          if(!conditionalFilter) {
+            displayFilter(false);
+          }
 
           var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
             if(filterInformation.propertyFilter.filter.id === filterId){
@@ -146,8 +148,10 @@
           scope.$on("$destroy", destroyListener);
         }
 
-        function externalOptionsDependencyHandler(filterId){
-          displayFilter(false);
+        function externalOptionsDependencyHandler(filterId, conditionalFilter){
+          if(!conditionalFilter){
+            displayFilter(false);
+          }
 
           var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
             if(filterInformation.propertyFilter.filter.id === filterId){
@@ -164,13 +168,15 @@
 
         function detectConditionalShowFilter() {
           var showingStepList = scope.filterInformation.filter.showingStepList;
+          var conditionalFilter = (optionsData && optionsData.conditionalFilter);
+
           if(showingStepList.length){
             var filterId = _.first(showingStepList).filterCondition.filterId;
             if(_.isObject(optionsData) && optionsData.showOnSpecificID){
-              internalDependencyShowHandler(filterId, optionsData.showOnSpecificID);
+              internalDependencyShowHandler(filterId, optionsData.showOnSpecificID, conditionalFilter);
             }
             else{
-              externalOptionsDependencyHandler(filterId);
+              externalOptionsDependencyHandler(filterId, conditionalFilter);
             }
           }
         }

@@ -37,7 +37,7 @@
         function updateFilterList(filterInformation, options) {
           _.each(filterInformation.selectedFilterOptions, function (selectedOption) {
             var found = _.find(scope.valueList, function (filterData) {
-              return filterData.filter.options.parentFilterOptionID === selectedOption.optionId;
+              return filterData.filter.options.showOnSpecificID === selectedOption.optionId;
             });
 
             if(!found) {
@@ -46,24 +46,12 @@
                 return option.parentInfo[scope.parentIdName] === selectedOption.optionId;
               });
 
-              filterData.filter.options.parentFilterOptionID = selectedOption.optionId;
-              filterData.filter.showingStepList = [];
+              filterData.filter.options.showOnSpecificID = selectedOption.optionId;
+              filterData.filter.options.conditionalFilter = true;
               filterData.propertyField.dropdownOptionGroup = {dropdownOptionList: filterOptions, translationManagement: "NONE"};
 
               scope.valueList.push(filterData);
             }
-          });
-
-          _.find(scope.valueList, function (filterData, index) {
-            var found = _.find(filterInformation.selectedFilterOptions, function (selectedOption) {
-              return filterData.filter.options.parentFilterOptionID === selectedOption.optionId;
-            });
-
-            if(!found) {
-              scope.valueList.splice(index,1);
-              return true;
-            }
-
           });
         }
 
