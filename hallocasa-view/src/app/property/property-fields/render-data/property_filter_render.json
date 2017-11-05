@@ -196,11 +196,26 @@
         },
         "filterList": [
           {
-            "id": 8,
-            "name": "Department",
+            "id": "repeater_group",
             "flexMobile": 100,
-            "flexTablet": 50,
-            "flexDesktop": 33
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 7,
+              "parentIDName": "countryId"
+            },
+            "filterList": [
+              {
+                "id": 8,
+                "name": "Department",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "static_options"
+                }
+              }
+            ]
           }
         ]
       },
@@ -214,11 +229,26 @@
         },
         "filterList": [
           {
-            "id": 9,
-            "name": "Town",
+            "id": "repeater_group",
             "flexMobile": 100,
-            "flexTablet": 50,
-            "flexDesktop": 33
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 8,
+              "parentIDName": "stateId"
+            },
+            "filterList": [
+              {
+                "id": 9,
+                "name": "Town",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "static_options"
+                }
+              }
+            ]
           }
         ]
       },
@@ -369,7 +399,7 @@
           "type": "static_options",
           "range": {
             "suffixString": "%",
-            "floor": 0,
+            "floor": -100,
             "ceiling": 100
           }
         }

@@ -5,13 +5,18 @@
     .module('HalloCasa.global')
     .service('FiltersService', FiltersService);
 
-  function FiltersService($log) {
+  function FiltersService($log, backend_url, $resource, GenericRESTResource) {
     var service = {
-      generateFiltersRender: generateFiltersRender
+      generateFiltersRender: generateFiltersRender,
+      loadFiltersOptions: loadFiltersOptions
+    };
+
+    var resources = {
+      loadOptions: $resource(backend_url + "property_filters/options/:filterID", {}, GenericRESTResource)
     };
 
     var totalFilters, filtersRendered;
-    var componentsIdentifiers = ["accordion_group", "separator_group"];
+    var componentsIdentifiers = ["accordion_group", "separator_group", "repeater_group"];
 
     return service;
 
@@ -50,6 +55,10 @@
 
     function searchFilterById(filterId, filterDataList) {
       return _.find(filterDataList, function (fieldData) {return fieldData.filter.id === filterId});
+    }
+
+    function loadFiltersOptions(filterID, payload) {
+      return resources.loadOptions.consult({filterID: filterID}, payload).$promise;
     }
   }
 })();
