@@ -24,34 +24,37 @@
         function watchFilter() {
           var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
             if(filterInformation.propertyFilter.filter.id === scope.idFilter){
-
-              FiltersService.loadFiltersOptions(repeatedFilter.filter.id, [filterInformation]).then(function (options) {
-                updateFilterList(filterInformation, options);
-              });
+              updateFilterList(filterInformation);
             }
           });
 
           scope.$on("$destroy", destroyListener);
         }
 
-        function updateFilterList(filterInformation, options) {
+        function updateFilterList(filterInformation) {
           _.each(filterInformation.selectedFilterOptions, function (selectedOption) {
             var found = _.find(scope.valueList, function (filterData) {
               return filterData.filter.options.showOnSpecificID === selectedOption.optionId;
             });
 
             if(!found) {
-              var filterData = angular.copy(repeatedFilter);
-              var filterOptions = _.filter(options, function (option) {
-                return option.parentInfo[scope.parentIdName] === selectedOption.optionId;
-              });
-
-              filterData.filter.options.showOnSpecificID = selectedOption.optionId;
-              filterData.filter.options.conditionalFilter = true;
-              filterData.propertyField.dropdownOptionGroup = {dropdownOptionList: filterOptions, translationManagement: "NONE"};
-
-              scope.valueList.push(filterData);
+              enableConditionalFilter(filterInformation, selectedOption);
             }
+          });
+        }
+
+        function enableConditionalFilter(filterInformation, selectedOption) {
+          FiltersService.loadFiltersOptions(repeatedFilter.filter.id, [filterInformation]).then(function (options) {
+            var filterData = angular.copy(repeatedFilter);
+            var filterOptions = _.filter(options, function (option) {
+              return option.parentInfo[scope.parentIdName] === selectedOption.optionId;
+            });
+
+            filterData.filter.options.showOnSpecificID = selectedOption.optionId;
+            filterData.filter.options.conditionalFilter = true;
+            filterData.propertyField.dropdownOptionGroup = {dropdownOptionList: filterOptions, translationManagement: "NONE"};
+
+            scope.valueList.push(filterData);
           });
         }
 
