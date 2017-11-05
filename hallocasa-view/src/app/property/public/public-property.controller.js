@@ -54,7 +54,6 @@
 
     function listenFiltersChanges() {
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-        console.info("Cambio de filtro:", filterInformation.propertyFilter.filter.id, filterInformation.propertyFilter.filter.name, "Total seleccionados:", filterInformation.selectedFilterOptions.length);
         var filterIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
           return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
         });
