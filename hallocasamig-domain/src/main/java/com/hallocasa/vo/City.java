@@ -11,6 +11,8 @@ public class City implements ValueObject, Serializable {
 	private Double defaultLatCoordinate;
 	private Double defaultLngCoordinate;
 	private Integer defaultZoom;
+	private Integer stateId;
+	private Integer countryId;
 	
 	private static final long serialVersionUID = -4114890974708798918L;
 
@@ -52,5 +54,21 @@ public class City implements ValueObject, Serializable {
 
 	public void setDefaultZoom(Integer defaultZoom) {
 		this.defaultZoom = defaultZoom;
+	}
+
+	public Integer getStateId() {
+		return stateId;
+	}
+
+	public void setStateId(Integer stateId) {
+		this.stateId = stateId;
+	}
+
+	public Integer getCountryId() {
+		return countryId;
+	}
+
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
 	}
 }

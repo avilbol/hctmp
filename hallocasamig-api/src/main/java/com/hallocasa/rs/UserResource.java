@@ -1,5 +1,7 @@
 package com.hallocasa.rs;
 
+import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_TOKEN_HEADER;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -21,6 +23,7 @@ import com.hallocasa.rs.security.Secured;
 import com.hallocasa.services.user.UserService;
 import com.hallocasa.vo.User;
 import com.hallocasa.vo.dto.UserListRequest;
+import com.hallocasa.vo.hcfilter.UserFilterRequest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -29,7 +32,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import static com.hallocasa.rs.security.constants.SecurityConstants.O_AUTH_TOKEN_HEADER;
 
 @Path("/user")
 @Api(value="/user", tags = "users")
@@ -94,6 +96,21 @@ public class UserResource extends BasicResource {
 		userService.activateUser(email, activationKey);
 		return Response.status(HttpStatus.SC_OK).entity(
 				"User activated succesfully").build();
+	}
+	
+	@POST
+	@Path("search")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Auth
+	@ApiOperation(value = "Search users with specified filters")
+	@ApiResponses({ @ApiResponse(code = 401, message = "If user is unauthorized"),
+			@ApiResponse(code = 500, message = "If server internal error"),
+			@ApiResponse(code = 200, message = "Ok. Generated resource") })
+	public Response findProperties(
+			@ApiParam(value = "filters") UserFilterRequest userFilterRequest) {
+		return Response.status(HttpStatus.SC_OK).entity(
+				userService.find(userFilterRequest)).build();
 	}
 	
 	@POST

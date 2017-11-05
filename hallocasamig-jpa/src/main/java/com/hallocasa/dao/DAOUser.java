@@ -1,6 +1,7 @@
 package com.hallocasa.dao;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -13,12 +14,17 @@ import com.hallocasa.entities.EntityUser;
 import com.hallocasa.entities.EntityUserDescription;
 import com.hallocasa.entities.EntityUserLanguage;
 import com.hallocasa.jpaservices.i.AppPersistenceServices;
+import com.hallocasa.jpaservices.i.QueryUtils;
+import com.hallocasa.vo.resultrequest.ResultRequest;
 
 @Stateless
 public class DAOUser implements IDAOUser {
 
 	@EJB
 	private AppPersistenceServices appPersistenceServices;
+	
+	@EJB
+	private QueryUtils queryUtils;
 
 	@Override
 	public Optional<EntityUser> find(String email) {
@@ -61,12 +67,61 @@ public class DAOUser implements IDAOUser {
 		return appPersistenceServices.executeQuery(
 				query.toString(), params, Long.class).get(0);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Long> findIdentifierListByFilterRequest(String filterQuery,
+			ResultRequest resultRequest) {
+		StringBuilder resultQuery = new StringBuilder("");
+		resultQuery.append(filterQuery)
+				.append(queryUtils.loadOrderBySnippetQuery(resultRequest.getOrderBy(), resultRequest.getAsc()));
+		List<Object> objList = appPersistenceServices.executeNativeQuery(resultQuery.toString(), null,
+				resultRequest.getPageFrom() - 1, resultRequest.getPageTo());
+		List<Long> resultList = new LinkedList<>();
+		for (Object obj : objList) {
+			resultList.add(Long.parseLong(String.valueOf(obj)));
+		}
+		return resultList;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Long findIdentifierCountByFilterRequest(String filterQuery) {
+		return (Long) (appPersistenceServices.executeNativeQuery(filterQuery, new Object[0]).get(0));
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<EntityUser> findByUserIdList(List<Long> idList, ResultRequest resultRequest) {
+		String query = "select u from EntityUser u where u.id IN ?1 ";
+		StringBuilder resultQuery = new StringBuilder("");
+		resultQuery.append(query);
+		if (resultRequest != null) {
+			resultQuery.append(queryUtils.loadOrderBySnippetQuery(resultRequest.getOrderBy(), resultRequest.getAsc()));
+		}
+		List<EntityUser> userList = appPersistenceServices.executeQuery(resultQuery.toString(), new Object[] { idList },
+				EntityUser.class);
+		complement(idList, userList);
+		return userList;
+	}
 
 	@Override
 	public List<EntityUser> loadUserListByIdList(List<Long> idList) {
 		Object[] params = new Object[]{idList};
 		List<EntityUser> userList = appPersistenceServices.executeNamedQuery(
 				EntityUser.QUERY_FIND_BY_ID_LIST, params, EntityUser.class);
+		complement(idList, userList);
+		return userList;
+	}
+	
+	private void complement(List<Long> idList, List<EntityUser> userList){
+		Object[] params = new Object[]{idList};
 		List<EntityUserLanguage> userLangList = appPersistenceServices.executeNamedQuery(
 				EntityUserLanguage.QUERY_FIND_BY_ID_LIST, params, 
 				EntityUserLanguage.class);
@@ -84,7 +139,6 @@ public class DAOUser implements IDAOUser {
 			userMap.get(entUserDesc.getUser().getId())
 				.getUserDescriptions().add(entUserDesc);
 		}
-		return userList;
 	}
 
 	@Override

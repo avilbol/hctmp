@@ -166,6 +166,11 @@
           vm.currentCurrrency = currencyToUse;
           CurrencyService.setCurrentCurrency(currencyToUse);
           $translate.use(localeToUse);
+        })
+        .catch(function(err){
+          console.log(err);
+          CurrencyService.setCurrentCurrency({"id":3, "abbreviation":"USD"});
+          $translate.use(LOCALES.defaultLocale);
         });
     }
 

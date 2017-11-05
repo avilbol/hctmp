@@ -3,7 +3,6 @@ package com.hallocasa.services.hcfilters.filterworkers;
 import java.util.Map;
 
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
-import com.hallocasa.vo.hcfilter.RangeFieldPresentation;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 import com.hallocasa.vo.options.DropdownOption;
 

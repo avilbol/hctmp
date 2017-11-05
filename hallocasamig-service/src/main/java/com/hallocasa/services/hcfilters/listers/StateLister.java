@@ -21,6 +21,7 @@ public class StateLister extends HcLister<State> {
 		DropdownOption opt = new DropdownOption();
 		opt.setOptionId(state.getId());
 		opt.setData1(state.getName());
+		opt.addToParentInfo("countryId", state.getCountryId());
 		return opt;
 	}
 	

@@ -2,12 +2,16 @@ package com.hallocasa.utils.resolvers;
 
 import com.hallocasa.services.hcfilters.listers.CityLister;
 import com.hallocasa.services.hcfilters.listers.HcLister;
+import com.hallocasa.services.hcfilters.listers.NeighborhoodLister;
+import com.hallocasa.services.hcfilters.listers.PropertyTypeLister;
 import com.hallocasa.services.hcfilters.listers.StateLister;
 import com.hallocasa.vo.hcfilter.HcListerOption;
 
 public enum HcListerOptionRes {
 	STATE(new StateLister()),
-	CITY(new CityLister());
+	CITY(new CityLister()),
+	NEIGHBORHOOD(new NeighborhoodLister()),
+	PROPERTY_TYPE(new PropertyTypeLister());
 	
 	private HcLister lister;
 	

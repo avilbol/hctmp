@@ -24,6 +24,9 @@ public class NeighborhoodLister extends HcLister<Neighborhood> {
 		opt.setOptionId(neighborhood.getId());
 		opt.setData1(neighborhood.getLang());
 		opt.setData2(neighborhood.getDependsOnLang().toString());
+		opt.addToParentInfo("countryId", neighborhood.getCountryId());
+		opt.addToParentInfo("stateId", neighborhood.getStateId());
+		opt.addToParentInfo("cityId", neighborhood.getCityId());
 		return opt;
 	}
 
@@ -35,7 +38,7 @@ public class NeighborhoodLister extends HcLister<Neighborhood> {
 		try {
 			return (NeighborhoodService) InitialContext.doLookup(neighborhoodServiceJndi);
 		} catch (NamingException e) {
-			throw new FatalException("Lookup for state service failed", e);
+			throw new FatalException("Lookup for neighborhood service failed", e);
 		}
 	}
 }
