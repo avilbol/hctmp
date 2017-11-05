@@ -54,6 +54,7 @@
 
     function listenFiltersChanges() {
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+        console.info("Cambio de filtro:", filterInformation.propertyFilter.filter.id, filterInformation.propertyFilter.filter.name, "Total seleccionados:", filterInformation.selectedFilterOptions.length);
         var filterIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
           return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
         });
@@ -76,7 +77,9 @@
 
     function processDropdownSelection(filterInformation, filterIndex) {
       if(_.isEmpty(filterInformation.selectedFilterOptions)){
-        selectedFilters.splice(filterIndex, 1);
+        if(filterIndex !== -1){
+          selectedFilters.splice(filterIndex, 1);
+        }
       }
       else{
         if(filterIndex === -1){
