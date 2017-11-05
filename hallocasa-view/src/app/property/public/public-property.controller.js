@@ -16,18 +16,20 @@
     vm.loadPropertiesPage = loadPropertiesPage;
     vm.properties = [];
     vm.totalProperties = 0;
+    vm.order = {};
     vm.propertiesPerPage = 100;
     vm.totalAmount = [100,150,200];
     vm.firstLoading = true;
     vm.filtersRendered = false;
     vm.clearFilters = clearFilters;
+    vm.sortProperties = sortProperties;
 
     vm.pagination = {
       current: 1
     };
 
     function loadPropertiesPage(page, filterList) {
-      PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1, filterList)
+      PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1, filterList, vm.order)
         .then(function (data) {
           vm.properties = PropertyService.generatePropertiesPreviewData(data.propertyList);
           vm.totalProperties = data.count;
@@ -74,7 +76,9 @@
 
     function processDropdownSelection(filterInformation, filterIndex) {
       if(_.isEmpty(filterInformation.selectedFilterOptions)){
-        selectedFilters.splice(filterIndex, 1);
+        if(filterIndex !== -1){
+          selectedFilters.splice(filterIndex, 1);
+        }
       }
       else{
         if(filterIndex === -1){
@@ -135,6 +139,10 @@
     function clearFilters() {
       selectedFilters = [];
       $rootScope.$broadcast("FilterSystem:clearFilters");
+    }
+
+    function sortProperties(){
+      loadPropertiesPage(1, selectedFilters);
     }
 
     loadPropertiesPage(1);

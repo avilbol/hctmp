@@ -1,17 +1,49 @@
-<md-content>
-    <div layout="row" layout-align="center">
-      <div flex-gt-sm="70" flex-gt-xs="80" flex-xs="100">
-        <div ng-repeat="profile in vm.profiles" infinity-scroll container="#mainContainer" fetch-more="vm.fetchRangeProfiles()" distance-load="20">
-          <a
-            ng-include="'app/profiles/templates/big-profiles-card.html'"
-            ng-href="/profile?id={{profile.id}}"
-            class="disable-hyperlinks-style"
-            ng-show="profile"
-            scroll-on-click
-          ></a>
-        </div>
+<md-content layout-padding>
+  <div layout="row" layout-align="center center">
+    <md-button class="md-raised md-primary" ng-click="vm.openFiltersDialog($event)">
+      {{'PropertyBrowse.Filters' | translate}}
+    </md-button>
+    <div ng-if="vm.totalProperties > 0">
+      <b>{{vm.totalProperties}}</b>
+      <span>{{'PropertiesFilters.PropertiesCount' | translate}}</span>
+    </div>
+    <span flex="5"></span>
+    <div ng-if="vm.totalProperties > 0">
+      <b>{{'PropertiesFilters.SortBy' | translate}}:</b>
+      <md-input-container>
+        <label translate>{{'propertyWizardPage.property.PublishDate'}}</label>
+        <md-select
+          title="{{'propertyWizardPage.property.PublishDate' | translate}}"
+          ng-model="vm.order.publishDate"
+          aria-label="Order by publish date"
+          placeholder="{{'propertyWizardPage.property.PublishDate' | translate}}"
+          ng-change="vm.sortProperties()"
+        >
+          <md-option ng-value="'mostRecent'" translate>
+            {{'PropertiesFilters.orderBy.mostRecent'}}
+          </md-option>
+          <md-option ng-value="'lessRecent'" translate>
+            {{'PropertiesFilters.orderBy.lessRecent'}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <span flex></span>
+  </div>
+
+  <div layout="row" layout-align="center">
+    <div flex-gt-sm="70" flex-gt-xs="80" flex-xs="100">
+      <div ng-repeat="profile in vm.profiles" infinity-scroll container="#mainContainer" fetch-more="vm.fetchRangeProfiles()" distance-load="20">
+        <a
+          ng-include="'app/profiles/templates/big-profiles-card.html'"
+          ng-href="/profile?id={{profile.id}}"
+          class="disable-hyperlinks-style"
+          ng-show="profile"
+          scroll-on-click
+        ></a>
       </div>
     </div>
+  </div>
   <br>
   <div layout="row" layout-align="center">
     <md-progress-circular md-mode="indeterminate" ng-disabled="!vm.showLoading" ng-if="!vm.isSafari"></md-progress-circular>
@@ -29,3 +61,34 @@
   </div>
   <br>
 </md-content>
+
+<div style="visibility: hidden">
+  <div class="md-dialog-container" id="profileFilters">
+    <md-dialog flex>
+      <md-content layout-padding>
+        <div layout="row" layout-align="end center">
+          <md-button class="md-icon-button md-primary" ng-click="vm.closeFiltersDialog()" aria-label="close">
+            <i class="fa fa-close"></i>
+          </md-button>
+        </div>
+        <div layout="row" layout-align="center" ng-if="!vm.filtersRendered">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <filters-interpreter
+          filters-list="vm.filters"
+          filters-root-scope="vm.filters"
+          filters-rendered="vm.filtersRendered"
+          ng-cloak
+        ></filters-interpreter>
+        <div layout="row" layout-align="end center">
+          <md-button ng-click="vm.clearFilters()" class="md-raised">
+            {{'placeholder.clear' | translate}}
+          </md-button>
+          <md-button ng-click="vm.closeFiltersDialog()" class="md-raised md-primary">
+            {{'placeholder.search' | translate}}
+          </md-button>
+        </div>
+      </md-content>
+    </md-dialog>
+  </div>
+</div>

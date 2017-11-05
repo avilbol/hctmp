@@ -59,115 +59,6 @@
         }
       },
       {
-        "id": 7,
-        "name": "Country",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "dynamic_options",
-          "serviceId": "Country"
-        }
-      },
-      {
-        "id": 8,
-        "name": "Department",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33
-      },
-      {
-        "id": 9,
-        "name": "Town",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33
-      },
-      {
-        "id": 10,
-        "name": "Neighborhood",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33
-      },
-      {
-        "id": 28,
-        "name": "Estrato - Colombia",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "static_options",
-          "showOnSpecificID": 1
-        }
-      },
-      {
-        "id": 29,
-        "name": "Estrato - Chile",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "static_options",
-          "showOnSpecificID": 3
-        }
-      },
-      {
-        "id": 30,
-        "name": "Estrato - Costa Rica",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "static_options",
-          "showOnSpecificID": 8
-        }
-      },
-      {
-        "id": 31,
-        "name": "Estrato - Ecuador",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "static_options",
-          "showOnSpecificID": 9
-        }
-      },
-      {
-        "id": 32,
-        "name": "Estrato - Panamá",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "static_options",
-          "showOnSpecificID": 4
-        }
-      },
-      {
-        "id": 33,
-        "name": "Estrato - Perú",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "static_options",
-          "showOnSpecificID": 5
-        }
-      },
-      {
-        "id": 34,
-        "name": "Estrato - Argentina",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "static_options",
-          "showOnSpecificID": 2
-        }
-      },
-      {
         "id": 5,
         "name": "Market Price",
         "flexMobile": 100,
@@ -195,6 +86,201 @@
             "ceiling": 10000
           }
         }
+      },
+      {
+        "id": 7,
+        "name": "Country",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "Country"
+        }
+      },
+      {
+        "id": "separator_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "showOnSelectedOption": 7
+        },
+        "filterList": [
+          {
+            "id": 28,
+            "name": "Estrato - Colombia",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 1
+            }
+          },
+          {
+            "id": 29,
+            "name": "Estrato - Chile",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 3
+            }
+          },
+          {
+            "id": 30,
+            "name": "Estrato - Costa Rica",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 8
+            }
+          },
+          {
+            "id": 31,
+            "name": "Estrato - Ecuador",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 9
+            }
+          },
+          {
+            "id": 32,
+            "name": "Estrato - Panamá",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 4
+            }
+          },
+          {
+            "id": 33,
+            "name": "Estrato - Perú",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 5
+            }
+          },
+          {
+            "id": 34,
+            "name": "Estrato - Argentina",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 2
+            }
+          }
+        ]
+      },
+      {
+        "id": "separator_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "showOnSelectedOption": 7
+        },
+        "filterList": [
+          {
+            "id": "repeater_group",
+            "flexMobile": 100,
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 7,
+              "parentIDName": "countryId"
+            },
+            "filterList": [
+              {
+                "id": 8,
+                "name": "Department",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "static_options"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "separator_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "showOnSelectedOption": 8
+        },
+        "filterList": [
+          {
+            "id": "repeater_group",
+            "flexMobile": 100,
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 8,
+              "parentIDName": "stateId"
+            },
+            "filterList": [
+              {
+                "id": 9,
+                "name": "Town",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "static_options"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "separator_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "showOnSelectedOption": 9
+        },
+        "filterList": [
+          {
+            "id": "repeater_group",
+            "flexMobile": 100,
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 9,
+              "parentIDName": "cityId"
+            },
+            "filterList": [
+              {
+                "id": 10,
+                "name": "Neighborhood",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -325,7 +411,7 @@
           "type": "static_options",
           "range": {
             "suffixString": "%",
-            "floor": 0,
+            "floor": -100,
             "ceiling": 100
           }
         }

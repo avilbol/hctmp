@@ -12,14 +12,16 @@
       saveProfile: saveProfile,
       loadProfile: loadProfile,
       loadPublicProfiles: loadPublicProfiles,
-      validateUserData: validateUserData
+      validateUserData: validateUserData,
+      loadProfilesFilters: loadProfilesFilters
     };
 
     var resources = {
       profileSave: $resource(backend_url + "user", {}, GenericRESTResource),
       userTypes: $resource(backend_url + "user_types", {}, GenericRESTResource),
       profileLoad: $resource(backend_url + "user/detail/:id", {}, GenericRESTResource),
-      profilePublic: $resource(backend_url + "user/fetch_random", {}, GenericRESTResource)
+      profilePublic: $resource(backend_url + "user/fetch_random", {}, GenericRESTResource),
+      profileFiltersRender: $resource("/app/profiles/profiles-fields/render-data/profile_filter_render.json", {}, GenericRESTResource)
     };
 
     return service;
@@ -80,5 +82,10 @@
       data.properties = PropertyService.generatePropertiesPreviewData(data.properties);
       return data;
     }
+
+    function loadProfilesFilters() {
+      return resources.profileFiltersRender.query().$promise
+    }
+
   }
 })();

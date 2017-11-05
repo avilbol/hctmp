@@ -16,6 +16,9 @@
       },
       link: function (scope, element) {
         var optionsData = scope.filterInformation.filter.options;
+        var showingStepList = scope.filterInformation.filter.showingStepList;
+        var conditionalFilter = (_.isObject(optionsData) && optionsData.conditionalFilter);
+        var localFilterSelectedOptions = [];
 
         scope.filterName = scope.$id;
         scope.title = scope.filterInformation.filter.usePropertyField ?
@@ -76,8 +79,10 @@
             });
         }
 
-        function emitSelectedOption(selectedOptions) {
+        function emitSelectedOption() {
           var selectedFilterOptions;
+          var selectedOptions = scope.selected.options;
+
           if(_.isArray(selectedOptions)){
             selectedFilterOptions =  _.map(selectedOptions, _.partial(_.pick, _, "optionId"))
           }
@@ -86,11 +91,37 @@
             selectedFilterOptions = _.isEmpty(option) ? [] : [option];
           }
 
+          if(conditionalFilter){
+            selectedFilterOptions = synchronizeLocalFilterSelectedOptions(selectedFilterOptions);
+          }
+
           var selectionPayload = {
             propertyFilter: scope.filterInformation,
             selectedFilterOptions: selectedFilterOptions
           };
           $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
+        }
+
+        function synchronizeLocalFilterSelectedOptions(selectedFilterOptions) {
+          _.each(scope.options, function (option) {
+            var localSelected = _.find(selectedFilterOptions, function (selectedOption) {
+              return selectedOption.optionId === option.optionId;
+            });
+
+            var localOptionIndex = _.findIndex(localFilterSelectedOptions, function (localSelected) {
+              return option.optionId === localSelected.optionId
+            });
+
+            if(localSelected && localOptionIndex === -1){
+              var synchronizedOption = _.pick(option, "optionId");
+              localFilterSelectedOptions.push(synchronizedOption);
+            }
+            if(!localSelected && localOptionIndex !== -1){
+              localFilterSelectedOptions.splice(localOptionIndex, 1);
+            }
+
+          });
+          return localFilterSelectedOptions;
         }
 
         function watchRender() {
@@ -124,7 +155,8 @@
         function watchCleanFilter() {
           var watcher = $rootScope.$on("FilterSystem:clearFilters", function () {
             scope.selected.options = [];
-            if(scope.filterInformation.filter.showingStepList.length){
+            localFilterSelectedOptions = [];
+            if(showingStepList.length){
               displayFilter(false);
             }
           });
@@ -132,9 +164,14 @@
         }
 
         function internalDependencyShowHandler(filterId, dependentValue){
-          displayFilter(false);
+          if(!conditionalFilter) {
+            displayFilter(false);
+          }
 
           var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+            if(conditionalFilter && filterInformation.propertyFilter.filter.id === scope.filterInformation.filter.id){
+              localFilterSelectedOptions = filterInformation.selectedFilterOptions;
+            }
             if(filterInformation.propertyFilter.filter.id === filterId){
               var showFilter = _.find(filterInformation.selectedFilterOptions, function (selectedOption) {
                 return selectedOption.optionId === dependentValue;
@@ -146,31 +183,11 @@
           scope.$on("$destroy", destroyListener);
         }
 
-        function externalOptionsDependencyHandler(filterId){
-          displayFilter(false);
-
-          var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-            if(filterInformation.propertyFilter.filter.id === filterId){
-              var showFilter = filterInformation.selectedFilterOptions.length > 0;
-              displayFilter(showFilter);
-
-              //TODO: Load options by external service
-              scope.options = [];
-            }
-          });
-
-          scope.$on("$destroy", destroyListener);
-        }
-
         function detectConditionalShowFilter() {
-          var showingStepList = scope.filterInformation.filter.showingStepList;
           if(showingStepList.length){
             var filterId = _.first(showingStepList).filterCondition.filterId;
             if(_.isObject(optionsData) && optionsData.showOnSpecificID){
               internalDependencyShowHandler(filterId, optionsData.showOnSpecificID);
-            }
-            else{
-              externalOptionsDependencyHandler(filterId);
             }
           }
         }
@@ -178,6 +195,25 @@
         function displayFilter(show) {
           var displayValue = show ? "initial" : "none";
           element.closest(".filterContainer").css("display",displayValue);
+          if(!show){
+            scope.selected.options = [];
+            if(conditionalFilter){
+              cleanLocalFilterSelections();
+            }
+            emitSelectedOption();
+          }
+        }
+        function cleanLocalFilterSelections() {
+          _.each(scope.options, function (option) {
+            var optionIndex = _.findIndex(localFilterSelectedOptions, function (localSelected) {
+              return localSelected.optionId === option.optionId;
+            });
+
+            if(optionIndex !== -1){
+              localFilterSelectedOptions.splice(optionIndex, 1);
+            }
+          });
+
         }
 
         detectConditionalShowFilter();

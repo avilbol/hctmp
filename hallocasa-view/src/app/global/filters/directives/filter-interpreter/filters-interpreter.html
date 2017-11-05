@@ -35,6 +35,21 @@
         filters-list="filterData.filterList"
         filters-root-scope="filtersRootScope"
       ></accordion-filter-group>
+
+      <separator-filter-group
+        ng-switch-when="separator_group"
+        filter-information="filterData"
+        filters-list="filterData.filterList"
+        filters-root-scope="filtersRootScope"
+      ></separator-filter-group>
+
+      <repeater-filter-group
+        ng-switch-when="repeater_group"
+        id-filter="filterData.options.idField"
+        parent-id-name="filterData.options.parentIDName"
+        filters-list="filterData.filterList"
+        filters-root-scope="filtersRootScope"
+      ></repeater-filter-group>
     </div>
   </div>
 </div>

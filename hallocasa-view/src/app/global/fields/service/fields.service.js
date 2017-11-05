@@ -5,7 +5,8 @@
     .module('HalloCasa.global')
     .service('FieldsService', FieldsService);
 
-  function FieldsService(LanguageService, LocationService, CurrencyService, DataCalcService, $q, $log, PropertyService) {
+  function FieldsService(LanguageService, LocationService, CurrencyService, DataCalcService, $q, $log, PropertyService,
+                         ProfilesService) {
     var service = {
       generateFieldsRender: generateFieldsRender,
       loadOptionsByServiceId: loadOptionsByServiceId,
@@ -116,6 +117,11 @@
       switch (serviceId){
         case "Languages":
           servicePromise = LanguageService.getLanguages();
+          break;
+        case "Services":
+          servicePromise = $q(function (resolve) {
+            langToData1Processor(ProfilesService.getServices(), resolve);
+          });
           break;
         case "Country":
           servicePromise = LocationService.getCountries();

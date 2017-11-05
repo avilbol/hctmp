@@ -56,19 +56,24 @@
       return resources.propertyProposals.query().$promise;
     }
 
-    function loadPublicProperties(start, finish, filterList) {
+    function loadPublicProperties(start, finish, filterList, order) {
       $log.log("Cargar rango de propiedades: ("+start+" - "+finish+")");
       filterList = filterList ? filterList : [];
+      order = order ? order : {};
+
       var filter = {
         filterList: filterList,
         resultRequest:{
           pageFrom: start+1,
           pageTo: finish+1,
-          orderByMostRecent: false,
-          orderByLessRecent: false,
           loadCount: true
         }
       };
+
+      filter.resultRequest.orderByMostRecent = order.publishDate === "mostRecent";
+      filter.resultRequest.orderByLessRecent = order.publishDate === "lessRecent";
+      filter.resultRequest.loadCount = start === 0;
+
       return resources.propertiesPublic.consultObj(filter).$promise;
     }
 
