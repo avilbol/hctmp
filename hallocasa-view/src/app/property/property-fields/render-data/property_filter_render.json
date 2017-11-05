@@ -59,17 +59,6 @@
         }
       },
       {
-        "id": 7,
-        "name": "Country",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "dynamic_options",
-          "serviceId": "Country"
-        }
-      },
-      {
         "id": 5,
         "name": "Market Price",
         "flexMobile": 100,
@@ -96,6 +85,17 @@
             "floor": 0,
             "ceiling": 10000
           }
+        }
+      },
+      {
+        "id": 7,
+        "name": "Country",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "Country"
         }
       },
       {
@@ -262,11 +262,23 @@
         },
         "filterList": [
           {
-            "id": 10,
-            "name": "Neighborhood",
+            "id": "repeater_group",
             "flexMobile": 100,
-            "flexTablet": 50,
-            "flexDesktop": 33
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 9,
+              "parentIDName": "cityId"
+            },
+            "filterList": [
+              {
+                "id": 10,
+                "name": "Neighborhood",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33
+              }
+            ]
           }
         ]
       }
