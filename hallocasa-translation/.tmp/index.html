@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+
+<head>
+  <base href="/">
+  <meta charset="utf-8">
+  <title>HalloCasa Admin</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="./assets/images/logo-hallocasa.png" />
+
+  <!-- build:css({.tmp,src}) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="../bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="../bower_components/angular-toastr/dist/angular-toastr.css" />
+  <link rel="stylesheet" href="../bower_components/angular-material-icons/angular-material-icons.css" />
+  <link rel="stylesheet" href="../bower_components/md-data-table/dist/md-data-table-style.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:css({.tmp,src}) styles/app.css -->
+  <link rel="stylesheet" href="index.css" />
+  <!-- endbuild -->
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+
+<body ng-app="HalloCasaAdmin">
+  <div layout="column" layout-fill ng-controller="IndexController as IndexCtrl">
+    <md-toolbar class="md-medium-tall" layout-align="center center" layout="row" ng-if="IndexCtrl.showToolbars" md-colors="::{backgroundColor: 'primary-50', color: 'primary-900'}"
+      md-whiteframe="5">
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button menu-button" aria-label="menu" hide-gt-sm show-md ng-click="IndexCtrl.toggleMenu()">
+          <i class="material-icons">menu</i>
+        </md-button>
+        <span flex hide-gt-sm show-md></span>
+        <md-button aria-label="main" href="/" class="no-hover">
+          <img class="png-icon main-logo" flex src="./assets/images/logo-hallocasa.png">
+        </md-button>
+        <span flex hide-gt-sm show-md></span>
+        <div hide-md hide-sm hide-xs layout="row" flex>
+          <div layout="row" flex="20">
+            <md-button ng-click="IndexCtrl.goTo('/traductions')" class="bold-hover">
+              Manage Traductions
+            </md-button>
+          </div>
+          <span flex></span>
+          <div layout="row" flex="50" layout-align="end">
+            <div>
+              <!--<ng-translate-language-select></ng-translate-language-select>-->
+            </div>
+            <div>
+              <!--<currency-select></currency-select>-->
+            </div>
+            <md-button class="bold-hover">
+              Login
+            </md-button>
+            <!--<md-button ng-click="IndexCtrl.launchLoginDialog($event)" ng-if="!IndexCtrl.isAuthenticated()" class="bold-hover">
+                          {{'Header.Login.Button' | translate}}
+                      </md-button>
+                      <md-button class="md-primary md-raised" ng-click="IndexCtrl.launchRegisterDialog($event)" ng-if="!IndexCtrl.isAuthenticated()">
+                          {{'Header.SignUp.Button' | translate}}
+                      </md-button>-->
+            <!--<div>
+                          <md-menu ng-if="IndexCtrl.isAuthenticated()" layout-fill layout="row" layout-align="center stretch">
+                          <md-button ng-click='$mdMenu.open($event)' class="bold-hover">
+                              <span>{{IndexCtrl.getCurrentUserIdentifier()}}</span>
+                          </md-button>
+                          <md-menu-content>
+                              <md-menu-item>
+                              <md-button ng-click="IndexCtrl.goTo('/profile/my-profile', false)">
+                                  {{'GlobalMenu.GoToProfile' | translate}}
+                              </md-button>
+                              </md-menu-item>
+                              <md-menu-item>
+                              <md-button ng-click="IndexCtrl.logout()">
+                                  {{'Header.Logout.Button' | translate}}
+                              </md-button>
+                              </md-menu-item>
+                          </md-menu-content>
+                          </md-menu>
+                      </div>-->
+          </div>
+        </div>
+      </div>
+    </md-toolbar>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+      <md-toolbar class="md-whiteframe-4dp md-tall" layout="row">
+        <h1 class="md-toolbar-tools">Hallo Casa Admin</h1>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="IndexCtrl.toggleMenu()" aria-label="close">
+          <i class="material-icons icon-select">close</i>
+        </md-button>
+      </md-toolbar>
+      <md-content layout-padding>
+        <md-list flex>
+          <md-subheader class="md-no-sticky">Menu</md-subheader>
+          <md-list-item md-ink-ripple ng-click="IndexCtrl.goTo('/traductions', true)" scroll-on-click>
+            <p>Manage Traductions</p>
+          </md-list-item>
+          <!--<md-list-item md-ink-ripple ng-click="MainCtrl.goTo('/profile/browser', true)">
+            <p> {{'Common.Label.BrowseProfiles' | translate}}</p>
+          </md-list-item>
+          <md-list-item md-ink-ripple ng-click="MainCtrl.launchLoginDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
+            <p> {{'Header.Login.Button' | translate}}</p>
+          </md-list-item>
+          <md-list-item>
+            <md-button flex class="md-raised" ng-click="MainCtrl.launchRegisterDialog($event)" ng-if="!MainCtrl.isAuthenticated()">
+              {{'Header.SignUp.Button' | translate}}
+            </md-button>
+          </md-list-item>
+          <md-list-item class="menu-item-left-align">-->
+            <!--<md-menu ng-if="MainCtrl.isAuthenticated()" flex>-->
+              <!--<md-button ng-click='$mdMenu.open($event)'>
+                <div>{{MainCtrl.getCurrentUserIdentifier()}}</div>
+              </md-button>
+              <md-menu-content>
+                <md-menu-item>
+                  <md-button ng-click="MainCtrl.goTo('/profile/my-profile', true)">
+                    {{'GlobalMenu.GoToProfile' | translate}}
+                  </md-button>
+                </md-menu-item>
+                <md-menu-item>
+                  <md-button ng-click="MainCtrl.logout()">
+                    {{'Header.Logout.Button' | translate}}
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>-->
+            <!--</md-menu>-->
+          <!--</md-list-item>-->
+          <!--<md-list-item>
+            <ng-translate-language-select class="menu-item-left-align"></ng-translate-language-select>
+          </md-list-item>
+          <md-list-item>
+            <currency-select class="menu-item-left-align"></currency-select>
+          </md-list-item>-->
+        </md-list>
+      </md-content>
+    </md-sidenav>
+    <md-content flex id="indexContainer">
+      <md-content ng-view flex layout="column" class="ng-view-container"></md-content>
+      <div layout="row" layout-align="center" layout-padding>
+        <span> <b>© 2017</b> HalloCasa Admin {{IndexCtrl.appVersion}}, All Rights Reserved</span>
+      </div>
+    </md-content>
+  </div>
+</body>
+
+<!-- build:js({.tmp,src}) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-animate/angular-animate.js"></script>
+<script src="../bower_components/angular-aria/angular-aria.js"></script>
+<script src="../bower_components/angular-messages/angular-messages.js"></script>
+<script src="../bower_components/angular-material/angular-material.js"></script>
+<script src="../bower_components/angular-route/angular-route.js"></script>
+<script src="../bower_components/angular-resource/angular-resource.js"></script>
+<script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="../bower_components/moment/moment.js"></script>
+<script src="../bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/lodash/lodash.js"></script>
+<script src="../bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+<script src="../bower_components/md-data-table/dist/md-data-table.js"></script>
+<script src="../bower_components/md-data-table/dist/md-data-table-templates.js"></script>
+<script src="../bower_components/ng-lodash/build/ng-lodash.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,src}) scripts/app.js -->
+<!-- inject:js -->
+<script src="app/global/lodash/lodash.factory.js"></script>
+<script src="index.module.js"></script>
+<script src="app/translation/manageTranslations.controller.js"></script>
+<script src="app/services/translations.service.js"></script>
+<script src="app/main/main.controller.js"></script>
+<script src="routes.js"></script>
+<script src="index.controller.js"></script>
+<script src="index.constants.js"></script>
+<script src="environment.constants.js"></script>
+<!-- endinject -->
+<!-- inject:partials -->
+<!-- angular templates will be automatically converted in js and inserted here -->
+<!-- endinject -->
+<!-- endbuild -->
+
+</html>
