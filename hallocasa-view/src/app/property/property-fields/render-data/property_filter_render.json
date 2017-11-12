@@ -12,8 +12,8 @@
     "flexDesktop": 100,
     "filterList": [
       {
-        "id": 1,
-        "name": "Property types",
+        "id": 35,
+        "name": "Property type groups",
         "flexMobile": 100,
         "flexTablet": 50,
         "flexDesktop": 33,
@@ -277,6 +277,42 @@
                 "flexMobile": 100,
                 "flexTablet": 50,
                 "flexDesktop": 33
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "separator_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "showOnSelectedOption": 35
+        },
+        "filterList": [
+          {
+            "id": "repeater_group",
+            "flexMobile": 100,
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 35,
+              "parentIDName": "groupId"
+            },
+            "filterList": [
+              {
+                "id": 1,
+                "name": "Property types",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "dynamic_options",
+                  "serviceId": "PropertyTypeGroup",
+                  "referredDependencyPayload": true,
+                  "translationManagement": "TOTAL"
+                }
               }
             ]
           }

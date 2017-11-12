@@ -149,22 +149,11 @@
           });
           break;
         case "PropertyTypes":
+          servicePromise = PropertyService.getPropertyTypesGroup();
+          break;
+        case "PropertyTypeGroup":
           servicePromise = $q(function (resolve) {
-            PropertyService.getPropertyTypes()
-              .then(function (propertyTypes) {
-                propertyTypes = _.filter(propertyTypes, function (propertyType) {
-                  return propertyType.active;
-                });
-
-                propertyTypes = _.map(propertyTypes, function (propertyType) {
-                  propertyType.data1 = propertyType.lang;
-                  return propertyType;
-                });
-                resolve(propertyTypes);
-              })
-              .catch(function () {
-                resolve([]);
-              });
+            langToData1Processor(PropertyService.getPropertyTypesByGroupID(payload), resolve);
           });
           break;
         default:

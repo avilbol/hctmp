@@ -21,7 +21,7 @@
         var localFilterSelectedOptions = [];
 
         scope.filterName = scope.$id;
-        scope.title = scope.filterInformation.filter.usePropertyField ?
+        scope.title = scope.filterInformation.filter.usePropertyField  && scope.filterInformation.propertyField ?
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
         scope.emitSelectedOption = emitSelectedOption;
         scope.search = {};
@@ -61,7 +61,8 @@
         function dynamicOptionsHandler() {
           var serviceId = optionsData.serviceId;
           var translationManagement = optionsData.translationManagement ? optionsData.translationManagement : "NONE";
-          FieldsService.loadOptionsByServiceId(serviceId)
+          var payload = optionsData.referredDependencyPayload ? optionsData.showOnSpecificID : undefined;
+          FieldsService.loadOptionsByServiceId(serviceId, payload)
             .then(function (options) {
               options = FieldsService.processOptions(options, translationManagement);
               scope.options = _.map(options, function (option) {
