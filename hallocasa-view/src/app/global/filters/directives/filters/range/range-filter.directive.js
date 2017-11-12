@@ -73,22 +73,30 @@
 
               case "CURRENCY":
                 var currencyID = scope.currentCurrency().id;
-                selectionPayload.minCrcyValue = {
-                  currency: {id: currencyID},
-                  ammount: scope.range.lowValue
-                };
+
                 if(scope.range.highValue !== scope.range.ceiling) {
                   selectionPayload.maxCrcyValue = {
                     currency: {id: currencyID},
                     ammount: scope.range.highValue
                   };
                 }
+
+                if(scope.range.lowValue !== scope.range.floor) {
+                  selectionPayload.minCrcyValue = {
+                    currency: {id: currencyID},
+                    ammount: scope.range.lowValue
+                  };
+                }
+
                 break;
 
               default:
-                selectionPayload.minValue = scope.range.lowValue;
                 if(scope.range.highValue !== scope.range.ceiling) {
                   selectionPayload.maxValue = scope.range.highValue;
+                }
+
+                if(scope.range.lowValue !== scope.range.floor) {
+                  selectionPayload.minValue = scope.range.lowValue;
                 }
             }
 
