@@ -49,11 +49,6 @@
                 scope.range.lowValue = scope.range.floor;
                 scope.range.highValue = scope.range.ceiling;
               }
-
-              break;
-            case "DATE":
-              scope.range.lowValue = new Date();
-              scope.range.highValue = new Date();
               break;
           }
         }
