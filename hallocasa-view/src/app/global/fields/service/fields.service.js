@@ -191,12 +191,14 @@
           parseOptionString = function (option) {
             option.name = _.isUndefined(option.name) ? option.lang : option.name;
             option.tmplTranslate = _.isUndefined(option.data1) ? option.name : option.data1;
+            option.lang = _.isUndefined(option.lang) ? option.tmplTranslate : option.lang;
             return option;
           };
           break;
         case "TOTAL":
           parseOptionString = function (option) {
             option.tmplTranslate = "<span translate>" + option.data1 + "</span>";
+            option.lang = _.isUndefined(option.lang) ? option.data1 : option.lang;
             option.data1 = LanguageService.translate(option.data1, option.name);
             return option;
           };
@@ -204,6 +206,7 @@
         case "PARTIAL":
           parseOptionString = function (option) {
             var langToUse = option.data1 || option.lang;
+            option.lang = _.isUndefined(option.lang) ? langToUse : option.lang;
             option.tmplTranslate = option.data1 = option.dependsOnLang ? "<span translate>" + langToUse + "</span>" : option.data1;
             option.data1 = option.dependsOnLang ? LanguageService.translate(langToUse, option.name) : option.data1;
             option.name = option.dependsOnLang ? option.data1 : langToUse;

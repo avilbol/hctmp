@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('dropdownFilter', dropdownFilter);
 
-  function dropdownFilter(FieldsService, $rootScope, $timeout, translateFilter, unicodeFilter, toastr) {
+  function dropdownFilter(FieldsService, FiltersService, $rootScope, $timeout, translateFilter, unicodeFilter, toastr, $log) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/filters/dropdown/dropdown-filter.html",
@@ -17,9 +17,9 @@
       link: function (scope, element) {
         var optionsData = scope.filterInformation.filter.options;
         var showingStepList = scope.filterInformation.filter.showingStepList;
-        var conditionalFilter = (_.isObject(optionsData) && optionsData.conditionalFilter);
         var localFilterSelectedOptions = [];
 
+        scope.conditionalFilter = (_.isObject(optionsData) && optionsData.conditionalFilter);
         scope.filterName = scope.$id;
         scope.title = scope.filterInformation.filter.usePropertyField  && scope.filterInformation.propertyField ?
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
@@ -45,9 +45,9 @@
         }
 
         function staticOptionsHandler(){
-          var staticOptionsGroup, optionsList;
+          var staticOptionsGroup, optionsList, processedOptions;
           if(scope.filterInformation.filter.usePropertyField){
-            staticOptionsGroup= scope.filterInformation.propertyField.dropdownOptionGroup;
+            staticOptionsGroup = scope.filterInformation.propertyField.dropdownOptionGroup;
             optionsList = staticOptionsGroup.dropdownOptionList;
           }
           else{
@@ -55,7 +55,8 @@
             optionsList = staticOptionsGroup.dropdownOptionList;
           }
 
-          scope.options = FieldsService.processOptions(optionsList, staticOptionsGroup.translationManagement);
+          processedOptions = FieldsService.processOptions(optionsList, staticOptionsGroup.translationManagement);
+          setFilterOptions(processedOptions);
         }
 
         function dynamicOptionsHandler() {
@@ -77,7 +78,23 @@
               toastr.warning(
                 translateFilter("Error.whenloadingserviceoptions"), serviceId);
               scope.options = [];
+            })
+            .finally(function () {
+              scope.filterInformation.filter.processedOptions = scope.options;
             });
+        }
+
+        function setFilterOptions(processedOptions) {
+          scope.options = processedOptions;
+
+          if(scope.conditionalFilter){
+            var filterInformation = FiltersService.getFilterById(scope.filterInformation.filter.id, scope.filtersRootScope);
+            filterInformation.filter.processedOptions = _.isArray(filterInformation.filter.processedOptions) ?
+              _.join(filterInformation.filter.processedOptions, processedOptions) : processedOptions;
+          }
+          else{
+            scope.filterInformation.filter.processedOptions = processedOptions;
+          }
         }
 
         function emitSelectedOption() {
@@ -92,7 +109,7 @@
             selectedFilterOptions = _.isEmpty(option) ? [] : [option];
           }
 
-          if(conditionalFilter){
+          if(scope.conditionalFilter){
             selectedFilterOptions = synchronizeLocalFilterSelectedOptions(selectedFilterOptions);
           }
 
@@ -165,12 +182,12 @@
         }
 
         function internalDependencyShowHandler(filterId, dependentValue){
-          if(!conditionalFilter) {
+          if(!scope.conditionalFilter) {
             displayFilter(false);
           }
 
           var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-            if(conditionalFilter && filterInformation.propertyFilter.filter.id === scope.filterInformation.filter.id){
+            if(scope.conditionalFilter && filterInformation.propertyFilter.filter.id === scope.filterInformation.filter.id){
               localFilterSelectedOptions = filterInformation.selectedFilterOptions;
             }
             if(filterInformation.propertyFilter.filter.id === filterId){
@@ -198,7 +215,7 @@
           element.closest(".filterContainer").css("display",displayValue);
           if(!show){
             scope.selected.options = [];
-            if(conditionalFilter){
+            if(scope.conditionalFilter){
               cleanLocalFilterSelections();
             }
             emitSelectedOption();
@@ -217,7 +234,30 @@
 
         }
 
+        function detectConditionalTitle() {
+          if(scope.conditionalFilter){
+            var filterId = _.first(showingStepList).filterCondition.filterId;
+            var parentFilter = FiltersService.getFilterById(filterId, scope.filtersRootScope);
+            if(!parentFilter){
+              return;
+            }
+
+            var parentOptions = parentFilter.filter.processedOptions;
+            var dependantOption = _.find(parentOptions, function (option) {
+              var optionID = _.isUndefined(option.optionId) ? option.id : option.optionId;
+              return optionID === optionsData.showOnSpecificID;
+            });
+
+            if(!dependantOption){
+              $log.warn("No se podido encontrar la opción seleccionada para el filtro "+filterId, parentFilter);
+              return;
+            }
+            scope.parentFilterOption = dependantOption.lang;
+          }
+        }
+
         detectConditionalShowFilter();
+        detectConditionalTitle();
         loadOptions();
         watchRender();
         watchCleanFilter();

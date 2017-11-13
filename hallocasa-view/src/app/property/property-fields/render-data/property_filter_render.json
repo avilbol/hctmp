@@ -276,7 +276,10 @@
                 "name": "Neighborhood",
                 "flexMobile": 100,
                 "flexTablet": 50,
-                "flexDesktop": 33
+                "flexDesktop": 33,
+                "options": {
+                  "type": "static_options"
+                }
               }
             ]
           }
