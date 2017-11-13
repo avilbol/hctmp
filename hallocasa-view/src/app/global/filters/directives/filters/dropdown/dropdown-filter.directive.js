@@ -17,7 +17,6 @@
       link: function (scope, element) {
         var optionsData = scope.filterInformation.filter.options;
         var showingStepList = scope.filterInformation.filter.showingStepList;
-        var localFilterSelectedOptions = [];
 
         scope.conditionalFilter = (_.isObject(optionsData) && optionsData.conditionalFilter);
         scope.filterName = scope.$id;
@@ -121,6 +120,8 @@
         }
 
         function synchronizeLocalFilterSelectedOptions(selectedFilterOptions) {
+          var localFilterSelectedOptions = getLocalFilterSelectedOptions();
+
           _.each(scope.options, function (option) {
             var localSelected = _.find(selectedFilterOptions, function (selectedOption) {
               return selectedOption.optionId === option.optionId;
@@ -139,6 +140,7 @@
             }
 
           });
+          setLocalFilterSelectedOptions(localFilterSelectedOptions);
           return localFilterSelectedOptions;
         }
 
@@ -173,7 +175,7 @@
         function watchCleanFilter() {
           var watcher = $rootScope.$on("FilterSystem:clearFilters", function () {
             scope.selected.options = [];
-            localFilterSelectedOptions = [];
+            setLocalFilterSelectedOptions([]);
             if(showingStepList.length){
               displayFilter(false);
             }
@@ -187,9 +189,6 @@
           }
 
           var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-            if(scope.conditionalFilter && filterInformation.propertyFilter.filter.id === scope.filterInformation.filter.id){
-              localFilterSelectedOptions = filterInformation.selectedFilterOptions;
-            }
             if(filterInformation.propertyFilter.filter.id === filterId){
               var showFilter = _.find(filterInformation.selectedFilterOptions, function (selectedOption) {
                 return selectedOption.optionId === dependentValue;
@@ -225,6 +224,7 @@
           }
         }
         function cleanLocalFilterSelections() {
+          var localFilterSelectedOptions = getLocalFilterSelectedOptions();
           _.each(scope.options, function (option) {
             var optionIndex = _.findIndex(localFilterSelectedOptions, function (localSelected) {
               return localSelected.optionId === option.optionId;
@@ -234,7 +234,7 @@
               localFilterSelectedOptions.splice(optionIndex, 1);
             }
           });
-
+          setLocalFilterSelectedOptions(localFilterSelectedOptions);
         }
 
         function detectConditionalTitle() {
@@ -256,6 +256,17 @@
             }
             scope.parentFilterOption = dependantOption.lang;
           }
+        }
+
+        function getLocalFilterSelectedOptions() {
+          var filterInformation = FiltersService.getFilterById(scope.filterInformation.filter.id, scope.filtersRootScope);
+          var selectedOptions = filterInformation.filter.selectedOptions;
+          return selectedOptions ? selectedOptions : [];
+        }
+
+        function setLocalFilterSelectedOptions(selectedOptions) {
+          var filterInformation = FiltersService.getFilterById(scope.filterInformation.filter.id, scope.filtersRootScope);
+          filterInformation.filter.selectedOptions = selectedOptions;
         }
 
         detectConditionalShowFilter();
