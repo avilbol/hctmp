@@ -48,7 +48,7 @@
       currentLocale = currentLocale ? currentLocale : $translate.use();
       var language = LOCALES.locales[currentLocale];
       var minLocale = LOCALES.languages[language].locale;
-      $location.search("lang", minLocale);
+      $location.search("lang", minLocale).replace();
     };
 
     // EVENTS
