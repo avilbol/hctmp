@@ -110,7 +110,16 @@
           var selectedOptions = scope.selected.options;
 
           if(_.isArray(selectedOptions)){
-            selectedFilterOptions =  _.map(selectedOptions, _.partial(_.pick, _, "optionId"))
+            selectedFilterOptions =  _.map(selectedOptions, _.partial(_.pick, _, "optionId"));
+
+            if(selectedOptions.length === scope.options.length){
+              selectionState = "deselectAll";
+              scope.selectAllButtonTranstationKey = "placeholder.deselectAll";
+            }
+            if(!selectedOptions.length){
+              selectionState = "selectAll";
+              scope.selectAllButtonTranstationKey = "placeholder.selectAll";
+            }
           }
           else{
             var option = _.pick(selectedOptions, "optionId");
@@ -184,6 +193,8 @@
         function watchCleanFilter() {
           var watcher = $rootScope.$on("FilterSystem:clearFilters", function () {
             scope.selected.options = [];
+            selectionState = "selectAll";
+            scope.selectAllButtonTranstationKey = "placeholder.selectAll";
             setLocalFilterSelectedOptions([]);
             if(showingStepList.length){
               displayFilter(false);
