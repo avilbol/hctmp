@@ -17,6 +17,7 @@
       link: function (scope, element) {
         var optionsData = scope.filterInformation.filter.options;
         var showingStepList = scope.filterInformation.filter.showingStepList;
+        var ngModelTimeOut;
 
         scope.conditionalFilter = (_.isObject(optionsData) && optionsData.conditionalFilter);
         scope.filterName = scope.$id;
@@ -97,6 +98,14 @@
         }
 
         function emitSelectedOption() {
+          if(ngModelTimeOut){
+            //if there is already a timeout in process cancel it
+            $timeout.cancel(ngModelTimeOut);
+          }
+          ngModelTimeOut = $timeout(broadcastSelections,500);
+        }
+
+        function broadcastSelections() {
           var selectedFilterOptions;
           var selectedOptions = scope.selected.options;
 
