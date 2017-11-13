@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('dropdownFilter', dropdownFilter);
 
-  function dropdownFilter(FieldsService, FiltersService, $rootScope, $timeout, translateFilter, unicodeFilter, toastr, $log) {
+  function dropdownFilter(FieldsService, FiltersService, $rootScope, $timeout, translateFilter, unicodeFilter, toastr) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/filters/dropdown/dropdown-filter.html",
@@ -90,7 +90,7 @@
           if(scope.conditionalFilter){
             var filterInformation = FiltersService.getFilterById(scope.filterInformation.filter.id, scope.filtersRootScope);
             filterInformation.filter.processedOptions = _.isArray(filterInformation.filter.processedOptions) ?
-              _.join(filterInformation.filter.processedOptions, processedOptions) : processedOptions;
+              _.union(filterInformation.filter.processedOptions, processedOptions) : processedOptions;
           }
           else{
             scope.filterInformation.filter.processedOptions = processedOptions;
@@ -213,9 +213,12 @@
         function displayFilter(show) {
           var displayValue = show ? "initial" : "none";
           element.closest(".filterContainer").css("display",displayValue);
-          if(!show){
+          if (show) {
+            detectConditionalTitle();
+          }
+          else {
             scope.selected.options = [];
-            if(scope.conditionalFilter){
+            if (scope.conditionalFilter) {
               cleanLocalFilterSelections();
             }
             emitSelectedOption();
@@ -235,7 +238,7 @@
         }
 
         function detectConditionalTitle() {
-          if(scope.conditionalFilter){
+          if(scope.conditionalFilter && !scope.parentFilterOption){
             var filterId = _.first(showingStepList).filterCondition.filterId;
             var parentFilter = FiltersService.getFilterById(filterId, scope.filtersRootScope);
             if(!parentFilter){
@@ -249,7 +252,6 @@
             });
 
             if(!dependantOption){
-              $log.warn("No se podido encontrar la opción seleccionada para el filtro "+filterId, parentFilter);
               return;
             }
             scope.parentFilterOption = dependantOption.lang;
