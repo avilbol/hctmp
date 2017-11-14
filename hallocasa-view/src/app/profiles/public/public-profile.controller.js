@@ -28,7 +28,7 @@
         return;
       }
       vm.isLoading = true;
-      ProfilesService.loadPublicProfiles(excludeIdList, amountProfiles)
+      ProfilesService.profilePublic(excludeIdList, amountProfiles)
         .then(function (profiles) {
           console.log('Profile List ', profiles);
 

@@ -181,6 +181,62 @@
         }
       },
       {
+        "filter":{
+          "id":7,
+          "name":"Country",
+          "lang":"hallocasa-pending",
+          "filterType":{
+            "id":1,
+            "name":"Hybrid Dropdown",
+            "filterTypeNature":"DROPDOWN",
+            "allowMultiple":true,
+            "useSearch":true,
+            "useSort":false,
+            "useSelectAll":true,
+            "useRemoteList":false,
+            "useLinks":false
+          },
+          "filterNature":{
+            "id":1
+          },
+          "showingStepList":[
+
+          ],
+          "usePropertyField":true,
+          "filterWorkerOption":"COUNTRY_KEY",
+          "useStaticFilterOptions":false,
+          "forceAllFilterOptions":false,
+          "flexMobile":100,
+          "flexTablet":50,
+          "flexDesktop":33,
+          "options":{
+            "type":"dynamic_options",
+            "serviceId":"Country"
+          }
+        },
+        "propertyField":{
+          "id":34,
+          "name":"Country",
+          "lang":"hallocasa.propertyfield.country",
+          "basic":true,
+          "primaryKey":true,
+          "multilanguageValue":false,
+          "propertyFieldType":{
+            "id":1,
+            "name":"Dropdown"
+          },
+          "propertyFieldValueType":{
+            "id":2,
+            "name":"Identifier"
+          },
+          "tooltipLang":"hallocasa.pending",
+          "textType":"SAME",
+          "data1Type":"SAME",
+          "data2Type":"SAME",
+          "data3Type":"SAME"
+        }
+      },
+      {
         "id":"separator_group",
         "flexMobile":100,
         "flexTablet":100,

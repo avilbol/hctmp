@@ -21,6 +21,7 @@
       userTypes: $resource(backend_url + "user_types", {}, GenericRESTResource),
       profileLoad: $resource(backend_url + "user/detail/:id", {}, GenericRESTResource),
       profilePublic: $resource(backend_url + "user/fetch_random", {}, GenericRESTResource),
+      profileFilters: $resource(backend_url + "property_filters", {}, GenericRESTResource),
       profileFiltersRender: $resource("/app/profiles/profiles-fields/render-data/profile_filter_render.json", {}, GenericRESTResource)
     };
 
