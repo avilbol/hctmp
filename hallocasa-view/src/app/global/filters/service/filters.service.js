@@ -8,7 +8,8 @@
   function FiltersService($log, backend_url, $resource, GenericRESTResource) {
     var service = {
       generateFiltersRender: generateFiltersRender,
-      loadFiltersOptions: loadFiltersOptions
+      loadFiltersOptions: loadFiltersOptions,
+      getFilterById: getFilterById
     };
 
     var resources = {
@@ -59,6 +60,53 @@
 
     function loadFiltersOptions(filterID, payload) {
       return resources.loadOptions.consult({filterID: filterID}, payload).$promise;
+    }
+
+    function getFilterById(filterID, filterRootScope) {
+      var filterPath = getFilterPathByID(filterID, filterRootScope);
+      return getFilterByPath(filterPath, filterRootScope);
+    }
+
+    function getFilterPathByID(filterID, filterRootScope) {
+      var filterPath = getFilterPathInFiltersList(filterID, filterRootScope);
+      var filterFound = filterPath.length > 0;
+
+      if(!filterFound){
+        $log.warn("No se pudo encontrar el campo con ID "+filterID+" en la lista de campos", filterRootScope);
+      }
+      return filterPath;
+    }
+
+
+    function getFilterPathInFiltersList(filterID, filterList) {
+      var filterPath = [];
+      _.find(filterList, function (filterInformation, filterIndex) {
+        if(isComponentFilter(filterInformation)){
+          filterPath = getFilterPathInFiltersList(filterID, filterInformation.filterList);
+          var filterFound = filterPath.length > 0;
+          if(filterFound){
+            filterPath.unshift(filterIndex);
+          }
+          return filterFound;
+        }
+        var isSoughtFilter = (filterInformation.filter.id === filterID);
+        if(isSoughtFilter){
+          filterPath.unshift(filterIndex);
+        }
+        return isSoughtFilter;
+      });
+      return filterPath;
+    }
+
+    function getFilterByPath(filterPath, filterRootScope) {
+      filterPath = angular.copy(filterPath);
+      var filterList = filterRootScope;
+      var filter = undefined;
+      _.each(filterPath, function (patch) {
+        filter = filterList[patch];
+        filterList = filter.filterList;
+      });
+      return filter;
     }
   }
 })();

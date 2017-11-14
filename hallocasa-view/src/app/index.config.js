@@ -49,7 +49,7 @@
     $authProvider.tokenType = '';
 
     // Show warnings in the developer console, regarding forgotten IDs in translations
-    $translateProvider.useMissingTranslationHandlerLog();
+    //$translateProvider.useMissingTranslationHandlerLog();
 
     // Default sanitize value strategy
     // $translateProvider.useSanitizeValueStrategy('escape');

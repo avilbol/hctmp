@@ -12,8 +12,8 @@
     "flexDesktop": 100,
     "filterList": [
       {
-        "id": 1,
-        "name": "Property types",
+        "id": 35,
+        "name": "Property type groups",
         "flexMobile": 100,
         "flexTablet": 50,
         "flexDesktop": 33,
@@ -115,7 +115,8 @@
             "flexDesktop": 33,
             "options": {
               "type": "static_options",
-              "showOnSpecificID": 1
+              "showOnSpecificID": 1,
+              "conditionalFilter": true
             }
           },
           {
@@ -126,7 +127,8 @@
             "flexDesktop": 33,
             "options": {
               "type": "static_options",
-              "showOnSpecificID": 3
+              "showOnSpecificID": 3,
+              "conditionalFilter": true
             }
           },
           {
@@ -137,7 +139,8 @@
             "flexDesktop": 33,
             "options": {
               "type": "static_options",
-              "showOnSpecificID": 8
+              "showOnSpecificID": 8,
+              "conditionalFilter": true
             }
           },
           {
@@ -148,7 +151,8 @@
             "flexDesktop": 33,
             "options": {
               "type": "static_options",
-              "showOnSpecificID": 9
+              "showOnSpecificID": 9,
+              "conditionalFilter": true
             }
           },
           {
@@ -159,7 +163,8 @@
             "flexDesktop": 33,
             "options": {
               "type": "static_options",
-              "showOnSpecificID": 4
+              "showOnSpecificID": 4,
+              "conditionalFilter": true
             }
           },
           {
@@ -170,7 +175,8 @@
             "flexDesktop": 33,
             "options": {
               "type": "static_options",
-              "showOnSpecificID": 5
+              "showOnSpecificID": 5,
+              "conditionalFilter": true
             }
           },
           {
@@ -181,7 +187,8 @@
             "flexDesktop": 33,
             "options": {
               "type": "static_options",
-              "showOnSpecificID": 2
+              "showOnSpecificID": 2,
+              "conditionalFilter": true
             }
           }
         ]
@@ -268,7 +275,8 @@
             "flexDesktop": 100,
             "options": {
               "idField": 9,
-              "parentIDName": "cityId"
+              "parentIDName": "cityId",
+              "translationManagement": "TOTAL"
             },
             "filterList": [
               {
@@ -276,7 +284,46 @@
                 "name": "Neighborhood",
                 "flexMobile": 100,
                 "flexTablet": 50,
-                "flexDesktop": 33
+                "flexDesktop": 33,
+                "options": {
+                  "type": "static_options"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "separator_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "showOnSelectedOption": 35
+        },
+        "filterList": [
+          {
+            "id": "repeater_group",
+            "flexMobile": 100,
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 35,
+              "parentIDName": "groupId"
+            },
+            "filterList": [
+              {
+                "id": 1,
+                "name": "Property types",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "dynamic_options",
+                  "serviceId": "PropertyTypeGroup",
+                  "referredDependencyPayload": true,
+                  "translationManagement": "TOTAL"
+                }
               }
             ]
           }

@@ -116,7 +116,17 @@
         selectedFilters.push(filterInformation);
       }
       else{
-        selectedFilters[filterIndex] = filterInformation;
+        var emptyFilter = _.isUndefined(filterInformation.maxValue) &&
+          _.isUndefined(filterInformation.minValue) &&
+          _.isUndefined(filterInformation.maxCrcyValue) &&
+          _.isUndefined(filterInformation.minCrcyValue);
+
+        if(emptyFilter){
+          selectedFilters.splice(filterIndex, 1);
+        }
+        else {
+          selectedFilters[filterIndex] = filterInformation;
+        }
       }
     }
 

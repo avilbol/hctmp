@@ -45,8 +45,7 @@
 
       <repeater-filter-group
         ng-switch-when="repeater_group"
-        id-filter="filterData.options.idField"
-        parent-id-name="filterData.options.parentIDName"
+        options="filterData.options"
         filters-list="filterData.filterList"
         filters-root-scope="filtersRootScope"
       ></repeater-filter-group>

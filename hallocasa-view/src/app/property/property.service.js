@@ -9,6 +9,8 @@
                            idSearchFilter, ImageValidatorService) {
     var service = {
       getPropertyTypes: getPropertyTypes,
+      getPropertyTypesByGroupID: getPropertyTypesByGroupID,
+      getPropertyTypesGroup: getPropertyTypesGroup,
       getLocation: getLocation,
       getProposals: getProposals,
       loadPublicProperties: loadPublicProperties,
@@ -46,6 +48,31 @@
 
     function getPropertyTypes() {
       return resources.propertyTypes.query().$promise;
+    }
+
+    function getPropertyTypesGroup() {
+      return $q(function (resolve) {
+        resolve([
+          {id: 1, data1: "hallocasa.propertytypegroup.lots"},
+          {id: 2, data1: "hallocasa.propertytypegroup.commerceindustry"},
+          {id: 3, data1: "hallocasa.propertytypegroup.living"}]);
+      });
+    }
+
+    function getPropertyTypesByGroupID(groupID) {
+      return $q(function (resolve) {
+        getPropertyTypes()
+          .then(function (propertyTypes) {
+            propertyTypes = _.filter(propertyTypes, function (propertyType) {
+              return propertyType.active && propertyType.group.id === groupID;
+            });
+
+            resolve(propertyTypes);
+          })
+          .catch(function () {
+            resolve([]);
+          });
+      });
     }
 
     function getLocation() {

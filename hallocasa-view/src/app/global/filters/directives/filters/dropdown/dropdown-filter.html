@@ -1,14 +1,18 @@
 <md-input-container class="md-block">
-  <label translate>{{title}}</label>
+  <label>
+    <span translate>{{title}}</span>
+    <span ng-if="conditionalFilter">&nbsp;-&nbsp;</span>
+    <span ng-if="conditionalFilter" translate>{{parentFilterOption}}</span>
+  </label>
 
   <md-select
     ng-if="filterInformation.filter.filterType.allowMultiple"
     name="{{filterName}}"
-    title="{{title | translate}}"
+    title="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
     ng-model="selected.options"
-    ng-disabled="!options || options.length === 0"
+    ng-disabled="!options || !options.length"
     aria-label="{{filterName}}"
-    placeholder="{{title | translate}}"
+    placeholder="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
     ng-required="required"
     data-md-container-class="selectHeader"
     ng-change="emitSelectedOption(selected.options)"
@@ -21,11 +25,11 @@
   <md-select
     ng-if="!filterInformation.filter.filterType.allowMultiple"
     name="{{filterName}}"
-    title="{{title | translate}}"
+    title="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
     ng-model="selected.options"
-    ng-disabled="!options || options.length === 0"
+    ng-disabled="!options || !options.length"
     aria-label="{{filterName}}"
-    placeholder="{{title | translate}}"
+    placeholder="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
     ng-required="required"
     data-md-container-class="selectHeader"
     ng-change="emitSelectedOption()"

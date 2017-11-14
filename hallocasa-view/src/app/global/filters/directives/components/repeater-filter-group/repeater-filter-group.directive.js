@@ -10,11 +10,10 @@
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/components/repeater-filter-group/repeater-filter-group.html",
       scope: {
-        idFilter: "=?",
+        options: "=?",
         filtersList: "=?",
         filtersRootScope: "=?",
-        contentFlex: "=?",
-        parentIdName: "=?"
+        contentFlex: "=?"
       },
       link: function (scope) {
         var repeatedFilter = _.first(scope.filtersList);
@@ -23,7 +22,7 @@
 
         function watchFilter() {
           var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-            if(filterInformation.propertyFilter.filter.id === scope.idFilter){
+            if(filterInformation.propertyFilter.filter.id === scope.options.idField){
               updateFilterList(filterInformation);
             }
           });
@@ -47,12 +46,15 @@
           FiltersService.loadFiltersOptions(repeatedFilter.filter.id, [filterInformation]).then(function (options) {
             var filterData = angular.copy(repeatedFilter);
             var filterOptions = _.filter(options, function (option) {
-              return option.parentInfo[scope.parentIdName] === selectedOption.optionId;
+              return option.data2 || option.parentInfo[scope.options.parentIDName] === selectedOption.optionId;
             });
 
             filterData.filter.options.showOnSpecificID = selectedOption.optionId;
             filterData.filter.options.conditionalFilter = true;
-            filterData.propertyField.dropdownOptionGroup = {dropdownOptionList: filterOptions, translationManagement: "NONE"};
+            filterData.propertyField.dropdownOptionGroup = {
+              dropdownOptionList: filterOptions,
+              translationManagement: scope.options.translationManagement ? scope.options.translationManagement : "NONE"
+            };
 
             scope.valueList.push(filterData);
           });
