@@ -248,11 +248,13 @@
           }
           var boolValid = true;
           modelValue.every(function(obj,idx){
-            if(obj.lfFile.size > intMax){
-              boolValid = false;
-              return false;
-            }else{
-              return true;
+            if(obj.lfFile){
+              if(obj.lfFile.size > intMax){
+                boolValid = false;
+                return false;
+              }else{
+                return true;
+              }
             }
           });
           return boolValid;
@@ -323,11 +325,13 @@
           }
           var boolValid = true;
           modelValue.every(function(obj,idx){
-            if(obj.lfFile.type.match(reg)){
-              return true;
-            }else{
-              boolValid = false;
-              return false;
+            if (obj.lfFile){
+              if(obj.lfFile.type.match(reg)){
+                return true;
+              }else{
+                boolValid = false;
+                return false;
+              }
             }
           });
           return boolValid;

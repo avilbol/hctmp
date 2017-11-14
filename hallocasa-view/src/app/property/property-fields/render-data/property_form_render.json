@@ -26,6 +26,16 @@
           "validationsParams": { "minlength": 2}
         },
         {
+          "id": 35,
+          "name": "Square Meters Built",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33,
+          "validations": "minlength, maxlength",
+          "messagesParams": { "minlength": "2"},
+          "validationsParams": { "minlength": 2}
+        },
+        {
           "id": "accordion_group",
           "title": [
             {
@@ -147,16 +157,6 @@
               ]
             }
           ]
-        },
-        {
-          "id": 35,
-          "name": "Square Meters Built",
-          "flexMobile": 100,
-          "flexTablet": 50,
-          "flexDesktop": 33,
-          "validations": "minlength, maxlength",
-          "messagesParams": { "minlength": "2"},
-          "validationsParams": { "minlength": 2}
         }
       ]
     },

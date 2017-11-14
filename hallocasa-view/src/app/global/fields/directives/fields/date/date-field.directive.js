@@ -17,6 +17,7 @@
       },
       link: function (scope) {
         scope.fieldName = scope.$id;
+        scope.fieldValue = new Date();
 
         function applyValidations() {
           if (scope.fieldInformation.validations) {
@@ -40,7 +41,7 @@
           if(!_.isDate(viewModel)){
             viewModel = new Date(viewModel);
           }
-          scope.fieldInformation.fieldValueList[0].text.dateVal = viewModel;
+          scope.fieldValue = viewModel;
         }
 
         applyValidations();

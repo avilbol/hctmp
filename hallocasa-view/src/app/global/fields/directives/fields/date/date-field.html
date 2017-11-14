@@ -1,7 +1,7 @@
 <div layout="column" ng-if="!readonly">
   <label>{{fieldInformation.lang | translate}}</label>
   <md-datepicker
-    ng-model="fieldInformation.fieldValueList[0].text.dateVal"
+    ng-model="fieldValue"
     ng-required="required"
     md-date-filter="dateFilter"
     name="{{fieldName}}"

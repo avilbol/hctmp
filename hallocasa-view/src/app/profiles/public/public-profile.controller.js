@@ -30,6 +30,8 @@
       vm.isLoading = true;
       ProfilesService.loadPublicProfiles(excludeIdList, amountProfiles)
         .then(function (profiles) {
+          console.log('Profile List ', profiles);
+
           _.each(profiles, function (profile) {
             excludeIdList.push(profile.id);
             var mainDescription = _.find(profile.userDescriptions, function (description) {
@@ -69,6 +71,8 @@
     }
 
     function listenFiltersChanges() {
+      
+
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
         var filterIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
           return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
