@@ -29,6 +29,11 @@
     
     loadGlobalPreferredSettings();
 
+    $rootScope.$on('updateInfoUser', function(event, data) {
+      var currentUser = SessionService.getCurrentUser();
+      return currentUser.firstName ? currentUser.firstName : currentUser.email;
+    });
+
     $scope.$watch(function() { return $mdMedia('sm') || $mdMedia('xs'); }, function(small) {
       vm.screenIsSmall = small;
     });

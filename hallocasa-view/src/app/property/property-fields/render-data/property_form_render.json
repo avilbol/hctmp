@@ -3,6 +3,7 @@
     {
       "name": "Basic_Information",
       "lang": "Property.wizard.basic",
+      "required": true,
       "fieldList": [
         {
           "id": 5,
@@ -163,6 +164,7 @@
     {
       "name": "Location",
       "lang": "Property.wizard.location",
+      "required": true,
       "fieldList": [
         {
           "id": 7,
@@ -310,6 +312,7 @@
     {
       "name": "Images_and_videos",
       "lang": "Property.wizard.images",
+      "required": true,
       "fieldList": [
         {
           "id": 12,
@@ -331,6 +334,7 @@
     {
       "name": "Features",
       "lang": "Property.wizard.features",
+      "required": false,
       "fieldList": [
         {
           "id": 17,
@@ -417,6 +421,7 @@
     {
       "name": "Property",
       "lang": "Property.wizard.property",
+      "required": false,
       "fieldList": [
         {
           "id": 45,

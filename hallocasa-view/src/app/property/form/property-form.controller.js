@@ -238,7 +238,7 @@
     }
 
     function validateSubmit() {
-      vm.showSubmit = editMode ? true : vm.nextDisabled;
+      vm.showSubmit = editMode ? true : (selectedTab >= 2 ? true : false);
     }
 
     loadCountries();

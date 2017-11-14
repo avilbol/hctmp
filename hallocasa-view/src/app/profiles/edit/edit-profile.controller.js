@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function EditProfileController(ProfilesService, LocationService, LanguageService, toastr, $mdMedia, $mdDialog,
-                                 $document, $location, translateFilter,  SessionService, user_images_url, PropertyService,
+                                 $document, $location, $rootScope, translateFilter,  SessionService, user_images_url, PropertyService,
                                  ImagesFallbackList) {
     var vm = this;
     vm.loadStates = loadStates;
@@ -236,6 +236,9 @@
       formData.base64Image = imageLink !== formData.base64Image ? formData.base64Image : undefined;
       ProfilesService.saveProfile(formData, formID)
         .then(function () {
+          SessionService.setCurrentUser(formData);
+          $rootScope.$emit('updateInfoUser', formData);
+
           vm.userData[formID] = formData;
           toastr.success(
             translateFilter("Alert.profilesavedsuccesfully"));
