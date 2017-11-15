@@ -1,4 +1,11 @@
-<img ng-animate-swap="currentImage" ng-src="{{images[currentImage]}}" class="swap-animation" ng-class="[direction]"/>
+<img 
+  ng-animate-swap="currentImage" 
+  ng-src="{{images[currentImage]}}" 
+  class="swap-animation" 
+  ng-class="[direction]" 
+  ng-swipe-left="nextImage()"
+  ng-swipe-right="previousImage()"
+  ng-touchstart="startTouch()"/>
 
 <div ng-if="images.length > 1">
   <md-button class="md-icon-button md-raised next-button" ng-click="nextImage()" aria-label="next image">
