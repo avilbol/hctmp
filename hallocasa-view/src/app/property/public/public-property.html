@@ -79,8 +79,14 @@
     <md-dialog>
       <md-content layout-padding>
         <div layout="row" layout-align="end center">
-          <md-button class="md-icon-button md-primary" ng-click="vm.closeFiltersDialog()" aria-label="close">
-            <i class="fa fa-close"></i>
+          <md-button ng-click="vm.closeFiltersDialog()" class="md-raised">
+            {{'Common.Label.Cancel' | translate}}
+          </md-button>
+          <md-button ng-click="vm.clearFilters()" class="md-raised">
+            {{'placeholder.clear' | translate}}
+          </md-button>
+          <md-button ng-click="vm.search()" class="md-raised md-primary">
+            {{'placeholder.search' | translate}}
           </md-button>
         </div>
         <div layout="row" layout-align="center" ng-if="!vm.filtersRendered">
@@ -93,10 +99,13 @@
           ng-cloak
         ></filters-interpreter>
         <div layout="row" layout-align="end center">
+          <md-button ng-click="vm.closeFiltersDialog()" class="md-raised">
+            {{'Common.Label.Cancel' | translate}}
+          </md-button>
           <md-button ng-click="vm.clearFilters()" class="md-raised">
             {{'placeholder.clear' | translate}}
           </md-button>
-          <md-button ng-click="vm.closeFiltersDialog()" class="md-raised md-primary">
+          <md-button ng-click="vm.search()" class="md-raised md-primary">
             {{'placeholder.search' | translate}}
           </md-button>
         </div>
