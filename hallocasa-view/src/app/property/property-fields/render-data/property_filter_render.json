@@ -108,101 +108,6 @@
         },
         "filterList": [
           {
-            "id": 28,
-            "name": "Estrato - Colombia",
-            "flexMobile": 100,
-            "flexTablet": 50,
-            "flexDesktop": 33,
-            "options": {
-              "type": "static_options",
-              "showOnSpecificID": 1,
-              "conditionalFilter": true
-            }
-          },
-          {
-            "id": 29,
-            "name": "Estrato - Chile",
-            "flexMobile": 100,
-            "flexTablet": 50,
-            "flexDesktop": 33,
-            "options": {
-              "type": "static_options",
-              "showOnSpecificID": 3,
-              "conditionalFilter": true
-            }
-          },
-          {
-            "id": 30,
-            "name": "Estrato - Costa Rica",
-            "flexMobile": 100,
-            "flexTablet": 50,
-            "flexDesktop": 33,
-            "options": {
-              "type": "static_options",
-              "showOnSpecificID": 8,
-              "conditionalFilter": true
-            }
-          },
-          {
-            "id": 31,
-            "name": "Estrato - Ecuador",
-            "flexMobile": 100,
-            "flexTablet": 50,
-            "flexDesktop": 33,
-            "options": {
-              "type": "static_options",
-              "showOnSpecificID": 9,
-              "conditionalFilter": true
-            }
-          },
-          {
-            "id": 32,
-            "name": "Estrato - Panamá",
-            "flexMobile": 100,
-            "flexTablet": 50,
-            "flexDesktop": 33,
-            "options": {
-              "type": "static_options",
-              "showOnSpecificID": 4,
-              "conditionalFilter": true
-            }
-          },
-          {
-            "id": 33,
-            "name": "Estrato - Perú",
-            "flexMobile": 100,
-            "flexTablet": 50,
-            "flexDesktop": 33,
-            "options": {
-              "type": "static_options",
-              "showOnSpecificID": 5,
-              "conditionalFilter": true
-            }
-          },
-          {
-            "id": 34,
-            "name": "Estrato - Argentina",
-            "flexMobile": 100,
-            "flexTablet": 50,
-            "flexDesktop": 33,
-            "options": {
-              "type": "static_options",
-              "showOnSpecificID": 2,
-              "conditionalFilter": true
-            }
-          }
-        ]
-      },
-      {
-        "id": "separator_group",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "showOnSelectedOption": 7
-        },
-        "filterList": [
-          {
             "id": "repeater_group",
             "flexMobile": 100,
             "flexTablet": 100,
@@ -290,6 +195,101 @@
                 }
               }
             ]
+          }
+        ]
+      },
+      {
+        "id": "separator_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "options": {
+          "showOnSelectedOption": 7
+        },
+        "filterList": [
+          {
+            "id": 28,
+            "name": "Estrato - Colombia",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 1,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 29,
+            "name": "Estrato - Chile",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 3,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 30,
+            "name": "Estrato - Costa Rica",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 8,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 31,
+            "name": "Estrato - Ecuador",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 9,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 32,
+            "name": "Estrato - Panamá",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 4,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 33,
+            "name": "Estrato - Perú",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 5,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 34,
+            "name": "Estrato - Argentina",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 2,
+              "conditionalFilter": true
+            }
           }
         ]
       },

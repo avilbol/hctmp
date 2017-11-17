@@ -14,6 +14,7 @@
     vm.openFiltersDialog = openFiltersDialog;
     vm.closeFiltersDialog = closeFiltersDialog;
     vm.loadPropertiesPage = loadPropertiesPage;
+    vm.search = search;
     vm.properties = [];
     vm.totalProperties = 0;
     vm.order = {};
@@ -137,13 +138,18 @@
         clickOutsideToClose: true,
         fullscreen: true
       });
-      filtersDialog.finally(function () {
+      filtersDialog.catch(function () {
         loadPropertiesPage(1, selectedFilters);
       });
     }
 
     function closeFiltersDialog() {
       $mdDialog.hide();
+    }
+
+    function search() {
+      closeFiltersDialog();
+      loadPropertiesPage(1, selectedFilters);
     }
 
     function clearFilters() {
