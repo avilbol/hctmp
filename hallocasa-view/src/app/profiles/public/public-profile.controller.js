@@ -23,6 +23,10 @@
     vm.isLoading = false;
     vm.isSafari = BrowserDetectionService.detectBrowser().ISSAFARI;
 
+    vm.totalProfiles = 0;
+    vm.profilesPerPage = 100;
+    vm.totalAmount = [100,150,200];
+
     function fetchRangeProfiles() {
       if(!vm.showLoading){
         return;
@@ -71,8 +75,6 @@
     }
 
     function listenFiltersChanges() {
-      
-
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
         var filterIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
           return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
@@ -145,6 +147,26 @@
     function clearFilters() {
       selectedFilters = [];
       $rootScope.$broadcast("FilterSystem:clearFilters");
+    }
+
+    function sendFilters(){
+      ProfilesService.profilePublic()
+        .then(function (profiles) {
+          console.log('Profile List ', profiles);
+
+          _.each(profiles, function (profile) {
+            excludeIdList.push(profile.id);
+            var mainDescription = _.find(profile.userDescriptions, function (description) {
+              return description.language.id === profile.mainSpokenLanguage.id;
+            });
+            profile.description = mainDescription ? mainDescription.value : undefined;
+            vm.profiles.push(profile);
+          });
+          vm.showLoading = profiles.length > 0 && profiles.length === amountProfiles;
+        })
+        .finally(function () {
+          vm.isLoading = false;
+        });
     }
 
     listenFiltersChanges();

@@ -20,8 +20,9 @@
       profileSave: $resource(backend_url + "user", {}, GenericRESTResource),
       userTypes: $resource(backend_url + "user_types", {}, GenericRESTResource),
       profileLoad: $resource(backend_url + "user/detail/:id", {}, GenericRESTResource),
-      profilePublic: $resource(backend_url + "user/fetch_random", {}, GenericRESTResource),
-      profileFilters: $resource(backend_url + "property_filters", {}, GenericRESTResource),
+      profiles: $resource(backend_url + "user/fetch_random", {}, GenericRESTResource),
+      profilePublic: $resource(backend_url + "user/search", {}, GenericRESTResource),
+      // profileFilters: $resource(backend_url + "property_filters", {}, GenericRESTResource),
       profileFiltersRender: $resource("/app/profiles/profiles-fields/render-data/profile_filter_render.json", {}, GenericRESTResource)
     };
 
@@ -42,6 +43,7 @@
         properties: PropertyService.loadPropertiesByUserID(profileID)
       });
     }
+    
 
     function loadPublicProfiles(excludeIdList, amount, imageFallback) {
       excludeIdList = excludeIdList ? excludeIdList : [];
@@ -64,6 +66,28 @@
             reject();
           });
       });
+    }
+
+    function loadPublicProfilesFilters(start, finish, filterList){
+      filterList = filterList ? filterList : [];
+      order = order ? order : {};
+
+      var filter = {
+        filterList: filterList,
+        resultRequest:{
+          pageFrom: start+1,
+          pageTo: finish+1,
+          orderByMostRecent: false,
+          orderByLessRecent: false,
+          loadCount: true
+        }
+      };
+
+      filter.resultRequest.orderByMostRecent = order.publishDate === "mostRecent";
+      filter.resultRequest.orderByLessRecent = order.publishDate === "lessRecent";
+      filter.resultRequest.loadCount = start === 0;
+
+      return resources.propertiesPublic.consultObj(filter).$promise;
     }
 
     function validateUserData(data) {

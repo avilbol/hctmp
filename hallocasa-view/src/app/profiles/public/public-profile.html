@@ -3,12 +3,12 @@
     <md-button class="md-raised md-primary" ng-click="vm.openFiltersDialog($event)">
       {{'PropertyBrowse.Filters' | translate}}
     </md-button>
-    <div ng-if="vm.totalProperties > 0">
-      <b>{{vm.totalProperties}}</b>
+    <div ng-if="vm.totalProfiles > 0">
+      <b>{{vm.totalProfiles}}</b>
       <span>{{'PropertiesFilters.PropertiesCount' | translate}}</span>
     </div>
     <span flex="5"></span>
-    <div ng-if="vm.totalProperties > 0">
+    <!-- <div ng-if="vm.totalProfiles > 0">
       <b>{{'PropertiesFilters.SortBy' | translate}}:</b>
       <md-input-container>
         <label translate>{{'propertyWizardPage.property.PublishDate'}}</label>
@@ -27,8 +27,13 @@
           </md-option>
         </md-select>
       </md-input-container>
-    </div>
+    </div> -->
     <span flex></span>
+    <md-input-container>
+      <md-select ng-model="vm.profilesPerPage" aria-label="profiles per page">
+        <md-option ng-repeat="amount in vm.totalAmount" ng-value="amount">{{amount}}</md-option>
+      </md-select>
+    </md-input-container>
   </div>
 
   <div layout="row" layout-align="center">
