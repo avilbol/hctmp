@@ -136,7 +136,10 @@
         contentElement: "#propertyFilters",
         targetEvent: $event,
         clickOutsideToClose: true,
-        fullscreen: true
+        fullscreen: true,
+        onComplete: function () {
+          $scope.$broadcast('refreshSlider');
+        }
       });
       filtersDialog.catch(function () {
         loadPropertiesPage(1, selectedFilters);
