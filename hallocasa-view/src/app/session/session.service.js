@@ -18,7 +18,8 @@
       getCurrentUser: getCurrentUser,
       launchLoginDialog: launchLoginDialog,
       validateActiveSession: validateActiveSession,
-      isAuthenticated: isAuthenticated
+      isAuthenticated: isAuthenticated,
+      setCurrentUser: setCurrentUser
     };
 
     var currentUser;
@@ -47,6 +48,7 @@
         })
           .then(function (auth) {
             $auth.setToken(auth.data.securityToken.tokenValue);
+
             setCurrentUser(auth.data.user);
             setSessionExpiration(auth.data.securityToken);
 
@@ -66,6 +68,7 @@
       }
       clearCurrentUser();
       localStorageService.remove("sessionExpiration");
+      localStorageService.remove("currentUser");
       $auth.logout();
       $location.url("/");
       $intercom.shutdown();
