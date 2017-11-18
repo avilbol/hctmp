@@ -8,7 +8,7 @@
   /** @ngInject */
   function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, $window, SessionService, LocaleService,
                           BlogLinks, $rootScope, $route, AppVersion, $translate, CurrencyService, IpInfoService,
-                          PreferredSettingsService, LOCALES) {
+                          PreferredSettingsService, LOCALES, $mdMenu) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
@@ -26,7 +26,7 @@
     vm.goUp = goUp;
     vm.blogRedirection = blogRedirection;
     vm.getCurrentUserIdentifier = getCurrentUserIdentifier;
-    
+
     loadGlobalPreferredSettings();
 
     $rootScope.$on('updateInfoUser', function(event, data) {
@@ -121,6 +121,7 @@
 
       if(closeMenu){
         toggleMenu();
+        $mdMenu.hide();
       }
     }
 
@@ -155,7 +156,7 @@
     /**
       **  Query the back system for ip of machine requester which answer with his respective
       **  country and location details. Next, the system request the hallocasa back with that country in
-      **  order to know currency and language preferredm which it will load in system 
+      **  order to know currency and language preferredm which it will load in system
     **/
     function loadGlobalPreferredSettings() {
       var locationFound;
