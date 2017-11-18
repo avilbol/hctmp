@@ -4,7 +4,7 @@
     "title":[
       {
         "type":"translate_key",
-        "value":"propertyFilters.basic"
+        "value":"profileFilters.basic"
       }
     ],
     "flexMobile":100,

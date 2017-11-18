@@ -85,6 +85,8 @@
 
     function loadPublicProperties(start, finish, filterList, order) {
       $log.log("Cargar rango de propiedades: ("+start+" - "+finish+")");
+      $log.log("filterList: ", filterList);
+
       filterList = filterList ? filterList : [];
       order = order ? order : {};
 

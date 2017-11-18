@@ -5,7 +5,7 @@
     </md-button>
     <div ng-if="vm.totalProfiles > 0">
       <b>{{vm.totalProfiles}}</b>
-      <span>{{'PropertiesFilters.PropertiesCount' | translate}}</span>
+      <span>{{'ProfilesFilters.ProfilesCount' | translate}}</span>
     </div>
     <span flex="5"></span>
     <!-- <div ng-if="vm.totalProfiles > 0">
@@ -36,7 +36,48 @@
     </md-input-container>
   </div>
 
-  <div layout="row" layout-align="center">
+  <h1 ng-if="vm.profiles.length === 0 && !vm.firstLoading">
+    {{'Properties.none.property' | translate}}
+  </h1>
+
+  <div layout="row" layout-align="center" ng-show="vm.firstLoading" >
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+
+  <div layout="column" layout-align="center center">
+    <div class="landing-cards-group">
+      <div ng-if="vm.profiles.length > 0">
+        <div layout="row" layout-sm="column" layout-align="center" layout-wrap>
+          <div
+            dir-paginate="profile in vm.profiles | itemsPerPage: vm.profilesPerPage"
+            flex-gt-sm="100"
+            flex-gt-xs="100"
+            flex-xs="100"
+            total-items="vm.totalProfiles"
+            current-page="vm.pagination.current"
+          >
+            <div flex="100" layout="row" layout-align="center">
+              <a
+                flex-gt-sm="70"
+                flex-gt-xs="80"
+                flex-xs="100"
+                ng-include="'app/profiles/templates/big-profiles-card.html'"
+                ng-href="/profile?id={{profile.id}}"
+                class="disable-hyperlinks-style"
+                ng-show="profile"
+                scroll-on-click
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div layout="row" layout-margin layout-align="center center">
+          <dir-pagination-controls boundary-links="true" on-page-change="vm.loadProfilesPage(newPageNumber)"></dir-pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div layout="row" layout-align="center">
     <div flex-gt-sm="70" flex-gt-xs="80" flex-xs="100">
       <div ng-repeat="profile in vm.profiles" infinity-scroll container="#mainContainer" fetch-more="vm.fetchRangeProfiles()" distance-load="20">
         <a
@@ -48,8 +89,10 @@
         ></a>
       </div>
     </div>
-  </div>
-  <br>
+  </div> -->
+
+  <!-- <br>
+
   <div layout="row" layout-align="center">
     <md-progress-circular md-mode="indeterminate" ng-disabled="!vm.showLoading" ng-if="!vm.isSafari"></md-progress-circular>
     <md-button
@@ -64,7 +107,7 @@
       </div>
     </md-button>
   </div>
-  <br>
+  <br> -->
 </md-content>
 
 <div style="visibility: hidden">

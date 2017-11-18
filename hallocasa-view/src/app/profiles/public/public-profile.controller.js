@@ -7,14 +7,16 @@
 
   /** @ngInject */
   function PublicProfileController(ProfilesService, BrowserDetectionService, translateFilter, $rootScope, $scope,
-                                   $mdDialog) {
+                                   $mdDialog, toastr) {
     var vm = this;
     var excludeIdList = [];
     var amountProfiles = 5;
     var filtersDialog;
     var selectedFilters = [];
+    var filterList = [];
 
-    vm.fetchRangeProfiles = fetchRangeProfiles;
+    // vm.fetchRangeProfiles = fetchRangeProfiles;
+    vm.loadProfilesPage = loadProfilesPage;
     vm.openFiltersDialog = openFiltersDialog;
     vm.closeFiltersDialog = closeFiltersDialog;
     vm.clearFilters = clearFilters;
@@ -24,37 +26,23 @@
     vm.isSafari = BrowserDetectionService.detectBrowser().ISSAFARI;
 
     vm.totalProfiles = 0;
-    vm.profilesPerPage = 100;
-    vm.totalAmount = [100,150,200];
+    vm.profilesPerPage = 3;
+    vm.totalAmount = [3,8,12];
+    vm.firstLoading = true;
+    
 
-    function fetchRangeProfiles() {
-      if(!vm.showLoading){
-        return;
-      }
-      vm.isLoading = true;
-      ProfilesService.profilePublic(excludeIdList, amountProfiles)
+    vm.pagination = {
+      current: 1
+    };
+
+    function loadProfilesPage(page, filterList) {
+      console.log('Start loadProfilesPage');
+      ProfilesService.loadPublicProfiles((page-1)*vm.profilesPerPage, (page-1)*vm.profilesPerPage + vm.profilesPerPage-1, filterList)
         .then(function (profiles) {
-          console.log('Profile List ', profiles);
-
-          _.each(profiles, function (profile) {
-            excludeIdList.push(profile.id);
-            var mainDescription = _.find(profile.userDescriptions, function (description) {
-              return description.language.id === profile.mainSpokenLanguage.id;
-            });
-            profile.description = mainDescription ? mainDescription.value : undefined;
-            vm.profiles.push(profile);
-          });
-          vm.showLoading = profiles.length > 0 && profiles.length === amountProfiles;
-        })
-        .finally(function () {
-          vm.isLoading = false;
-        });
-    }
-
-    function loadFilters() {
-      ProfilesService.loadProfilesFilters()
-        .then(function (filtersData) {
-          vm.filters = filtersData;
+          console.log('Profile List ', profiles.userList);
+          vm.profiles = ProfilesService.generateProfilesPreviewData(profiles.userList);
+          vm.totalProfiles = profiles.count;
+          vm.firstLoading = false;
         })
         .catch(function () {
           toastr.warning(
@@ -62,7 +50,42 @@
         });
     }
 
-    function openFiltersDialog($event) {
+    // function fetchRangeProfiles() {
+    //   if(!vm.showLoading){
+    //     return;
+    //   }
+    //   vm.isLoading = true;
+    //   ProfilesService.profilePublic(excludeIdList, amountProfiles)
+    //     .then(function (profiles) {
+    //       console.log('Profile List ', profiles);
+
+    //       _.each(profiles, function (profile) {
+    //         excludeIdList.push(profile.id);
+    //         var mainDescription = _.find(profile.userDescriptions, function (description) {
+    //           return description.language.id === profile.mainSpokenLanguage.id;
+    //         });
+    //         profile.description = mainDescription ? mainDescription.value : undefined;
+    //         vm.profiles.push(profile);
+    //       });
+    //       vm.showLoading = profiles.length > 0 && profiles.length === amountProfiles;
+    //     })
+    //     .finally(function () {
+    //       vm.isLoading = false;
+    //     });
+    // }
+
+    function loadFilters() {
+      ProfilesService.loadProfilesFilters()
+        .then(function (filtersData){
+          vm.filters = filtersData;
+        })
+        .catch(function (){
+          toastr.warning(
+            translateFilter("hallocasa.global.error"));
+        });
+    }
+
+    function openFiltersDialog($event){
       filtersDialog = $mdDialog.show({
         contentElement: "#profileFilters",
         targetEvent: $event,
@@ -170,7 +193,8 @@
     }
 
     listenFiltersChanges();
-    fetchRangeProfiles();
+    // fetchRangeProfiles();
+    loadProfilesPage(1, filterList);
     loadFilters();
 
   }

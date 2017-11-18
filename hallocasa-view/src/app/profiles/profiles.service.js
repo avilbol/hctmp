@@ -13,7 +13,9 @@
       loadProfile: loadProfile,
       loadPublicProfiles: loadPublicProfiles,
       validateUserData: validateUserData,
-      loadProfilesFilters: loadProfilesFilters
+      loadProfilesFilters: loadProfilesFilters,
+      loadProfiles: loadProfiles,
+      generateProfilesPreviewData: generateProfilesPreviewData
     };
 
     var resources = {
@@ -43,22 +45,25 @@
         properties: PropertyService.loadPropertiesByUserID(profileID)
       });
     }
-    
 
-    function loadPublicProfiles(excludeIdList, amount, imageFallback) {
+    function loadProfiles(excludeIdList, amount, imageFallback) {
       excludeIdList = excludeIdList ? excludeIdList : [];
       imageFallback = imageFallback ? imageFallback : "UserDefault";
-      amount = amount ? amount : 5;
+
+      var data = {
+        excludeIdList: excludeIdList,
+        userNumber: amount ? amount : 10
+      };
 
       return $q(function (success, reject) {
-        resources.profilePublic.consult({excludeIdList: excludeIdList, userNumber: amount}).$promise
+        resources.profiles.consult(data).$promise
           .then(function (profiles) {
             profiles = _.map(profiles, function (profile) {
-              ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, imageFallback)
-                .then(function (image) {
-                  profile.userImage = image;
-                });
-              return profile;
+              // ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, imageFallback)
+              //   .then(function (image) {
+              //     profile.userImage = image;
+              //   });
+              // return profile;
             });
             success(profiles)
           })
@@ -66,14 +71,54 @@
             reject();
           });
       });
+      // return resources.profiles.query(data).$promise;
     }
+    
 
-    function loadPublicProfilesFilters(start, finish, filterList){
-      filterList = filterList ? filterList : [];
-      order = order ? order : {};
+    // function loadPublicProfiles(excludeIdList, amount, imageFallback) {
+    //   excludeIdList = excludeIdList ? excludeIdList : [];
+    //   imageFallback = imageFallback ? imageFallback : "UserDefault";
+    //   amount = amount ? amount : 5;
+
+    //   return $q(function (success, reject) {
+    //     resources.profilePublic.consult({excludeIdList: excludeIdList, userNumber: amount}).$promise
+    //       .then(function (profiles) {
+    //         profiles = _.map(profiles, function (profile) {
+    //           ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, imageFallback)
+    //             .then(function (image) {
+    //               profile.userImage = image;
+    //             });
+    //           return profile;
+    //         });
+    //         success(profiles)
+    //       })
+    //       .catch(function () {
+    //         reject();
+    //       });
+    //   });
+    // }
+
+    function loadPublicProfiles(start, finish, filterList, imageFallback) {
+      $log.log("Cargar rango de propiedades: ("+start+" - "+finish+")");
+      imageFallback = imageFallback ? imageFallback : "UserDefault";
+      // filterList = filterList ? filterList : [];
+      // var countries = filterList.countries ? filterList.countries : [];
+      // var states = filterList.states ? filterList.states : [];
+      // var cities = filterList.cities ? filterList.cities : [];
+      // var userTypes = filterList.userTypes ? filterList.userTypes : [];
+      // var name = filterList.name ? filterList.name : '';
+      // var languages = filterList.languages ? filterList.languages : [];
+      // var languages = filterList.languages ? filterList.languages : [];
+
+      // order = order ? order : {};
 
       var filter = {
-        filterList: filterList,
+        countries: filterList ? filterList.countries : [],
+        states: filterList ? filterList.states : [],
+        cities: filterList ? filterList.cities : [],
+        userTypes: filterList ? filterList.userTypes : [],
+        name: filterList ? filterList.name : [],
+        languages: filterList ? filterList.languages : [],
         resultRequest:{
           pageFrom: start+1,
           pageTo: finish+1,
@@ -83,11 +128,43 @@
         }
       };
 
-      filter.resultRequest.orderByMostRecent = order.publishDate === "mostRecent";
-      filter.resultRequest.orderByLessRecent = order.publishDate === "lessRecent";
-      filter.resultRequest.loadCount = start === 0;
+      // filter.resultRequest.orderByMostRecent = order.publishDate === "mostRecent";
+      // filter.resultRequest.orderByLessRecent = order.publishDate === "lessRecent";
+      // filter.resultRequest.loadCount = start === 0;
 
-      return resources.propertiesPublic.consultObj(filter).$promise;
+      return resources.profilePublic.consultObj(filter).$promise;
+      // return $q(function (success, reject) {
+      //   resources.profilePublic.consultObj(filter).$promise
+      //     .then(function (profiles) {
+      //       console.log('Load Public Profile', profiles);
+      //       profiles = _.map(profiles.userList, function (profile) {
+      //         ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, imageFallback)
+      //           .then(function (image) {
+      //             profile.userImage = image;
+      //           });
+      //         return profile;
+      //       });
+      //       success(profiles)
+      //     })
+      //     .catch(function () {
+      //       reject();
+      //     });
+      // });
+    }
+
+    function generateProfilesPreviewData(profiles, imageFallback) {
+      return _.map(profiles, function (profile) {
+        ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, imageFallback)
+        .then(function (image) {
+          profile.userImage = image;
+        });
+        var mainDescription = _.find(profile.userDescriptions, function (description) {
+          return description.language.id === profile.mainSpokenLanguage.id;
+        });
+        profile.description = mainDescription ? mainDescription.value : undefined;  
+
+        return profile;
+      });  
     }
 
     function validateUserData(data) {
