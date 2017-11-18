@@ -7,6 +7,9 @@
         "value": "propertyFilters.basic"
       }
     ],
+    "options": {
+      "expanded": true
+    },
     "flexMobile": 100,
     "flexTablet": 100,
     "flexDesktop": 100,
@@ -24,15 +27,14 @@
         }
       },
       {
-        "id": 2,
-        "name": "Buy / Rent",
+        "id": 7,
+        "name": "Country",
         "flexMobile": 100,
         "flexTablet": 50,
         "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
-          "serviceId": "PropertyProposals",
-          "translationManagement": "TOTAL"
+          "serviceId": "Country"
         }
       },
       {
@@ -48,63 +50,19 @@
         }
       },
       {
-        "id": 4,
-        "name": "Languages",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "dynamic_options",
-          "serviceId": "Languages"
-        }
-      },
-      {
-        "id": 5,
-        "name": "Market Price",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options":{
-          "range": {
-            "prefixString": "$",
-            "floor": 0,
-            "ceiling": 100
-          }
-        }
-      },
-      {
-        "id": 6,
-        "name": "Square Meters Total",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options":{
-          "step": 100,
-          "range": {
-            "suffixString": "m\u00B2",
-            "floor": 0,
-            "ceiling": 10000
-          }
-        }
-      },
-      {
-        "id": 7,
-        "name": "Country",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "dynamic_options",
-          "serviceId": "Country"
-        }
-      },
-      {
-        "id": "separator_group",
+        "id": "accordion_group",
         "flexMobile": 100,
         "flexTablet": 100,
         "flexDesktop": 100,
+        "title": [
+          {
+            "type": "translate_key",
+            "value": "hallocasa.propertyfield.department"
+          }
+        ],
         "options": {
-          "showOnSelectedOption": 7
+          "showOnSelectedOption": 7,
+          "expanded": false
         },
         "filterList": [
           {
@@ -132,12 +90,19 @@
         ]
       },
       {
-        "id": "separator_group",
+        "id": "accordion_group",
         "flexMobile": 100,
         "flexTablet": 100,
         "flexDesktop": 100,
+        "title": [
+          {
+            "type": "translate_key",
+            "value": "hallocasa.propertyfield.town"
+          }
+        ],
         "options": {
-          "showOnSelectedOption": 8
+          "showOnSelectedOption": 8,
+          "expanded": false
         },
         "filterList": [
           {
@@ -165,12 +130,19 @@
         ]
       },
       {
-        "id": "separator_group",
+        "id": "accordion_group",
         "flexMobile": 100,
         "flexTablet": 100,
         "flexDesktop": 100,
+        "title": [
+          {
+            "type": "translate_key",
+            "value": "hallocasa.propertyfield.locationneighborhood"
+          }
+        ],
         "options": {
-          "showOnSelectedOption": 9
+          "showOnSelectedOption": 9,
+          "expanded": false
         },
         "filterList": [
           {
@@ -199,12 +171,19 @@
         ]
       },
       {
-        "id": "separator_group",
+        "id": "accordion_group",
         "flexMobile": 100,
         "flexTablet": 100,
         "flexDesktop": 100,
+        "title": [
+          {
+            "type": "translate_key",
+            "value": "hallocasa.propertyfield.estrato"
+          }
+        ],
         "options": {
-          "showOnSelectedOption": 7
+          "showOnSelectedOption": 7,
+          "expanded": false
         },
         "filterList": [
           {
@@ -294,12 +273,19 @@
         ]
       },
       {
-        "id": "separator_group",
+        "id": "accordion_group",
         "flexMobile": 100,
         "flexTablet": 100,
         "flexDesktop": 100,
+        "title": [
+          {
+            "type": "translate_key",
+            "value": "hallocasa.filters.propertytypegroups"
+          }
+        ],
         "options": {
-          "showOnSelectedOption": 35
+          "showOnSelectedOption": 35,
+          "expanded": false
         },
         "filterList": [
           {
@@ -328,6 +314,58 @@
             ]
           }
         ]
+      },
+      {
+        "id": 4,
+        "name": "Languages",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "Languages"
+        }
+      },
+      {
+        "id": 5,
+        "name": "Market Price",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options":{
+          "range": {
+            "prefixString": "$",
+            "floor": 0,
+            "ceiling": 100
+          }
+        }
+      },
+      {
+        "id": 6,
+        "name": "Square Meters Total",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options":{
+          "step": 100,
+          "range": {
+            "suffixString": "m\u00B2",
+            "floor": 0,
+            "ceiling": 10000
+          }
+        }
+      },
+      {
+        "id": 2,
+        "name": "Buy / Rent",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "PropertyProposals",
+          "translationManagement": "TOTAL"
+        }
       }
     ]
   },
@@ -339,6 +377,9 @@
         "value": "propertyFilters.advanced"
       }
     ],
+    "options": {
+      "expanded": true
+    },
     "flexMobile": 100,
     "flexTablet": 100,
     "flexDesktop": 100,
