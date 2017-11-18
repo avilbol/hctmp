@@ -58,7 +58,6 @@
         }
 
         function changeCurrentImage(key) {
-          console.log(key)
           $timeout(function () {
             scope.currentImage = key;
           },0);
