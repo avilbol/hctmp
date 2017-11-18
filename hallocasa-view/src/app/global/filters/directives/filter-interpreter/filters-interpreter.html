@@ -31,6 +31,7 @@
     <div ng-switch="filterData.id">
       <accordion-filter-group
         ng-switch-when="accordion_group"
+        options="filterData.options"
         group-title="filterData.title"
         filters-list="filterData.filterList"
         filters-root-scope="filtersRootScope"

@@ -8,7 +8,7 @@
 
   var $filter;
   /** @ngInject */
-  function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
+  function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, $mdAriaProvider, $mdIconProvider,
                   localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider,
                   $mdThemingProvider, uiGmapGoogleMapApiProvider, $intercomProvider, INTERCOM_APPID, backend_url,
                   $mdDateLocaleProvider) {
@@ -89,6 +89,9 @@
     $mdDateLocaleProvider.formatDate = function(date) {
       return $filter("date")(date);
     };
+
+    //Disable ARIA Warnings
+    $mdAriaProvider.disableWarnings();
 
   }
 

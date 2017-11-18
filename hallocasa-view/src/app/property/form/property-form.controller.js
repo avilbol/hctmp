@@ -9,7 +9,7 @@
   /** @ngInject */
   function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, property_images_url,
                                   FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode,
-                                  CurrencyService, DataCalcService, $window) {
+                                  CurrencyService, DataCalcService, $window, $scope) {
 
 		var vm = this;
     var propertyBase = {
@@ -40,10 +40,16 @@
 
     // The md-select directive eats keydown events for some quick select
     // logic. Since we have a search input here, we don't need that logic.
-    $window.mdSelectOnKeyDownOverride = function(event) { 
+    $window.mdSelectOnKeyDownOverride = function(event) {
       event.stopPropagation();
-    }
-    
+    };
+
+    $window.addEventListener("beforeunload", preventReload);
+
+    $scope.$on("$destroy", function () {
+      $window.removeEventListener("beforeunload", preventReload);
+    });
+
 
     vm.state = {
       "WIZARD_1": 1,
@@ -55,6 +61,10 @@
     vm.closeDialog = closeDialog;
     vm.loadCountries = loadCountries;
     vm.handleTabLocation = handleTabLocation;
+
+    function preventReload(event) {
+      event.returnValue = translateFilter("Confirmation.ClosePropertyWizard");
+    }
 
     function closeDialog(){
       var toast = $mdToast.simple()
@@ -238,7 +248,7 @@
     }
 
     function validateSubmit() {
-      vm.showSubmit = editMode ? true : vm.nextDisabled;
+      vm.showSubmit = editMode ? true : (selectedTab >= 2 ? true : false);
     }
 
     loadCountries();

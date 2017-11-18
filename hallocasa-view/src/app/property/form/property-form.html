@@ -34,6 +34,7 @@
             >
               <md-tab-label>
                 <span ng-bind-html="tab.lang | translate"></span>
+                <span ng-show="tab.required === true">*</span>
               </md-tab-label>
               <md-tab-body>
                 <md-content>
