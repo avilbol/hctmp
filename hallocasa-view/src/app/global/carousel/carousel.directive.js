@@ -37,9 +37,8 @@
           }
 
           interval = $interval(function () {
-            // if(!scope.isTouched){
-              nextImage()
-            // }
+            nextImage();
+              
           }, 5000);
         }
 
