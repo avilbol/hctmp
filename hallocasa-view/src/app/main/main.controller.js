@@ -29,10 +29,12 @@
 
     loadGlobalPreferredSettings();
 
-    $rootScope.$on('updateInfoUser', function(event, data) {
+    var updateInfoUser = $rootScope.$on('updateInfoUser', function() {
       var currentUser = SessionService.getCurrentUser();
       return currentUser.firstName ? currentUser.firstName : currentUser.email;
     });
+
+    $rootScope.$on('$destroy', updateInfoUser);
 
     $scope.$watch(function() { return $mdMedia('sm') || $mdMedia('xs'); }, function(small) {
       vm.screenIsSmall = small;
@@ -173,8 +175,7 @@
           CurrencyService.setCurrentCurrency(currencyToUse);
           $translate.use(localeToUse);
         })
-        .catch(function(err){
-          console.log(err);
+        .catch(function(){
           CurrencyService.setCurrentCurrency({"id":3, "abbreviation":"USD"});
           $translate.use(LOCALES.defaultLocale);
         });

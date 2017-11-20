@@ -23,9 +23,9 @@
     }
 
     function sharedEmailInfo() {
-      var newPathProfileEn = $location.$$host + '/profile?id=' + $location.search().id + '&lang=en';
-      var newPathProfileEs = $location.$$host + '/profile?id=' + $location.search().id + '&lang=es';
-      var newPathProfileDe = $location.$$host + '/profile?id=' + $location.search().id + '&lang=de';
+      var newPathProfileEn = $location.host() + '/profile?id=' + $location.search().id + '&lang=en';
+      var newPathProfileEs = $location.host() + '/profile?id=' + $location.search().id + '&lang=es';
+      var newPathProfileDe = $location.host() + '/profile?id=' + $location.search().id + '&lang=de';
       var options = {
         subject: "HalloCasa",
         body: "Check out this real estate expert on HalloCasa! " + newPathProfileEn + "\n" +
@@ -37,7 +37,7 @@
     }
 
     function loadURLShared() {
-      var url = $location.$$host + '/profile?id=' + $location.search().id + '&lang=' + LocaleService.getCurrentLenguage();
+      var url = $location.host() + '/profile?id=' + $location.search().id + '&lang=' + LocaleService.getCurrentLenguage();
       vm.sharedURL = url;
 
       vm.textWhatsApp = translateFilter("Profile.Shared.TextInfo") + ': ';

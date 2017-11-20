@@ -59,11 +59,11 @@
         resources.profiles.consult(data).$promise
           .then(function (profiles) {
             profiles = _.map(profiles, function (profile) {
-              // ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, imageFallback)
-              //   .then(function (image) {
-              //     profile.userImage = image;
-              //   });
-              // return profile;
+              ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, imageFallback)
+                .then(function (image) {
+                  profile.userImage = image;
+                });
+              return profile;
             });
             success(profiles)
           })

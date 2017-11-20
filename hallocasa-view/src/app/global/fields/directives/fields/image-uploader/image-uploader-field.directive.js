@@ -23,7 +23,6 @@
         var filesKeys = [];
         var primaryImage;
         var previewFrame = '.lf-ng-md-file-input-thumbnails .lf-ng-md-file-input-frame';
-        var previewContainerFrame = '.lf-ng-md-file-input-frame';
         var previewTitle = '.lf-ng-md-file-input-x';
         scope.assignAsPrimaryImage = assignAsPrimaryImage;
 
@@ -134,8 +133,6 @@
         }
 
         function setPreviewAsPrimary(image) {
-          var imageFrameAll = angular.element(previewFrame);
-
           var imageFrame = angular.element(previewFrame)[image];
           if(!imageFrame){
             $timeout(function () {

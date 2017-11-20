@@ -156,8 +156,7 @@
             $mdDialog.hide();
           })
           .catch(function () {
-            toastr.warning(
-        			translateFilter("Error.whensavingproperty"));
+            toastr.warning(translateFilter("Error.whensavingproperty"));
           });
       }
     }

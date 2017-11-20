@@ -20,9 +20,9 @@
 
     function sharedEmailInfo() {
       // var recepient = vm.profile.email;
-      var newPathPropertyEn = $location.$$host + '/property?id=' + vm.property.id + '&lang=en';
-      var newPathPropertyEs = $location.$$host + '/property?id=' + vm.property.id + '&lang=es';
-      var newPathPropertyDe = $location.$$host + '/property?id=' + vm.property.id + '&lang=de';
+      var newPathPropertyEn = $location.host() + '/property?id=' + vm.property.id + '&lang=en';
+      var newPathPropertyEs = $location.host() + '/property?id=' + vm.property.id + '&lang=es';
+      var newPathPropertyDe = $location.host() + '/property?id=' + vm.property.id + '&lang=de';
       var options = {
         subject: "HalloCasa: " + vm.property.titles[vm.guidLanguage],
         body: "New Real Estate Object: " + newPathPropertyEn + "\n" +
@@ -43,7 +43,7 @@
     }
 
     function loadURLShared() {
-      var url = $location.$$host + '/property?id=' + vm.property.id + '&lang=' + LocaleService.getCurrentLenguage();
+      var url = $location.host() + '/property?id=' + vm.property.id + '&lang=' + LocaleService.getCurrentLenguage();
       vm.sharedURL = url;
 
       vm.textWhatsApp = translateFilter("Properties.shared.link.textTwitter") + ': ' + vm.property.titles[vm.guidLanguage] + ', ' + vm.property.descriptions[vm.guidLanguage];

@@ -36,10 +36,8 @@
     };
 
     function loadProfilesPage(page, filterList) {
-      console.log('Start loadProfilesPage');
       ProfilesService.loadPublicProfiles((page-1)*vm.profilesPerPage, (page-1)*vm.profilesPerPage + vm.profilesPerPage-1, filterList)
         .then(function (profiles) {
-          console.log('Profile List ', profiles.userList);
           vm.profiles = ProfilesService.generateProfilesPreviewData(profiles.userList);
           vm.totalProfiles = profiles.count;
           vm.firstLoading = false;
@@ -175,8 +173,6 @@
     function sendFilters(){
       ProfilesService.profilePublic()
         .then(function (profiles) {
-          console.log('Profile List ', profiles);
-
           _.each(profiles, function (profile) {
             excludeIdList.push(profile.id);
             var mainDescription = _.find(profile.userDescriptions, function (description) {
