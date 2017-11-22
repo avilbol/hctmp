@@ -55,7 +55,7 @@ public class LocationFilterWorker {
 			+ "GROUP BY co.id <<STATE_GROUP_BY>> <<CITY_GROUP_BY>> <<NEIGHBORHOOD_GROUP_BY>> " 
 			+ ") location "
 			+ "ON " 
-			+ " prop.country_id = location.country_id " 
+			+ " p0.country_id = location.country_id " 
 			+ " <<STATE_CONDITION>>" 
 			+ " <<CITY_CONDITION>>"
 			+ " <<NEIGHBORHOOD_CONDITION>>";
