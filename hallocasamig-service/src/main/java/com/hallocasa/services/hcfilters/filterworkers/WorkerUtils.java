@@ -63,4 +63,20 @@ public class WorkerUtils {
 		return listParamSchema.append(")").toString()
 				.replaceAll(",\\)", "\\)");
 	}
+	
+	/**
+	 * Transform a dropdown option list into a comma separated identifiers
+	 * @param options
+	 * 		The options to be parsed
+	 * @return
+	 * 		A comma separated string that represents the dropdown option list
+	 */
+	public static String commaSeparated(List<DropdownOption> options){
+		StringBuilder listParamSchema = new StringBuilder("(");
+		for(DropdownOption option : options){
+			listParamSchema.append(option.getOptionId() + ",");
+		}
+		return listParamSchema.append(")").toString()
+				.replaceAll(",\\)", "\\)");
+	}
 }

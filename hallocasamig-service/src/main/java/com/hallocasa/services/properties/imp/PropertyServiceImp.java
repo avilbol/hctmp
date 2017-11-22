@@ -31,6 +31,7 @@ import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.services.generalities.LocaleNamingService;
 import com.hallocasa.services.hcfilters.filterworkers.FilterWorker;
+import com.hallocasa.services.hcfilters.filterworkers.LocationFilterWorker;
 import com.hallocasa.services.properties.PropertyCommonsService;
 import com.hallocasa.services.properties.PropertyService;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
@@ -54,6 +55,9 @@ public class PropertyServiceImp implements PropertyService {
 
 	@EJB
 	private PropertyCommonsService propertyCommonsService;
+	
+	@EJB
+	private LocationFilterWorker locationFilterWorker;
 	
 	@EJB
 	private LocaleNamingService localeNamingService;
@@ -255,6 +259,8 @@ public class PropertyServiceImp implements PropertyService {
 		StringBuilder filterBuilder = new StringBuilder("");
 		StringBuilder joinBuilder = new StringBuilder("");
 		Integer attrNumber = 1;
+		List<PropertyFilterSubmission> locationSubmissions = 
+				locationFilterWorker.extractLocationFromRequest(request.getFilterList());
 		for (PropertyFilterSubmission filterSubmission : request.getFilterList()) {
 			FilterWorkerOption fwo = filterSubmission.getPropertyFilter().getFilter().getFilterWorkerOption();
 			FilterWorker filterWorker = FilterWorkerOptionRes.getFilterWorker(fwo);
@@ -265,6 +271,7 @@ public class PropertyServiceImp implements PropertyService {
 					.append(filterWorker.loadWhereQuery(filterSubmission, attrNumber));
 			attrNumber = filterWorker.addParams(filterSubmission, paramMap, attrNumber);
 		}
+		joinBuilder.append(locationFilterWorker.loadJoinQuery(locationSubmissions));
 		base = base.replaceAll("%%FIELDS%%", fieldBuilder.toString());
 		base = base.replaceAll("%%JOINS%%", joinBuilder.toString());
 		base = base.replaceAll("%%FILTERS%%", filterBuilder.toString());
