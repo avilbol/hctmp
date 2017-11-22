@@ -68,7 +68,7 @@ public class LocationFilterWorker {
 	 */
 	private static final String JOIN_QUERY = "LEFT JOIN" 
 			+ " property_field_value pfv_%1$ss"
-			+ " on prop.property_id = pfv_%1$ss.property_id" 
+			+ " on p0.property_id = pfv_%1$ss.property_id" 
 			+ " and pfv_%1$ss.property_field_id=%2$s";
 	
 	/**
