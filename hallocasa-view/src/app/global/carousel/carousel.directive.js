@@ -19,10 +19,8 @@
         scope.previousImage = previousImage;
         scope.startTouch = startTouch;
         scope.changeCurrentImage = changeCurrentImage;
-        scope.isTouched = false;
 
         function startTouch(){
-          scope.isTouched = true;
           $interval.cancel(interval);
         }
 
@@ -38,7 +36,6 @@
 
           interval = $interval(function () {
             nextImage();
-              
           }, 5000);
         }
 
