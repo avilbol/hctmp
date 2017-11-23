@@ -89,7 +89,7 @@ public class RoiFilterWorker implements FilterWorker {
 			minAttrNumber = attrNumber++;
 		}
 		if(filterSubmission.getMinValue() != null && filterSubmission.getMaxValue() != null){
-			condition += " or";
+			condition += " and";
 		}
 		if(filterSubmission.getMaxValue() != null){
 			condition += " aroi <= ?%2$d";
