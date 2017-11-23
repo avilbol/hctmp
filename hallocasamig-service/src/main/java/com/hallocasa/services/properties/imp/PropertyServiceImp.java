@@ -27,6 +27,9 @@ import java.util.Optional;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.services.generalities.LocaleNamingService;
@@ -50,6 +53,8 @@ import com.hallocasa.vo.resultrequest.ResultRequest;
 @Stateless
 public class PropertyServiceImp implements PropertyService {
 
+	private static final Logger LOGGER = LogManager.getLogger(PropertyServiceImp.class);
+	
 	@EJB
 	private IDAOProperty daoProperty;
 
@@ -271,10 +276,13 @@ public class PropertyServiceImp implements PropertyService {
 					.append(filterWorker.loadWhereQuery(filterSubmission, attrNumber));
 			attrNumber = filterWorker.addParams(filterSubmission, paramMap, attrNumber);
 		}
-		joinBuilder.append(locationFilterWorker.loadJoinQuery(locationSubmissions));
+		String locationJoinQuery = locationFilterWorker.loadJoinQuery(locationSubmissions);
+		LOGGER.info(locationJoinQuery);
+		joinBuilder.append(locationJoinQuery);
 		base = base.replaceAll("%%FIELDS%%", fieldBuilder.toString());
 		base = base.replaceAll("%%JOINS%%", joinBuilder.toString());
 		base = base.replaceAll("%%FILTERS%%", filterBuilder.toString());
+		LOGGER.info(base.toString());
 		return base;
 	}
 
