@@ -35,6 +35,7 @@ import com.hallocasa.entities.properties.EntityProperty;
 import com.hallocasa.services.generalities.LocaleNamingService;
 import com.hallocasa.services.hcfilters.filterworkers.FilterWorker;
 import com.hallocasa.services.hcfilters.filterworkers.LocationFilterWorker;
+import com.hallocasa.services.hcfilters.filterworkers.PropertyTypeFilterWorker;
 import com.hallocasa.services.properties.PropertyCommonsService;
 import com.hallocasa.services.properties.PropertyService;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
@@ -63,6 +64,9 @@ public class PropertyServiceImp implements PropertyService {
 	
 	@EJB
 	private LocationFilterWorker locationFilterWorker;
+	
+	@EJB
+	private PropertyTypeFilterWorker propertyTypeFilterWorker;
 	
 	@EJB
 	private LocaleNamingService localeNamingService;
@@ -266,6 +270,8 @@ public class PropertyServiceImp implements PropertyService {
 		Integer attrNumber = 1;
 		List<PropertyFilterSubmission> locationSubmissions = 
 				locationFilterWorker.extractLocationFromRequest(request.getFilterList());
+		List<PropertyFilterSubmission> ptypeSubmissions = 
+				propertyTypeFilterWorker.extractLocationFromRequest(request.getFilterList());
 		for (PropertyFilterSubmission filterSubmission : request.getFilterList()) {
 			FilterWorkerOption fwo = filterSubmission.getPropertyFilter().getFilter().getFilterWorkerOption();
 			FilterWorker filterWorker = FilterWorkerOptionRes.getFilterWorker(fwo);
@@ -279,11 +285,13 @@ public class PropertyServiceImp implements PropertyService {
 		String locationJoinQuery = locationFilterWorker.loadJoinQuery(locationSubmissions);
 		LOGGER.info(locationJoinQuery);
 		joinBuilder.append(locationJoinQuery);
+		joinBuilder.append(propertyTypeFilterWorker.loadJoinQuery(ptypeSubmissions));
 		base = base.replaceAll("%%FIELDS%%", fieldBuilder.toString());
 		base = base.replaceAll("%%JOINS%%", joinBuilder.toString());
 		base = base.replaceAll("%%FILTERS%%", filterBuilder.toString());
 		LOGGER.info(base.toString());
 		request.getFilterList().addAll(locationSubmissions);
+		request.getFilterList().addAll(ptypeSubmissions);
 		return base;
 	}
 
