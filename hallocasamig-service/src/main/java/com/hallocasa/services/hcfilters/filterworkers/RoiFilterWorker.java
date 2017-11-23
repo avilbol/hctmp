@@ -81,7 +81,7 @@ public class RoiFilterWorker implements FilterWorker {
 	public String loadWhereQuery(PropertyFilterSubmission filterSubmission, Integer attrNumber) {
 		String lwStr =  "maflandlord_exists and admflandlord_exists " 
 				+ " and market_price_exists and monthly_rent_exists and" 
-				+ " ( <<ADDITIONAL_CONDITION>> ) ";
+				+ " ( %1$s ) ";
 		String condition = "";
 		Integer minAttrNumber = 0, maxAttrNumber = 0;
 		if(filterSubmission.getMinValue() != null){
@@ -96,7 +96,7 @@ public class RoiFilterWorker implements FilterWorker {
 			maxAttrNumber = attrNumber;
 		}
 		filterSubmission.getMaxValue();
-		lwStr = lwStr.replaceAll("\\<\\<ADDITIONAL_CONDITION\\>\\>", condition);
+		lwStr = String.format(lwStr, condition);
 		return String.format(lwStr, minAttrNumber, maxAttrNumber);
 	}
 }
