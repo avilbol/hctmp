@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
+import com.hallocasa.vo.properties.PropertyField;
 
 /**
  * Filter worker used when a query filter apply for a group of property filter
@@ -128,12 +129,11 @@ public class LocationFilterWorker {
 		List<PropertyFilterSubmission> locationFilterList = new LinkedList<>();
 		List<Integer> indexesToRemove = new LinkedList<>();
 		for (PropertyFilterSubmission submission : filterList) {
-			Integer pfId = submission.getPropertyFilter().getPropertyField().getId();
+			PropertyField pfield = submission.getPropertyFilter().getPropertyField();
+			Integer pfId = pfield == null ? null : pfield.getId();
 			boolean locationPfId = pfId == COUNTRY_PF_ID || pfId == STATE_PF_ID || pfId == CITY_PF_ID
 					|| pfId == NEIGHBORHOOD_PF_ID;
 			if (locationPfId) {
-				
-				
 				locationFilterList.add(submission);
 				indexesToRemove.add(0, filterList.indexOf(submission));
 			}
