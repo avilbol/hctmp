@@ -139,7 +139,6 @@ public class PropertyTypeFilterWorker {
 				parentTarget = "group";
 				parentTargetAbbr = "ptypegroup";
 			}
-			Integer pfId = filterSubmission.getPropertyFilter().getPropertyField().getId();
 			String options = WorkerUtils.commaSeparated(filterSubmission.getSelectedFilterOptions());
 			baseQuery = replace(baseQuery, "<<%1$s_RELATIONSHIP_FIELD>>", target, RELATIONSHIP_FIELD, targetAlias, target);
 			baseQuery = replace(baseQuery, "<<%1$s_RELATIONSHIP_JOIN>>", target, RELATIONSHIP_JOIN_QUERY, target, 
