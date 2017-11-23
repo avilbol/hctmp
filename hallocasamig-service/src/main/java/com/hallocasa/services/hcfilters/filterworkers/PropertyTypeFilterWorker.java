@@ -31,7 +31,7 @@ public class PropertyTypeFilterWorker {
 			+ "JOIN ( " 
 			+ "SELECT "
 			+ "  ptypegroup.id AS property_type_group_id" 
-			+ "  <<PROPERTY_TYPE_RELATIONSHIP_FIELD>>"
+			+ "  <<PROPERTY_TYPE_RELATIONSHIP_FIELD>> "
 			+ "FROM" 
 			+ " property_type_group ptypegroup" 
 			+ " <<PROPERTY_TYPE_RELATIONSHIP_JOIN>> "
