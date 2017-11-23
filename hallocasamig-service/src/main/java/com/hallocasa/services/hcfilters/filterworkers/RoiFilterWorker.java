@@ -96,7 +96,7 @@ public class RoiFilterWorker implements FilterWorker {
 			maxAttrNumber = attrNumber;
 		}
 		filterSubmission.getMaxValue();
-		lwStr = lwStr.replaceAll("<<ADDITIONAL_CONDITION", condition);
+		lwStr = lwStr.replaceAll("\\<\\<ADDITIONAL_CONDITION\\>\\>", condition);
 		return String.format(lwStr, minAttrNumber, maxAttrNumber);
 	}
 }
