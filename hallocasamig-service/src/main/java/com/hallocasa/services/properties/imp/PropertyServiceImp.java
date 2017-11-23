@@ -283,6 +283,7 @@ public class PropertyServiceImp implements PropertyService {
 		base = base.replaceAll("%%JOINS%%", joinBuilder.toString());
 		base = base.replaceAll("%%FILTERS%%", filterBuilder.toString());
 		LOGGER.info(base.toString());
+		request.getFilterList().addAll(locationSubmissions);
 		return base;
 	}
 
