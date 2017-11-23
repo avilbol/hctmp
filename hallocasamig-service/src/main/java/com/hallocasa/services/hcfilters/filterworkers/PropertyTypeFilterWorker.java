@@ -26,9 +26,9 @@ public class PropertyTypeFilterWorker {
 	 */
 	private static final String BASE_LOCATION_QUERY = 
 			" LEFT JOIN" 
-			+ " property_type ptype"
-			+ "ON p0.property_type_id = ptype.id" 
-			+ "JOIN (" 
+			+ " property_type ptype "
+			+ "ON p0.property_type_id = ptype.id " 
+			+ "JOIN ( " 
 			+ "SELECT "
 			+ "  ptypegroup.id AS property_type_group_id" 
 			+ "  <<PROPERTY_TYPE_RELATIONSHIP_FIELD>>"
