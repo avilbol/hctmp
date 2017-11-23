@@ -7,11 +7,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import com.hallocasa.vo.hcfilter.HcFilterEntry;
-import com.hallocasa.vo.hcfilter.properties.PropertyFilterEntry;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
-import com.hallocasa.vo.options.DropdownOption;
-import com.hallocasa.vo.properties.PropertyField;
 
 /**
  * Filter worker used when a query filter apply for a group of property filter
@@ -136,6 +132,8 @@ public class LocationFilterWorker {
 			boolean locationPfId = pfId == COUNTRY_PF_ID || pfId == STATE_PF_ID || pfId == CITY_PF_ID
 					|| pfId == NEIGHBORHOOD_PF_ID;
 			if (locationPfId) {
+				
+				
 				locationFilterList.add(submission);
 				indexesToRemove.add(0, filterList.indexOf(submission));
 			}
@@ -222,76 +220,4 @@ public class LocationFilterWorker {
 				.replaceAll(format(dynamicTarget, baseWord.toUpperCase())
 						, format(fragmentQuery, args));
 	}
-	
-	/**
-	 * Test case
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		LocationFilterWorker locationFilterWorker = new LocationFilterWorker();
-		List<PropertyFilterSubmission> list = new LinkedList<>();
-		PropertyFilterSubmission propertyFilterSubmission =  new PropertyFilterSubmission();
-		PropertyFilterEntry entry = new PropertyFilterEntry();
-		HcFilterEntry filter = new HcFilterEntry();
-		List<DropdownOption> dropdownOptionList = new LinkedList<>();
-		DropdownOption dropdownOpt = new DropdownOption();
-		PropertyField propertyField = new PropertyField();
-		propertyField.setId(STATE_PF_ID);
-		entry.setPropertyField(propertyField);
-		entry.setFilter(filter);
-		dropdownOpt.setOptionId(5);
-		dropdownOptionList.add(dropdownOpt);
-		dropdownOpt = new DropdownOption();
-		dropdownOpt.setOptionId(8);
-		dropdownOptionList.add(dropdownOpt);
-		dropdownOpt = new DropdownOption();
-		dropdownOpt.setOptionId(1);
-		dropdownOptionList.add(dropdownOpt);
-		propertyFilterSubmission.setSelectedFilterOptions(dropdownOptionList);
-		propertyFilterSubmission.setPropertyFilter(entry);
-		
-		propertyFilterSubmission.setSelectedFilterOptions(dropdownOptionList);
-		propertyFilterSubmission.setPropertyFilter(entry);
-		list.add(propertyFilterSubmission);
-
-		propertyFilterSubmission =  new PropertyFilterSubmission();
-		entry = new PropertyFilterEntry();
-		filter = new HcFilterEntry();
-		dropdownOptionList = new LinkedList<>();
-		dropdownOpt = new DropdownOption();
-		propertyField = new PropertyField();
-		propertyField.setId(COUNTRY_PF_ID);
-		entry.setPropertyField(propertyField);
-		entry.setFilter(filter);
-		dropdownOpt.setOptionId(1);
-		dropdownOptionList.add(dropdownOpt);
-		dropdownOpt = new DropdownOption();
-		dropdownOpt.setOptionId(3);
-		dropdownOptionList.add(dropdownOpt);
-		dropdownOpt = new DropdownOption();
-		dropdownOpt.setOptionId(2);
-		dropdownOptionList.add(dropdownOpt);
-		propertyFilterSubmission.setSelectedFilterOptions(dropdownOptionList);
-		propertyFilterSubmission.setPropertyFilter(entry);
-		list.add(propertyFilterSubmission);
-		
-		propertyFilterSubmission =  new PropertyFilterSubmission();
-		entry = new PropertyFilterEntry();
-		filter = new HcFilterEntry();
-		dropdownOptionList = new LinkedList<>();
-		dropdownOpt = new DropdownOption();
-		propertyField = new PropertyField();
-		propertyField.setId(CITY_PF_ID);
-		entry.setPropertyField(propertyField);
-		entry.setFilter(filter);
-		dropdownOpt.setOptionId(1);
-		dropdownOptionList.add(dropdownOpt);
-		propertyFilterSubmission.setSelectedFilterOptions(dropdownOptionList);
-		propertyFilterSubmission.setPropertyFilter(entry);
-		list.add(propertyFilterSubmission);
-		
-		System.out.println(locationFilterWorker.loadJoinQuery(list));
-	}
-	
-
 }
