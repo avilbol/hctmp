@@ -13,119 +13,6 @@
     "filterList":[
       {
         "filter":{
-          "id":4,
-          "name":"Languages",
-          "lang":"hallocasa-pending",
-          "filterType":{
-            "id":1,
-            "name":"Hybrid Dropdown",
-            "filterTypeNature":"DROPDOWN",
-            "allowMultiple":true,
-            "useSearch":true,
-            "useSort":false,
-            "useSelectAll":true,
-            "useRemoteList":false,
-            "useLinks":false
-          },
-          "filterNature":{
-            "id":1
-          },
-          "showingStepList":[
-
-          ],
-          "usePropertyField":true,
-          "filterWorkerOption":"DROPDOWN",
-          "useStaticFilterOptions":false,
-          "forceAllFilterOptions":false,
-          "flexMobile":100,
-          "flexTablet":50,
-          "flexDesktop":33,
-          "options":{
-            "type":"dynamic_options",
-            "serviceId":"Languages"
-          }
-        },
-        "propertyField":{
-          "id":1,
-          "name":"Languages",
-          "lang":"hallocasa.propertyfield.languages",
-          "basic":false,
-          "primaryKey":false,
-          "multilanguageValue":false,
-          "propertyFieldType":{
-            "id":3,
-            "name":"Checkbox group"
-          },
-          "propertyFieldValueType":{
-            "id":3,
-            "name":"Identifier list"
-          },
-          "tooltipLang":"hallocasa.propertyfieldtooltip.languages",
-          "textType":"SAME",
-          "data1Type":"SAME",
-          "data2Type":"SAME",
-          "data3Type":"SAME"
-        }
-      },
-      {
-        "filter":{
-          "id":4,
-          "name":"services",
-          "lang":"hallocasa-pending",
-          "filterType":{
-            "id":1,
-            "name":"Hybrid Dropdown",
-            "filterTypeNature":"DROPDOWN",
-            "allowMultiple":true,
-            "useSearch":true,
-            "useSort":false,
-            "useSelectAll":true,
-            "useRemoteList":false,
-            "useLinks":false
-          },
-          "filterNature":{
-            "id":1
-          },
-          "showingStepList":[
-
-          ],
-          "usePropertyField":true,
-          "filterWorkerOption":"DROPDOWN",
-          "useStaticFilterOptions":false,
-          "forceAllFilterOptions":false,
-          "flexMobile":100,
-          "flexTablet":50,
-          "flexDesktop":33,
-          "options":{
-            "type":"dynamic_options",
-            "serviceId":"Services",
-            "translationManagement":"TOTAL"
-          }
-        },
-        "propertyField":{
-          "id":1,
-          "name":"services",
-          "lang":"hallocasa.services",
-          "basic":false,
-          "primaryKey":false,
-          "multilanguageValue":false,
-          "propertyFieldType":{
-            "id":3,
-            "name":"Checkbox group"
-          },
-          "propertyFieldValueType":{
-            "id":3,
-            "name":"Identifier list"
-          },
-          "tooltipLang":"hallocasa.propertyfieldtooltip.languages",
-          "textType":"SAME",
-          "data1Type":"SAME",
-          "data2Type":"SAME",
-          "data3Type":"SAME"
-        }
-      },
-      {
-        "filter":{
           "id":7,
           "name":"Country",
           "lang":"hallocasa-pending",
@@ -181,297 +68,42 @@
         }
       },
       {
-        "filter":{
-          "id":7,
-          "name":"Country",
-          "lang":"hallocasa-pending",
-          "filterType":{
-            "id":1,
-            "name":"Hybrid Dropdown",
-            "filterTypeNature":"DROPDOWN",
-            "allowMultiple":true,
-            "useSearch":true,
-            "useSort":false,
-            "useSelectAll":true,
-            "useRemoteList":false,
-            "useLinks":false
-          },
-          "filterNature":{
-            "id":1
-          },
-          "showingStepList":[
-
-          ],
-          "usePropertyField":true,
-          "filterWorkerOption":"COUNTRY_KEY",
-          "useStaticFilterOptions":false,
-          "forceAllFilterOptions":false,
-          "flexMobile":100,
-          "flexTablet":50,
-          "flexDesktop":33,
-          "options":{
-            "type":"dynamic_options",
-            "serviceId":"Country"
-          }
-        },
-        "propertyField":{
-          "id":34,
-          "name":"Country",
-          "lang":"hallocasa.propertyfield.country",
-          "basic":true,
-          "primaryKey":true,
-          "multilanguageValue":false,
-          "propertyFieldType":{
-            "id":1,
-            "name":"Dropdown"
-          },
-          "propertyFieldValueType":{
-            "id":2,
-            "name":"Identifier"
-          },
-          "tooltipLang":"hallocasa.pending",
-          "textType":"SAME",
-          "data1Type":"SAME",
-          "data2Type":"SAME",
-          "data3Type":"SAME"
-        }
-      },
-      {
-        "id":"separator_group",
-        "flexMobile":100,
-        "flexTablet":100,
-        "flexDesktop":100,
-        "options":{
-          "showOnSelectedOption":7
-        },
-        "filterList":[
+        "id": "accordion_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "title": [
           {
-            "filter":{
-              "id":8,
-              "name":"Department",
-              "lang":"hallocasa-pending",
-              "filterType":{
-                "id":1,
-                "name":"Hybrid Dropdown",
-                "filterTypeNature":"DROPDOWN",
-                "allowMultiple":true,
-                "useSearch":true,
-                "useSort":false,
-                "useSelectAll":true,
-                "useRemoteList":false,
-                "useLinks":false
-              },
-              "filterNature":{
-                "id":1
-              },
-              "showingStepList":[
-                {
-                  "filterCondition":{
-                    "filterId":7,
-                    "searchSpecific":false,
-                    "containsAtLeastOne":false,
-                    "containsAll":false,
-                    "containsNumber":false,
-                    "number":0,
-                    "selectedNumberAny":1
-                  }
-                }
-              ],
-              "parentFilter":{
-                "id":7,
-                "name":"Country",
-                "lang":"hallocasa-pending",
-                "filterType":{
-                  "id":1,
-                  "name":"Hybrid Dropdown",
-                  "filterTypeNature":"DROPDOWN",
-                  "allowMultiple":true,
-                  "useSearch":true,
-                  "useSort":false,
-                  "useSelectAll":true,
-                  "useRemoteList":false,
-                  "useLinks":false
-                },
-                "filterNature":{
-                  "id":1
-                },
-                "showingStepList":[
-
-                ],
-                "usePropertyField":true,
-                "filterWorkerOption":"COUNTRY_KEY",
-                "useStaticFilterOptions":false,
-                "forceAllFilterOptions":false
-              },
-              "usePropertyField":true,
-              "filterWorkerOption":"DROPDOWN",
-              "hcListerOption":"STATE",
-              "useStaticFilterOptions":false,
-              "forceAllFilterOptions":false,
-              "flexMobile":100,
-              "flexTablet":50,
-              "flexDesktop":33
-            },
-            "propertyField":{
-              "id":7,
-              "name":"Department",
-              "lang":"hallocasa.propertyfield.department",
-              "basic":false,
-              "primaryKey":false,
-              "multilanguageValue":false,
-              "propertyFieldType":{
-                "id":1,
-                "name":"Dropdown"
-              },
-              "propertyFieldValueType":{
-                "id":2,
-                "name":"Identifier"
-              },
-              "tooltipLang":"hallocasa.propertyfieldtooltip.department",
-              "textType":"SAME",
-              "data1Type":"SAME",
-              "data2Type":"SAME",
-              "data3Type":"SAME",
-              "hcListerOption":"STATE"
-            }
+            "type": "translate_key",
+            "value": "hallocasa.propertyfield.department"
           }
-        ]
-      },
-      {
-        "id":"separator_group",
-        "flexMobile":100,
-        "flexTablet":100,
-        "flexDesktop":100,
-        "options":{
-          "showOnSelectedOption":8
+        ],
+        "options": {
+          "showOnSelectedOption": 7,
+          "expanded": false
         },
-        "filterList":[
+        "filterList": [
           {
-            "filter":{
-              "id":9,
-              "name":"Town",
-              "lang":"hallocasa-pending",
-              "filterType":{
-                "id":1,
-                "name":"Hybrid Dropdown",
-                "filterTypeNature":"DROPDOWN",
-                "allowMultiple":true,
-                "useSearch":true,
-                "useSort":false,
-                "useSelectAll":true,
-                "useRemoteList":false,
-                "useLinks":false
-              },
-              "filterNature":{
-                "id":1
-              },
-              "showingStepList":[
-                {
-                  "filterCondition":{
-                    "filterId":8,
-                    "searchSpecific":false,
-                    "containsAtLeastOne":false,
-                    "containsAll":false,
-                    "containsNumber":false,
-                    "number":0,
-                    "selectedNumberAny":1
-                  }
-                }
-              ],
-              "parentFilter":{
-                "id":8,
-                "name":"Department",
-                "lang":"hallocasa-pending",
-                "filterType":{
-                  "id":1,
-                  "name":"Hybrid Dropdown",
-                  "filterTypeNature":"DROPDOWN",
-                  "allowMultiple":true,
-                  "useSearch":true,
-                  "useSort":false,
-                  "useSelectAll":true,
-                  "useRemoteList":false,
-                  "useLinks":false
-                },
-                "filterNature":{
-                  "id":1
-                },
-                "showingStepList":[
-                  {
-                    "filterCondition":{
-                      "filterId":7,
-                      "searchSpecific":false,
-                      "containsAtLeastOne":false,
-                      "containsAll":false,
-                      "containsNumber":false,
-                      "number":0,
-                      "selectedNumberAny":1
-                    }
-                  }
-                ],
-                "parentFilter":{
-                  "id":7,
-                  "name":"Country",
-                  "lang":"hallocasa-pending",
-                  "filterType":{
-                    "id":1,
-                    "name":"Hybrid Dropdown",
-                    "filterTypeNature":"DROPDOWN",
-                    "allowMultiple":true,
-                    "useSearch":true,
-                    "useSort":false,
-                    "useSelectAll":true,
-                    "useRemoteList":false,
-                    "useLinks":false
-                  },
-                  "filterNature":{
-                    "id":1
-                  },
-                  "showingStepList":[
-
-                  ],
-                  "usePropertyField":true,
-                  "filterWorkerOption":"COUNTRY_KEY",
-                  "useStaticFilterOptions":false,
-                  "forceAllFilterOptions":false
-                },
-                "usePropertyField":true,
-                "filterWorkerOption":"DROPDOWN",
-                "hcListerOption":"STATE",
-                "useStaticFilterOptions":false,
-                "forceAllFilterOptions":false
-              },
-              "usePropertyField":true,
-              "filterWorkerOption":"DROPDOWN",
-              "hcListerOption":"CITY",
-              "useStaticFilterOptions":false,
-              "forceAllFilterOptions":false,
-              "flexMobile":100,
-              "flexTablet":50,
-              "flexDesktop":33
+            "id": "repeater_group",
+            "flexMobile": 100,
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 7,
+              "parentIDName": "countryId"
             },
-            "propertyField":{
-              "id":8,
-              "name":"Town",
-              "lang":"hallocasa.propertyfield.town",
-              "basic":true,
-              "primaryKey":false,
-              "multilanguageValue":false,
-              "propertyFieldType":{
-                "id":1,
-                "name":"Dropdown"
-              },
-              "propertyFieldValueType":{
-                "id":2,
-                "name":"Identifier"
-              },
-              "tooltipLang":"hallocasa.propertyfieldtooltip.town",
-              "textType":"SAME",
-              "data1Type":"SAME",
-              "data2Type":"SAME",
-              "data3Type":"SAME",
-              "hcListerOption":"CITY"
-            }
+            "filterList": [
+              {
+                "id": 8,
+                "name": "Department",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "static_options"
+                }
+              }
+            ]
           }
         ]
       }
