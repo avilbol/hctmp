@@ -59,6 +59,7 @@
       ProfilesService.loadProfilesFilters()
         .then(function (filtersData){
           vm.filters = filtersData;
+          console.log(vm.filters);
         })
         .catch(function (){
           toastr.warning(

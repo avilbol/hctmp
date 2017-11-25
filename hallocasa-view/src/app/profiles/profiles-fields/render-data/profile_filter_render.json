@@ -176,6 +176,35 @@
       }
     },
     {
+      "filter":{
+        "id":20,
+        "name":"name",
+        "lang":"hallocasa-pending",
+        "filterType":{
+          "id":1,
+          "name":"TEXT Information",
+          "filterTypeNature":"TEXT"
+        },
+        "filterNature":{
+          "id":1
+        },
+        "showingStepList":[],
+        "filterWorkerOption":"TEXT",
+        "flexMobile":100,
+        "flexTablet":50,
+        "flexDesktop":33
+      },
+      "propertyField":{
+        "id":1,
+        "name":"text",
+        "lang":"hola",
+        "basic":false,
+        "primaryKey":false,
+        "tooltipLang":"HOLA",
+        "textType":"TEXT"
+      }
+    },
+    {
       "id": "accordion_group",
       "flexMobile": 100,
       "flexTablet": 100,

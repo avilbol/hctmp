@@ -8,7 +8,7 @@
   function textFilter($rootScope) {
     return {
       restrict: 'EA',
-      templateUrl: "app/global/filters/directives/filters/binary/binary-filter.html",
+      templateUrl: "app/global/filters/directives/filters/text/text-filter.html",
       scope: {
         filtersScope: "=?",
         filterInformation: "=",
