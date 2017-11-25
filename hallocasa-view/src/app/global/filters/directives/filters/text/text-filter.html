@@ -1,4 +1,4 @@
-<div ng-switch="binaryFilterType">
+<div ng-switch="textFilterType">
   <md-input-container class="md-block" ng-switch-when="Text">
     <label translate>{{title}}</label>
     <input
@@ -6,6 +6,7 @@
       title="{{title | translate}}"
       ng-model="filter.selected"
       type="text"
+      ng-change="change()"
     >
   </md-input-container>
 </div>

@@ -183,6 +183,7 @@
         "filterType":{
           "id":1,
           "name":"TEXT Information",
+          "useText": "some text",
           "filterTypeNature":"TEXT"
         },
         "filterNature":{

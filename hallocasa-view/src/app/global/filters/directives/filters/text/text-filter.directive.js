@@ -19,7 +19,11 @@
         scope.title = scope.filterInformation.filter.usePropertyField ?
           scope.filterInformation.propertyField.lang : scope.filterInformation.filter.lang;
         scope.emitSelectedOption = emitSelectedOption;
-        scope.filter = {selected: false};
+        scope.filter = {selected: ''};
+
+        function change(){
+          console.log('Value ', scope.filter.selected);
+        }
 
         function emitSelectedOption() {
           var selectionPayload = {
@@ -31,6 +35,7 @@
         }
 
         function detectTextFilterType() {
+          console.log('Load text-filter');
           var filterType = scope.filterInformation.filter.filterType;
           // if(filterType.useYesNoDropdown){
           //   scope.textFilterType = "Dropdown";
@@ -55,7 +60,7 @@
 
         function watchCleanFilter() {
           var watcher = $rootScope.$on("FilterSystem:clearFilters", function () {
-            scope.filter.selected = false;
+            scope.filter.selected = '';
           });
           scope.$on("$destroy", watcher);
         }

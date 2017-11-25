@@ -100,6 +100,10 @@
           case "RANGE":
             processRangeSelection(filterInformation, filterIndex);
             break;
+          case "TEXT":
+            console.log('listenFiltersChanges');
+            console.log(filterInformation);
+            break
         }
       });
 
