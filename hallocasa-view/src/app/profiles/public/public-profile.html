@@ -129,6 +129,9 @@
           ng-cloak
         ></filters-interpreter>
         <div layout="row" layout-align="end center">
+          <md-button ng-click="vm.closeFiltersDialog()" class="md-raised">
+            {{'Common.Label.Cancel' | translate}}
+          </md-button>
           <md-button ng-click="vm.clearFilters()" class="md-raised">
             {{'placeholder.clear' | translate}}
           </md-button>
