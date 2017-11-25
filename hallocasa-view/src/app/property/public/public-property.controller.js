@@ -18,8 +18,8 @@
     vm.properties = [];
     vm.totalProperties = 0;
     vm.order = {};
-    vm.propertiesPerPage = 100;
-    vm.totalAmount = [100,150,200];
+    vm.propertiesPerPage = 25;
+    vm.totalAmount = [25,50,100];
     vm.firstLoading = true;
     vm.filtersRendered = false;
     vm.clearFilters = clearFilters;

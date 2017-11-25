@@ -13,13 +13,19 @@
     var amountProfiles = 5;
     var filtersDialog;
     var selectedFilters = [];
-    var filterList = [];
+    var filterList = {
+      countries: [],
+      languages: [],
+      userTypes: [],
+      states: [],
+      cities: []
+    };
 
-    // vm.fetchRangeProfiles = fetchRangeProfiles;
     vm.loadProfilesPage = loadProfilesPage;
     vm.openFiltersDialog = openFiltersDialog;
     vm.closeFiltersDialog = closeFiltersDialog;
     vm.clearFilters = clearFilters;
+    vm.search = search;
     vm.profiles = [];
     vm.showLoading = true;
     vm.isLoading = false;
@@ -29,6 +35,7 @@
     vm.profilesPerPage = 3;
     vm.totalAmount = [3,8,12];
     vm.firstLoading = true;
+    vm.filterList = filterList;
     
 
     vm.pagination = {
@@ -48,30 +55,6 @@
         });
     }
 
-    // function fetchRangeProfiles() {
-    //   if(!vm.showLoading){
-    //     return;
-    //   }
-    //   vm.isLoading = true;
-    //   ProfilesService.profilePublic(excludeIdList, amountProfiles)
-    //     .then(function (profiles) {
-    //       console.log('Profile List ', profiles);
-
-    //       _.each(profiles, function (profile) {
-    //         excludeIdList.push(profile.id);
-    //         var mainDescription = _.find(profile.userDescriptions, function (description) {
-    //           return description.language.id === profile.mainSpokenLanguage.id;
-    //         });
-    //         profile.description = mainDescription ? mainDescription.value : undefined;
-    //         vm.profiles.push(profile);
-    //       });
-    //       vm.showLoading = profiles.length > 0 && profiles.length === amountProfiles;
-    //     })
-    //     .finally(function () {
-    //       vm.isLoading = false;
-    //     });
-    // }
-
     function loadFilters() {
       ProfilesService.loadProfilesFilters()
         .then(function (filtersData){
@@ -90,8 +73,11 @@
         clickOutsideToClose: true,
         fullscreen: true
       });
-      filtersDialog.finally(function () {
+      // filtersDialog.finally(function () {
         //TODO: Load profiles by filters
+      // });
+      filtersDialog.catch(function () {
+        loadProfilesPage(1, filterList);
       });
     }
 
@@ -100,6 +86,8 @@
         var filterIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
           return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
         });
+
+        getFilters(filterInformation, filterIndex);
 
         switch(filterInformation.propertyFilter.filter.filterType.filterTypeNature){
           case "DROPDOWN":
@@ -114,7 +102,51 @@
         }
       });
 
+      
+
       $scope.$on("$destroy", destroyListener);
+    }
+
+    function getFilters(filterInformation, filterIndex) {
+      
+      var filterObj = filterInformation;
+
+      if(filterIndex != -1){
+        filterObj = selectedFilters[filterIndex];
+      }
+
+      switch(filterObj.propertyFilter.filter.id){
+        case 7:
+          filterList.countries = [];
+          _.each(filterObj.selectedFilterOptions, function (e) {
+            filterList.countries.push({id: e.optionId});
+          });
+          break;
+        case 4:
+          filterList.languages = [];
+          _.each(filterObj.selectedFilterOptions, function (e) {
+            filterList.languages.push({id: e.optionId});
+          });
+          break;
+        case 5:
+          filterList.userTypes = [];
+          _.each(filterObj.selectedFilterOptions, function (e) {
+            filterList.userTypes.push({id: e.optionId});
+          });
+          break;
+        case 8:
+          filterList.states = [];
+          _.each(filterObj.selectedFilterOptions, function (e) {
+            filterList.states.push({id: e.optionId});
+          });
+          break; 
+        case 9:
+          filterList.cities = [];
+          _.each(filterObj.selectedFilterOptions, function (e) {
+            filterList.cities.push({id: e.optionId});
+          });
+          break;
+      }
     }
 
     function processDropdownSelection(filterInformation, filterIndex) {
@@ -166,8 +198,20 @@
     }
 
     function clearFilters() {
+      filterList = {
+        countries: [],
+        languages: [],
+        userTypes: [],
+        states: [],
+        cities: []
+      };
       selectedFilters = [];
       $rootScope.$broadcast("FilterSystem:clearFilters");
+    }
+
+    function search() {
+      closeFiltersDialog();
+      loadProfilesPage(1, filterList);
     }
 
     function sendFilters(){
@@ -189,7 +233,6 @@
     }
 
     listenFiltersChanges();
-    // fetchRangeProfiles();
     loadProfilesPage(1, filterList);
     loadFilters();
 
