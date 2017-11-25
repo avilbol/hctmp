@@ -7,10 +7,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
-import com.hallocasa.vo.hcfilter.HcFilterEntry;
-import com.hallocasa.vo.hcfilter.properties.PropertyFilterEntry;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
-import com.hallocasa.vo.options.DropdownOption;
 import com.hallocasa.vo.properties.PropertyField;
 
 /**
@@ -79,16 +76,24 @@ public class LocationFilterWorker {
 	 * %3$s is the alias of parent for this table (f.e the alias of table country if
 	 * we are doing join with state table), %4$s is a standard prefix for the foreign
 	 * key of the parent in current table (always complemented by an _id). %4$s limits
-	 * the join only to options selected in filter. If none option selected to the filter
+	 * the join only to options selected in filter. %5$s filters the options to the
+	 * identifiers selected by user. %6$s is an additional condition (OR, AND).
+	 * If none option selected to the filter
 	 * this fragment never appear in query and the <<..._RELATIONSHIP_JOIN>> will be
 	 * replaced by blank
 	 */
 	private static final String RELATIONSHIP_JOIN_QUERY = " LEFT JOIN"
 			+ " %1$s %2$s"
 			+ " ON"
-			+ " %3$s.id = %2$s.%4$s_id"
+			+ " (%3$s.id = %2$s.%4$s_id %6$s)"
 			+ " AND"
 			+ " %2$s.id IN %5$s";
+	
+	/**
+	 * Additional condition used for neighborhoods in relationship network
+	 */
+	private static final String NEIGHBORHOOD_ADDITIONAL_CONDITION = 
+			" OR ( ci.id IS NOT NULL AND ne.generic_use = true)";
 	
 	/**
 	 * Replacement of <<..._RELATIONSHIP_FIELD>>. Columns to extract from relationship
@@ -124,7 +129,8 @@ public class LocationFilterWorker {
 		List<PropertyFilterSubmission> locationFilterList = new LinkedList<>();
 		List<Integer> indexesToRemove = new LinkedList<>();
 		for (PropertyFilterSubmission submission : filterList) {
-			Integer pfId = submission.getPropertyFilter().getPropertyField().getId();
+			PropertyField pfield = submission.getPropertyFilter().getPropertyField();
+			Integer pfId = pfield == null ? null : pfield.getId();
 			boolean locationPfId = pfId == COUNTRY_PF_ID || pfId == STATE_PF_ID || pfId == CITY_PF_ID
 					|| pfId == NEIGHBORHOOD_PF_ID;
 			if (locationPfId) {
@@ -155,6 +161,7 @@ public class LocationFilterWorker {
 			String targetAlias = "";
 			String parentTarget = "";
 			String parentTargetAbbr = "";
+			String additionalCondition = "";
 			if(filterSubmission.getPropertyFilter().getPropertyField().getId() == COUNTRY_PF_ID){
 				target = "country";
 			}
@@ -175,13 +182,14 @@ public class LocationFilterWorker {
 				targetAlias = "ne";
 				parentTarget = "city";
 				parentTargetAbbr = "ci";
+				additionalCondition = NEIGHBORHOOD_ADDITIONAL_CONDITION;
 			}
 			Integer pfId = filterSubmission.getPropertyFilter().getPropertyField().getId();
 			String options = WorkerUtils.commaSeparated(filterSubmission.getSelectedFilterOptions());
 			baseQuery = replace(baseQuery, "<<%1$s_JOIN>>", target, JOIN_QUERY, target, pfId);
 			baseQuery = replace(baseQuery, "<<%1$s_RELATIONSHIP_FIELD>>", target, RELATIONSHIP_FIELD, targetAlias, target);
 			baseQuery = replace(baseQuery, "<<%1$s_RELATIONSHIP_JOIN>>", target, RELATIONSHIP_JOIN_QUERY, target, 
-					targetAlias, parentTargetAbbr, parentTarget, options);
+					targetAlias, parentTargetAbbr, parentTarget, options, additionalCondition);
 			baseQuery = replace(baseQuery, "<<%1$s_GROUP_BY>>", target, GROUP_BY, targetAlias);
 			baseQuery = replace(baseQuery, "<<%1$s_CONDITION>>", target, CONDITION, target);
 			baseQuery = baseQuery.replaceAll(format("<<%1$s_OPTIONS>>", target.toUpperCase()), options);
@@ -212,76 +220,4 @@ public class LocationFilterWorker {
 				.replaceAll(format(dynamicTarget, baseWord.toUpperCase())
 						, format(fragmentQuery, args));
 	}
-	
-	/**
-	 * Test case
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		LocationFilterWorker locationFilterWorker = new LocationFilterWorker();
-		List<PropertyFilterSubmission> list = new LinkedList<>();
-		PropertyFilterSubmission propertyFilterSubmission =  new PropertyFilterSubmission();
-		PropertyFilterEntry entry = new PropertyFilterEntry();
-		HcFilterEntry filter = new HcFilterEntry();
-		List<DropdownOption> dropdownOptionList = new LinkedList<>();
-		DropdownOption dropdownOpt = new DropdownOption();
-		PropertyField propertyField = new PropertyField();
-		propertyField.setId(STATE_PF_ID);
-		entry.setPropertyField(propertyField);
-		entry.setFilter(filter);
-		dropdownOpt.setOptionId(5);
-		dropdownOptionList.add(dropdownOpt);
-		dropdownOpt = new DropdownOption();
-		dropdownOpt.setOptionId(8);
-		dropdownOptionList.add(dropdownOpt);
-		dropdownOpt = new DropdownOption();
-		dropdownOpt.setOptionId(1);
-		dropdownOptionList.add(dropdownOpt);
-		propertyFilterSubmission.setSelectedFilterOptions(dropdownOptionList);
-		propertyFilterSubmission.setPropertyFilter(entry);
-		
-		propertyFilterSubmission.setSelectedFilterOptions(dropdownOptionList);
-		propertyFilterSubmission.setPropertyFilter(entry);
-		list.add(propertyFilterSubmission);
-
-		propertyFilterSubmission =  new PropertyFilterSubmission();
-		entry = new PropertyFilterEntry();
-		filter = new HcFilterEntry();
-		dropdownOptionList = new LinkedList<>();
-		dropdownOpt = new DropdownOption();
-		propertyField = new PropertyField();
-		propertyField.setId(COUNTRY_PF_ID);
-		entry.setPropertyField(propertyField);
-		entry.setFilter(filter);
-		dropdownOpt.setOptionId(1);
-		dropdownOptionList.add(dropdownOpt);
-		dropdownOpt = new DropdownOption();
-		dropdownOpt.setOptionId(3);
-		dropdownOptionList.add(dropdownOpt);
-		dropdownOpt = new DropdownOption();
-		dropdownOpt.setOptionId(2);
-		dropdownOptionList.add(dropdownOpt);
-		propertyFilterSubmission.setSelectedFilterOptions(dropdownOptionList);
-		propertyFilterSubmission.setPropertyFilter(entry);
-		list.add(propertyFilterSubmission);
-		
-		propertyFilterSubmission =  new PropertyFilterSubmission();
-		entry = new PropertyFilterEntry();
-		filter = new HcFilterEntry();
-		dropdownOptionList = new LinkedList<>();
-		dropdownOpt = new DropdownOption();
-		propertyField = new PropertyField();
-		propertyField.setId(CITY_PF_ID);
-		entry.setPropertyField(propertyField);
-		entry.setFilter(filter);
-		dropdownOpt.setOptionId(1);
-		dropdownOptionList.add(dropdownOpt);
-		propertyFilterSubmission.setSelectedFilterOptions(dropdownOptionList);
-		propertyFilterSubmission.setPropertyFilter(entry);
-		list.add(propertyFilterSubmission);
-		
-		System.out.println(locationFilterWorker.loadJoinQuery(list));
-	}
-	
-
 }
