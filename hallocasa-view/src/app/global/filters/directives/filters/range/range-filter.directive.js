@@ -14,8 +14,11 @@
         filterInformation: "=",
         filtersRootScope: "=?"
       },
-      link: function (scope) {
+      link: function (scope, element) {
         var ngModelTimeOut;
+        var optionsData = scope.filterInformation.filter.options ? scope.filterInformation.filter.options : {};
+        var showingStepList = optionsData.showingStepList ?
+          optionsData.showingStepList : scope.filterInformation.filter.showingStepList;
 
         scope.fieldName = scope.$id;
         scope.currentCurrency = CurrencyService.getCurrentCurrency;
@@ -124,6 +127,37 @@
           return prefixString + value + suffixString;
         }
 
+        function detectConditionalHideFilter() {
+          if(showingStepList.length){
+            var filterId = _.first(showingStepList).filterCondition.filterId;
+            if(_.isObject(optionsData) && optionsData.hideOnSpecificID){
+              internalDependencyHideHandler(filterId, optionsData.hideOnSpecificID);
+            }
+          }
+        }
+
+        function internalDependencyHideHandler(filterId, dependentValue){
+          displayFilter(true);
+
+          var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+            if(filterInformation.propertyFilter.filter.id === filterId){
+              var hideFilter = !_.find(filterInformation.selectedFilterOptions, function (selectedOption) {
+                return selectedOption.optionId === dependentValue;
+              });
+              displayFilter(hideFilter);
+            }
+          });
+
+          scope.$on("$destroy", destroyListener);
+        }
+
+        function displayFilter(show) {
+          var displayValue = show ? "initial" : "none";
+          element.closest(".filterContainer").css("display",displayValue);
+          scope.$broadcast('refreshSlider');
+        }
+
+        detectConditionalHideFilter();
         initialize();
         watchCleanFilter();
       }
