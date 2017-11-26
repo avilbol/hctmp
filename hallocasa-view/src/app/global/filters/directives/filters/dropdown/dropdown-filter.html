@@ -60,7 +60,7 @@
     {{'placeholder.selectPlaceholder'}}
   </md-option>
   <md-option
-    ng-repeat="option in options  | filter: search"
+    ng-repeat="option in options  | filter: search | orderBy: 'data1 || name'"
     ng-value="option"
   >
     <span compile="option.tmplTranslate"></span>
