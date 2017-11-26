@@ -156,6 +156,8 @@
     function launchLoginDialog(options) {
       options = options ? options : {};
       options.escapeToClose = _.isUndefined(options.escapeToClose) ? true : options.escapeToClose;
+      options.callback = _.isFunction(options.callback) ? options.callback : _.identity;
+
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
       return $mdDialog.show({
         controller: "LoginController",
@@ -170,7 +172,7 @@
         clickOutsideToClose: options.clickOutsideToClose,
         escapeToClose: options.escapeToClose,
         fullscreen: useFullScreen
-      });
+      }).then(options.callback);
     }
   }
 })();
