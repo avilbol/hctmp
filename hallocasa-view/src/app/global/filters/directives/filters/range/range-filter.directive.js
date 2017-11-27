@@ -42,6 +42,7 @@
           switch (scope.filterInformation.filter.filterType.rangeFieldPresentation){
             case "INTEGER":
             case "DOUBLE":
+            case "DATE":
             case "CURRENCY":
               if(scope.filterInformation.filter.options.range){
                 scope.range.floor = scope.filterInformation.filter.options.range.floor;
@@ -51,6 +52,10 @@
               if(scope.filterInformation.filter.filterType.useSlider){
                 scope.range.lowValue = scope.range.floor;
                 scope.range.highValue = scope.range.ceiling;
+              }
+              else{
+                scope.range.lowValue = undefined;
+                scope.range.highValue = undefined;
               }
               break;
           }
