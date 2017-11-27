@@ -110,6 +110,7 @@
       var propertyTypeGroup = vm.propertyDeterminants.propertyType.group.id;
       vm.formatedPropertyDeterminants = _.mapObject(vm.propertyDeterminants, function (val) { return val.id; });
       vm.formatedPropertyDeterminants.propertyImagesUrl = property_images_url;
+      vm.formatedPropertyDeterminants.isEditMode = editMode;
       var payload = angular.copy(vm.propertyDeterminants);
       payload.propertyType.id = propertyTypeGroup;
 

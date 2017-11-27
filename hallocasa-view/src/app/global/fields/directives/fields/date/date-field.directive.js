@@ -13,13 +13,27 @@
         fieldScope: "=?",
         fieldInformation: "=",
         form: "=?",
-        readonly: "=?"
+        readonly: "=?",
+        additionalParameters: "=?"
       },
       link: function (scope) {
         scope.fieldName = scope.$id;
         scope.fieldValue = new Date();
 
         function applyValidations() {
+          if(scope.additionalParameters.isEditMode && scope.fieldInformation.excludeValidationsOnEdit){
+            var validations = scope.fieldInformation.validations.split(",");
+            var excludedValidations = scope.fieldInformation.excludeValidationsOnEdit.split(",");
+
+            _.each(excludedValidations, function (excludeValidation) {
+              var index = _.indexOf(validations, excludeValidation);
+              if(index !== -1){
+                validations = validations.splice(1, index);
+              }
+            });
+            scope.fieldInformation.validations = validations.join();
+          }
+
           if (scope.fieldInformation.validations) {
             scope.required = scope.fieldInformation.validations.includes("required");
             var noPastDate = scope.fieldInformation.validations.includes("noPastDate");
