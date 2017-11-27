@@ -51,10 +51,15 @@
     }
 
     function launchLoginDialog(ev) {
+      var callback = function () {
+        $location.path("/profile/my-profile");
+      };
+
       var options = {
         allowClose: true,
         targetEvent: ev,
-        clickOutsideToClose: true
+        clickOutsideToClose: true,
+        callback: callback
       };
       SessionService.launchLoginDialog(options);
     }
@@ -176,7 +181,7 @@
 
     function searchByCountryCode(preferredSettings, countryCode){
       return _.find(preferredSettings, function(preferredSetting){
-        return preferredSetting.countryCode == countryCode;
+        return preferredSetting.countryCode === countryCode;
       });
     }
 

@@ -1,14 +1,14 @@
-(function() {
-	'use strict';
+(function () {
+  'use strict';
 
-	angular
-		.module('HalloCasa.session')
-		.controller('LoginController', LoginController);
+  angular
+    .module('HalloCasa.session')
+    .controller('LoginController', LoginController);
 
-	function LoginController(SessionService, toastr, $mdDialog, description, allowClose, $log, translateFilter, $mdMedia, $document, $location) {
-		var vm = this;
-		vm.userData = {};
-		vm.login = login;
+  function LoginController(SessionService, toastr, $mdDialog, description, allowClose, $log, translateFilter, $mdMedia, $document, $location) {
+    var vm = this;
+    vm.userData = {};
+    vm.login = login;
     vm.closeDialog = closeDialog;
     vm.description = description;
     vm.allowClose = allowClose;
@@ -17,20 +17,20 @@
     vm.hideRecovery = hideRecovery;
     vm.signUp = signUp;
 
-		function login(){
+    function login() {
       SessionService.login(vm.userData)
-				.then(function(response){
+        .then(function (response) {
           $log.debug(response);
-          closeDialog();
-				})
-				.catch(function(error){
-					var msg = (error.status === 401) ? "Login.InvalidPassword.Message" :
-						(error.status === 403 ? error.data.message : "Error.whenuseraccountaccess");
-					toastr.error(translateFilter(msg), translateFilter('hallocasa.global.error'));
-				});
-		}
+          $mdDialog.hide();
+        })
+        .catch(function (error) {
+          var msg = (error.status === 401) ? "Login.InvalidPassword.Message" :
+            (error.status === 403 ? error.data.message : "Error.whenuseraccountaccess");
+          toastr.error(translateFilter(msg), translateFilter('hallocasa.global.error'));
+        });
+    }
 
-    function closeDialog(){
+    function closeDialog() {
       $mdDialog.cancel();
     }
 
@@ -66,26 +66,26 @@
 
     function sendRecoveryRequest() {
       SessionService.sendRecoveryRequest(vm.emailRecover)
-        .then(function(response){
+        .then(function (response) {
           $log.debug(response);
           toastr.success(translateFilter("ForgotPassword.enterEmail.sent"));
           closeDialog();
           $location.url('/');
         })
-        .catch(function(error){
-          if(error.status === 403){
+        .catch(function (error) {
+          if (error.status === 403) {
             toastr.error(
-							translateFilter("ForgotPassword.enterEmail.errorNotFound"),
-							translateFilter('hallocasa.global.error'));
+              translateFilter("ForgotPassword.enterEmail.errorNotFound"),
+              translateFilter('hallocasa.global.error'));
           }
-          else{
+          else {
             toastr.error(
-							translateFilter('Error.whenrecoveringpassword'),
-							translateFilter('hallocasa.global.error'));
+              translateFilter('Error.whenrecoveringpassword'),
+              translateFilter('hallocasa.global.error'));
           }
           $location.url('/');
         });
     }
 
-	}
+  }
 })();
