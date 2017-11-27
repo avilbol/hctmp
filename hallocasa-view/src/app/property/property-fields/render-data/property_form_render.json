@@ -636,7 +636,8 @@
           "flexMobile": 100,
           "flexTablet": 50,
           "flexDesktop": 33,
-          "validations": "noPastDate"
+          "validations": "noPastDate",
+          "excludeValidationsOnEdit" : "noPastDate"
         },
         {
           "id": 60,
