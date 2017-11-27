@@ -131,7 +131,10 @@
                       "flexDesktop": 100,
                       "validations": "required, minlength, maxlength",
                       "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
-                      "validationsParams": { "minlength": 2, "maxlength": 45}
+                      "validationsParams": { "minlength": 2, "maxlength": 45},
+                      "options": {
+                        "isTextArea": true
+                      }
                     },
                     {
                       "id": 3,
@@ -141,7 +144,10 @@
                       "flexDesktop": 100,
                       "validations": "required, minlength, maxlength",
                       "messagesParams": { "minlength": "2 - 500", "maxlength": "2 - 500"},
-                      "validationsParams": { "minlength": 2, "maxlength": 500}
+                      "validationsParams": { "minlength": 2, "maxlength": 500},
+                      "options": {
+                        "isTextArea": true
+                      }
                     },
                     {
                       "id": 4,
@@ -151,7 +157,10 @@
                       "flexDesktop": 100,
                       "validations": "required, minlength, maxlength",
                       "messagesParams": { "minlength": "2 - 500", "maxlength": "2 - 500"},
-                      "validationsParams": { "minlength": 2, "maxlength": 500}
+                      "validationsParams": { "minlength": 2, "maxlength": 500},
+                      "options": {
+                        "isTextArea": true
+                      }
                     }
                   ]
                 }

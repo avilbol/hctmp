@@ -1,5 +1,5 @@
 <div ng-switch="fieldType.id">
-  <md-input-container class="md-block" ng-if="!readonly">
+  <md-input-container class="md-block" ng-if="!readonly && !fieldInformation.options.isTextArea">
     <label>{{fieldInformation.lang | translate}}</label>
     <input
       ng-switch-when="standard_field"
@@ -29,6 +29,38 @@
       messages-params="fieldInformation.messagesParams"
     ></ng-messages-generator>
   </md-input-container>
+
+  <md-input-container class="md-block" ng-if="!readonly && fieldInformation.options.isTextArea">
+    <label>{{fieldInformation.lang | translate}}</label>
+    <textarea
+      ng-switch-when="standard_field"
+      name="{{fieldName}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].text.strVal"
+      rows="5"
+      ng-required="required"
+      ng-minlength="fieldInformation.validationsParams.minlength"
+      ng-maxlength="fieldInformation.validationsParams.maxlength"
+    ></textarea>
+    <textarea
+      ng-switch-when="scope_dependent_field"
+      name="{{fieldName}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[relocatedIndex].data2.strVal"
+      rows="5"
+      ng-required="required"
+      ng-minlength="fieldInformation.validationsParams.minlength"
+      ng-maxlength="fieldInformation.validationsParams.maxlength"
+    ></textarea>
+
+    <ng-messages-generator
+      form="form"
+      input-name="{{fieldName}}"
+      validators="{{fieldInformation.validations}}"
+      messages-params="fieldInformation.messagesParams"
+    ></ng-messages-generator>
+  </md-input-container>
+
   <div ng-if="readonly && (fieldInformation.fieldValueList[0].text.strVal || fieldInformation.fieldValueList[relocatedIndex].data2.strVal || fieldInformation.overwriterValue) ">
     <b>
       <span translate>{{fieldInformation.lang}}:&nbsp;</span>
