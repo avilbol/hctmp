@@ -38,18 +38,6 @@
         }
       },
       {
-        "id": 3,
-        "name": "Property locations",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "dynamic_options",
-          "serviceId": "PropertyLocations",
-          "translationManagement": "TOTAL"
-        }
-      },
-      {
         "id": "accordion_group",
         "flexMobile": 100,
         "flexTablet": 100,
@@ -316,42 +304,16 @@
         ]
       },
       {
-        "id": 4,
-        "name": "Languages",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "type": "dynamic_options",
-          "serviceId": "Languages"
-        }
-      },
-      {
         "id": 5,
         "name": "Market Price",
         "flexMobile": 100,
         "flexTablet": 50,
         "flexDesktop": 33,
-        "options":{
+        "options": {
           "range": {
             "prefixString": "$",
             "floor": 0,
             "ceiling": 100
-          }
-        }
-      },
-      {
-        "id": 6,
-        "name": "Square Meters Total",
-        "flexMobile": 100,
-        "flexTablet": 50,
-        "flexDesktop": 33,
-        "options":{
-          "step": 100,
-          "range": {
-            "suffixString": "m\u00B2",
-            "floor": 0,
-            "ceiling": 10000
           }
         }
       },
@@ -378,12 +340,50 @@
       }
     ],
     "options": {
-      "expanded": true
+      "expanded": false
     },
     "flexMobile": 100,
     "flexTablet": 100,
     "flexDesktop": 100,
     "filterList": [
+      {
+        "id": 3,
+        "name": "Property locations",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "PropertyLocations",
+          "translationManagement": "TOTAL"
+        }
+      },
+      {
+        "id": 4,
+        "name": "Languages",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "Languages"
+        }
+      },
+      {
+        "id": 6,
+        "name": "Square Meters Total",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "step": 100,
+          "range": {
+            "suffixString": "m\u00B2",
+            "floor": 0,
+            "ceiling": 10000
+          }
+        }
+      },
       {
         "id": 14,
         "name": "Condition",
@@ -410,13 +410,21 @@
         "flexMobile": 100,
         "flexTablet": 50,
         "flexDesktop": 33,
-        "options":{
+        "options": {
           "step": 1,
           "range": {
             "floor": -1,
             "ceiling": 20
           },
-          "buffer": 1
+          "buffer": 1,
+          "hideOnSpecificID": 1,
+          "showingStepList": [
+            {
+              "filterCondition": {
+                "filterId": 35
+              }
+            }
+          ]
         }
       },
       {
@@ -445,7 +453,7 @@
         "flexMobile": 100,
         "flexTablet": 50,
         "flexDesktop": 33,
-        "options":{
+        "options": {
           "step": 1,
           "range": {
             "floor": 0,
@@ -480,7 +488,17 @@
         "name": "Rented",
         "flexMobile": 100,
         "flexTablet": 50,
-        "flexDesktop": 33
+        "flexDesktop": 33,
+        "options": {
+          "showOnSpecificID": 2,
+          "showingStepList": [
+            {
+              "filterCondition": {
+                "filterId": 2
+              }
+            }
+          ]
+        }
       },
       {
         "id": 15,
@@ -499,7 +517,7 @@
           "type": "static_options",
           "range": {
             "suffixString": "%",
-            "floor": -100,
+            "floor": 0,
             "ceiling": 100
           }
         }

@@ -15,8 +15,10 @@
         filtersRootScope: "=?"
       },
       link: function (scope, element) {
-        var optionsData = scope.filterInformation.filter.options;
-        var showingStepList = scope.filterInformation.filter.showingStepList;
+        var optionsData = scope.filterInformation.filter.options ? scope.filterInformation.filter.options : {};
+        var showingStepList = optionsData.showingStepList ?
+          optionsData.showingStepList : scope.filterInformation.filter.showingStepList;
+
         var ngModelTimeOut;
 
         scope.conditionalFilter = (_.isObject(optionsData) && optionsData.conditionalFilter);
@@ -243,6 +245,7 @@
             emitSelectedOption();
           }
         }
+
         function cleanLocalFilterSelections() {
           var localFilterSelectedOptions = getLocalFilterSelectedOptions();
           _.each(scope.options, function (option) {
