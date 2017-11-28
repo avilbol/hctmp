@@ -31,6 +31,7 @@
             apply: scope.filter.selected,
             textFilterType: scope.textFilterType
           };
+          
           $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
         }
 

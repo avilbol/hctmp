@@ -15,6 +15,7 @@
         "id": 7,
         "name": "Country",
         "lang": "hallocasa-pending",
+        "arrayName": "countries",
         "filterType": {
           "id": 1,
           "name": "Hybrid Dropdown",
@@ -69,6 +70,7 @@
         "id": 4,
         "name": "Languages",
         "lang": "hallocasa-pending",
+        "arrayName": "languages",
         "filterType": {
           "id": 1,
           "name": "Hybrid Dropdown",
@@ -123,6 +125,7 @@
         "id":5,
         "name":"services",
         "lang":"hallocasa-pending",
+        "arrayName": "userTypes",
         "filterType":{
           "id":1,
           "name":"Hybrid Dropdown",
@@ -180,6 +183,7 @@
         "id":20,
         "name":"name",
         "lang":"hallocasa-pending",
+        "arrayName": "name",
         "filterType":{
           "id":1,
           "name":"TEXT Information",
@@ -232,6 +236,7 @@
             "id": 8,
             "name": "Department",
             "lang": "hallocasa-pending",
+            "arrayName": "states",
             "filterType": {
               "id": 1,
               "name": "Hybrid Dropdown",
@@ -345,6 +350,7 @@
             "id": 9,
             "name": "Town",
             "lang": "hallocasa-pending",
+            "arrayName": "cities",
             "filterType": {
               "id": 1,
               "name": "Hybrid Dropdown",
