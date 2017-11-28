@@ -13,13 +13,7 @@
     var amountProfiles = 5;
     var filtersDialog;
     var selectedFilters = [];
-    var filterList = {
-      countries: [],
-      languages: [],
-      userTypes: [],
-      states: [],
-      cities: []
-    };
+    var filterList = {};
 
     vm.loadProfilesPage = loadProfilesPage;
     vm.openFiltersDialog = openFiltersDialog;
@@ -73,9 +67,6 @@
         clickOutsideToClose: true,
         fullscreen: true
       });
-      // filtersDialog.finally(function () {
-        //TODO: Load profiles by filters
-      // });
       filtersDialog.catch(function () {
         loadProfilesPage(1, filterList);
       });
@@ -87,9 +78,11 @@
           return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
         });
 
-        getFilters(filterInformation, filterIndex);
+        
+        var filterTypeNature = filterInformation.propertyFilter.filter.filterType.filterTypeNature;
+        getFilters(filterInformation, filterIndex, filterTypeNature);        
 
-        switch(filterInformation.propertyFilter.filter.filterType.filterTypeNature){
+        switch(filterTypeNature){
           case "DROPDOWN":
             processDropdownSelection(filterInformation, filterIndex);
             break;
@@ -99,53 +92,30 @@
           case "RANGE":
             processRangeSelection(filterInformation, filterIndex);
             break;
+          case "TEXT":
+            break
         }
       });
-
-      
 
       $scope.$on("$destroy", destroyListener);
     }
 
-    function getFilters(filterInformation, filterIndex) {
+    function getFilters(filterInformation, filterIndex, filterTypeNature) {
       
       var filterObj = filterInformation;
 
-      if(filterIndex != -1){
-        filterObj = selectedFilters[filterIndex];
-      }
+      var arrayName = filterObj.propertyFilter.filter.arrayName;
 
-      switch(filterObj.propertyFilter.filter.id){
-        case 7:
-          filterList.countries = [];
+      if(filterTypeNature === 'TEXT'){
+        filterList[arrayName] = filterObj.apply;
+      } else {
+        if (arrayName) {
+          var selections = []
           _.each(filterObj.selectedFilterOptions, function (e) {
-            filterList.countries.push({id: e.optionId});
+            selections.push({id: e.optionId});
           });
-          break;
-        case 4:
-          filterList.languages = [];
-          _.each(filterObj.selectedFilterOptions, function (e) {
-            filterList.languages.push({id: e.optionId});
-          });
-          break;
-        case 5:
-          filterList.userTypes = [];
-          _.each(filterObj.selectedFilterOptions, function (e) {
-            filterList.userTypes.push({id: e.optionId});
-          });
-          break;
-        case 8:
-          filterList.states = [];
-          _.each(filterObj.selectedFilterOptions, function (e) {
-            filterList.states.push({id: e.optionId});
-          });
-          break; 
-        case 9:
-          filterList.cities = [];
-          _.each(filterObj.selectedFilterOptions, function (e) {
-            filterList.cities.push({id: e.optionId});
-          });
-          break;
+          filterList[arrayName] = selections;
+        }
       }
     }
 
@@ -198,13 +168,7 @@
     }
 
     function clearFilters() {
-      filterList = {
-        countries: [],
-        languages: [],
-        userTypes: [],
-        states: [],
-        cities: []
-      };
+      filterList = {};
       selectedFilters = [];
       $rootScope.$broadcast("FilterSystem:clearFilters");
     }
