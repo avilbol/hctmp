@@ -55,6 +55,7 @@
           .then(function (data) {
             data = ProfilesService.validateUserData(data);
             vm.userData = data;
+            console.log(vm.userData.profile.userDescriptions);
             _.find(vm.userData.profile.userDescriptions, function (description) {
               if(description.language.id === data.profile.mainLanguage.id){
                 vm.selectedDescription = description;
