@@ -20,34 +20,45 @@
       "</md-menu-item>"+
       "</md-menu-content>"+
       "</md-menu>",
-      controller: function ($scope, CurrencyService, CURRENCIES, toastr, translateFilter) {
+      controller: function ($scope, CurrencyService, CURRENCIES, toastr, translateFilter, localStorageService) {
         $scope.changeCurrency = changeCurrency;
 
-        $scope.$watch('currencyState.currentCurrency', function(currentCurrency){
-          if(!currentCurrency || ($scope.currentCurrency && currentCurrency.id == $scope.currentCurrency.id)){
-            return;
-          }
-          var currencyId = currentCurrency ? currentCurrency.id : CURRENCIES.defaultCurrencyId;
-          $scope.currentCurrency = loadSpecificCurrency(currencyId);
-        });
+        $scope.$on('$changedCurrency', loadCurrencyState);
 
         CurrencyService.loadCurrency()
           .then(function (data) {
             $scope.currencyList = data;
-            $scope.currencyState =  CurrencyService.getCurrencyState();
+            loadCurrencyState();
           })
           .catch(function () {
             toastr.warning(translateFilter("Error.whenloadingmoney"));
           });
 
+        function loadCurrencyState() {
+          if(!$scope.currencyList){ return; }
+          var selectedUserCurrency = localStorageService.get("currentCurrency");
+          var currencyState;
+
+          if(_.isNumber(selectedUserCurrency)){
+            currencyState = loadSpecificCurrency(selectedUserCurrency);
+          }
+          else{
+            currencyState = loadSpecificCurrency(CURRENCIES.defaultCurrencyId);
+          }
+
+          $scope.currentCurrency = currencyState;
+          CurrencyService.setCurrentCurrency(currencyState);
+        }
+
         function changeCurrency(newCurrency) {
           $scope.currentCurrency = newCurrency;
           CurrencyService.setCurrentCurrency(newCurrency);
+          localStorageService.set("SelectedUserCurrency", true);
         }
 
         function loadSpecificCurrency(idToSearch){
           return _.find($scope.currencyList, function(currencyItem){
-            return currencyItem.id == idToSearch;
+            return currencyItem.id === idToSearch;
           });
         }
 

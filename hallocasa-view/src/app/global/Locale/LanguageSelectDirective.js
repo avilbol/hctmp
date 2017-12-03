@@ -5,7 +5,7 @@
     .module('HalloCasa')
     .directive('ngTranslateLanguageSelect', ngTranslateLanguageSelect);
 
-  function ngTranslateLanguageSelect(LocaleService, $rootScope) {
+  function ngTranslateLanguageSelect(LocaleService, $rootScope, localStorageService) {
     return {
       restrict: 'AE',
       replace: true,
@@ -29,6 +29,7 @@
         $scope.changeLanguage = function (locale) {
           LocaleService.setLocaleByDisplayName(locale);
           $scope.currentLanguage = locale;
+          localStorageService.set("SelectedUserLanguage", true);
         };
 
         var watch = $rootScope.$on('$translateChangeSuccess', function () {
