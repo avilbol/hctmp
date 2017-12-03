@@ -10,12 +10,14 @@
       .when('/property', {
         templateUrl: 'app/property/view/view-property.html',
         controller: 'ViewPropertyController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        reloadOnSearch: false
       })
       .when('/property/browser', {
         templateUrl: 'app/property/public/public-property.html',
         controller: 'PublicPropertyController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        reloadOnSearch: false
       });
   }
 

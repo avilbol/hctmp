@@ -56,6 +56,9 @@
     var watch = $rootScope.$on('$translateChangeSuccess', function (event, data) {
       $document.prop("documentElement").setAttribute('lang', data.language);// sets "lang" attribute to html
 
+      // set current language on service
+      currentLocale = data.language;
+
       // asking angular-dynamic-locale to load and apply proper AngularJS $locale setting
       tmhDynamicLocale.set(data.language.toLowerCase().replace(/_/g, '-'));
 

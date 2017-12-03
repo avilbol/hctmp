@@ -6,7 +6,7 @@
     .service('CurrencyService', CurrencyService);
 
   /** @ngInject */
-  function CurrencyService ($q, $resource, GenericRESTResource, backend_url) {
+  function CurrencyService ($q, $resource, GenericRESTResource, backend_url, localStorageService, $rootScope) {
     var service = {
       loadCurrencyData: loadCurrencyData,
       loadCurrency: loadCurrency,
@@ -42,7 +42,10 @@
     }
 
     function setCurrentCurrency(currency) {
+      if(currencyState.currentCurrency && currencyState.currentCurrency.id === currency.id){ return; }
       currencyState.currentCurrency = currency;
+      localStorageService.set("currentCurrency", currency.id);
+      $rootScope.$broadcast("$changedCurrency");
     }
 
     function getCurrentCurrency() {
