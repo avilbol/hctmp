@@ -308,14 +308,7 @@
         "name": "Market Price",
         "flexMobile": 100,
         "flexTablet": 50,
-        "flexDesktop": 33,
-        "options": {
-          "range": {
-            "prefixString": "$",
-            "floor": 0,
-            "ceiling": 100
-          }
-        }
+        "flexDesktop": 33
       },
       {
         "id": 2,

@@ -80,37 +80,62 @@
                 break;
 
               case "CURRENCY":
-                var currencyID = scope.currentCurrency().id;
-
-                if(scope.range.highValue !== scope.range.ceiling) {
-                  selectionPayload.maxCrcyValue = {
-                    currency: {id: currencyID},
-                    ammount: scope.range.highValue
-                  };
-                }
-
-                if(scope.range.lowValue !== scope.range.floor) {
-                  selectionPayload.minCrcyValue = {
-                    currency: {id: currencyID},
-                    ammount: scope.range.lowValue
-                  };
-                }
-
+                selectionPayload = _.extend(selectionPayload, processCurrencyRange());
                 break;
 
               default:
-                if(scope.range.highValue !== scope.range.ceiling) {
-                  selectionPayload.maxValue = scope.range.highValue;
-                }
-
-                if(scope.range.lowValue !== scope.range.floor) {
-                  selectionPayload.minValue = scope.range.lowValue;
-                }
+                selectionPayload = _.extend(selectionPayload, processDefaultRange());
             }
 
             $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
             ngModelTimeOut = null;
           },500);
+        }
+
+        function processDefaultRange() {
+          var selectionPayload = {};
+
+          if(scope.range.highValue !== scope.range.ceiling) {
+            selectionPayload.maxValue = scope.range.highValue;
+          }
+
+          if(scope.range.lowValue !== scope.range.floor) {
+            selectionPayload.minValue = scope.range.lowValue;
+          }
+
+          return selectionPayload;
+        }
+
+        function processCurrencyRange() {
+          var selectionPayload = {};
+
+          var currencyID = scope.currentCurrency().id;
+          var minCrcyValue = {
+            currency: {id: currencyID},
+            ammount: scope.range.lowValue
+          };
+
+          var maxCrcyValue = {
+            currency: {id: currencyID},
+            ammount: scope.range.highValue
+          };
+
+          if(!scope.filterInformation.filter.filterType.useSlider){
+            selectionPayload.minCrcyValue = minCrcyValue;
+            selectionPayload.maxCrcyValue = maxCrcyValue;
+          }
+
+          else {
+            if(scope.range.highValue !== scope.range.ceiling) {
+              selectionPayload.maxCrcyValue = maxCrcyValue;
+            }
+
+            if(scope.range.lowValue !== scope.range.floor) {
+              selectionPayload.minCrcyValue = minCrcyValue;
+            }
+          }
+
+          return selectionPayload;
         }
 
         function watchCleanFilter() {
