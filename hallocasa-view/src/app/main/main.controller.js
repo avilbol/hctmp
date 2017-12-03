@@ -166,16 +166,12 @@
           return PreferredSettingsService.getPreferredSettings();
         })
         .then(function(preferredSettings){
-          var settingToUse = searchByCountryCode(preferredSettings,locationFound.countryCode);
+          var settingToUse = searchByCountryCode(preferredSettings,locationFound.country);
           var currencyToUse = settingToUse ? settingToUse.firstCurrency : settingToUse;
           var localeToUse = settingToUse ? settingToUse.locale : LOCALES.defaultLocale;
           vm.currentCurrrency = currencyToUse;
           CurrencyService.setCurrentCurrency(currencyToUse);
           $translate.use(localeToUse);
-        })
-        .catch(function(){
-          CurrencyService.setCurrentCurrency({"id":3, "abbreviation":"USD"});
-          $translate.use(LOCALES.defaultLocale);
         });
     }
 

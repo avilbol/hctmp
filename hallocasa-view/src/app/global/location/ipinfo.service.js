@@ -12,7 +12,7 @@
     };
 
     var resources = {
-      ipInfo: $resource("http://ip-api.com/json", {}, GenericRESTResource)
+      ipInfo: $resource("https://ipinfo.io", {}, GenericRESTResource)
     };
 
     return service;

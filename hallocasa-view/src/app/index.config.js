@@ -11,7 +11,7 @@
   function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, $mdAriaProvider, $mdIconProvider,
                   localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider,
                   $mdThemingProvider, uiGmapGoogleMapApiProvider, $intercomProvider, INTERCOM_APPID, backend_url,
-                  $mdDateLocaleProvider) {
+                  $mdDateLocaleProvider, LOCALES) {
 
     //Inject interceptors
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
@@ -58,6 +58,10 @@
 
     $translateProvider.useUrlLoader(backend_url+'/hallocasa-api/locales/translations');
     $translateProvider.useLocalStorage();// saves selected language to localStorage
+
+    // Language applied on first load
+    $translateProvider.preferredLanguage(LOCALES.defaultLocale);
+
 
     tmhDynamicLocaleProvider.localeLocationPattern('http://www.hallocasa.com/resources/js/angular-locale_{{locale}}.js');
 
