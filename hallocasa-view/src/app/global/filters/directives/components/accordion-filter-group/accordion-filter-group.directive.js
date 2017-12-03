@@ -48,6 +48,7 @@
 
         function internalDependencyShowHandler(filterId) {
           displayComponent(false);
+          watchCleanFilter();
 
           var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
             if(filterInformation.propertyFilter.filter.id === filterId){
@@ -62,6 +63,13 @@
         function displayComponent(show) {
           var displayValue = show ? "initial" : "none";
           element.closest(".filterContainer").css("display",displayValue);
+        }
+
+        function watchCleanFilter() {
+          var watcher = $rootScope.$on("FilterSystem:clearFilters", function () {
+            displayComponent(false);
+          });
+          scope.$on("$destroy", watcher);
         }
 
         detectConditionalShowComponent();
