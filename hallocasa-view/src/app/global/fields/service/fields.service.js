@@ -124,7 +124,9 @@
           });
           break;
         case "Country":
-          servicePromise = LocationService.getCountries();
+          servicePromise = $q(function (resolve) {
+            langToData1Processor(LocationService.getCountries(), resolve);
+          });
           break;
         case "States":
           servicePromise = LocationService.getStateByID(payload);
