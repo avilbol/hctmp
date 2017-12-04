@@ -31,9 +31,6 @@
     var selectedTab = 0;
     vm.buttonSaveStatus = false;
 
-    vm.searchCountryTerm;
-    vm.searchPropertyTypeTerm;
-
     vm.propertyTypesLots = [];
     vm.propertyTypesIndustry = [];
     vm.propertyTypesLiving = [];
@@ -193,17 +190,17 @@
 
           vm.propertyTypesLots = _.filter(vm.propertyTypes, function (propertyType) {
             propertyType.langTrans = translateFilter(propertyType.lang);
-            return propertyType.group.id == 1;
+            return propertyType.group.id === 1;
           });
 
           vm.propertyTypesIndustry = _.filter(vm.propertyTypes, function (propertyType) {
             propertyType.langTrans = translateFilter(propertyType.lang);
-            return propertyType.group.id == 2;
+            return propertyType.group.id === 2;
           });
 
           vm.propertyTypesLiving = _.filter(vm.propertyTypes, function (propertyType) {
             propertyType.langTrans = translateFilter(propertyType.lang);
-            return propertyType.group.id == 3;
+            return propertyType.group.id === 3;
           });
         })
         .catch(function () {
@@ -215,7 +212,9 @@
     function loadCountries() {
       LocationService.getCountries()
         .then(function (countries) {
-          vm.countries = countries;
+          vm.countries = _.map(countries, function (country) {
+            return _.extend(country, {translated: translateFilter(country.lang)});
+          });
         })
         .catch(function () {
           toastr.warning(
@@ -248,7 +247,7 @@
     }
 
     function validateSubmit() {
-      vm.showSubmit = editMode ? true : (selectedTab >= 2 ? true : false);
+      vm.showSubmit = editMode ? true : (selectedTab >= 2);
     }
 
     loadCountries();
