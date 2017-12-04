@@ -215,7 +215,9 @@
     function loadCountries() {
       LocationService.getCountries()
         .then(function (countries) {
-          vm.countries = countries;
+          vm.countries = _.map(countries, function (country) {
+            return _.extend(country, {translated: translateFilter(country.lang)});
+          });
         })
         .catch(function () {
           toastr.warning(
