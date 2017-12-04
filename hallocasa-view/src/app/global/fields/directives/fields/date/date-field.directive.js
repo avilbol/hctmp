@@ -28,7 +28,7 @@
             _.each(excludedValidations, function (excludeValidation) {
               var index = _.indexOf(validations, excludeValidation);
               if(index !== -1){
-                validations = validations.splice(1, index);
+                validations.splice(index, 1);
               }
             });
             scope.fieldInformation.validations = validations.join();
