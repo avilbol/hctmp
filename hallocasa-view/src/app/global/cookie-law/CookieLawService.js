@@ -1,11 +1,11 @@
-angular.module('HalloCasa')
+(function() {
+  'use strict';
 
-    .factory('CookieLawService', [
-      'CookieService',
-      'cookieLawName',
-      'cookieLawAccepted',
-      'cookieLawDeclined',
-      function (CookieService, cookieLawName, cookieLawAccepted, cookieLawDeclined) {
+  angular.module('HalloCasa')
+
+      .factory('CookieLawService', CookieLawService);
+
+      function CookieLawService (CookieService, cookieLawName, cookieLawAccepted, cookieLawDeclined) {
         var accept = function (expireDate) {
           CookieService.set(cookieLawName, cookieLawAccepted + ';expires=' + expireDate);
         };
@@ -23,4 +23,6 @@ angular.module('HalloCasa')
           decline: decline,
           isEnabled: isEnabled
         }
-      }]);
+      }  
+
+})();        

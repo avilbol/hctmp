@@ -33,7 +33,7 @@
       return resources.userTypes.query().$promise
     }
 
-    function saveProfile(data, formID) {
+    function saveProfile(data) {
       return resources.profileSave.save(data).$promise;
     }
 
