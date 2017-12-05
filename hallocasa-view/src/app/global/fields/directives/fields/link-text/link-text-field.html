@@ -15,13 +15,17 @@
   ></ng-messages-generator>
 </md-input-container>
 <div ng-if="readonly && fieldInformation.fieldValueList[0].text.strVal">
-  <b>
-    <span translate>{{fieldInformation.lang}}:&nbsp;</span>
+  <!-- <b> -->
+    <!-- <span translate>{{fieldInformation.lang}}:&nbsp;</span> -->
     <!--<md-tooltip>-->
       <!--<span translate>{{fieldInformation.tooltipLang}}</span>-->
     <!--</md-tooltip>-->
-  </b>
-  <a ng-href="{{fieldInformation.fieldValueList[0].text.strVal}}">
-    {{fieldInformation.fieldValueList[0].text.strVal}}
+  <!-- </b> -->
+  <!-- <a ng-href="{{fieldInformation.fieldValueList[0].text.strVal}}"> -->
+    <!-- {{fieldInformation.fieldValueList[0].text.strVal}} -->
+  <!-- </a> -->
+  <!-- edit function -->
+  <a ng-href="{{fieldInformation.fieldValueList[0].text.strVal}}" target="_blank">
+      <span translate>{{fieldInformation.lang}}</span>
   </a>
 </div>
