@@ -41,7 +41,6 @@ angular.module('HalloCasa')
             expireDate.setTime(expireDate.getTime() + (options.expireDays * 24 * 60 * 60 * 1000));
             expireDate = expireDate.toGMTString();
 
-            console.log('Attr ', attr);
             if (options.acceptButton) {
               acceptButton = '<a href="" class="cl-accept" ng-click="accept()">' + options.acceptText + '</a>';
             }
