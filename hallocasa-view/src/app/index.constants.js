@@ -10,6 +10,9 @@
     .constant('MAILCHIMP_AID', 'hallocasa.us10')
     .constant('MAILCHIMP_UID', '34633f8bf6d14b7ef0e8b6bbb')
     .constant('MAILCHIMP_ID', '645de5e37b')
+    .constant('cookieLawName', '_cle')
+    .constant('cookieLawAccepted', 'accepted')
+    .constant('cookieLawDeclined', 'declined')
     .constant('moment', moment)
     .constant('LOCALES', {
       'locales': {
