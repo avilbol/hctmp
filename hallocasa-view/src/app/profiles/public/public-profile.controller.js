@@ -9,8 +9,6 @@
   function PublicProfileController(ProfilesService, BrowserDetectionService, translateFilter, $rootScope, $scope,
                                    $mdDialog, toastr) {
     var vm = this;
-    var excludeIdList = [];
-    var amountProfiles = 5;
     var filtersDialog;
     var selectedFilters = [];
     var filterList = {};
@@ -176,24 +174,6 @@
     function search() {
       closeFiltersDialog();
       loadProfilesPage(1, filterList);
-    }
-
-    function sendFilters(){
-      ProfilesService.profilePublic()
-        .then(function (profiles) {
-          _.each(profiles, function (profile) {
-            excludeIdList.push(profile.id);
-            var mainDescription = _.find(profile.userDescriptions, function (description) {
-              return description.language.id === profile.mainSpokenLanguage.id;
-            });
-            profile.description = mainDescription ? mainDescription.value : undefined;
-            vm.profiles.push(profile);
-          });
-          vm.showLoading = profiles.length > 0 && profiles.length === amountProfiles;
-        })
-        .finally(function () {
-          vm.isLoading = false;
-        });
     }
 
     listenFiltersChanges();
