@@ -26,7 +26,7 @@ angular.module('HalloCasa')
               message: attr.message || 'We use cookies to track usage and preferences.', //Message displayed on bar
               acceptButton: attr.acceptbutton === 'false' ? false : true, //Set to true to show accept/enable button
               acceptText: attr.accepttext || 'I Understand', //Text on accept/enable button
-              declineButton: attr.declinebutton || false, //Set to true to show decline/disable button
+              declineButton: attr.declinebutton === 'false' ? false : true, //Set to true to show decline/disable button
               declineText: attr.declinetext || 'Disable Cookies', //Text on decline/disable button
               policyButton: attr.policybutton || false, //Set to true to show Privacy Policy button
               policyText: attr.policytext || 'Privacy Policy', //Text on Privacy Policy button
@@ -41,6 +41,7 @@ angular.module('HalloCasa')
             expireDate.setTime(expireDate.getTime() + (options.expireDays * 24 * 60 * 60 * 1000));
             expireDate = expireDate.toGMTString();
 
+            console.log('Attr ', attr);
             if (options.acceptButton) {
               acceptButton = '<a href="" class="cl-accept" ng-click="accept()">' + options.acceptText + '</a>';
             }
