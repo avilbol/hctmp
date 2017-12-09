@@ -297,6 +297,9 @@ public class PropertyServiceImp implements PropertyService {
 
 	private void validatePropertyField(PropertyField propertyField) {
 		String err = "Property field id: " + propertyField.getId() + ", type to review: %1$s";
+		if(propertyField.getFieldValueList() == null || propertyField.getFieldValueList().isEmpty()){
+			throw new BadRequestException("You want to set a property field without a property field value list? Really?");
+		}
 		for (PropertyFieldValue pfValue : propertyField.getFieldValueList()) {
 			if (!isDataTypeGeneric(propertyField)) {
 				matchType(pfValue.getData1(), propertyField.getData1Type(), format(err, "data1"));
