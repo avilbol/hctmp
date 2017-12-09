@@ -257,6 +257,7 @@ public class UserServiceImpl implements UserService {
 			String[] parts = fullFilename.split("/");
 			user.setImageLink(parts[parts.length - 1]);
 		}
+		user.setRole("Basic");
 		daoUser.save((EntityUser) HallocasaConvert.toEntity(user));
 		if(newImage){
 			FileManager.cleanFilesStartingWithPrefix(filePathRoot, oldImageLink);
