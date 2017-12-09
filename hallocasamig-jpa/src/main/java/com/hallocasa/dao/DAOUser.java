@@ -99,6 +99,9 @@ public class DAOUser implements IDAOUser {
 	 */
 	@Override
 	public List<EntityUser> findByUserIdList(List<Long> idList, ResultRequest resultRequest) {
+		if(idList == null || idList.isEmpty()){
+			return new LinkedList<EntityUser>();
+		}
 		String query = "select u from EntityUser u where u.id IN ?1 ";
 		StringBuilder resultQuery = new StringBuilder("");
 		resultQuery.append(query);
