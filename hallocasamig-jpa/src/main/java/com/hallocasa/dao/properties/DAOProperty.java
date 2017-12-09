@@ -93,7 +93,7 @@ public class DAOProperty implements IDAOProperty {
 	 */
 	@Override
 	public List<EntityProperty> findByPropertyIdList(List<String> idList, ResultRequest resultRequest) {
-		String query = String.format("select %1$s from EntityProperty p where p.id IN ?1", BASIC_PROPERTY_ATTR);
+		String query = String.format("select %1$s from EntityProperty p where p.id IN ?1 AND size(p.user.userTypes) > 0", BASIC_PROPERTY_ATTR);
 		StringBuilder resultQuery = new StringBuilder("");
 		resultQuery.append(query);
 		if (resultRequest != null) {
