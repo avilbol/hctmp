@@ -64,6 +64,7 @@
         function watchCleanFilter() {
           var watcher = $rootScope.$on("FilterSystem:clearFilters", function () {
             scope.filter.selected = false;
+            updateContext();
           });
           scope.$on("$destroy", watcher);
         }
