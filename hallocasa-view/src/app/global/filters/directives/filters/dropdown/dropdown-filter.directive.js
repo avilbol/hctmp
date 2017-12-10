@@ -112,7 +112,9 @@
           var selectedOptions = scope.selected.options;
 
           if(_.isArray(selectedOptions)){
-            selectedFilterOptions =  _.map(selectedOptions, _.partial(_.pick, _, "optionId"));
+            selectedFilterOptions =  _.map(selectedOptions, function (option) {
+              return {optionId: option};
+            });
 
             if(selectedOptions.length === scope.options.length){
               selectionState = "deselectAll";
@@ -124,7 +126,7 @@
             }
           }
           else{
-            var option = _.pick(selectedOptions, "optionId");
+            var option = {optionId: selectedOptions};
             selectedFilterOptions = _.isEmpty(option) ? [] : [option];
           }
 
