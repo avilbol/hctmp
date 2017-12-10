@@ -14,7 +14,8 @@
         filtersList: "=",
         filtersScope: "=?",
         filtersRootScope: "=?",
-        options: "=?"
+        options: "=?",
+        additionalParameters: "=?"
       },
       link: function (scope, element) {
         var optionsData = _.isObject(scope.options) ? scope.options : {};

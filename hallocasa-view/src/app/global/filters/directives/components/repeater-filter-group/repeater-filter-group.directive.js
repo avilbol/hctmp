@@ -13,7 +13,8 @@
         options: "=?",
         filtersList: "=?",
         filtersRootScope: "=?",
-        contentFlex: "=?"
+        contentFlex: "=?",
+        additionalParameters: "=?"
       },
       link: function (scope) {
         var repeatedFilter = _.first(scope.filtersList);
