@@ -129,7 +129,6 @@
     }
 
     function save() {
-
       // length image
       var imageLength = vm.fieldsRender[2].fieldList[0].fieldValueList.length;
 
