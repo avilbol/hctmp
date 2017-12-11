@@ -34,7 +34,8 @@
         "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
-          "serviceId": "Country"
+          "serviceId": "Country",
+          "translationManagement": "TOTAL"
         }
       },
       {
@@ -498,7 +499,10 @@
         "name": "Furnished",
         "flexMobile": 100,
         "flexTablet": 50,
-        "flexDesktop": 33
+        "flexDesktop": 33,
+		"options": {
+          "type": "static_options"
+        }
       },
       {
         "id": 26,

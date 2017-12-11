@@ -66,6 +66,8 @@ public class EntityProperty implements Serializable, HallocasaEntity {
 			+ "		   %%FIELDS%% "
 			+ " FROM property p0 "
 			+ " %%JOINS%%"
+			+ " JOIN (SELECT user_id FROM user_user_type GROUP BY user_id) uidwtyp"
+			+ " ON uidwtyp.user_id = p0.user_id"
 			+ ") filterable "
 			+ "%%FILTERS%% ";
 	
@@ -76,6 +78,8 @@ public class EntityProperty implements Serializable, HallocasaEntity {
 			+ "		   %%FIELDS%% "
 			+ " FROM property p0 "
 			+ " %%JOINS%%"
+			+ " JOIN (SELECT user_id FROM user_user_type GROUP BY user_id) uidwtyp"
+			+ " ON uidwtyp.user_id = p0.user_id"
 			+ ") filterable "
 			+ "%%FILTERS%% ";
 	

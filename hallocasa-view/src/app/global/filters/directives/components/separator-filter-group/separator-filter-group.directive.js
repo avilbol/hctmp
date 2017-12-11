@@ -13,7 +13,8 @@
         filtersList: "=",
         filtersScope: "=?",
         filtersRootScope: "=?",
-        filterInformation: "=?"
+        filterInformation: "=?",
+        additionalParameters: "=?"
       },
       link: function (scope, element) {
         var optionsData = scope.filterInformation.options;
