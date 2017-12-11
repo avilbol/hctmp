@@ -18,6 +18,7 @@
       },
       link: function (scope) {
         var repeatedFilter = _.first(scope.filtersList);
+        var loadingOptions = [];
 
         scope.valueList = [];
 
@@ -44,10 +45,13 @@
         }
 
         function enableConditionalFilter(filterInformation, selectedOption) {
+          if(_.indexOf(loadingOptions, selectedOption.optionId) !== -1){return;}
+
+          loadingOptions.push(selectedOption.optionId);
           FiltersService.loadFiltersOptions(repeatedFilter.filter.id, [filterInformation]).then(function (options) {
             var filterData = angular.copy(repeatedFilter);
             var filterOptions = _.filter(options, function (option) {
-              return option.data2 || option.parentInfo[scope.options.parentIDName] === selectedOption.optionId;
+              return option.data2 === "true" || option.parentInfo[scope.options.parentIDName] === selectedOption.optionId;
             });
 
             filterData.filter.options.showOnSpecificID = selectedOption.optionId;
@@ -58,6 +62,8 @@
             };
 
             scope.valueList.push(filterData);
+          }).finally(function () {
+            loadingOptions.splice(_.indexOf(loadingOptions, selectedOption.optionId), 1);
           });
         }
 
