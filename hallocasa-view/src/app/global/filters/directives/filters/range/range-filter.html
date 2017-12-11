@@ -83,7 +83,7 @@
     ceiling="{{range.ceiling}}"
     step="{{filterInformation.filter.options.step}}"
     translate-fn="viewValueProcessor"
-    ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
+    ng-change="emitSelectedOption()"
   >
   </slider>
 </script>
@@ -97,7 +97,7 @@
           ng-model="range.lowValue"
           md-max-date="range.highValue"
           aria-label="{{title}}"
-          ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
+          ng-change="emitSelectedOption()"
         ></md-datepicker>
         <div ng-messages="dateRangeForm.$error">
           <div class="errorMessage" ng-if="dateRangeForm.$error.maxdate">
@@ -115,7 +115,7 @@
           ng-model="range.highValue"
           md-min-date="range.lowValue"
           aria-label="{{title}}"
-          ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
+          ng-change="emitSelectedOption()"
         ></md-datepicker>
       </md-input-container>
     </form>
