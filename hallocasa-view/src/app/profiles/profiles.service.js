@@ -24,7 +24,6 @@
       profileLoad: $resource(backend_url + "user/detail/:id", {}, GenericRESTResource),
       profiles: $resource(backend_url + "user/fetch_random", {}, GenericRESTResource),
       profilePublic: $resource(backend_url + "user/search", {}, GenericRESTResource),
-      // profileFilters: $resource(backend_url + "property_filters", {}, GenericRESTResource),
       profileFiltersRender: $resource("/app/profiles/profiles-fields/render-data/profile_filter_render.json", {}, GenericRESTResource)
     };
 
@@ -34,8 +33,7 @@
       return resources.userTypes.query().$promise
     }
 
-    function saveProfile(data, formID) {
-      $log.log("Guardar perfil: (Formulario: ",formID, ", Datos: ",data, ")");
+    function saveProfile(data) {
       return resources.profileSave.save(data).$promise;
     }
 
@@ -74,7 +72,6 @@
     }
 
     function loadPublicProfiles(start, finish, filterList, imageFallback) {
-      $log.log("Cargar rango de propiedades: ("+start+" - "+finish+")");
       imageFallback = imageFallback ? imageFallback : "UserDefault";
 
       var resultRequest = {
