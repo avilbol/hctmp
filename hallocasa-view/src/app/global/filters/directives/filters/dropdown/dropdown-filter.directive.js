@@ -12,7 +12,8 @@
       scope: {
         filtersScope: "=?",
         filterInformation: "=",
-        filtersRootScope: "=?"
+        filtersRootScope: "=?",
+        additionalParameters: "=?"
       },
       link: function (scope, element) {
         var optionsData = scope.filterInformation.filter.options ? scope.filterInformation.filter.options : {};
@@ -59,6 +60,7 @@
 
           processedOptions = FieldsService.processOptions(optionsList, staticOptionsGroup.translationManagement);
           setFilterOptions(processedOptions);
+          loadContext();
         }
 
         function dynamicOptionsHandler() {
@@ -83,6 +85,7 @@
             })
             .finally(function () {
               scope.filterInformation.filter.processedOptions = scope.options;
+              loadContext();
             });
         }
 
@@ -99,12 +102,17 @@
           }
         }
 
-        function emitSelectedOption() {
+        function emitSelectedOption(preventUpdateContext) {
           if(ngModelTimeOut){
             //if there is already a timeout in process cancel it
             $timeout.cancel(ngModelTimeOut);
           }
-          ngModelTimeOut = $timeout(broadcastSelections,500);
+          ngModelTimeOut = $timeout(function () {
+            broadcastSelections();
+            if(!preventUpdateContext){
+              updateContext();
+            }
+          },500);
         }
 
         function broadcastSelections() {
@@ -191,7 +199,7 @@
             scope.selected.options = scope.options;
             scope.selectAllButtonTranstationKey = "placeholder.deselectAll";
           }
-          emitSelectedOption(scope.selected.options);
+          emitSelectedOption();
         }
 
         function watchCleanFilter() {
@@ -203,6 +211,7 @@
             if(showingStepList.length){
               displayFilter(false);
             }
+            updateContext();
           });
           scope.$on("$destroy", watcher);
         }
@@ -292,6 +301,46 @@
         function setLocalFilterSelectedOptions(selectedOptions) {
           var filterInformation = FiltersService.getFilterById(scope.filterInformation.filter.id, scope.filtersRootScope);
           filterInformation.filter.selectedOptions = selectedOptions;
+        }
+
+        function loadContext() {
+          if(!scope.additionalParameters || !scope.additionalParameters.filtersContext) {return;}
+
+          var context = FiltersService.loadContext(scope.additionalParameters.filtersContext);
+          var filterID = scope.filterInformation.filter.id;
+          var savedFilterModel = context.filtersModel ? context.filtersModel[filterID] : undefined;
+
+          if(!savedFilterModel){return;}
+
+          var selectedOptions = context.filtersModel[filterID].options;
+
+          if(_.isArray(selectedOptions) && !_.isEmpty(selectedOptions)){
+            scope.selected.options = selectedOptions;
+            emitSelectedOption(true);
+          }
+        }
+
+        function updateContext() {
+          var context = FiltersService.loadContext(scope.additionalParameters.filtersContext);
+          var filterID = scope.filterInformation.filter.id;
+          context.filtersModel = context.filtersModel ? context.filtersModel : {};
+          context.filtersModel[filterID] = {};
+
+          if(_.isEmpty(scope.selected.options)){
+            delete context.filtersModel[filterID];
+          }
+          else{
+            var options;
+            if(scope.conditionalFilter){
+              options = _.map(getLocalFilterSelectedOptions(), _.property("optionId"))
+            }
+            else{
+               options = scope.selected.options;
+            }
+            context.filtersModel[filterID].options = options;
+          }
+
+          FiltersService.saveContext(scope.additionalParameters.filtersContext, context);
         }
 
         detectConditionalShowFilter();
