@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('textFilter', textFilter);
 
-  function textFilter($rootScope) {
+  function textFilter($rootScope, FiltersService) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/filters/text/text-filter.html",

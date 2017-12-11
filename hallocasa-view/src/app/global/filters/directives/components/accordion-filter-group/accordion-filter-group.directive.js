@@ -28,7 +28,7 @@
           _.each(scope.groupTitle, function (titleSegment) {
             switch (titleSegment.type){
               case "translate_key":
-                scope.renderedTitle += translateFilter(titleSegment.value);
+                scope.renderedTitle += "<span translate>{{'"+titleSegment.value+"'}}</span>";
                 break;
               case "literal_string":
                 scope.renderedTitle += titleSegment.value;
