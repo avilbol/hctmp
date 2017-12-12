@@ -132,22 +132,22 @@
           }
         }
 
-        function unsetPreviewAsPrimary(image) {
-          var imageFrame = angular.element(previewFrame)[image];
-          if(!imageFrame){
-            $timeout(function () {
-              unsetPreviewAsPrimary(image);
-            },500);
-          }
-          else {
-            assignAsPrimaryImage(scope.rawImages[image])
-            var titleFrame = angular.element(imageFrame).find(previewTitle);
-            angular.element(imageFrame).removeClass('primary-image-container');
+        // function unsetPreviewAsPrimary(image) {
+        //   var imageFrame = angular.element(previewFrame)[image];
+        //   if(!imageFrame){
+        //     $timeout(function () {
+        //       unsetPreviewAsPrimary(image);
+        //     },500);
+        //   }
+        //   else {
+        //     assignAsPrimaryImage(scope.rawImages[image])
+        //     var titleFrame = angular.element(imageFrame).find(previewTitle);
+        //     angular.element(imageFrame).removeClass('primary-image-container');
             
-            titleFrame.removeClass("primary-image");
-            titleFrame.find(".titleText").html("");
-          }
-        }
+        //     titleFrame.removeClass("primary-image");
+        //     titleFrame.find(".titleText").html("");
+        //   }
+        // }
 
         function setPreviewAsPrimary(image) {
           var imageFrame = angular.element(previewFrame)[image];
@@ -220,7 +220,7 @@
         }
 
         function allImagesNoPrimary() {
-          _.find(scope.fieldInformation.fieldValueList, function (fieldValue, valueIndex) {
+          _.find(scope.fieldInformation.fieldValueList, function (fieldValue) {
             fieldValue.data2.boolVal = false;
           });
         }
