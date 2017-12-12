@@ -12,7 +12,8 @@
       scope: {
         filtersScope: "=?",
         filterInformation: "=",
-        filtersRootScope: "=?"
+        filtersRootScope: "=?",
+        additionalParameters: "=?"
       },
       link: function (scope) {
         scope.fieldName = scope.$id;

@@ -34,7 +34,6 @@
       PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1, filterList, vm.order)
         .then(function (data) {
           vm.properties = PropertyService.generatePropertiesPreviewData(data.propertyList);
-          console.log('Properties ', vm.properties);
           vm.totalProperties = data.count;
           vm.firstLoading = false;
         })
@@ -48,7 +47,6 @@
       PropertyService.loadPropertiesFilters()
         .then(function (filtersData) {
           vm.filters = FiltersService.generateFiltersRender(filtersData.propertyFilters, filtersData.propertyFiltersRender);
-          console.log('Filters Properties ', vm.filters);
         })
         .catch(function () {
           toastr.warning(
