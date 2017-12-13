@@ -243,3 +243,7 @@ md-tabs.md-dynamic-height md-tabs-content-wrapper {
   bottom: 0;
   top: unset;
 } */
+
+.md-backdrop-custom-login {
+  opacity: .98 !important;
+}
