@@ -100,7 +100,6 @@
       var currencyToUse = DataCalcService.loadCurrentCurrency(fieldList);
       vm.formatedPropertyDeterminants.currencyToUse = currencyToUse;
       vm.property.propertyKey.currencyToUse = {id : currencyToUse};
-      console.log(addCurrencyToUseInEditionMode)
     }
 
     function loadFieldsData(){
@@ -114,7 +113,6 @@
 
       return PropertyService.loadFieldsData(payload)
         .then(function (fieldsData) {
-          console.log('loadFieldsData ', fieldsData)
 
           if(vm.property.fieldList){
             fieldsData.propertyFields = FieldsService.consolidateFields(vm.property.fieldList, fieldsData.propertyFields);
@@ -124,9 +122,6 @@
           }
           vm.fieldsRender = FieldsService.generateFieldsRender(fieldsData.propertyFields, fieldsData.propertyFormRender.tabList);
           vm.currentState = vm.state.WIZARD_2;
-          // vm.property.languages[0] = {id: 2};
-          console.log('VM.PROPERTY ', vm.property);
-          console.log('vm.fieldsRender ', vm.fieldsRender);
         })
         .catch(function () {
           toastr.warning(
