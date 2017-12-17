@@ -51,7 +51,7 @@
           </md-card>
         </div>
 
-        <div layout="row">
+        <div layout="row" ng-if="vm.property.location">
           <md-card flex>
             <md-card-title>
               <md-card-title-text>
@@ -75,6 +75,7 @@
             ng-href="/profile?id={{vm.profile.id}}"
             ng-include="'app/profiles/templates/detail-profile-card.html'"
             class="disable-hyperlinks-style"
+            flex
           ></a>
         </div>
 
