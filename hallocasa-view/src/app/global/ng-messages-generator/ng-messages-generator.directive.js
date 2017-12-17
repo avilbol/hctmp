@@ -14,7 +14,7 @@
         validators: "@",
         messagesParams: "=",
         inputName: "@",
-        passwordToMatch: "=?"
+        validationParams: "=?"
       },
       link: function (scope) {
         scope.$watch("showMessages", function () {
@@ -23,7 +23,7 @@
         });
 
         scope.matchPassword = function () {
-          return scope.passwordToMatch.firstPassword === scope.passwordToMatch.secondPassword;
+          return scope.validationParams.passwordToMatch.firstPassword === scope.validationParams.passwordToMatch.secondPassword;
         }
       }
     };
