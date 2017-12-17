@@ -153,8 +153,18 @@
             toastr.success(translateFilter("property.wizard.create.succesful"));
             $mdDialog.hide();
           })
-          .catch(function () {
-            toastr.warning(translateFilter("Error.whensavingproperty"));
+          .catch(function (error) {
+            if(error.status === 403){
+              var errorMessage = translateFilter(error.data.langMessage);
+              if(errorMessage === error.data.langMessage){
+                errorMessage = "Error.whensavingproperty";
+              }
+              toastr.warning(errorMessage);
+            }
+            else{
+              toastr.warning(translateFilter("Error.whensavingproperty"));
+            }
+
           });
       }
     }
