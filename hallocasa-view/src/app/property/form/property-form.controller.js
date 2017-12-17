@@ -157,7 +157,7 @@
             if(error.status === 403){
               var errorMessage = translateFilter(error.data.langMessage);
               if(errorMessage === error.data.langMessage){
-                errorMessage = "Error.whensavingproperty";
+                errorMessage = translateFilter("Error.whensavingproperty");
               }
               toastr.warning(errorMessage);
             }
