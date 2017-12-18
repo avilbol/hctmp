@@ -33,6 +33,7 @@
         function interpreteValidations() {
           scope.required = scope.fieldInformation.validations.includes("required");
           interpreteDateMinorThan();
+          interpreteDateGreaterThan()
         }
 
         function interpreteDateMinorThan() {
@@ -48,6 +49,37 @@
             var greaterID = field.fieldValueList ? field.fieldValueList[0].identifier : undefined;
             var optionsMinor = scope.options;
             var optionsGreater = field.options.list;
+
+            updateDateValidationParams(minorID, greaterID, optionsMinor, optionsGreater);
+          };
+
+          var destroyWatcherModel = scope.$watch("fieldInformation.fieldValueList[0].identifier", updater);
+          var destroyWatcherField = scope.$watch(function () {
+            var field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+            return field.fieldValueList ? field.fieldValueList[0].identifier : undefined;
+          }, updater);
+
+          scope.$on("$destroy",function () {
+            destroyWatcherModel();
+            destroyWatcherField();
+          });
+
+          scope.messagesParams = scope.fieldInformation.messagesParams;
+        }
+
+        function interpreteDateGreaterThan() {
+          var dateMinorThan = scope.fieldInformation.validations.includes("dateGreaterThan");
+          var fieldID = validationsParams.minorDateFieldID;
+
+          if (!dateMinorThan || !_.isNumber(fieldID)){return;}
+
+          var fieldPath = FieldsService.getFieldPathByID(fieldID, scope.fieldRootScope);
+          var updater = function () {
+            var field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+            var greaterID = scope.fieldInformation.fieldValueList[0].identifier;
+            var minorID = field.fieldValueList ? field.fieldValueList[0].identifier : undefined;
+            var optionsGreater = scope.options;
+            var optionsMinor = field.options.list;
 
             updateDateValidationParams(minorID, greaterID, optionsMinor, optionsGreater);
           };

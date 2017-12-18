@@ -525,6 +525,9 @@
           "validationsParams": {
             "greaterDateFieldID": 53,
             "dateFormat": "YYYY"
+          },
+          "messagesParams": {
+            "messageTrans": "Property.wizard.yearOfConstruction.minorThanLastModernization"
           }
         },
         {
@@ -565,6 +568,14 @@
           "flexDesktop": 33,
           "options": {
             "type": "static_options"
+          },
+          "validations": "dateGreaterThan",
+          "validationsParams": {
+            "minorDateFieldID": 49,
+            "dateFormat": "YYYY"
+          },
+          "messagesParams": {
+            "messageTrans": "Property.wizard.lastModernization.greaterThanYearOfConstruction"
           }
         },
         {
