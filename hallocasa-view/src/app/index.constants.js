@@ -4,7 +4,7 @@
 
   angular
     .module('HalloCasa')
-    .constant('AppVersion', '1.4.23')
+    .constant('AppVersion', '1.4.24')
     .constant('INTERCOM_APPID', 't6itp8rl')
     .constant('WOOTRIC_APPID', 'NPS-ead65c4a')
     .constant('MAILCHIMP_AID', 'hallocasa.us10')
