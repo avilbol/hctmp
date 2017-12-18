@@ -90,6 +90,7 @@
       md-on-close="searchTerm = ''"
       data-md-container-class="selectHeader"
       ng-required="required"
+
     >
       <md-select-header class="select-header">
         <input ng-model="searchTerm"
@@ -106,6 +107,8 @@
       form="form"
       input-name="{{fieldName}}"
       validators="{{fieldInformation.validations}}"
+      validation-params="validationsParams"
+      messages-params="messagesParams"
     ></ng-messages-generator>
   </md-input-container>
 
