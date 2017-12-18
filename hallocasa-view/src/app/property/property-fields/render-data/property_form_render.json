@@ -520,6 +520,11 @@
           "flexDesktop": 33,
           "options": {
             "type": "static_options"
+          },
+          "validations": "dateMinorThan",
+          "validationsParams": {
+            "greaterDateFieldID": 53,
+            "dateFormat": "YYYY"
           }
         },
         {

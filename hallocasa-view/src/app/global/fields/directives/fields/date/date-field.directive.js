@@ -5,18 +5,21 @@
     .module('HalloCasa.global')
     .directive('dateField', dateField);
 
-  function dateField() {
+  function dateField(FieldsService) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/fields/directives/fields/date/date-field.html",
       scope: {
         fieldScope: "=?",
         fieldInformation: "=",
+        fieldRootScope: "=",
         form: "=?",
         readonly: "=?",
         additionalParameters: "=?"
       },
       link: function (scope) {
+        var validationsParams = _.isObject(scope.fieldInformation.validationsParams) ? scope.fieldInformation.validationsParams : {};
+
         scope.fieldName = scope.$id;
         scope.fieldValue = new Date();
 
@@ -31,19 +34,46 @@
                 validations.splice(index, 1);
               }
             });
+
             scope.fieldInformation.validations = validations.join();
           }
 
           if (scope.fieldInformation.validations) {
-            scope.required = scope.fieldInformation.validations.includes("required");
-            var noPastDate = scope.fieldInformation.validations.includes("noPastDate");
-            if (noPastDate) {
-              var currentDate = new Date();
-              scope.dateFilter = function (date) {
-                return date >= currentDate;
-              }
-            }
+            interpreteValidations();
           }
+        }
+
+        function interpreteValidations() {
+          scope.required = scope.fieldInformation.validations.includes("required");
+          interpreteNoPastDate();
+          interpreteDateMinorThan();
+        }
+
+        function interpreteNoPastDate() {
+          var noPastDate = scope.fieldInformation.validations.includes("noPastDate");
+          if (!noPastDate) {return;}
+
+          var currentDate = new Date();
+
+          scope.dateFilter = function (date) {
+            return date >= currentDate;
+          }
+        }
+
+        function interpreteDateMinorThan() {
+          var dateMinorThan = scope.fieldInformation.validations.includes("dateMinorThan");
+          var fieldID = validationsParams.greaterDateFieldID;
+
+          if (!dateMinorThan || !_.isNumber(fieldID)){return;}
+
+          var fieldPath = FieldsService.getFieldPathByID(fieldID, scope.fieldRootScope);
+          var field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
+
+          scope.validationsParams = {dateValidation:{
+            minorDate: scope.fieldValue,
+            greaterDate: field.fieldValueList[0].text.dateVal
+          }};
+          scope.messagesParams = scope.fieldInformation.messagesParams;
         }
 
         function validateFieldModelValue() {

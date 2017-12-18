@@ -56,4 +56,12 @@
   <div ng-message="filtered" ng-if="messages.noPastDate">
     {{'Warning.datemaynotlieinthepast' | translate}}
   </div>
+  <div ng-message="dateMinorThan" ng-if="!dateMinorThan()">
+    <span ng-if="!messagesParams.messageTrans">
+      {{ messagesParams.messageTrans | translate}}
+    </span>
+    <span ng-if="!messagesParams.messageTrans">
+      {{'constraints.dateMinorThan' | translate}} {{validationParams.dateValidation.greaterDateFormated}}
+    </span>
+  </div>
 </div>

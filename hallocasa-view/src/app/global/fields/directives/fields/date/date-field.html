@@ -12,6 +12,8 @@
       form="form"
       input-name="{{fieldName}}"
       validators="{{fieldInformation.validations}}"
+      validation-params="validationsParams"
+      messages-params="messagesParams"
     ></ng-messages-generator>
   </div>
   <div ng-if="readonly && fieldInformation.fieldValueList[0].text.dateVal">
