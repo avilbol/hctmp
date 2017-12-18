@@ -10,8 +10,6 @@
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldName}}"
       ng-required="required"
-      date-minor-than
-      validation-params="validationsParams"
     >
       <md-option ng-repeat="option in options" ng-value="option.identifier">
         {{option.data1 | unicode}}
@@ -26,8 +24,6 @@
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldName}}"
       ng-required="required"
-      date-minor-than
-      validation-params="validationsParams"
     >
       <md-option ng-repeat="option in options" ng-value="option.identifier">
         {{option.name | unicode}}
@@ -56,8 +52,6 @@
       ng-disabled="!options || options.length === 0"
       aria-label="{{fieldName}}"
       ng-required="required"
-      date-minor-than
-      validation-params="validationsParams"
     >
       <md-option ng-repeat="option in options" ng-value="option.identifier">
         {{option.name | unicode}}
@@ -74,8 +68,6 @@
       md-on-close="searchTerm = ''"
       data-md-container-class="selectHeader"
       ng-required="required"
-      date-minor-than
-      validation-params="validationsParams"
     >
       <md-select-header class="select-header">
         <input ng-model="searchTerm"
@@ -98,8 +90,7 @@
       md-on-close="searchTerm = ''"
       data-md-container-class="selectHeader"
       ng-required="required"
-      date-minor-than
-      validation-params="validationsParams"
+
     >
       <md-select-header class="select-header">
         <input ng-model="searchTerm"

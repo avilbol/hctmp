@@ -44,8 +44,9 @@
 
           var fieldPath = FieldsService.getFieldPathByID(fieldID, scope.fieldRootScope);
           var updater = function () {
+            if(!scope.fieldInformation.fieldValueList){return;}
             var field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
-            var minorID = scope.fieldInformation.fieldValueList[0].identifier;
+            var minorID = angular.copy(scope.fieldInformation.fieldValueList[0].identifier);
             var greaterID = field.fieldValueList ? field.fieldValueList[0].identifier : undefined;
             var optionsMinor = scope.options;
             var optionsGreater = field.options.list;
@@ -68,15 +69,16 @@
         }
 
         function interpreteDateGreaterThan() {
-          var dateMinorThan = scope.fieldInformation.validations.includes("dateGreaterThan");
+          var dateGreaterThan = scope.fieldInformation.validations.includes("dateGreaterThan");
           var fieldID = validationsParams.minorDateFieldID;
 
-          if (!dateMinorThan || !_.isNumber(fieldID)){return;}
+          if (!dateGreaterThan || !_.isNumber(fieldID)){return;}
 
           var fieldPath = FieldsService.getFieldPathByID(fieldID, scope.fieldRootScope);
           var updater = function () {
+            if(!scope.fieldInformation.fieldValueList){return;}
             var field = FieldsService.getFieldByPath(fieldPath, scope.fieldRootScope);
-            var greaterID = scope.fieldInformation.fieldValueList[0].identifier;
+            var greaterID = angular.copy(scope.fieldInformation.fieldValueList[0].identifier);
             var minorID = field.fieldValueList ? field.fieldValueList[0].identifier : undefined;
             var optionsGreater = scope.options;
             var optionsMinor = field.options.list;
