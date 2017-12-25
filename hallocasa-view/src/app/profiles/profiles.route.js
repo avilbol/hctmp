@@ -11,7 +11,7 @@
         templateUrl: 'app/profiles/view/view-profile.html',
         controller: 'ViewProfileController',
         controllerAs: 'vm',
-        requiredLogin: true,
+        // requiredLogin: true, // check session in ViewProfileController 
         reloadOnSearch: false
       })
       .when('/profile/my-profile', {

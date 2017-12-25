@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function SessionService($mdMedia, $mdDialog, $document, $auth, $q, GenericRESTResource, backend_url ,$resource,
-                          ApplicationCredentials, localStorageService, $intercom, WootricService, $rootScope, $location) {
+                          ApplicationCredentials, localStorageService, $intercom, WootricService, $rootScope, $location, $timeout) {
     var service = {
       login: login,
       logout: logout,
@@ -124,6 +124,7 @@
 
       if(!activeSession) {
         var options = {
+          backdropFullOpacity: true,
           description: message,
           allowClose: false,
           escapeToClose: false
@@ -157,6 +158,7 @@
       options = options ? options : {};
       options.escapeToClose = _.isUndefined(options.escapeToClose) ? true : options.escapeToClose;
       options.callback = _.isFunction(options.callback) ? options.callback : _.identity;
+      options.backdropFullOpacity = options.backdropFullOpacity ? options.backdropFullOpacity : false;
 
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
       return $mdDialog.show({
@@ -168,11 +170,22 @@
           description: options.description,
           allowClose: options.allowClose
         },
+        onComplete: afterOpenModal(options),
         targetEvent: options.targetEvent,
         clickOutsideToClose: options.clickOutsideToClose,
         escapeToClose: options.escapeToClose,
         fullscreen: useFullScreen
       }).then(options.callback);
+
+      function afterOpenModal(options) {
+        if (options.backdropFullOpacity){
+          $timeout(function () {
+            var content = angular.element('.md-dialog-backdrop');
+            angular.element(content).addClass('md-backdrop-custom-login');
+          },1000);
+        }
+      }
+      
     }
   }
 })();

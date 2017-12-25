@@ -24,10 +24,11 @@
     vm.isSafari = BrowserDetectionService.detectBrowser().ISSAFARI;
 
     vm.totalProfiles = 0;
-    vm.profilesPerPage = 3;
-    vm.totalAmount = [3,8,12];
+    vm.profilesPerPage = 25;
+    vm.totalAmount = [25,50,100];
     vm.firstLoading = true;
     vm.filterList = filterList;
+    vm.additionalParameters = {filtersContext: "PublicProperty"};
     
 
     vm.pagination = {

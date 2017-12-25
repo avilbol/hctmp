@@ -34,7 +34,8 @@
         "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
-          "serviceId": "Country"
+          "serviceId": "Country",
+          "translationManagement": "TOTAL"
         }
       },
       {

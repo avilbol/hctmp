@@ -6,10 +6,9 @@
     .controller('ViewPropertyController', ViewPropertyController);
 
   /** @ngInject */
-  function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, $timeout,
-                                  FieldsService, Mailto, LocaleService, $window) {
+  function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, FieldsService,
+                                  Mailto, LocaleService, $window) {
     var vm = this;
-    vm.repaintMap = repaintMap;
     vm.openDialogRenren = openDialogRenren;
     vm.currentImage = 0;
     vm.mailInfo = '';
@@ -37,25 +36,17 @@
       var left = Math.round((screen.width/2)-(600/2));
       var top = Math.round((screen.height/2)-(600/2));
       var url = 'http://widget.renren.com/dialog/share?resourceUrl=' + vm.sharedURL + '&title=' + vm.property.titles[vm.guidLanguage] + '&description=' + vm.property.descriptions[vm.guidLanguage] + '&lang=' + LocaleService.getCurrentLenguage();
-      $window.open(url,'popup','width=600,height=600' + ', top=' + top + ', left=' + left); 
+      $window.open(url,'popup','width=600,height=600' + ', top=' + top + ', left=' + left);
       return false;
-      
+
     }
 
     function loadURLShared() {
-      var url = $location.host() + '/property?id=' + vm.property.id + '&lang=' + LocaleService.getCurrentLenguage();
-      vm.sharedURL = url;
-
-      vm.textWhatsApp = translateFilter("Properties.shared.link.textTwitter") + ': ' + vm.property.titles[vm.guidLanguage] + ', ' + vm.property.descriptions[vm.guidLanguage];
-      var urlWs = 'whatsapp://send?text=' + encodeURIComponent(vm.textWhatsApp) + '%0A' + encodeURIComponent(vm.sharedURL);
-      vm.sharedURLWhatsApp = urlWs;
-    }
-
-    function repaintMap() {
-      vm.refresh = false;
-      $timeout(function () {
-        vm.refresh = true;
-      },300);
+      vm.sharedURL = $location.host() + '/property?id=' + vm.property.id + '&lang=' + LocaleService.getCurrentLenguage();
+      vm.textWhatsApp = translateFilter("Properties.shared.link.textTwitter") + ': ' + vm.property.titles[vm.guidLanguage]
+        + ', ' + vm.property.descriptions[vm.guidLanguage];
+      vm.sharedURLWhatsApp = 'whatsapp://send?text=' + encodeURIComponent(vm.textWhatsApp) + '%0A'
+        + encodeURIComponent(vm.sharedURL);
     }
 
     function loadProperty() {
@@ -70,11 +61,7 @@
             vm.property = PropertyService.generatePropertyDetailData(property);
             vm.profile = vm.property.user;
 
-            
             loadLanguages(vm.property.languages);
-            
-
-            
           })
           .catch(function (error) {
             if(error.status === 404){
@@ -98,7 +85,7 @@
           });
         });
         vm.guidLanguage = vm.property.mainLanguage.id;
-        
+
         loadURLShared();
         sharedEmailInfo();
       });
@@ -124,6 +111,5 @@
     }
 
     loadProperty();
-    
   }
 })();

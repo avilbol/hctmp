@@ -53,6 +53,7 @@
     function launchLoginDialog(ev) {
       var callback = function () {
         $location.path("/profile/my-profile");
+        // remove custom backdrop class
       };
 
       var options = {
@@ -62,6 +63,7 @@
         callback: callback
       };
       SessionService.launchLoginDialog(options);
+
     }
 
     function launchPasswordRecoveryDialog() {

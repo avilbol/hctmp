@@ -40,7 +40,8 @@
         "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
-          "serviceId": "Country"
+          "serviceId": "Country",
+          "translationManagement": "TOTAL"
         }
       },
       "propertyField": {
@@ -59,8 +60,8 @@
           "name": "Identifier"
         },
         "tooltipLang": "hallocasa.pending",
-        "textType": "SAME",
-        "data1Type": "SAME",
+        "textType": "lang",
+        "data1Type": "lang",
         "data2Type": "SAME",
         "data3Type": "SAME"
       }
@@ -159,7 +160,7 @@
       "propertyField":{
         "id":1,
         "name":"services",
-        "lang":"hallocasa.services",
+        "lang":"hallocasa.propertyfield.services",
         "basic":false,
         "primaryKey":false,
         "multilanguageValue":false,
@@ -182,7 +183,7 @@
       "filter":{
         "id":20,
         "name":"name",
-        "lang":"hallocasa-pending",
+        "lang":"hallocasa.propertyfield.text",
         "arrayName": "name",
         "filterType":{
           "id":1,
@@ -202,10 +203,10 @@
       "propertyField":{
         "id":1,
         "name":"text",
-        "lang":"hola",
+        "lang":"hallocasa.propertyfield.text",
         "basic":false,
         "primaryKey":false,
-        "tooltipLang":"HOLA",
+        "tooltipLang":"hallocasa.propertyfield.text",
         "textType":"TEXT"
       }
     },

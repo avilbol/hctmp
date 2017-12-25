@@ -5,11 +5,13 @@
     .module('HalloCasa.global')
     .service('FiltersService', FiltersService);
 
-  function FiltersService($log, backend_url, $resource, GenericRESTResource) {
+  function FiltersService($log, backend_url, $resource, localStorageService, GenericRESTResource) {
     var service = {
       generateFiltersRender: generateFiltersRender,
       loadFiltersOptions: loadFiltersOptions,
-      getFilterById: getFilterById
+      getFilterById: getFilterById,
+      loadContext: loadContext,
+      saveContext: saveContext
     };
 
     var resources = {
@@ -108,5 +110,26 @@
       });
       return filter;
     }
+
+    function loadContext(context) {
+      var filtersContext = localStorageService.get("filtersContext");
+      filtersContext = filtersContext ? filtersContext : {};
+
+      if(!filtersContext[context]){
+        filtersContext[context] = {};
+        localStorageService.set("filtersContext", filtersContext);
+      }
+
+      return filtersContext[context];
+    }
+
+    function saveContext(context, contextData) {
+      var filtersContext = localStorageService.get("filtersContext");
+      filtersContext = filtersContext ? filtersContext : {};
+
+      filtersContext[context] = contextData;
+      localStorageService.set("filtersContext", filtersContext);
+    }
+
   }
 })();

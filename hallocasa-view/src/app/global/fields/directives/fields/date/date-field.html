@@ -1,24 +1,27 @@
-<div layout="column" ng-if="!readonly">
-  <label>{{fieldInformation.lang | translate}}</label>
-  <md-datepicker
-    ng-model="fieldValue"
-    ng-required="required"
-    md-date-filter="dateFilter"
-    name="{{fieldName}}"
-  ></md-datepicker>
+<div>
+  <div layout="column" ng-if="!readonly">
+    <label>{{fieldInformation.lang | translate}}</label>
+    <md-datepicker
+      ng-model="fieldValue"
+      ng-required="required"
+      md-date-filter="dateFilter"
+      name="{{fieldName}}"
+    ></md-datepicker>
 
-  <ng-messages-generator
-    form="form"
-    input-name="{{fieldName}}"
-    validators="{{fieldInformation.validations}}"
-  ></ng-messages-generator>
-</div>
-<div ng-if="readonly && fieldInformation.fieldValueList[0].text.dateVal">
-  <b>
-    <span translate>{{fieldInformation.lang}}:&nbsp;</span>
-    <!--<md-tooltip>-->
-      <!--<span translate>{{fieldInformation.tooltipLang}}</span>-->
-    <!--</md-tooltip>-->
-  </b>
-  <span>{{fieldInformation.fieldValueList[0].text.dateVal | date}}</span>
+    <ng-messages-generator
+      form="form"
+      input-name="{{fieldName}}"
+      validators="{{fieldInformation.validations}}"
+      validation-params="validationsParams"
+      messages-params="messagesParams"
+    ></ng-messages-generator>
+  </div>
+  <div ng-if="readonly && fieldInformation.fieldValueList[0].text.dateVal">
+    <b translate>{{fieldInformation.lang}}:&nbsp;</b>
+    <span>{{fieldInformation.fieldValueList[0].text.dateVal | date}}</span>
+  </div>
+
+  <md-tooltip>
+    <span translate>{{fieldInformation.tooltipLang}}</span>
+  </md-tooltip>
 </div>

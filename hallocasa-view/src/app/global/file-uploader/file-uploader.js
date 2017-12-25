@@ -490,15 +490,12 @@
         }
 
         scope.openDialog = function(event, el) {
-          console.log('Open load image')
           if(event){
             $timeout(function() {
               event.preventDefault();
               event.stopPropagation();
               var children = event.target.children[2];
-              console.log(children);
               if(children !== undefined) {
-                console.log('Sse ejecuto el click');
                 elFileinput[0].click();
               }
             }, 0);
@@ -506,7 +503,6 @@
         };
 
         scope.openDialogInside = function(event) {
-          console.log('openDialogInside')
           $timeout(function() {
             elFileinput[0].click();
           }, 0);
@@ -551,8 +547,6 @@
         };
         //call back function
         scope.onFileClick = function(lfFile) {
-
-          
           if(angular.isFunction(scope.lfOnFileClick)){
             scope.lfFiles.every(function(obj,idx){
               if(obj.key == lfFile.key){
@@ -658,6 +652,7 @@
             var isFileAreadyExist = false;
 
             scope.lfFiles.every(function(obj){
+              
               var lfFile = obj.lfFile;
               if(lfFile && lfFile.name === file.name) {
                 if(lfFile.size === file.size) {

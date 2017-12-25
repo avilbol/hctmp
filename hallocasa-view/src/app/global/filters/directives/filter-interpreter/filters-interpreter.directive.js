@@ -12,7 +12,8 @@
       scope: {
         filtersList: "=?",
         filtersRootScope: "=?",
-        filtersRendered: "=?"
+        filtersRendered: "=?",
+        additionalParameters: "=?"
       },
       link: function (scope) {
         /*

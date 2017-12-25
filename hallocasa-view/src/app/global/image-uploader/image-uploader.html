@@ -17,7 +17,7 @@
         <div class="cropArea">
           <img-crop image="myImage" result-image="vm.myCroppedImage"></img-crop>
         </div>
-        <md-button ng-click="vm.imageLoaded()">{{'Image.Edition.Header.Upload' | translate}}</md-button>
+        <md-button ng-click="vm.imageLoaded()" ng-disabled="vm.submitButton">{{'Image.Edition.Header.Upload' | translate}}</md-button>
       </md-content>
     </md-dialog-content>
   </form>

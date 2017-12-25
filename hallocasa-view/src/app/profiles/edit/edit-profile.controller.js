@@ -226,6 +226,7 @@
     function save(data, formID) {
       var formData = angular.copy(vm[data]);
       formData.userDescriptions = formData.userLanguages;
+
       if(formData.base64Image === ImagesFallbackList.UserDefault && !formData.imageLink){
         toastr.warning(
           translateFilter("Error.invalidoremptyimage")

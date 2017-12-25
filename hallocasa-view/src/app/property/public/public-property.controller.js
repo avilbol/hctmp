@@ -24,6 +24,7 @@
     vm.filtersRendered = false;
     vm.clearFilters = clearFilters;
     vm.sortProperties = sortProperties;
+    vm.additionalParameters = {filtersContext: "PublicProperty"};
 
     vm.pagination = {
       current: 1
@@ -164,8 +165,26 @@
       loadPropertiesPage(1, selectedFilters);
     }
 
-    loadPropertiesPage(1);
+    function loadFiltersContext() {
+      var context = FiltersService.loadContext(vm.additionalParameters.filtersContext);
+      if(!_.isObject(context.filtersModel) || _.isEmpty(context.filtersModel)){
+        loadPropertiesPage(1);
+        return;
+      }
+
+      var totalFilters = _.keys(context.filtersModel).length;
+      var loadedFilters = 0;
+      var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function () {
+        loadedFilters++;
+        if(loadedFilters === totalFilters){
+          destroyListener();
+          loadPropertiesPage(1, selectedFilters);
+        }
+      });
+    }
+
     loadFilters();
     listenFiltersChanges();
+    loadFiltersContext();
   }
 })();

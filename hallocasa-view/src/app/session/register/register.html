@@ -27,7 +27,7 @@
             form="loginForm"
             input-name="password"
             validators="enterPassword, passwordMatch"
-            password-to-match="{'firstPassword': vm.userData.password, 'secondPassword': vm.userData.confPassword}"
+            validation-params="{passwordToMatch:{firstPassword: vm.userData.password, secondPassword: vm.userData.confPassword}}"
           ></ng-messages-generator>
         </md-input-container>
         <md-input-container  class="md-block">
@@ -37,7 +37,7 @@
             form="loginForm"
             input-name="confPassword"
             validators="enterPassword, passwordMatch"
-            password-to-match="{'firstPassword': vm.userData.password, 'secondPassword': vm.userData.confPassword}"
+            validation-params="{passwordToMatch:{firstPassword: vm.userData.password, secondPassword: vm.userData.confPassword}}"
           ></ng-messages-generator>
         </md-input-container>
 

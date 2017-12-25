@@ -34,10 +34,11 @@
         }
 
         function parseNewImages(amountImages) {
-
+          
           var imagesList = _.rest(scope.rawImages,scope.rawImages.length - amountImages);
           var blobList = _.map(_.reject(imagesList, _.property('isRemote')), _.property('lfFile'));
 
+          
           if(_.isEmpty(blobList)){
             _.each(scope.rawImages, function (rawImage) {
               filesKeys.push(rawImage.key);
@@ -52,6 +53,7 @@
 
                 var validImage = ImageValidatorService.validateBase64(imageEncoded);
 
+                
                 if(validImage){
                   var imageData = {
                     data1: {},
@@ -60,7 +62,7 @@
 
                   imageData.data1.strVal = imageEncoded;
                   scope.fieldInformation.fieldValueList.push(imageData);
-                  filesKeys.push(scope.rawImages[fileIndex].key);
+                  // filesKeys.push(scope.rawImages[fileIndex].key);
 
                   // check image width, this is because image.onload is async
                   var image = new Image();
@@ -80,6 +82,7 @@
                 }
 
               });
+
               if(_.isUndefined(primaryImage) && !_.isEmpty(scope.rawImages)){
                 var firstImageIndex = scope.rawImages.length - amountImages;
                 assignAsPrimaryImage(scope.rawImages[firstImageIndex]);
@@ -92,6 +95,11 @@
                 scope.api.removeByName(image.lfFileName);
               });
             });
+
+            filesKeys = [];
+            _.each(scope.rawImages, function (rawImage) {
+              filesKeys.push(rawImage.key);
+            })
         }
 
         function detectAndDeleteImage() {
@@ -103,34 +111,43 @@
             }
           });
 
-          if(!_.isUndefined(deleteFile)){
+          if(!_.isUndefined(deleteFile)){            
             scope.fieldInformation.fieldValueList.splice(deleteFile, 1);
-            var totalImages = scope.fieldInformation.fieldValueList.length;
             filesKeys.splice(deleteFile, 1);
-            primaryImage = primaryImage === deleteFile ? undefined : primaryImage;
-            primaryImage = primaryImage > deleteFile ? primaryImage - 1 : primaryImage;
-            primaryImage = _.isUndefined(primaryImage) && totalImages ? totalImages - 1 : primaryImage;
-            primaryImage = primaryImage === deleteFile ? 0 : primaryImage;
-
-            setPreviewAsPrimary(primaryImage);
-          }
-        }
-
-        function unsetPreviewAsPrimary(image) {
-          var imageFrame = angular.element(previewFrame)[image];
-          if(!imageFrame){
-            $timeout(function () {
-              unsetPreviewAsPrimary(image);
-            },500);
-          }
-          else {
-            var titleFrame = angular.element(imageFrame).find(previewTitle);
-            angular.element(imageFrame).removeClass('primary-image-container');
+            // scope.rawImages.splice(deleteFile, 1);
             
-            titleFrame.removeClass("primary-image");
-            titleFrame.find(".titleText").html("");
+            var totalImages = scope.fieldInformation.fieldValueList.length;
+
+            var imageFrame = angular.element(previewFrame)[deleteFile];
+            imageFrame.remove();
+
+            primaryImage = totalImages === 0 ? undefined : primaryImage;
+            // primaryImage = _.isUndefined(primaryImage) && (totalImages === 0) ? undefined : primaryImage;
+            primaryImage = primaryImage === totalImages ? 0 : primaryImage;
+            // primaryImage = primaryImage === deleteFile ? undefined : primaryImage;
+            // primaryImage = primaryImage > deleteFile ? primaryImage - 1 : primaryImage;
+            // primaryImage = _.isUndefined(primaryImage) && totalImages ? totalImages - 1 : primaryImage;
+            // primaryImage = primaryImage === deleteFile ? 0 : primaryImage;
+            assignAsPrimaryImageOnDelete(primaryImage);
           }
         }
+
+        // function unsetPreviewAsPrimary(image) {
+        //   var imageFrame = angular.element(previewFrame)[image];
+        //   if(!imageFrame){
+        //     $timeout(function () {
+        //       unsetPreviewAsPrimary(image);
+        //     },500);
+        //   }
+        //   else {
+        //     assignAsPrimaryImage(scope.rawImages[image])
+        //     var titleFrame = angular.element(imageFrame).find(previewTitle);
+        //     angular.element(imageFrame).removeClass('primary-image-container');
+            
+        //     titleFrame.removeClass("primary-image");
+        //     titleFrame.find(".titleText").html("");
+        //   }
+        // }
 
         function setPreviewAsPrimary(image) {
           var imageFrame = angular.element(previewFrame)[image];
@@ -145,7 +162,7 @@
             
             titleFrame.addClass("primary-image");
             titleFrame.find(".titleText").html("("+translateFilter('Properties.multi.image.button')+") ");
-          }
+          }  
         }
 
         function loadPrimaryImage() {
@@ -177,14 +194,35 @@
           // remove class primary-image
           angular.element(angular.element(previewFrame)).removeClass('primary-image-container');
 
-          if(_.isNumber(primaryImage)){
-            unsetPreviewAsPrimary(primaryImage);
-            scope.fieldInformation.fieldValueList[primaryImage].data2.boolVal = false;
+          allImagesNoPrimary();
+
+          if(!_.isEmpty(scope.rawImages) && !_.isUndefined(image)){
+            var imageIndex = filesKeys.indexOf(image.key);
+            scope.fieldInformation.fieldValueList[imageIndex].data2.boolVal = true;
+            primaryImage = imageIndex;
+            setPreviewAsPrimary(primaryImage);
           }
-          var imageIndex = filesKeys.indexOf(image.key);
-          scope.fieldInformation.fieldValueList[imageIndex].data2.boolVal = true;
-          primaryImage = imageIndex;
-          setPreviewAsPrimary(primaryImage);
+          
+        }
+
+        function assignAsPrimaryImageOnDelete(image) {
+          // remove class primary-image
+          angular.element(angular.element(previewFrame)).removeClass('primary-image-container');
+
+          allImagesNoPrimary();
+
+          if(!_.isEmpty(scope.rawImages) && !_.isUndefined(primaryImage)){
+            scope.fieldInformation.fieldValueList[image].data2.boolVal = true;
+            // primaryImage = image;
+            setPreviewAsPrimary(primaryImage);
+          }
+          
+        }
+
+        function allImagesNoPrimary() {
+          _.find(scope.fieldInformation.fieldValueList, function (fieldValue) {
+            fieldValue.data2.boolVal = false;
+          });
         }
 
         function watchRawImages() {

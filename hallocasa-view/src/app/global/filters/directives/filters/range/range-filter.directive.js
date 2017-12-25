@@ -5,14 +5,15 @@
     .module('HalloCasa.global')
     .directive('rangeFilter', rangeFilter);
 
-  function rangeFilter($rootScope, $timeout, CurrencyService) {
+  function rangeFilter($rootScope, $timeout, CurrencyService, FiltersService) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/filters/range/range-filter.html",
       scope: {
         filtersScope: "=?",
         filterInformation: "=",
-        filtersRootScope: "=?"
+        filtersRootScope: "=?",
+        additionalParameters: "=?"
       },
       link: function (scope, element) {
         var ngModelTimeOut;
@@ -61,7 +62,7 @@
           }
         }
 
-        function emitSelectedOption() {
+        function emitSelectedOption(preventUpdateContext) {
           if(ngModelTimeOut){
             //if there is already a timeout in process cancel it
             $timeout.cancel(ngModelTimeOut);
@@ -88,6 +89,10 @@
             }
 
             $rootScope.$broadcast("FilterSystem:filterSelected", selectionPayload);
+
+            if(!preventUpdateContext){
+              updateContext();
+            }
             ngModelTimeOut = null;
           },500);
         }
@@ -139,7 +144,10 @@
         }
 
         function watchCleanFilter() {
-          var watcher = $rootScope.$on("FilterSystem:clearFilters", initialize);
+          var watcher = $rootScope.$on("FilterSystem:clearFilters", function (){
+            initialize();
+            updateContext();
+          });
           scope.$on("$destroy", watcher);
         }
 
@@ -187,9 +195,51 @@
           scope.$broadcast('refreshSlider');
         }
 
+        function loadContext() {
+          if(!scope.additionalParameters || !scope.additionalParameters.filtersContext) {return;}
+
+          var context = FiltersService.loadContext(scope.additionalParameters.filtersContext);
+          var filterID = scope.filterInformation.filter.id;
+          var savedFilterModel = context.filtersModel ? context.filtersModel[filterID] : undefined;
+
+          if(!savedFilterModel){return;}
+
+          var highValue = context.filtersModel[filterID].highValue;
+          var lowValue = context.filtersModel[filterID].lowValue;
+
+          scope.range.highValue = _.isNumber(highValue) ? highValue : scope.range.highValue;
+          scope.range.lowValue = _.isNumber(lowValue) ? lowValue : scope.range.lowValue;
+
+          if(_.isNumber(highValue) || _.isNumber(lowValue)){
+            emitSelectedOption(true);
+          }
+        }
+
+        function updateContext() {
+          var context = FiltersService.loadContext(scope.additionalParameters.filtersContext);
+          var filterID = scope.filterInformation.filter.id;
+          context.filtersModel = context.filtersModel ? context.filtersModel : {};
+          context.filtersModel[filterID] = {};
+
+          if(_.isNumber(scope.range.highValue) && scope.range.ceiling !== scope.range.highValue){
+            context.filtersModel[filterID].highValue = scope.range.highValue;
+          }
+
+          if(_.isNumber(scope.range.lowValue) && scope.range.floor !== scope.range.lowValue){
+            context.filtersModel[filterID].lowValue = scope.range.lowValue;
+          }
+
+          if(_.isEmpty(context.filtersModel[filterID])){
+            delete context.filtersModel[filterID];
+          }
+
+          FiltersService.saveContext(scope.additionalParameters.filtersContext, context);
+        }
+
         detectConditionalHideFilter();
         initialize();
         watchCleanFilter();
+        loadContext();
       }
     };
   }

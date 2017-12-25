@@ -90,6 +90,7 @@
       md-on-close="searchTerm = ''"
       data-md-container-class="selectHeader"
       ng-required="required"
+
     >
       <md-select-header class="select-header">
         <input ng-model="searchTerm"
@@ -106,16 +107,13 @@
       form="form"
       input-name="{{fieldName}}"
       validators="{{fieldInformation.validations}}"
+      validation-params="validationsParams"
+      messages-params="messagesParams"
     ></ng-messages-generator>
   </md-input-container>
 
   <div ng-if="readonly && (fieldInformation.fieldValueList[0].identifier || fieldInformation.fieldValueList[0].text)">
-    <b>
-      <span translate>{{fieldInformation.lang}}:&nbsp;</span>
-      <!--<md-tooltip>-->
-        <!--<span translate>{{fieldInformation.tooltipLang}}</span>-->
-      <!--</md-tooltip>-->
-    </b>
+    <b translate>{{fieldInformation.lang}}:&nbsp;</b>
     <span ng-switch-when="static_options" translate>{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'data1':'identifier'}}</span>
     <span ng-switch-when="dynamic_options" translate>{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier'}}</span>
     <span ng-switch-when="binary_options" translate>
@@ -126,5 +124,8 @@
     <span ng-switch-when="external_dependency_options" translate>{{options | idSearch:fieldInformation.fieldValueList[0].identifier:'name':'identifier'}}</span>
   </div>
 
+  <md-tooltip>
+    <span translate>{{fieldInformation.tooltipLang}}</span>
+  </md-tooltip>
 </div>
 

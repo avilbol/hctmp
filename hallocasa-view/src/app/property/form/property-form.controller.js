@@ -113,6 +113,7 @@
 
       return PropertyService.loadFieldsData(payload)
         .then(function (fieldsData) {
+
           if(vm.property.fieldList){
             fieldsData.propertyFields = FieldsService.consolidateFields(vm.property.fieldList, fieldsData.propertyFields);
           }
@@ -129,7 +130,6 @@
     }
 
     function save() {
-
       // length image
       var imageLength = vm.fieldsRender[2].fieldList[0].fieldValueList.length;
 
@@ -153,8 +153,18 @@
             toastr.success(translateFilter("property.wizard.create.succesful"));
             $mdDialog.hide();
           })
-          .catch(function () {
-            toastr.warning(translateFilter("Error.whensavingproperty"));
+          .catch(function (error) {
+            if(error.status === 403){
+              var errorMessage = translateFilter(error.data.langMessage);
+              if(errorMessage === error.data.langMessage){
+                errorMessage = translateFilter("Error.whensavingproperty");
+              }
+              toastr.warning(errorMessage);
+            }
+            else{
+              toastr.warning(translateFilter("Error.whensavingproperty"));
+            }
+
           });
       }
     }
