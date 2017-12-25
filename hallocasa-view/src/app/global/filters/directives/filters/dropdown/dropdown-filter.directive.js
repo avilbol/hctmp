@@ -5,7 +5,8 @@
     .module('HalloCasa.global')
     .directive('dropdownFilter', dropdownFilter);
 
-  function dropdownFilter(FieldsService, FiltersService, $rootScope, $timeout, translateFilter, unicodeFilter, toastr) {
+  function dropdownFilter(FieldsService, FiltersService, $rootScope, $timeout, translateFilter, unicodeFilter, toastr,
+                          idSearchFilter) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/filters/dropdown/dropdown-filter.html",
@@ -161,7 +162,7 @@
             });
 
             if(localSelected && localOptionIndex === -1){
-              var synchronizedOption = _.pick(option, "optionId");
+              var synchronizedOption = _.pick(option, "optionId", "tmplTranslate");
               localFilterSelectedOptions.push(synchronizedOption);
             }
             if(!localSelected && localOptionIndex !== -1){
@@ -311,7 +312,7 @@
 
           if(!savedFilterModel){return;}
 
-          var selectedOptions = context.filtersModel[filterID].options;
+          var selectedOptions = _.map(context.filtersModel[filterID].options, _.property("optionId"));
 
           if(_.isArray(selectedOptions) && !_.isEmpty(selectedOptions)){
             scope.selected.options = selectedOptions;
@@ -331,11 +332,15 @@
           else{
             var options;
             if(scope.conditionalFilter){
-              options = _.map(getLocalFilterSelectedOptions(), _.property("optionId"))
+              options = getLocalFilterSelectedOptions();
             }
             else{
-               options = scope.selected.options;
+              options = _.map(scope.selected.options, function (optionId) {
+                var tmplTranslate = idSearchFilter(scope.options, optionId, "tmplTranslate", "optionId");
+                return {optionId: optionId, tmplTranslate: tmplTranslate};
+              });
             }
+
             context.filtersModel[filterID].options = options;
           }
 
