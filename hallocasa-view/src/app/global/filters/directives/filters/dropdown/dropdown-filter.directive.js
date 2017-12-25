@@ -31,6 +31,7 @@
         scope.selected = {options: []};
         scope.selectAll = selectAll;
         scope.selectAllButtonTranstationKey = "placeholder.selectAll";
+        scope.options = [];
         var selectionState = "selectAll";
 
         function loadOptions() {
@@ -60,7 +61,6 @@
 
           processedOptions = FieldsService.processOptions(optionsList, staticOptionsGroup.translationManagement);
           setFilterOptions(processedOptions);
-          loadContext();
         }
 
         function dynamicOptionsHandler() {
@@ -85,7 +85,6 @@
             })
             .finally(function () {
               scope.filterInformation.filter.processedOptions = scope.options;
-              loadContext();
             });
         }
 
@@ -348,6 +347,7 @@
         loadOptions();
         watchRender();
         watchCleanFilter();
+        loadContext();
       }
     };
   }
