@@ -120,7 +120,7 @@
 
             scope.filterInformation.propertyField.dropdownOptionGroup = {
               dropdownOptionList: filterOptions,
-              translationManagement: scope.options.translationManagement ? scope.options.translationManagement : "NONE"
+              translationManagement: scope.options.translationManagement ? scope.options.translationManagement : "TOTAL"
             };
 
             staticOptionsHandler(resolve);
@@ -200,7 +200,7 @@
             });
 
             if(localSelected && localOptionIndex === -1){
-              var synchronizedOption = _.pick(option, "optionId", "tmplTranslate");
+              var synchronizedOption = _.pick(option, "optionId", "tmplTranslate", "lang");
               localFilterSelectedOptions.push(synchronizedOption);
             }
             if(!localSelected && localOptionIndex !== -1){
@@ -376,8 +376,8 @@
             }
             else{
               options = _.map(scope.selected.options, function (optionId) {
-                var tmplTranslate = idSearchFilter(scope.options, optionId, "tmplTranslate", "optionId");
-                return {optionId: optionId, tmplTranslate: tmplTranslate};
+                var option = idSearchFilter(scope.options, optionId, "", "optionId");
+                return _.pick(option, "optionId", "tmplTranslate", "lang");
               });
             }
 
