@@ -36,6 +36,9 @@
         scope.options = [];
         scope.loadedOptions = false;
 
+
+        scope.detectConditionalTitle = detectConditionalTitle;
+
         var selectionState = "selectAll";
 
         function loadOptions() {
@@ -354,15 +357,18 @@
           if(!savedFilterModel){return;}
 
           var selectedOptions = _.filter(context.filtersModel[filterID].options, function (option) {
-            if(scope.conditionalFilter){
-              return option.parentInfo[parentIdName] === parentId
-            }
-            else{
-              return true;
-            }
+            return scope.conditionalFilter ? option.parentInfo[parentIdName] === parentId : true;
           });
 
           scope.options = selectedOptions;
+
+          if(scope.conditionalFilter){
+            var filterData = FiltersService.getFilterById(filterID, scope.filtersRootScope);
+            filterData.filter.processedOptions = context.filtersModel[filterID].options;
+          }
+          else{
+            scope.filterInformation.filter.processedOptions = selectedOptions;
+          }
 
           if(_.isArray(selectedOptions) && !_.isEmpty(selectedOptions)){
             scope.selected.options = _.map(selectedOptions, _.property("optionId"));
