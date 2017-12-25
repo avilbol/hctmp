@@ -200,7 +200,7 @@
             });
 
             if(localSelected && localOptionIndex === -1){
-              var synchronizedOption = _.pick(option, "optionId", "tmplTranslate", "lang");
+              var synchronizedOption = _.pick(option, "optionId", "tmplTranslate", "lang", "parentInfo");
               localFilterSelectedOptions.push(synchronizedOption);
             }
             if(!localSelected && localOptionIndex !== -1){
@@ -348,9 +348,19 @@
           var filterID = scope.filterInformation.filter.id;
           var savedFilterModel = context.filtersModel ? context.filtersModel[filterID] : undefined;
 
+          var parentIdName = scope.filterInformation.filter.options.parentIDName;
+          var parentId = scope.filterInformation.filter.options.showOnSpecificID;
+
           if(!savedFilterModel){return;}
 
-          var selectedOptions = context.filtersModel[filterID].options;
+          var selectedOptions = _.filter(context.filtersModel[filterID].options, function (option) {
+            if(scope.conditionalFilter){
+              return option.parentInfo[parentIdName] === parentId
+            }
+            else{
+              return true;
+            }
+          });
 
           scope.options = selectedOptions;
 
@@ -377,7 +387,7 @@
             else{
               options = _.map(scope.selected.options, function (optionId) {
                 var option = idSearchFilter(scope.options, optionId, "", "optionId");
-                return _.pick(option, "optionId", "tmplTranslate", "lang");
+                return _.pick(option, "optionId", "tmplTranslate", "lang", "parentInfo");
               });
             }
 
