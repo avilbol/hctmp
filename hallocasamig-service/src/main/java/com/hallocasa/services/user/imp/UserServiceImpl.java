@@ -142,9 +142,9 @@ public class UserServiceImpl implements UserService {
 	private String generateQuery(String queryBase, UserFilterRequest request) {
 		StringBuilder builder = new StringBuilder(queryBase);
 		if(request.getName() != null && !request.getName().trim().isEmpty()){
-			String condition = " AND (first_name LIKE '%%1$s%' "
-					+ "OR last_name LIKE '%%1$s%' OR web_site LIKE '%%1$s%')";
-			builder.append(String.format(condition, request.getName()));
+			String condition = " AND (first_name LIKE %1$s "
+					+ "OR last_name LIKE %1$s OR web_site LIKE %1$s)";
+			builder.append(String.format(condition, "'%" + request.getName() + "%'"));
 		}
 		if(request.getCountries() != null && !request.getCountries().isEmpty()){
 			String condition = " AND us.country_id IN (%1$s)";
