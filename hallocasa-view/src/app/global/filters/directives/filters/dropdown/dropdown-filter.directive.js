@@ -6,7 +6,7 @@
     .directive('dropdownFilter', dropdownFilter);
 
   function dropdownFilter(FieldsService, FiltersService, $rootScope, $timeout, translateFilter, unicodeFilter, toastr,
-                          idSearchFilter) {
+                          idSearchFilter, $q) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/filters/dropdown/dropdown-filter.html",
@@ -32,24 +32,37 @@
         scope.selected = {options: []};
         scope.selectAll = selectAll;
         scope.selectAllButtonTranstationKey = "placeholder.selectAll";
+        scope.loadOptions = loadOptions;
         scope.options = [];
+        scope.loadedOptions = false;
+
         var selectionState = "selectAll";
 
         function loadOptions() {
-          if(!optionsData){
-            return;
-          }
-          switch(optionsData.type){
-            case "static_options":
-              staticOptionsHandler();
-              break;
-            case "dynamic_options":
-              dynamicOptionsHandler();
-              break;
-          }
+          return $q(function (resolve) {
+            if (!optionsData || scope.loadedOptions) {
+              resolve();
+              return;
+            }
+
+            scope.options = [];
+
+            switch (optionsData.type) {
+              case "static_options":
+                staticOptionsHandler(resolve);
+                break;
+              case "dynamic_options":
+                dynamicOptionsHandler(resolve);
+                break;
+              case "filter_options":
+                filterOptionsHandler(resolve);
+            }
+          }).finally(function () {
+            scope.loadedOptions = true;
+          });
         }
 
-        function staticOptionsHandler(){
+        function staticOptionsHandler(resolve){
           var staticOptionsGroup, optionsList, processedOptions;
           if(scope.filterInformation.filter.usePropertyField){
             staticOptionsGroup = scope.filterInformation.propertyField.dropdownOptionGroup;
@@ -62,9 +75,10 @@
 
           processedOptions = FieldsService.processOptions(optionsList, staticOptionsGroup.translationManagement);
           setFilterOptions(processedOptions);
+          resolve();
         }
 
-        function dynamicOptionsHandler() {
+        function dynamicOptionsHandler(resolve) {
           var serviceId = optionsData.serviceId;
           var translationManagement = optionsData.translationManagement ? optionsData.translationManagement : "NONE";
           var payload = optionsData.referredDependencyPayload ? optionsData.showOnSpecificID : undefined;
@@ -86,7 +100,31 @@
             })
             .finally(function () {
               scope.filterInformation.filter.processedOptions = scope.options;
+              resolve();
             });
+        }
+
+        function filterOptionsHandler(resolve) {
+          var parentIdName = scope.filterInformation.filter.options.parentIDName;
+          var parentId = scope.filterInformation.filter.options.showOnSpecificID;
+
+          var parentData = {
+            propertyFilter: scope.filterInformation.filter.options.parentFilterInformation,
+            selectedFilterOptions: [{optionId: parentId}]
+          };
+
+          FiltersService.loadFiltersOptions(scope.filterInformation.filter.id, [parentData]).then(function (options) {
+            var filterOptions = _.filter(options, function (option) {
+              return option.data2 === "true" || option.parentInfo[parentIdName] === parentId;
+            });
+
+            scope.filterInformation.propertyField.dropdownOptionGroup = {
+              dropdownOptionList: filterOptions,
+              translationManagement: scope.options.translationManagement ? scope.options.translationManagement : "NONE"
+            };
+
+            staticOptionsHandler(resolve);
+          });
         }
 
         function setFilterOptions(processedOptions) {
@@ -312,10 +350,12 @@
 
           if(!savedFilterModel){return;}
 
-          var selectedOptions = _.map(context.filtersModel[filterID].options, _.property("optionId"));
+          var selectedOptions = context.filtersModel[filterID].options;
+
+          scope.options = selectedOptions;
 
           if(_.isArray(selectedOptions) && !_.isEmpty(selectedOptions)){
-            scope.selected.options = selectedOptions;
+            scope.selected.options = _.map(selectedOptions, _.property("optionId"));
             emitSelectedOption(true);
           }
         }
@@ -347,12 +387,11 @@
           FiltersService.saveContext(scope.additionalParameters.filtersContext, context);
         }
 
+        loadContext();
         detectConditionalShowFilter();
         detectConditionalTitle();
-        loadOptions();
         watchRender();
         watchCleanFilter();
-        loadContext();
       }
     };
   }

@@ -10,13 +10,13 @@
     name="{{filterName}}"
     title="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
     ng-model="selected.options"
-    ng-disabled="!options || !options.length"
     aria-label="{{filterName}}"
     placeholder="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
     ng-required="required"
     data-md-container-class="selectHeader"
     ng-change="emitSelectedOption()"
     md-on-close="search = {}"
+    md-on-open="loadOptions()"
     multiple
   >
     <div ng-include="'selectContent'"></div>
@@ -27,13 +27,13 @@
     name="{{filterName}}"
     title="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
     ng-model="selected.options"
-    ng-disabled="!options || !options.length"
     aria-label="{{filterName}}"
     placeholder="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
     ng-required="required"
     data-md-container-class="selectHeader"
     ng-change="emitSelectedOption()"
     md-on-close="search = {}"
+    md-on-open="loadOptions()"
   >
     <div ng-include="'selectContent'"></div>
   </md-select>
@@ -47,11 +47,12 @@
       type="search"
       placeholder="{{'placeholder.search' | translate}}"
       class="header-searchbox md-text"
+      ng-if="loadedOptions"
       flex
     >
     <md-button
       ng-click="selectAll()"
-      ng-if="filterInformation.filter.filterType.allowMultiple && filterInformation.filter.filterType.useSelectAll"
+      ng-if="filterInformation.filter.filterType.allowMultiple && filterInformation.filter.filterType.useSelectAll && loadedOptions"
     >
       <span translate>{{selectAllButtonTranstationKey}}</span>
     </md-button>
