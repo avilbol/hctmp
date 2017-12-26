@@ -154,7 +154,7 @@
             $mdDialog.hide();
           })
           .catch(function (error) {
-            if(error.status === 403){
+            if(error.status === 400){
               var errorMessage = translateFilter(error.data.langMessage);
               if(errorMessage === error.data.langMessage){
                 errorMessage = translateFilter("Error.whensavingproperty");
