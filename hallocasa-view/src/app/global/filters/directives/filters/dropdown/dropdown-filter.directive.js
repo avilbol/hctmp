@@ -237,7 +237,7 @@
           }
           else{
             selectionState = "deselectAll";
-            scope.selected.options = scope.options;
+            scope.selected.options = _.map(scope.options, _.property("optionId"));
             scope.selectAllButtonTranstationKey = "placeholder.deselectAll";
           }
           emitSelectedOption();
