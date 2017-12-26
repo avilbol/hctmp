@@ -5,7 +5,8 @@
     .module('HalloCasa.global')
     .directive('dropdownFilter', dropdownFilter);
 
-  function dropdownFilter(FieldsService, FiltersService, $rootScope, $timeout, translateFilter, unicodeFilter, toastr) {
+  function dropdownFilter(FieldsService, FiltersService, $rootScope, $timeout, translateFilter, unicodeFilter, toastr,
+                          idSearchFilter, $q) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/filters/dropdown/dropdown-filter.html",
@@ -31,23 +32,40 @@
         scope.selected = {options: []};
         scope.selectAll = selectAll;
         scope.selectAllButtonTranstationKey = "placeholder.selectAll";
+        scope.loadOptions = loadOptions;
+        scope.options = [];
+        scope.loadedOptions = false;
+
+
+        scope.detectConditionalTitle = detectConditionalTitle;
+
         var selectionState = "selectAll";
 
         function loadOptions() {
-          if(!optionsData){
-            return;
-          }
-          switch(optionsData.type){
-            case "static_options":
-              staticOptionsHandler();
-              break;
-            case "dynamic_options":
-              dynamicOptionsHandler();
-              break;
-          }
+          return $q(function (resolve) {
+            if (!optionsData || scope.loadedOptions) {
+              resolve();
+              return;
+            }
+
+            scope.options = [];
+
+            switch (optionsData.type) {
+              case "static_options":
+                staticOptionsHandler(resolve);
+                break;
+              case "dynamic_options":
+                dynamicOptionsHandler(resolve);
+                break;
+              case "filter_options":
+                filterOptionsHandler(resolve);
+            }
+          }).finally(function () {
+            scope.loadedOptions = true;
+          });
         }
 
-        function staticOptionsHandler(){
+        function staticOptionsHandler(resolve){
           var staticOptionsGroup, optionsList, processedOptions;
           if(scope.filterInformation.filter.usePropertyField){
             staticOptionsGroup = scope.filterInformation.propertyField.dropdownOptionGroup;
@@ -60,10 +78,10 @@
 
           processedOptions = FieldsService.processOptions(optionsList, staticOptionsGroup.translationManagement);
           setFilterOptions(processedOptions);
-          loadContext();
+          resolve();
         }
 
-        function dynamicOptionsHandler() {
+        function dynamicOptionsHandler(resolve) {
           var serviceId = optionsData.serviceId;
           var translationManagement = optionsData.translationManagement ? optionsData.translationManagement : "NONE";
           var payload = optionsData.referredDependencyPayload ? optionsData.showOnSpecificID : undefined;
@@ -85,8 +103,31 @@
             })
             .finally(function () {
               scope.filterInformation.filter.processedOptions = scope.options;
-              loadContext();
+              resolve();
             });
+        }
+
+        function filterOptionsHandler(resolve) {
+          var parentIdName = scope.filterInformation.filter.options.parentIDName;
+          var parentId = scope.filterInformation.filter.options.showOnSpecificID;
+
+          var parentData = {
+            propertyFilter: scope.filterInformation.filter.options.parentFilterInformation,
+            selectedFilterOptions: [{optionId: parentId}]
+          };
+
+          FiltersService.loadFiltersOptions(scope.filterInformation.filter.id, [parentData]).then(function (options) {
+            var filterOptions = _.filter(options, function (option) {
+              return option.data2 === "true" || option.parentInfo[parentIdName] === parentId;
+            });
+
+            scope.filterInformation.propertyField.dropdownOptionGroup = {
+              dropdownOptionList: filterOptions,
+              translationManagement: scope.options.translationManagement ? scope.options.translationManagement : "TOTAL"
+            };
+
+            staticOptionsHandler(resolve);
+          });
         }
 
         function setFilterOptions(processedOptions) {
@@ -162,7 +203,7 @@
             });
 
             if(localSelected && localOptionIndex === -1){
-              var synchronizedOption = _.pick(option, "optionId");
+              var synchronizedOption = _.pick(option, "optionId", "tmplTranslate", "lang", "parentInfo");
               localFilterSelectedOptions.push(synchronizedOption);
             }
             if(!localSelected && localOptionIndex !== -1){
@@ -196,7 +237,7 @@
           }
           else{
             selectionState = "deselectAll";
-            scope.selected.options = scope.options;
+            scope.selected.options = _.map(scope.options, _.property("optionId"));
             scope.selectAllButtonTranstationKey = "placeholder.deselectAll";
           }
           emitSelectedOption();
@@ -310,12 +351,27 @@
           var filterID = scope.filterInformation.filter.id;
           var savedFilterModel = context.filtersModel ? context.filtersModel[filterID] : undefined;
 
+          var parentIdName = scope.filterInformation.filter.options.parentIDName;
+          var parentId = scope.filterInformation.filter.options.showOnSpecificID;
+
           if(!savedFilterModel){return;}
 
-          var selectedOptions = context.filtersModel[filterID].options;
+          var selectedOptions = _.filter(context.filtersModel[filterID].options, function (option) {
+            return scope.conditionalFilter ? option.parentInfo[parentIdName] === parentId : true;
+          });
+
+          scope.options = selectedOptions;
+
+          if(scope.conditionalFilter){
+            var filterData = FiltersService.getFilterById(filterID, scope.filtersRootScope);
+            filterData.filter.processedOptions = context.filtersModel[filterID].options;
+          }
+          else{
+            scope.filterInformation.filter.processedOptions = selectedOptions;
+          }
 
           if(_.isArray(selectedOptions) && !_.isEmpty(selectedOptions)){
-            scope.selected.options = selectedOptions;
+            scope.selected.options = _.map(selectedOptions, _.property("optionId"));
             emitSelectedOption(true);
           }
         }
@@ -332,20 +388,24 @@
           else{
             var options;
             if(scope.conditionalFilter){
-              options = _.map(getLocalFilterSelectedOptions(), _.property("optionId"))
+              options = getLocalFilterSelectedOptions();
             }
             else{
-               options = scope.selected.options;
+              options = _.map(scope.selected.options, function (optionId) {
+                var option = idSearchFilter(scope.options, optionId, "", "optionId");
+                return _.pick(option, "optionId", "tmplTranslate", "lang", "parentInfo");
+              });
             }
+
             context.filtersModel[filterID].options = options;
           }
 
           FiltersService.saveContext(scope.additionalParameters.filtersContext, context);
         }
 
+        loadContext();
         detectConditionalShowFilter();
         detectConditionalTitle();
-        loadOptions();
         watchRender();
         watchCleanFilter();
       }

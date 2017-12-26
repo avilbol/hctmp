@@ -47,6 +47,7 @@
       PropertyService.loadPropertiesFilters()
         .then(function (filtersData) {
           vm.filters = FiltersService.generateFiltersRender(filtersData.propertyFilters, filtersData.propertyFiltersRender);
+          loadFiltersContext(filtersData.propertyFilters);
         })
         .catch(function () {
           toastr.warning(
@@ -165,26 +166,31 @@
       loadPropertiesPage(1, selectedFilters);
     }
 
-    function loadFiltersContext() {
+    function loadFiltersContext(filtersList) {
       var context = FiltersService.loadContext(vm.additionalParameters.filtersContext);
       if(!_.isObject(context.filtersModel) || _.isEmpty(context.filtersModel)){
         loadPropertiesPage(1);
         return;
       }
 
-      var totalFilters = _.keys(context.filtersModel).length;
-      var loadedFilters = 0;
-      var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function () {
-        loadedFilters++;
-        if(loadedFilters === totalFilters){
-          destroyListener();
-          loadPropertiesPage(1, selectedFilters);
-        }
+      var filtersSelectedID = _.map(_.keys(context.filtersModel), Number);
+
+      var filtersSelected = _.filter(filtersList, function (filterInformation) {
+        return filtersSelectedID.includes(filterInformation.filter.id);
       });
+
+      var selectedFilters = _.map(filtersSelected, function (filterInformation) {
+        var selectedFilterOptions = _.map(context.filtersModel[filterInformation.filter.id].options, _.partial(_.pick, _, "optionId"));
+        return {
+          propertyFilter: filterInformation,
+          selectedFilterOptions: selectedFilterOptions
+        };
+      });
+
+      loadPropertiesPage(1, selectedFilters);
     }
 
     loadFilters();
     listenFiltersChanges();
-    loadFiltersContext();
   }
 })();

@@ -5,7 +5,7 @@
     .module('HalloCasa.global')
     .directive('repeaterFilterGroup', repeaterFilterGroup);
 
-  function repeaterFilterGroup($rootScope, FiltersService) {
+  function repeaterFilterGroup($rootScope) {
     return {
       restrict: 'EA',
       templateUrl: "app/global/filters/directives/components/repeater-filter-group/repeater-filter-group.html",
@@ -18,7 +18,6 @@
       },
       link: function (scope) {
         var repeatedFilter = _.first(scope.filtersList);
-        var loadingOptions = [];
 
         scope.valueList = [];
 
@@ -45,26 +44,14 @@
         }
 
         function enableConditionalFilter(filterInformation, selectedOption) {
-          if(_.indexOf(loadingOptions, selectedOption.optionId) !== -1){return;}
+          var filterData = angular.copy(repeatedFilter);
+          filterData.filter.options.showOnSpecificID = selectedOption.optionId;
+          filterData.filter.options.conditionalFilter = true;
+          filterData.filter.options.type = "filter_options";
+          filterData.filter.options.parentIDName = scope.options.parentIDName;
+          filterData.filter.options.parentFilterInformation = filterInformation.propertyFilter;
 
-          loadingOptions.push(selectedOption.optionId);
-          FiltersService.loadFiltersOptions(repeatedFilter.filter.id, [filterInformation]).then(function (options) {
-            var filterData = angular.copy(repeatedFilter);
-            var filterOptions = _.filter(options, function (option) {
-              return option.data2 === "true" || option.parentInfo[scope.options.parentIDName] === selectedOption.optionId;
-            });
-
-            filterData.filter.options.showOnSpecificID = selectedOption.optionId;
-            filterData.filter.options.conditionalFilter = true;
-            filterData.propertyField.dropdownOptionGroup = {
-              dropdownOptionList: filterOptions,
-              translationManagement: scope.options.translationManagement ? scope.options.translationManagement : "NONE"
-            };
-
-            scope.valueList.push(filterData);
-          }).finally(function () {
-            loadingOptions.splice(_.indexOf(loadingOptions, selectedOption.optionId), 1);
-          });
+          scope.valueList.push(filterData);
         }
 
         watchFilter();
