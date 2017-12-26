@@ -44,18 +44,24 @@ public class PfpTextFileConverter implements PropertyFieldValueConverter {
 			replaceMassive(miniImgPropertiesPathRoot, pathname, pref + pathname);
 			return spec.getStrVal();
 		}
-		String fullFilename = FileManager.createFileFromBase64(propertiesPathRoot, 
-				spec.getStrVal(), pref + propId);
-		LOG.debug("generating fullfilename: " + fullFilename);
-		LOG.debug("property images path: " + propertiesPathRoot);
-		LOG.debug("minified property images path: " + miniImgPropertiesPathRoot);
-		LOG.debug("generating fullfilename: " + fullFilename);
-		AvsFileManager.createMinifiedImage(miniImgPropertiesPathRoot, fullFilename, 
-				ImageParameters.PROP_DEFAULT_MINIFIED_IMG_WIDTH, 
-				ImageParameters.PROP_DEFAULT_MINIFIED_IMG_HEIGHT);
-		LOG.debug("image minified");
-		String[] parts = fullFilename.split("/");
-		return parts[parts.length - 1].replaceAll(pref, "");
+		try{
+			String fullFilename = FileManager.createFileFromBase64(propertiesPathRoot, 
+					spec.getStrVal(), pref + propId);
+			LOG.debug("generating fullfilename: " + fullFilename);
+			LOG.debug("property images path: " + propertiesPathRoot);
+			LOG.debug("minified property images path: " + miniImgPropertiesPathRoot);
+			LOG.debug("generating fullfilename: " + fullFilename);
+			AvsFileManager.createMinifiedImage(miniImgPropertiesPathRoot, fullFilename, 
+					ImageParameters.PROP_DEFAULT_MINIFIED_IMG_WIDTH, 
+					ImageParameters.PROP_DEFAULT_MINIFIED_IMG_HEIGHT);
+			LOG.debug("image minified");
+			String[] parts = fullFilename.split("/");
+			return parts[parts.length - 1].replaceAll(pref, "");
+		} catch(Exception e){
+			replaceMassive(propertiesPathRoot, pref + propId, propId);
+			replaceMassive(miniImgPropertiesPathRoot, pref + propId, propId);
+			throw e;
+		}
 	}
 
 	private boolean isFilename(String strVal){

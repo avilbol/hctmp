@@ -22,6 +22,12 @@ public class ErrorMessage {
 	private int status;
 	
 	/** 
+	 * Message to translate in specific language (EN/ES/DE) and to be showed to user
+	 */
+	@XmlElement(name = "langMessage")
+	private String langMessage;
+	
+	/** 
 	 * application specific error code.
 	 */
 	@XmlElement(name = "code")
@@ -128,7 +134,24 @@ public class ErrorMessage {
 		this.link = link;
 	}
 	
-	
+	/**
+	 * Obtiene el mensaje a traducir
+	 * @return
+	 * 		Mensaje a ser traducido
+	 */
+	public String getLangMessage() {
+		return langMessage;
+	}
+
+	/**
+	 * Establece el mensaje a traducir y mostrar al usuario
+	 * @param langMessage
+	 * 		Un mensaje key-value a ser traducido
+	 */
+	public void setLangMessage(String langMessage) {
+		this.langMessage = langMessage;
+	}
+
 	/**
 	 * Crea el mensaje de error envolviendo la excepcion dada.
 	 * @param ex excepcion que encapsula.
@@ -149,8 +172,7 @@ public class ErrorMessage {
 	 */
 	@Override
 	public String toString() {
-		return "ErrorMessage [status=" + status + ", code=" + code
-				+ ", message=" + message + ", link=" + link
-				+ ", developerMessage=" + developerMessage + "]";
+		return "ErrorMessage [status=" + status + ", langMessage=" + langMessage + ", code=" + code + ", message="
+				+ message + ", link=" + link + ", developerMessage=" + developerMessage + "]";
 	}
 }

@@ -32,6 +32,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.properties.EntityProperty;
+import com.hallocasa.randomutils.RandomUtils;
 import com.hallocasa.services.generalities.LocaleNamingService;
 import com.hallocasa.services.hcfilters.filterworkers.FilterWorker;
 import com.hallocasa.services.hcfilters.filterworkers.LocationFilterWorker;
@@ -83,11 +84,14 @@ public class PropertyServiceImp implements PropertyService {
 	 */
 	@Override
 	public void save(Property property, String oAuthToken) {
+		if(property.getId() == null){
+			property.setId(RandomUtils.alphanumericRandom(8));
+		}
 		validatePropertyStructure(property, oAuthToken);
 		complementProperty(property);
 		EntityProperty entityProperty = (EntityProperty) toEntity(property);
 		daoProperty.save(entityProperty);
-		assureImageFileSystem(entityProperty.getId());
+		assureImageFileSystem(property.getId());	
 	}
 
 	private void complementProperty(Property property) {			

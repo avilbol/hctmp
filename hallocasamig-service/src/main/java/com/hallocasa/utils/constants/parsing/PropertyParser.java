@@ -1,6 +1,7 @@
 package com.hallocasa.utils.constants.parsing;
 
-import static com.hallocasa.utils.resolvers.PropertyDataTypeRes.*;
+import static com.hallocasa.utils.resolvers.PropertyDataTypeRes.getConverter;
+import static com.hallocasa.utils.resolvers.PropertyDataTypeRes.getRequiresExtraParameters;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,7 +15,6 @@ import com.hallocasa.entities.properties.EntityPropertyFieldValue;
 import com.hallocasa.entities.properties.EntityPropertyLocation;
 import com.hallocasa.entities.properties.EntityPropertyProposal;
 import com.hallocasa.entities.properties.EntityPropertyType;
-import com.hallocasa.randomutils.RandomUtils;
 import com.hallocasa.utils.constants.propertyfieldparsing.PropertyFieldValueConverter;
 import com.hallocasa.vo.Country;
 import com.hallocasa.vo.hcfilter.properties.Property;
@@ -72,8 +72,8 @@ public class PropertyParser extends CustomizedParser {
 	public void transform(HallocasaEntity ent, ValueObject vo) {
 		EntityProperty entityProperty = (EntityProperty) ent;
 		Property property = (Property) vo;
-		String id = (property.getId() == null ? RandomUtils.alphanumericRandom(8) : property.getId());
-		entityProperty.setId(id);
+		entityProperty.setId(property.getId());
+		String id = entityProperty.getId();
 		entityProperty.setPropertyType(
 				(EntityPropertyType) HallocasaConvert.toEntity(property.getPropertyKey().getPropertyType()));
 		entityProperty.setPropertyLocation(

@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -35,6 +34,7 @@ import org.apache.tika.mime.MediaType;
 import org.apache.tika.parser.AutoDetectParser;
 import org.imgscalr.Scalr;
 
+import com.hallocasa.utils.constants.exceptions.ClientFocusedException;
 import com.hallocasa.utils.constants.exceptions.FatalException;
 
 public class FileManager {
@@ -133,7 +133,9 @@ public class FileManager {
 		    String mimeType = mediaType.toString();
 		    String ext = MimeTypeMetadata.get(mimeType);
 		    if(ext == null){
-		    	throw new FatalException("Extension not allowed");
+		    	ClientFocusedException.throwBadRequest(
+		    			"Image extension not supported",
+		    			"exterrors.images.unsupported");
 		    }
 		    return ext;
 		}
