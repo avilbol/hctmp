@@ -6,11 +6,12 @@
     .run(runBlock);
 
   /** @ngInject */
-  function runBlock($log, $route, BrowserDetectionService) {
+  function runBlock($log, $route, BrowserDetectionService, localStorageService, AppVersion) {
     $route.reload();
     $log.debug('runBlock end');
     handleBrowserRequirements(BrowserDetectionService);
     polyfill();
+    validateLocalStorageVersion(localStorageService, AppVersion);
   }
 
   function handleBrowserRequirements(BrowserDetectionService) {
@@ -43,6 +44,15 @@
           return this.indexOf(search, start) !== -1;
         }
       };
+    }
+  }
+
+  function validateLocalStorageVersion(localStorageService, AppVersion) {
+    var localStorageVersion = localStorageService.get("storageVersion");
+
+    if(localStorageVersion !== AppVersion){
+      localStorageService.clearAll();
+      localStorageService.set("storageVersion", AppVersion);
     }
   }
 
