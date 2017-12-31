@@ -13,7 +13,7 @@
 
     vm.openFiltersDialog = openFiltersDialog;
     vm.closeFiltersDialog = closeFiltersDialog;
-    vm.loadPropertiesPage = loadPropertiesPage;
+    vm.changePage = changePage;
     vm.search = search;
     vm.properties = [];
     vm.totalProperties = 0;
@@ -34,7 +34,7 @@
       PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1, filterList, vm.order)
         .then(function (data) {
           vm.properties = PropertyService.generatePropertiesPreviewData(data.propertyList);
-          vm.totalProperties = data.count;
+          vm.totalProperties = _.isNumber(data.count) ? data.count : vm.totalProperties;
           vm.firstLoading = false;
         })
         .catch(function () {
@@ -154,6 +154,7 @@
 
     function search() {
       closeFiltersDialog();
+      vm.pagination = {current: 1};
       loadPropertiesPage(1, selectedFilters);
     }
 
@@ -188,6 +189,10 @@
       });
 
       loadPropertiesPage(1, selectedFilters);
+    }
+
+    function changePage(pageNumber) {
+      loadPropertiesPage(pageNumber, selectedFilters);
     }
 
     loadFilters();
