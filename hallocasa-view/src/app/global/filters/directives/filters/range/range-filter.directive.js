@@ -223,14 +223,15 @@
 
           context.filtersModel = context.filtersModel ? context.filtersModel : {};
           context.filtersModel[filterID] = {};
-          context.filtersModel[filterID].queryName = queryName;
 
           if(_.isNumber(scope.range.highValue) && scope.range.ceiling !== scope.range.highValue){
             context.filtersModel[filterID].highValue = scope.range.highValue;
+            context.filtersModel[filterID].queryName = queryName;
           }
 
           if(_.isNumber(scope.range.lowValue) && scope.range.floor !== scope.range.lowValue){
             context.filtersModel[filterID].lowValue = scope.range.lowValue;
+            context.filtersModel[filterID].queryName = queryName;
           }
 
           if(_.isEmpty(context.filtersModel[filterID])){
