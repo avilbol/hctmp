@@ -67,8 +67,8 @@
           var apply = context.filtersModel[filterID].apply;
 
           if(!_.isUndefined(apply)){
-            scope.filter.selected = true;
-            emitSelectedOption(true);
+            scope.filter.selected = apply;
+            emitSelectedOption(apply);
           }
         }
 
@@ -79,7 +79,7 @@
           context.filtersModel[filterID] = {};
 
           if(scope.filter.selected){
-            context.filtersModel[filterID].apply = true;
+            context.filtersModel[filterID].apply = scope.filter.selected;
           }
           else{
             delete context.filtersModel[filterID];
