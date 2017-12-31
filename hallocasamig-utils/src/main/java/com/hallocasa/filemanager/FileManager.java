@@ -80,6 +80,7 @@ public class FileManager {
 		}
 		try (OutputStream stream = new FileOutputStream(filename)) {
 		    stream.write(data);
+		    ImageEXIFManager.tryAutoRotate(new File(filename), getExtension(data));
 		    return filename;
 		} catch(IOException e){
 			throw new FatalException("Unexpected error", e);

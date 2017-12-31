@@ -55,6 +55,7 @@
         }
 
         function loadLocation() {
+          console.log('loadLocation event');
           if(!_.isEmpty(scope.fieldInformation.fieldValueList)){
             var fieldValue = scope.fieldInformation.fieldValueList[0];
 
@@ -64,6 +65,8 @@
                 longitude: fieldValue.data2.doubleVal
               }
             };
+
+            console.log('Location ', scope.location);
             if(fieldValue.data3 && _.isNumber(fieldValue.data3.intVal)){
               scope.location.zoom = fieldValue.data3.intVal;
             }

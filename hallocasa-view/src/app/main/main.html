@@ -114,8 +114,8 @@
       </md-list>
     </md-content>
   </md-sidenav>
-  <md-content flex id="mainContainer">
-    <md-content ng-view flex layout="column" class="ng-view-container"></md-content>
+  <md-content flex id="mainContainer" du-scroll-container>
+    <md-content ng-view flex layout="column" class="ng-view-container" id="top"></md-content>
     <md-toolbar ng-class="{'md-xl': MainCtrl.screenIsSmall}" ng-if="MainCtrl.showToolbars">
       <div layout="column" layout-gt-sm="row" flex layout-align="center center">
         <span layout-margin></span>
@@ -137,6 +137,7 @@
         </div>
 
         <md-button class="md-icon-button" aria-label="go up" flex-order-sm="0" flex-order-xs="0" ng-click="MainCtrl.goUp()">
+        <!-- <md-button class="md-icon-button" aria-label="go up" flex-order-sm="0" flex-order-xs="0" href="#top" du-smooth-scroll> -->
           <i class="material-icons">arrow_upward</i>
         </md-button>
         <div flex layout="column" flex-order-sm="3" flex-order-xs="3">
