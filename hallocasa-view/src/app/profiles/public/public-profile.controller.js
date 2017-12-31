@@ -28,8 +28,8 @@
     vm.totalAmount = [25,50,100];
     vm.firstLoading = true;
     vm.filterList = filterList;
-    vm.additionalParameters = {filtersContext: "PublicProperty"};
-    
+    vm.additionalParameters = {filtersContext: "PublicProfile"};
+
 
     vm.pagination = {
       current: 1
@@ -77,9 +77,9 @@
           return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
         });
 
-        
+
         var filterTypeNature = filterInformation.propertyFilter.filter.filterType.filterTypeNature;
-        getFilters(filterInformation, filterIndex, filterTypeNature);        
+        getFilters(filterInformation, filterTypeNature);
 
         switch(filterTypeNature){
           case "DROPDOWN":
@@ -99,8 +99,8 @@
       $scope.$on("$destroy", destroyListener);
     }
 
-    function getFilters(filterInformation, filterIndex, filterTypeNature) {
-      
+    function getFilters(filterInformation, filterTypeNature) {
+
       var filterObj = filterInformation;
 
       var arrayName = filterObj.propertyFilter.filter.arrayName;
@@ -109,9 +109,9 @@
         filterList[arrayName] = filterObj.apply;
       } else {
         if (arrayName) {
-          var selections = []
-          _.each(filterObj.selectedFilterOptions, function (e) {
-            selections.push({id: e.optionId});
+          var selections = [];
+          _.each(filterObj.selectedFilterOptions, function (option) {
+            selections.push({id: option.optionId});
           });
           filterList[arrayName] = selections;
         }
