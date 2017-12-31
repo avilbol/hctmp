@@ -74,12 +74,15 @@
 
         function updateContext() {
           var context = FiltersService.loadContext(scope.additionalParameters.filtersContext);
-          var filterID = scope.filterInformation.filter.id;
+          var filter = scope.filterInformation.filter;
+          var filterID = filter.id;
+          var queryName = filter.queryName ? filter.queryName : filter.name;
           context.filtersModel = context.filtersModel ? context.filtersModel : {};
           context.filtersModel[filterID] = {};
 
           if(scope.filter.selected){
             context.filtersModel[filterID].apply = scope.filter.selected;
+            context.filtersModel[filterID].queryName = queryName;
           }
           else{
             delete context.filtersModel[filterID];
