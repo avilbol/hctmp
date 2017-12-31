@@ -10,7 +10,6 @@
                                    $mdDialog, toastr) {
     var vm = this;
     var filtersDialog;
-    var selectedFilters = [];
     var filterList = {};
 
     vm.loadProfilesPage = loadProfilesPage;
@@ -73,92 +72,27 @@
 
     function listenFiltersChanges() {
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-        var filterIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
-          return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
-        });
-
-
-        var filterTypeNature = filterInformation.propertyFilter.filter.filterType.filterTypeNature;
-        getFilters(filterInformation, filterTypeNature);
-
-        switch(filterTypeNature){
-          case "DROPDOWN":
-            processDropdownSelection(filterInformation, filterIndex);
-            break;
-          case "YESNO":
-            processBinarySelection(filterInformation, filterIndex);
-            break;
-          case "RANGE":
-            processRangeSelection(filterInformation, filterIndex);
-            break;
-          case "TEXT":
-            break
-        }
+        getFilters(filterInformation);
       });
 
       $scope.$on("$destroy", destroyListener);
     }
 
-    function getFilters(filterInformation, filterTypeNature) {
+    function getFilters(filterInformation) {
+      var filter = filterInformation.propertyFilter.filter;
+      var queryName = filter.queryName;
+      var filterTypeNature = filter.filterType.filterTypeNature;
 
-      var filterObj = filterInformation;
-
-      var arrayName = filterObj.propertyFilter.filter.arrayName;
+      if (!queryName){return;}
 
       if(filterTypeNature === 'TEXT'){
-        filterList[arrayName] = filterObj.apply;
+        filterList[queryName] = filterInformation.apply;
       } else {
-        if (arrayName) {
-          var selections = [];
-          _.each(filterObj.selectedFilterOptions, function (option) {
-            selections.push({id: option.optionId});
-          });
-          filterList[arrayName] = selections;
-        }
-      }
-    }
-
-    function processDropdownSelection(filterInformation, filterIndex) {
-      if(_.isEmpty(filterInformation.selectedFilterOptions)){
-        selectedFilters.splice(filterIndex, 1);
-      }
-      else{
-        if(filterIndex === -1){
-          selectedFilters.push(filterInformation);
-        }
-        else{
-          selectedFilters[filterIndex] = filterInformation;
-        }
-      }
-    }
-
-    function processBinarySelection(filterInformation, filterIndex) {
-      switch (filterInformation.binaryFilterType){
-        case "Dropdown":
-          if(filterIndex === -1){
-            selectedFilters.push(filterInformation);
-          }
-          else{
-            selectedFilters[filterIndex] = filterInformation;
-          }
-          break;
-        case "Checkbox":
-          if(filterIndex === -1 && filterInformation.apply){
-            selectedFilters.push(filterInformation);
-          }
-          else{
-            selectedFilters.splice(filterIndex, 1);
-          }
-          break;
-      }
-    }
-
-    function processRangeSelection(filterInformation, filterIndex) {
-      if(filterIndex === -1){
-        selectedFilters.push(filterInformation);
-      }
-      else{
-        selectedFilters[filterIndex] = filterInformation;
+        var selections = [];
+        _.each(filterInformation.selectedFilterOptions, function (option) {
+          selections.push({id: option.optionId});
+        });
+        filterList[queryName] = selections;
       }
     }
 
@@ -168,7 +102,6 @@
 
     function clearFilters() {
       filterList = {};
-      selectedFilters = [];
       $rootScope.$broadcast("FilterSystem:clearFilters");
     }
 
