@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function PublicProfileController(ProfilesService, BrowserDetectionService, translateFilter, $rootScope, $scope,
-                                   $mdDialog, toastr) {
+                                   $mdDialog, toastr, FiltersService) {
     var vm = this;
     var filtersDialog;
     var filterList = {};
@@ -72,13 +72,13 @@
 
     function listenFiltersChanges() {
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-        getFilters(filterInformation);
+        processSelectedFilter(filterInformation);
       });
 
       $scope.$on("$destroy", destroyListener);
     }
 
-    function getFilters(filterInformation) {
+    function processSelectedFilter(filterInformation) {
       var filter = filterInformation.propertyFilter.filter;
       var queryName = filter.queryName;
       var filterTypeNature = filter.filterType.filterTypeNature;
@@ -87,7 +87,8 @@
 
       if(filterTypeNature === 'TEXT'){
         filterList[queryName] = filterInformation.apply;
-      } else {
+      }
+      else {
         var selections = [];
         _.each(filterInformation.selectedFilterOptions, function (option) {
           selections.push({id: option.optionId});
@@ -110,8 +111,26 @@
       loadProfilesPage(1, filterList);
     }
 
+    function loadFiltersContext() {
+      var context = FiltersService.loadContext(vm.additionalParameters.filtersContext);
+
+      _.each(context.filtersModel, function (filterSelected) {
+        if(_.isString(filterSelected.apply)){
+          filterList[filterSelected.queryName] = filterSelected.apply;
+        }
+
+        if(!_.isEmpty(filterSelected.options)){
+          filterList[filterSelected.queryName] = _.map(filterSelected.options, function (option) {
+            return {id: option.optionId};
+          });
+        }
+      });
+
+      loadProfilesPage(1, filterList);
+    }
+
+    loadFiltersContext();
     listenFiltersChanges();
-    loadProfilesPage(1, filterList);
     loadFilters();
 
   }
