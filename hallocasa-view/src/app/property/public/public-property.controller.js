@@ -168,7 +168,7 @@
 
     function loadFiltersContext(filtersList) {
       var context = FiltersService.loadContext(vm.additionalParameters.filtersContext);
-      if(!_.isObject(context.filtersModel) || _.isEmpty(context.filtersModel)){
+      if(_.isEmpty(context.filtersModel)){
         loadPropertiesPage(1);
         return;
       }
