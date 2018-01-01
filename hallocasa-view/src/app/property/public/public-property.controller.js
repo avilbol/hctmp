@@ -38,6 +38,7 @@
           vm.firstLoading = false;
         })
         .catch(function () {
+          loadPropertiesPage(1);
           toastr.warning(
             translateFilter("hallocasa.global.error"));
         });
@@ -50,6 +51,7 @@
           loadFiltersContext(filtersData.propertyFilters);
         })
         .catch(function () {
+          loadPropertiesPage(1);
           toastr.warning(
             translateFilter("hallocasa.global.error"));
         });
