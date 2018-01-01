@@ -16,7 +16,6 @@
       SessionService.activateUser(email, activationKey)
         .then(function(){
           toastr.success(translateFilter('Alert.profileactivated'));
-          $location.url("/profile/my-profile/edit");
           closeDialog();
         })
         .catch(function(){
