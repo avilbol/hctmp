@@ -16,6 +16,7 @@
             policyURL: '@'
           },
           link: function (scope, element, attr) {
+            console.log('cargo cookieLawBanner');
             var template, options, expireDate,
                 acceptButton = '',
                 declineButton = '',

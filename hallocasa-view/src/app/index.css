@@ -237,13 +237,6 @@ md-tabs.md-dynamic-height md-tabs-content-wrapper {
 	}
 }
 
-/* .cl-banner {
-  background: rgb(12,88,166);
-  position: fixed;
-  bottom: 0;
-  top: unset;
-} */
-
 .md-backdrop-custom-login {
   opacity: .98 !important;
 }
