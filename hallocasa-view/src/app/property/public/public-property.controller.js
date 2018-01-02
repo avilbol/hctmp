@@ -49,6 +49,8 @@
         .then(function (filtersData) {
           vm.filters = FiltersService.generateFiltersRender(filtersData.propertyFilters, filtersData.propertyFiltersRender);
           loadFiltersContext(filtersData.propertyFilters);
+          loadPropertiesPage(1, selectedFilters);
+          listenFiltersChanges();
         })
         .catch(function () {
           loadPropertiesPage(1);
@@ -171,10 +173,7 @@
 
     function loadFiltersContext(filtersList) {
       var context = FiltersService.loadContext(vm.additionalParameters.filtersContext);
-      if(_.isEmpty(context.filtersModel)){
-        loadPropertiesPage(1);
-        return;
-      }
+      if(_.isEmpty(context.filtersModel)){return;}
 
       var filtersSelectedID = _.map(_.keys(context.filtersModel), Number);
 
@@ -205,9 +204,6 @@
         }
         return processedFilter
       });
-
-      loadPropertiesPage(1, selectedFilters);
-      listenFiltersChanges();
     }
 
     function loadRangeFilter(filterInformation, filterModel) {

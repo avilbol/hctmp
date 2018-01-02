@@ -357,7 +357,7 @@
           if(!savedFilterModel){return;}
 
           var selectedOptions = _.filter(context.filtersModel[filterID].options, function (option) {
-            return scope.conditionalFilter ? option.parentInfo[parentIdName] === parentId : true;
+            return scope.conditionalFilter && parentIdName ? option.parentInfo[parentIdName] === parentId : true;
           });
 
           scope.options = selectedOptions;
