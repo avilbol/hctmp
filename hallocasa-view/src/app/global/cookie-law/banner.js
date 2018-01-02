@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('HalloCasa')
+  angular.module('HalloCasa.global')
       .directive('cookieLawBanner', cookieLawBanner);
 
       function cookieLawBanner ($compile, CookieLawService) {
