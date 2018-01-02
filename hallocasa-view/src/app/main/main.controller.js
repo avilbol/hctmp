@@ -8,7 +8,7 @@
   /** @ngInject */
   function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, $window, SessionService, LocaleService,
                           BlogLinks, $rootScope, $route, AppVersion, $translate, CurrencyService, IpInfoService,
-                          PreferredSettingsService, LOCALES, $mdMenu, localStorageService, $anchorScroll) {
+                          PreferredSettingsService, LOCALES, $mdMenu, localStorageService) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
@@ -38,7 +38,7 @@
     }
 
     function goUp() {
-      if ($window.navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/)) {     
+      if ($window.navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/)) {
         $window.scrollTo(0,0);
       }else{
         angular.element("#mainContainer").animate({ scrollTop: 0 }, "slow");
