@@ -52,17 +52,18 @@
 }
 
 .cl-banner .cl-disable {
-  background: #990000;
+  /* background: #990000; */
 }
 
 .cl-banner .cl-disable:hover {
-  background: #bb0000;
+  /* background: #bb0000; */
 }
 
 .cl-banner .cl-policy {
-  background: #0033bb;
+  text-decoration: underline;
+  /* background: #0033bb; */
 }
 
 .cl-banner .cl-policy:hover {
-  background: #0055dd;
+  /* background: #0055dd; */
 }
