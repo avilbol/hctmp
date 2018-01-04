@@ -50,19 +50,22 @@
         'blog': 'http://blog.hallocasa.com/es/',
         'buyProcess': 'http://blog.hallocasa.com/es/procesos-de-compra-todos/',
         'termAndConditions': 'http://blog.hallocasa.com/es/terminos-y-condiciones/',
-        'privacyPolicy': 'http://blog.hallocasa.com/es/acuerdo-de-privacidad/'
+        'privacyPolicy': 'http://blog.hallocasa.com/es/acuerdo-de-privacidad/',
+        'cookies': 'http://blog.hallocasa.com/es/cookies-es/'
       },
       'English': {
         'blog': 'http://blog.hallocasa.com/',
         'buyProcess': 'http://blog.hallocasa.com/buying-processes-overview/',
         'termAndConditions': 'http://blog.hallocasa.com/terms-conditions/',
-        'privacyPolicy': 'http://blog.hallocasa.com/privacy-policy/'
+        'privacyPolicy': 'http://blog.hallocasa.com/privacy-policy/',
+        'cookies': 'http://blog.hallocasa.com/cookies/'
       },
       'Deutsch':{
         'blog': 'http://blog.hallocasa.com/de/',
         'buyProcess': 'http://blog.hallocasa.com/de/kaufprozesse-alle/',
         'termAndConditions': 'http://blog.hallocasa.com/de/nutzungsbedingungen/',
-        'privacyPolicy': 'http://blog.hallocasa.com/de/datenschutzerklaerung/'
+        'privacyPolicy': 'http://blog.hallocasa.com/de/datenschutzerklaerung/',
+        'cookies': 'http://blog.hallocasa.com/de/cookies-de/'
       }
     })
     .constant('ImagesFallbackList',{
