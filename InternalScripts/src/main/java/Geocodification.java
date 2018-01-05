@@ -1,46 +1,87 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 public class Geocodification {
+	
+	Map<Integer, String> references = new HashMap<>();
+	
+	private static final String queryLoad = "select \r\n" + 
+			"city.id AS id,\r\n" + 
+			"concat(country.country_name, ',', state.state_name, ',', city.city_name) as search_text\r\n" + 
+			" from \r\n" + 
+			"hallocasaappmig.city city,\r\n" + 
+			"hallocasaappmig.state state,\r\n" + 
+			"hallocasaappmig.country country\r\n" + 
+			"where city.state_id = state.id\r\n" + 
+			"and state.country_id = country.id\r\n" + 
+			"and city.default_lat_coordinate IS NULL";
+	
+	private static final String queryUpdate = "update hallocasaappmig.city\r\n" + 
+			"set default_lat_coordinate = %1$s,\r\n" + 
+			"default_lng_coordinate = %2$s,\r\n" + 
+			"default_zoom = %3$s\r\n" + 
+			"where city.id = %4$s";
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		Geocodification geo = new Geocodification();
-		List<String> calls = geo.apiCallList();
-		for(String call : calls){
-			geo.callApi(call);
-		}
-		
+		try{
+			Geocodification geo = new Geocodification();
+			geo.setupMap();
+			List<Integer> cityIds = null;
+			do{
+				cityIds = new ArrayList<>(geo.references.keySet());
+				for(Integer cityId : cityIds){
+					String searchText = geo.references.get(cityId);
+					if(geo.callApi(searchText, cityId)){
+						System.out.println("SUCCESS " + cityId);
+						geo.references.remove(cityId);
+					}	
+				}
+			} while(!cityIds.isEmpty());
+		} catch(Exception e){
+			e.printStackTrace();
+			System.out.println("FATAL " + e);
+		} 
 	}
 	
-	private void callApi(String call){
-		String[] data = call.split(";");
-		String cityId = data[0];
-		String query = data[1];
+	
+	
+	private void setupMap(){
+		references = QueryExecutor.consultar(queryLoad);
+	}
+	
+	private boolean callApi(String searchText, Integer cityId){
+		searchText = searchText.replaceAll("'", "%27");
+		searchText = searchText.replaceAll(" ", "%20");
+		searchText = searchText.replaceAll("ö", "o");
+		searchText = searchText.replaceAll("á", "a");
+		searchText = searchText.replaceAll("é", "e");
+		searchText = searchText.replaceAll("í", "i");
+		searchText = searchText.replaceAll("ó", "o");
+		searchText = searchText.replaceAll("ú", "u");
+		searchText = searchText.replaceAll("ü", "u");
 		String template = "https://maps.googleapis.com/maps/api/geocode/json?address=%1$s";
 		try {
-			URL url = new URL(String.format(template, query));
+			URL url = new URL(String.format(template, searchText));
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/json");
 			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 			String output;
-			System.out.println("Output from Server .... \n");
+			//System.out.println("Output from Server .... \n");
 			StringBuilder sb = new StringBuilder();
 			while ((output = br.readLine()) != null) {
-				System.out.println(output);
 				sb.append(output);
 			}
 			if (conn.getResponseCode() != 200) {
@@ -52,37 +93,23 @@ public class Geocodification {
 				JsonObject loc = obj.get("results").getAsJsonArray().get(0).getAsJsonObject().get("geometry").getAsJsonObject().get("location").getAsJsonObject();
 				Double lat = loc.get("lat").getAsDouble();
 				Double lng = loc.get("lng").getAsDouble();
-				String queryTemplate = "UPDATE hallocasaappmig.city SET default_lat_coordinate=%1$s, default_lng_coordinate=%2$s WHERE id=%3$s;";
-				String queryFinal = String.format(queryTemplate, lat, lng, cityId);
-				System.out.println(queryFinal);
-				write("geocod.out", queryFinal);
+				String queryToUpdate = String.format(queryUpdate, lat, lng, 5, cityId);
+				QueryExecutor.actualizar(queryToUpdate);
 			}
 			else{
-				System.out.println("No results for city " + cityId);
+				System.out.println("No results for city or quota exceeded " + cityId);
+				return false;
 			}
 			conn.disconnect();
-			Thread.sleep(1000);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+			Thread.sleep(100);
+		} catch(RuntimeException e){
+			throw e;
 		}
-	}
-	
-	private void write(String filename, String text) throws IOException{
-		FileWriter fw = new FileWriter(filename, true);
-		BufferedWriter bw = new BufferedWriter(fw);
-		bw.write(text);
-		bw.newLine();
-		bw.close();
-	}
-
-	private List<String> apiCallList() throws FileNotFoundException, IOException{
-		List<String> result = new LinkedList<>();
-		try (BufferedReader br = new BufferedReader(new FileReader("togeocod.in"))) {
-		    String line;
-		    while ((line = br.readLine()) != null) {
-		       result.add(line);
-		    }
+		catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error " + e);
+			return false;
 		}
-		return result;
+		return true;
 	}
 }
