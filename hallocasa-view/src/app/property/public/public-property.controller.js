@@ -13,7 +13,7 @@
 
     vm.openFiltersDialog = openFiltersDialog;
     vm.closeFiltersDialog = closeFiltersDialog;
-    vm.loadPropertiesPage = loadPropertiesPage;
+    vm.changePage = changePage;
     vm.search = search;
     vm.properties = [];
     vm.totalProperties = 0;
@@ -34,10 +34,11 @@
       PropertyService.loadPublicProperties((page-1)*vm.propertiesPerPage, (page-1)*vm.propertiesPerPage + vm.propertiesPerPage-1, filterList, vm.order)
         .then(function (data) {
           vm.properties = PropertyService.generatePropertiesPreviewData(data.propertyList);
-          vm.totalProperties = data.count;
+          vm.totalProperties = _.isNumber(data.count) ? data.count : vm.totalProperties;
           vm.firstLoading = false;
         })
         .catch(function () {
+          loadPropertiesPage(1);
           toastr.warning(
             translateFilter("hallocasa.global.error"));
         });
@@ -48,8 +49,11 @@
         .then(function (filtersData) {
           vm.filters = FiltersService.generateFiltersRender(filtersData.propertyFilters, filtersData.propertyFiltersRender);
           loadFiltersContext(filtersData.propertyFilters);
+          loadPropertiesPage(1, selectedFilters);
+          listenFiltersChanges();
         })
         .catch(function () {
+          loadPropertiesPage(1);
           toastr.warning(
             translateFilter("hallocasa.global.error"));
         });
@@ -154,6 +158,7 @@
 
     function search() {
       closeFiltersDialog();
+      vm.pagination = {current: 1};
       loadPropertiesPage(1, selectedFilters);
     }
 
@@ -168,10 +173,7 @@
 
     function loadFiltersContext(filtersList) {
       var context = FiltersService.loadContext(vm.additionalParameters.filtersContext);
-      if(!_.isObject(context.filtersModel) || _.isEmpty(context.filtersModel)){
-        loadPropertiesPage(1);
-        return;
-      }
+      if(_.isEmpty(context.filtersModel)){return;}
 
       var filtersSelectedID = _.map(_.keys(context.filtersModel), Number);
 
@@ -179,18 +181,68 @@
         return filtersSelectedID.includes(filterInformation.filter.id);
       });
 
-      var selectedFilters = _.map(filtersSelected, function (filterInformation) {
-        var selectedFilterOptions = _.map(context.filtersModel[filterInformation.filter.id].options, _.partial(_.pick, _, "optionId"));
-        return {
-          propertyFilter: filterInformation,
-          selectedFilterOptions: selectedFilterOptions
+      selectedFilters = _.map(filtersSelected, function (filterInformation) {
+        var processedFilter = {
+          propertyFilter: filterInformation
         };
-      });
 
-      loadPropertiesPage(1, selectedFilters);
+        var filterModel = context.filtersModel[filterInformation.filter.id];
+
+        switch(filterInformation.filter.filterType.filterTypeNature){
+          case "DROPDOWN":
+            processedFilter.selectedFilterOptions = _.map(filterModel.options, _.partial(_.pick, _, "optionId"));
+            break;
+          case "YESNO":
+            processedFilter.apply = filterModel.apply;
+            break;
+          case "RANGE":
+            processedFilter = _.extend(processedFilter, loadRangeFilter(filterInformation, filterModel));
+            break;
+          default:
+            processedFilter = filterModel;
+            break;
+        }
+        return processedFilter
+      });
+    }
+
+    function loadRangeFilter(filterInformation, filterModel) {
+      var processedFilter = {};
+      switch (filterInformation.filter.filterType.rangeFieldPresentation){
+        case "INTEGER":
+        case "DOUBLE":
+          processedFilter.minValue = filterModel.lowValue;
+          processedFilter.maxValue = filterModel.highValue;
+          break;
+        case "DATE":
+          processedFilter.minDateValue = filterModel.lowValue;
+          processedFilter.maxDateValue = filterModel.highValue;
+          break;
+        case "CURRENCY":
+          if(_.isNumber(filterModel.lowValue)){
+            processedFilter.minCrcyValue = {
+              currency: {id: filterModel.currency},
+              ammount: filterModel.lowValue
+            };
+          }
+          if(_.isNumber(filterModel.highValue)) {
+            processedFilter.maxCrcyValue = {
+              currency: {id: filterModel.currency},
+              ammount: filterModel.highValue
+            };
+          }
+          break;
+      }
+
+      processedFilter = _.omit(processedFilter, _.isUndefined);
+
+      return processedFilter;
+    }
+
+    function changePage(pageNumber) {
+      loadPropertiesPage(pageNumber, selectedFilters);
     }
 
     loadFilters();
-    listenFiltersChanges();
   }
 })();

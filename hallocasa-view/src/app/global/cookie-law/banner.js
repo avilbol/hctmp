@@ -1,10 +1,10 @@
 (function() {
   'use strict';
 
-  angular.module('HalloCasa')
+  angular.module('HalloCasa.global')
       .directive('cookieLawBanner', cookieLawBanner);
 
-      function cookieLawBanner ($compile, CookieLawService) {
+      function cookieLawBanner ($compile, CookieLawService, $window) {
         return {
           restrict: 'EA',
           replace: true,
@@ -16,6 +16,7 @@
             policyURL: '@'
           },
           link: function (scope, element, attr) {
+            
             var template, options, expireDate,
                 acceptButton = '',
                 declineButton = '',
@@ -68,11 +69,12 @@
                 CookieLawService.accept(expireDate);
                 scope.onAccept();
                 element.remove();
-                scope.onDismiss();
+                // scope.onDismiss();
               };
 
               scope.decline = function() {
                 CookieLawService.decline();
+                $window.location.href = "https://www.google.com";
                 scope.onDecline();
               };
             });

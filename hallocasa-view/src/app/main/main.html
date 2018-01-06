@@ -121,8 +121,8 @@
         <span layout-margin></span>
         <div flex layout="column" class="md-subhead" flex-order-sm="1" flex-order-xs="1">
           <div layout="row" layout-align-sm="center" layout-align-xs="center">
-            <md-button ng-click="MainCtrl.launchPrivacyStatementDialog()">
-              {{'Common.Label.PrivacyStatement' | translate}}
+            <md-button target="_blank" ng-href="{{MainCtrl.blogRedirection('privacyPolicy')}}">
+              {{'Common.Blog.PrivacyPolicy' | translate}}
             </md-button>
           </div>
           <div layout="row">
@@ -131,6 +131,9 @@
             </md-button>
             <md-button target="_blank" ng-href="{{MainCtrl.blogRedirection('blog')}}">
               {{'Common.Label.Blog' | translate}}
+            </md-button>
+            <md-button target="_blank" ng-href="{{MainCtrl.blogRedirection('termAndConditions')}}">
+              {{'Common.Blog.TermsConditions' | translate}}
             </md-button>
           </div>
           
@@ -157,6 +160,9 @@
             </md-button>
           </div>
           <div layout="row" layout-align="end center">
+            <md-button target="_blank" ng-href="{{MainCtrl.blogRedirection('cookies')}}">
+              {{'Common.Blog.Cookies' | translate}}
+            </md-button>
             <a class="md-button" href="mailto:contact@hallocasa.com">contact@hallocasa.com</a>
           </div>
         </div>

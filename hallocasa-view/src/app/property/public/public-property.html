@@ -67,14 +67,14 @@
           </div>
         </div>
         <div layout="row" layout-margin layout-align="center center">
-          <dir-pagination-controls boundary-links="true" on-page-change="vm.loadPropertiesPage(newPageNumber)"></dir-pagination-controls>
+          <dir-pagination-controls boundary-links="true" on-page-change="vm.changePage(newPageNumber)"></dir-pagination-controls>
         </div>
       </div>
     </div>
   </div>
 </md-content>
 
-<div style="visibility: hidden">
+<div style="visibility: hidden; position: absolute">
   <div class="md-dialog-container" id="propertyFilters">
     <md-dialog>
       <md-content layout-padding>

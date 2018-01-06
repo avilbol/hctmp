@@ -7,10 +7,9 @@
 
   /** @ngInject */
   function PublicProfileController(ProfilesService, BrowserDetectionService, translateFilter, $rootScope, $scope,
-                                   $mdDialog, toastr) {
+                                   $mdDialog, toastr, FiltersService) {
     var vm = this;
     var filtersDialog;
-    var selectedFilters = [];
     var filterList = {};
 
     vm.loadProfilesPage = loadProfilesPage;
@@ -28,8 +27,8 @@
     vm.totalAmount = [25,50,100];
     vm.firstLoading = true;
     vm.filterList = filterList;
-    vm.additionalParameters = {filtersContext: "PublicProperty"};
-    
+    vm.additionalParameters = {filtersContext: "PublicProfile"};
+
 
     vm.pagination = {
       current: 1
@@ -73,92 +72,28 @@
 
     function listenFiltersChanges() {
       var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
-        var filterIndex =  _.findIndex(selectedFilters, function (selectedFilter) {
-          return selectedFilter.propertyFilter.filter.id === filterInformation.propertyFilter.filter.id;
-        });
-
-        
-        var filterTypeNature = filterInformation.propertyFilter.filter.filterType.filterTypeNature;
-        getFilters(filterInformation, filterIndex, filterTypeNature);        
-
-        switch(filterTypeNature){
-          case "DROPDOWN":
-            processDropdownSelection(filterInformation, filterIndex);
-            break;
-          case "YESNO":
-            processBinarySelection(filterInformation, filterIndex);
-            break;
-          case "RANGE":
-            processRangeSelection(filterInformation, filterIndex);
-            break;
-          case "TEXT":
-            break
-        }
+        processSelectedFilter(filterInformation);
       });
 
       $scope.$on("$destroy", destroyListener);
     }
 
-    function getFilters(filterInformation, filterIndex, filterTypeNature) {
-      
-      var filterObj = filterInformation;
+    function processSelectedFilter(filterInformation) {
+      var filter = filterInformation.propertyFilter.filter;
+      var queryName = filter.queryName;
+      var filterTypeNature = filter.filterType.filterTypeNature;
 
-      var arrayName = filterObj.propertyFilter.filter.arrayName;
+      if (!queryName){return;}
 
       if(filterTypeNature === 'TEXT'){
-        filterList[arrayName] = filterObj.apply;
-      } else {
-        if (arrayName) {
-          var selections = []
-          _.each(filterObj.selectedFilterOptions, function (e) {
-            selections.push({id: e.optionId});
-          });
-          filterList[arrayName] = selections;
-        }
+        filterList[queryName] = filterInformation.apply;
       }
-    }
-
-    function processDropdownSelection(filterInformation, filterIndex) {
-      if(_.isEmpty(filterInformation.selectedFilterOptions)){
-        selectedFilters.splice(filterIndex, 1);
-      }
-      else{
-        if(filterIndex === -1){
-          selectedFilters.push(filterInformation);
-        }
-        else{
-          selectedFilters[filterIndex] = filterInformation;
-        }
-      }
-    }
-
-    function processBinarySelection(filterInformation, filterIndex) {
-      switch (filterInformation.binaryFilterType){
-        case "Dropdown":
-          if(filterIndex === -1){
-            selectedFilters.push(filterInformation);
-          }
-          else{
-            selectedFilters[filterIndex] = filterInformation;
-          }
-          break;
-        case "Checkbox":
-          if(filterIndex === -1 && filterInformation.apply){
-            selectedFilters.push(filterInformation);
-          }
-          else{
-            selectedFilters.splice(filterIndex, 1);
-          }
-          break;
-      }
-    }
-
-    function processRangeSelection(filterInformation, filterIndex) {
-      if(filterIndex === -1){
-        selectedFilters.push(filterInformation);
-      }
-      else{
-        selectedFilters[filterIndex] = filterInformation;
+      else {
+        var selections = [];
+        _.each(filterInformation.selectedFilterOptions, function (option) {
+          selections.push({id: option.optionId});
+        });
+        filterList[queryName] = selections;
       }
     }
 
@@ -168,7 +103,6 @@
 
     function clearFilters() {
       filterList = {};
-      selectedFilters = [];
       $rootScope.$broadcast("FilterSystem:clearFilters");
     }
 
@@ -177,8 +111,26 @@
       loadProfilesPage(1, filterList);
     }
 
+    function loadFiltersContext() {
+      var context = FiltersService.loadContext(vm.additionalParameters.filtersContext);
+
+      _.each(context.filtersModel, function (filterSelected) {
+        if(_.isString(filterSelected.apply)){
+          filterList[filterSelected.queryName] = filterSelected.apply;
+        }
+
+        if(!_.isEmpty(filterSelected.options)){
+          filterList[filterSelected.queryName] = _.map(filterSelected.options, function (option) {
+            return {id: option.optionId};
+          });
+        }
+      });
+
+      loadProfilesPage(1, filterList);
+    }
+
+    loadFiltersContext();
     listenFiltersChanges();
-    loadProfilesPage(1, filterList);
     loadFilters();
 
   }

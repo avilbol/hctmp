@@ -77,7 +77,6 @@
               case "DATE":
                 selectionPayload.minDateValue = scope.range.lowValue;
                 selectionPayload.maxDateValue = scope.range.highValue;
-
                 break;
 
               case "CURRENCY":
@@ -207,8 +206,8 @@
           var highValue = context.filtersModel[filterID].highValue;
           var lowValue = context.filtersModel[filterID].lowValue;
 
-          scope.range.highValue = _.isNumber(highValue) ? highValue : scope.range.highValue;
-          scope.range.lowValue = _.isNumber(lowValue) ? lowValue : scope.range.lowValue;
+          scope.range.highValue = !_.isUndefined(highValue) ? highValue : scope.range.highValue;
+          scope.range.lowValue = !_.isUndefined(lowValue) ? lowValue : scope.range.lowValue;
 
           if(_.isNumber(highValue) || _.isNumber(lowValue)){
             emitSelectedOption(true);
@@ -217,20 +216,29 @@
 
         function updateContext() {
           var context = FiltersService.loadContext(scope.additionalParameters.filtersContext);
-          var filterID = scope.filterInformation.filter.id;
+          var filter = scope.filterInformation.filter;
+          var filterID = filter.id;
+          var queryName = filter.queryName ? filter.queryName : filter.name;
+
           context.filtersModel = context.filtersModel ? context.filtersModel : {};
           context.filtersModel[filterID] = {};
 
-          if(_.isNumber(scope.range.highValue) && scope.range.ceiling !== scope.range.highValue){
+          if(!_.isUndefined(scope.range.highValue) && scope.range.ceiling !== scope.range.highValue){
             context.filtersModel[filterID].highValue = scope.range.highValue;
           }
 
-          if(_.isNumber(scope.range.lowValue) && scope.range.floor !== scope.range.lowValue){
+          if(!_.isUndefined(scope.range.lowValue) && scope.range.floor !== scope.range.lowValue){
             context.filtersModel[filterID].lowValue = scope.range.lowValue;
           }
 
           if(_.isEmpty(context.filtersModel[filterID])){
             delete context.filtersModel[filterID];
+          }
+          else{
+            context.filtersModel[filterID].queryName = queryName;
+            if(scope.filterInformation.filter.filterType.rangeFieldPresentation === "CURRENCY"){
+              context.filtersModel[filterID].currency = scope.currentCurrency().id;
+            }
           }
 
           FiltersService.saveContext(scope.additionalParameters.filtersContext, context);
