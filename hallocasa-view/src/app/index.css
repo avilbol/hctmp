@@ -132,9 +132,9 @@ v-pane {
 */
 
 .md-xl {
-  height: 200px;
-  min-height: 200px;
-  max-height: 200px;
+  height: 250px;
+  min-height: 250px;
+  max-height: 250px;
 }
 
 /*
@@ -235,4 +235,8 @@ md-tabs.md-dynamic-height md-tabs-content-wrapper {
 		transform: translateX(-50%);
 		padding: 0px;
 	}
+}
+
+.md-backdrop-custom-login {
+  opacity: .98 !important;
 }

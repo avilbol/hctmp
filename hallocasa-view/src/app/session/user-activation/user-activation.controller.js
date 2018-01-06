@@ -15,8 +15,7 @@
 
       SessionService.activateUser(email, activationKey)
         .then(function(){
-          toastr.success(
-            translateFilter('Alert.profileactivated'));
+          toastr.success(translateFilter('Alert.profileactivated'));
           closeDialog();
         })
         .catch(function(){

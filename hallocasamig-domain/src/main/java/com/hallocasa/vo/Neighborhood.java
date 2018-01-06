@@ -12,6 +12,9 @@ public class Neighborhood implements ValueObject, Serializable {
 	private String lang;
 	private Boolean genericUse;
 	private Boolean dependsOnLang;
+	private Integer stateId;
+	private Integer countryId;
+	private Integer cityId;
 
 	public Integer getId() {
 		return id;
@@ -43,5 +46,29 @@ public class Neighborhood implements ValueObject, Serializable {
 
 	public void setDependsOnLang(Boolean dependsOnLang) {
 		this.dependsOnLang = dependsOnLang;
+	}
+
+	public Integer getStateId() {
+		return stateId;
+	}
+
+	public void setStateId(Integer stateId) {
+		this.stateId = stateId;
+	}
+
+	public Integer getCountryId() {
+		return countryId;
+	}
+
+	public void setCountryId(Integer countryId) {
+		this.countryId = countryId;
+	}
+
+	public Integer getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(Integer cityId) {
+		this.cityId = cityId;
 	}
 }

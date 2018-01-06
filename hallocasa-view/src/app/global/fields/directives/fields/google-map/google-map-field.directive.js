@@ -64,6 +64,7 @@
                 longitude: fieldValue.data2.doubleVal
               }
             };
+
             if(fieldValue.data3 && _.isNumber(fieldValue.data3.intVal)){
               scope.location.zoom = fieldValue.data3.intVal;
             }

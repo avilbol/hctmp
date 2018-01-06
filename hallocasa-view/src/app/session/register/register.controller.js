@@ -5,8 +5,7 @@
 		.module('HalloCasa.session')
 		.controller('RegisterController', RegisterController);
 
-	function RegisterController(RegisterService, toastr, translateFilter, $mdDialog, allowClose, LocaleService, LOCALES,
-                              $log) {
+	function RegisterController(RegisterService, toastr, translateFilter, $mdDialog, allowClose, LocaleService, LOCALES) {
 		var vm = this;
 		vm.userData = {};
 		vm.register = register;
@@ -21,11 +20,10 @@
       vm.userData.language = LOCALES.languages[currentLanguage];
 			RegisterService.makeRegister(vm.userData)
 				.then(function(){
-          subscribeUser(vm.userData);
-          toastr.success(
-            translateFilter("SignUp.Form.Success.Message"),
-            translateFilter("SignUp.Form.Success.EmailSent")
-          );
+          //Disabled due to MailChimp confirmation message
+          //subscribeUser(vm.userData);
+          
+          toastr.success(translateFilter("SignUp.Form.Success.Message"), translateFilter("SignUp.Form.Success.EmailSent"));
           closeDialog();
 				})
 				.catch(function(error){
@@ -42,12 +40,12 @@
 				});
 		}
 
-		function subscribeUser(userData) {
-      RegisterService.subscribeNewUser(userData)
-        .catch(function (error) {
-          $log.error("Unable to register user to subscribers list:", error);
-        });
-    }
+		// function subscribeUser(userData) {
+    //   RegisterService.subscribeNewUser(userData)
+    //     .catch(function (error) {
+    //       $log.error("Unable to register user to subscribers list:", error);
+    //     });
+    // }
 
     function showTerms() {
       vm.showTermsText = true;

@@ -34,8 +34,12 @@ import com.hallocasa.persistence.converters.HcBooleanConverter;
 @Table(name = "user")
 @NamedQueries({ @NamedQuery(name = EntityUser.QUERY_FIND_BASIC_BY_EMAIL, 
 	query = "select new com.hallocasa.entities.EntityUser(u.id, u.email, u.firstName, "
-			+ "u.password, u.confirmedFlag, u.language, u.registerDate) "
+			+ "u.password, u.confirmedFlag, u.language, u.registerDate, u.role) "
 			+ "from EntityUser u where u.email = ?1"),
+	@NamedQuery(name = EntityUser.QUERY_FIND_BASIC_BY_ID_LIST, 
+	query = "select new com.hallocasa.entities.EntityUser(u.id, u.email, u.firstName, "
+			+ "u.password, u.confirmedFlag, u.language, u.registerDate, u.role) "
+			+ "from EntityUser u where u.id IN ?1"),
 	@NamedQuery(name = EntityUser.QUERY_FIND_BY_ID, 
 		query = "select u from EntityUser u where u.id = ?1"),
 	@NamedQuery(name = EntityUser.QUERY_FIND_BY_ID_LIST, 
@@ -52,8 +56,15 @@ public class EntityUser implements Serializable, HallocasaEntity {
 	public static final String QUERY_ID_LIST_WITH_USER_TYPES = "select u.id from EntityUser u "
 			+ "WHERE size(u.userTypes) > 0";
 	public static final String QUERY_FIND_BY_ID_LIST = "EntityUser.FindByIdList";
+	public static final String QUERY_FIND_BASIC_BY_ID_LIST = "EntityUser.FindBasicByIdList";
 	public static final String QUERY_COUNT_LIST_WITH_USER_TYPES = "select count(u) from EntityUser u  "
 			+ "WHERE size(u.userTypes) > 0";
+	
+	public static final String QUERY_SEARCH_BY_FILTERS = "SELECT DISTINCT us.id "
+			+ "FROM user us, user_user_type ut WHERE us.id = ut.user_id";
+	
+	public static final String QUERY_COUNT_SEARCH_BY_FILTERS = "SELECT count(DISTINCT us.id) "
+			+ "FROM user us, user_user_type ut WHERE us.id = ut.user_id";
 	
 	/* instance variables */
 	@Id
@@ -96,6 +107,9 @@ public class EntityUser implements Serializable, HallocasaEntity {
 	@Column(name = "skype")
 	private String skype;
 	
+	@Column(name = "role")
+	private String role;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "register_date")
 	private Date registerDate;
@@ -137,7 +151,7 @@ public class EntityUser implements Serializable, HallocasaEntity {
 	}
 
 	public EntityUser(Long id, String email, String firstName, String password, 
-			Boolean confirmedFlag, EntityLanguage language, Date registerDate) {
+			Boolean confirmedFlag, EntityLanguage language, Date registerDate, String role) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
@@ -145,6 +159,7 @@ public class EntityUser implements Serializable, HallocasaEntity {
 		this.language = language;
 		this.registerDate = registerDate;
 		this.firstName = firstName;
+		this.role = role;
 	}
 
 	/**
@@ -388,5 +403,13 @@ public class EntityUser implements Serializable, HallocasaEntity {
 
 	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }

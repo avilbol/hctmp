@@ -1,64 +1,40 @@
-'use strict';
- 
-var gulp = require('gulp');
-var pug = require('gulp-pug');
-var sourcemaps = require('gulp-sourcemaps');
-var gutil = require('gulp-util');
-var concat = require('gulp-concat');
-var connect = require('gulp-connect');
-var sass = require('gulp-sass');
-var prefix = require('gulp-autoprefixer');
-var media = require('gulp-group-css-media-queries');
-var $ = require('gulp-load-plugins')();
+const gulp = require('gulp');
+const HubRegistry = require('gulp-hub');
+const browserSync = require('browser-sync');
 
-// Task to compile .pug files
-gulp.task('pug',function() {
- return gulp.src('./src/pug/**/!(_)*.pug')
- .pipe(pug({
-    doctype: 'html',
-    pretty: true
- }))
- .pipe(gulp.dest('./public/'));
-});
+const conf = require('./conf/gulp.conf');
 
-// Task to get .css files
-gulp.task('sass', function () {
-    gulp.src('./src/sass/**/*.sass')
-        .pipe(sass().on('error', sass.logError))
-        .pipe( prefix("last 1 version", "> 2%", "ie 8", "ie 7") )
-        .pipe( media() )
-        .pipe(gulp.dest('./public/assets/css'))
-        .pipe($.connect.reload());
-});
+// Load some files into the registry
+const hub = new HubRegistry([conf.path.tasks('*.js')]);
 
-// Task to minify js files in one file
-gulp.task('build-js', function() {
-    return gulp.src('./src/js/**/*.js')
-        .pipe(sourcemaps.init())
-        .pipe(concat('app.js'))
-        .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./public/assets/js'));
-});
+// Tell gulp to use the tasks just loaded
+gulp.registry(hub);
 
-// Watch Task
-gulp.task('watch', function(){
-    gulp.watch('./src/sass/**/*.sass', ['sass']);
-    gulp.watch('./src/js/**/*.js', ['build-js']);
-    gulp.watch('./src/pug/**/!(_)*.pug', ['pug']);
-});
+gulp.task('inject', gulp.series(gulp.parallel('styles', 'scripts'), 'inject'));
+gulp.task('build', gulp.series('partials', gulp.parallel('inject', 'other'), 'build'));
+gulp.task('test', gulp.series('scripts', 'karma:single-run'));
+gulp.task('test:auto', gulp.series('watch', 'karma:auto-run'));
+gulp.task('serve', gulp.series('inject', 'watch', 'browsersync'));
+gulp.task('serve:dist', gulp.series('default', 'browsersync:dist'));
+gulp.task('default', gulp.series('clean', 'build'));
+gulp.task('watch', watch);
 
-// Server Task
-gulp.task('connect', function() {
-    connect.server({
-        root: __dirname+'/public/',
-        livereload: true,
-        port: process.env.PORT || 9000
-    });
-});
+function reloadBrowserSync(cb) {
+  browserSync.reload();
+  cb();
+}
 
-// build project
-gulp.task('build', ['pug', 'build-js']);
+function watch(done) {
+  gulp.watch([
+    conf.path.src('index.html'),
+    'bower.json'
+  ], gulp.parallel('inject'));
 
-// run serve
-gulp.task('run-serve', ['connect', 'sass', 'watch', 'pug', 'build-js']);
+  gulp.watch(conf.path.src('app/**/*.html'), gulp.series('partials', reloadBrowserSync));
+  gulp.watch([
+    conf.path.src('**/*.scss'),
+    conf.path.src('**/*.css')
+  ], gulp.series('styles'));
+  gulp.watch(conf.path.src('**/*.js'), gulp.series('inject'));
+  done();
+}

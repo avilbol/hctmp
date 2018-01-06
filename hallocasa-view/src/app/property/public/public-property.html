@@ -1,10 +1,35 @@
-<md-content>
-  <div layout="row">
-    <!--<md-button class="md-raised md-primary" ng-click="vm.toggleFilters()">-->
-      <!--{{'PropertyBrowse.Filters' | translate}}-->
-    <!--</md-button>-->
-    <span flex></span>
-    <md-input-container>
+<md-content layout-padding>
+  <div layout="row" layout-align="space-between center" layout-wrap>
+    <md-button class="md-raised md-primary" ng-click="vm.openFiltersDialog($event)" flex-order-xs="1">
+      {{'PropertyBrowse.Filters' | translate}}
+    </md-button>
+    <div ng-if="vm.totalProperties > 0" flex-order-xs="3">
+      <b>{{vm.totalProperties}}</b>
+      <span>{{'PropertiesFilters.PropertiesCount' | translate}}</span>
+    </div>
+    <span flex="5" flex-xs="none" flex-order-xs="5"></span>
+    <div ng-if="vm.totalProperties > 0" flex-order-xs="4">
+      <b>{{'PropertiesFilters.SortBy' | translate}}:</b>
+      <md-input-container>
+        <label translate>{{'propertyWizardPage.property.PublishDate'}}</label>
+        <md-select
+          title="{{'propertyWizardPage.property.PublishDate' | translate}}"
+          ng-model="vm.order.publishDate"
+          aria-label="Order by publish date"
+          placeholder="{{'propertyWizardPage.property.PublishDate' | translate}}"
+          ng-change="vm.sortProperties()"
+        >
+          <md-option ng-value="'mostRecent'" translate>
+            {{'PropertiesFilters.orderBy.mostRecent'}}
+          </md-option>
+          <md-option ng-value="'lessRecent'" translate>
+            {{'PropertiesFilters.orderBy.lessRecent'}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+    <span flex flex-xs="none" flex-order-xs="6"></span>
+    <md-input-container flex-order-xs="2">
       <md-select ng-model="vm.propertiesPerPage" aria-label="properties per page">
         <md-option ng-repeat="amount in vm.totalAmount" ng-value="amount">{{amount}}</md-option>
       </md-select>
@@ -42,34 +67,50 @@
           </div>
         </div>
         <div layout="row" layout-margin layout-align="center center">
-          <dir-pagination-controls boundary-links="true" on-page-change="vm.loadPropertiesPage(newPageNumber)"></dir-pagination-controls>
+          <dir-pagination-controls boundary-links="true" on-page-change="vm.changePage(newPageNumber)"></dir-pagination-controls>
         </div>
       </div>
     </div>
   </div>
 </md-content>
 
-
-<md-sidenav class="md-sidenav-left md-whiteframe-z2 inner-view-sidenav" md-component-id="propertyFilters">
-  <md-toolbar class="md-whiteframe-4dp">
-    <h1 class="md-toolbar-tools">
-      <span>{{'PropertyBrowse.Filters' | translate}}</span>
-      <span flex></span>
-      <md-button class="md-icon-button" ng-click="vm.toggleFilters()" aria-label="close">
-        <i class="fa fa-close"></i>
-      </md-button>
-    </h1>
-  </md-toolbar>
-  <md-content layout-padding ng-init="filtersRendered = false">
-    <div layout="row" layout-align="center" ng-if="!filtersRendered">
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-    </div>
-    <filters-interpreter
-      filters-list="vm.filters"
-      filters-root-scope="vm.filters"
-      filters-rendered="filtersRendered"
-      flex
-      ng-cloak
-    ></filters-interpreter>
-  </md-content>
-</md-sidenav>
+<div style="visibility: hidden; position: absolute">
+  <div class="md-dialog-container" id="propertyFilters">
+    <md-dialog>
+      <md-content layout-padding>
+        <div layout="row" layout-align="end center">
+          <md-button ng-click="vm.closeFiltersDialog()" class="md-raised">
+            {{'Common.Label.Cancel' | translate}}
+          </md-button>
+          <md-button ng-click="vm.clearFilters()" class="md-raised">
+            {{'placeholder.clear' | translate}}
+          </md-button>
+          <md-button ng-click="vm.search()" class="md-raised md-primary">
+            {{'placeholder.search' | translate}}
+          </md-button>
+        </div>
+        <div layout="row" layout-align="center" ng-if="!vm.filtersRendered">
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <filters-interpreter
+          filters-list="vm.filters"
+          filters-root-scope="vm.filters"
+          filters-rendered="vm.filtersRendered"
+          additional-parameters="vm.additionalParameters"
+          ng-cloak
+        ></filters-interpreter>
+        <div layout="row" layout-align="end center">
+          <md-button ng-click="vm.closeFiltersDialog()" class="md-raised">
+            {{'Common.Label.Cancel' | translate}}
+          </md-button>
+          <md-button ng-click="vm.clearFilters()" class="md-raised">
+            {{'placeholder.clear' | translate}}
+          </md-button>
+          <md-button ng-click="vm.search()" class="md-raised md-primary">
+            {{'placeholder.search' | translate}}
+          </md-button>
+        </div>
+      </md-content>
+    </md-dialog>
+  </div>
+</div>

@@ -2,6 +2,7 @@ package com.hallocasa.services.hcfilters.filterworkers;
 
 import java.util.Map;
 
+import com.hallocasa.utils.constants.exceptions.BadRequestException;
 import com.hallocasa.vo.hcfilter.HcFilterTypeEntry;
 import com.hallocasa.vo.hcfilter.RangeFieldPresentation;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
@@ -63,5 +64,34 @@ public class RangeFilterWorker implements FilterWorker {
 			params.put(String.valueOf(counter++), WorkerUtils.getMaxCastedValue(filterSubmission, presentation));
 		}
 		return counter;
+	}
+	
+	@Override
+	public void validate(PropertyFilterSubmission filterSubmission) {
+		RangeFieldPresentation presentation = filterSubmission.getPropertyFilter()
+				.getFilter().getFilterType().getRangeFieldPresentation();
+		boolean invalidDatePresentation = presentation.equals(RangeFieldPresentation.DATE)
+				&& (filterSubmission.getMinDateValue() == null && filterSubmission.getMaxDateValue() == null);
+		boolean invalidCrcyPresentation = presentation.equals(RangeFieldPresentation.CURRENCY)
+				&& (filterSubmission.getMinCrcyValue() == null && filterSubmission.getMaxCrcyValue() == null);
+		boolean invalidRangePresentation = (presentation.equals(RangeFieldPresentation.DOUBLE) 
+				|| presentation.equals(RangeFieldPresentation.INTEGER))
+				&& filterSubmission.getMinValue() == null && filterSubmission.getMaxValue() == null;
+		String msg = "";
+		if(invalidDatePresentation){
+			msg = "If you want to use date range filters, you must send 'minDateValue' or "
+					+ "maxDateValue attributes";
+		}
+		if(invalidCrcyPresentation){
+			msg = "If you want to use currency range filters, you must send 'minCrcyValue' or "
+					+ "maxCrcyValue attributes";
+		}
+		if(invalidRangePresentation){
+			msg = "If you want to use basic range filters, you must send 'minValue' or "
+					+ "maxValue attributes";
+		}
+		if(invalidDatePresentation || invalidCrcyPresentation || invalidRangePresentation){
+			throw new BadRequestException(msg);
+		}
 	}
 }

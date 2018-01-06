@@ -47,14 +47,13 @@
     fieldInformation.fieldValueList[0].text.doubleVal > 0 ||
     fieldInformation.fieldValueList[fieldScope.identifier].data2.doubleVal > 0)"
   >
-    <b>
-      <span translate>{{fieldInformation.lang}}:&nbsp;</span>
-      <!--<md-tooltip>-->
-        <!--<span translate>{{fieldInformation.tooltipLang}}</span>-->
-      <!--</md-tooltip>-->
-    </b>
+    <b translate>{{fieldInformation.lang}}:&nbsp;</b>
     <span ng-switch-when="standard_field"> {{fieldInformation.fieldValueList[0].text.intVal}}</span>
     <span ng-switch-when="double_field"> {{fieldInformation.fieldValueList[0].text.doubleVal}}</span>
     <span ng-switch-when="scope_dependent_field"> {{fieldInformation.fieldValueList[fieldScope.identifier].data2.doubleVal}}</span>
   </div>
+
+  <md-tooltip>
+    <span translate>{{fieldInformation.tooltipLang}}</span>
+  </md-tooltip>
 </div>

@@ -13,10 +13,12 @@ import javax.ejb.Stateless;
 import com.hallocasa.dao.i.hcfilter.IDAOHcFilter;
 import com.hallocasa.dao.i.properties.IDAOPropertyField;
 import com.hallocasa.entities.EntityHcFilter;
+import com.hallocasa.entities.EntityHcFilterType;
 import com.hallocasa.entities.properties.EntityPropertyField;
 import com.hallocasa.services.hcfilters.PropertyFilterService;
 import com.hallocasa.services.security.imp.AuthenticationServiceImp;
 import com.hallocasa.vo.hcfilter.HcFilter;
+import com.hallocasa.vo.hcfilter.HcFilterTypeNature;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilter;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 import com.hallocasa.vo.properties.PropertyField;
@@ -72,6 +74,15 @@ public class PropertyFilterServiceImp implements PropertyFilterService {
 			resultList.add(transformToPropertyFilter(hcFilter));
 		}
 		return resultList;
+	}
+	
+	public static void main(String[] args) {
+		EntityHcFilter hcf = new EntityHcFilter();
+		EntityHcFilterType eft = new EntityHcFilterType();
+		eft.setFilterTypeNature(HcFilterTypeNature.RANGE);
+		hcf.setFilterType(eft);
+		hcf.setMaxValue(5.0);
+		HcFilter hcFilter = (HcFilter) toValueObject(hcf);
 	}
 
 	private PropertyFilter transformToPropertyFilter(HcFilter hcFilter) {

@@ -1,12 +1,13 @@
-<v-accordion class="vAccordion--default" control="accordion">
-  <v-pane expanded>
+<v-accordion class="vAccordion--default" control="accordion" flex>
+  <v-pane expanded="options.expanded">
     <v-pane-header>
-      <span compile="renderedTitle"></span>
+      <b compile="renderedTitle"></b>
     </v-pane-header>
     <v-pane-content>
       <filters-interpreter
         filters-list="filtersList"
         filters-root-scope="filtersRootScope"
+        additional-parameters="additionalParameters"
       ></filters-interpreter>
     </v-pane-content>
   </v-pane>

@@ -28,6 +28,15 @@ public class DAONeighborhood implements IDAONeighborhood {
 		return appPersistenceServices.executeNamedQuery(query, 
 				paramList.toArray(), EntityNeighborhood.class);
 	}
+	
+	@Override
+	public List<EntityNeighborhood> findByCityIds(List<Integer> cityIds) {
+		String query = EntityNeighborhood.QUERY_FIND_BY_CITY_IDS;
+		List<Object> paramList = new LinkedList<Object>();
+		paramList.add(cityIds);
+		return appPersistenceServices.executeNamedQuery(query, 
+				paramList.toArray(), EntityNeighborhood.class);
+	}
 
 	@Override
 	public List<EntityNeighborhood> findGenericUse() {

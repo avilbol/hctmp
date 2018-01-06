@@ -226,6 +226,7 @@
     function save(data, formID) {
       var formData = angular.copy(vm[data]);
       formData.userDescriptions = formData.userLanguages;
+
       if(formData.base64Image === ImagesFallbackList.UserDefault && !formData.imageLink){
         toastr.warning(
           translateFilter("Error.invalidoremptyimage")
@@ -236,6 +237,8 @@
       formData.base64Image = imageLink !== formData.base64Image ? formData.base64Image : undefined;
       ProfilesService.saveProfile(formData, formID)
         .then(function () {
+          SessionService.setCurrentUser(formData);
+
           vm.userData[formID] = formData;
           toastr.success(
             translateFilter("Alert.profilesavedsuccesfully"));

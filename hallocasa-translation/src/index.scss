@@ -1,0 +1,38 @@
+body {
+  background-color: lightgrey;
+}
+
+.material-icons{
+  cursor: pointer;
+}
+
+.formDialog {
+  width: 600px;
+}
+
+.png-icon{
+  margin: 5px auto auto;
+  padding: 0;
+  display: inline-block;
+  background-repeat: no-repeat no-repeat;
+  pointer-events: none;
+}
+
+.main-logo{
+  min-width: 142px;
+  max-width: 142px;
+  height: auto;
+}
+
+.main-logo-xl{
+  min-width: 200px;
+  max-width: 200px;
+  height: auto;
+}
+
+.menu-item-left-align button{
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}

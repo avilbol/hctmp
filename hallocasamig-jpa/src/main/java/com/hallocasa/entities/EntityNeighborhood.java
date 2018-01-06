@@ -18,10 +18,12 @@ import com.hallocasa.persistence.converters.HcBooleanConverter;
 @Table(name = "neighborhood")
 @NamedQueries({
 		@NamedQuery(name = EntityNeighborhood.QUERY_FIND_BY_CITY_ID, query = "select n from EntityNeighborhood n where n.city.id = ?1 ORDER BY n.lang"),
+		@NamedQuery(name = EntityNeighborhood.QUERY_FIND_BY_CITY_IDS, query = "select n from EntityNeighborhood n where n.city.id IN ?1 ORDER BY n.lang"),
 		@NamedQuery(name = EntityNeighborhood.QUERY_FIND_GENERIC_USE, query = "select n from EntityNeighborhood n where n.genericUse = true") })
 public class EntityNeighborhood implements HallocasaEntity {
 
 	public static final String QUERY_FIND_BY_CITY_ID = "EntityCity.findByCityId";
+	public static final String QUERY_FIND_BY_CITY_IDS = "EntityCity.findByCityIds";
 	public static final String QUERY_FIND_GENERIC_USE = "EntityCity.findGenericUse";
 
 	/**

@@ -3,12 +3,15 @@
 
   angular
     .module('HalloCasa')
-    .config(config);
+    .config(config)
+    .run(run);
 
+  var $filter;
   /** @ngInject */
-  function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, LOCALES, $mdIconProvider,
+  function config($logProvider, toastrConfig, $translateProvider, tmhDynamicLocaleProvider, $mdAriaProvider, $mdIconProvider,
                   localStorageServiceProvider, paginationTemplateProvider, $compileProvider, $httpProvider, $authProvider,
-                  $mdThemingProvider, uiGmapGoogleMapApiProvider, $intercomProvider, INTERCOM_APPID, backend_url) {
+                  $mdThemingProvider, uiGmapGoogleMapApiProvider, $intercomProvider, INTERCOM_APPID, backend_url,
+                  $mdDateLocaleProvider, LOCALES) {
 
     //Inject interceptors
     $httpProvider.interceptors.push('AppAuthTokenInterceptor');
@@ -46,13 +49,19 @@
     $authProvider.tokenType = '';
 
     // Show warnings in the developer console, regarding forgotten IDs in translations
-    $translateProvider.useMissingTranslationHandlerLog();
+    //$translateProvider.useMissingTranslationHandlerLog();
 
     // Default sanitize value strategy
-    $translateProvider.useSanitizeValueStrategy('escape');
+    // $translateProvider.useSanitizeValueStrategy('escape');
+    // show special character like '&' in placeholder or other attributes
+    $translateProvider.useSanitizeValueStrategy(null);
 
     $translateProvider.useUrlLoader(backend_url+'/hallocasa-api/locales/translations');
     $translateProvider.useLocalStorage();// saves selected language to localStorage
+
+    // Language applied on first load
+    $translateProvider.preferredLanguage(LOCALES.defaultLocale);
+
 
     tmhDynamicLocaleProvider.localeLocationPattern('http://www.hallocasa.com/resources/js/angular-locale_{{locale}}.js');
 
@@ -64,7 +73,7 @@
       .icon("toilet", "assets/icons/toilet.svg", 24);
 
     //URL Sanitization
-    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype|chrome-extension):/);
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|skype|chrome-extension|whatsapp):/);
 
     //Gmaps configurations
     uiGmapGoogleMapApiProvider.configure({
@@ -79,6 +88,20 @@
     //Translate loader, user for debug purposes, comment on production environment
     $translateProvider.useLoader('translateDebugger');
 
+    //Localization for date fields
+
+    $mdDateLocaleProvider.formatDate = function(date) {
+      return $filter("date")(date);
+    };
+
+    //Disable ARIA Warnings
+    $mdAriaProvider.disableWarnings();
+
+  }
+
+  /** @ngInject */
+  function run($injector) {
+    $filter = $injector.get("$filter");
   }
 
 })();

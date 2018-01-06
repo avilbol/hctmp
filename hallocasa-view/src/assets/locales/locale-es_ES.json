@@ -32,6 +32,7 @@
 	"Common.TelephoneNumber.Prefix": "Prefijo internacional",
 	"GlobalMenu.GoToProfile": "Mi Perfil",
 	"GlobalMenu.GoToProperties": "Mis Propiedades",
+	"GlobalMenu.GoToAdmin": "Administracion",
 	"Header.SignUp.Button": "Publique Gratis",
 	"Header.Login.Button": "Iniciar Sesi\u00F3n",
 	"Header.Logout.Button": "Cerrar Sesi\u00F3n",

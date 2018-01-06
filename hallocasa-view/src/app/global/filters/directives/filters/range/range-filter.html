@@ -1,20 +1,123 @@
 <span translate>{{title}}</span>
-<div ng-switch="filterInformation.filter.filterType.rangeFieldPresentation">
-  <div ng-switch-when="INTEGER">
-    <slider
-      ng-model="lowValue"
-      ng-model-range="highValue"
-      floor="{{floor}}"
-      buffer="10"
-      ceiling="{{ceiling}}"
-      ng-change="emitSelectedOption({lowValue: lowValue, highValue: highValue})"
-    >
-    </slider>
-  </div>
-  <div ng-switch-when="DATE">
-    <!-- No implemented -->
-  </div>
-  <div ng-switch-when="CURRENCY">
-    <!-- No implemented -->
+<div ng-if="filterInformation.filter.filterType.useSlider">
+  <div ng-switch="filterInformation.filter.filterType.rangeFieldPresentation">
+    <div ng-switch-when="INTEGER">
+      <div ng-include="'numericSliderRange'"></div>
+    </div>
+    <div ng-switch-when="DOUBLE">
+      <div ng-include="'numericSliderRange'"></div>
+    </div>
+    <div ng-switch-when="DATE">
+      <!-- No implemented -->
+    </div>
+    <div ng-switch-when="CURRENCY">
+      <!--<b>{{currentCurrency().abbreviation}}&nbsp;:&nbsp;</b>-->
+      <div ng-include="'numericSliderRange'"></div>
+    </div>
   </div>
 </div>
+
+<div ng-if="!filterInformation.filter.filterType.useSlider">
+  <div ng-switch="filterInformation.filter.filterType.rangeFieldPresentation">
+    <div ng-switch-when="INTEGER" layout="row" layout-align="space-between">
+      <div ng-include="'numericInputRange'"></div>
+    </div>
+    <div ng-switch-when="DOUBLE" layout="row" layout-align="space-between">
+      <div ng-include="'numericInputRange'"></div>
+    </div>
+    <div ng-switch-when="DATE" layout="row" layout-align="space-between">
+      <div ng-include="'dateInputRange'" flex></div>
+    </div>
+    <div ng-switch-when="CURRENCY" layout="row" layout-align="space-between">
+      <b>{{currentCurrency().abbreviation}}&nbsp;:&nbsp;</b>
+      <div ng-include="'numericInputRange'"></div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/ng-template" id="numericInputRange">
+  <div layout="row" layout-align="start center" class="input-range-filter">
+    <form layout="row" layout-align="start center" name="inputRangeForm">
+      <md-input-container flex="45">
+        <input
+          name="inputLowValue"
+          type="number"
+          ng-model="range.lowValue"
+          ng-max="range.highValue"
+          aria-label="{{title}}"
+          step="{{filterInformation.filter.options.step}}"
+          ng-change="emitSelectedOption()"
+        >
+        <div ng-messages="inputRangeForm.$error">
+          <div class="errorMessage" ng-if="inputRangeForm.$error.max">
+            <span translate>{{"constraints.DecimalMax"}}</span> <span>{{highValue}}</span>
+          </div>
+          <div class="errorMessage" ng-if="inputRangeForm.$error.min">
+            <span translate>{{"constraints.DecimalMin"}}</span> <span>{{lowValue}}</span>
+          </div>
+        </div>
+      </md-input-container>
+      <span flex="10">-</span>
+      <md-input-container flex="45">
+        <input
+          name="inputMaxValue"
+          type="number"
+          ng-model="range.highValue"
+          ng-min="range.lowValue"
+          aria-label="{{title}}"
+          step="{{filterInformation.filter.options.step}}"
+          ng-change="emitSelectedOption()"
+        >
+      </md-input-container>
+    </form>
+  </div>
+</script>
+
+<script type="text/ng-template" id="numericSliderRange">
+  <slider
+    ng-model="range.lowValue"
+    ng-model-range="range.highValue"
+    floor="{{range.floor}}"
+    buffer="{{filterInformation.filter.options.buffer}}"
+    ceiling="{{range.ceiling}}"
+    step="{{filterInformation.filter.options.step}}"
+    translate-fn="viewValueProcessor"
+    ng-change="emitSelectedOption()"
+  >
+  </slider>
+</script>
+
+<script type="text/ng-template" id="dateInputRange">
+  <div layout="row" layout-align="start center" class="date-range-filter">
+    <form layout="row" layout-align="start center" name="dateRangeForm" flex>
+      <md-input-container flex="45">
+        <md-datepicker
+          name="inputLowValue"
+          ng-model="range.lowValue"
+          md-max-date="range.highValue"
+          aria-label="{{title}}"
+          ng-change="emitSelectedOption()"
+        ></md-datepicker>
+        <div ng-messages="dateRangeForm.$error">
+          <div class="errorMessage" ng-if="dateRangeForm.$error.maxdate">
+            <span translate>{{"constraints.Past"}}</span> <span>{{highValue | date}}</span>
+          </div>
+          <div class="errorMessage" ng-if="dateRangeForm.$error.mindate">
+            <span translate>{{"constraints.Future"}}</span> <span>{{lowValue | date}}</span>
+          </div>
+        </div>
+      </md-input-container>
+      <span flex="10">-</span>
+      <md-input-container flex="45">
+        <md-datepicker
+          name="inputMaxValue"
+          ng-model="range.highValue"
+          md-min-date="range.lowValue"
+          aria-label="{{title}}"
+          ng-change="emitSelectedOption()"
+        ></md-datepicker>
+      </md-input-container>
+    </form>
+  </div>
+</script>

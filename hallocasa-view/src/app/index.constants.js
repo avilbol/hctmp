@@ -4,12 +4,15 @@
 
   angular
     .module('HalloCasa')
-    .constant('AppVersion', '1.1.0')
+    .constant('AppVersion', '1.4.29')
     .constant('INTERCOM_APPID', 't6itp8rl')
     .constant('WOOTRIC_APPID', 'NPS-ead65c4a')
     .constant('MAILCHIMP_AID', 'hallocasa.us10')
     .constant('MAILCHIMP_UID', '34633f8bf6d14b7ef0e8b6bbb')
     .constant('MAILCHIMP_ID', '645de5e37b')
+    .constant('cookieLawName', '_cle')
+    .constant('cookieLawAccepted', 'accepted')
+    .constant('cookieLawDeclined', 'declined')
     .constant('moment', moment)
     .constant('LOCALES', {
       'locales': {
@@ -45,15 +48,24 @@
     .constant('BlogLinks',{
       'Español':{
         'blog': 'http://blog.hallocasa.com/es/',
-        'buyProcess': 'http://blog.hallocasa.com/es/procesos-de-compra-todos/'
+        'buyProcess': 'http://blog.hallocasa.com/es/procesos-de-compra-todos/',
+        'termAndConditions': 'http://blog.hallocasa.com/es/terminos-y-condiciones/',
+        'privacyPolicy': 'http://blog.hallocasa.com/es/acuerdo-de-privacidad/',
+        'cookies': 'http://blog.hallocasa.com/es/cookies-es/'
       },
       'English': {
         'blog': 'http://blog.hallocasa.com/',
-        'buyProcess': 'http://blog.hallocasa.com/buying-processes-overview/'
+        'buyProcess': 'http://blog.hallocasa.com/buying-processes-overview/',
+        'termAndConditions': 'http://blog.hallocasa.com/terms-conditions/',
+        'privacyPolicy': 'http://blog.hallocasa.com/privacy-policy/',
+        'cookies': 'http://blog.hallocasa.com/cookies/'
       },
       'Deutsch':{
         'blog': 'http://blog.hallocasa.com/de/',
-        'buyProcess': 'http://blog.hallocasa.com/de/kaufprozesse-alle/'
+        'buyProcess': 'http://blog.hallocasa.com/de/kaufprozesse-alle/',
+        'termAndConditions': 'http://blog.hallocasa.com/de/nutzungsbedingungen/',
+        'privacyPolicy': 'http://blog.hallocasa.com/de/datenschutzerklaerung/',
+        'cookies': 'http://blog.hallocasa.com/de/cookies-de/'
       }
     })
     .constant('ImagesFallbackList',{

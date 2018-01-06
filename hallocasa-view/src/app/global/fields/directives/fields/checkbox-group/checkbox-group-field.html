@@ -1,33 +1,33 @@
-<div ng-if="!readonly">
-  <span>{{fieldInformation.lang | translate}}</span>
-  <checkbox-list
-    name="{{fieldName}}"
-    options-label="optionsLabel"
-    data="options"
-    ng-model="fieldInformation.fieldValueList"
-    require-once="requireOnce"
-    track-by="'identifier'"
-  ></checkbox-list>
-  <ng-messages-generator
-    form="form"
-    input-name="{{fieldName}}"
-    validators="{{fieldInformation.validations}}"
-  ></ng-messages-generator>
-</div>
+<div>
+  <div ng-if="!readonly">
+    <span>{{fieldInformation.lang | translate}}</span>
+    <checkbox-list
+      name="{{fieldName}}"
+      options-label="optionsLabel"
+      data="options"
+      ng-model="fieldInformation.fieldValueList"
+      require-once="requireOnce"
+      track-by="'identifier'"
+    ></checkbox-list>
+    <ng-messages-generator
+      form="form"
+      input-name="{{fieldName}}"
+      validators="{{fieldInformation.validations}}"
+    ></ng-messages-generator>
+  </div>
 
-<div ng-if="readonly && fieldInformation.fieldValueList">
-  <b>
-    <span translate>{{fieldInformation.lang}}:&nbsp;</span>
-    <!--<md-tooltip>-->
-      <!--<span translate>{{fieldInformation.tooltipLang}}</span>-->
-    <!--</md-tooltip>-->
-  </b>
-  <item-list
-    tablet-items="2"
-    desktop-items="3"
-    list="fieldInformation.fieldValueList"
-    display="row"
-    label-attribute="optionsLabel"
-    translate-label="true"
-  ></item-list>
+  <div ng-if="readonly && fieldInformation.fieldValueList">
+    <b translate>{{fieldInformation.lang}}:&nbsp;</b>
+    <item-list
+      tablet-items="2"
+      desktop-items="3"
+      list="fieldInformation.fieldValueList"
+      display="row"
+      label-attribute="optionsLabel"
+      translate-label="true"
+    ></item-list>
+  </div>
+  <md-tooltip>
+    <span translate>{{fieldInformation.tooltipLang}}</span>
+  </md-tooltip>
 </div>

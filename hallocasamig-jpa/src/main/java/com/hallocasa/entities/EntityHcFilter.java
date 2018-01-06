@@ -95,10 +95,10 @@ public class EntityHcFilter implements HallocasaEntity {
 	private EntityHcFilterNature filterNature;
 
 	@Column(name = "min_value")
-	private double minValue;
+	private Double minValue;
 
 	@Column(name = "max_value")
-	private double maxValue;
+	private Double maxValue;
 
 	@Column(name = "yes_text")
 	private String yesText;
@@ -188,19 +188,19 @@ public class EntityHcFilter implements HallocasaEntity {
 		this.filterNature = filterNature;
 	}
 
-	public double getMinValue() {
+	public Double getMinValue() {
 		return minValue;
 	}
 
-	public void setMinValue(double minValue) {
+	public void setMinValue(Double minValue) {
 		this.minValue = minValue;
 	}
 
-	public double getMaxValue() {
+	public Double getMaxValue() {
 		return maxValue;
 	}
 
-	public void setMaxValue(double maxValue) {
+	public void setMaxValue(Double maxValue) {
 		this.maxValue = maxValue;
 	}
 

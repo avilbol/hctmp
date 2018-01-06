@@ -1,5 +1,6 @@
 package com.hallocasa.services.properties.imp;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,6 +37,19 @@ public class PropertyTypeServiceImp implements PropertyTypeService {
 		}
 		return resultList;
 	}
+	
+	private List<PropertyType> findByGroupIds(List<Integer> groupIds) {
+		List<PropertyType> allPropertyTypes = find();
+		List<PropertyType> filteredPropertyTypes = new LinkedList<>();
+		for(PropertyType propertyType : allPropertyTypes){
+			for(Integer groupId : groupIds){
+				if(propertyType.getGroup().getId().equals(groupId)){
+					filteredPropertyTypes.add(propertyType);
+				}
+			}
+		}
+		return filteredPropertyTypes;
+	}
 
 	@Override
 	public List<PropertyTypeGroupDTO> findGroups() {
@@ -49,5 +63,15 @@ public class PropertyTypeServiceImp implements PropertyTypeService {
 			map.get(groupId).getPropertyTypeList().add(propertyType);
 		}
 		return new LinkedList<PropertyTypeGroupDTO>(map.values());
+	}
+
+	@Override
+	public List<PropertyType> findByParentId(Integer parentId) {
+		return findByGroupIds(Arrays.asList(parentId));
+	}
+
+	@Override
+	public List<PropertyType> findByParentIdList(List<Integer> parentIdList) {
+		return findByGroupIds(parentIdList);
 	}
 }

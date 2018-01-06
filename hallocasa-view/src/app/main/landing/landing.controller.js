@@ -11,7 +11,7 @@
     var amountProfiles = 6;
     var amountProperties = 3;
 
-    ProfilesService.loadPublicProfiles([], amountProfiles)
+    ProfilesService.loadProfiles([], amountProfiles)
       .then(function (profiles) {
         vm.profiles = profiles;
       });

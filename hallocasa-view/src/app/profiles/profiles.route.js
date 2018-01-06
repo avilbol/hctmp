@@ -11,22 +11,26 @@
         templateUrl: 'app/profiles/view/view-profile.html',
         controller: 'ViewProfileController',
         controllerAs: 'vm',
-        requiredLogin: true
+        // requiredLogin: true, // check session in ViewProfileController 
+        reloadOnSearch: false
       })
       .when('/profile/my-profile', {
         templateUrl: 'app/profiles/my-profile/my-profile.html',
         controller: 'myProfileController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        reloadOnSearch: false
       })
       .when('/profile/my-profile/edit', {
         templateUrl: 'app/profiles/edit/edit-profile.html',
         controller: 'EditProfileController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        reloadOnSearch: false
       })
       .when('/profile/browser', {
         templateUrl: 'app/profiles/public/public-profile.html',
         controller: 'PublicProfileController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        reloadOnSearch: false
       });
   }
 

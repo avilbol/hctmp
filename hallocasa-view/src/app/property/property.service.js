@@ -9,6 +9,8 @@
                            idSearchFilter, ImageValidatorService) {
     var service = {
       getPropertyTypes: getPropertyTypes,
+      getPropertyTypesByGroupID: getPropertyTypesByGroupID,
+      getPropertyTypesGroup: getPropertyTypesGroup,
       getLocation: getLocation,
       getProposals: getProposals,
       loadPublicProperties: loadPublicProperties,
@@ -48,6 +50,31 @@
       return resources.propertyTypes.query().$promise;
     }
 
+    function getPropertyTypesGroup() {
+      return $q(function (resolve) {
+        resolve([
+          {id: 1, data1: "hallocasa.propertytypegroup.lots"},
+          {id: 2, data1: "hallocasa.propertytypegroup.commerceindustry"},
+          {id: 3, data1: "hallocasa.propertytypegroup.living"}]);
+      });
+    }
+
+    function getPropertyTypesByGroupID(groupID) {
+      return $q(function (resolve) {
+        getPropertyTypes()
+          .then(function (propertyTypes) {
+            propertyTypes = _.filter(propertyTypes, function (propertyType) {
+              return propertyType.active && propertyType.group.id === groupID;
+            });
+
+            resolve(propertyTypes);
+          })
+          .catch(function () {
+            resolve([]);
+          });
+      });
+    }
+
     function getLocation() {
       return resources.propertyLocations.query().$promise;
     }
@@ -56,19 +83,26 @@
       return resources.propertyProposals.query().$promise;
     }
 
-    function loadPublicProperties(start, finish, filterList) {
+    function loadPublicProperties(start, finish, filterList, order) {
       $log.log("Cargar rango de propiedades: ("+start+" - "+finish+")");
+      $log.log("filterList: ", filterList);
+
       filterList = filterList ? filterList : [];
+      order = order ? order : {};
+
       var filter = {
         filterList: filterList,
         resultRequest:{
           pageFrom: start+1,
           pageTo: finish+1,
-          orderByMostRecent: false,
-          orderByLessRecent: false,
           loadCount: true
         }
       };
+
+      filter.resultRequest.orderByMostRecent = order.publishDate === "mostRecent";
+      filter.resultRequest.orderByLessRecent = order.publishDate === "lessRecent";
+      filter.resultRequest.loadCount = start === 0;
+
       return resources.propertiesPublic.consultObj(filter).$promise;
     }
 

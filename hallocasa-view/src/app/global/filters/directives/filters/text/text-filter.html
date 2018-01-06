@@ -1,0 +1,12 @@
+<div ng-switch="textFilterType">
+  <md-input-container class="md-block" ng-switch-when="Text">
+    <label translate>{{title}}</label>
+    <input
+      name="{{fieldName}}"
+      title="{{title | translate}}"
+      ng-model="filter.selected"
+      type="text"
+      ng-change="emitSelectedOption()"
+    >
+  </md-input-container>
+</div>

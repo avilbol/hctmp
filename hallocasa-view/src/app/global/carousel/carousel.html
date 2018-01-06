@@ -1,11 +1,28 @@
-<img ng-animate-swap="currentImage" ng-src="{{images[currentImage]}}" class="swap-animation" ng-class="[direction]"/>
+<img 
+  ng-animate-swap="currentImage" 
+  ng-src="{{images[currentImage]}}" 
+  class="swap-animation" 
+  ng-class="[direction]" 
+  ng-swipe-left="nextImage()"
+  ng-swipe-right="previousImage()"
+  ng-touchstart="startTouch()"/>
 
-<div ng-if="images.length > 1">
-  <md-button class="md-icon-button md-raised next-button" ng-click="nextImage()" aria-label="next image">
+<!-- <div ng-if="images.length > 1"> -->
+  <!-- <md-button class="md-icon-button md-raised next-button" ng-click="nextImage()" aria-label="next image">
     <i class="fa fa-chevron-right" aria-hidden="true"></i>
   </md-button>
 
   <md-button class="md-icon-button md-raised previous-button" ng-click="previousImage()" aria-label="previous image">
     <i class="fa fa-chevron-left" aria-hidden="true"></i>
-  </md-button>
-</div>
+  </md-button> -->
+<!-- </div> -->
+
+<li class="nav-dots" ng-if="images.length > 1">
+  <label 
+    ng-class="{active: currentImage==key}"
+    ng-click="changeCurrentImage(key)" 
+    for="img-{{key}}" 
+    class="nav-dot" 
+    id="img-dot-{{key}}" 
+    ng-repeat="(key, value) in images"></label>
+</li>

@@ -7,7 +7,7 @@
 
   /** @ngInject */
   function SessionService($mdMedia, $mdDialog, $document, $auth, $q, GenericRESTResource, backend_url ,$resource,
-                          ApplicationCredentials, localStorageService, $intercom, WootricService, $rootScope, $location) {
+                          ApplicationCredentials, localStorageService, $intercom, WootricService, $rootScope, $location, $timeout) {
     var service = {
       login: login,
       logout: logout,
@@ -18,7 +18,8 @@
       getCurrentUser: getCurrentUser,
       launchLoginDialog: launchLoginDialog,
       validateActiveSession: validateActiveSession,
-      isAuthenticated: isAuthenticated
+      isAuthenticated: isAuthenticated,
+      setCurrentUser: setCurrentUser
     };
 
     var currentUser;
@@ -47,6 +48,7 @@
         })
           .then(function (auth) {
             $auth.setToken(auth.data.securityToken.tokenValue);
+
             setCurrentUser(auth.data.user);
             setSessionExpiration(auth.data.securityToken);
 
@@ -66,6 +68,7 @@
       }
       clearCurrentUser();
       localStorageService.remove("sessionExpiration");
+      localStorageService.remove("currentUser");
       $auth.logout();
       $location.url("/");
       $intercom.shutdown();
@@ -121,6 +124,7 @@
 
       if(!activeSession) {
         var options = {
+          backdropFullOpacity: true,
           description: message,
           allowClose: false,
           escapeToClose: false
@@ -153,6 +157,9 @@
     function launchLoginDialog(options) {
       options = options ? options : {};
       options.escapeToClose = _.isUndefined(options.escapeToClose) ? true : options.escapeToClose;
+      options.callback = _.isFunction(options.callback) ? options.callback : _.identity;
+      options.backdropFullOpacity = options.backdropFullOpacity ? options.backdropFullOpacity : false;
+
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
       return $mdDialog.show({
         controller: "LoginController",
@@ -163,11 +170,22 @@
           description: options.description,
           allowClose: options.allowClose
         },
+        onComplete: afterOpenModal(options),
         targetEvent: options.targetEvent,
         clickOutsideToClose: options.clickOutsideToClose,
         escapeToClose: options.escapeToClose,
         fullscreen: useFullScreen
-      });
+      }).then(options.callback);
+
+      function afterOpenModal(options) {
+        if (options.backdropFullOpacity){
+          $timeout(function () {
+            var content = angular.element('.md-dialog-backdrop');
+            angular.element(content).addClass('md-backdrop-custom-login');
+          },1000);
+        }
+      }
+      
     }
   }
 })();

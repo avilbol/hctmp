@@ -6,9 +6,9 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, SessionService, LocaleService,
+  function MainController($mdSidenav, $mdMedia, $scope, $mdDialog, $document, $location, $window, SessionService, LocaleService,
                           BlogLinks, $rootScope, $route, AppVersion, $translate, CurrencyService, IpInfoService,
-                          PreferredSettingsService, LOCALES) {
+                          PreferredSettingsService, LOCALES, $mdMenu, localStorageService) {
     var vm = this;
 
     vm.toggleMenu = toggleMenu;
@@ -18,13 +18,15 @@
     vm.launchLoginDialog = launchLoginDialog;
     vm.launchRegisterDialog = launchRegisterDialog;
     vm.isAuthenticated = SessionService.isAuthenticated;
+    vm.isAdmin = isAdmin;
     vm.launchPrivacyStatementDialog = launchPrivacyStatementDialog;
     vm.logout = SessionService.logout;
     vm.goTo = goTo;
+    vm.redirectAd = redirectAd;
     vm.goUp = goUp;
     vm.blogRedirection = blogRedirection;
     vm.getCurrentUserIdentifier = getCurrentUserIdentifier;
-    
+
     loadGlobalPreferredSettings();
 
     $scope.$watch(function() { return $mdMedia('sm') || $mdMedia('xs'); }, function(small) {
@@ -36,7 +38,11 @@
     }
 
     function goUp() {
-      angular.element("#mainContainer").animate({ scrollTop: 0 }, "slow");
+      if ($window.navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/)) {
+        $window.scrollTo(0,0);
+      }else{
+        angular.element("#mainContainer").animate({ scrollTop: 0 }, "slow");
+      }
     }
 
     function toggleMenu() {
@@ -49,12 +55,19 @@
     }
 
     function launchLoginDialog(ev) {
+      var callback = function () {
+        $location.path("/profile/my-profile");
+        // remove custom backdrop class
+      };
+
       var options = {
         allowClose: true,
         targetEvent: ev,
-        clickOutsideToClose: true
+        clickOutsideToClose: true,
+        callback: callback
       };
       SessionService.launchLoginDialog(options);
+
     }
 
     function launchPasswordRecoveryDialog() {
@@ -114,7 +127,14 @@
 
       if(closeMenu){
         toggleMenu();
+        $mdMenu.hide();
       }
+    }
+
+    function redirectAd() {
+
+      // console.log($location.host() + '/hc-admin');
+      $window.open('http:///www.hallocasa.com:64645/hc-admin', '_blank');
     }
 
     function blogRedirection(section) {
@@ -142,9 +162,15 @@
     /**
       **  Query the back system for ip of machine requester which answer with his respective
       **  country and location details. Next, the system request the hallocasa back with that country in
-      **  order to know currency and language preferredm which it will load in system 
+      **  order to know currency and language preferred which it will load in system
     **/
     function loadGlobalPreferredSettings() {
+      //If the user already selected a language and currency, then prevent the application to load a new one
+      var selectedLanguage = localStorageService.get("SelectedUserLanguage");
+      var selectedCurrency = localStorageService.get("SelectedUserCurrency");
+
+      if(selectedLanguage && selectedCurrency){return;}
+
       var locationFound;
       IpInfoService.getLocation()
         .then(function(location){
@@ -152,19 +178,29 @@
           return PreferredSettingsService.getPreferredSettings();
         })
         .then(function(preferredSettings){
-          var settingToUse = searchByCountryCode(preferredSettings,locationFound.countryCode);
-          var currencyToUse = settingToUse ? settingToUse.firstCurrency : settingToUse;
-          var localeToUse = settingToUse ? settingToUse.locale : LOCALES.defaultLocale;
-          vm.currentCurrrency = currencyToUse;
-          CurrencyService.setCurrentCurrency(currencyToUse);
-          $translate.use(localeToUse);
+          var settingToUse = searchByCountryCode(preferredSettings,locationFound.country);
+
+          if(!selectedCurrency){
+            var currencyToUse = settingToUse ? settingToUse.firstCurrency : settingToUse;
+            vm.currentCurrrency = currencyToUse;
+            CurrencyService.setCurrentCurrency(currencyToUse);
+          }
+
+          if(!selectedLanguage){
+            var localeToUse = settingToUse ? settingToUse.locale : LOCALES.defaultLocale;
+            $translate.use(localeToUse);
+          }
         });
     }
 
     function searchByCountryCode(preferredSettings, countryCode){
       return _.find(preferredSettings, function(preferredSetting){
-        return preferredSetting.countryCode == countryCode;
+        return preferredSetting.countryCode === countryCode;
       });
+    }
+
+    function isAdmin(){
+      return true;
     }
 
     toolbarsHideHandler();

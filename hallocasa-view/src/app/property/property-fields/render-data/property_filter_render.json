@@ -7,16 +7,19 @@
         "value": "propertyFilters.basic"
       }
     ],
+    "options": {
+      "expanded": true
+    },
     "flexMobile": 100,
     "flexTablet": 100,
     "flexDesktop": 100,
     "filterList": [
       {
-        "id": 1,
-        "name": "Property types",
+        "id": 35,
+        "name": "Property type groups",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
           "serviceId": "PropertyTypes",
@@ -24,73 +27,300 @@
         }
       },
       {
-        "id": 2,
-        "name": "Buy / Rent",
+        "id": 7,
+        "name": "Country",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
-          "serviceId": "PropertyProposals",
+          "serviceId": "Country",
           "translationManagement": "TOTAL"
         }
       },
       {
-        "id": 3,
-        "name": "Property locations",
+        "id": "accordion_group",
         "flexMobile": 100,
         "flexTablet": 100,
         "flexDesktop": 100,
+        "title": [
+          {
+            "type": "translate_key",
+            "value": "hallocasa.propertyfield.department"
+          }
+        ],
         "options": {
-          "type": "dynamic_options",
-          "serviceId": "PropertyLocations",
-          "translationManagement": "TOTAL"
-        }
+          "showOnSelectedOption": 7,
+          "expanded": false
+        },
+        "filterList": [
+          {
+            "id": "repeater_group",
+            "flexMobile": 100,
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 7,
+              "parentIDName": "countryId"
+            },
+            "filterList": [
+              {
+                "id": 8,
+                "name": "Department",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "static_options"
+                }
+              }
+            ]
+          }
+        ]
       },
       {
-        "id": 4,
-        "name": "Languages",
+        "id": "accordion_group",
         "flexMobile": 100,
         "flexTablet": 100,
         "flexDesktop": 100,
+        "title": [
+          {
+            "type": "translate_key",
+            "value": "hallocasa.propertyfield.town"
+          }
+        ],
         "options": {
-          "type": "dynamic_options",
-          "serviceId": "Languages"
-        }
+          "showOnSelectedOption": 8,
+          "expanded": false
+        },
+        "filterList": [
+          {
+            "id": "repeater_group",
+            "flexMobile": 100,
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 8,
+              "parentIDName": "stateId"
+            },
+            "filterList": [
+              {
+                "id": 9,
+                "name": "Town",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "static_options"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "accordion_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "title": [
+          {
+            "type": "translate_key",
+            "value": "hallocasa.propertyfield.locationneighborhood"
+          }
+        ],
+        "options": {
+          "showOnSelectedOption": 9,
+          "expanded": false
+        },
+        "filterList": [
+          {
+            "id": "repeater_group",
+            "flexMobile": 100,
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 9,
+              "parentIDName": "cityId",
+              "translationManagement": "TOTAL"
+            },
+            "filterList": [
+              {
+                "id": 10,
+                "name": "Neighborhood",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "static_options"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "accordion_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "title": [
+          {
+            "type": "translate_key",
+            "value": "hallocasa.propertyfield.estrato"
+          }
+        ],
+        "options": {
+          "showOnSelectedOption": 7,
+          "expanded": false
+        },
+        "filterList": [
+          {
+            "id": 28,
+            "name": "Estrato - Colombia",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 1,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 29,
+            "name": "Estrato - Chile",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 3,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 30,
+            "name": "Estrato - Costa Rica",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 8,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 31,
+            "name": "Estrato - Ecuador",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 9,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 32,
+            "name": "Estrato - Panamá",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 4,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 33,
+            "name": "Estrato - Perú",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 5,
+              "conditionalFilter": true
+            }
+          },
+          {
+            "id": 34,
+            "name": "Estrato - Argentina",
+            "flexMobile": 100,
+            "flexTablet": 50,
+            "flexDesktop": 33,
+            "options": {
+              "type": "static_options",
+              "showOnSpecificID": 2,
+              "conditionalFilter": true
+            }
+          }
+        ]
+      },
+      {
+        "id": "accordion_group",
+        "flexMobile": 100,
+        "flexTablet": 100,
+        "flexDesktop": 100,
+        "title": [
+          {
+            "type": "translate_key",
+            "value": "hallocasa.filters.propertytypegroups"
+          }
+        ],
+        "options": {
+          "showOnSelectedOption": 35,
+          "expanded": false
+        },
+        "filterList": [
+          {
+            "id": "repeater_group",
+            "flexMobile": 100,
+            "flexTablet": 100,
+            "flexDesktop": 100,
+            "options": {
+              "idField": 35,
+              "parentIDName": "groupId"
+            },
+            "filterList": [
+              {
+                "id": 1,
+                "name": "Property types",
+                "flexMobile": 100,
+                "flexTablet": 50,
+                "flexDesktop": 33,
+                "options": {
+                  "type": "dynamic_options",
+                  "serviceId": "PropertyTypeGroup",
+                  "referredDependencyPayload": true,
+                  "translationManagement": "TOTAL"
+                }
+              }
+            ]
+          }
+        ]
       },
       {
         "id": 5,
         "name": "Market Price",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
+        "flexTablet": 50,
+        "flexDesktop": 33
       },
       {
-        "id": 6,
-        "name": "Square Meters Total",
+        "id": 2,
+        "name": "Buy / Rent",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 7,
-        "name": "Country",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "dynamic_options",
-          "serviceId": "Country"
-        }
-      },
-      {
-        "id": 26,
-        "name": "Annual Return on Investment",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
-        "options": {
-          "type": "static_options"
+          "serviceId": "PropertyProposals",
+          "translationManagement": "TOTAL"
         }
       }
     ]
@@ -103,40 +333,100 @@
         "value": "propertyFilters.advanced"
       }
     ],
+    "options": {
+      "expanded": false
+    },
     "flexMobile": 100,
     "flexTablet": 100,
     "flexDesktop": 100,
     "filterList": [
       {
+        "id": 3,
+        "name": "Property locations",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "PropertyLocations",
+          "translationManagement": "TOTAL"
+        }
+      },
+      {
+        "id": 4,
+        "name": "Languages",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "dynamic_options",
+          "serviceId": "Languages"
+        }
+      },
+      {
+        "id": 6,
+        "name": "Square Meters Total",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "step": 100,
+          "range": {
+            "suffixString": "m\u00B2",
+            "floor": 0,
+            "ceiling": 10000
+          }
+        }
+      },
+      {
         "id": 14,
         "name": "Condition",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "static_options"
         }
       },
       {
-        "id": 15,
-        "name": "Furnished",
+        "id": 20,
+        "name": "Basement",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "static_options"
+        }
       },
       {
         "id": 16,
         "name": "Floor",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "step": 1,
+          "range": {
+            "floor": -1,
+            "ceiling": 20
+          },
+          "buffer": 1,
+          "hideOnSpecificID": 1,
+          "showingStepList": [
+            {
+              "filterCondition": {
+                "filterId": 35
+              }
+            }
+          ]
+        }
       },
       {
         "id": 17,
         "name": "Optional Features",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "static_options"
         }
@@ -145,8 +435,8 @@
         "id": 18,
         "name": "Suitable For",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
           "type": "static_options"
         }
@@ -155,46 +445,79 @@
         "id": 19,
         "name": "Parking Spots",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 20,
-        "name": "Basement",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
         "options": {
-          "type": "static_options"
+          "step": 1,
+          "range": {
+            "floor": 0,
+            "ceiling": 20
+          },
+          "buffer": 1
         }
-      },
-      {
-        "id": 22,
-        "name": "Balcony/Rooftop",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 23,
-        "name": "Garden",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
-      },
-      {
-        "id": 25,
-        "name": "Rented",
-        "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
       },
       {
         "id": 27,
         "name": "Available from",
         "flexMobile": 100,
-        "flexTablet": 100,
-        "flexDesktop": 100
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 22,
+        "name": "Balcony/Rooftop",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 23,
+        "name": "Garden",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33
+      },
+      {
+        "id": 25,
+        "name": "Rented",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "showOnSpecificID": 2,
+          "showingStepList": [
+            {
+              "filterCondition": {
+                "filterId": 2
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": 15,
+        "name": "Furnished",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+		"options": {
+          "type": "static_options"
+        }
+      },
+      {
+        "id": 26,
+        "name": "Annual Return on Investment",
+        "flexMobile": 100,
+        "flexTablet": 50,
+        "flexDesktop": 33,
+        "options": {
+          "type": "static_options",
+          "range": {
+            "suffixString": "%",
+            "floor": 0,
+            "ceiling": 100
+          }
+        }
       }
     ]
   }

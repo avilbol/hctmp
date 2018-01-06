@@ -3,6 +3,7 @@ package com.hallocasa.services.hcfilters.filterworkers;
 import java.util.List;
 import java.util.Map;
 
+import com.hallocasa.utils.constants.exceptions.BadRequestException;
 import com.hallocasa.vo.hcfilter.properties.PropertyFilterSubmission;
 import com.hallocasa.vo.options.DropdownOption;
 
@@ -48,5 +49,14 @@ public class DropdownFilterWorker implements FilterWorker {
 			params.put(String.valueOf(counter++), option.getOptionId());
 		}
 		return counter;
+	}
+	
+	@Override
+	public void validate(PropertyFilterSubmission filterSubmission) {
+		if(filterSubmission.getSelectedFilterOptions() == null || 
+				filterSubmission.getSelectedFilterOptions().isEmpty()){
+			throw new BadRequestException("If you want to use dropdown, "
+					+ "you must send non-empty 'selectedFilterOptions' attribute");
+		}
 	}
 }

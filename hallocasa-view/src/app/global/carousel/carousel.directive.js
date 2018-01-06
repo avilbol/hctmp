@@ -17,6 +17,12 @@
         scope.$watch("images.length", setImagesInterval);
         scope.nextImage = nextImage;
         scope.previousImage = previousImage;
+        scope.startTouch = startTouch;
+        scope.changeCurrentImage = changeCurrentImage;
+
+        function startTouch(){
+          $interval.cancel(interval);
+        }
 
         function setImagesInterval() {
           if(!scope.images || !scope.images.length){
@@ -29,21 +35,27 @@
           }
 
           interval = $interval(function () {
-            nextImage()
+            nextImage();
           }, 5000);
         }
 
         function nextImage() {
-          scope.direction = "right";
+          scope.direction = "left";
           $timeout(function () {
             scope.currentImage = (scope.currentImage + 1) % scope.images.length;
           },0);
         }
 
         function previousImage() {
-          scope.direction = "left";
+          scope.direction = "right";
           $timeout(function () {
             scope.currentImage = scope.currentImage - 1 >= 0 ? scope.currentImage - 1 : scope.images.length-1;
+          },0);
+        }
+
+        function changeCurrentImage(key) {
+          $timeout(function () {
+            scope.currentImage = key;
           },0);
         }
       }

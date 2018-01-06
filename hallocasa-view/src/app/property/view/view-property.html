@@ -8,58 +8,150 @@
         <div ng-include="'app/property/templates/detail-property-card.html'"></div>
       </div>
       <div class="column" flex-gt-sm="40" flex-gt-xs="50" flex-xs="100">
-        <md-card layout="column">
-          <md-tabs md-dynamic-height md-border-bottom>
-            <md-tab label="{{'PropertyBrowse.Property.description' | translate}}">
-              <md-content class="md-padding">
-                <div layout="column">
-                  <md-input-container class="md-block" flex>
-                    <md-select
-                      ng-model="vm.guidLanguage"
-                      aria-label="Select language"
-                      required
-                    >
-                      <md-option ng-repeat="language in vm.guidLanguages" ng-value="language.id">
-                        {{language.name | unicode}}
-                      </md-option>
-                    </md-select>
-                  </md-input-container>
-                  <b>{{'propertyWizardPage.property.description' | translate}} </b>
-                  {{vm.property.descriptions[vm.guidLanguage]}}
+        <div layout="row">
+          <md-card flex>
+            <md-card-title>
+              <md-card-title-text>
+                <div layout="column" layout-align="center left" layout-wrap>
+                  <span class="title-property-blue">{{'PropertyBrowse.Property.description' | translate}}</span>
                 </div>
-                <br>
-                <div layout="column">
-                  <b>{{'propertyWizardPage.property.LocationDescription' | translate}}</b>
-                  {{vm.property.locationDescriptions[vm.guidLanguage]}}
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <div layout="column" ng-if="vm.guidLanguages.length == 1">
+                {{ vm.guidLanguages[0].name | unicode }}
+              </div>
+              <div layout="column" ng-if="vm.guidLanguages.length > 1">
+                <md-input-container class="md-block" flex>
+                  <md-select
+                    ng-if="vm.guidLanguages.length > 1"
+                    ng-model="vm.guidLanguage"
+                    aria-label="Select language"
+                    required
+                  >
+                    <md-option ng-repeat="language in vm.guidLanguages" ng-value="language.id">
+                      {{language.name | unicode}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+              <br>
+              <div layout="column">
+                <b>{{'propertyWizardPage.property.description' | translate}} </b>
+                {{vm.property.descriptions[vm.guidLanguage]}}
+              </div>
+              <br>
+              <div layout="column">
+                <b>{{'propertyWizardPage.property.LocationDescription' | translate}}</b>
+                {{vm.property.locationDescriptions[vm.guidLanguage]}}
+              </div>
+              <br>
+              <div layout="column">
+                <b>{{'propertyWizardPage.property.PublishDate' | translate}}</b>
+                {{vm.property.publishDate | date}}
+              </div>
+            </md-card-content>
+          </md-card>
+        </div>
+
+        <div layout="row" ng-if="vm.property.location">
+          <md-card flex>
+            <md-card-title>
+              <md-card-title-text>
+                <div layout="column" layout-align="center left" layout-wrap>
+                  <span class="title-property-blue">{{'Properties.title.Location' | translate}}</span>
                 </div>
-                <br>
-                <div layout="column">
-                  <b>{{'propertyWizardPage.property.PublishDate' | translate}}</b>
-                  {{vm.property.publishDate | date}}
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+              <geolocation
+                location="vm.property.location"
+                refresh="true"
+                readonly="true"
+              ></geolocation>
+            </md-card-content>
+          </md-card>
+        </div>
+
+        <div layout="row">
+          <a
+            ng-href="/profile?id={{vm.profile.id}}"
+            ng-include="'app/profiles/templates/detail-profile-card.html'"
+            class="disable-hyperlinks-style"
+            flex
+          ></a>
+        </div>
+
+        <div layout="row">
+          <md-card flex>
+            <md-card-title>
+              <md-card-title-text>
+                <div layout="column" layout-align="center left" layout-wrap>
+                  <span class="title-property-blue">{{'Property.Shared.Title' | translate}}</span>
                 </div>
-              </md-content>
-            </md-tab>
-            <md-tab label="{{'Properties.title.Location' | translate}}" ng-click="vm.repaintMap()">
-              <md-content class="md-padding" ng-if="vm.property.location">
-                <geolocation
-                  location="vm.property.location"
-                  refresh="vm.refresh"
-                  readonly="true"
-                ></geolocation>
-              </md-content>
-            </md-tab>
-            <md-tab label="{{'PropertyBrowse.Property.contacts' | translate}}">
-              <md-content>
-                <a
-                  ng-href="/profile?id={{vm.profile.id}}"
-                  ng-include="'app/profiles/templates/detail-profile-card.html'"
-                  class="disable-hyperlinks-style"
-                >
-                </a>
-              </md-content>
-            </md-tab>
-          </md-tabs>
-        </md-card>
+              </md-card-title-text>
+            </md-card-title>
+            <md-card-content layout="row" layout-align="center center" layout-wrap>
+              <md-button class="md-fab md-mini btn-shared"
+                  socialshare
+                  socialshare-provider="facebook"
+                  socialshare-via="486070851774293"
+                  socialshare-type="share"
+                  socialshare-quote="{{'Properties.shared.link.textTwitter' | translate}}"
+                  socialshare-url="{{vm.sharedURL}}">
+                <i class="fa fa-facebook"></i>
+              </md-button>
+              <md-button class="md-fab md-mini btn-shared"
+                  socialshare
+                  socialshare-provider="twitter"
+                  socialshare-url="{{vm.sharedURL}}"
+                  socialshare-text="{{'Properties.shared.link.textTwitter' | translate}}"
+                  socialshare-hashtags="Realestate, Immobilien, Inmuebles">
+                <i class="fa fa-twitter"></i>
+              </md-button>
+              <md-button class="md-fab md-mini btn-shared"
+                  socialshare
+                  socialshare-provider="linkedin"
+                  socialshare-url="{{vm.sharedURL}}"
+                  socialshare-text="{{vm.property.titles[vm.guidLanguage]}}"
+                  socialshare-description="{{vm.property.descriptions[vm.guidLanguage]}}">
+                    <i class="fa fa-linkedin"></i>
+              </md-button>
+              <md-button class="md-fab md-mini btn-shared" ng-href="{{vm.sharedMailInfo}}">
+                    <i class="fa fa-envelope"></i>
+              </md-button>
+              <md-button class="md-fab md-mini btn-shared hide-md hide-lg hide-xl" ng-href="{{vm.sharedURLWhatsApp}}">
+                    <i class="fa fa-whatsapp"></i>
+              </md-button>
+              <md-button class="md-fab md-mini btn-shared"
+                  socialshare
+                  socialshare-provider="vk"
+                  socialshare-url="{{vm.sharedURL}}"
+                  socialshare-text="{{vm.property.titles[vm.guidLanguage]}}"
+                  socialshare-description="{{vm.property.descriptions[vm.guidLanguage]}}"
+                  socialshare-media="{{vm.property.images[0]}}">
+                    <i class="fa fa-vk"></i>
+              </md-button>
+              <md-button class="md-fab md-mini btn-shared"
+                  socialshare
+                  socialshare-provider="xing"
+                  socialshare-url="{{vm.sharedURL}}"
+                  socialshare-text="{{vm.property.titles[vm.guidLanguage]}}: {{vm.property.descriptions[vm.guidLanguage]}}">
+                    <i class="fa fa-xing"></i>
+              </md-button>
+              <md-button class="md-fab md-mini btn-shared" ng-click="vm.openDialogRenren()">
+                    <i class="fa fa-renren"></i>
+              </md-button>
+              <md-button class="md-fab md-mini btn-shared"
+                  socialshare
+                  socialshare-provider="weibo"
+                  socialshare-url="{{vm.sharedURL}}"
+                  socialshare-text="{{vm.property.titles[vm.guidLanguage]}}: {{vm.property.descriptions[vm.guidLanguage]}}">
+                    <i class="fa fa-weibo"></i>
+              </md-button>
+            </md-card-content>
+          </md-card>
+        </div>
       </div>
     </div>
   </div>

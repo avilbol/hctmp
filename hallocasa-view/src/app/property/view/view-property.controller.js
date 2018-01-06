@@ -6,17 +6,47 @@
     .controller('ViewPropertyController', ViewPropertyController);
 
   /** @ngInject */
-  function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, $timeout,
-                                  FieldsService) {
+  function ViewPropertyController(PropertyService, $location, translateFilter, toastr, LanguageService, FieldsService,
+                                  Mailto, LocaleService, $window) {
     var vm = this;
-    vm.repaintMap = repaintMap;
+    vm.openDialogRenren = openDialogRenren;
     vm.currentImage = 0;
+    vm.mailInfo = '';
+    vm.sharedMailInfo = '';
+    vm.sharedURL = '';
+    vm.sharedURLWhatsApp = '';
+    vm.textWhatsApp = '';
 
-    function repaintMap() {
-      vm.refresh = false;
-      $timeout(function () {
-        vm.refresh = true;
-      },300);
+    function sharedEmailInfo() {
+      // var recepient = vm.profile.email;
+      var newPathPropertyEn = $location.host() + '/property?id=' + vm.property.id + '&lang=en';
+      var newPathPropertyEs = $location.host() + '/property?id=' + vm.property.id + '&lang=es';
+      var newPathPropertyDe = $location.host() + '/property?id=' + vm.property.id + '&lang=de';
+      var options = {
+        subject: "HalloCasa: " + vm.property.titles[vm.guidLanguage],
+        body: "New Real Estate Object: " + newPathPropertyEn + "\n" +
+              "Neues Immobilienobjekt: " + newPathPropertyEs + "\n" +
+              "Nueva Propiedad Inmobiliaria: " + newPathPropertyDe
+      };
+
+      vm.sharedMailInfo = Mailto.url('', options);
+    }
+
+    function openDialogRenren(){
+      var left = Math.round((screen.width/2)-(600/2));
+      var top = Math.round((screen.height/2)-(600/2));
+      var url = 'http://widget.renren.com/dialog/share?resourceUrl=' + vm.sharedURL + '&title=' + vm.property.titles[vm.guidLanguage] + '&description=' + vm.property.descriptions[vm.guidLanguage] + '&lang=' + LocaleService.getCurrentLenguage();
+      $window.open(url,'popup','width=600,height=600' + ', top=' + top + ', left=' + left);
+      return false;
+
+    }
+
+    function loadURLShared() {
+      vm.sharedURL = $location.host() + '/property?id=' + vm.property.id + '&lang=' + LocaleService.getCurrentLenguage();
+      vm.textWhatsApp = translateFilter("Properties.shared.link.textTwitter") + ': ' + vm.property.titles[vm.guidLanguage]
+        + ', ' + vm.property.descriptions[vm.guidLanguage];
+      vm.sharedURLWhatsApp = 'whatsapp://send?text=' + encodeURIComponent(vm.textWhatsApp) + '%0A'
+        + encodeURIComponent(vm.sharedURL);
     }
 
     function loadProperty() {
@@ -55,6 +85,9 @@
           });
         });
         vm.guidLanguage = vm.property.mainLanguage.id;
+
+        loadURLShared();
+        sharedEmailInfo();
       });
     }
 

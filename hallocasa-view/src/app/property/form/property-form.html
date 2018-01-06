@@ -34,6 +34,7 @@
             >
               <md-tab-label>
                 <span ng-bind-html="tab.lang | translate"></span>
+                <span ng-show="tab.required === true">*</span>
               </md-tab-label>
               <md-tab-body>
                 <md-content>
@@ -68,7 +69,7 @@
             <md-button ng-click="vm.changeTab('Next')" ng-disabled="vm.nextDisabled" ng-if="!vm.editMode">
               {{'Common.Label.Next' | translate}}
             </md-button>
-            <md-button type="submit" ng-if="vm.showSubmit">
+            <md-button type="submit" ng-if="vm.showSubmit" ng-disabled="vm.buttonSaveStatus">
               {{'property.wizard.save' | translate}}
             </md-button>
           </div>

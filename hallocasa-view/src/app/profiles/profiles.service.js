@@ -12,14 +12,19 @@
       saveProfile: saveProfile,
       loadProfile: loadProfile,
       loadPublicProfiles: loadPublicProfiles,
-      validateUserData: validateUserData
+      validateUserData: validateUserData,
+      loadProfilesFilters: loadProfilesFilters,
+      loadProfiles: loadProfiles,
+      generateProfilesPreviewData: generateProfilesPreviewData
     };
 
     var resources = {
       profileSave: $resource(backend_url + "user", {}, GenericRESTResource),
       userTypes: $resource(backend_url + "user_types", {}, GenericRESTResource),
       profileLoad: $resource(backend_url + "user/detail/:id", {}, GenericRESTResource),
-      profilePublic: $resource(backend_url + "user/fetch_random", {}, GenericRESTResource)
+      profiles: $resource(backend_url + "user/fetch_random", {}, GenericRESTResource),
+      profilePublic: $resource(backend_url + "user/search", {}, GenericRESTResource),
+      profileFiltersRender: $resource("/app/profiles/profiles-fields/render-data/profile_filter_render.json", {}, GenericRESTResource)
     };
 
     return service;
@@ -28,8 +33,7 @@
       return resources.userTypes.query().$promise
     }
 
-    function saveProfile(data, formID) {
-      $log.log("Guardar perfil: (Formulario: ",formID, ", Datos: ",data, ")");
+    function saveProfile(data) {
       return resources.profileSave.save(data).$promise;
     }
 
@@ -40,13 +44,17 @@
       });
     }
 
-    function loadPublicProfiles(excludeIdList, amount, imageFallback) {
+    function loadProfiles(excludeIdList, amount, imageFallback) {
       excludeIdList = excludeIdList ? excludeIdList : [];
       imageFallback = imageFallback ? imageFallback : "UserDefault";
-      amount = amount ? amount : 5;
+
+      var data = {
+        excludeIdList: excludeIdList,
+        userNumber: amount ? amount : 10
+      };
 
       return $q(function (success, reject) {
-        resources.profilePublic.consult({excludeIdList: excludeIdList, userNumber: amount}).$promise
+        resources.profiles.consult(data).$promise
           .then(function (profiles) {
             profiles = _.map(profiles, function (profile) {
               ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, imageFallback)
@@ -61,6 +69,36 @@
             reject();
           });
       });
+    }
+
+    function loadPublicProfiles(start, finish, filterList, imageFallback) {
+      imageFallback = imageFallback ? imageFallback : "UserDefault";
+
+      var resultRequest = {
+        pageFrom: start+1,
+        pageTo: finish+1,
+        orderByMostRecent: false,
+        orderByLessRecent: false,
+        loadCount: true
+      }
+
+      filterList['resultRequest'] = resultRequest;
+      return resources.profilePublic.consultObj(filterList).$promise;
+    }
+
+    function generateProfilesPreviewData(profiles, imageFallback) {
+      return _.map(profiles, function (profile) {
+        ImageValidatorService.validateOrFallback(user_images_url + '/mini/' + profile.imageLink, imageFallback)
+        .then(function (image) {
+          profile.userImage = image;
+        });
+        var mainDescription = _.find(profile.userDescriptions, function (description) {
+          return description.language.id === profile.mainSpokenLanguage.id;
+        });
+        profile.description = mainDescription ? mainDescription.value : undefined;  
+
+        return profile;
+      });  
     }
 
     function validateUserData(data) {
@@ -80,5 +118,10 @@
       data.properties = PropertyService.generatePropertiesPreviewData(data.properties);
       return data;
     }
+
+    function loadProfilesFilters() {
+      return resources.profileFiltersRender.query().$promise
+    }
+
   }
 })();

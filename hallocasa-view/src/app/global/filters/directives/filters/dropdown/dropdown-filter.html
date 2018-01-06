@@ -1,54 +1,58 @@
+<md-input-container class="md-block">
+  <label>
+    <span translate>{{title}}</span>
+    <span ng-if="conditionalFilter">&nbsp;-&nbsp;</span>
+    <span ng-if="conditionalFilter" translate>{{parentFilterOption}}</span>
+  </label>
 
-  <md-input-container class="md-block">
-    <label translate>{{title}}</label>
+  <md-select
+    ng-if="filterInformation.filter.filterType.allowMultiple"
+    name="{{filterName}}"
+    title="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
+    ng-model="selected.options"
+    aria-label="{{filterName}}"
+    placeholder="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
+    ng-required="required"
+    data-md-container-class="selectHeader"
+    ng-change="emitSelectedOption()"
+    md-on-close="search = {}"
+    md-on-open="loadOptions()"
+    multiple
+  >
+    <div ng-include="'selectContent'"></div>
+  </md-select>
 
-    <md-select
-      ng-if="filterInformation.filter.filterType.allowMultiple"
-      name="{{fieldName}}"
-      title="{{title | translate}}"
-      ng-model="selected.options"
-      ng-disabled="!options || options.length === 0"
-      aria-label="{{fieldName}}"
-      placeholder="{{title | translate}}"
-      ng-required="required"
-      data-md-container-class="selectHeader"
-      ng-change="emitSelectedOption(selected.options)"
-      md-on-close="search = {}"
-      multiple
-    >
-      <div ng-include="'selectContent'"></div>
-    </md-select>
-
-    <md-select
-      ng-if="!filterInformation.filter.filterType.allowMultiple"
-      name="{{fieldName}}"
-      title="{{title | translate}}"
-      ng-model="selected.options"
-      ng-disabled="!options || options.length === 0"
-      aria-label="{{fieldName}}"
-      placeholder="{{title | translate}}"
-      ng-required="required"
-      data-md-container-class="selectHeader"
-      ng-change="emitSelectedOption(selected.options)"
-      md-on-close="search = {}"
-    >
-      <div ng-include="'selectContent'"></div>
-    </md-select>
-  </md-input-container>
-
+  <md-select
+    ng-if="!filterInformation.filter.filterType.allowMultiple"
+    name="{{filterName}}"
+    title="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
+    ng-model="selected.options"
+    aria-label="{{filterName}}"
+    placeholder="{{title | translate}} {{conditionalFilter ? ' - ' : ''}} {{(conditionalFilter ? parentFilterOption : '') | translate}}"
+    ng-required="required"
+    data-md-container-class="selectHeader"
+    ng-change="emitSelectedOption()"
+    md-on-close="search = {}"
+    md-on-open="loadOptions()"
+  >
+    <div ng-include="'selectContent'"></div>
+  </md-select>
+</md-input-container>
 
 
 <script type="text/ng-template" id="selectContent">
   <md-select-header class="select-header" ng-if="filterInformation.filter.filterType.useSearch">
     <input
-      ng-model="search.data1"
+      ng-model="search.$"
       type="search"
       placeholder="{{'placeholder.search' | translate}}"
       class="header-searchbox md-text"
+      ng-if="loadedOptions"
+      flex
     >
     <md-button
       ng-click="selectAll()"
-      ng-if="filterInformation.filter.filterType.allowMultiple && filterInformation.filter.filterType.useSelectAll"
+      ng-if="filterInformation.filter.filterType.allowMultiple && filterInformation.filter.filterType.useSelectAll && loadedOptions"
     >
       <span translate>{{selectAllButtonTranstationKey}}</span>
     </md-button>
@@ -57,8 +61,8 @@
     {{'placeholder.selectPlaceholder'}}
   </md-option>
   <md-option
-    ng-repeat="option in options  | filter: search"
-    ng-value="option"
+    ng-repeat="option in options  | filter: search | orderBy: 'data1 || name'"
+    ng-value="option.optionId"
   >
     <span compile="option.tmplTranslate"></span>
   </md-option>

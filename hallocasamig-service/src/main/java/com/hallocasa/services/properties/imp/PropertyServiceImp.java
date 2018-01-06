@@ -27,10 +27,16 @@ import java.util.Optional;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.hallocasa.dao.i.properties.IDAOProperty;
 import com.hallocasa.entities.properties.EntityProperty;
+import com.hallocasa.randomutils.RandomUtils;
 import com.hallocasa.services.generalities.LocaleNamingService;
 import com.hallocasa.services.hcfilters.filterworkers.FilterWorker;
+import com.hallocasa.services.hcfilters.filterworkers.LocationFilterWorker;
+import com.hallocasa.services.hcfilters.filterworkers.PropertyTypeFilterWorker;
 import com.hallocasa.services.properties.PropertyCommonsService;
 import com.hallocasa.services.properties.PropertyService;
 import com.hallocasa.utils.constants.exceptions.BadRequestException;
@@ -49,11 +55,19 @@ import com.hallocasa.vo.resultrequest.ResultRequest;
 @Stateless
 public class PropertyServiceImp implements PropertyService {
 
+	private static final Logger LOGGER = LogManager.getLogger(PropertyServiceImp.class);
+	
 	@EJB
 	private IDAOProperty daoProperty;
 
 	@EJB
 	private PropertyCommonsService propertyCommonsService;
+	
+	@EJB
+	private LocationFilterWorker locationFilterWorker;
+	
+	@EJB
+	private PropertyTypeFilterWorker propertyTypeFilterWorker;
 	
 	@EJB
 	private LocaleNamingService localeNamingService;
@@ -70,11 +84,14 @@ public class PropertyServiceImp implements PropertyService {
 	 */
 	@Override
 	public void save(Property property, String oAuthToken) {
+		if(property.getId() == null){
+			property.setId(RandomUtils.alphanumericRandom(8));
+		}
 		validatePropertyStructure(property, oAuthToken);
 		complementProperty(property);
 		EntityProperty entityProperty = (EntityProperty) toEntity(property);
 		daoProperty.save(entityProperty);
-		assureImageFileSystem(entityProperty.getId());
+		assureImageFileSystem(property.getId());	
 	}
 
 	private void complementProperty(Property property) {			
@@ -255,23 +272,38 @@ public class PropertyServiceImp implements PropertyService {
 		StringBuilder filterBuilder = new StringBuilder("");
 		StringBuilder joinBuilder = new StringBuilder("");
 		Integer attrNumber = 1;
+		List<PropertyFilterSubmission> locationSubmissions = 
+				locationFilterWorker.extractLocationFromRequest(request.getFilterList());
+		List<PropertyFilterSubmission> ptypeSubmissions = 
+				propertyTypeFilterWorker.extractLocationFromRequest(request.getFilterList());
 		for (PropertyFilterSubmission filterSubmission : request.getFilterList()) {
 			FilterWorkerOption fwo = filterSubmission.getPropertyFilter().getFilter().getFilterWorkerOption();
 			FilterWorker filterWorker = FilterWorkerOptionRes.getFilterWorker(fwo);
+			filterWorker.validate(filterSubmission);
 			fieldBuilder.append(", " + filterWorker.loadParametersQuery(filterSubmission, attrNumber));
 			joinBuilder.append(filterWorker.loadJoinQuery(filterSubmission, attrNumber));
-			filterBuilder.append(filterBuilder.toString().isEmpty() ? " WHERE" : " AND ")
+			filterBuilder.append(filterBuilder.toString().isEmpty() ? " WHERE " : " AND ")
 					.append(filterWorker.loadWhereQuery(filterSubmission, attrNumber));
 			attrNumber = filterWorker.addParams(filterSubmission, paramMap, attrNumber);
 		}
+		String locationJoinQuery = locationFilterWorker.loadJoinQuery(locationSubmissions);
+		LOGGER.info(locationJoinQuery);
+		joinBuilder.append(locationJoinQuery);
+		joinBuilder.append(propertyTypeFilterWorker.loadJoinQuery(ptypeSubmissions));
 		base = base.replaceAll("%%FIELDS%%", fieldBuilder.toString());
 		base = base.replaceAll("%%JOINS%%", joinBuilder.toString());
 		base = base.replaceAll("%%FILTERS%%", filterBuilder.toString());
+		LOGGER.info(base.toString());
+		request.getFilterList().addAll(locationSubmissions);
+		request.getFilterList().addAll(ptypeSubmissions);
 		return base;
 	}
 
 	private void validatePropertyField(PropertyField propertyField) {
 		String err = "Property field id: " + propertyField.getId() + ", type to review: %1$s";
+		if(propertyField.getFieldValueList() == null || propertyField.getFieldValueList().isEmpty()){
+			throw new BadRequestException("You want to set a property field without a property field value list? Really?");
+		}
 		for (PropertyFieldValue pfValue : propertyField.getFieldValueList()) {
 			if (!isDataTypeGeneric(propertyField)) {
 				matchType(pfValue.getData1(), propertyField.getData1Type(), format(err, "data1"));

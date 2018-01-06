@@ -9,7 +9,7 @@
   /** @ngInject */
   function PropertyFormController($mdDialog, PropertyService, toastr, LocationService, $rootScope, property_images_url,
                                   FieldsService, SessionService, $mdToast, translateFilter, title, property, editMode,
-                                  CurrencyService, DataCalcService, $window) {
+                                  CurrencyService, DataCalcService, $window, $scope) {
 
 		var vm = this;
     var propertyBase = {
@@ -29,9 +29,7 @@
     vm.previousDisabled = true;
     vm.showSubmit = editMode;
     var selectedTab = 0;
-
-    vm.searchCountryTerm;
-    vm.searchPropertyTypeTerm;
+    vm.buttonSaveStatus = false;
 
     vm.propertyTypesLots = [];
     vm.propertyTypesIndustry = [];
@@ -39,10 +37,16 @@
 
     // The md-select directive eats keydown events for some quick select
     // logic. Since we have a search input here, we don't need that logic.
-    $window.mdSelectOnKeyDownOverride = function(event) { 
+    $window.mdSelectOnKeyDownOverride = function(event) {
       event.stopPropagation();
-    }
-    
+    };
+
+    $window.addEventListener("beforeunload", preventReload);
+
+    $scope.$on("$destroy", function () {
+      $window.removeEventListener("beforeunload", preventReload);
+    });
+
 
     vm.state = {
       "WIZARD_1": 1,
@@ -54,6 +58,10 @@
     vm.closeDialog = closeDialog;
     vm.loadCountries = loadCountries;
     vm.handleTabLocation = handleTabLocation;
+
+    function preventReload(event) {
+      event.returnValue = translateFilter("Confirmation.ClosePropertyWizard");
+    }
 
     function closeDialog(){
       var toast = $mdToast.simple()
@@ -99,11 +107,13 @@
       var propertyTypeGroup = vm.propertyDeterminants.propertyType.group.id;
       vm.formatedPropertyDeterminants = _.mapObject(vm.propertyDeterminants, function (val) { return val.id; });
       vm.formatedPropertyDeterminants.propertyImagesUrl = property_images_url;
+      vm.formatedPropertyDeterminants.isEditMode = editMode;
       var payload = angular.copy(vm.propertyDeterminants);
       payload.propertyType.id = propertyTypeGroup;
 
       return PropertyService.loadFieldsData(payload)
         .then(function (fieldsData) {
+
           if(vm.property.fieldList){
             fieldsData.propertyFields = FieldsService.consolidateFields(vm.property.fieldList, fieldsData.propertyFields);
           }
@@ -120,24 +130,43 @@
     }
 
     function save() {
-      var propertyData = {
-        user: SessionService.getCurrentUser(),
-        propertyKey: vm.propertyDeterminants,
-        fieldList: FieldsService.generateFieldValueList(vm.fieldsRender)
-      };
-      if(property && property.id){
-        propertyData.id = property.id;
-      }
+      // length image
+      var imageLength = vm.fieldsRender[2].fieldList[0].fieldValueList.length;
 
-      PropertyService.saveProperty(propertyData)
-        .then(function () {
-          toastr.success(translateFilter("property.wizard.create.succesful"));
-          $mdDialog.hide();
-        })
-        .catch(function () {
-          toastr.warning(
-						translateFilter("Error.whensavingproperty"));
-        });
+      if (imageLength <= 0) {
+        toastr.warning(translateFilter("Error.invalidoremptyimage"));
+      } else {
+        // make button save disabled
+        vm.buttonSaveStatus = true;
+
+        var propertyData = {
+          user: SessionService.getCurrentUser(),
+          propertyKey: vm.propertyDeterminants,
+          fieldList: FieldsService.generateFieldValueList(vm.fieldsRender)
+        };
+        if(property && property.id){
+          propertyData.id = property.id;
+        }
+
+        PropertyService.saveProperty(propertyData)
+          .then(function () {
+            toastr.success(translateFilter("property.wizard.create.succesful"));
+            $mdDialog.hide();
+          })
+          .catch(function (error) {
+            if(error.status === 400){
+              var errorMessage = translateFilter(error.data.langMessage);
+              if(errorMessage === error.data.langMessage){
+                errorMessage = translateFilter("Error.whensavingproperty");
+              }
+              toastr.warning(errorMessage);
+            }
+            else{
+              toastr.warning(translateFilter("Error.whensavingproperty"));
+            }
+
+          });
+      }
     }
 
     function loadLocations() {
@@ -171,17 +200,17 @@
 
           vm.propertyTypesLots = _.filter(vm.propertyTypes, function (propertyType) {
             propertyType.langTrans = translateFilter(propertyType.lang);
-            return propertyType.group.id == 1;
+            return propertyType.group.id === 1;
           });
 
           vm.propertyTypesIndustry = _.filter(vm.propertyTypes, function (propertyType) {
             propertyType.langTrans = translateFilter(propertyType.lang);
-            return propertyType.group.id == 2;
+            return propertyType.group.id === 2;
           });
 
           vm.propertyTypesLiving = _.filter(vm.propertyTypes, function (propertyType) {
             propertyType.langTrans = translateFilter(propertyType.lang);
-            return propertyType.group.id == 3;
+            return propertyType.group.id === 3;
           });
         })
         .catch(function () {
@@ -193,7 +222,9 @@
     function loadCountries() {
       LocationService.getCountries()
         .then(function (countries) {
-          vm.countries = countries;
+          vm.countries = _.map(countries, function (country) {
+            return _.extend(country, {translated: translateFilter(country.lang)});
+          });
         })
         .catch(function () {
           toastr.warning(
@@ -226,7 +257,7 @@
     }
 
     function validateSubmit() {
-      vm.showSubmit = editMode ? true : vm.nextDisabled;
+      vm.showSubmit = editMode ? true : (selectedTab >= 2);
     }
 
     loadCountries();

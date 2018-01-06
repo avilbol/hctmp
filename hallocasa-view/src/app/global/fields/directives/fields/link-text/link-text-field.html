@@ -1,27 +1,27 @@
-<md-input-container class="md-block" ng-if="!readonly">
-  <label>{{fieldInformation.lang | translate}}</label>
-  <input
-    name="{{fieldName}}"
-    title="{{fieldInformation.lang | translate}}"
-    ng-model="fieldInformation.fieldValueList[0].text.strVal"
-    type="url"
-    ng-required="required"
-  >
+<div>
+  <md-input-container class="md-block" ng-if="!readonly">
+    <label>{{fieldInformation.lang | translate}}</label>
+    <input
+      name="{{fieldName}}"
+      title="{{fieldInformation.lang | translate}}"
+      ng-model="fieldInformation.fieldValueList[0].text.strVal"
+      type="url"
+      ng-required="required"
+    >
 
-  <ng-messages-generator
-    form="form"
-    input-name="{{fieldName}}"
-    validators="{{fieldInformation.validations}}"
-  ></ng-messages-generator>
-</md-input-container>
-<div ng-if="readonly && fieldInformation.fieldValueList[0].text.strVal">
-  <b>
-    <span translate>{{fieldInformation.lang}}:&nbsp;</span>
-    <!--<md-tooltip>-->
-      <!--<span translate>{{fieldInformation.tooltipLang}}</span>-->
-    <!--</md-tooltip>-->
-  </b>
-  <a ng-href="{{fieldInformation.fieldValueList[0].text.strVal}}">
-    {{fieldInformation.fieldValueList[0].text.strVal}}
-  </a>
+    <ng-messages-generator
+      form="form"
+      input-name="{{fieldName}}"
+      validators="{{fieldInformation.validations}}"
+    ></ng-messages-generator>
+  </md-input-container>
+  <div ng-if="readonly && fieldInformation.fieldValueList[0].text.strVal">
+    <a ng-href="{{fieldInformation.fieldValueList[0].text.strVal}}" target="_blank">
+        <span translate>{{fieldInformation.lang}}</span>
+    </a>
+  </div>
+
+  <md-tooltip>
+    <span translate>{{fieldInformation.tooltipLang}}</span>
+  </md-tooltip>
 </div>

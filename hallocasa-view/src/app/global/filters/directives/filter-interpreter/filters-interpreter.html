@@ -1,34 +1,69 @@
-<div layout="row" layout-wrap layout-align="space-between">
-  <div ng-repeat="filterData in filtersList" flex-gt-sm="{{filterData.filter.flexDesktop}}" flex-gt-xs="{{filterData.filter.flexTablet}}" flex-xs="{{filterData.filter.flexMobile}}">
+<div layout="row" layout-wrap layout-align="start center">
+  <div
+    ng-repeat="filterData in filtersList"
+    flex-gt-sm="{{filterData.flexDesktop || filterData.filter.flexDesktop}}"
+    flex-gt-xs="{{filterData.flexTablet || filterData.filter.flexTablet}}"
+    flex-xs="{{filterData.flexMobile || filterData.filter.flexMobile}}"
+    class="filterContainer"
+  >
     <!--Filters detector-->
     <div ng-switch="filterData.filter.filterType.filterTypeNature">
       <dropdown-filter
         ng-switch-when="DROPDOWN"
         filter-information="filterData"
         filters-root-scope="filtersRootScope"
+        additional-parameters="additionalParameters"
       ></dropdown-filter>
 
       <binary-filter
         ng-switch-when="YESNO"
         filter-information="filterData"
         filters-root-scope="filtersRootScope"
+        additional-parameters="additionalParameters"
       ></binary-filter>
 
       <range-filter
         ng-switch-when="RANGE"
         filter-information="filterData"
         filters-root-scope="filtersRootScope"
+        additional-parameters="additionalParameters"
       ></range-filter>
+
+      <text-filter
+        ng-switch-when="TEXT"
+        filter-information="filterData"
+        filters-root-scope="filtersRootScope"
+        additional-parameters="additionalParameters"
+      ></text-filter>
+
     </div>
 
     <!--Components detector-->
     <div ng-switch="filterData.id">
       <accordion-filter-group
         ng-switch-when="accordion_group"
+        options="filterData.options"
         group-title="filterData.title"
         filters-list="filterData.filterList"
         filters-root-scope="filtersRootScope"
+        additional-parameters="additionalParameters"
       ></accordion-filter-group>
+
+      <separator-filter-group
+        ng-switch-when="separator_group"
+        filter-information="filterData"
+        filters-list="filterData.filterList"
+        filters-root-scope="filtersRootScope"
+        additional-parameters="additionalParameters"
+      ></separator-filter-group>
+
+      <repeater-filter-group
+        ng-switch-when="repeater_group"
+        options="filterData.options"
+        filters-list="filterData.filterList"
+        filters-root-scope="filtersRootScope"
+        additional-parameters="additionalParameters"
+      ></repeater-filter-group>
     </div>
   </div>
 </div>

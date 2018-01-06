@@ -1,0 +1,51 @@
+
+<md-dialog arial-label="new languages">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h3 ng-show="!edit">New Translation</h3>
+      <h3 ng-show="edit">Edit Translation</h3><span flex></span>
+      <md-button class="md-icon-button" ng-click="closeDialog()"><i class="material-icons">close</i></md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content layout="row" style="padding: 10px;">           
+    <form class="formDialog" name="formTranslation" ng-cloak flex novalidate>
+      <md-input-container class="md-block">
+        <label>Label</label>
+        <input type="text" name="pnemonic" ng-model="translation.pnemonic" md-maxlength="100" ng-disabled="edit" required>
+        <div ng-messages="formTranslation.pnemonic.$error" ng-show="formTranslation.pnemonic.$touched">
+          <div ng-message="required">This is required!</div>
+          <div ng-message="maxlength">That's too long!</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Desciption</label>
+        <input type="text" name="description" ng-model="translation.description">
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>English Translation</label>
+        <input type="text" name="enUS" ng-model="translation.enUS" required>
+        <div ng-messages="formTranslation.enUS.$error" ng-show="formTranslation.enUS.$touched">
+          <div ng-message="required">This is required!</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Spanish Translation</label>
+        <input type="text" name="esES" ng-model="translation.esES" required>
+        <div ng-messages="formTranslation.esES.$error" ng-show="formTranslation.esES.$touched">
+          <div ng-message="required">This is required!</div>
+        </div>
+      </md-input-container>
+      <md-input-container class="md-block">
+        <label>Deutsch Translation</label>
+        <input type="text" name="deDE" ng-model="translation.deDE" required>
+        <div ng-messages="formTranslation.deDE.$error" ng-show="formTranslation.deDE.$touched">
+          <div ng-message="required">This is required!</div>
+        </div>
+      </md-input-container>
+      <div class="footer" layout="row">
+        <md-button ng-click="closeDialog()">Close</md-button>
+        <md-button type="submit" ng-click="saveTranslation()" ng-disabled="formTranslation.$invalid">Save</md-button>
+      </div>
+    </form>
+  </md-dialog-content>
+</md-dialog>

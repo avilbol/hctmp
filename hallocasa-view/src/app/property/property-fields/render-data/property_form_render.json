@@ -3,6 +3,7 @@
     {
       "name": "Basic_Information",
       "lang": "Property.wizard.basic",
+      "required": true,
       "fieldList": [
         {
           "id": 5,
@@ -22,6 +23,16 @@
           "flexTablet": 50,
           "flexDesktop": 33,
           "validations": "required, minlength",
+          "messagesParams": { "minlength": "2"},
+          "validationsParams": { "minlength": 2}
+        },
+        {
+          "id": 35,
+          "name": "Square Meters Built",
+          "flexMobile": 100,
+          "flexTablet": 50,
+          "flexDesktop": 33,
+          "validations": "minlength, maxlength",
           "messagesParams": { "minlength": "2"},
           "validationsParams": { "minlength": 2}
         },
@@ -120,7 +131,10 @@
                       "flexDesktop": 100,
                       "validations": "required, minlength, maxlength",
                       "messagesParams": { "minlength": "2 - 45", "maxlength": "2 - 45"},
-                      "validationsParams": { "minlength": 2, "maxlength": 45}
+                      "validationsParams": { "minlength": 2, "maxlength": 45},
+                      "options": {
+                        "isTextArea": true
+                      }
                     },
                     {
                       "id": 3,
@@ -130,7 +144,10 @@
                       "flexDesktop": 100,
                       "validations": "required, minlength, maxlength",
                       "messagesParams": { "minlength": "2 - 500", "maxlength": "2 - 500"},
-                      "validationsParams": { "minlength": 2, "maxlength": 500}
+                      "validationsParams": { "minlength": 2, "maxlength": 500},
+                      "options": {
+                        "isTextArea": true
+                      }
                     },
                     {
                       "id": 4,
@@ -140,29 +157,23 @@
                       "flexDesktop": 100,
                       "validations": "required, minlength, maxlength",
                       "messagesParams": { "minlength": "2 - 500", "maxlength": "2 - 500"},
-                      "validationsParams": { "minlength": 2, "maxlength": 500}
+                      "validationsParams": { "minlength": 2, "maxlength": 500},
+                      "options": {
+                        "isTextArea": true
+                      }
                     }
                   ]
                 }
               ]
             }
           ]
-        },
-        {
-          "id": 35,
-          "name": "Square Meters Built",
-          "flexMobile": 100,
-          "flexTablet": 50,
-          "flexDesktop": 33,
-          "validations": "minlength, maxlength",
-          "messagesParams": { "minlength": "2"},
-          "validationsParams": { "minlength": 2}
         }
       ]
     },
     {
       "name": "Location",
       "lang": "Property.wizard.location",
+      "required": true,
       "fieldList": [
         {
           "id": 7,
@@ -310,6 +321,7 @@
     {
       "name": "Images_and_videos",
       "lang": "Property.wizard.images",
+      "required": true,
       "fieldList": [
         {
           "id": 12,
@@ -331,6 +343,7 @@
     {
       "name": "Features",
       "lang": "Property.wizard.features",
+      "required": false,
       "fieldList": [
         {
           "id": 17,
@@ -417,6 +430,7 @@
     {
       "name": "Property",
       "lang": "Property.wizard.property",
+      "required": false,
       "fieldList": [
         {
           "id": 45,
@@ -506,6 +520,14 @@
           "flexDesktop": 33,
           "options": {
             "type": "static_options"
+          },
+          "validations": "dateMinorThan",
+          "validationsParams": {
+            "greaterDateFieldID": 53,
+            "dateFormat": "YYYY"
+          },
+          "messagesParams": {
+            "messageTrans": "Property.wizard.yearOfConstruction.minorThanLastModernization"
           }
         },
         {
@@ -546,6 +568,14 @@
           "flexDesktop": 33,
           "options": {
             "type": "static_options"
+          },
+          "validations": "dateGreaterThan",
+          "validationsParams": {
+            "minorDateFieldID": 49,
+            "dateFormat": "YYYY"
+          },
+          "messagesParams": {
+            "messageTrans": "Property.wizard.lastModernization.greaterThanYearOfConstruction"
           }
         },
         {
@@ -622,7 +652,8 @@
           "flexMobile": 100,
           "flexTablet": 50,
           "flexDesktop": 33,
-          "validations": "noPastDate"
+          "validations": "noPastDate, required",
+          "excludeValidationsOnEdit" : "noPastDate"
         },
         {
           "id": 60,

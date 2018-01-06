@@ -5,8 +5,8 @@
     .module('HalloCasa', [
       //Third party modules
       'ngAnimate', 'ngResource', 'ngCookies', 'ngRoute', 'ngMaterial', 'toastr', 'pascalprecht.translate', 'ngSanitize',
-      'tmh.dynamicLocale', 'vAccordion', 'ngMessages', 'lfNgMdFileInput', 'angular-carousel-3d', 'pdf', 'LocalStorageModule',
-      'angular-spinkit', 'vcRecaptcha', 'vr.directives.slider',
+      'tmh.dynamicLocale', 'vAccordion', 'ngMessages', 'lfNgMdFileInput', 'pdf', 'LocalStorageModule',
+      'angular-spinkit', 'vcRecaptcha', 'vr.directives.slider', 'uz.mailto', '720kb.socialshare', 'ngTouch', 'ngTouchstart',
       //App modules
       'HalloCasa.environment.constants',
       'HalloCasa.global',

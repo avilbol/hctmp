@@ -4,10 +4,10 @@
       <md-select
         name="{{fieldName}}"
         title="{{title | translate}}"
-        ng-model="selected"
+        ng-model="filter.selected"
         aria-label="{{fieldName}}"
         placeholder="{{title | translate}}"
-        ng-change="emitSelectedOption(selected)"
+        ng-change="emitSelectedOption()"
       >
         <md-option ng-value="true" translate>
           {{'global.yes'}}
@@ -22,10 +22,10 @@
     <md-checkbox
       name="{{fieldName}}"
       title="{{title | translate}}"
-      ng-model="selected"
+      ng-model="filter.selected"
       aria-label="{{fieldName}}"
       placeholder="{{title | translate}}"
-      ng-change="emitSelectedOption(selected)"
+      ng-change="emitSelectedOption()"
     >
       <span translate>{{title}}</span>
     </md-checkbox>
@@ -34,7 +34,7 @@
   <div ng-switch-when="Radio">
     <!-- No implemented -->
   </div>
-  <div ng-switch-when="Text">
+  <!-- <div ng-switch-when="Text"> -->
     <!-- No implemented -->
-  </div>
+  <!-- </div> -->
 </div>

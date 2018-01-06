@@ -1,0 +1,31 @@
+.input-range-filter{
+  height: 37px;
+  margin-top: 4px;
+}
+
+.input-range-filter span{
+text-align: center;
+}
+
+.input-range-filter .errorMessage{
+position: fixed;
+}
+
+.date-range-filter{
+  height: 45px;
+}
+
+.date-range-filter form span{
+  text-align: center;
+}
+
+@media (max-width:1600px) {
+  .date-range-filter md-datepicker .md-datepicker-button{
+    display: none;
+  }
+
+  .date-range-filter md-datepicker .md-datepicker-input-container{
+    width: 100%;
+    margin-left: 0;
+  }
+}

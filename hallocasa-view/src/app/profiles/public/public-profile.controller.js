@@ -6,39 +6,132 @@
     .controller('PublicProfileController', PublicProfileController);
 
   /** @ngInject */
-  function PublicProfileController(ProfilesService, BrowserDetectionService) {
+  function PublicProfileController(ProfilesService, BrowserDetectionService, translateFilter, $rootScope, $scope,
+                                   $mdDialog, toastr, FiltersService) {
     var vm = this;
-    var excludeIdList = [];
-    var amountProfiles = 5;
+    var filtersDialog;
+    var filterList = {};
 
-    vm.fetchRangeProfiles = fetchRangeProfiles;
+    vm.loadProfilesPage = loadProfilesPage;
+    vm.openFiltersDialog = openFiltersDialog;
+    vm.closeFiltersDialog = closeFiltersDialog;
+    vm.clearFilters = clearFilters;
+    vm.search = search;
     vm.profiles = [];
     vm.showLoading = true;
     vm.isLoading = false;
     vm.isSafari = BrowserDetectionService.detectBrowser().ISSAFARI;
 
-    function fetchRangeProfiles() {
-      if(!vm.showLoading){
-        return;
-      }
-      vm.isLoading = true;
-      ProfilesService.loadPublicProfiles(excludeIdList, amountProfiles)
+    vm.totalProfiles = 0;
+    vm.profilesPerPage = 25;
+    vm.totalAmount = [25,50,100];
+    vm.firstLoading = true;
+    vm.filterList = filterList;
+    vm.additionalParameters = {filtersContext: "PublicProfile"};
+
+
+    vm.pagination = {
+      current: 1
+    };
+
+    function loadProfilesPage(page, filterList) {
+      ProfilesService.loadPublicProfiles((page-1)*vm.profilesPerPage, (page-1)*vm.profilesPerPage + vm.profilesPerPage-1, filterList)
         .then(function (profiles) {
-          _.each(profiles, function (profile) {
-            excludeIdList.push(profile.id);
-            var mainDescription = _.find(profile.userDescriptions, function (description) {
-              return description.language.id === profile.mainSpokenLanguage.id;
-            });
-            profile.description = mainDescription ? mainDescription.value : undefined;
-            vm.profiles.push(profile);
-          });
-          vm.showLoading = profiles.length > 0 && profiles.length === amountProfiles;
+          vm.profiles = ProfilesService.generateProfilesPreviewData(profiles.userList);
+          vm.totalProfiles = profiles.count;
+          vm.firstLoading = false;
         })
-        .finally(function () {
-          vm.isLoading = false;
+        .catch(function () {
+          toastr.warning(
+            translateFilter("hallocasa.global.error"));
         });
     }
 
-    fetchRangeProfiles();
+    function loadFilters() {
+      ProfilesService.loadProfilesFilters()
+        .then(function (filtersData){
+          vm.filters = filtersData;
+        })
+        .catch(function (){
+          toastr.warning(
+            translateFilter("hallocasa.global.error"));
+        });
+    }
+
+    function openFiltersDialog($event){
+      filtersDialog = $mdDialog.show({
+        contentElement: "#profileFilters",
+        targetEvent: $event,
+        clickOutsideToClose: true,
+        fullscreen: true
+      });
+      filtersDialog.catch(function () {
+        loadProfilesPage(1, filterList);
+      });
+    }
+
+    function listenFiltersChanges() {
+      var destroyListener = $rootScope.$on("FilterSystem:filterSelected", function (event, filterInformation) {
+        processSelectedFilter(filterInformation);
+      });
+
+      $scope.$on("$destroy", destroyListener);
+    }
+
+    function processSelectedFilter(filterInformation) {
+      var filter = filterInformation.propertyFilter.filter;
+      var queryName = filter.queryName;
+      var filterTypeNature = filter.filterType.filterTypeNature;
+
+      if (!queryName){return;}
+
+      if(filterTypeNature === 'TEXT'){
+        filterList[queryName] = filterInformation.apply;
+      }
+      else {
+        var selections = [];
+        _.each(filterInformation.selectedFilterOptions, function (option) {
+          selections.push({id: option.optionId});
+        });
+        filterList[queryName] = selections;
+      }
+    }
+
+    function closeFiltersDialog() {
+      $mdDialog.hide();
+    }
+
+    function clearFilters() {
+      filterList = {};
+      $rootScope.$broadcast("FilterSystem:clearFilters");
+    }
+
+    function search() {
+      closeFiltersDialog();
+      loadProfilesPage(1, filterList);
+    }
+
+    function loadFiltersContext() {
+      var context = FiltersService.loadContext(vm.additionalParameters.filtersContext);
+
+      _.each(context.filtersModel, function (filterSelected) {
+        if(_.isString(filterSelected.apply)){
+          filterList[filterSelected.queryName] = filterSelected.apply;
+        }
+
+        if(!_.isEmpty(filterSelected.options)){
+          filterList[filterSelected.queryName] = _.map(filterSelected.options, function (option) {
+            return {id: option.optionId};
+          });
+        }
+      });
+
+      loadProfilesPage(1, filterList);
+    }
+
+    loadFiltersContext();
+    listenFiltersChanges();
+    loadFilters();
+
   }
 })();

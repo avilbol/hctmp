@@ -37,6 +37,7 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.imgscalr.Scalr;
 
 import com.avsoft.commons.exceptions.FatalException;
+import com.avsoft.commons.exceptions.UnsupportedOperationException;
 
 public class AvsFileManager {
 	
@@ -152,7 +153,7 @@ public class AvsFileManager {
 		    String mimeType = mediaType.toString();
 		    String ext = MimeTypeMetadata.get(mimeType);
 		    if(ext == null){
-		    	throw new FatalException("Extension not allowed");
+		    	throw new UnsupportedOperationException("Extension not allowed");
 		    }
 		    return ext;
 		}

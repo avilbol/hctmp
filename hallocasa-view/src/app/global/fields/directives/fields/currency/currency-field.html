@@ -32,12 +32,11 @@
     <span ng-bind-html="abbreviation" ng-if="fieldInformation.fixCurrency"></span>
   </md-input-container>
   <div ng-if="readonly && price">
-    <b>
-      <span translate>{{fieldInformation.lang}}:&nbsp;</span>
-      <!--<md-tooltip>-->
-        <!--<span translate>{{fieldInformation.tooltipLang}}</span>-->
-      <!--</md-tooltip>-->
-    </b>
+    <b translate>{{fieldInformation.lang}}:&nbsp;</b>
     <span ng-bind-html="price | dynamicCurrency"></span>
   </div>
+
+  <md-tooltip>
+    <span translate>{{fieldInformation.tooltipLang}}</span>
+  </md-tooltip>
 </div>

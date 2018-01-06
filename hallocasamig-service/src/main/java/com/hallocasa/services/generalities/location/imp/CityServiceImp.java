@@ -42,4 +42,14 @@ public class CityServiceImp implements CityService {
 		}
 		return cityList;
 	}
+
+	@Override
+	public List<City> findByParentId(Integer parentId) {
+		return findByStateId(parentId);
+	}
+
+	@Override
+	public List<City> findByParentIdList(List<Integer> parentIdList) {
+		return findByStatesId(parentIdList);
+	}
 }
