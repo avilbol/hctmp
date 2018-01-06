@@ -53,10 +53,10 @@
           var noPastDate = scope.fieldInformation.validations.includes("noPastDate");
           if (!noPastDate) {return;}
 
-          var currentDate = new Date();
+          var yesterdayDate = new Date((new Date()).valueOf() - 1000*60*60*24);
 
           scope.dateFilter = function (date) {
-            return date >= currentDate;
+            return date > yesterdayDate;
           }
         }
 
